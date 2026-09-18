@@ -1088,7 +1088,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ? sched.free_slots.map(s => `  • ${s.replace(' to ', ' – ')}`).join('\n')
         : '  • Only Lunch Recess (1:30 PM – 2:00 PM)';
 
-      const siteUrl = 'https://srcc-classroom-finder.netlify.app/';
+      const siteUrl = window.location.origin + window.location.pathname;
       const activeDateStr = getDateForDay(state.activeDay);
       const dayAndDateDisplay = `${state.activeDay}, ${activeDateStr}`;
 
