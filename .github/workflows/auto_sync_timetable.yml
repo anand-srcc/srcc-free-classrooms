@@ -1,0 +1,43 @@
+name: Auto-Sync SRCC Timetable & Free Classrooms
+
+on:
+  schedule:
+    # Runs automatically every 4 hours Monday to Saturday
+    - cron: '0 */4 * * 1-6'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Timetable Auto-Sync & Change Detector
+        id: run_sync
+        run: |
+          python auto_sync_timetable.py
+
+      - name: Commit & Push changes (Triggers Netlify Auto-Deploy)
+        if: steps.run_sync.outputs.changed == 'true'
+        run: |
+          git config --global user.name "SRCC-Timetable-Bot"
+          git config --global user.email "bot@srcc-classroom-finder.internal"
+          git add web_app/srcc_data.json web_app/data.js web_app/SRCC_Free_Classrooms_Timetable.xlsx SRCC_Free_Classrooms_Timetable.xlsx
+          git commit -m "🤖 [Automated] Fresh SRCC Timetable sync & Excel refresh [skip ci]"
+          git push
