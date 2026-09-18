@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SRCC Free Classroom Finder | Group Discussion & Study</title>
+  <meta name="description" content="Find vacant classrooms, tutorial rooms, Principal Bungalow (PB), Sports Complex (SCR) and labs for Group Discussion (GD) at Shri Ram College of Commerce (SRCC)." />
+  <!-- Website URL Logo / Favicon (Transparent 100 Years Centenary Logo) -->
+  <link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=3" />
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?v=3" />
+  <link rel="apple-touch-icon" href="assets/srcc_100years.png?v=3" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=8" />
+</head>
+<body>
+  <!-- Header / Navigation (Slim Single-Line Strip) -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-group">
+        <div class="brand-logos-wrapper">
+          <!-- 2nd Image on the left: SRCC Crest -->
+          <img src="assets/srcc_crest.png" onerror="this.onerror=null; this.src='srcc_crest.png';" alt="SRCC Crest - Shri Ram College of Commerce" class="brand-logo-img logo-crest" />
+          <!-- Vertical Separator | -->
+          <span class="brand-logo-separator" aria-hidden="true">|</span>
+          <!-- 1st Image: 100 Years Centenary Logo -->
+          <img src="assets/srcc_100years.png" onerror="this.onerror=null; this.src='srcc_100years.png';" alt="SRCC 100 Years Centenary Logo" class="brand-logo-img logo-100years" />
+        </div>
+        <div class="brand-titles">
+          <h1>SRCC Free Classroom Finder</h1>
+          <p class="subtitle">Room-Wise Vacant Slot Tracker for Group Discussions (GD) & Study Sessions</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="live-clock-card" id="liveClockCard">
+          <span class="live-dot"></span>
+          <span id="liveClockText">Loading time...</span>
+        </div>
+        <!-- Free Right Now with ON / OFF Switch -->
+        <div class="toggle-freenow-wrapper" id="toggleFreeNowWrapper" title="Toggle rooms vacant right now">
+          <span class="freenow-label">⚡ Free Right Now</span>
+          <button class="toggle-freenow-btn" id="btnFreeNow" role="switch" aria-checked="false">
+            <span class="toggle-switch-track">
+              <span class="toggle-switch-thumb"></span>
+            </span>
+            <span class="toggle-status-text" id="toggleStatusText">OFF</span>
+          </button>
+        </div>
+        <!-- WhatsApp Community Button (Header) -->
+        <a href="https://chat.whatsapp.com/G0VT9qsCLEe5Qqy8b7VCvp" target="_blank" rel="noopener noreferrer" class="btn-community-header" title="Join SRCC WhatsApp Community">
+          <svg class="whatsapp-header-icon" width="16" height="16" viewBox="0 0 24 24">
+            <path fill="#25D366" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/>
+            <path fill="#FFF" d="M17.47 14.38c-.28-.14-1.67-.82-1.93-.91-.26-.1-.45-.14-.64.14-.19.28-.73.91-.89 1.1-.16.18-.33.21-.61.07-.28-.14-1.18-.44-2.25-1.39-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.46.1-.19.05-.35-.02-.49-.07-.14-.64-1.54-.88-2.11-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.49.07-.75.35-.26.28-1 1-1 2.43 0 1.44 1.03 2.82 1.18 3.01.14.19 2.03 3.1 4.93 4.35.69.3 1.23.48 1.65.61.69.22 1.32.19 1.81.12.55-.08 1.67-.68 1.91-1.34.23-.65.23-1.22.16-1.34-.07-.11-.26-.18-.54-.32z"/>
+          </svg>
+          <span>Join Community</span>
+        </a>
+        <a href="SRCC_Free_Classrooms_Timetable.xlsx" download class="btn-download-excel" id="btnDownloadExcel" title="Download Official SRCC Timetable Spreadsheet (.xlsx)">
+          <svg class="excel-header-icon" width="17" height="17" viewBox="0 0 24 24" fill="none">
+            <rect x="2" y="2" width="20" height="20" rx="3.5" fill="#107C41"/>
+            <path d="M12 5v14M12 9.5h7.5M12 14.5h7.5" stroke="rgba(255,255,255,0.45)" stroke-width="1.2"/>
+            <rect x="3" y="4" width="9" height="16" rx="2" fill="#185C37" stroke="#107C41" stroke-width="0.5"/>
+            <path d="M5.5 8.5l4 7M9.5 8.5l-4 7" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          <span>Download Excel</span>
+        </a>
+        <a href="https://www.linkedin.com/in/anandkumar563/" target="_blank" rel="noopener noreferrer" class="btn-dev-header" title="Built by Anand Kumar (25BC070) - Connect on LinkedIn">
+          <svg class="linkedin-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45c-.89 0-1.61.72-1.61 1.61 0 .89.72 1.61 1.61 1.61.89 0 1.61-.72 1.61-1.61 0-.89-.72-1.61-1.61-1.61Z"/>
+          </svg>
+          <span>Built by Anand Kumar (25BC070)</span>
+          <span class="external-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="main-container">
+    
+    <!-- Controls Section: Day Picker, Categories, Slot & Search -->
+    <section class="controls-panel">
+      <!-- 1. Day Picker -->
+      <div class="control-row">
+        <span class="row-label">Select Day:</span>
+        <div class="day-picker" id="dayPicker">
+          <button class="day-btn" data-day="Monday">Monday</button>
+          <button class="day-btn" data-day="Tuesday">Tuesday</button>
+          <button class="day-btn" data-day="Wednesday">Wednesday</button>
+          <button class="day-btn" data-day="Thursday">Thursday</button>
+          <button class="day-btn" data-day="Friday">Friday</button>
+          <button class="day-btn" data-day="Saturday">Saturday</button>
+        </div>
+      </div>
+
+      <!-- 2. Room Category Filter -->
+      <div class="control-row">
+        <span class="row-label">Category:</span>
+        <div class="category-pills" id="categoryPills">
+          <button class="cat-pill active" data-cat="ALL">All Rooms (96)</button>
+          <button class="cat-pill" data-cat="PB">Principal Bungalow (PB)</button>
+          <button class="cat-pill" data-cat="T">Tutorial Rooms (T)</button>
+          <button class="cat-pill" data-cat="SCR">Sports Complex (SCR)</button>
+          <button class="cat-pill" data-cat="R">Classrooms (R)</button>
+          <button class="cat-pill" data-cat="CL">Computer Labs (CL)</button>
+          <button class="cat-pill" data-cat="OTHER">Library & Other</button>
+        </div>
+      </div>
+
+      <!-- 3. Search & Time Slot Filters -->
+      <div class="filter-bar">
+        <div class="search-box-wrapper">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" placeholder="Search room no (e.g. PB3, R2, SCR1, T14)..." autocomplete="off" />
+          <button id="btnClearSearch" class="btn-clear-search" style="display: none;">✕</button>
+        </div>
+
+        <div class="slot-select-wrapper">
+          <label for="slotSelect">Time Slot:</label>
+          <select id="slotSelect">
+            <option value="ALL">All Periods Today (Overview)</option>
+            <option value="8:30 AM to 9:30 AM">Period 1 (8:30 AM – 9:30 AM)</option>
+            <option value="9:30 AM to 10:30 AM">Period 2 (9:30 AM – 10:30 AM)</option>
+            <option value="10:30 AM to 11:30 AM">Period 3 (10:30 AM – 11:30 AM)</option>
+            <option value="11:30 AM to 12:30 PM">Period 4 (11:30 AM – 12:30 PM)</option>
+            <option value="12:30 PM to 1:30 PM">Period 5 (12:30 PM – 1:30 PM)</option>
+            <option value="2:00 PM to 3:00 PM">Period 6 (2:00 PM – 3:00 PM)</option>
+            <option value="3:00 PM to 4:00 PM">Period 7 (3:00 PM – 4:00 PM)</option>
+            <option value="4:00 PM to 5:00 PM">Period 8 (4:00 PM – 5:00 PM)</option>
+            <option value="5:00 PM to 6:00 PM">Period 9 (5:00 PM – 6:00 PM)</option>
+          </select>
+        </div>
+
+        <div class="sort-select-wrapper">
+          <label for="sortSelect">Sort By:</label>
+          <select id="sortSelect">
+            <option value="ROOM_ASC" selected>Room No. Ascending (R1, R2, PB, T...)</option>
+            <option value="FREE_DESC">Most Free Hours First</option>
+            <option value="CAP_DESC">Capacity (Highest First)</option>
+          </select>
+        </div>
+
+        <!-- Desktop View Mode Toggle (Grid vs Compact) -->
+        <div class="view-toggle-wrapper" id="viewToggleWrapper">
+          <button class="btn-view-mode active" id="btnViewGrid" title="Rich Card Grid View">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h8v8H3V3m10 0h8v8h-8V3M3 13h8v8H3v-8m10 0h8v8h-8v-8Z"/></svg>
+            <span>Grid</span>
+          </button>
+          <button class="btn-view-mode" id="btnViewCompact" title="Compact List / Table View">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h18v2H3V4m0 7h18v2H3v-2m0 7h18v2H3v-2Z"/></svg>
+            <span>Compact</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recess Callout Banner (Separated as requested) -->
+    <div class="recess-banner" id="recessBanner">
+      <div class="recess-badge">☕ COLLEGE LUNCH RECESS</div>
+      <div class="recess-info">
+        <strong>1:30 PM to 2:00 PM</strong> is standard college lunch break across SRCC. 
+        <span>All 96 classrooms, tutorial rooms, PB, and sports complex rooms are universally free for quick discussions during this half hour.</span>
+      </div>
+    </div>
+
+    <!-- Live Metric Stat Badges -->
+    <div class="metric-tiles-row">
+      <div class="metric-tile" id="metricVacantNowTile">
+        <div class="metric-icon">⚡</div>
+        <div class="metric-details">
+          <div class="metric-num" id="metricVacantNowCount">--</div>
+          <div class="metric-title">Vacant Right Now</div>
+        </div>
+      </div>
+      <div class="metric-tile">
+        <div class="metric-icon">🕒</div>
+        <div class="metric-details">
+          <div class="metric-num" id="metricTotalFreeCount">0</div>
+          <div class="metric-title">Free Hours on <span id="metricDayLabel">Monday</span></div>
+        </div>
+      </div>
+      <div class="metric-tile">
+        <div class="metric-icon">🏛️</div>
+        <div class="metric-details">
+          <div class="metric-num" id="metricBestCat">Tutorials</div>
+          <div class="metric-title">Most Vacant Wing</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Filters Summary & Stats -->
+    <div class="stats-ribbon">
+      <div class="stats-left">
+        Showing <span id="statRoomCount" class="stat-highlight">0</span> rooms on <span id="statActiveDay" class="stat-highlight">Monday</span>
+        <span id="statFilterDesc" class="filter-desc-tag"></span>
+      </div>
+      <div class="stats-right">
+        <span id="statTotalFreeHours">0</span> total free slots available
+      </div>
+    </div>
+
+    <!-- Room Cards Grid / Compact Container -->
+    <section class="rooms-grid view-mode-grid" id="roomsGrid">
+      <!-- Dynamically generated via app.js -->
+    </section>
+
+    <!-- No Results State -->
+    <div class="empty-state" id="emptyState" style="display: none;">
+      <div class="empty-icon">🔎</div>
+      <h3>No matching free rooms found</h3>
+      <p>Try switching to another Day, clearing your search query, or selecting "All Periods Today".</p>
+      <button class="btn-reset-filters" id="btnResetFilters">Reset Filters</button>
+    </div>
+
+  </main>
+
+  <!-- Modal: Full Day Schedule View -->
+  <div class="modal-overlay" id="scheduleModal" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-titles">
+          <h2 id="modalRoomTitle">Room Schedule</h2>
+          <p id="modalRoomMeta">Room Metadata</p>
+        </div>
+        <button class="modal-close" id="btnModalClose">✕</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- Timetable schedule table inserted here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-content">
+      <div class="footer-brand-strip">
+        <img src="assets/srcc_crest.png" onerror="this.onerror=null; this.src='srcc_crest.png';" alt="SRCC Crest" class="footer-mini-logo" />
+        <span class="footer-divider">|</span>
+        <img src="assets/srcc_100years.png" onerror="this.onerror=null; this.src='srcc_100years.png';" alt="SRCC 100 Years" class="footer-mini-logo" />
+        <span>Shri Ram College of Commerce (SRCC)</span>
+      </div>
+
+      <!-- Community & Developer Connect Cards in Footer -->
+      <div class="footer-links-row">
+        <!-- WhatsApp Community Link -->
+        <a href="https://chat.whatsapp.com/G0VT9qsCLEe5Qqy8b7VCvp" target="_blank" rel="noopener noreferrer" class="footer-action-card whatsapp-card" title="Join WhatsApp Community">
+          <svg class="whatsapp-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.1 7.42C8.94 7.42 8.68 7.48 8.46 7.72C8.24 7.96 7.62 8.54 7.62 9.72C7.62 10.9 8.48 12.04 8.6 12.2C8.72 12.36 10.29 14.79 12.7 15.83C13.27 16.08 13.72 16.23 14.07 16.34C14.65 16.53 15.18 16.5 15.6 16.44C16.07 16.37 17.04 15.85 17.24 15.28C17.45 14.71 17.45 14.22 17.39 14.12C17.33 14.02 17.17 13.96 16.92 13.84C16.68 13.72 15.48 13.13 15.26 13.05C15.04 12.97 14.88 12.93 14.72 13.17C14.56 13.41 14.1 13.96 13.96 14.12C13.82 14.28 13.68 14.3 13.44 14.18C13.2 14.06 12.43 13.81 11.51 12.99C10.79 12.35 10.3 11.56 10.16 11.32C10.02 11.08 10.14 10.95 10.26 10.83C10.37 10.72 10.51 10.54 10.63 10.4C10.75 10.26 10.79 10.16 10.87 10C10.95 9.84 10.91 9.7 10.85 9.58C10.79 9.46 10.33 8.32 10.14 7.86C9.95 7.41 9.76 7.47 9.61 7.46C9.47 7.46 9.31 7.42 9.1 7.42Z"/>
+          </svg>
+          <span>Join WhatsApp Community</span>
+          <span class="footer-arrow">↗</span>
+        </a>
+
+        <!-- LinkedIn Developer Link -->
+        <a href="https://www.linkedin.com/in/anandkumar563/" target="_blank" rel="noopener noreferrer" class="footer-action-card linkedin-card" title="Open LinkedIn Profile">
+          <svg class="linkedin-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45c-.89 0-1.61.72-1.61 1.61 0 .89.72 1.61 1.61 1.61.89 0 1.61-.72 1.61-1.61 0-.89-.72-1.61-1.61-1.61Z"/>
+          </svg>
+          <span>Built by Anand Kumar (25BC070)</span>
+          <span class="footer-arrow">↗</span>
+        </a>
+      </div>
+
+      <p class="footer-desc">Designed for <strong>Shri Ram College of Commerce (SRCC)</strong> Students for GD & Peer Study Coordination.</p>
+      <p class="source-link">Timetable sourced from official portal: <a href="https://srcccollegetimetable.in/" target="_blank" rel="noopener">srcccollegetimetable.in</a> • Synced with latest college updates</p>
+    </div>
+  </footer>
+
+  <!-- Mobile Bottom Navigation Bar -->
+  <nav class="mobile-bottom-nav" id="mobileBottomNav">
+    <button class="bottom-nav-item active" id="bnavDay" data-bnav="day" title="Change Day">
+      <span class="bnav-icon">📅</span>
+      <span class="bnav-label" id="bnavDayLabel">Mon</span>
+    </button>
+    <button class="bottom-nav-item" id="bnavRooms" data-bnav="rooms" title="Browse Wings & Categories">
+      <span class="bnav-icon">🏛️</span>
+      <span class="bnav-label">Wings</span>
+    </button>
+    <button class="bottom-nav-item bnav-highlight" id="bnavFreeNow" data-bnav="freenow" title="Rooms Free Right Now">
+      <div class="bnav-fab">
+        <span class="bnav-icon">⚡</span>
+      </div>
+      <span class="bnav-label">Free Now</span>
+    </button>
+    <button class="bottom-nav-item" id="bnavSearch" data-bnav="search" title="Search Rooms (or press /)">
+      <span class="bnav-icon">🔍</span>
+      <span class="bnav-label">Search</span>
+    </button>
+    <button class="bottom-nav-item bnav-community" id="bnavCommunity" title="Join WhatsApp Community">
+      <span class="bnav-icon whatsapp-nav-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24">
+          <path fill="#25D366" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/>
+          <path fill="#FFF" d="M17.47 14.38c-.28-.14-1.67-.82-1.93-.91-.26-.1-.45-.14-.64.14-.19.28-.73.91-.89 1.1-.16.18-.33.21-.61.07-.28-.14-1.18-.44-2.25-1.39-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.46.1-.19.05-.35-.02-.49-.07-.14-.64-1.54-.88-2.11-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.49.07-.75.35-.26.28-1 1-1 2.43 0 1.44 1.03 2.82 1.18 3.01.14.19 2.03 3.1 4.93 4.35.69.3 1.23.48 1.65.61.69.22 1.32.19 1.81.12.55-.08 1.67-.68 1.91-1.34.23-.65.23-1.22.16-1.34-.07-.11-.26-.18-.54-.32z"/>
+        </svg>
+      </span>
+      <span class="bnav-label">Community</span>
+    </button>
+  </nav>
+
+  <!-- Quick Day Selection Bottom Sheet for Mobile -->
+  <div class="bottom-sheet-overlay" id="daySheetOverlay" style="display: none;">
+    <div class="bottom-sheet">
+      <div class="bottom-sheet-handle"></div>
+      <div class="bottom-sheet-header">
+        <h3>📅 Select Timetable Day</h3>
+        <button class="sheet-close-btn" id="btnCloseDaySheet">✕</button>
+      </div>
+      <div class="sheet-days-grid" id="sheetDaysGrid">
+        <button class="sheet-day-btn" data-day="Monday">Monday</button>
+        <button class="sheet-day-btn" data-day="Tuesday">Tuesday</button>
+        <button class="sheet-day-btn" data-day="Wednesday">Wednesday</button>
+        <button class="sheet-day-btn" data-day="Thursday">Thursday</button>
+        <button class="sheet-day-btn" data-day="Friday">Friday</button>
+        <button class="sheet-day-btn" data-day="Saturday">Saturday</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Wings / Category Selection Bottom Sheet for Mobile (With SRCC Crest Branding) -->
+  <div class="bottom-sheet-overlay" id="wingsSheetOverlay" style="display: none;">
+    <div class="bottom-sheet wings-bottom-sheet">
+      <div class="bottom-sheet-handle"></div>
+      <div class="bottom-sheet-header">
+        <div class="sheet-brand-heading">
+          <div class="sheet-logos-strip">
+            <img src="assets/srcc_crest.png" onerror="this.onerror=null; this.src='srcc_crest.png';" alt="SRCC Crest" class="sheet-brand-crest" />
+            <span class="sheet-brand-separator">|</span>
+            <img src="assets/srcc_100years.png" onerror="this.onerror=null; this.src='srcc_100years.png';" alt="SRCC 100 Years" class="sheet-brand-crest" />
+          </div>
+          <div class="sheet-title-text">
+            <h3>Campus Wings & Facilities</h3>
+            <span class="sheet-subtitle-mini">Shri Ram College of Commerce · Filter by Wing</span>
+          </div>
+        </div>
+        <button class="sheet-close-btn" id="btnCloseWingsSheet">✕</button>
+      </div>
+      <div class="sheet-wings-list" id="sheetWingsList">
+        <button class="sheet-wing-item active" data-cat="ALL">
+          <div class="wing-img-badge wing-badge-all">
+            <img src="assets/srcc_100years.png" onerror="this.onerror=null; this.src='srcc_100years.png';" alt="SRCC 100 Years" class="wing-centenary-logo" />
+          </div>
+          <div class="wing-info">
+            <span class="wing-title">All Rooms & Facilities</span>
+            <span class="wing-sub">96 Rooms College-wide · Complete Timetable</span>
+          </div>
+          <span class="wing-count-pill">96</span>
+        </button>
+        <button class="sheet-wing-item" data-cat="PB">
+          <div class="wing-img-badge wing-badge-pb">
+            <span>🏡</span>
+          </div>
+          <div class="wing-info">
+            <span class="wing-title">Principal Bungalow (PB)</span>
+            <span class="wing-sub">Historic Heritage Wing · PB2, PB3, PB4</span>
+          </div>
+          <span class="wing-count-pill">3</span>
+        </button>
+        <button class="sheet-wing-item" data-cat="T">
+          <div class="wing-img-badge wing-badge-t">
+            <span>📚</span>
+          </div>
+          <div class="wing-info">
+            <span class="wing-title">Tutorial Rooms (T)</span>
+            <span class="wing-sub">Dedicated GD & Study Rooms · T1 to T54</span>
+          </div>
+          <span class="wing-count-pill">47</span>
+        </button>
+        <button class="sheet-wing-item" data-cat="SCR">
+          <div class="wing-img-badge wing-badge-scr">
+            <span>⚽</span>
+          </div>
+          <div class="wing-info">
+            <span class="wing-title">Sports Complex (SCR)</span>
+            <span class="wing-sub">Athletic Center Halls · SCR1 to SCR4</span>
+          </div>
+          <span class="wing-count-pill">4</span>
+        </button>
+        <button class="sheet-wing-item" data-cat="R">
+          <div class="wing-img-badge wing-badge-r">
+            <img src="assets/srcc_crest.png" onerror="this.onerror=null; this.src='srcc_crest.png';" alt="SRCC Crest" class="wing-crest-badge-img" />
+          </div>
+          <div class="wing-info">
+            <span class="wing-title">Classrooms (R)</span>
+            <span class="wing-sub">Main Academic Block · R1 to R37</span>
+          </div>
+          <span class="wing-count-pill">34</span>
+        </button>
+        <button class="sheet-wing-item" data-cat="CL">
+          <div class="wing-img-badge wing-badge-cl">
+            <span>💻</span>
+          </div>
+          <div class="wing-info">
+            <span class="wing-title">Computer Labs (CL)</span>
+            <span class="wing-sub">IT & Systems Center · CL1 to CLIB</span>
+          </div>
+          <span class="wing-count-pill">4</span>
+        </button>
+        <button class="sheet-wing-item" data-cat="OTHER">
+          <div class="wing-img-badge wing-badge-other">
+            <span>📖</span>
+          </div>
+          <div class="wing-info">
+            <span class="wing-title">Library & Special Facilities</span>
+            <span class="wing-sub">Library, Seminar Room, Principal Office</span>
+          </div>
+          <span class="wing-count-pill">4</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Social Media Direct Share Modal (With Authentic Brand Logos) -->
+  <div class="modal-overlay" id="shareModal" style="display: none;">
+    <div class="modal-card share-modal-card">
+      <div class="modal-header">
+        <div class="modal-titles">
+          <h2 id="shareModalTitle">📤 Share Room Vacancy</h2>
+          <p id="shareModalSub">Select social app or copy formatted room schedule</p>
+        </div>
+        <button class="modal-close" id="btnShareModalClose">✕</button>
+      </div>
+      <div class="modal-body share-modal-body">
+        <div class="share-preview-box" id="sharePreviewText">
+          <!-- Text preview of the share message -->
+        </div>
+
+        <div class="share-apps-label">Direct Share via App:</div>
+        <div class="share-apps-grid">
+          <!-- WhatsApp Official SVG Logo -->
+          <a href="#" class="share-app-btn share-whatsapp" id="shareBtnWhatsapp" target="_blank" rel="noopener noreferrer" title="Direct share via WhatsApp">
+            <span class="share-app-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24">
+                <path fill="#25D366" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/>
+                <path fill="#FFF" d="M17.47 14.38c-.28-.14-1.67-.82-1.93-.91-.26-.1-.45-.14-.64.14-.19.28-.73.91-.89 1.1-.16.18-.33.21-.61.07-.28-.14-1.18-.44-2.25-1.39-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.46.1-.19.05-.35-.02-.49-.07-.14-.64-1.54-.88-2.11-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.49.07-.75.35-.26.28-1 1-1 2.43 0 1.44 1.03 2.82 1.18 3.01.14.19 2.03 3.1 4.93 4.35.69.3 1.23.48 1.65.61.69.22 1.32.19 1.81.12.55-.08 1.67-.68 1.91-1.34.23-.65.23-1.22.16-1.34-.07-.11-.26-.18-.54-.32z"/>
+              </svg>
+            </span>
+            <span class="share-app-name">WhatsApp</span>
+          </a>
+
+          <!-- Gmail Official SVG Logo -->
+          <a href="#" class="share-app-btn share-gmail" id="shareBtnGmail" target="_blank" rel="noopener noreferrer" title="Send via Gmail">
+            <span class="share-app-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24">
+                <path fill="#EA4335" d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+              </svg>
+            </span>
+            <span class="share-app-name">Gmail</span>
+          </a>
+
+          <!-- X / Twitter Official SVG Logo -->
+          <a href="#" class="share-app-btn share-x" id="shareBtnX" target="_blank" rel="noopener noreferrer" title="Post on X (Twitter)">
+            <span class="share-app-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="5" fill="#000000"/>
+                <path fill="#FFFFFF" d="M16.99 5h2.15l-4.7 5.37L20 17.5h-4.32l-3.39-4.43-3.87 4.43H6.26l5.03-5.75L6 5h4.43l3.06 4.05L16.99 5zm-.75 11.22h1.19L9.83 6.22H8.55l7.69 10z"/>
+              </svg>
+            </span>
+            <span class="share-app-name">X (Twitter)</span>
+          </a>
+
+          <!-- Telegram Official SVG Logo -->
+          <a href="#" class="share-app-btn share-telegram" id="shareBtnTelegram" target="_blank" rel="noopener noreferrer" title="Share via Telegram">
+            <span class="share-app-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="12" fill="#24A1DE"/>
+                <path fill="#FFF" d="M5.4 11.7l3.8 1.4 1.5 4.5c.1.3.4.4.7.4.2 0 .4-.1.6-.2l2.2-2 3.6 2.7c.3.2.7.1.9-.2.2-.2.3-.6.2-.9l-2.4-11.4c-.1-.4-.5-.6-.9-.5l-10 3.8c-.4.2-.5.6-.4 1 .1.3.4.5.7.6zm4.7 1.4l5.8-3.7-4.6 4.3-.4 2.2-.8-2.8z"/>
+              </svg>
+            </span>
+            <span class="share-app-name">Telegram</span>
+          </a>
+
+          <!-- LinkedIn Official SVG Logo -->
+          <button type="button" class="share-app-btn share-linkedin" id="shareBtnLinkedin" title="Share via LinkedIn">
+            <span class="share-app-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="4" fill="#0A66C2"/>
+                <path fill="#FFF" d="M19 19h-3V14.2c0-1.1-.02-2.6-1.6-2.6-1.6 0-1.8 1.2-1.8 2.5V19H9.6V9h2.9v1.4h.04c.4-.8 1.4-1.6 2.9-1.6 3.1 0 3.7 2 3.7 4.7V19zM6.5 7.7c-1 0-1.8-.8-1.8-1.8s.8-1.8 1.8-1.8 1.8.8 1.8 1.8-.8 1.8-1.8 1.8zm1.5 11.3H5V9h3v10z"/>
+              </svg>
+            </span>
+            <span class="share-app-name">LinkedIn</span>
+          </button>
+
+          <!-- Instagram Official SVG Logo -->
+          <button type="button" class="share-app-btn share-instagram" id="shareBtnInstagram" title="Share via Instagram">
+            <span class="share-app-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24">
+                <defs>
+                  <linearGradient id="igGradientModal" x1="0%" y1="100%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#FFD600"/>
+                    <stop offset="25%" stop-color="#FF7A00"/>
+                    <stop offset="50%" stop-color="#FF0069"/>
+                    <stop offset="75%" stop-color="#D300C5"/>
+                    <stop offset="100%" stop-color="#7638FA"/>
+                  </linearGradient>
+                </defs>
+                <rect width="24" height="24" rx="6" fill="url(#igGradientModal)"/>
+                <rect x="5.5" y="5.5" width="13" height="13" rx="3.5" fill="none" stroke="#FFFFFF" stroke-width="1.8"/>
+                <circle cx="12" cy="12" r="3.2" fill="none" stroke="#FFFFFF" stroke-width="1.8"/>
+                <circle cx="15.8" cy="8.2" r="0.9" fill="#FFFFFF"/>
+              </svg>
+            </span>
+            <span class="share-app-name">Instagram</span>
+          </button>
+
+          <!-- Facebook Official SVG Logo -->
+          <button type="button" class="share-app-btn share-facebook" id="shareBtnFacebook" title="Share via Facebook">
+            <span class="share-app-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="12" fill="#1877F2"/>
+                <path fill="#FFF" d="M15.14 12.67l.42-2.73h-2.62V8.17c0-.75.37-1.48 1.54-1.48h1.19V4.37c-.72-.1-1.48-.15-2.24-.15-2.28 0-3.77 1.38-3.77 3.89v2.03H7.28v2.73h2.38V21.6a12.04 12.04 0 003.88 0v-8.93h2.6z"/>
+              </svg>
+            </span>
+            <span class="share-app-name">Facebook</span>
+          </button>
+        </div>
+
+        <!-- Copy Clipboard Bar -->
+        <div class="share-copy-row">
+          <button class="btn-copy-full-text" id="btnCopyShareText">
+            📋 Copy Formatted Text to Clipboard
+          </button>
+          <button class="btn-native-share" id="btnNativeShare" style="display: none;">
+            📱 Share via Device...
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container for Copied Alerts -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="data.js"></script>
+  <script src="app.js?v=9"></script>
+</body>
+</html>
