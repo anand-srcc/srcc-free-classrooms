@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>SRCC Free Classroom Finder | Group Discussion & Study</title>
   <meta name="description" content="Find vacant classrooms, tutorial rooms, Principal Bungalow (PB), Sports Complex (SCR) and labs for Group Discussion (GD) at Shri Ram College of Commerce (SRCC)." />
   <!-- Website URL Logo / Favicon (Transparent 100 Years Centenary Logo) -->
@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=8" />
+  <link rel="stylesheet" href="style.css?v=12" />
 </head>
 <body>
   <!-- Header / Navigation (Slim Single-Line Strip) -->
@@ -31,6 +31,10 @@
         <div class="brand-titles">
           <h1>SRCC Free Classroom Finder</h1>
           <p class="subtitle">Room-Wise Vacant Slot Tracker for Group Discussions (GD) & Study Sessions</p>
+          <div class="header-last-updated" id="headerLastUpdatedWrap">
+            <span class="sync-dot-live"></span>
+            <span>College Timetable Synced: <strong id="lastUpdatedHeader">18 Sep 2026</strong></span>
+          </div>
         </div>
       </div>
       <div class="header-actions">
@@ -79,138 +83,314 @@
   <!-- Main Content Container -->
   <main class="main-container">
     
-    <!-- Controls Section: Day Picker, Categories, Slot & Search -->
-    <section class="controls-panel">
-      <!-- 1. Day Picker -->
-      <div class="control-row">
-        <span class="row-label">Select Day:</span>
-        <div class="day-picker" id="dayPicker">
-          <button class="day-btn" data-day="Monday">Monday</button>
-          <button class="day-btn" data-day="Tuesday">Tuesday</button>
-          <button class="day-btn" data-day="Wednesday">Wednesday</button>
-          <button class="day-btn" data-day="Thursday">Thursday</button>
-          <button class="day-btn" data-day="Friday">Friday</button>
-          <button class="day-btn" data-day="Saturday">Saturday</button>
-        </div>
-      </div>
-
-      <!-- 2. Room Category Filter -->
-      <div class="control-row">
-        <span class="row-label">Category:</span>
-        <div class="category-pills" id="categoryPills">
-          <button class="cat-pill active" data-cat="ALL">All Rooms (96)</button>
-          <button class="cat-pill" data-cat="PB">Principal Bungalow (PB)</button>
-          <button class="cat-pill" data-cat="T">Tutorial Rooms (T)</button>
-          <button class="cat-pill" data-cat="SCR">Sports Complex (SCR)</button>
-          <button class="cat-pill" data-cat="R">Classrooms (R)</button>
-          <button class="cat-pill" data-cat="CL">Computer Labs (CL)</button>
-          <button class="cat-pill" data-cat="OTHER">Library & Other</button>
-        </div>
-      </div>
-
-      <!-- 3. Search & Time Slot Filters -->
-      <div class="filter-bar">
-        <div class="search-box-wrapper">
-          <span class="search-icon">🔍</span>
-          <input type="text" id="searchInput" placeholder="Search room no (e.g. PB3, R2, SCR1, T14)..." autocomplete="off" />
-          <button id="btnClearSearch" class="btn-clear-search" style="display: none;">✕</button>
-        </div>
-
-        <div class="slot-select-wrapper">
-          <label for="slotSelect">Time Slot:</label>
-          <select id="slotSelect">
-            <option value="ALL">All Periods Today (Overview)</option>
-            <option value="8:30 AM to 9:30 AM">Period 1 (8:30 AM – 9:30 AM)</option>
-            <option value="9:30 AM to 10:30 AM">Period 2 (9:30 AM – 10:30 AM)</option>
-            <option value="10:30 AM to 11:30 AM">Period 3 (10:30 AM – 11:30 AM)</option>
-            <option value="11:30 AM to 12:30 PM">Period 4 (11:30 AM – 12:30 PM)</option>
-            <option value="12:30 PM to 1:30 PM">Period 5 (12:30 PM – 1:30 PM)</option>
-            <option value="2:00 PM to 3:00 PM">Period 6 (2:00 PM – 3:00 PM)</option>
-            <option value="3:00 PM to 4:00 PM">Period 7 (3:00 PM – 4:00 PM)</option>
-            <option value="4:00 PM to 5:00 PM">Period 8 (4:00 PM – 5:00 PM)</option>
-            <option value="5:00 PM to 6:00 PM">Period 9 (5:00 PM – 6:00 PM)</option>
-          </select>
-        </div>
-
-        <div class="sort-select-wrapper">
-          <label for="sortSelect">Sort By:</label>
-          <select id="sortSelect">
-            <option value="ROOM_ASC" selected>Room No. Ascending (R1, R2, PB, T...)</option>
-            <option value="FREE_DESC">Most Free Hours First</option>
-            <option value="CAP_DESC">Capacity (Highest First)</option>
-          </select>
-        </div>
-
-        <!-- Desktop View Mode Toggle (Grid vs Compact) -->
-        <div class="view-toggle-wrapper" id="viewToggleWrapper">
-          <button class="btn-view-mode active" id="btnViewGrid" title="Rich Card Grid View">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h8v8H3V3m10 0h8v8h-8V3M3 13h8v8H3v-8m10 0h8v8h-8v-8Z"/></svg>
-            <span>Grid</span>
-          </button>
-          <button class="btn-view-mode" id="btnViewCompact" title="Compact List / Table View">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h18v2H3V4m0 7h18v2H3v-2m0 7h18v2H3v-2Z"/></svg>
-            <span>Compact</span>
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Recess Callout Banner (Separated as requested) -->
-    <div class="recess-banner" id="recessBanner">
-      <div class="recess-badge">☕ COLLEGE LUNCH RECESS</div>
-      <div class="recess-info">
-        <strong>1:30 PM to 2:00 PM</strong> is standard college lunch break across SRCC. 
-        <span>All 96 classrooms, tutorial rooms, PB, and sports complex rooms are universally free for quick discussions during this half hour.</span>
+    <!-- Top Dual-Mode Switcher: Free Classrooms vs Faculty Locator -->
+    <div class="app-mode-switcher-container">
+      <div class="app-mode-switcher" role="tablist">
+        <button class="mode-tab active" id="tabModeRooms" role="tab" aria-selected="true" data-mode="rooms">
+          <span class="mode-tab-icon">🏛️</span>
+          <span class="mode-tab-text"><span class="mode-tab-prefix">Free </span>Classrooms</span>
+          <span class="mode-tab-count">96<span class="mode-tab-unit"> Rooms</span></span>
+        </button>
+        <button class="mode-tab" id="tabModeFaculty" role="tab" aria-selected="false" data-mode="faculty">
+          <span class="mode-tab-icon">👨‍🏫</span>
+          <span class="mode-tab-text">Faculty<span class="mode-tab-suffix"> Locator</span></span>
+          <span class="mode-tab-count" id="modeFacultyCount">210<span class="mode-tab-unit"> Teachers</span></span>
+        </button>
       </div>
     </div>
 
-    <!-- Live Metric Stat Badges -->
-    <div class="metric-tiles-row">
-      <div class="metric-tile" id="metricVacantNowTile">
-        <div class="metric-icon">⚡</div>
-        <div class="metric-details">
-          <div class="metric-num" id="metricVacantNowCount">--</div>
-          <div class="metric-title">Vacant Right Now</div>
+    <!-- ====================================================================
+         VIEW SECTION 1: FREE CLASSROOM FINDER
+         ==================================================================== -->
+    <div id="viewRoomsSection" class="app-view-section">
+      <!-- Controls Section: Day Picker, Categories, Slot & Search -->
+      <section class="controls-panel">
+        <!-- 1. Day Picker -->
+        <div class="control-row">
+          <span class="row-label">Select Day:</span>
+          <div class="day-picker" id="dayPicker">
+            <button class="day-btn" data-day="Monday">Monday</button>
+            <button class="day-btn" data-day="Tuesday">Tuesday</button>
+            <button class="day-btn" data-day="Wednesday">Wednesday</button>
+            <button class="day-btn" data-day="Thursday">Thursday</button>
+            <button class="day-btn" data-day="Friday">Friday</button>
+            <button class="day-btn" data-day="Saturday">Saturday</button>
+          </div>
+        </div>
+
+        <!-- 2. Room Category Filter -->
+        <div class="control-row">
+          <span class="row-label">Category:</span>
+          <div class="category-pills" id="categoryPills">
+            <button class="cat-pill active" data-cat="ALL">All Rooms (96)</button>
+            <button class="cat-pill" data-cat="PB">Principal Bungalow (PB)</button>
+            <button class="cat-pill" data-cat="T">Tutorial Rooms (T)</button>
+            <button class="cat-pill" data-cat="SCR">Sports Complex (SCR)</button>
+            <button class="cat-pill" data-cat="R">Classrooms (R)</button>
+            <button class="cat-pill" data-cat="CL">Computer Labs (CL)</button>
+            <button class="cat-pill" data-cat="OTHER">Library & Other</button>
+          </div>
+        </div>
+
+        <!-- 3. Search & Time Slot Filters -->
+        <div class="filter-bar">
+          <div class="search-box-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Search room no (e.g. PB3, R2, SCR1, T14)..." autocomplete="off" />
+            <button id="btnClearSearch" class="btn-clear-search" style="display: none;">✕</button>
+          </div>
+
+          <div class="slot-select-wrapper">
+            <label for="slotSelect">Time Slot:</label>
+            <select id="slotSelect">
+              <option value="ALL">All Periods Today (Overview)</option>
+              <option value="8:30 AM to 9:30 AM">Period 1 (8:30 AM – 9:30 AM)</option>
+              <option value="9:30 AM to 10:30 AM">Period 2 (9:30 AM – 10:30 AM)</option>
+              <option value="10:30 AM to 11:30 AM">Period 3 (10:30 AM – 11:30 AM)</option>
+              <option value="11:30 AM to 12:30 PM">Period 4 (11:30 AM – 12:30 PM)</option>
+              <option value="12:30 PM to 1:30 PM">Period 5 (12:30 PM – 1:30 PM)</option>
+              <option value="2:00 PM to 3:00 PM">Period 6 (2:00 PM – 3:00 PM)</option>
+              <option value="3:00 PM to 4:00 PM">Period 7 (3:00 PM – 4:00 PM)</option>
+              <option value="4:00 PM to 5:00 PM">Period 8 (4:00 PM – 5:00 PM)</option>
+              <option value="5:00 PM to 6:00 PM">Period 9 (5:00 PM – 6:00 PM)</option>
+            </select>
+          </div>
+
+          <div class="sort-select-wrapper">
+            <label for="sortSelect">Sort By:</label>
+            <select id="sortSelect">
+              <option value="ROOM_ASC" selected>Room No. Ascending (R1, R2, PB, T...)</option>
+              <option value="FREE_DESC">Most Free Hours First</option>
+              <option value="CAP_DESC">Capacity (Highest First)</option>
+            </select>
+          </div>
+
+          <!-- Desktop View Mode Toggle (Grid vs Compact) -->
+          <div class="view-toggle-wrapper" id="viewToggleWrapper">
+            <button class="btn-view-mode active" id="btnViewGrid" title="Rich Card Grid View">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h8v8H3V3m10 0h8v8h-8V3M3 13h8v8H3v-8m10 0h8v8h-8v-8Z"/></svg>
+              <span>Grid</span>
+            </button>
+            <button class="btn-view-mode" id="btnViewCompact" title="Compact List / Table View">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h18v2H3V4m0 7h18v2H3v-2m0 7h18v2H3v-2Z"/></svg>
+              <span>Compact</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Recess Callout Banner (Compact 1-2 lines) -->
+      <div class="recess-banner" id="recessBanner">
+        <span class="recess-badge">☕ LUNCH RECESS</span>
+        <span class="recess-info">
+          <strong>1:30 PM – 2:00 PM:</strong> All 96 classrooms &amp; tutorial rooms are universally free for GD &amp; lunch.
+        </span>
+      </div>
+
+      <!-- Active Leaves Alert Banner for Rooms -->
+      <div class="active-leaves-callout" id="activeLeavesRoomBanner" style="display: none;"></div>
+
+      <!-- Live Metric Stat Badges -->
+      <div class="metric-tiles-row">
+        <div class="metric-tile" id="metricVacantNowTile">
+          <div class="metric-icon">⚡</div>
+          <div class="metric-details">
+            <div class="metric-num" id="metricVacantNowCount">--</div>
+            <div class="metric-title"><span class="metric-long-word">Vacant </span>Right Now</div>
+          </div>
+        </div>
+        <div class="metric-tile">
+          <div class="metric-icon">🕒</div>
+          <div class="metric-details">
+            <div class="metric-num" id="metricTotalFreeCount">0</div>
+            <div class="metric-title">Free <span class="metric-long-word">Hours on </span><span id="metricDayLabel">Monday</span></div>
+          </div>
+        </div>
+        <div class="metric-tile">
+          <div class="metric-icon">🏛️</div>
+          <div class="metric-details">
+            <div class="metric-num" id="metricBestCat">Tutorials</div>
+            <div class="metric-title">Most Vacant<span class="metric-long-word"> Wing</span></div>
+          </div>
         </div>
       </div>
-      <div class="metric-tile">
-        <div class="metric-icon">🕒</div>
-        <div class="metric-details">
-          <div class="metric-num" id="metricTotalFreeCount">0</div>
-          <div class="metric-title">Free Hours on <span id="metricDayLabel">Monday</span></div>
+
+      <!-- Active Filters Summary & Stats -->
+      <div class="stats-ribbon">
+        <div class="stats-left">
+          Showing <span id="statRoomCount" class="stat-highlight">0</span> rooms on <span id="statActiveDay" class="stat-highlight">Monday</span>
+          <span id="statFilterDesc" class="filter-desc-tag"></span>
+        </div>
+        <div class="stats-right">
+          <span class="stat-last-synced" id="statLastSyncedWrap" title="Timetable data synced from official college website">
+            <span>🕒 Last Updated: <strong id="statLastSynced">18 Sep 2026</strong></span>
+          </span>
+          <span id="statTotalFreeHours">0</span> total free slots available
         </div>
       </div>
-      <div class="metric-tile">
-        <div class="metric-icon">🏛️</div>
-        <div class="metric-details">
-          <div class="metric-num" id="metricBestCat">Tutorials</div>
-          <div class="metric-title">Most Vacant Wing</div>
-        </div>
+
+      <!-- Room Cards Grid / Compact Container -->
+      <section class="rooms-grid view-mode-grid" id="roomsGrid">
+        <!-- Dynamically generated via app.js -->
+      </section>
+
+      <!-- No Results State -->
+      <div class="empty-state" id="emptyState" style="display: none;">
+        <div class="empty-icon">🔎</div>
+        <h3>No matching free rooms found</h3>
+        <p>Try switching to another Day, clearing your search query, or selecting "All Periods Today".</p>
+        <button class="btn-reset-filters" id="btnResetFilters">Reset Filters</button>
       </div>
     </div>
 
-    <!-- Active Filters Summary & Stats -->
-    <div class="stats-ribbon">
-      <div class="stats-left">
-        Showing <span id="statRoomCount" class="stat-highlight">0</span> rooms on <span id="statActiveDay" class="stat-highlight">Monday</span>
-        <span id="statFilterDesc" class="filter-desc-tag"></span>
+    <!-- ====================================================================
+         VIEW SECTION 2: FACULTY LOCATOR & TIMETABLE
+         ==================================================================== -->
+    <div id="viewFacultySection" class="app-view-section" style="display: none;">
+      <!-- Top Action Header -->
+      <div class="faculty-action-bar">
+        <div class="faculty-action-title">
+          <span>👨‍🏫 SRCC Faculty Locator & Timetable</span>
+          <span class="badge-official">210 Professors</span>
+        </div>
+        <div class="faculty-action-leaves-wrap">
+          <span class="leave-count-pill" id="headerLeavePill" style="display: none; cursor: pointer;" title="Click to view faculty on leave today">0 on leave</span>
+        </div>
       </div>
-      <div class="stats-right">
-        <span id="statTotalFreeHours">0</span> total free slots available
+
+      <!-- Faculty Controls Panel -->
+      <section class="controls-panel faculty-controls-panel">
+        <!-- 1. Day Picker for Faculty -->
+        <div class="control-row">
+          <span class="row-label">Select Day:</span>
+          <div class="day-picker" id="facultyDayPicker">
+            <button class="day-btn" data-day="Monday">Monday</button>
+            <button class="day-btn" data-day="Tuesday">Tuesday</button>
+            <button class="day-btn" data-day="Wednesday">Wednesday</button>
+            <button class="day-btn" data-day="Thursday">Thursday</button>
+            <button class="day-btn" data-day="Friday">Friday</button>
+            <button class="day-btn" data-day="Saturday">Saturday</button>
+          </div>
+        </div>
+
+        <!-- 2. Department Horizontal Filter Pills -->
+        <div class="control-row">
+          <span class="row-label">Department:</span>
+          <div class="faculty-dept-scroll" id="facultyDeptPills">
+            <button class="dept-pill active" data-dept="ALL">All Departments (210)</button>
+            <button class="dept-pill" data-dept="Commerce">Commerce</button>
+            <button class="dept-pill" data-dept="Economics">Economics</button>
+            <button class="dept-pill" data-dept="Mathematics">Mathematics</button>
+            <button class="dept-pill" data-dept="English">English</button>
+            <button class="dept-pill" data-dept="Political Science">Political Science</button>
+            <button class="dept-pill" data-dept="Physical Education">Physical Education</button>
+            <button class="dept-pill" data-dept="EVS">EVS</button>
+            <button class="dept-pill" data-dept="Hindi">Hindi</button>
+          </div>
+        </div>
+
+        <!-- 3. Search & Status Filters Bar -->
+        <div class="filter-bar faculty-filter-bar">
+          <div class="search-box-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="facultySearchInput" placeholder="Search teacher name (e.g. Abhay, Ruchi), code (cg16, ayj), dept, room, or subject..." autocomplete="off" />
+            <button id="btnClearFacultySearch" class="btn-clear-search" style="display: none;">✕</button>
+          </div>
+
+          <div class="slot-select-wrapper">
+            <label for="facultyStatusSelect">Live Status:</label>
+            <select id="facultyStatusSelect">
+              <option value="ALL" selected>All Faculty (Overview)</option>
+              <option value="TEACHING_NOW">⚡ Teaching Right Now</option>
+              <option value="FREE_NOW">☕ Currently Free / Off-Period</option>
+              <option value="ON_LEAVE">🏖️ Currently On Leave</option>
+            </select>
+          </div>
+
+          <div class="sort-select-wrapper">
+            <label for="facultySortSelect">Sort By:</label>
+            <select id="facultySortSelect">
+              <option value="NAME_ASC" selected>Name (A to Z)</option>
+              <option value="NAME_DESC">Name (Z to A)</option>
+              <option value="CLASSES_DESC">Most Classes Today</option>
+              <option value="DEPT_ASC">Department</option>
+            </select>
+          </div>
+
+          <!-- Desktop View Mode Toggle for Faculty (Grid vs Compact) -->
+          <div class="view-toggle-wrapper" id="facultyViewToggleWrapper">
+            <button class="btn-view-mode active" id="btnFacultyViewGrid" title="Rich Faculty Card Grid View">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h8v8H3V3m10 0h8v8h-8V3M3 13h8v8H3v-8m10 0h8v8h-8v-8Z"/></svg>
+              <span>Grid</span>
+            </button>
+            <button class="btn-view-mode" id="btnFacultyViewCompact" title="Compact Table / List View">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h18v2H3V4m0 7h18v2H3v-2m0 7h18v2H3v-2Z"/></svg>
+              <span>Compact</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Active Leaves Alert Banner for Faculty -->
+      <div class="active-leaves-callout" id="activeLeavesFacultyBanner" style="display: none;"></div>
+
+      <!-- Faculty Metric Stat Badges -->
+      <div class="metric-tiles-row faculty-metrics-row">
+        <div class="metric-tile">
+          <div class="metric-icon">👨‍🏫</div>
+          <div class="metric-details">
+            <div class="metric-num" id="metricTotalFacultyCount">210</div>
+            <div class="metric-title">Total<span class="metric-long-word"> Faculty</span></div>
+          </div>
+        </div>
+        <div class="metric-tile">
+          <div class="metric-icon">⚡</div>
+          <div class="metric-details">
+            <div class="metric-num" id="metricFacultyTeachingNow">--</div>
+            <div class="metric-title">Teaching<span class="metric-long-word"> Now</span></div>
+          </div>
+        </div>
+        <div class="metric-tile">
+          <div class="metric-icon">☕</div>
+          <div class="metric-details">
+            <div class="metric-num" id="metricFacultyFreeNow">--</div>
+            <div class="metric-title">Free<span class="metric-long-word"> Now</span></div>
+          </div>
+        </div>
+        <div class="metric-tile">
+          <div class="metric-icon">🏖️</div>
+          <div class="metric-details">
+            <div class="metric-num" id="metricFacultyOnLeave">0</div>
+            <div class="metric-title">On Leave<span class="metric-long-word"> Today</span></div>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <!-- Room Cards Grid / Compact Container -->
-    <section class="rooms-grid view-mode-grid" id="roomsGrid">
-      <!-- Dynamically generated via app.js -->
-    </section>
+      <!-- Faculty Stats Ribbon -->
+      <div class="stats-ribbon">
+        <div class="stats-left">
+          Showing <span id="statFacultyCount" class="stat-highlight">0</span> faculty members on <span id="statFacultyDay" class="stat-highlight">Monday</span>
+          <span id="statFacultyFilterDesc" class="filter-desc-tag"></span>
+        </div>
+        <div class="stats-right">
+          <span class="stat-last-synced">
+            <span>🕒 Timetable Synced: <strong id="statFacultyLastSynced">18 Sep 2026</strong></span>
+          </span>
+        </div>
+      </div>
 
-    <!-- No Results State -->
-    <div class="empty-state" id="emptyState" style="display: none;">
-      <div class="empty-icon">🔎</div>
-      <h3>No matching free rooms found</h3>
-      <p>Try switching to another Day, clearing your search query, or selecting "All Periods Today".</p>
-      <button class="btn-reset-filters" id="btnResetFilters">Reset Filters</button>
+      <!-- Faculty Cards Grid -->
+      <section class="faculty-grid" id="facultyGrid">
+        <!-- Dynamically generated via app.js -->
+      </section>
+
+      <!-- Empty State for Faculty Search -->
+      <div class="empty-state" id="facultyEmptyState" style="display: none;">
+        <div class="empty-icon">🔎</div>
+        <h3>No matching faculty found</h3>
+        <p>Try clearing your search query, switching the department filter, or resetting status.</p>
+        <button class="btn-reset-filters" id="btnResetFacultyFilters">Reset Faculty Filters</button>
+      </div>
     </div>
 
   </main>
@@ -227,6 +407,36 @@
       </div>
       <div class="modal-body" id="modalBody">
         <!-- Timetable schedule table inserted here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Teacher Weekly Timetable View -->
+  <div class="modal-overlay" id="teacherModal" style="display: none;">
+    <div class="modal-card teacher-modal-card" style="max-width: 720px;">
+      <div class="modal-header">
+        <div class="modal-titles">
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <div class="faculty-initials-avatar" id="modalTeacherAvatar" style="width: 44px; height: 44px; font-size: 1.05rem;">--</div>
+            <div>
+              <h2 id="modalTeacherName" style="font-size: 1.25rem;">Teacher Timetable</h2>
+              <p id="modalTeacherMeta" style="font-size: 0.8rem; color: var(--text-secondary);">Department · Code · Weekly Teaching Periods</p>
+            </div>
+          </div>
+        </div>
+        <button class="modal-close" id="btnTeacherModalClose">✕</button>
+      </div>
+      <!-- Day Selector Tabs inside Teacher Modal -->
+      <div class="modal-day-tabs" id="modalTeacherDayTabs" style="display: flex; gap: 6px; padding: 12px 18px 6px; border-bottom: 1px solid var(--border-subtle); overflow-x: auto;">
+        <button class="day-btn active" data-day="Monday">Monday</button>
+        <button class="day-btn" data-day="Tuesday">Tuesday</button>
+        <button class="day-btn" data-day="Wednesday">Wednesday</button>
+        <button class="day-btn" data-day="Thursday">Thursday</button>
+        <button class="day-btn" data-day="Friday">Friday</button>
+        <button class="day-btn" data-day="Saturday">Saturday</button>
+      </div>
+      <div class="modal-body" id="modalTeacherBody" style="padding: 16px 18px;">
+        <!-- Teacher Timetable schedule table inserted here -->
       </div>
     </div>
   </div>
@@ -263,19 +473,31 @@
       </div>
 
       <p class="footer-desc">Designed for <strong>Shri Ram College of Commerce (SRCC)</strong> Students for GD & Peer Study Coordination.</p>
-      <p class="source-link">Timetable sourced from official portal: <a href="https://srcccollegetimetable.in/" target="_blank" rel="noopener">srcccollegetimetable.in</a> • Synced with latest college updates</p>
+      <p class="source-link">Timetable sourced from official portal: <a href="https://srcccollegetimetable.in/" target="_blank" rel="noopener">srcccollegetimetable.in</a> • Last Verified & Synced: <strong id="footerLastSynced">18 Sep 2026</strong> • <a href="admin.html" class="footer-admin-link" title="Authorized Administrator Portal">🔒 Admin Portal</a></p>
     </div>
   </footer>
 
   <!-- Mobile Bottom Navigation Bar -->
   <nav class="mobile-bottom-nav" id="mobileBottomNav">
     <button class="bottom-nav-item active" id="bnavDay" data-bnav="day" title="Change Day">
-      <span class="bnav-icon">📅</span>
-      <span class="bnav-label" id="bnavDayLabel">Mon</span>
+      <span class="bnav-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+          <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01" stroke-width="2.5"></path>
+        </svg>
+      </span>
+      <span class="bnav-label" id="bnavDayLabel">Day</span>
     </button>
     <button class="bottom-nav-item" id="bnavRooms" data-bnav="rooms" title="Browse Wings & Categories">
       <span class="bnav-icon">🏛️</span>
-      <span class="bnav-label">Wings</span>
+      <span class="bnav-label">Rooms</span>
+    </button>
+    <button class="bottom-nav-item" id="bnavFaculty" data-bnav="faculty" title="SRCC Faculty Locator">
+      <span class="bnav-icon">👨‍🏫</span>
+      <span class="bnav-label">Faculty</span>
     </button>
     <button class="bottom-nav-item bnav-highlight" id="bnavFreeNow" data-bnav="freenow" title="Rooms Free Right Now">
       <div class="bnav-fab">
@@ -283,7 +505,7 @@
       </div>
       <span class="bnav-label">Free Now</span>
     </button>
-    <button class="bottom-nav-item" id="bnavSearch" data-bnav="search" title="Search Rooms (or press /)">
+    <button class="bottom-nav-item" id="bnavSearch" data-bnav="search" title="Search Rooms or Faculty">
       <span class="bnav-icon">🔍</span>
       <span class="bnav-label">Search</span>
     </button>
@@ -303,7 +525,16 @@
     <div class="bottom-sheet">
       <div class="bottom-sheet-handle"></div>
       <div class="bottom-sheet-header">
-        <h3>📅 Select Timetable Day</h3>
+        <h3 style="display: flex; align-items: center; gap: 8px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--srcc-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+            <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01" stroke-width="2.5"></path>
+          </svg>
+          Select Timetable Day
+        </h3>
         <button class="sheet-close-btn" id="btnCloseDaySheet">✕</button>
       </div>
       <div class="sheet-days-grid" id="sheetDaysGrid">
@@ -515,13 +746,17 @@
           </button>
         </div>
 
-        <!-- Copy Clipboard Bar -->
+        <p class="share-apps-hint">
+          💡 <strong>Tip:</strong> On mobile, tap <strong>"Direct Share"</strong> below to send directly into individual DMs, chats, or stories!
+        </p>
+
+        <!-- Copy & Direct Share Bar -->
         <div class="share-copy-row">
+          <button class="btn-primary-share" id="btnPrimaryShare" style="display: none;">
+            📱 Direct Share via Any App (WhatsApp, Insta Chat, etc.)
+          </button>
           <button class="btn-copy-full-text" id="btnCopyShareText">
             📋 Copy Formatted Text to Clipboard
-          </button>
-          <button class="btn-native-share" id="btnNativeShare" style="display: none;">
-            📱 Share via Device...
           </button>
         </div>
       </div>
@@ -533,6 +768,9 @@
 
   <!-- Scripts -->
   <script src="data.js"></script>
-  <script src="app.js?v=9"></script>
+  <script src="cloud_config.js"></script>
+  <script src="faculty_leaves.js"></script>
+  <script src="teachers_data.js"></script>
+  <script src="app.js?v=14"></script>
 </body>
 </html>

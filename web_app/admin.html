@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SRCC Timetable Admin Portal | Faculty Leave Manager</title>
+  <link rel="icon" type="image/png" href="assets/srcc_crest.png" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Admin Portal Specific Styling */
+    .admin-page-body {
+      background-color: var(--bg-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .admin-navbar {
+      background: rgba(11, 20, 36, 0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .admin-nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .admin-nav-brand img {
+      height: 38px;
+      width: 38px;
+    }
+
+    .admin-nav-titles h1 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin: 0;
+    }
+
+    .admin-nav-titles p {
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    .admin-badge-role {
+      background: rgba(245, 158, 11, 0.18);
+      color: var(--srcc-gold);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+      margin-left: 6px;
+    }
+
+    .admin-nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-admin-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: var(--radius-md);
+      font-size: 0.82rem;
+      font-weight: 600;
+      font-family: var(--font-display);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .btn-view-app {
+      background: rgba(56, 189, 248, 0.12);
+      color: #38BDF8;
+      border-color: rgba(56, 189, 248, 0.35);
+    }
+    .btn-view-app:hover {
+      background: rgba(56, 189, 248, 0.25);
+      color: #FFFFFF;
+      transform: translateY(-1px);
+    }
+
+    .btn-admin-logout {
+      background: rgba(244, 63, 94, 0.12);
+      color: #FDA4AF;
+      border-color: rgba(244, 63, 94, 0.3);
+    }
+    .btn-admin-logout:hover {
+      background: #F43F5E;
+      color: #FFFFFF;
+    }
+
+    /* Auth Screen */
+    .admin-auth-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+
+    .admin-auth-card {
+      background: rgba(14, 24, 42, 0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: var(--radius-xl);
+      padding: 36px 32px;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(245, 158, 11, 0.12);
+      text-align: center;
+    }
+
+    .auth-logo-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .auth-logo-row img {
+      height: 52px;
+      width: 52px;
+    }
+
+    .admin-auth-card h2 {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 6px;
+    }
+
+    .admin-auth-card p {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      line-height: 1.45;
+    }
+
+    .auth-input-group {
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .auth-input-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .auth-input-group input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px 14px;
+      background: rgba(7, 13, 24, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-md);
+      color: #FFFFFF;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .auth-input-group input:focus {
+      border-color: var(--srcc-gold);
+      box-shadow: 0 0 10px rgba(252, 235, 10, 0.2);
+    }
+
+    .btn-auth-submit {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, var(--srcc-gold), #EAB308);
+      color: #070D18;
+      border: none;
+      border-radius: var(--radius-md);
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      box-shadow: 0 4px 16px rgba(252, 235, 10, 0.25);
+    }
+
+    .btn-auth-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(252, 235, 10, 0.4);
+    }
+
+    .auth-hint {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-top: 14px;
+    }
+
+    /* Admin Dashboard Panel */
+    .admin-dashboard-container {
+      max-width: 1120px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px 18px 80px;
+      box-sizing: border-box;
+    }
+
+    .admin-hero-banner {
+      background: linear-gradient(135deg, rgba(14, 24, 42, 0.9), rgba(20, 34, 60, 0.7));
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 20px 24px;
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .admin-hero-left h2 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin: 0 0 4px 0;
+    }
+
+    .admin-hero-left p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    .admin-kpi-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 680px) {
+      .admin-kpi-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .admin-kpi-card {
+      background: rgba(14, 24, 42, 0.7);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .admin-kpi-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .admin-kpi-val {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 900;
+      line-height: 1.1;
+      color: #FFFFFF;
+    }
+
+    .admin-kpi-title {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-secondary);
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    /* Cards in Dashboard */
+    .admin-section-card {
+      background: rgba(14, 24, 42, 0.75);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 22px 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .admin-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .admin-section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+
+    .quick-date-pills {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .quick-date-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-size: 0.74rem;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .quick-date-btn:hover {
+      background: rgba(252, 235, 10, 0.15);
+      color: var(--srcc-gold);
+      border-color: rgba(252, 235, 10, 0.35);
+    }
+
+    /* Teacher Search in Select */
+    .teacher-search-field {
+      margin-bottom: 8px;
+    }
+    .teacher-search-field input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 8px 12px;
+      background: rgba(7, 13, 24, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-sm);
+      color: #FFFFFF;
+      font-size: 0.84rem;
+    }
+
+    /* Sync Guide Card */
+    .sync-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 18px 0;
+    }
+
+    @media (max-width: 768px) {
+      .sync-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .sync-step-box {
+      background: rgba(7, 13, 24, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      position: relative;
+    }
+
+    .sync-step-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--srcc-gold);
+      color: #070D18;
+      font-weight: 800;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .sync-step-box h4 {
+      font-family: var(--font-display);
+      font-size: 0.92rem;
+      color: #FFFFFF;
+      margin-bottom: 6px;
+    }
+
+    .sync-step-box p {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    .code-preview-block {
+      background: #060B14;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      font-family: monospace;
+      font-size: 0.76rem;
+      color: #38BDF8;
+      max-height: 180px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      margin-top: 14px;
+    }
+  </style>
+</head>
+<body class="admin-page-body">
+
+  <!-- Top Navbar -->
+  <header class="admin-navbar">
+    <div class="admin-nav-brand">
+      <img src="assets/srcc_crest.png" onerror="this.onerror=null; this.src='srcc_crest.png';" alt="SRCC Crest" />
+      <div class="admin-nav-titles">
+        <h1>SRCC Timetable Admin <span class="admin-badge-role">Administrator</span></h1>
+        <p>Faculty Leave & Vacant Classroom Management</p>
+      </div>
+    </div>
+    <div class="admin-nav-actions" id="adminNavActions" style="display: none;">
+      <a href="index.html" target="_blank" class="btn-admin-nav btn-view-app" title="Open public student view in a new tab">
+        <span>👁️ View Live App ↗</span>
+      </a>
+      <button type="button" class="btn-admin-nav btn-admin-logout" id="btnAdminLogout" title="Lock and logout of admin portal">
+        <span>🚪 Logout</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- STATE 1: Admin Password Authentication Screen -->
+  <main class="admin-auth-container" id="adminAuthView">
+    <div class="admin-auth-card">
+      <div class="auth-logo-row">
+        <img src="assets/srcc_crest.png" onerror="this.onerror=null; this.src='srcc_crest.png';" alt="SRCC Crest" />
+        <img src="assets/srcc_100years.png" onerror="this.onerror=null; this.src='srcc_100years.png';" alt="SRCC 100 Years" />
+      </div>
+      <h2>Admin Control Panel</h2>
+      <p>Enter your administrator passcode to manage faculty leaves, unlock rooms, and export timetable updates.</p>
+
+      <form id="adminLoginForm">
+        <div class="auth-input-group">
+          <label for="adminPasscode">Administrator PIN / Password:</label>
+          <input type="password" id="adminPasscode" placeholder="Enter password (default: srcc2026)" required autofocus />
+        </div>
+        <button type="submit" class="btn-auth-submit" id="btnAuthSubmit">
+          🔓 Unlock Admin Portal
+        </button>
+      </form>
+      <p class="auth-hint">🔒 Authorized access only · Built for Anand Kumar (25BC070)</p>
+    </div>
+  </main>
+
+  <!-- STATE 2: Admin Management Dashboard -->
+  <main class="admin-dashboard-container" id="adminDashboardView" style="display: none;">
+    
+    <!-- Hero / Welcome Banner -->
+    <div class="admin-hero-banner">
+      <div class="admin-hero-left">
+        <h2>Welcome, Anand Kumar 👋</h2>
+        <p>Update faculty leaves below. When a professor is marked on leave, their assigned classrooms are instantly marked <strong>BONUS FREE</strong> for study and GD!</p>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <a href="index.html" class="btn-admin-nav btn-view-app" target="_blank">👁️ Open Student Site ↗</a>
+      </div>
+    </div>
+
+    <!-- Live KPIs Row -->
+    <div class="admin-kpi-row">
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon" style="background: rgba(59, 130, 246, 0.15); color: #60A5FA;">👨‍🏫</div>
+        <div>
+          <div class="admin-kpi-val" id="kpiTotalFaculty">210</div>
+          <div class="admin-kpi-title">Official SRCC Professors</div>
+        </div>
+      </div>
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon" style="background: rgba(244, 63, 94, 0.15); color: #FDA4AF;">🏖️</div>
+        <div>
+          <div class="admin-kpi-val" id="kpiActiveLeaves">0</div>
+          <div class="admin-kpi-title">Professors On Leave Today</div>
+        </div>
+      </div>
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon" style="background: rgba(16, 185, 129, 0.15); color: #6EE7B7;">⚡</div>
+        <div>
+          <div class="admin-kpi-val" id="kpiUnlockedRooms">0</div>
+          <div class="admin-kpi-title">Rooms Unlocked Today for GD</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 1: Mark Professor on Leave Form -->
+    <section class="admin-section-card">
+      <div class="admin-section-header">
+        <div class="admin-section-title">
+          <span>➕</span>
+          <span>Mark Professor on Leave</span>
+        </div>
+        <span style="font-size: 0.78rem; color: var(--text-muted);">Select professor, dates & reason</span>
+      </div>
+
+      <div class="leave-form-grid">
+        <div class="leave-field-group">
+          <label for="adminTeacherSearch">Search & Select Professor:</label>
+          <div class="teacher-search-field">
+            <input type="text" id="adminTeacherSearch" placeholder="Type professor name, code or department..." />
+          </div>
+          <select id="adminTeacherSelect" size="5" style="height: 120px; font-size: 0.84rem;">
+            <!-- Populated dynamically via admin.js -->
+          </select>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div class="leave-field-group">
+            <label for="adminLeaveReason">Reason / Category (Optional):</label>
+            <input type="text" id="adminLeaveReason" placeholder="e.g. Academic Duty / Conference, Medical Leave" />
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div class="leave-field-group">
+              <label for="adminStartDate">Start Date:</label>
+              <input type="date" id="adminStartDate" />
+            </div>
+            <div class="leave-field-group">
+              <label for="adminEndDate">End Date:</label>
+              <input type="date" id="adminEndDate" />
+            </div>
+          </div>
+
+          <div class="quick-date-pills">
+            <span style="font-size: 0.72rem; color: var(--text-muted); line-height: 22px;">Quick Select:</span>
+            <button type="button" class="quick-date-btn" id="btnQuickToday">Today Only</button>
+            <button type="button" class="quick-date-btn" id="btnQuickTomorrow">Tomorrow</button>
+            <button type="button" class="quick-date-btn" id="btnQuickThisWeek">Next 3 Days</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px;">
+        <button type="button" class="btn-add-leave" id="btnAdminAddLeave" style="width: 100%; justify-content: center;">
+          🏖️ Record Leave & Unlock Classrooms Immediately
+        </button>
+      </div>
+    </section>
+
+    <!-- Section 2: Active & Scheduled Leaves List -->
+    <section class="admin-section-card">
+      <div class="admin-section-header">
+        <div class="admin-section-title">
+          <span>📋</span>
+          <span>Recorded Faculty Leaves (<span id="adminActiveLeavesCount">0</span>)</span>
+        </div>
+        <button type="button" class="btn-reset-filters" id="btnAdminClearAllLeaves" style="font-size: 0.74rem; padding: 4px 10px;">
+          Clear All Custom Leaves
+        </button>
+      </div>
+
+      <div class="leaves-items-container" id="adminLeavesListContainer">
+        <!-- Populated dynamically via admin.js -->
+      </div>
+    </section>
+
+    <!-- Section 2.5: ☁️ Zero-Cost Cloud Auto-Sync (Firebase Realtime DB) -->
+    <section class="admin-section-card" style="border-color: rgba(56, 189, 248, 0.35);">
+      <div class="admin-section-header">
+        <div class="admin-section-title" style="color: #38BDF8;">
+          <span>☁️</span>
+          <span>Zero-Cost Cloud Auto-Sync (₹0 Forever · No Daily File Uploads)</span>
+        </div>
+        <span id="cloudSyncStatusBadge" style="font-size: 0.74rem; font-weight: 700; padding: 3px 10px; border-radius: 9999px; background: rgba(245, 158, 11, 0.18); color: var(--srcc-gold); border: 1px solid rgba(245, 158, 11, 0.35);">
+          🟡 Local Only (Not Synced)
+        </span>
+      </div>
+
+      <p style="font-size: 0.84rem; color: var(--text-secondary); line-height: 1.45; margin: 0 0 14px 0;">
+        Connect a 100% free Google Firebase Realtime Database URL to update leaves directly from your phone. Any professor you mark on leave will <strong>instantly reflect for every SRCC student live</strong> without downloading or re-deploying anything! <strong>Cost is ₹0 forever</strong> (free tier allows millions of requests).
+      </p>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div class="leave-field-group">
+          <label for="cloudDbUrlInput">Firebase Realtime Database REST URL:</label>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <input type="url" id="cloudDbUrlInput" placeholder="https://your-project-default-rtdb.firebaseio.com/leaves.json" style="flex: 1; min-width: 260px;" />
+            <button type="button" class="btn-add-leave" id="btnSaveCloudDbUrl" style="padding: 9px 18px; font-size: 0.84rem;">
+              💾 Save & Test Connection
+            </button>
+            <button type="button" class="btn-export-leaves" id="btnPushToCloudNow" style="padding: 9px 18px; font-size: 0.84rem; background: rgba(56, 189, 248, 0.18); border-color: rgba(56, 189, 248, 0.4); color: #38BDF8;">
+              ☁️ Push to Cloud Now
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick 1-Minute Setup Guide -->
+      <details style="margin-top: 14px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--radius-md); padding: 12px 14px; font-size: 0.82rem; color: var(--text-secondary);">
+        <summary style="cursor: pointer; font-weight: 700; color: var(--srcc-gold); user-select: none;">
+          ℹ️ 1-Minute Guide: How to get your free Cloud URL (₹0 cost, No card required)
+        </summary>
+        <div style="margin-top: 10px; line-height: 1.6;">
+          <ol style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px;">
+            <li>Go to <a href="https://console.firebase.google.com/" target="_blank" rel="noopener noreferrer" style="color: #38BDF8; text-decoration: underline;">console.firebase.google.com</a> using your Google account.</li>
+            <li>Click <strong>"Add project"</strong>, enter project name (e.g. <code>srcc-timetable</code>), and proceed (Google Analytics optional).</li>
+            <li>In the left sidebar, navigate to <strong>Build &rarr; Realtime Database</strong>, then click <strong>Create Database</strong> (choose default location).</li>
+            <li>In security rules step, select <strong>"Start in test mode"</strong> (gives open read/write access) and click <strong>Enable</strong>.</li>
+            <li>Copy your database URL at the top (looks like <code>https://srcc-timetable-default-rtdb.firebaseio.com/</code>), append <strong><code>leaves.json</code></strong> at the end, and paste it above!</li>
+            <li>Click <strong>"Save &amp; Test Connection"</strong>. Done! Now whenever you mark a leave from your phone, all SRCC students see it immediately.</li>
+          </ol>
+        </div>
+      </details>
+    </section>
+
+    <!-- Section 3: Backup Manual Export for Netlify Website -->
+    <section class="admin-section-card" style="border-color: rgba(16, 185, 129, 0.35);">
+      <div class="admin-section-header">
+        <div class="admin-section-title" style="color: #34D399;">
+          <span>💾</span>
+          <span>Backup Manual Export (Download File)</span>
+        </div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button type="button" class="btn-export-leaves" id="btnAdminDownloadLeavesJs">
+            💾 Download faculty_leaves.js
+          </button>
+          <button type="button" class="btn-export-leaves" id="btnAdminCopyLeavesJs" style="background: rgba(56, 189, 248, 0.2); border-color: rgba(56, 189, 248, 0.4); color: #38BDF8;">
+            📋 Copy Code
+          </button>
+        </div>
+      </div>
+
+      <p style="font-size: 0.84rem; color: var(--text-secondary); line-height: 1.45; margin: 0 0 12px 0;">
+        Changes made above are active immediately in this browser. To publish these leaves for <strong>every SRCC student visiting your live website</strong>, follow these 3 easy steps:
+      </p>
+
+      <div class="sync-guide-grid">
+        <div class="sync-step-box">
+          <div class="sync-step-num">1</div>
+          <h4>Update Leaves Above</h4>
+          <p>Mark professors who are absent or remove returned teachers using the form above.</p>
+        </div>
+        <div class="sync-step-box">
+          <div class="sync-step-num">2</div>
+          <h4>Download faculty_leaves.js</h4>
+          <p>Click the green <strong>"Download faculty_leaves.js"</strong> button above to save the latest leaves file.</p>
+        </div>
+        <div class="sync-step-box">
+          <div class="sync-step-num">3</div>
+          <h4>Deploy to Netlify / GitHub</h4>
+          <p>Replace <code>faculty_leaves.js</code> in your GitHub repo or drag the folder to Netlify. All students instantly get the live updates!</p>
+        </div>
+      </div>
+
+      <div style="margin-top: 14px;">
+        <span style="font-size: 0.74rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Generated Code Preview:</span>
+        <pre class="code-preview-block" id="adminCodePreview"></pre>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Data Scripts -->
+  <script src="cloud_config.js"></script>
+  <script src="data.js"></script>
+  <script src="faculty_leaves.js"></script>
+  <script src="teachers_data.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
