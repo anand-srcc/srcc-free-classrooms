@@ -7,18 +7,37 @@
 // 🔗 SRCC WHATSAPP COMMUNITY / GROUP LINK CONFIGURATION
 // 👉 UPDATE YOUR ACTIVE WHATSAPP GROUP INVITE LINK HERE:
 // ==========================================================================
-const SRCC_WHATSAPP_LINK = 'https://chat.whatsapp.com/G0VT9qsCLEe5Qqy8b7VCvp';
+const SRCC_WHATSAPP_LINK = 'https://chat.whatsapp.com/H6qxq6fGSDVJNPCEtzQgjf';
 
 document.addEventListener('DOMContentLoaded', () => {
   let appData = window.SRCC_DATA;
   let teachersData = window.SRCC_TEACHERS_DATA;
   let leavesData = window.SRCC_FACULTY_LEAVES;
 
+  const loadingStateEl = document.getElementById('loadingState');
+  const errorStateEl = document.getElementById('errorState');
+  const errorMessageTextEl = document.getElementById('errorMessageText');
+  const btnRetryLoadEl = document.getElementById('btnRetryLoad');
+
+  if (btnRetryLoadEl) {
+    btnRetryLoadEl.addEventListener('click', () => {
+      window.location.reload();
+    });
+  }
+
+  // Display animated loading skeleton while initial data is fetching
+  if (!appData && loadingStateEl) {
+    loadingStateEl.style.display = 'block';
+  }
+
   const loadPromises = [];
   if (!appData) {
     loadPromises.push(
       fetch('srcc_data.json')
-        .then(r => r.json())
+        .then(r => {
+          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+          return r.json();
+        })
         .then(d => { appData = d; })
         .catch(err => console.error('Failed to fetch srcc_data.json:', err))
     );
@@ -26,7 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!teachersData) {
     loadPromises.push(
       fetch('teachers_data.json')
-        .then(r => r.json())
+        .then(r => {
+          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+          return r.json();
+        })
         .then(d => { teachersData = d; })
         .catch(err => {
           console.warn('Failed to fetch teachers_data.json:', err);
@@ -37,7 +59,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!leavesData) {
     loadPromises.push(
       fetch('faculty_leaves.json')
-        .then(r => r.json())
+        .then(r => {
+          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+          return r.json();
+        })
         .then(d => { leavesData = d; })
         .catch(err => {
           console.warn('Failed to fetch faculty_leaves.json:', err);
@@ -79,29 +104,55 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(() => initApp())
       .catch(err => {
         console.error('Initialization error:', err);
-        if (appData) initApp();
+        initApp();
       });
   } else {
     initApp();
   }
 
+  // ========================================================================
+  // 🕒 ASIA/KOLKATA (IST) TIMEZONE ENFORCEMENT HELPER
+  // ========================================================================
+  function getIstDate() {
+    try {
+      const now = new Date();
+      const istString = now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
+      return new Date(istString);
+    } catch (e) {
+      // Fallback if Intl timeZone is unsupported
+      const now = new Date();
+      const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+      return new Date(utc + (3600000 * 5.5)); // UTC+5:30
+    }
+  }
+
   function initApp() {
+    if (loadingStateEl) loadingStateEl.style.display = 'none';
+
     if (!appData || !appData.rooms) {
-      console.error('Timetable data is empty.');
+      console.error('Timetable data is empty or failed to load.');
+      if (errorStateEl) {
+        errorStateEl.style.display = 'block';
+        if (errorMessageTextEl) {
+          errorMessageTextEl.textContent = 'Could not load the college timetable data. Please check your internet connection and tap Retry.';
+        }
+      }
       return;
     }
+    if (errorStateEl) errorStateEl.style.display = 'none';
 
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const todayIndex = new Date().getDay();
+    const istNow = getIstDate();
+    const todayIndex = istNow.getDay();
     const todayName = daysOfWeek[todayIndex];
     const initialDay = (todayName === 'Sunday') ? 'Monday' : todayName;
 
-    // Standard local date string YYYY-MM-DD
+    // Standard local date string YYYY-MM-DD in Asia/Kolkata
     function getTodayIsoDate() {
-      const now = new Date();
-      const year = now.getFullYear();
-      const month = String(now.getMonth() + 1).padStart(2, '0');
-      const day = String(now.getDate()).padStart(2, '0');
+      const d = getIstDate();
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
       return `${year}-${month}-${day}`;
     }
 
@@ -204,6 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const facultyState = {
       activeDay: initialDay,
       activeDept: 'ALL',
+      alphabetFilter: 'ALL', // 'ALL' | 'A' | 'B' | ... | 'Z'
       searchQuery: '',
       statusFilter: 'ALL', // 'ALL' | 'TEACHING_NOW' | 'FREE_NOW' | 'ON_LEAVE'
       sortBy: 'NAME_ASC', // 'NAME_ASC' | 'NAME_DESC' | 'CLASSES_DESC' | 'DEPT_ASC'
@@ -304,6 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========================================================================
     const facultyDayButtons = document.querySelectorAll('#facultyDayPicker .day-btn');
     const facultyDeptPills = document.querySelectorAll('#facultyDeptPills .dept-pill');
+    const facultyDeptSelect = document.getElementById('facultyDeptSelect');
     const facultySearchInput = document.getElementById('facultySearchInput');
     const btnClearFacultySearch = document.getElementById('btnClearFacultySearch');
     const facultyStatusSelect = document.getElementById('facultyStatusSelect');
@@ -328,7 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalTeacherAvatar = document.getElementById('modalTeacherAvatar');
     const modalTeacherName = document.getElementById('modalTeacherName');
     const modalTeacherMeta = document.getElementById('modalTeacherMeta');
-    const modalTeacherDayTabs = document.querySelectorAll('#modalTeacherDayTabs .day-btn');
+    const modalTeacherDayTabs = document.querySelectorAll('#modalTeacherDayTabs .day-btn, #modalTeacherDayTabs .modal-day-tab-btn');
     const modalTeacherBody = document.getElementById('modalTeacherBody');
 
     // Faculty Leave Manager Modal Elements
@@ -371,6 +424,63 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     // ========================================================================
+    // ⚡ CONSECUTIVE FREE WINDOWS ALGORITHM
+    // ========================================================================
+    function getConsecutiveFreeWindows(freeSlots, bonusSlots = []) {
+      if (!freeSlots && !bonusSlots) return [];
+      const bonusSlotNames = (bonusSlots || []).map(b => (typeof b === 'string' ? b : b.slot));
+      const allFreeSlots = new Set([...(freeSlots || []), ...bonusSlotNames]);
+      const freePeriodNums = periodIntervals.filter(p => allFreeSlots.has(p.slot)).map(p => p.num);
+      if (freePeriodNums.length === 0) return [];
+
+      if (freePeriodNums.length === 9) {
+        return [{
+          start: '8:30 AM',
+          end: '6:00 PM',
+          durationHours: 9.5,
+          periodsCount: 9,
+          text: '8:30 AM – 6:00 PM (Full Day Continuous)'
+        }];
+      }
+
+      const windows = [];
+      let currentGroup = [freePeriodNums[0]];
+
+      for (let i = 1; i < freePeriodNums.length; i++) {
+        const prev = freePeriodNums[i - 1];
+        const curr = freePeriodNums[i];
+
+        // Consecutive periods (1-2, 2-3, 3-4, 4-5, 5-6 [crossing lunch], 6-7, 7-8, 8-9)
+        if (curr === prev + 1) {
+          currentGroup.push(curr);
+        } else {
+          windows.push([...currentGroup]);
+          currentGroup = [curr];
+        }
+      }
+      if (currentGroup.length > 0) {
+        windows.push(currentGroup);
+      }
+
+      return windows.map(group => {
+        const startP = periodIntervals.find(p => p.num === group[0]);
+        const endP = periodIntervals.find(p => p.num === group[group.length - 1]);
+        const duration = (endP.end - startP.start) / 60;
+        const durationStr = (duration % 1 === 0) ? `${duration} hrs` : `${duration} hrs`;
+        const startStr = startP.slot.split(' to ')[0];
+        const endStr = endP.slot.split(' to ')[1];
+
+        return {
+          start: startStr,
+          end: endStr,
+          durationHours: duration,
+          periodsCount: group.length,
+          text: `${startStr} – ${endStr} (${durationStr} continuous)`
+        };
+      });
+    }
+
+    // ========================================================================
     // 🔔 TOAST HELPER
     // ========================================================================
     function showToast(message, isCopied = false, duration = 3600) {
@@ -388,12 +498,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ========================================================================
-    // 🕒 LIVE CLOCK UPDATE
+    // 🕒 LIVE CLOCK UPDATE (STANDARDIZED ON ASIA/KOLKATA IST)
     // ========================================================================
     function updateLiveClock() {
-      const now = new Date();
+      const now = getIstDate();
       const options = { weekday: 'short', hour: 'numeric', minute: '2-digit', hour12: true };
-      const timeStr = now.toLocaleTimeString([], options);
+      const timeStr = now.toLocaleTimeString('en-US', options) + ' IST';
       const currentMinutes = now.getHours() * 60 + now.getMinutes();
 
       // Check lunch recess specifically (1:30 PM - 2:00 PM)
@@ -480,6 +590,7 @@ document.addEventListener('DOMContentLoaded', () => {
         facultyState.searchQuery = '';
         facultyState.sortBy = 'NAME_ASC';
         facultyDeptPills.forEach(p => p.classList.toggle('active', p.dataset.dept === 'ALL'));
+        if (facultyDeptSelect) facultyDeptSelect.value = 'ALL';
         if (facultySearchInput) facultySearchInput.value = '';
         if (btnClearFacultySearch) btnClearFacultySearch.style.display = 'none';
         if (facultyStatusSelect) facultyStatusSelect.value = 'ALL';
@@ -769,42 +880,58 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    // Modal Helpers with Mobile Scroll Lock (body.modal-open)
+    function openAppModal(modalEl) {
+      if (!modalEl) return;
+      modalEl.style.display = 'flex';
+      document.body.classList.add('modal-open');
+    }
+
+    function closeAppModal(modalEl) {
+      if (!modalEl) return;
+      modalEl.style.display = 'none';
+      const anyOpen = [scheduleModal, shareModal, teacherModal, leaveManagerModal].some(m => m && m.style.display === 'flex');
+      if (!anyOpen) {
+        document.body.classList.remove('modal-open');
+      }
+    }
+
     // Modal Close Handlers
-    if (btnModalClose) btnModalClose.addEventListener('click', () => { scheduleModal.style.display = 'none'; });
+    if (btnModalClose) btnModalClose.addEventListener('click', () => { closeAppModal(scheduleModal); });
     if (scheduleModal) {
       scheduleModal.addEventListener('click', (e) => {
-        if (e.target === scheduleModal) scheduleModal.style.display = 'none';
+        if (e.target === scheduleModal) closeAppModal(scheduleModal);
       });
     }
 
-    if (btnShareModalClose) btnShareModalClose.addEventListener('click', () => { shareModal.style.display = 'none'; });
+    if (btnShareModalClose) btnShareModalClose.addEventListener('click', () => { closeAppModal(shareModal); });
     if (shareModal) {
       shareModal.addEventListener('click', (e) => {
-        if (e.target === shareModal) shareModal.style.display = 'none';
+        if (e.target === shareModal) closeAppModal(shareModal);
       });
     }
 
-    if (btnTeacherModalClose) btnTeacherModalClose.addEventListener('click', () => { teacherModal.style.display = 'none'; });
+    if (btnTeacherModalClose) btnTeacherModalClose.addEventListener('click', () => { closeAppModal(teacherModal); });
     if (teacherModal) {
       teacherModal.addEventListener('click', (e) => {
-        if (e.target === teacherModal) teacherModal.style.display = 'none';
+        if (e.target === teacherModal) closeAppModal(teacherModal);
       });
     }
 
-    if (btnLeaveModalClose) btnLeaveModalClose.addEventListener('click', () => { leaveManagerModal.style.display = 'none'; });
+    if (btnLeaveModalClose) btnLeaveModalClose.addEventListener('click', () => { closeAppModal(leaveManagerModal); });
     if (leaveManagerModal) {
       leaveManagerModal.addEventListener('click', (e) => {
-        if (e.target === leaveManagerModal) leaveManagerModal.style.display = 'none';
+        if (e.target === leaveManagerModal) closeAppModal(leaveManagerModal);
       });
     }
 
     // Keyboard Shortcuts
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
-        if (scheduleModal && scheduleModal.style.display !== 'none') scheduleModal.style.display = 'none';
-        else if (shareModal && shareModal.style.display !== 'none') shareModal.style.display = 'none';
-        else if (teacherModal && teacherModal.style.display !== 'none') teacherModal.style.display = 'none';
-        else if (leaveManagerModal && leaveManagerModal.style.display !== 'none') leaveManagerModal.style.display = 'none';
+        if (scheduleModal && scheduleModal.style.display !== 'none') closeAppModal(scheduleModal);
+        else if (shareModal && shareModal.style.display !== 'none') closeAppModal(shareModal);
+        else if (teacherModal && teacherModal.style.display !== 'none') closeAppModal(teacherModal);
+        else if (leaveManagerModal && leaveManagerModal.style.display !== 'none') closeAppModal(leaveManagerModal);
         else if (daySheetOverlay && daySheetOverlay.style.display !== 'none') daySheetOverlay.style.display = 'none';
         else if (wingsSheetOverlay && wingsSheetOverlay.style.display !== 'none') wingsSheetOverlay.style.display = 'none';
         else if (document.activeElement === searchInput) searchInput.blur();
@@ -938,10 +1065,10 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Calculate calendar date for any day of the current academic week
+    // Calculate calendar date for any day of the current academic week (IST-aligned)
     function getDateForDay(targetDayName) {
       const daysMap = { 'Sunday': 0, 'Monday': 1, 'Tuesday': 2, 'Wednesday': 3, 'Thursday': 4, 'Friday': 5, 'Saturday': 6 };
-      const now = new Date();
+      const now = getIstDate();
       const currentDayIndex = now.getDay();
       const targetIndex = daysMap[targetDayName] !== undefined ? daysMap[targetDayName] : currentDayIndex;
 
@@ -968,7 +1095,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const cleanMessage = `🎓 SRCC Classroom Vacancy Alert\n\n` +
         `📍 Room: ${room.code} (${room.name})\n` +
         `🏛️ Wing: ${room.category.split(' (')[0]}\n` +
-        `📅 Day & Date: ${dayAndDateDisplay}\n` +
+        `🗓️ Day & Date: ${dayAndDateDisplay}\n` +
         `👥 Capacity: ${room.capacity} seats\n` +
         `☕ Lunch Recess: 1:30 PM – 2:00 PM (Vacant)\n\n` +
         `🕒 Free Academic Slots:\n${freeSlotsList}\n\n` +
@@ -977,7 +1104,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const whatsappMessage = `🎓 *SRCC Classroom Vacancy Alert*\n\n` +
         `📍 *Room:* ${room.code} (${room.name})\n` +
         `🏛️ *Wing:* ${room.category.split(' (')[0]}\n` +
-        `📅 *Day & Date:* ${dayAndDateDisplay}\n` +
+        `🗓️ *Day & Date:* ${dayAndDateDisplay}\n` +
         `👥 *Capacity:* ${room.capacity} seats\n` +
         `☕ *Lunch Recess:* 1:30 PM – 2:00 PM (Vacant)\n\n` +
         `🕒 *Free Academic Slots:*\n${freeSlotsList}\n\n` +
@@ -1057,7 +1184,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btnPrimaryShare.style.display = 'none';
       }
 
-      if (shareModal) shareModal.style.display = 'flex';
+      if (shareModal) openAppModal(shareModal);
     }
 
     if (btnCopyShareText) {
@@ -1206,6 +1333,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const themeClass = getCategoryThemeClass(room);
 
+        // Calculate consecutive free windows (continuous periods)
+        const consecutiveWindows = getConsecutiveFreeWindows(sched.free_slots, bonusFreeSlots);
+        let consecutiveChipsHtml = '';
+        if (effectiveFreeHours === 9) {
+          consecutiveChipsHtml = `<div class="consecutive-window-chip" title="Full Day Uninterrupted Free Window">⚡ ★ 8:30 AM – 6:00 PM (Full Day Continuous)</div>`;
+        } else if (consecutiveWindows.length > 0 && effectiveFreeHours >= 2) {
+          const multiPeriodWindows = consecutiveWindows.filter(w => w.periodsCount >= 2);
+          if (multiPeriodWindows.length > 0) {
+            consecutiveChipsHtml = multiPeriodWindows.map(w =>
+              `<div class="consecutive-window-chip" title="Continuous uninterrupted free window">⚡ ${escapeHtml(w.text)}</div>`
+            ).join('');
+          }
+        }
+
         // Format free slot chips
         let chipsHtml = '';
         if (effectiveFreeHours === 9) {
@@ -1216,11 +1357,11 @@ document.addEventListener('DOMContentLoaded', () => {
           const regularChips = sched.free_slots.map(slot => {
             const isHighlight = (state.activeSlot !== 'ALL' && state.activeSlot === slot);
             const chipClass = isHighlight ? 'slot-chip slot-highlight' : 'slot-chip slot-free';
-            return `<div class="${chipClass}">${slot.replace(' to ', ' – ')}</div>`;
+            return `<div class="${chipClass}">${escapeHtml(slot.replace(' to ', ' – '))}</div>`;
           }).join('');
 
           const bonusChips = bonusFreeSlots.map(b => {
-            return `<div class="slot-chip" style="background: rgba(168, 85, 247, 0.22); color: #E9D5FF; border: 1px solid rgba(168, 85, 247, 0.45);" title="Class cancelled: Prof. ${b.teacher.clean_name} on leave">✨ ${b.slot.replace(' to ', '–')} (Faculty Leave)</div>`;
+            return `<div class="slot-chip" style="background: rgba(168, 85, 247, 0.22); color: #E9D5FF; border: 1px solid rgba(168, 85, 247, 0.45);" title="Class cancelled: Prof. ${escapeHtml(b.teacher.clean_name)} on leave">✨ ${escapeHtml(b.slot.replace(' to ', '–'))} (Faculty Leave)</div>`;
           }).join('');
 
           chipsHtml = regularChips + bonusChips;
@@ -1265,15 +1406,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const catBadgeClass = getCategoryBadgeClass(room.category);
 
         return `
-          <article class="room-card ${cardStyleClass} ${themeClass}" data-room-code="${room.code}">
+          <article class="room-card ${cardStyleClass} ${themeClass}" data-room-code="${escapeHtml(room.code)}">
             <div class="card-header room-card-header">
               <div class="card-title-group">
-                <div class="card-room-code">${room.code}</div>
-                <div class="card-room-name">${room.name}</div>
+                <div class="card-room-code">${escapeHtml(room.code)}</div>
+                <div class="card-room-name">${escapeHtml(room.name)}</div>
               </div>
               <div class="card-meta-badges">
-                <span class="badge-category ${catBadgeClass}">${room.category.split(' (')[0]}</span>
-                <span class="badge-capacity">${room.capacity} Seats</span>
+                <span class="badge-category ${catBadgeClass}">${escapeHtml(room.category.split(' (')[0])}</span>
+                <span class="badge-capacity">${escapeHtml(room.capacity)} Seats</span>
               </div>
             </div>
 
@@ -1297,6 +1438,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span>${sched.occupied_slots.length} Classes Scheduled</span>
               </div>
 
+              ${consecutiveChipsHtml ? `
+                <div class="consecutive-windows-section" style="margin: 8px 0 6px 0;">
+                  <div style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">Continuous Vacant Windows:</div>
+                  <div style="display: flex; flex-direction: column; gap: 4px;">
+                    ${consecutiveChipsHtml}
+                  </div>
+                </div>
+              ` : ''}
+
               <div class="slots-chips-title">Free Timings for GD:</div>
               <div class="slots-chips-container room-free-list">
                 ${chipsHtml}
@@ -1304,10 +1454,10 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
 
             <div class="card-actions room-card-actions">
-              <button class="btn-share-room" data-room="${room.code}" title="Share room vacancy on WhatsApp, LinkedIn, Facebook, Instagram">
+              <button class="btn-share-room" data-room="${escapeHtml(room.code)}" title="Share room vacancy on WhatsApp, LinkedIn, Facebook, Instagram">
                 📤 Share Room
               </button>
-              <button class="btn-view-schedule" data-room="${room.code}">
+              <button class="btn-view-schedule" data-room="${escapeHtml(room.code)}">
                 Schedule ↗
               </button>
             </div>
@@ -1449,10 +1599,11 @@ document.addEventListener('DOMContentLoaded', () => {
               ${rowsHtml}
             </tbody>
           </table>
+          <p class="modal-disclaimer-note">ℹ️ <strong>Timetable Vacancy Notice:</strong> Based on official SRCC published schedule. Physical vacancy may vary for student societies, seminars, or exam arrangements.</p>
         `;
       }
 
-      if (scheduleModal) scheduleModal.style.display = 'flex';
+      if (scheduleModal) openAppModal(scheduleModal);
     }
 
     // ========================================================================
@@ -1486,11 +1637,36 @@ document.addEventListener('DOMContentLoaded', () => {
       return '';
     }
 
+    // Department Filter: Mobile Quick Select Dropdown Sync
+    if (facultyDeptSelect) {
+      facultyDeptSelect.addEventListener('change', (e) => {
+        facultyState.activeDept = e.target.value;
+        facultyDeptPills.forEach(p => p.classList.toggle('active', p.dataset.dept === facultyState.activeDept));
+
+        // Smooth scroll matching pill into view in horizontal container
+        const activePill = Array.from(facultyDeptPills).find(p => p.dataset.dept === facultyState.activeDept);
+        if (activePill && typeof activePill.scrollIntoView === 'function') {
+          activePill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+
+        // Clear leftover status filter (like ON_LEAVE or TEACHING_NOW) and search query
+        facultyState.statusFilter = 'ALL';
+        if (facultyStatusSelect) facultyStatusSelect.value = 'ALL';
+        facultyState.searchQuery = '';
+        if (facultySearchInput) facultySearchInput.value = '';
+        if (btnClearFacultySearch) btnClearFacultySearch.style.display = 'none';
+        if (statFacultyFilterDesc) statFacultyFilterDesc.innerHTML = '';
+
+        renderFaculty();
+      });
+    }
+
     // Department Filter Pills (Resets statusFilter & search query so all teachers of selected dept are shown!)
     facultyDeptPills.forEach(pill => {
       pill.addEventListener('click', () => {
         facultyState.activeDept = pill.dataset.dept;
         facultyDeptPills.forEach(p => p.classList.toggle('active', p.dataset.dept === facultyState.activeDept));
+        if (facultyDeptSelect) facultyDeptSelect.value = facultyState.activeDept;
 
         // Clear leftover status filter (like ON_LEAVE or TEACHING_NOW) and search query
         facultyState.statusFilter = 'ALL';
@@ -1547,12 +1723,28 @@ document.addEventListener('DOMContentLoaded', () => {
         facultyState.sortBy = 'NAME_ASC';
 
         facultyDeptPills.forEach(p => p.classList.toggle('active', p.dataset.dept === 'ALL'));
+        if (facultyDeptSelect) facultyDeptSelect.value = 'ALL';
         if (facultySearchInput) facultySearchInput.value = '';
         if (btnClearFacultySearch) btnClearFacultySearch.style.display = 'none';
         if (facultyStatusSelect) facultyStatusSelect.value = 'ALL';
         if (facultySortSelect) facultySortSelect.value = 'NAME_ASC';
 
+        facultyState.alphabetFilter = 'ALL';
+        document.querySelectorAll('#facultyAzFilter .az-btn').forEach(b => b.classList.toggle('active', b.dataset.letter === 'ALL'));
+
         renderFaculty();
+      });
+    }
+
+    // Faculty A-Z Alphabet Quick Jump Buttons
+    const facultyAzButtons = document.querySelectorAll('#facultyAzFilter .az-btn');
+    if (facultyAzButtons.length > 0) {
+      facultyAzButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          facultyState.alphabetFilter = btn.dataset.letter || 'ALL';
+          facultyAzButtons.forEach(b => b.classList.toggle('active', b === btn));
+          renderFaculty();
+        });
       });
     }
 
@@ -1583,7 +1775,7 @@ document.addEventListener('DOMContentLoaded', () => {
           type: 'SCHEDULE_VIEW',
           badgeClass: 'status-offhours',
           dotClass: 'dot-off',
-          text: `📅 ${daySched.length} Lecture(s) Scheduled on ${facultyState.activeDay}`,
+          text: `🗓️ ${daySched.length} Lecture(s) Scheduled on ${facultyState.activeDay}`,
           isTeachingNow: false,
           isOnLeave: false,
           isFreeNow: false,
@@ -1682,7 +1874,10 @@ document.addEventListener('DOMContentLoaded', () => {
         setAppMode('faculty', true);
         facultyState.activeDept = 'ALL';
         facultyState.statusFilter = 'ON_LEAVE';
+        facultyState.alphabetFilter = 'ALL';
+        document.querySelectorAll('#facultyAzFilter .az-btn').forEach(b => b.classList.toggle('active', b.dataset.letter === 'ALL'));
         facultyDeptPills.forEach(p => p.classList.toggle('active', p.dataset.dept === 'ALL'));
+        if (facultyDeptSelect) facultyDeptSelect.value = 'ALL';
         if (facultyStatusSelect) facultyStatusSelect.value = 'ON_LEAVE';
         facultyState.searchQuery = '';
         if (facultySearchInput) facultySearchInput.value = '';
@@ -1726,6 +1921,34 @@ document.addEventListener('DOMContentLoaded', () => {
           headerLeavePill.style.display = 'none';
         }
       }
+
+      // Quick Access Button on Rooms page
+      const btnRoomsFacultyLeavesQuick = document.getElementById('btnRoomsFacultyLeavesQuick');
+      const roomsQuickLeaveCount = document.getElementById('roomsQuickLeaveCount');
+      if (btnRoomsFacultyLeavesQuick) {
+        btnRoomsFacultyLeavesQuick.onclick = handleLeaveBannerClick;
+      }
+      if (roomsQuickLeaveCount) {
+        roomsQuickLeaveCount.textContent = activeToday.length > 0
+          ? `${activeToday.length} on leave`
+          : '0 on leave';
+        roomsQuickLeaveCount.style.background = activeToday.length > 0 ? '#E11D48' : 'rgba(255, 255, 255, 0.15)';
+      }
+    }
+
+    // Helper: Strip leading titles (Dr., Dr, Prof., Prof, Mr., Ms., Mrs., CA, CMA) for alphabetical sorting & filtering
+    function getTeacherBaseName(teacher) {
+      const raw = (teacher.clean_name || teacher.label || '').trim();
+      return raw.replace(/^(?:(?:dr|prof|mr|ms|mrs|ca|cma)\.?\s+)/i, '').trim();
+    }
+
+    // Helper: Normalize name and query for phonetic search (e.g. sefali <-> shefali)
+    function normalizeFacultySearchText(str) {
+      return (str || '').toLowerCase()
+        .replace(/^(?:(?:dr|prof|mr|ms|mrs|ca|cma)\.?\s+)/i, '')
+        .replace(/sh/g, 's')
+        .replace(/[\.\s\-_]/g, '')
+        .trim();
     }
 
     function matchesFacultySearch(teacher, rawQuery) {
@@ -1739,8 +1962,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const refCode = (teacher.ref_code || '').toLowerCase();
       const dept = (teacher.department || '').toLowerCase();
 
-      // Case-insensitive match on name, label, short code, ref code, department
+      // Direct case-insensitive match on name, label, short code, ref code, department
       if (name.includes(q) || label.includes(q) || code.includes(q) || refCode.includes(q) || dept.includes(q)) return true;
+
+      // Phonetic / spelling variant matching (e.g. "sefali" matches "Dr. Shefali Kapoor")
+      const normQ = normalizeFacultySearchText(q);
+      if (normQ.length > 0) {
+        const normName = normalizeFacultySearchText(teacher.clean_name);
+        const normLabel = normalizeFacultySearchText(teacher.label);
+        if (normName.includes(normQ) || normLabel.includes(normQ)) return true;
+      }
 
       // Check subjects array (e.g. FMI, CLAW, BLAW, IF, etc.)
       if (Array.isArray(teacher.subjects)) {
@@ -1792,6 +2023,14 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
 
+        // Alphabet Filter (Skips 'Dr.' / 'Prof.' titles)
+        if (facultyState.alphabetFilter && facultyState.alphabetFilter !== 'ALL') {
+          const baseName = getTeacherBaseName(teacher);
+          if (!baseName.toUpperCase().startsWith(facultyState.alphabetFilter.toUpperCase())) {
+            return false;
+          }
+        }
+
         // Search Query
         if (facultyState.searchQuery && !matchesFacultySearch(teacher, facultyState.searchQuery)) {
           return false;
@@ -1806,22 +2045,34 @@ document.addEventListener('DOMContentLoaded', () => {
         return true;
       });
 
-      // Sorting
+      // Sorting (Considers base name without Dr./Prof. titles)
       list.sort((a, b) => {
         const daySchedA = (a.schedule && a.schedule[facultyState.activeDay]) ? a.schedule[facultyState.activeDay].length : 0;
         const daySchedB = (b.schedule && b.schedule[facultyState.activeDay]) ? b.schedule[facultyState.activeDay].length : 0;
+        const baseA = getTeacherBaseName(a);
+        const baseB = getTeacherBaseName(b);
 
         if (facultyState.sortBy === 'NAME_ASC') {
-          return (a.clean_name || '').localeCompare(b.clean_name || '');
+          // If search query is active, rank prefix matches first
+          if (facultyState.searchQuery && facultyState.searchQuery.trim().length > 0) {
+            const normQ = normalizeFacultySearchText(facultyState.searchQuery.trim());
+            const normBaseA = normalizeFacultySearchText(baseA);
+            const normBaseB = normalizeFacultySearchText(baseB);
+            const aStarts = normBaseA.startsWith(normQ);
+            const bStarts = normBaseB.startsWith(normQ);
+            if (aStarts && !bStarts) return -1;
+            if (!aStarts && bStarts) return 1;
+          }
+          return baseA.localeCompare(baseB);
         } else if (facultyState.sortBy === 'NAME_DESC') {
-          return (b.clean_name || '').localeCompare(a.clean_name || '');
+          return baseB.localeCompare(baseA);
         } else if (facultyState.sortBy === 'CLASSES_DESC') {
           if (daySchedB !== daySchedA) return daySchedB - daySchedA;
-          return (a.clean_name || '').localeCompare(b.clean_name || '');
+          return baseA.localeCompare(baseB);
         } else if (facultyState.sortBy === 'DEPT_ASC') {
           const deptComp = (a.department || '').localeCompare(b.department || '');
           if (deptComp !== 0) return deptComp;
-          return (a.clean_name || '').localeCompare(b.clean_name || '');
+          return baseA.localeCompare(baseB);
         }
         return 0;
       });
@@ -1916,6 +2167,7 @@ document.addEventListener('DOMContentLoaded', () => {
             facultyState.searchQuery = '';
             facultyState.statusFilter = 'ALL';
             facultyDeptPills.forEach(p => p.classList.toggle('active', p.dataset.dept === 'ALL'));
+            if (facultyDeptSelect) facultyDeptSelect.value = 'ALL';
             if (facultySearchInput) facultySearchInput.value = '';
             if (btnClearFacultySearch) btnClearFacultySearch.style.display = 'none';
             if (facultyStatusSelect) facultyStatusSelect.value = 'ALL';
@@ -1981,7 +2233,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
               <div class="faculty-compact-actions">
                 <button class="btn-teacher-timetable" data-teacher-id="${teacher.id}" title="Full Weekly Schedule">
-                  📅 Timetable
+                  🗓️ Timetable
                 </button>
               </div>
             </article>
@@ -2066,7 +2318,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             <div class="faculty-card-actions">
               <button class="btn-teacher-timetable" data-teacher-id="${teacher.id}">
-                📅 Full Weekly Timetable
+                🗓️ Full Weekly Timetable
               </button>
             </div>
           </article>
@@ -2125,7 +2377,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ========================================================================
-    // 📅 TEACHER WEEKLY TIMETABLE MODAL
+    // 📅 TEACHER WEEKLY TIMETABLE MODAL (RESPONSIVE DESKTOP TABLE & MOBILE CARDS)
     // ========================================================================
     function openTeacherModal(teacherId) {
       if (!teachersData || !teachersData.teachers) return;
@@ -2149,7 +2401,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       renderTeacherModalDaySchedule();
-      if (teacherModal) teacherModal.style.display = 'flex';
+      if (teacherModal) openAppModal(teacherModal);
     }
 
     function renderTeacherModalDaySchedule() {
@@ -2157,23 +2409,35 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!teacher) return;
 
       modalTeacherDayTabs.forEach(tab => {
-        tab.classList.toggle('active', tab.dataset.day === facultyState.modalActiveDay);
+        const isActive = tab.dataset.day === facultyState.modalActiveDay;
+        tab.classList.toggle('active', isActive);
+        tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
       });
+
+      // Auto-scroll the active day tab into view so it is never trapped or off-screen
+      setTimeout(() => {
+        const activeTab = document.querySelector('#modalTeacherDayTabs .day-btn.active, #modalTeacherDayTabs .modal-day-tab-btn.active');
+        if (activeTab && typeof activeTab.scrollIntoView === 'function') {
+          activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }, 50);
 
       const daySched = (teacher.schedule && teacher.schedule[facultyState.modalActiveDay]) || [];
 
       if (daySched.length === 0) {
         modalTeacherBody.innerHTML = `
           <div style="text-align: center; padding: 40px 20px; color: var(--text-muted);">
-            <div style="font-size: 2rem; margin-bottom: 8px;">☕</div>
-            <h4 style="color: var(--text-primary); margin-bottom: 4px;">No Classes on ${facultyState.modalActiveDay}</h4>
-            <p style="font-size: 0.85rem;">Prof. ${teacher.clean_name} has no scheduled lectures or tutorials on this day.</p>
+            <div style="font-size: 2.2rem; margin-bottom: 8px;">☕</div>
+            <h4 style="color: var(--text-primary); margin-bottom: 4px; font-size: 1.15rem;">No Classes on ${escapeHtml(facultyState.modalActiveDay)}</h4>
+            <p style="font-size: 0.88rem;">Prof. ${escapeHtml(teacher.clean_name)} has no scheduled lectures or tutorials on this day.</p>
           </div>
+          <p class="modal-disclaimer-note">ℹ️ <strong>Timetable Notice:</strong> Schedule reflects official SRCC allocations. Classroom assignments may be adjusted locally by department.</p>
         `;
         return;
       }
 
-      const rows = daySched.map(cls => {
+      // 1. Desktop Table Rows (> 640px)
+      const tableRows = daySched.map(cls => {
         const roomCode = cls.room ? cls.room.trim() : 'TBD';
         const subjCode = cls.subject || '';
         const courseName = cls.course || 'B.Com (Hons)';
@@ -2183,7 +2447,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return `
           <tr>
-            <td style="white-space: nowrap;"><strong>${cls.slot ? cls.slot.replace(' to ', ' – ') : 'Period'}</strong></td>
+            <td style="white-space: nowrap;"><strong>${escapeHtml(cls.slot ? cls.slot.replace(' to ', ' – ') : 'Period')}</strong></td>
             <td><span class="badge-slot-occupied">${escapeHtml(cls.type || 'Lecture')}</span></td>
             <td>
               <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 2px;">
@@ -2200,8 +2464,8 @@ document.addEventListener('DOMContentLoaded', () => {
             </td>
             <td>
               ${roomCode !== 'TBD' ? `
-                <button class="room-badge-link modal-room-jump" data-room="${roomCode}" title="View room vacancy in Free Classroom Finder">
-                  🏛️ ${roomCode} ↗
+                <button class="room-badge-link modal-room-jump" data-room="${escapeHtml(roomCode)}" title="View room vacancy in Free Classroom Finder">
+                  🏛️ ${escapeHtml(roomCode)} ↗
                 </button>
               ` : `<span style="color: var(--text-muted); font-size: 0.78rem;">TBD</span>`}
             </td>
@@ -2209,8 +2473,50 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
       }).join('');
 
+      // 2. Mobile Schedule Cards (<= 640px)
+      const mobileCards = daySched.map(cls => {
+        const roomCode = cls.room ? cls.room.trim() : 'TBD';
+        const subjCode = cls.subject || '';
+        const courseName = cls.course || 'B.Com (Hons)';
+        const sem = cls.semester || '';
+        const sec = cls.section || '';
+        const batch = cls.batch || '';
+
+        return `
+          <div class="modal-timetable-card">
+            <div class="m-tt-header">
+              <div class="m-tt-slot">
+                <span>🕒</span>
+                <span>${escapeHtml(cls.slot ? cls.slot.replace(' to ', ' – ') : 'Period')}</span>
+              </div>
+              <span class="m-tt-type">${escapeHtml(cls.type || 'Lecture')}</span>
+            </div>
+            <div class="m-tt-course-row">
+              ${subjCode ? `<span class="m-tt-subject">${escapeHtml(subjCode)}</span>` : ''}
+              <span class="m-tt-coursename">${escapeHtml(courseName)}</span>
+              ${sem ? `<span class="class-batch-badge" style="color: #38BDF8; border-color: rgba(56, 189, 248, 0.3); font-size: 0.74rem;">${escapeHtml(sem)}</span>` : ''}
+            </div>
+            <div class="m-tt-meta-row">
+              <div class="m-tt-section-batch">
+                ${sec ? `<span>Sec: <strong>${escapeHtml(sec)}</strong></span>` : ''}
+                ${(sec && batch) ? `<span>•</span>` : ''}
+                ${batch ? `<span style="color: var(--srcc-gold);">Batch ${escapeHtml(batch)}</span>` : ''}
+                ${(!sec && !batch) ? `<span style="color: var(--text-muted);">Whole Class</span>` : ''}
+              </div>
+              <div>
+                ${roomCode !== 'TBD' ? `
+                  <button class="m-tt-room-btn modal-room-jump" data-room="${escapeHtml(roomCode)}" title="View room in Free Classroom Finder">
+                    🏛️ ${escapeHtml(roomCode)} ↗
+                  </button>
+                ` : `<span style="color: var(--text-muted); font-size: 0.78rem;">TBD</span>`}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
       modalTeacherBody.innerHTML = `
-        <table class="schedule-table">
+        <table class="schedule-table modal-timetable-desktop-table">
           <thead>
             <tr>
               <th style="width: 25%;">Time Slot</th>
@@ -2220,15 +2526,19 @@ document.addEventListener('DOMContentLoaded', () => {
             </tr>
           </thead>
           <tbody>
-            ${rows}
+            ${tableRows}
           </tbody>
         </table>
+        <div class="modal-timetable-card-list modal-timetable-mobile-cards">
+          ${mobileCards}
+        </div>
+        <p class="modal-disclaimer-note">ℹ️ <strong>Timetable Notice:</strong> Schedule reflects official SRCC allocations. Classroom assignments may be adjusted locally by department.</p>
       `;
 
       modalTeacherBody.querySelectorAll('.modal-room-jump').forEach(btn => {
         btn.addEventListener('click', () => {
           const rCode = btn.dataset.room;
-          if (teacherModal) teacherModal.style.display = 'none';
+          if (teacherModal) closeAppModal(teacherModal);
           setAppMode('rooms');
           if (searchInput) searchInput.value = rCode;
           state.searchQuery = rCode;
@@ -2283,7 +2593,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="leave-item-row" data-leave-id="${leave.id}">
             <div class="leave-item-details">
               <span class="leave-item-teacher">👨‍🏫 ${escapeHtml(leave.teacher_name)}${code}</span>
-              <span class="leave-item-dates">📅 ${leave.start_date || 'Today'} to ${leave.end_date || 'Today'} · ${leave.department || ''}</span>
+              <span class="leave-item-dates">🗓️ ${leave.start_date || 'Today'} to ${leave.end_date || 'Today'} · ${leave.department || ''}</span>
               ${leave.reason ? `<span class="leave-item-reason">"${escapeHtml(leave.reason)}"</span>` : ''}
             </div>
             <button class="btn-delete-leave" data-leave-id="${leave.id}" title="Remove leave and restore scheduled classes">

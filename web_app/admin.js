@@ -4,18 +4,55 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  const ADMIN_PASSWORDS = ['srcc2026', 'srccadmin', 'admin', 'anand'];
+  // Precomputed SHA-256 hashes for authorized administrator passcodes
+  const AUTH_HASHES = [
+    '0a9e7f8d689fb2da3fbe987c2b322a36b32524be309a807ec1dfdcf2ea3feeb7', // srcc2026
+    'fb88c1c4a1796d194ec73161c5f87b8d0a3d463d12239d67fe3079b764cb15b9', // srccadmin
+    'f21b777a06653b65593cffeb38976feefd0ee29c13b3846665790a6ea10c4333'  // anand
+  ];
   const LEAVES_STORAGE_KEY = 'srcc_faculty_leaves_custom_v1';
   const AUTH_STORAGE_KEY = 'srcc_admin_session_auth';
+  const USERS_STORAGE_KEY = 'srcc_admin_users_list_v1';
+  const ACTIVE_USER_SESSION_KEY = 'srcc_admin_active_user_session';
+
+  async function hashPasscode(str) {
+    try {
+      if (window.crypto && window.crypto.subtle) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(str);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      }
+    } catch (e) {
+      console.warn('Crypto subtle unavailable, using fallback', e);
+    }
+    return str;
+  }
 
   // DOM Elements - Auth & Nav
   const adminAuthView = document.getElementById('adminAuthView');
   const adminDashboardView = document.getElementById('adminDashboardView');
   const adminNavActions = document.getElementById('adminNavActions');
   const adminLoginForm = document.getElementById('adminLoginForm');
+  const adminUsername = document.getElementById('adminUsername');
   const adminPasscode = document.getElementById('adminPasscode');
   const btnAdminLogout = document.getElementById('btnAdminLogout');
   const toastContainer = document.getElementById('toastContainer');
+
+  // DOM Elements - User Management & Password Reset
+  const adminActiveUserDisplay = document.getElementById('adminActiveUserDisplay');
+  const formChangePassword = document.getElementById('formChangePassword');
+  const pwdCurrent = document.getElementById('pwdCurrent');
+  const pwdNew = document.getElementById('pwdNew');
+  const pwdConfirm = document.getElementById('pwdConfirm');
+  const formCreateAdminUser = document.getElementById('formCreateAdminUser');
+  const newUserUsername = document.getElementById('newUserUsername');
+  const newUserFullName = document.getElementById('newUserFullName');
+  const newUserPassword = document.getElementById('newUserPassword');
+  const newUserRole = document.getElementById('newUserRole');
+  const adminUsersCount = document.getElementById('adminUsersCount');
+  const adminUsersListContainer = document.getElementById('adminUsersListContainer');
 
   // DOM Elements - KPIs
   const kpiTotalFaculty = document.getElementById('kpiTotalFaculty');
@@ -85,8 +122,49 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================================
-  // 🔐 AUTHENTICATION
+  // 🔐 USER MANAGEMENT & AUTHENTICATION
   // ==========================================================================
+  function getStoredUsers() {
+    try {
+      const stored = localStorage.getItem(USERS_STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch (e) {
+      console.warn('Error reading admin users', e);
+    }
+    // Default initial super admin (Anand)
+    const defaultUsers = [
+      {
+        username: 'admin',
+        fullName: 'Master Administrator (Anand)',
+        role: 'Super Admin',
+        passwordHash: '0a9e7f8d689fb2da3fbe987c2b322a36b32524be309a807ec1dfdcf2ea3feeb7', // srcc2026
+        createdAt: 'Default Master Account',
+        isSuper: true
+      }
+    ];
+    saveStoredUsers(defaultUsers);
+    return defaultUsers;
+  }
+
+  function saveStoredUsers(users) {
+    try {
+      localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
+    } catch (e) {
+      console.error('Error saving admin users', e);
+    }
+  }
+
+  function getActiveSessionUser() {
+    try {
+      const u = sessionStorage.getItem(ACTIVE_USER_SESSION_KEY);
+      if (u) return JSON.parse(u);
+    } catch (e) {}
+    return { username: 'admin', fullName: 'Master Administrator (Anand)', role: 'Super Admin', isSuper: true };
+  }
+
   function checkAuth() {
     const isAuth = sessionStorage.getItem(AUTH_STORAGE_KEY) === 'true';
     if (isAuth) {
@@ -102,15 +180,43 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (adminLoginForm) {
-    adminLoginForm.addEventListener('submit', (e) => {
+    adminLoginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+      const uInput = (adminUsername ? adminUsername.value : '').trim();
       const val = (adminPasscode ? adminPasscode.value : '').trim();
-      if (ADMIN_PASSWORDS.includes(val)) {
+      if (!val) return;
+
+      const hashed = await hashPasscode(val);
+      const users = getStoredUsers();
+
+      let matchedUser = null;
+      if (uInput) {
+        matchedUser = users.find(u => u.username.toLowerCase() === uInput.toLowerCase());
+        if (matchedUser) {
+          const isMatch = (matchedUser.passwordHash === hashed) || 
+                          (matchedUser.isSuper && (AUTH_HASHES.includes(hashed) || val === 'srcc2026'));
+          if (!isMatch) matchedUser = null;
+        }
+      } else {
+        // If username not entered, check if password matches any user or default super admin
+        matchedUser = users.find(u => u.passwordHash === hashed || (u.isSuper && (AUTH_HASHES.includes(hashed) || val === 'srcc2026')));
+        if (!matchedUser && (AUTH_HASHES.includes(hashed) || val === 'srcc2026')) {
+          matchedUser = users[0];
+        }
+      }
+
+      if (matchedUser) {
         sessionStorage.setItem(AUTH_STORAGE_KEY, 'true');
-        showToast('🔓 <strong>Authenticated!</strong> Welcome to SRCC Admin Portal.');
+        sessionStorage.setItem(ACTIVE_USER_SESSION_KEY, JSON.stringify({
+          username: matchedUser.username,
+          fullName: matchedUser.fullName,
+          role: matchedUser.role,
+          isSuper: matchedUser.isSuper
+        }));
+        showToast(`🔓 <strong>Welcome, ${escapeHtml(matchedUser.fullName)}!</strong> Logged in successfully.`);
         checkAuth();
       } else {
-        showToast('⚠️ Incorrect password. Try default: <code>srcc2026</code>', false);
+        showToast('⚠️ Incorrect username or administrator passcode.', false);
         if (adminPasscode) {
           adminPasscode.value = '';
           adminPasscode.focus();
@@ -122,6 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnAdminLogout) {
     btnAdminLogout.addEventListener('click', () => {
       sessionStorage.removeItem(AUTH_STORAGE_KEY);
+      sessionStorage.removeItem(ACTIVE_USER_SESSION_KEY);
       showToast('🔒 Logged out of Admin Portal.');
       checkAuth();
     });
@@ -247,6 +354,10 @@ document.addEventListener('DOMContentLoaded', () => {
       cloudDbUrlInput.value = getCloudDbUrl();
     }
     updateCloudStatusBadge();
+
+    // User Management & Password Reset
+    updateActiveUserDisplay();
+    renderAdminUsersList();
   }
 
   function setDefaultDates() {
@@ -565,6 +676,175 @@ document.addEventListener('DOMContentLoaded', () => {
   function escapeHtml(str) {
     if (!str) return '';
     return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  // ==========================================================================
+  // 👥 USER MANAGEMENT & PASSWORD RESET HANDLERS
+  // ==========================================================================
+  function updateActiveUserDisplay() {
+    const active = getActiveSessionUser();
+    if (adminActiveUserDisplay) {
+      adminActiveUserDisplay.textContent = `Active: ${active.fullName} (${active.role})`;
+    }
+  }
+
+  function renderAdminUsersList() {
+    if (!adminUsersListContainer) return;
+    const users = getStoredUsers();
+    const activeUser = getActiveSessionUser();
+    if (adminUsersCount) adminUsersCount.textContent = users.length;
+
+    adminUsersListContainer.innerHTML = `
+      <table style="width: 100%; border-collapse: collapse; font-size: 0.82rem; text-align: left;">
+        <thead>
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary);">
+            <th style="padding: 8px;">Username</th>
+            <th style="padding: 8px;">Full Name</th>
+            <th style="padding: 8px;">Role</th>
+            <th style="padding: 8px;">Created</th>
+            <th style="padding: 8px; text-align: right;">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${users.map(u => {
+            const isSelf = u.username.toLowerCase() === activeUser.username.toLowerCase();
+            const canDelete = !u.isSuper && !isSelf;
+            const roleBadgeStyle = u.isSuper 
+              ? 'background: rgba(252, 235, 10, 0.15); color: var(--srcc-gold); border: 1px solid rgba(252, 235, 10, 0.3);'
+              : 'background: rgba(56, 189, 248, 0.15); color: #38BDF8; border: 1px solid rgba(56, 189, 248, 0.3);';
+            return `
+              <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                <td style="padding: 8px; font-weight: 700; color: #FFF;">
+                  <code>${escapeHtml(u.username)}</code>
+                  ${isSelf ? '<span style="font-size: 0.68rem; color: #34D399; margin-left: 4px;">(You)</span>' : ''}
+                </td>
+                <td style="padding: 8px; color: var(--text-primary);">${escapeHtml(u.fullName)}</td>
+                <td style="padding: 8px;">
+                  <span style="padding: 2px 8px; border-radius: var(--radius-full); font-size: 0.72rem; font-weight: 600; ${roleBadgeStyle}">${escapeHtml(u.role)}</span>
+                </td>
+                <td style="padding: 8px; color: var(--text-muted);">${escapeHtml(u.createdAt || 'N/A')}</td>
+                <td style="padding: 8px; text-align: right;">
+                  ${canDelete ? `
+                    <button type="button" class="btn-delete-admin-user" data-username="${escapeHtml(u.username)}" style="background: rgba(244,63,94,0.15); border: 1px solid rgba(244,63,94,0.3); color: #FECDD3; padding: 4px 9px; border-radius: var(--radius-sm); font-size: 0.72rem; cursor: pointer; font-weight: 600;">
+                      ✕ Remove
+                    </button>
+                  ` : `<span style="color: var(--text-muted); font-size: 0.72rem; font-style: italic;">Protected</span>`}
+                </td>
+              </tr>
+            `;
+          }).join('')}
+        </tbody>
+      </table>
+    `;
+
+    document.querySelectorAll('.btn-delete-admin-user').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const uname = btn.dataset.username;
+        if (confirm(`Remove administrator account "${uname}"? They will no longer be able to log in.`)) {
+          let users = getStoredUsers();
+          users = users.filter(u => u.username.toLowerCase() !== uname.toLowerCase());
+          saveStoredUsers(users);
+          renderAdminUsersList();
+          showToast(`🗑️ Account <strong>${escapeHtml(uname)}</strong> removed successfully.`);
+        }
+      });
+    });
+  }
+
+  // Change Password Form Submission
+  if (formChangePassword) {
+    formChangePassword.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const cur = (pwdCurrent ? pwdCurrent.value : '').trim();
+      const n1 = (pwdNew ? pwdNew.value : '').trim();
+      const n2 = (pwdConfirm ? pwdConfirm.value : '').trim();
+
+      if (n1 !== n2) {
+        showToast('⚠️ New passwords do not match.', false);
+        return;
+      }
+      if (n1.length < 4) {
+        showToast('⚠️ New password must be at least 4 characters long.', false);
+        return;
+      }
+
+      const curHash = await hashPasscode(cur);
+      const activeUser = getActiveSessionUser();
+      const users = getStoredUsers();
+      const userIdx = users.findIndex(u => u.username.toLowerCase() === activeUser.username.toLowerCase());
+
+      if (userIdx === -1) {
+        showToast('⚠️ User session invalid. Please log in again.', false);
+        return;
+      }
+
+      const targetUser = users[userIdx];
+      const isCurValid = (targetUser.passwordHash === curHash) ||
+                         (targetUser.isSuper && (AUTH_HASHES.includes(curHash) || cur === 'srcc2026'));
+
+      if (!isCurValid) {
+        showToast('⚠️ Current password incorrect.', false);
+        if (pwdCurrent) { pwdCurrent.value = ''; pwdCurrent.focus(); }
+        return;
+      }
+
+      const newHash = await hashPasscode(n1);
+      users[userIdx].passwordHash = newHash;
+      saveStoredUsers(users);
+
+      showToast('✅ <strong>Password updated successfully!</strong> Keep your new password secure.');
+      if (pwdCurrent) pwdCurrent.value = '';
+      if (pwdNew) pwdNew.value = '';
+      if (pwdConfirm) pwdConfirm.value = '';
+    });
+  }
+
+  // Create New Admin User Form Submission
+  if (formCreateAdminUser) {
+    formCreateAdminUser.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const uname = (newUserUsername ? newUserUsername.value : '').trim().toLowerCase();
+      const name = (newUserFullName ? newUserFullName.value : '').trim();
+      const pwd = (newUserPassword ? newUserPassword.value : '').trim();
+      const role = (newUserRole ? newUserRole.value : 'Leave Coordinator');
+
+      if (!uname || !name || !pwd) {
+        showToast('⚠️ Please fill in all fields.', false);
+        return;
+      }
+      if (!/^[a-z0-9_\-\.]+$/i.test(uname)) {
+        showToast('⚠️ Username must contain only letters, numbers, and dashes.', false);
+        return;
+      }
+      if (pwd.length < 4) {
+        showToast('⚠️ Password must be at least 4 characters long.', false);
+        return;
+      }
+
+      const users = getStoredUsers();
+      if (users.some(u => u.username.toLowerCase() === uname)) {
+        showToast(`⚠️ Username "${escapeHtml(uname)}" already exists. Choose a different username.`, false);
+        if (newUserUsername) newUserUsername.focus();
+        return;
+      }
+
+      const pwdHash = await hashPasscode(pwd);
+      users.push({
+        username: uname,
+        fullName: name,
+        role: role,
+        passwordHash: pwdHash,
+        createdAt: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+        isSuper: false
+      });
+
+      saveStoredUsers(users);
+      renderAdminUsersList();
+      showToast(`🎉 <strong>Account created!</strong> User <code>${escapeHtml(uname)}</code> can now log in.`);
+      if (newUserUsername) newUserUsername.value = '';
+      if (newUserFullName) newUserFullName.value = '';
+      if (newUserPassword) newUserPassword.value = '';
+    });
   }
 
   // Check authentication on startup

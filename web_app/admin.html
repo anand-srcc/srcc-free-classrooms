@@ -471,8 +471,12 @@
 
       <form id="adminLoginForm">
         <div class="auth-input-group">
+          <label for="adminUsername">Username / ID (Optional for default Admin):</label>
+          <input type="text" id="adminUsername" placeholder="Enter username (e.g. admin or custom ID)" autocomplete="username" />
+        </div>
+        <div class="auth-input-group">
           <label for="adminPasscode">Administrator PIN / Password:</label>
-          <input type="password" id="adminPasscode" placeholder="Enter password (default: srcc2026)" required autofocus />
+          <input type="password" id="adminPasscode" placeholder="Enter password or passcode" required autofocus autocomplete="current-password" />
         </div>
         <button type="submit" class="btn-auth-submit" id="btnAuthSubmit">
           🔓 Unlock Admin Portal
@@ -683,6 +687,90 @@
       <div style="margin-top: 14px;">
         <span style="font-size: 0.74rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Generated Code Preview:</span>
         <pre class="code-preview-block" id="adminCodePreview"></pre>
+      </div>
+    </section>
+
+    <!-- Section 4: 👥 Admin User Management & Password Reset -->
+    <section class="admin-section-card" style="border-color: rgba(168, 85, 247, 0.35);">
+      <div class="admin-section-header">
+        <div class="admin-section-title" style="color: #C084FC;">
+          <span>👥</span>
+          <span>Admin Access & User Management</span>
+        </div>
+        <span class="admin-badge-role" id="adminActiveUserDisplay" style="background: rgba(168, 85, 247, 0.2); color: #E9D5FF; border: 1px solid rgba(168, 85, 247, 0.4);">Active: Anand (Super Admin)</span>
+      </div>
+
+      <p style="font-size: 0.84rem; color: var(--text-secondary); line-height: 1.45; margin: 0 0 16px 0;">
+        Manage administrator accounts, reset your password, and create sub-admin access for society members or coordinators to help update faculty leaves.
+      </p>
+
+      <div class="user-mgmt-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; margin-bottom: 20px;">
+        <!-- Box 1: Reset / Change Password -->
+        <div class="mgmt-sub-card" style="background: rgba(7, 13, 24, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--radius-md); padding: 16px;">
+          <h4 style="color: #FFFFFF; font-size: 0.95rem; margin: 0 0 12px 0; display: flex; align-items: center; gap: 6px;">
+            <span>🔑</span> Change / Reset Password
+          </h4>
+          <form id="formChangePassword">
+            <div class="form-group" style="margin-bottom: 10px;">
+              <label for="pwdCurrent" style="font-size: 0.74rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 4px;">Current Password:</label>
+              <input type="password" id="pwdCurrent" placeholder="Enter existing password" required style="width: 100%; box-sizing: border-box; padding: 8px 12px; background: rgba(14, 24, 42, 0.8); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); color: #FFF;" />
+            </div>
+            <div class="form-group" style="margin-bottom: 10px;">
+              <label for="pwdNew" style="font-size: 0.74rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 4px;">New Password (Min 4 chars):</label>
+              <input type="password" id="pwdNew" placeholder="Enter new secure password" required minlength="4" style="width: 100%; box-sizing: border-box; padding: 8px 12px; background: rgba(14, 24, 42, 0.8); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); color: #FFF;" />
+            </div>
+            <div class="form-group" style="margin-bottom: 12px;">
+              <label for="pwdConfirm" style="font-size: 0.74rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 4px;">Confirm New Password:</label>
+              <input type="password" id="pwdConfirm" placeholder="Re-type new password" required minlength="4" style="width: 100%; box-sizing: border-box; padding: 8px 12px; background: rgba(14, 24, 42, 0.8); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); color: #FFF;" />
+            </div>
+            <button type="submit" class="btn-primary-action" id="btnSubmitChangePwd" style="width: 100%; padding: 9px; font-size: 0.84rem; background: linear-gradient(135deg, #9333EA, #7C3AED); color: #FFF; border: none; border-radius: var(--radius-sm); font-weight: 700; cursor: pointer;">
+              🔄 Update Password
+            </button>
+          </form>
+        </div>
+
+        <!-- Box 2: Create Sub-Admin User -->
+        <div class="mgmt-sub-card" style="background: rgba(7, 13, 24, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--radius-md); padding: 16px;">
+          <h4 style="color: #FFFFFF; font-size: 0.95rem; margin: 0 0 12px 0; display: flex; align-items: center; gap: 6px;">
+            <span>➕</span> Add New Admin / Team Member
+          </h4>
+          <form id="formCreateAdminUser">
+            <div class="form-group" style="margin-bottom: 10px;">
+              <label for="newUserUsername" style="font-size: 0.74rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 4px;">Username (Unique ID):</label>
+              <input type="text" id="newUserUsername" placeholder="e.g. rohit or coordinator1" required style="width: 100%; box-sizing: border-box; padding: 8px 12px; background: rgba(14, 24, 42, 0.8); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); color: #FFF;" />
+            </div>
+            <div class="form-group" style="margin-bottom: 10px;">
+              <label for="newUserFullName" style="font-size: 0.74rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 4px;">Full Name & Note:</label>
+              <input type="text" id="newUserFullName" placeholder="e.g. Rohit Sharma (Leave Team)" required style="width: 100%; box-sizing: border-box; padding: 8px 12px; background: rgba(14, 24, 42, 0.8); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); color: #FFF;" />
+            </div>
+            <div class="form-group" style="margin-bottom: 10px;">
+              <label for="newUserPassword" style="font-size: 0.74rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 4px;">Password / PIN:</label>
+              <input type="password" id="newUserPassword" placeholder="Set password for this user" required minlength="4" style="width: 100%; box-sizing: border-box; padding: 8px 12px; background: rgba(14, 24, 42, 0.8); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); color: #FFF;" />
+            </div>
+            <div class="form-group" style="margin-bottom: 12px;">
+              <label for="newUserRole" style="font-size: 0.74rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 4px;">Access Role:</label>
+              <select id="newUserRole" style="width: 100%; box-sizing: border-box; padding: 8px 12px; background: rgba(14, 24, 42, 0.8); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); color: #FFF;">
+                <option value="Leave Coordinator">Leave Coordinator (Record & manage faculty leaves)</option>
+                <option value="Admin">Full Admin (All controls & export)</option>
+              </select>
+            </div>
+            <button type="submit" class="btn-primary-action" id="btnSubmitCreateUser" style="width: 100%; padding: 9px; font-size: 0.84rem; background: linear-gradient(135deg, #10B981, #059669); color: #FFF; border: none; border-radius: var(--radius-sm); font-weight: 700; cursor: pointer;">
+              ➕ Create Admin Account
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Registered Admin Users List -->
+      <div style="background: rgba(7, 13, 24, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--radius-md); padding: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <h4 style="color: #FFFFFF; font-size: 0.92rem; margin: 0; display: flex; align-items: center; gap: 6px;">
+            <span>📋</span> Authorized Admin Accounts (<span id="adminUsersCount">1</span>)
+          </h4>
+        </div>
+        <div class="admin-users-table-wrap" id="adminUsersListContainer">
+          <!-- Populated dynamically via admin.js -->
+        </div>
       </div>
     </section>
 

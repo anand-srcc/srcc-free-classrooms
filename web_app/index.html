@@ -53,7 +53,7 @@
           </button>
         </div>
         <!-- WhatsApp Community Button (Header) -->
-        <a href="https://chat.whatsapp.com/G0VT9qsCLEe5Qqy8b7VCvp" target="_blank" rel="noopener noreferrer" class="btn-community-header" title="Join SRCC WhatsApp Community">
+        <a href="https://chat.whatsapp.com/H6qxq6fGSDVJNPCEtzQgjf" target="_blank" rel="noopener noreferrer" class="btn-community-header" title="Join SRCC WhatsApp Community">
           <svg class="whatsapp-header-icon" width="16" height="16" viewBox="0 0 24 24">
             <path fill="#25D366" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/>
             <path fill="#FFF" d="M17.47 14.38c-.28-.14-1.67-.82-1.93-.91-.26-.1-.45-.14-.64.14-.19.28-.73.91-.89 1.1-.16.18-.33.21-.61.07-.28-.14-1.18-.44-2.25-1.39-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.46.1-.19.05-.35-.02-.49-.07-.14-.64-1.54-.88-2.11-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.49.07-.75.35-.26.28-1 1-1 2.43 0 1.44 1.03 2.82 1.18 3.01.14.19 2.03 3.1 4.93 4.35.69.3 1.23.48 1.65.61.69.22 1.32.19 1.81.12.55-.08 1.67-.68 1.91-1.34.23-.65.23-1.22.16-1.34-.07-.11-.26-.18-.54-.32z"/>
@@ -88,13 +88,11 @@
       <div class="app-mode-switcher" role="tablist">
         <button class="mode-tab active" id="tabModeRooms" role="tab" aria-selected="true" data-mode="rooms">
           <span class="mode-tab-icon">🏛️</span>
-          <span class="mode-tab-text"><span class="mode-tab-prefix">Free </span>Classrooms</span>
-          <span class="mode-tab-count">96<span class="mode-tab-unit"> Rooms</span></span>
+          <span class="mode-tab-text">Classrooms</span>
         </button>
         <button class="mode-tab" id="tabModeFaculty" role="tab" aria-selected="false" data-mode="faculty">
           <span class="mode-tab-icon">👨‍🏫</span>
-          <span class="mode-tab-text">Faculty<span class="mode-tab-suffix"> Locator</span></span>
-          <span class="mode-tab-count" id="modeFacultyCount">210<span class="mode-tab-unit"> Teachers</span></span>
+          <span class="mode-tab-text">Faculty</span>
         </button>
       </div>
     </div>
@@ -165,6 +163,14 @@
             </select>
           </div>
 
+          <!-- Quick Access: Faculty On Leave Redirect Button -->
+          <button type="button" class="btn-check-faculty-leaves" id="btnRoomsFacultyLeavesQuick" title="View teachers on leave today">
+            <span class="btn-leave-icon">🏖️</span>
+            <span class="btn-leave-text">Faculty on Leave</span>
+            <span class="leave-pill-count" id="roomsQuickLeaveCount">0 on leave</span>
+            <span class="btn-leave-arrow">↗</span>
+          </button>
+
           <!-- Desktop View Mode Toggle (Grid vs Compact) -->
           <div class="view-toggle-wrapper" id="viewToggleWrapper">
             <button class="btn-view-mode active" id="btnViewGrid" title="Rich Card Grid View">
@@ -229,6 +235,34 @@
         </div>
       </div>
 
+      <!-- Published Timetable Vacancy Disclaimer -->
+      <div class="timetable-disclaimer-banner">
+        <span class="disclaimer-icon">ℹ️</span>
+        <span class="disclaimer-text"><strong>Timetable Notice:</strong> Availability is calculated from the published SRCC college timetable. Physical room vacancy may vary due to unscheduled room changes, society events, or exam duties.</span>
+      </div>
+
+      <!-- Interactive Loading Skeleton State -->
+      <div class="loading-skeleton-wrap" id="loadingState" style="display: none;">
+        <div class="loading-skeleton-pulse">
+          <div class="skeleton-icon">🏛️</div>
+          <div class="skeleton-title">Checking SRCC Timetable & Available Classrooms...</div>
+          <div class="skeleton-desc">Auditing 96 rooms across all wings and 210 faculty schedules</div>
+          <div class="skeleton-cards-row">
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Network / API Error State with Retry -->
+      <div class="error-state-card" id="errorState" style="display: none;">
+        <div class="error-icon">⚠️</div>
+        <h3>Unable to Load Timetable Data</h3>
+        <p id="errorMessageText">The college timetable data could not be retrieved from the server. Please verify your internet connection.</p>
+        <button type="button" class="btn-retry-load" id="btnRetryLoad">🔄 Retry Loading Data</button>
+      </div>
+
       <!-- Room Cards Grid / Compact Container -->
       <section class="rooms-grid view-mode-grid" id="roomsGrid">
         <!-- Dynamically generated via app.js -->
@@ -251,7 +285,6 @@
       <div class="faculty-action-bar">
         <div class="faculty-action-title">
           <span>👨‍🏫 SRCC Faculty Locator & Timetable</span>
-          <span class="badge-official">210 Professors</span>
         </div>
         <div class="faculty-action-leaves-wrap">
           <span class="leave-count-pill" id="headerLeavePill" style="display: none; cursor: pointer;" title="Click to view faculty on leave today">0 on leave</span>
@@ -273,19 +306,72 @@
           </div>
         </div>
 
-        <!-- 2. Department Horizontal Filter Pills -->
-        <div class="control-row">
-          <span class="row-label">Department:</span>
-          <div class="faculty-dept-scroll" id="facultyDeptPills">
-            <button class="dept-pill active" data-dept="ALL">All Departments (210)</button>
-            <button class="dept-pill" data-dept="Commerce">Commerce</button>
-            <button class="dept-pill" data-dept="Economics">Economics</button>
-            <button class="dept-pill" data-dept="Mathematics">Mathematics</button>
-            <button class="dept-pill" data-dept="English">English</button>
-            <button class="dept-pill" data-dept="Political Science">Political Science</button>
-            <button class="dept-pill" data-dept="Physical Education">Physical Education</button>
-            <button class="dept-pill" data-dept="EVS">EVS</button>
-            <button class="dept-pill" data-dept="Hindi">Hindi</button>
+        <!-- 2. Department Horizontal Filter Pills + Mobile Quick Dropdown -->
+        <div class="control-row faculty-dept-row">
+          <div class="dept-row-header">
+            <span class="row-label">Department / Course:</span>
+            <!-- Mobile Quick Dropdown for 1-Tap Switching on small screens -->
+            <select id="facultyDeptSelect" class="faculty-dept-select-mobile" aria-label="Select Faculty Department">
+              <option value="ALL">All Departments (210 Faculty)</option>
+              <option value="Commerce">Commerce (137 Faculty)</option>
+              <option value="Economics">Economics (46 Faculty)</option>
+              <option value="Mathematics">Mathematics (6 Faculty)</option>
+              <option value="English">English (5 Faculty)</option>
+              <option value="Political Science">Political Science (4 Faculty)</option>
+              <option value="Physical Education">Physical Education (2 Faculty)</option>
+              <option value="EVS">EVS (5 Faculty)</option>
+              <option value="Hindi">Hindi (5 Faculty)</option>
+            </select>
+          </div>
+          <div class="faculty-dept-scroll-wrapper">
+            <div class="faculty-dept-scroll" id="facultyDeptPills" role="tablist" aria-label="Department filter pills">
+              <button class="dept-pill active" data-dept="ALL" role="tab" aria-selected="true">All Departments (210)</button>
+              <button class="dept-pill" data-dept="Commerce" role="tab" aria-selected="false">Commerce</button>
+              <button class="dept-pill" data-dept="Economics" role="tab" aria-selected="false">Economics</button>
+              <button class="dept-pill" data-dept="Mathematics" role="tab" aria-selected="false">Mathematics</button>
+              <button class="dept-pill" data-dept="English" role="tab" aria-selected="false">English</button>
+              <button class="dept-pill" data-dept="Political Science" role="tab" aria-selected="false">Political Science</button>
+              <button class="dept-pill" data-dept="Physical Education" role="tab" aria-selected="false">Physical Education</button>
+              <button class="dept-pill" data-dept="EVS" role="tab" aria-selected="false">EVS</button>
+              <button class="dept-pill" data-dept="Hindi" role="tab" aria-selected="false">Hindi</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Alphabet Quick Jump Bar (A to Z) -->
+        <div class="control-row faculty-az-row">
+          <div class="az-row-header">
+            <span class="row-label">A–Z Quick Jump:</span>
+            <span class="az-hint">(Skips 'Dr.' / 'Prof.' titles)</span>
+          </div>
+          <div class="az-filter-scroll" id="facultyAzFilter" role="toolbar" aria-label="Alphabetical quick jump">
+            <button type="button" class="az-btn active" data-letter="ALL">All</button>
+            <button type="button" class="az-btn" data-letter="A">A</button>
+            <button type="button" class="az-btn" data-letter="B">B</button>
+            <button type="button" class="az-btn" data-letter="C">C</button>
+            <button type="button" class="az-btn" data-letter="D">D</button>
+            <button type="button" class="az-btn" data-letter="E">E</button>
+            <button type="button" class="az-btn" data-letter="F">F</button>
+            <button type="button" class="az-btn" data-letter="G">G</button>
+            <button type="button" class="az-btn" data-letter="H">H</button>
+            <button type="button" class="az-btn" data-letter="I">I</button>
+            <button type="button" class="az-btn" data-letter="J">J</button>
+            <button type="button" class="az-btn" data-letter="K">K</button>
+            <button type="button" class="az-btn" data-letter="L">L</button>
+            <button type="button" class="az-btn" data-letter="M">M</button>
+            <button type="button" class="az-btn" data-letter="N">N</button>
+            <button type="button" class="az-btn" data-letter="O">O</button>
+            <button type="button" class="az-btn" data-letter="P">P</button>
+            <button type="button" class="az-btn" data-letter="Q">Q</button>
+            <button type="button" class="az-btn" data-letter="R">R</button>
+            <button type="button" class="az-btn" data-letter="S">S</button>
+            <button type="button" class="az-btn" data-letter="T">T</button>
+            <button type="button" class="az-btn" data-letter="U">U</button>
+            <button type="button" class="az-btn" data-letter="V">V</button>
+            <button type="button" class="az-btn" data-letter="W">W</button>
+            <button type="button" class="az-btn" data-letter="X">X</button>
+            <button type="button" class="az-btn" data-letter="Y">Y</button>
+            <button type="button" class="az-btn" data-letter="Z">Z</button>
           </div>
         </div>
 
@@ -426,16 +512,16 @@
         </div>
         <button class="modal-close" id="btnTeacherModalClose">✕</button>
       </div>
-      <!-- Day Selector Tabs inside Teacher Modal -->
-      <div class="modal-day-tabs" id="modalTeacherDayTabs" style="display: flex; gap: 6px; padding: 12px 18px 6px; border-bottom: 1px solid var(--border-subtle); overflow-x: auto;">
-        <button class="day-btn active" data-day="Monday">Monday</button>
-        <button class="day-btn" data-day="Tuesday">Tuesday</button>
-        <button class="day-btn" data-day="Wednesday">Wednesday</button>
-        <button class="day-btn" data-day="Thursday">Thursday</button>
-        <button class="day-btn" data-day="Friday">Friday</button>
-        <button class="day-btn" data-day="Saturday">Saturday</button>
+      <!-- Day Selector Tabs inside Teacher Modal (Touch scrollable, no overlap) -->
+      <div class="modal-day-tabs" id="modalTeacherDayTabs" role="tablist" aria-label="Faculty schedule days">
+        <button class="day-btn modal-day-tab-btn active" data-day="Monday" role="tab" aria-selected="true">Monday</button>
+        <button class="day-btn modal-day-tab-btn" data-day="Tuesday" role="tab" aria-selected="false">Tuesday</button>
+        <button class="day-btn modal-day-tab-btn" data-day="Wednesday" role="tab" aria-selected="false">Wednesday</button>
+        <button class="day-btn modal-day-tab-btn" data-day="Thursday" role="tab" aria-selected="false">Thursday</button>
+        <button class="day-btn modal-day-tab-btn" data-day="Friday" role="tab" aria-selected="false">Friday</button>
+        <button class="day-btn modal-day-tab-btn" data-day="Saturday" role="tab" aria-selected="false">Saturday</button>
       </div>
-      <div class="modal-body" id="modalTeacherBody" style="padding: 16px 18px;">
+      <div class="modal-body" id="modalTeacherBody">
         <!-- Teacher Timetable schedule table inserted here -->
       </div>
     </div>
@@ -454,7 +540,7 @@
       <!-- Community & Developer Connect Cards in Footer -->
       <div class="footer-links-row">
         <!-- WhatsApp Community Link -->
-        <a href="https://chat.whatsapp.com/G0VT9qsCLEe5Qqy8b7VCvp" target="_blank" rel="noopener noreferrer" class="footer-action-card whatsapp-card" title="Join WhatsApp Community">
+        <a href="https://chat.whatsapp.com/H6qxq6fGSDVJNPCEtzQgjf" target="_blank" rel="noopener noreferrer" class="footer-action-card whatsapp-card" title="Join WhatsApp Community">
           <svg class="whatsapp-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.1 7.42C8.94 7.42 8.68 7.48 8.46 7.72C8.24 7.96 7.62 8.54 7.62 9.72C7.62 10.9 8.48 12.04 8.6 12.2C8.72 12.36 10.29 14.79 12.7 15.83C13.27 16.08 13.72 16.23 14.07 16.34C14.65 16.53 15.18 16.5 15.6 16.44C16.07 16.37 17.04 15.85 17.24 15.28C17.45 14.71 17.45 14.22 17.39 14.12C17.33 14.02 17.17 13.96 16.92 13.84C16.68 13.72 15.48 13.13 15.26 13.05C15.04 12.97 14.88 12.93 14.72 13.17C14.56 13.41 14.1 13.96 13.96 14.12C13.82 14.28 13.68 14.3 13.44 14.18C13.2 14.06 12.43 13.81 11.51 12.99C10.79 12.35 10.3 11.56 10.16 11.32C10.02 11.08 10.14 10.95 10.26 10.83C10.37 10.72 10.51 10.54 10.63 10.4C10.75 10.26 10.79 10.16 10.87 10C10.95 9.84 10.91 9.7 10.85 9.58C10.79 9.46 10.33 8.32 10.14 7.86C9.95 7.41 9.76 7.47 9.61 7.46C9.47 7.46 9.31 7.42 9.1 7.42Z"/>
           </svg>
@@ -499,10 +585,8 @@
       <span class="bnav-icon">👨‍🏫</span>
       <span class="bnav-label">Faculty</span>
     </button>
-    <button class="bottom-nav-item bnav-highlight" id="bnavFreeNow" data-bnav="freenow" title="Rooms Free Right Now">
-      <div class="bnav-fab">
-        <span class="bnav-icon">⚡</span>
-      </div>
+    <button class="bottom-nav-item" id="bnavFreeNow" data-bnav="freenow" title="Rooms Free Right Now">
+      <span class="bnav-icon">⚡</span>
       <span class="bnav-label">Free Now</span>
     </button>
     <button class="bottom-nav-item" id="bnavSearch" data-bnav="search" title="Search Rooms or Faculty">
@@ -516,7 +600,7 @@
           <path fill="#FFF" d="M17.47 14.38c-.28-.14-1.67-.82-1.93-.91-.26-.1-.45-.14-.64.14-.19.28-.73.91-.89 1.1-.16.18-.33.21-.61.07-.28-.14-1.18-.44-2.25-1.39-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.46.1-.19.05-.35-.02-.49-.07-.14-.64-1.54-.88-2.11-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.49.07-.75.35-.26.28-1 1-1 2.43 0 1.44 1.03 2.82 1.18 3.01.14.19 2.03 3.1 4.93 4.35.69.3 1.23.48 1.65.61.69.22 1.32.19 1.81.12.55-.08 1.67-.68 1.91-1.34.23-.65.23-1.22.16-1.34-.07-.11-.26-.18-.54-.32z"/>
         </svg>
       </span>
-      <span class="bnav-label">Community</span>
+      <span class="bnav-label">Chat</span>
     </button>
   </nav>
 

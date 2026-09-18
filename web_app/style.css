@@ -1435,16 +1435,23 @@ body {
 .metric-details {
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  min-width: 0;
+  overflow: visible;
 }
 
 .metric-num {
   font-family: var(--font-display);
-  font-size: 1.4rem;
+  font-size: clamp(1rem, 1.6vw, 1.35rem);
   font-weight: 700;
   color: #ffffff;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+#metricBestCat {
+  font-size: clamp(0.92rem, 1.3vw, 1.2rem);
+  letter-spacing: 0;
 }
 
 #metricVacantNowCount {
@@ -1452,10 +1459,10 @@ body {
 }
 
 .metric-title {
-  font-size: 0.72rem;
+  font-size: clamp(0.65rem, 0.85vw, 0.72rem);
   color: var(--text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   font-weight: 600;
   margin-top: 3px;
   white-space: nowrap;
@@ -1499,6 +1506,44 @@ body {
   color: var(--srcc-gold);
   border-color: rgba(252, 235, 10, 0.35);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Quick Faculty on Leave Button in Rooms Controls */
+.btn-check-faculty-leaves {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(244, 63, 94, 0.12);
+  border: 1px solid rgba(244, 63, 94, 0.35);
+  color: #FECDD3;
+  border-radius: var(--radius-md);
+  padding: 7px 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn-check-faculty-leaves:hover {
+  background: rgba(244, 63, 94, 0.22);
+  border-color: rgba(244, 63, 94, 0.55);
+  transform: translateY(-1px);
+}
+
+.btn-check-faculty-leaves .leave-pill-count {
+  background: #E11D48;
+  color: #FFFFFF;
+  padding: 1px 7px;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.btn-check-faculty-leaves .btn-leave-arrow {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
 }
 
 /* 3. 9-Block Visual Period Timeline Strip */
@@ -1733,9 +1778,12 @@ body {
   padding: 4px 8px;
 }
 
+.rooms-grid.view-mode-compact .card-body,
+.rooms-grid.view-mode-compact .consecutive-windows-section,
+.rooms-grid.view-mode-compact .slots-chips-title,
 .rooms-grid.view-mode-compact .room-free-list,
 .rooms-grid.view-mode-compact .room-occupied-list {
-  display: none;
+  display: none !important;
 }
 
 .rooms-grid.view-mode-compact .room-card-actions {
@@ -2372,26 +2420,37 @@ body {
     display: none !important;
   }
 
-  /* Faculty Locator 4 metrics on mobile */
+  /* Faculty Locator 4 metrics on mobile: 2x2 Clean Grid */
   .faculty-metrics-row {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 4px;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
   }
   .faculty-metrics-row .metric-tile {
-    padding: 6px 2px;
+    padding: 8px 10px !important;
+    flex-direction: row !important;
+    text-align: left !important;
+    gap: 8px !important;
+    align-items: center !important;
   }
   .faculty-metrics-row .metric-icon {
-    width: 20px;
-    height: 20px;
-    font-size: 0.75rem;
-    margin-bottom: 1px;
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 0.95rem !important;
+    margin-bottom: 0 !important;
   }
   .faculty-metrics-row .metric-num {
-    font-size: 0.8rem;
+    font-size: 1.05rem !important;
   }
   .faculty-metrics-row .metric-title {
-    font-size: 0.54rem;
-    line-height: 1.1;
+    font-size: 0.65rem !important;
+    line-height: 1.2 !important;
+    text-align: left !important;
+  }
+
+  /* Hide Compact View Switchers on Mobile to always preserve clean, rich layout */
+  #viewToggleWrapper,
+  #facultyViewToggleWrapper {
+    display: none !important;
   }
 }
 
@@ -2766,28 +2825,51 @@ body {
     color: var(--srcc-gold);
   }
 
-  .bottom-nav-item.bnav-highlight {
-    position: relative;
-    top: -12px;
+  .bottom-nav-item[data-bnav="freenow"].active {
+    color: var(--accent-green-light);
+  }
+  .bottom-nav-item[data-bnav="freenow"] .bnav-icon {
+    color: var(--accent-green-light);
   }
 
-  .bottom-nav-item.bnav-highlight .bnav-fab {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #10B981, #059669);
-    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.5);
+  /* Safe Area Padding: Prevent fixed bottom navigation from ever covering content */
+  .app-container,
+  .view-section,
+  .app-footer {
+    padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  /* Show mobile quick department select dropdown */
+  .faculty-dept-select-mobile {
+    display: block !important;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 4px;
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 8px 12px;
+    font-size: 0.84rem;
+    font-weight: 600;
+    box-sizing: border-box;
+  }
+
+  .dept-row-header {
+    width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    font-size: 1.25rem;
-    border: 2px solid #070D18;
-    transition: transform 0.15s ease;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
   }
 
-  .bottom-nav-item.bnav-highlight:active .bnav-fab {
-    transform: scale(0.92);
+  /* Responsive Faculty Timetable on mobile */
+  .schedule-table-desktop-wrap {
+    display: none !important;
+  }
+
+  .modal-timetable-card-list {
+    display: flex !important;
   }
 }
 
@@ -3057,14 +3139,40 @@ body {
   border-radius: var(--radius-full);
 }
 
-/* Department Filter Pills */
+/* Department Filter Pills & Responsive Wrapper */
+.faculty-dept-row {
+  width: 100%;
+}
+
+.dept-row-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 12px;
+}
+
+.faculty-dept-select-mobile {
+  display: none;
+}
+
+.faculty-dept-scroll-wrapper {
+  width: 100%;
+  min-width: 0;
+  position: relative;
+}
+
 .faculty-dept-scroll {
   display: flex;
   align-items: center;
   gap: 8px;
   overflow-x: auto;
+  width: 100%;
+  min-width: 0;
   padding: 4px 2px 10px;
   -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
   scrollbar-width: thin;
 }
 
@@ -3102,6 +3210,79 @@ body {
   color: #38BDF8;
   border-color: rgba(56, 189, 248, 0.5);
   box-shadow: 0 2px 10px rgba(56, 189, 248, 0.2);
+}
+
+/* Faculty Alphabet Quick Jump Bar */
+.faculty-az-row {
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.az-row-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.az-hint {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.az-filter-scroll {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  overflow-x: auto;
+  width: 100%;
+  padding: 2px 2px 8px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.az-filter-scroll::-webkit-scrollbar {
+  height: 3px;
+}
+
+.az-filter-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+.az-btn {
+  flex-shrink: 0;
+  min-width: 30px;
+  height: 30px;
+  padding: 0 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(14, 24, 42, 0.8);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.az-btn:hover {
+  background: rgba(252, 235, 10, 0.12);
+  color: var(--srcc-gold);
+  border-color: rgba(252, 235, 10, 0.3);
+  transform: translateY(-1px);
+}
+
+.az-btn.active {
+  background: linear-gradient(135deg, rgba(252, 235, 10, 0.25), rgba(252, 235, 10, 0.1));
+  color: var(--srcc-gold);
+  border-color: var(--srcc-gold);
+  box-shadow: 0 0 10px rgba(252, 235, 10, 0.25);
 }
 
 /* Faculty Controls Bar */
@@ -4064,4 +4245,349 @@ body {
   border-radius: 4px;
   color: var(--text-secondary);
   margin-top: 3px;
+}
+
+/* ==========================================================================
+   📱 TEACHER MODAL DAY TABS - TOUCH SCROLLABLE & ZERO OVERLAP
+   ========================================================================== */
+.modal-day-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border-subtle);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.modal-day-tabs::-webkit-scrollbar {
+  height: 4px;
+}
+
+.modal-day-tabs::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.modal-day-tabs .day-btn,
+.modal-day-tab-btn {
+  width: auto !important;
+  min-width: 88px !important;
+  flex: 0 0 auto !important;
+  padding: 8px 16px !important;
+  font-size: 0.86rem !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
+  text-align: center !important;
+  border-radius: var(--radius-full) !important;
+  box-sizing: border-box !important;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.modal-day-tabs .day-btn.active,
+.modal-day-tab-btn.active {
+  background: var(--srcc-gold) !important;
+  color: #070D18 !important;
+  border-color: var(--srcc-gold) !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 10px rgba(245, 158, 11, 0.3) !important;
+}
+
+/* ==========================================================================
+   📋 RESPONSIVE MOBILE TIMETABLE SCHEDULE CARDS (FOR SCREENS <= 640px)
+   ========================================================================== */
+.modal-timetable-desktop-table {
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .modal-timetable-desktop-table {
+    display: none !important;
+  }
+  .modal-timetable-card-list {
+    display: flex !important;
+  }
+}
+
+@media (min-width: 641px) {
+  .modal-timetable-desktop-table {
+    display: table !important;
+  }
+  .modal-timetable-card-list {
+    display: none !important;
+  }
+}
+
+.modal-timetable-card-list {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.modal-timetable-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color var(--transition-fast);
+}
+
+.modal-timetable-card:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.m-tt-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.m-tt-slot {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.m-tt-type {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: rgba(56, 189, 248, 0.15);
+  color: #38BDF8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.m-tt-course-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.m-tt-subject {
+  background: rgba(245, 158, 11, 0.18);
+  color: var(--srcc-gold);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 0.78rem;
+}
+
+.m-tt-coursename {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.m-tt-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.m-tt-section-batch {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+}
+
+.m-tt-room-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(16, 185, 129, 0.15);
+  color: #34D399;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.m-tt-room-btn:hover {
+  background: rgba(16, 185, 129, 0.28);
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
+   ⚡ CONSECUTIVE FREE WINDOW CHIPS ON ROOM CARDS
+   ========================================================================== */
+.consecutive-window-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(16, 185, 129, 0.16);
+  color: #34D399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  border-radius: var(--radius-sm);
+  padding: 4px 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+/* ==========================================================================
+   ℹ️ TIMETABLE DISCLAIMER BANNER & UX STATES
+   ========================================================================== */
+.timetable-disclaimer-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(56, 189, 248, 0.06);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  font-size: 0.80rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+.disclaimer-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+  line-height: 1.2;
+}
+
+.modal-disclaimer-note {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 12px;
+  line-height: 1.4;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.loading-skeleton-wrap {
+  padding: 40px 20px;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.skeleton-icon {
+  font-size: 2.2rem;
+  animation: pulseIcon 1.5s infinite ease-in-out;
+}
+
+@keyframes pulseIcon {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 1; }
+}
+
+.skeleton-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 10px;
+}
+
+.skeleton-desc {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.skeleton-cards-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.skeleton-card {
+  height: 180px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.03) 25%, rgba(255, 255, 255, 0.07) 50%, rgba(255, 255, 255, 0.03) 75%);
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.8s infinite;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+}
+
+@keyframes skeletonShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.error-state-card {
+  background: rgba(244, 63, 94, 0.08);
+  border: 1px solid rgba(244, 63, 94, 0.3);
+  border-radius: var(--radius-lg);
+  padding: 32px 24px;
+  text-align: center;
+  max-width: 500px;
+  margin: 40px auto;
+  box-sizing: border-box;
+}
+
+.error-state-card .error-icon {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+}
+
+.error-state-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #FDA4AF;
+  margin-bottom: 6px;
+}
+
+.error-state-card p {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+
+.btn-retry-load {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #10B981, #059669);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 9px 18px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+.btn-retry-load:hover {
+  transform: translateY(-1px);
+}
+
+body.modal-open {
+  overflow: hidden !important;
+  height: 100dvh;
 }

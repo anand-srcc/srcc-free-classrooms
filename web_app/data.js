@@ -3,7 +3,8 @@ window.SRCC_DATA = {
     "college": "Shri Ram College of Commerce (SRCC)",
     "portal": "https://srcccollegetimetable.in/",
     "total_rooms": 96,
-    "last_synced": "18 Sep 2026, 06:15 AM",
+    "last_synced": "18 Sep 2026, 06:30 PM",
+    "last_verified": "18 Sep 2026, 06:30 PM",
     "academic_periods": [
       "8:30 AM to 9:30 AM",
       "9:30 AM to 10:30 AM",
