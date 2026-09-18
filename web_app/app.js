@@ -1143,7 +1143,7 @@ document.addEventListener('DOMContentLoaded', () => {
         shareBtnLinkedin.onclick = (e) => {
           e.preventDefault();
           if (navigator.share) {
-            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage, url: siteUrl }).catch(() => {});
+            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage }).catch(() => {});
           } else {
             copyToClipboard(cleanMessage);
             window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`, '_blank', 'noopener,noreferrer');
@@ -1155,7 +1155,7 @@ document.addEventListener('DOMContentLoaded', () => {
         shareBtnInstagram.onclick = (e) => {
           e.preventDefault();
           if (navigator.share) {
-            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage, url: siteUrl }).catch(() => {});
+            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage }).catch(() => {});
           } else {
             copyToClipboard(cleanMessage).then(() => showToast('📸 Copied! Opening Instagram...', true));
             window.open('https://www.instagram.com/direct/inbox/', '_blank', 'noopener,noreferrer');
@@ -1167,7 +1167,7 @@ document.addEventListener('DOMContentLoaded', () => {
         shareBtnFacebook.onclick = (e) => {
           e.preventDefault();
           if (navigator.share) {
-            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage, url: siteUrl }).catch(() => {});
+            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage }).catch(() => {});
           } else {
             copyToClipboard(cleanMessage);
             window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`, '_blank', 'noopener,noreferrer');
@@ -1178,7 +1178,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (navigator.share && btnPrimaryShare) {
         btnPrimaryShare.style.display = 'flex';
         btnPrimaryShare.onclick = () => {
-          navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage, url: siteUrl }).catch(() => {});
+          navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage }).catch(() => {});
         };
       } else if (btnPrimaryShare) {
         btnPrimaryShare.style.display = 'none';
