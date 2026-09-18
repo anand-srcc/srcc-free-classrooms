@@ -123,12 +123,42 @@ def main():
     is_changed = (new_hash != old_hash)
 
     if not is_changed and not force_update:
-        print("\n[OK] NO CHANGES DETECTED: The college timetable has not been modified.")
-        print("   Web application and Excel workbook are already 100% up-to-date.")
-        # If in GitHub Actions, set output
+        print("\n[OK] NO ROOM SCHEDULE CHANGES: College rooms timetable is consistent.")
+        print("   Updating verification timestamp and checking faculty timetables...")
+        # Always update last_synced timestamp in metadata so app reflects recent verification
+        current_sync_time = datetime.now().strftime('%d %b %Y, %I:%M %p')
+        fresh_payload['metadata']['last_synced'] = current_sync_time
+        fresh_payload['metadata']['last_verified'] = current_sync_time
+        
+        targets = [
+            os.path.join(BASE_DIR, 'web_app'),
+            os.path.join(BASE_DIR, 'preview_web_app')
+        ]
+        for target_dir in targets:
+            if os.path.exists(target_dir):
+                out_json = os.path.join(target_dir, 'srcc_data.json')
+                with open(out_json, 'w', encoding='utf-8') as f:
+                    json.dump(fresh_payload, f, indent=2, ensure_ascii=False)
+                out_js = os.path.join(target_dir, 'data.js')
+                with open(out_js, 'w', encoding='utf-8') as f:
+                    f.write("window.SRCC_DATA = ")
+                    json.dump(fresh_payload, f, indent=2, ensure_ascii=False)
+                    f.write(";\n")
+        
+        # Always check and update teacher timetables
+        print("\n[*] Checking and updating faculty & teacher timetables...")
+        try:
+            import scrape_teachers
+            scrape_teachers.main()
+            import enrich_teachers
+            enrich_teachers.enrich()
+        except Exception as e:
+            print(f"[Warning] Failed to verify teacher timetables: {e}")
+
         if os.environ.get('GITHUB_ACTIONS') == 'true':
             with open(os.environ.get('GITHUB_OUTPUT', 'output.txt'), 'a') as gh_out:
                 gh_out.write("changed=false\n")
+        print(f"\n[DONE] Timetable verified & synced at {current_sync_time}. All teachers checked.")
         return
 
     print("\n[ALERT] TIMETABLE UPDATE DETECTED! Processing updates...")
@@ -161,7 +191,7 @@ def main():
                 f.write(";\n")
 
     # 3. Regenerate fresh Excel workbook
-    print("\n[3/4] Generating fresh Excel workbook with updated schedules...")
+    print("\n[3/5] Generating fresh Excel workbook with updated schedules...")
     try:
         import srcc_scraper
         srcc_scraper.main()
@@ -169,8 +199,18 @@ def main():
         print(f"[Error] Failed to generate Excel workbook: {e}")
         sys.exit(1)
 
-    # 4. Copy to Downloads & create deployment package (if on Windows)
-    print("\n[4/4] Updating local deployment package & Downloads folder...")
+    # 4. Scrape and update faculty & teacher timetables
+    print("\n[4/5] Scraping and updating faculty & teacher timetables...")
+    try:
+        import scrape_teachers
+        scrape_teachers.main()
+        import enrich_teachers
+        enrich_teachers.enrich()
+    except Exception as e:
+        print(f"[Warning] Failed to scrape teacher timetables: {e}")
+
+    # 5. Copy to Downloads & create deployment package (if on Windows)
+    print("\n[5/5] Updating local deployment package & Downloads folder...")
     excel_source = os.path.join(BASE_DIR, "SRCC_Free_Classrooms_Timetable.xlsx")
     user_home = os.path.expanduser("~")
     downloads_dir = os.path.join(user_home, "Downloads")
