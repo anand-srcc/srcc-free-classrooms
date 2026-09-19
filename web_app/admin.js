@@ -6,9 +6,9 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Precomputed SHA-256 hashes for authorized administrator passcodes
   const AUTH_HASHES = [
-    '0a9e7f8d689fb2da3fbe987c2b322a36b32524be309a807ec1dfdcf2ea3feeb7', // srcc2026
-    'fb88c1c4a1796d194ec73161c5f87b8d0a3d463d12239d67fe3079b764cb15b9', // srccadmin
-    'f21b777a06653b65593cffeb38976feefd0ee29c13b3846665790a6ea10c4333'  // anand
+    '06f1339f683c69374e5805994b4956bc856e0204827364a6062894a88d792fae', // srcc2026
+    '68c7ac5777aac392b5e34d5c9e20421cd970534ae1529defd1ceb7a064be56cc', // srccadmin
+    '5f4df959a11580fc14aa6b139adb2ab40a2cfde5399c1cb6f7c9968eae5a825f'  // anand
   ];
   const LEAVES_STORAGE_KEY = 'srcc_faculty_leaves_custom_v1';
   const AUTH_STORAGE_KEY = 'srcc_admin_session_auth';
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
         username: 'admin',
         fullName: 'Master Administrator (Anand)',
         role: 'Super Admin',
-        passwordHash: '0a9e7f8d689fb2da3fbe987c2b322a36b32524be309a807ec1dfdcf2ea3feeb7', // srcc2026
+        passwordHash: '06f1339f683c69374e5805994b4956bc856e0204827364a6062894a88d792fae', // srcc2026
         createdAt: 'Default Master Account',
         isSuper: true
       }
