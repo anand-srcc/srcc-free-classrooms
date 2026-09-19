@@ -686,7 +686,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setActiveCategory(cat);
         if (wingsSheetOverlay) wingsSheetOverlay.style.display = 'none';
         const titleText = item.querySelector('.wing-title')?.textContent || cat;
-        showToast(`🏛️ Showing wing: <strong>${titleText}</strong>`);
+        showToast(`🏛️ Showing wing: <strong>${escapeHtml(titleText)}</strong>`);
       });
     });
 
@@ -1116,8 +1116,8 @@ document.addEventListener('DOMContentLoaded', () => {
       currentShareMessage = cleanMessage;
 
       copyToClipboard(cleanMessage)
-        .then(() => showToast(`📋 Room details for <strong>${room.code}</strong> copied to clipboard!`, true, 3500))
-        .catch(() => showToast(`📤 Share Room <strong>${room.code}</strong>`, false, 2500));
+        .then(() => showToast(`📋 Room details for <strong>${escapeHtml(room.code)}</strong> copied to clipboard!`, true, 3500))
+        .catch(() => showToast(`📤 Share Room <strong>${escapeHtml(room.code)}</strong>`, false, 2500));
 
       if (shareModalTitle) shareModalTitle.textContent = `📤 Share ${room.code} (${room.name})`;
       if (sharePreviewText) sharePreviewText.textContent = cleanMessage;
@@ -2676,7 +2676,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderFaculty();
         render();
 
-        showToast(`🏖️ Marked <strong>${teacher.clean_name}</strong> on leave! Scheduled rooms are now unlocked.`);
+        showToast(`🏖️ Marked <strong>${escapeHtml(teacher.clean_name)}</strong> on leave! Scheduled rooms are now unlocked.`);
         if (leaveReasonInput) leaveReasonInput.value = '';
       });
     }
@@ -2732,4 +2732,63 @@ document.addEventListener('DOMContentLoaded', () => {
     render();
     renderFaculty();
   }
+});
+// --- PWA Installation Logic ---
+let deferredPrompt;
+const installModal = document.getElementById('pwaInstallModal');
+const btnInstallApp = document.getElementById('btnInstallApp');
+const btnCloseInstall = document.getElementById('btnCloseInstall');
+const btnNotNowInstall = document.getElementById('btnNotNowInstall');
+
+// Register Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(registration => {
+      console.log('SW registered: ', registration);
+    }).catch(registrationError => {
+      console.log('SW registration failed: ', registrationError);
+    });
+  });
+}
+
+// Catch the install prompt event
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevent Chrome 67 and earlier from automatically showing the prompt
+  e.preventDefault();
+  // Stash the event so it can be triggered later.
+  deferredPrompt = e;
+  
+  // Show the modal after a short delay (3 seconds) to not interrupt immediate reading
+  setTimeout(() => {
+    installModal.style.display = 'flex';
+  }, 3000);
+});
+
+// Close modal handlers
+const closeModal = () => {
+  installModal.style.display = 'none';
+};
+
+btnCloseInstall.addEventListener('click', closeModal);
+btnNotNowInstall.addEventListener('click', closeModal);
+
+// Install App click handler
+btnInstallApp.addEventListener('click', async () => {
+  if (deferredPrompt) {
+    installModal.style.display = 'none';
+    // Show the install prompt
+    deferredPrompt.prompt();
+    // Wait for the user to respond to the prompt
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(User response to the install prompt: );
+    // We've used the prompt, and can't use it again, throw it away
+    deferredPrompt = null;
+  }
+});
+
+// Hide modal if successfully installed
+window.addEventListener('appinstalled', () => {
+  installModal.style.display = 'none';
+  deferredPrompt = null;
+  console.log('PWA was installed');
 });

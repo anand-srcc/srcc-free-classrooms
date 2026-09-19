@@ -615,8 +615,11 @@
       <div style="display: flex; flex-direction: column; gap: 10px;">
         <div class="leave-field-group">
           <label for="cloudDbUrlInput">Firebase Realtime Database REST URL:</label>
+          <input type="url" id="cloudDbUrlInput" placeholder="https://your-project-default-rtdb.firebaseio.com/leaves.json" style="width: 100%; box-sizing: border-box; margin-bottom: 8px;" />
+          
+          <label for="cloudDbSecretInput">Firebase Database Secret (Required for writing):</label>
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <input type="url" id="cloudDbUrlInput" placeholder="https://your-project-default-rtdb.firebaseio.com/leaves.json" style="flex: 1; min-width: 260px;" />
+            <input type="password" id="cloudDbSecretInput" placeholder="Enter Database Secret / Token" style="flex: 1; min-width: 260px; padding: 8px 12px; background: rgba(7, 13, 24, 0.8); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: var(--radius-md); color: #FFFFFF;" />
             <button type="button" class="btn-add-leave" id="btnSaveCloudDbUrl" style="padding: 9px 18px; font-size: 0.84rem;">
               💾 Save & Test Connection
             </button>
@@ -630,16 +633,16 @@
       <!-- Quick 1-Minute Setup Guide -->
       <details style="margin-top: 14px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--radius-md); padding: 12px 14px; font-size: 0.82rem; color: var(--text-secondary);">
         <summary style="cursor: pointer; font-weight: 700; color: var(--srcc-gold); user-select: none;">
-          ℹ️ 1-Minute Guide: How to get your free Cloud URL (₹0 cost, No card required)
+          ℹ️ 1-Minute Guide: How to securely configure your free Cloud URL
         </summary>
         <div style="margin-top: 10px; line-height: 1.6;">
           <ol style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px;">
             <li>Go to <a href="https://console.firebase.google.com/" target="_blank" rel="noopener noreferrer" style="color: #38BDF8; text-decoration: underline;">console.firebase.google.com</a> using your Google account.</li>
-            <li>Click <strong>"Add project"</strong>, enter project name (e.g. <code>srcc-timetable</code>), and proceed (Google Analytics optional).</li>
-            <li>In the left sidebar, navigate to <strong>Build &rarr; Realtime Database</strong>, then click <strong>Create Database</strong> (choose default location).</li>
-            <li>In security rules step, select <strong>"Start in test mode"</strong> (gives open read/write access) and click <strong>Enable</strong>.</li>
-            <li>Copy your database URL at the top (looks like <code>https://srcc-timetable-default-rtdb.firebaseio.com/</code>), append <strong><code>leaves.json</code></strong> at the end, and paste it above!</li>
-            <li>Click <strong>"Save &amp; Test Connection"</strong>. Done! Now whenever you mark a leave from your phone, all SRCC students see it immediately.</li>
+            <li>Create a project and navigate to <strong>Build &rarr; Realtime Database</strong>. Click <strong>Create Database</strong>.</li>
+            <li>In the security rules step, select <strong>"Start in locked mode"</strong> (so no one can overwrite your data publicly). Ensure rules are: <code>{ "rules": { ".read": true, ".write": false } }</code>.</li>
+            <li>To get your Secret, go to <strong>Project Settings (Gear icon) &rarr; Service Accounts &rarr; Database Secrets</strong> and copy the secret.</li>
+            <li>Copy your database URL at the top of the Database page, append <strong><code>leaves.json</code></strong> at the end, and paste it above!</li>
+            <li>Paste your Database Secret in the field above and click <strong>"Save &amp; Test Connection"</strong>.</li>
           </ol>
         </div>
       </details>

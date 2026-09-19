@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // DOM Elements - Cloud Sync
   const cloudDbUrlInput = document.getElementById('cloudDbUrlInput');
+  const cloudDbSecretInput = document.getElementById('cloudDbSecretInput');
   const btnSaveCloudDbUrl = document.getElementById('btnSaveCloudDbUrl');
   const btnPushToCloudNow = document.getElementById('btnPushToCloudNow');
   const cloudSyncStatusBadge = document.getElementById('cloudSyncStatusBadge');
@@ -166,7 +167,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function checkAuth() {
-    const isAuth = sessionStorage.getItem(AUTH_STORAGE_KEY) === 'true';
+    const sessionVal = sessionStorage.getItem(AUTH_STORAGE_KEY);
+    const isAuth = sessionVal && sessionVal.startsWith('srcc_auth_');
     if (isAuth) {
       if (adminAuthView) adminAuthView.style.display = 'none';
       if (adminDashboardView) adminDashboardView.style.display = 'block';
@@ -194,19 +196,21 @@ document.addEventListener('DOMContentLoaded', () => {
         matchedUser = users.find(u => u.username.toLowerCase() === uInput.toLowerCase());
         if (matchedUser) {
           const isMatch = (matchedUser.passwordHash === hashed) || 
-                          (matchedUser.isSuper && (AUTH_HASHES.includes(hashed) || val === 'srcc2026'));
+                          (matchedUser.isSuper && (AUTH_HASHES.includes(hashed)));
           if (!isMatch) matchedUser = null;
         }
       } else {
         // If username not entered, check if password matches any user or default super admin
-        matchedUser = users.find(u => u.passwordHash === hashed || (u.isSuper && (AUTH_HASHES.includes(hashed) || val === 'srcc2026')));
-        if (!matchedUser && (AUTH_HASHES.includes(hashed) || val === 'srcc2026')) {
+        matchedUser = users.find(u => u.passwordHash === hashed || (u.isSuper && (AUTH_HASHES.includes(hashed))));
+        if (!matchedUser && (AUTH_HASHES.includes(hashed))) {
           matchedUser = users[0];
         }
       }
 
       if (matchedUser) {
-        sessionStorage.setItem(AUTH_STORAGE_KEY, 'true');
+        // Obfuscate the token slightly to deter casual localStorage modification
+        const tokenStr = 'srcc_auth_' + btoa(Date.now().toString());
+        sessionStorage.setItem(AUTH_STORAGE_KEY, tokenStr);
         sessionStorage.setItem(ACTIVE_USER_SESSION_KEY, JSON.stringify({
           username: matchedUser.username,
           fullName: matchedUser.fullName,
@@ -273,17 +277,24 @@ document.addEventListener('DOMContentLoaded', () => {
   // ☁️ CLOUD SYNC HELPERS (100% FREE FIREBASE REALTIME DB)
   // ==========================================================================
   const CLOUD_DB_STORAGE_KEY = 'srcc_cloud_db_url';
+  const CLOUD_DB_SECRET_KEY = 'srcc_cloud_db_secret';
 
   function getCloudDbUrl() {
     return (window.SRCC_CLOUD_CONFIG && window.SRCC_CLOUD_CONFIG.db_url) || localStorage.getItem(CLOUD_DB_STORAGE_KEY) || '';
   }
 
-  function setCloudDbUrl(url) {
+  function getCloudDbSecret() {
+    return localStorage.getItem(CLOUD_DB_SECRET_KEY) || '';
+  }
+
+  function setCloudDbUrl(url, secret) {
     if (url) {
       localStorage.setItem(CLOUD_DB_STORAGE_KEY, url);
+      if (secret !== undefined) localStorage.setItem(CLOUD_DB_SECRET_KEY, secret);
       if (window.SRCC_CLOUD_CONFIG) window.SRCC_CLOUD_CONFIG.db_url = url;
     } else {
       localStorage.removeItem(CLOUD_DB_STORAGE_KEY);
+      localStorage.removeItem(CLOUD_DB_SECRET_KEY);
       if (window.SRCC_CLOUD_CONFIG) window.SRCC_CLOUD_CONFIG.db_url = '';
     }
   }
@@ -305,8 +316,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   async function syncLeavesToCloud(leavesList, showSuccessToast = false) {
-    const url = getCloudDbUrl();
+    let url = getCloudDbUrl();
     if (!url) return false;
+    
+    const secret = getCloudDbSecret();
+    if (secret) {
+      url += (url.includes('?') ? '&' : '?') + 'auth=' + encodeURIComponent(secret);
+    }
 
     try {
       const todayStr = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
@@ -352,6 +368,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Populate Cloud DB URL & Status
     if (cloudDbUrlInput) {
       cloudDbUrlInput.value = getCloudDbUrl();
+    }
+    if (cloudDbSecretInput) {
+      cloudDbSecretInput.value = getCloudDbSecret();
     }
     updateCloudStatusBadge();
 
@@ -414,8 +433,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     adminTeacherSelect.innerHTML = filtered.map(t => {
       const code = getDisplayShortCode(t);
-      const codeStr = code ? ` [${code}]` : '';
-      return `<option value="${t.id}">${t.clean_name}${codeStr} — ${t.department} (${t.total_teaching_periods || 0} classes/wk)</option>`;
+      const codeStr = code ? ` [${escapeHtml(code)}]` : '';
+      return `<option value="${escapeHtml(t.id)}">${escapeHtml(t.clean_name)}${codeStr} — ${escapeHtml(t.department)} (${t.total_teaching_periods || 0} classes/wk)</option>`;
     }).join('');
 
     if (filtered.length > 0 && !adminTeacherSelect.value) {
@@ -470,7 +489,7 @@ document.addEventListener('DOMContentLoaded', () => {
       updateKpis();
       updateCodePreview();
 
-      showToast(`🏖️ Successfully marked <strong>${teacher.clean_name}</strong> on leave! Scheduled classrooms are now unlocked for study.`, true, 4000);
+      showToast(`🏖️ Successfully marked <strong>${escapeHtml(teacher.clean_name)}</strong> on leave! Scheduled classrooms are now unlocked for study.`, true, 4000);
       if (adminLeaveReason) adminLeaveReason.value = '';
 
       // Auto-sync to Cloud DB if configured
@@ -628,12 +647,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Cloud Database Save & Push Handlers
   if (btnSaveCloudDbUrl) {
     btnSaveCloudDbUrl.addEventListener('click', async () => {
       const rawUrl = (cloudDbUrlInput ? cloudDbUrlInput.value : '').trim();
+      const secret = (cloudDbSecretInput ? cloudDbSecretInput.value : '').trim();
       if (!rawUrl) {
-        setCloudDbUrl('');
+        setCloudDbUrl('', '');
         updateCloudStatusBadge();
         showToast('ℹ️ Cloud Sync disabled. Leaves will save only on this local device.', false, 3500);
         return;
@@ -648,7 +667,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (cloudDbUrlInput) cloudDbUrlInput.value = formattedUrl;
-      setCloudDbUrl(formattedUrl);
+      setCloudDbUrl(formattedUrl, secret);
 
       showToast('⏳ Testing connection to Cloud Database...', true, 2000);
       const currentLeaves = getLeavesList();
@@ -780,7 +799,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const targetUser = users[userIdx];
       const isCurValid = (targetUser.passwordHash === curHash) ||
-                         (targetUser.isSuper && (AUTH_HASHES.includes(curHash) || cur === 'srcc2026'));
+                         (targetUser.isSuper && (AUTH_HASHES.includes(curHash)));
 
       if (!isCurValid) {
         showToast('⚠️ Current password incorrect.', false);

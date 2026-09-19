@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>SRCC Free Classroom Finder | Group Discussion & Study</title>
   <meta name="description" content="Find vacant classrooms, tutorial rooms, Principal Bungalow (PB), Sports Complex (SCR) and labs for Group Discussion (GD) at Shri Ram College of Commerce (SRCC)." />
+  
+  <!-- Security Enhancements -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline';">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  
+  <!-- PWA Manifest & Theme Color -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#111827" />
+
   <!-- Website URL Logo / Favicon (Transparent 100 Years Centenary Logo) -->
   <link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=3" />
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?v=3" />
@@ -849,6 +858,31 @@
 
   <!-- Toast Notification Container for Copied Alerts -->
   <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Install PWA Modal UI -->
+  <div class="install-modal-overlay" id="pwaInstallModal" style="display: none;" role="dialog" aria-modal="true">
+    <div class="install-modal">
+      <div class="install-modal-header">
+        <img src="assets/srcc_100years.png" alt="App Icon" class="install-modal-icon">
+        <div class="install-modal-title">
+          <h3>Install SRCC Rooms</h3>
+          <p>Add to your home screen for quick access!</p>
+        </div>
+        <button class="btn-close-install" id="btnCloseInstall" aria-label="Close Install Prompt">×</button>
+      </div>
+      <div class="install-modal-body">
+        <ul>
+          <li>⚡ Faster load times</li>
+          <li>📱 Works like a native app</li>
+          <li>🏛️ Quick classroom finding</li>
+        </ul>
+      </div>
+      <div class="install-modal-footer">
+        <button class="btn-install-secondary" id="btnNotNowInstall">Not Now</button>
+        <button class="btn-install-primary" id="btnInstallApp">Install App</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Scripts -->
   <script src="data.js"></script>
