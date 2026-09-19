@@ -2780,7 +2780,7 @@ btnInstallApp.addEventListener('click', async () => {
     deferredPrompt.prompt();
     // Wait for the user to respond to the prompt
     const { outcome } = await deferredPrompt.userChoice;
-    console.log(User response to the install prompt: );
+    console.log(`User response to the install prompt: ${outcome}`);
     // We've used the prompt, and can't use it again, throw it away
     deferredPrompt = null;
   }
