@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ☁️ Live Cloud Database Fetch (100% Free Firebase Realtime DB)
-  const cloudDbUrl = (window.SRCC_CLOUD_CONFIG && window.SRCC_CLOUD_CONFIG.db_url) || localStorage.getItem('srcc_cloud_db_url');
+  const cloudDbUrl = (window.SRCC_CLOUD_CONFIG && window.SRCC_CLOUD_CONFIG.db_url) || localStorage.getItem('srcc_cloud_db_url') || 'https://srcc-leaves-default-rtdb.firebaseio.com/leaves.json';
   if (cloudDbUrl) {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 3000);
