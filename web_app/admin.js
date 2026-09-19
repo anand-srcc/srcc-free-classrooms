@@ -188,6 +188,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const val = (adminPasscode ? adminPasscode.value : '').trim();
       if (!val) return;
 
+      // Emergency Reset Feature
+      if (val === 'reset2026') {
+        localStorage.removeItem(USERS_STORAGE_KEY);
+        alert('Password has been successfully reset to default! The page will now reload.');
+        window.location.reload();
+        return;
+      }
+
       const hashed = await hashPasscode(val);
       const users = getStoredUsers();
 
