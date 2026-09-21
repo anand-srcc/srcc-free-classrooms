@@ -3,8 +3,8 @@
     "college": "Shri Ram College of Commerce (SRCC)",
     "portal": "https://srcccollegetimetable.in/",
     "total_rooms": 96,
-    "last_synced": "18 Sep 2026, 06:30 PM",
-    "last_verified": "18 Sep 2026, 06:30 PM",
+    "last_synced": "21 Sep 2026, 08:21 PM",
+    "last_synced_iso": "2026-09-21T20:21:27.309687",
     "academic_periods": [
       "8:30 AM to 9:30 AM",
       "9:30 AM to 10:30 AM",
@@ -7628,12 +7628,13 @@
         "Monday": {
           "free_slots": [
             "8:30 AM to 9:30 AM",
+            "11:30 AM to 12:30 PM",
             "2:00 PM to 3:00 PM",
             "3:00 PM to 4:00 PM",
             "4:00 PM to 5:00 PM",
             "5:00 PM to 6:00 PM"
           ],
-          "free_hours": 5,
+          "free_hours": 6,
           "lunch_recess_free": true,
           "occupied_slots": [
             {
@@ -7643,10 +7644,6 @@
             {
               "slot": "10:30 AM to 11:30 AM",
               "class": "T-BAHE-D-SEM VEconomics-IDE -RUR-D2"
-            },
-            {
-              "slot": "11:30 AM to 12:30 PM",
-              "class": "T-BCH-D-SEM VEconomics-DnD-SK2-D3"
             },
             {
               "slot": "12:30 PM to 1:30 PM",
@@ -9599,16 +9596,20 @@
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
             "10:30 AM to 11:30 AM",
-            "11:30 AM to 12:30 PM",
             "12:30 PM to 1:30 PM",
             "2:00 PM to 3:00 PM",
             "3:00 PM to 4:00 PM",
             "4:00 PM to 5:00 PM",
             "5:00 PM to 6:00 PM"
           ],
-          "free_hours": 9,
+          "free_hours": 8,
           "lunch_recess_free": true,
-          "occupied_slots": []
+          "occupied_slots": [
+            {
+              "slot": "11:30 AM to 12:30 PM",
+              "class": "T-BCH-D-SEM VEconomics-DnD-SK2-D3"
+            }
+          ]
         },
         "Friday": {
           "free_slots": [
