@@ -1,0 +1,51 @@
+name: Auto-Sync SRCC Faculty Leaves
+
+on:
+  schedule:
+    # 8:40 AM IST Mon-Sat
+    - cron: '10 3 * * 1-6'
+    # 9:00 AM IST Mon-Sat
+    - cron: '30 3 * * 1-6'
+    # 10:00 AM IST Mon-Sat
+    - cron: '30 4 * * 1-6'
+    # 11:00 AM IST Mon-Sat
+    - cron: '30 5 * * 1-6'
+    # 12:00 PM IST Mon-Sat
+    - cron: '30 6 * * 1-6'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync_leaves:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          python -m playwright install --with-deps chromium
+
+      - name: Run Live Faculty Leave Synchronizer
+        run: |
+          python sync_leaves.py
+
+      - name: Commit and push updated leaves
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add web_app/faculty_leaves.json web_app/faculty_leaves.js
+          if git diff --staged --quiet; then
+            echo "No changes in faculty leaves."
+          else
+            git commit -m "🏖️ [Automated] Sync live faculty leaves [skip netlify]"
+            git push
+          fi
