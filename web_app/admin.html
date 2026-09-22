@@ -13,16 +13,16 @@
   <style>
     /* Admin Portal Specific Styling */
     .admin-page-body {
-      background-color: var(--bg-main);
+      background-color: var(--bg-base);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
 
     .admin-navbar {
-      background: rgba(11, 20, 36, 0.95);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid var(--border-color);
       padding: 14px 24px;
       display: flex;
       align-items: center;
@@ -47,7 +47,7 @@
       font-family: var(--font-display);
       font-size: 1.15rem;
       font-weight: 800;
-      color: #FFFFFF;
+      color: var(--text-primary);
       margin: 0;
     }
 
@@ -96,7 +96,7 @@
     }
     .btn-view-app:hover {
       background: rgba(56, 189, 248, 0.25);
-      color: #FFFFFF;
+      color: var(--text-primary);
       transform: translateY(-1px);
     }
 
@@ -107,7 +107,7 @@
     }
     .btn-admin-logout:hover {
       background: #F43F5E;
-      color: #FFFFFF;
+      color: var(--text-primary);
     }
 
     /* Auth Screen */
@@ -120,14 +120,14 @@
     }
 
     .admin-auth-card {
-      background: rgba(14, 24, 42, 0.85);
+      background: #ffffff;
       backdrop-filter: blur(20px);
       border: 1px solid rgba(245, 158, 11, 0.3);
       border-radius: var(--radius-xl);
       padding: 36px 32px;
       max-width: 440px;
       width: 100%;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(245, 158, 11, 0.12);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08), 0 0 30px rgba(245, 158, 11, 0.12);
       text-align: center;
     }
 
@@ -148,7 +148,7 @@
       font-family: var(--font-display);
       font-size: 1.45rem;
       font-weight: 800;
-      color: #FFFFFF;
+      color: var(--text-primary);
       margin-bottom: 6px;
     }
 
@@ -176,10 +176,10 @@
       width: 100%;
       box-sizing: border-box;
       padding: 12px 14px;
-      background: rgba(7, 13, 24, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
       border-radius: var(--radius-md);
-      color: #FFFFFF;
+      color: var(--text-primary);
       font-size: 0.95rem;
       outline: none;
       transition: border-color 0.2s;
@@ -226,8 +226,8 @@
     }
 
     .admin-hero-banner {
-      background: linear-gradient(135deg, rgba(14, 24, 42, 0.9), rgba(20, 34, 60, 0.7));
-      border: 1px solid rgba(245, 158, 11, 0.3);
+      background: linear-gradient(135deg, #ffffff, #f1f5f9);
+      border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
       padding: 20px 24px;
       margin-bottom: 22px;
@@ -242,7 +242,7 @@
       font-family: var(--font-display);
       font-size: 1.35rem;
       font-weight: 800;
-      color: #FFFFFF;
+      color: var(--text-primary);
       margin: 0 0 4px 0;
     }
 
@@ -266,7 +266,7 @@
     }
 
     .admin-kpi-card {
-      background: rgba(14, 24, 42, 0.7);
+      background: #ffffff;
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
       padding: 16px 20px;
@@ -291,7 +291,7 @@
       font-size: 1.5rem;
       font-weight: 900;
       line-height: 1.1;
-      color: #FFFFFF;
+      color: var(--text-primary);
     }
 
     .admin-kpi-title {
@@ -305,7 +305,7 @@
 
     /* Cards in Dashboard */
     .admin-section-card {
-      background: rgba(14, 24, 42, 0.75);
+      background: #ffffff;
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
       padding: 22px 24px;
@@ -321,7 +321,7 @@
       gap: 12px;
       margin-bottom: 16px;
       padding-bottom: 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid var(--border-subtle);
     }
 
     .admin-section-title {
@@ -331,7 +331,7 @@
       font-family: var(--font-display);
       font-size: 1.1rem;
       font-weight: 700;
-      color: #FFFFFF;
+      color: var(--text-primary);
     }
 
     .quick-date-pills {
@@ -366,10 +366,10 @@
       width: 100%;
       box-sizing: border-box;
       padding: 8px 12px;
-      background: rgba(7, 13, 24, 0.8);
+      background: #f8fafc;
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: var(--radius-sm);
-      color: #FFFFFF;
+      color: var(--text-primary);
       font-size: 0.84rem;
     }
 
@@ -388,8 +388,8 @@
     }
 
     .sync-step-box {
-      background: rgba(7, 13, 24, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #f8fafc;
+      border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
       padding: 16px;
       position: relative;
@@ -412,7 +412,7 @@
     .sync-step-box h4 {
       font-family: var(--font-display);
       font-size: 0.92rem;
-      color: #FFFFFF;
+      color: var(--text-primary);
       margin-bottom: 6px;
     }
 
@@ -424,8 +424,8 @@
     }
 
     .code-preview-block {
-      background: #060B14;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: #f1f5f9;
+      border: 1px solid var(--border-color);
       border-radius: var(--radius-md);
       padding: 12px 14px;
       font-family: monospace;
@@ -523,7 +523,44 @@
           <div class="admin-kpi-title">Rooms Unlocked Today for GD</div>
         </div>
       </div>
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon" style="background: rgba(168, 85, 247, 0.15); color: #C084FC;">👥</div>
+        <div>
+          <div class="admin-kpi-val" id="kpiTotalVisitors">0</div>
+          <div class="admin-kpi-title">Total Unique Students</div>
+        </div>
+      </div>
     </div>
+
+    <!-- Analytics Row -->
+    <div class="admin-section-card" style="margin-bottom: 24px;">
+      <h3 style="margin-top: 0; font-family: var(--font-display); font-size: 1.1rem; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
+        <span>📊</span> Quick Insights
+      </h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+        <div style="background: #f8fafc; border: 1px solid var(--border-subtle); padding: 16px; border-radius: var(--radius-md);">
+          <div style="font-size: 0.75rem; color: var(--text-secondary); font-weight: 600; text-transform: uppercase;">Total Leaves This Week</div>
+          <div id="analyticsWeeklyLeaves" style="font-size: 1.6rem; font-weight: 800; color: var(--accent-blue); font-family: var(--font-display); margin-top: 4px;">0</div>
+        </div>
+        <div style="background: #f8fafc; border: 1px solid var(--border-subtle); padding: 16px; border-radius: var(--radius-md);">
+          <div style="font-size: 0.75rem; color: var(--text-secondary); font-weight: 600; text-transform: uppercase;">Busiest Dept. Today</div>
+          <div id="analyticsBusiestDept" style="font-size: 1.1rem; font-weight: 700; color: var(--accent-amber); font-family: var(--font-display); margin-top: 8px;">None</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Student Reports Section -->
+    <section class="admin-section-card" id="adminStudentReportsSection" style="display: none; border-color: rgba(220, 38, 38, 0.35); margin-bottom: 24px;">
+      <div class="admin-section-header">
+        <div class="admin-section-title" style="color: #DC2626;">
+          <span>⚠️</span>
+          <span>Student Issue Reports (<span id="adminReportsCount">0</span>)</span>
+        </div>
+      </div>
+      <div class="leaves-items-container" id="adminReportsListContainer">
+        <!-- Populated via admin.js -->
+      </div>
+    </section>
 
     <!-- Section 1: Mark Professor on Leave Form -->
     <section class="admin-section-card">
@@ -537,13 +574,13 @@
 
       <div class="leave-form-grid">
         <div class="leave-field-group">
-          <label for="adminTeacherSearch">Search & Select Professor:</label>
+          <label for="adminTeacherSearch">Search & Select Professor (Tap to select multiple):</label>
           <div class="teacher-search-field">
             <input type="text" id="adminTeacherSearch" placeholder="Type professor name, code or department..." />
           </div>
-          <select id="adminTeacherSelect" size="5" style="height: 120px; font-size: 0.84rem;">
+          <div id="adminTeacherSelect" style="height: 160px; overflow-y: auto; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 4px;">
             <!-- Populated dynamically via admin.js -->
-          </select>
+          </div>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 12px;">
@@ -569,6 +606,13 @@
             <button type="button" class="quick-date-btn" id="btnQuickTomorrow">Tomorrow</button>
             <button type="button" class="quick-date-btn" id="btnQuickThisWeek">Next 3 Days</button>
           </div>
+          
+          <div style="margin-top: 4px;">
+            <label style="font-size: 0.85rem; display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--text-primary);">
+              <input type="checkbox" id="adminHalfDayLeave" style="width: 16px; height: 16px; cursor: pointer;" />
+              <strong>½ Half Day Leave</strong> (Only first/second half)
+            </label>
+          </div>
         </div>
       </div>
 
@@ -586,9 +630,24 @@
           <span>📋</span>
           <span>Recorded Faculty Leaves (<span id="adminActiveLeavesCount">0</span>)</span>
         </div>
-        <button type="button" class="btn-reset-filters" id="btnAdminClearAllLeaves" style="font-size: 0.74rem; padding: 4px 10px;">
-          Clear All Custom Leaves
-        </button>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button type="button" class="btn-primary" id="btnAdminShareAllWhatsApp" style="font-size: 0.74rem; padding: 4px 10px; background: #16A34A; border: none; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;" title="Share complete numbered list of all faculty leaves on WhatsApp">
+            💬 Share All List
+          </button>
+          <button type="button" class="btn-primary" id="btnAdminExportCSV" style="font-size: 0.74rem; padding: 4px 10px; background: #0284C7; border: none; font-weight: 700;" title="Download leaves as Excel/CSV">
+            ⬇️ Export CSV
+          </button>
+          <button type="button" class="btn-reset-filters" id="btnAdminCleanOld" style="font-size: 0.74rem; padding: 4px 10px;" title="Delete expired leaves older than today">
+            🧹 Clean Expired
+          </button>
+          <button type="button" class="btn-reset-filters" id="btnAdminClearAllLeaves" style="font-size: 0.74rem; padding: 4px 10px;" title="Clear all leaves">
+            Clear All
+          </button>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 14px;">
+        <input type="text" id="adminLeavesSearch" placeholder="🔍 Search by professor name, department, or added by..." style="width: 100%; box-sizing: border-box; padding: 10px 14px; background: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-size: 0.88rem; color: var(--text-primary); outline: none;" />
       </div>
 
       <div class="leaves-items-container" id="adminLeavesListContainer">
@@ -619,7 +678,7 @@
           
           <label for="cloudDbSecretInput">Firebase Database Secret (Required for writing):</label>
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <input type="password" id="cloudDbSecretInput" placeholder="Enter Database Secret / Token" style="flex: 1; min-width: 260px; padding: 8px 12px; background: rgba(7, 13, 24, 0.8); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: var(--radius-md); color: #FFFFFF;" />
+            <input type="password" id="cloudDbSecretInput" placeholder="Enter Database Secret / Token" style="flex: 1; min-width: 260px; padding: 8px 12px; background: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--text-primary);" />
             <button type="button" class="btn-add-leave" id="btnSaveCloudDbUrl" style="padding: 9px 18px; font-size: 0.84rem;">
               💾 Save & Test Connection
             </button>
@@ -709,55 +768,55 @@
 
       <div class="user-mgmt-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; margin-bottom: 20px;">
         <!-- Box 1: Reset / Change Password -->
-        <div class="mgmt-sub-card" style="background: rgba(7, 13, 24, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--radius-md); padding: 16px;">
-          <h4 style="color: #FFFFFF; font-size: 0.95rem; margin: 0 0 12px 0; display: flex; align-items: center; gap: 6px;">
+        <div class="mgmt-sub-card" style="background: #f8fafc; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 16px;">
+          <h4 style="color: var(--text-primary); font-size: 0.95rem; margin: 0 0 12px 0; display: flex; align-items: center; gap: 6px;">
             <span>🔑</span> Change / Reset Password
           </h4>
           <form id="formChangePassword">
             <div class="form-group" style="margin-bottom: 10px;">
               <label for="pwdCurrent" style="font-size: 0.74rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 4px;">Current Password:</label>
-              <input type="password" id="pwdCurrent" placeholder="Enter existing password" required style="width: 100%; box-sizing: border-box; padding: 8px 12px; background: rgba(14, 24, 42, 0.8); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); color: #FFF;" />
+              <input type="password" id="pwdCurrent" placeholder="Enter existing password" required style="width: 100%; box-sizing: border-box; padding: 8px 12px; background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); color: var(--text-primary);" />
             </div>
             <div class="form-group" style="margin-bottom: 10px;">
               <label for="pwdNew" style="font-size: 0.74rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 4px;">New Password (Min 4 chars):</label>
-              <input type="password" id="pwdNew" placeholder="Enter new secure password" required minlength="4" style="width: 100%; box-sizing: border-box; padding: 8px 12px; background: rgba(14, 24, 42, 0.8); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); color: #FFF;" />
+              <input type="password" id="pwdNew" placeholder="Enter new secure password" required minlength="4" style="width: 100%; box-sizing: border-box; padding: 8px 12px; background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); color: var(--text-primary);" />
             </div>
             <div class="form-group" style="margin-bottom: 12px;">
               <label for="pwdConfirm" style="font-size: 0.74rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 4px;">Confirm New Password:</label>
-              <input type="password" id="pwdConfirm" placeholder="Re-type new password" required minlength="4" style="width: 100%; box-sizing: border-box; padding: 8px 12px; background: rgba(14, 24, 42, 0.8); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); color: #FFF;" />
+              <input type="password" id="pwdConfirm" placeholder="Re-type new password" required minlength="4" style="width: 100%; box-sizing: border-box; padding: 8px 12px; background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); color: var(--text-primary);" />
             </div>
-            <button type="submit" class="btn-primary-action" id="btnSubmitChangePwd" style="width: 100%; padding: 9px; font-size: 0.84rem; background: linear-gradient(135deg, #9333EA, #7C3AED); color: #FFF; border: none; border-radius: var(--radius-sm); font-weight: 700; cursor: pointer;">
+            <button type="submit" class="btn-primary-action" id="btnSubmitChangePwd" style="width: 100%; padding: 9px; font-size: 0.84rem; background: linear-gradient(135deg, #9333EA, #7C3AED); color: var(--text-primary); border: none; border-radius: var(--radius-sm); font-weight: 700; cursor: pointer;">
               🔄 Update Password
             </button>
           </form>
         </div>
 
         <!-- Box 2: Create Sub-Admin User -->
-        <div class="mgmt-sub-card" style="background: rgba(7, 13, 24, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--radius-md); padding: 16px;">
-          <h4 style="color: #FFFFFF; font-size: 0.95rem; margin: 0 0 12px 0; display: flex; align-items: center; gap: 6px;">
+        <div class="mgmt-sub-card" style="background: #f8fafc; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 16px;">
+          <h4 style="color: var(--text-primary); font-size: 0.95rem; margin: 0 0 12px 0; display: flex; align-items: center; gap: 6px;">
             <span>➕</span> Add New Admin / Team Member
           </h4>
           <form id="formCreateAdminUser">
             <div class="form-group" style="margin-bottom: 10px;">
               <label for="newUserUsername" style="font-size: 0.74rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 4px;">Username (Unique ID):</label>
-              <input type="text" id="newUserUsername" placeholder="e.g. rohit or coordinator1" required style="width: 100%; box-sizing: border-box; padding: 8px 12px; background: rgba(14, 24, 42, 0.8); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); color: #FFF;" />
+              <input type="text" id="newUserUsername" placeholder="e.g. rohit or coordinator1" required style="width: 100%; box-sizing: border-box; padding: 8px 12px; background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); color: var(--text-primary);" />
             </div>
             <div class="form-group" style="margin-bottom: 10px;">
               <label for="newUserFullName" style="font-size: 0.74rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 4px;">Full Name & Note:</label>
-              <input type="text" id="newUserFullName" placeholder="e.g. Rohit Sharma (Leave Team)" required style="width: 100%; box-sizing: border-box; padding: 8px 12px; background: rgba(14, 24, 42, 0.8); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); color: #FFF;" />
+              <input type="text" id="newUserFullName" placeholder="e.g. Rohit Sharma (Leave Team)" required style="width: 100%; box-sizing: border-box; padding: 8px 12px; background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); color: var(--text-primary);" />
             </div>
             <div class="form-group" style="margin-bottom: 10px;">
               <label for="newUserPassword" style="font-size: 0.74rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 4px;">Password / PIN:</label>
-              <input type="password" id="newUserPassword" placeholder="Set password for this user" required minlength="4" style="width: 100%; box-sizing: border-box; padding: 8px 12px; background: rgba(14, 24, 42, 0.8); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); color: #FFF;" />
+              <input type="password" id="newUserPassword" placeholder="Set password for this user" required minlength="4" style="width: 100%; box-sizing: border-box; padding: 8px 12px; background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); color: var(--text-primary);" />
             </div>
             <div class="form-group" style="margin-bottom: 12px;">
               <label for="newUserRole" style="font-size: 0.74rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 4px;">Access Role:</label>
-              <select id="newUserRole" style="width: 100%; box-sizing: border-box; padding: 8px 12px; background: rgba(14, 24, 42, 0.8); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); color: #FFF;">
+              <select id="newUserRole" style="width: 100%; box-sizing: border-box; padding: 8px 12px; background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); color: var(--text-primary);">
                 <option value="Leave Coordinator">Leave Coordinator (Record & manage faculty leaves)</option>
                 <option value="Admin">Full Admin (All controls & export)</option>
               </select>
             </div>
-            <button type="submit" class="btn-primary-action" id="btnSubmitCreateUser" style="width: 100%; padding: 9px; font-size: 0.84rem; background: linear-gradient(135deg, #10B981, #059669); color: #FFF; border: none; border-radius: var(--radius-sm); font-weight: 700; cursor: pointer;">
+            <button type="submit" class="btn-primary-action" id="btnSubmitCreateUser" style="width: 100%; padding: 9px; font-size: 0.84rem; background: linear-gradient(135deg, #10B981, #059669); color: var(--text-primary); border: none; border-radius: var(--radius-sm); font-weight: 700; cursor: pointer;">
               ➕ Create Admin Account
             </button>
           </form>
@@ -765,9 +824,9 @@
       </div>
 
       <!-- Registered Admin Users List -->
-      <div style="background: rgba(7, 13, 24, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--radius-md); padding: 16px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-          <h4 style="color: #FFFFFF; font-size: 0.92rem; margin: 0; display: flex; align-items: center; gap: 6px;">
+      <div style="background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 18px; box-shadow: var(--shadow-sm);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+          <h4 style="color: var(--text-primary); font-size: 0.95rem; font-weight: 700; margin: 0; display: flex; align-items: center; gap: 6px;">
             <span>📋</span> Authorized Admin Accounts (<span id="adminUsersCount">1</span>)
           </h4>
         </div>

@@ -153,6 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function saveStoredUsers(users) {
     try {
       localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
+      syncUsersToCloud(users);
     } catch (e) {
       console.error('Error saving admin users', e);
     }
@@ -204,15 +205,13 @@ document.addEventListener('DOMContentLoaded', () => {
         matchedUser = users.find(u => u.username.toLowerCase() === uInput.toLowerCase());
         if (matchedUser) {
           const isMatch = (matchedUser.passwordHash === hashed) || 
-                          (matchedUser.isSuper && (AUTH_HASHES.includes(hashed)));
+                          (matchedUser.isSuper && !matchedUser.hasChangedPassword && (AUTH_HASHES.includes(hashed)));
           if (!isMatch) matchedUser = null;
         }
       } else {
-        // If username not entered, check if password matches any user or default super admin
-        matchedUser = users.find(u => u.passwordHash === hashed || (u.isSuper && (AUTH_HASHES.includes(hashed))));
-        if (!matchedUser && (AUTH_HASHES.includes(hashed))) {
-          matchedUser = users[0];
-        }
+        showToast('⚠️ Username is required.', false);
+        if (adminUsername) adminUsername.focus();
+        return;
       }
 
       if (matchedUser) {
@@ -288,7 +287,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const CLOUD_DB_SECRET_KEY = 'srcc_cloud_db_secret';
 
   function getCloudDbUrl() {
-    return (window.SRCC_CLOUD_CONFIG && window.SRCC_CLOUD_CONFIG.db_url) || localStorage.getItem(CLOUD_DB_STORAGE_KEY) || '';
+    return (window.SRCC_CLOUD_CONFIG && window.SRCC_CLOUD_CONFIG.db_url) || localStorage.getItem(CLOUD_DB_STORAGE_KEY) || 'https://srcc-leaves-default-rtdb.firebaseio.com/leaves.json';
+  }
+
+  function getBaseCloudDbUrl() {
+    let url = getCloudDbUrl();
+    if (!url) return '';
+    if (url.endsWith('/leaves.json')) {
+      url = url.substring(0, url.length - 12);
+    }
+    return url;
   }
 
   function getCloudDbSecret() {
@@ -323,9 +331,57 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  async function syncUsersToCloud(usersList) {
+    let baseUrl = getBaseCloudDbUrl();
+    if (!baseUrl) return false;
+    let url = baseUrl + '/users.json';
+    
+    const secret = getCloudDbSecret();
+    if (secret) {
+      url += (url.includes('?') ? '&' : '?') + 'auth=' + encodeURIComponent(secret);
+    }
+
+    try {
+      const res = await fetch(url, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(usersList)
+      });
+      return res.ok;
+    } catch (err) {
+      console.error('Cloud sync users error:', err);
+      return false;
+    }
+  }
+
+  async function fetchUsersFromCloud() {
+    let baseUrl = getBaseCloudDbUrl();
+    if (!baseUrl) return null;
+    let url = baseUrl + '/users.json';
+    
+    const secret = getCloudDbSecret();
+    if (secret) {
+      url += (url.includes('?') ? '&' : '?') + 'auth=' + encodeURIComponent(secret);
+    }
+
+    try {
+      const res = await fetch(url);
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+          return data;
+        }
+      }
+    } catch (err) {
+      console.error('Error fetching users from cloud:', err);
+    }
+    return null;
+  }
+
   async function syncLeavesToCloud(leavesList, showSuccessToast = false) {
-    let url = getCloudDbUrl();
-    if (!url) return false;
+    let baseUrl = getBaseCloudDbUrl();
+    if (!baseUrl) return false;
+    let url = baseUrl + '/leaves.json';
     
     const secret = getCloudDbSecret();
     if (secret) {
@@ -422,6 +478,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  let selectedTeacherIds = new Set();
+
   // Teacher Search & Select
   function populateTeacherSelect(filterQuery = '') {
     if (!adminTeacherSelect || !teachersData || !teachersData.teachers) return;
@@ -442,12 +500,27 @@ document.addEventListener('DOMContentLoaded', () => {
     adminTeacherSelect.innerHTML = filtered.map(t => {
       const code = getDisplayShortCode(t);
       const codeStr = code ? ` [${escapeHtml(code)}]` : '';
-      return `<option value="${escapeHtml(t.id)}">${escapeHtml(t.clean_name)}${codeStr} — ${escapeHtml(t.department)} (${t.total_teaching_periods || 0} classes/wk)</option>`;
+      const isChecked = selectedTeacherIds.has(String(t.id)) ? 'checked' : '';
+      return `
+        <label class="teacher-checkbox-item" style="display:flex; align-items:center; gap:10px; padding:6px 8px; cursor:pointer; border-bottom:1px solid var(--border-subtle);">
+          <input type="checkbox" value="${escapeHtml(t.id)}" class="teacher-checkbox-input" ${isChecked} style="width:16px; height:16px; cursor:pointer;" />
+          <span style="font-size: 0.85rem; color: var(--text-primary);">
+            ${escapeHtml(t.clean_name)}${codeStr} — <span style="color:var(--text-secondary);">${escapeHtml(t.department)} (${t.total_teaching_periods || 0} classes/wk)</span>
+          </span>
+        </label>
+      `;
     }).join('');
 
-    if (filtered.length > 0 && !adminTeacherSelect.value) {
-      adminTeacherSelect.selectedIndex = 0;
-    }
+    // Attach listeners to update state
+    adminTeacherSelect.querySelectorAll('.teacher-checkbox-input').forEach(cb => {
+      cb.addEventListener('change', (e) => {
+        if (e.target.checked) {
+          selectedTeacherIds.add(e.target.value);
+        } else {
+          selectedTeacherIds.delete(e.target.value);
+        }
+      });
+    });
   }
 
   if (adminTeacherSearch) {
@@ -456,62 +529,143 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Undo state
+  let lastAddedLeaveIds = [];
+
+  window.undoLastLeaves = function() {
+    if (lastAddedLeaveIds.length === 0) return;
+    let current = getLeavesList();
+    current = current.filter(l => !lastAddedLeaveIds.includes(l.id));
+    saveLeavesList(current);
+    renderLeavesTable();
+    updateKpis();
+    updateCodePreview();
+    syncLeavesToCloud(current, false);
+    lastAddedLeaveIds = [];
+    showToast('↩️ <strong>Undone!</strong> The leaves have been removed.');
+  };
+
   // Add Leave Handler
   if (btnAdminAddLeave) {
     btnAdminAddLeave.addEventListener('click', () => {
-      const teacherId = adminTeacherSelect ? adminTeacherSelect.value : '';
-      if (!teacherId) {
-        showToast('⚠️ Please select a professor from the list first', false);
+      const selectedOptions = Array.from(selectedTeacherIds);
+      if (selectedOptions.length === 0) {
+        showToast('⚠️ Please select at least one professor from the list first', false);
         return;
       }
-
-      const teacher = teachersData.teachers.find(t => String(t.id) === String(teacherId));
-      if (!teacher) return;
 
       const sDate = adminStartDate ? adminStartDate.value : getTodayIsoDate();
       const eDate = adminEndDate ? adminEndDate.value : sDate;
       const reason = (adminLeaveReason && adminLeaveReason.value.trim()) || 'Faculty Leave';
+      const isHalfDay = document.getElementById('adminHalfDayLeave') && document.getElementById('adminHalfDayLeave').checked;
+      const activeUser = getActiveSessionUser();
+      const addedBy = activeUser ? activeUser.fullName : 'Admin';
 
       if (eDate < sDate) {
         showToast('⚠️ End date cannot be before start date', false);
         return;
       }
 
-      const newLeave = {
-        id: 'leave_' + Date.now(),
-        teacher_id: teacher.id,
-        teacher_name: teacher.clean_name,
-        teacher_code: getDisplayShortCode(teacher) || teacher.short_code,
-        department: teacher.department,
-        start_date: sDate,
-        end_date: eDate,
-        reason: reason,
-        added_at: new Date().toISOString()
-      };
-
       const current = getLeavesList();
-      current.unshift(newLeave);
+      lastAddedLeaveIds = [];
+      let names = [];
+
+      selectedOptions.forEach(optVal => {
+        const teacher = teachersData.teachers.find(t => String(t.id) === String(optVal));
+        if (!teacher) return;
+        
+        const newLeave = {
+          id: 'leave_' + Date.now() + '_' + Math.floor(Math.random()*1000),
+          teacher_id: teacher.id,
+          teacher_name: teacher.clean_name,
+          teacher_code: getDisplayShortCode(teacher) || teacher.short_code,
+          department: teacher.department,
+          start_date: sDate,
+          end_date: eDate,
+          reason: reason,
+          added_at: new Date().toISOString(),
+          isHalfDay: isHalfDay,
+          addedBy: addedBy
+        };
+        
+        lastAddedLeaveIds.push(newLeave.id);
+        names.push(teacher.clean_name);
+        current.unshift(newLeave);
+      });
+
+      if (names.length === 0) return;
+
       saveLeavesList(current);
 
       renderLeavesTable();
       updateKpis();
       updateCodePreview();
 
-      showToast(`🏖️ Successfully marked <strong>${escapeHtml(teacher.clean_name)}</strong> on leave! Scheduled classrooms are now unlocked for study.`, true, 4000);
+      const namesStr = names.length > 2 ? `${names.length} professors` : names.join(' & ');
+      showToast(`🏖️ Marked <strong>${escapeHtml(namesStr)}</strong> on leave! <button onclick="undoLastLeaves()" style="margin-left:8px; padding:2px 8px; border-radius:4px; border:none; background:#070D18; color:#fff; cursor:pointer; font-size:0.75rem;">Undo</button>`, true, 6000);
+      
       if (adminLeaveReason) adminLeaveReason.value = '';
+      if (document.getElementById('adminHalfDayLeave')) document.getElementById('adminHalfDayLeave').checked = false;
+      
+      // Reset selected checkboxes
+      selectedTeacherIds.clear();
+      populateTeacherSelect(adminTeacherSearch ? adminTeacherSearch.value : '');
 
       // Auto-sync to Cloud DB if configured
       syncLeavesToCloud(current, false);
     });
   }
 
-  // Render Leaves List / Table
+  function formatLeaveDates(s, e) {
+    if (!s && !e) return 'Today';
+    const fmt = (dStr) => {
+      if (!dStr) return '';
+      const p = dStr.split('-');
+      if (p.length === 3) {
+        const m = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][parseInt(p[1], 10) - 1] || '';
+        return `${parseInt(p[2], 10)} ${m}`;
+      }
+      return dStr;
+    };
+    const sFmt = fmt(s);
+    const eFmt = fmt(e);
+    if (sFmt && eFmt) {
+      return (sFmt === eFmt) ? sFmt : `${sFmt} – ${eFmt}`;
+    }
+    return sFmt || eFmt || 'Today';
+  }
+
+  function buildLeavesWhatsAppMessage(leavesList) {
+    if (!leavesList || leavesList.length === 0) {
+      return '*SRCC Faculty Leave Update*\nNo professors are currently marked on leave.';
+    }
+    const lines = leavesList.map((l, idx) => {
+      const code = l.teacher_code && !/^(cg|eg|mg|hg|hgc)\d*$/i.test(l.teacher_code) ? ` [${l.teacher_code}]` : '';
+      const dates = formatLeaveDates(l.start_date, l.end_date);
+      return `${idx + 1}. ${l.teacher_name}${code} (${dates})`;
+    });
+
+    return `*SRCC Faculty Leave Update (${leavesList.length})* 🏖️\n\n${lines.join('\n')}\n\n_Check free classrooms:_ https://srcc-free-classrooms.netlify.app/`;
+  }
+
   function renderLeavesTable() {
     if (!adminLeavesListContainer) return;
-    const leaves = getLeavesList();
+    let leaves = getLeavesList();
     const today = getTodayIsoDate();
 
     if (adminActiveLeavesCount) adminActiveLeavesCount.textContent = leaves.length;
+
+    // Search filter
+    const searchInput = document.getElementById('adminLeavesSearch');
+    if (searchInput && searchInput.value.trim()) {
+      const q = searchInput.value.trim().toLowerCase();
+      leaves = leaves.filter(l => 
+        (l.teacher_name && l.teacher_name.toLowerCase().includes(q)) ||
+        (l.teacher_code && l.teacher_code.toLowerCase().includes(q)) ||
+        (l.addedBy && l.addedBy.toLowerCase().includes(q)) ||
+        (l.reason && l.reason.toLowerCase().includes(q))
+      );
+    }
 
     if (leaves.length === 0) {
       adminLeavesListContainer.innerHTML = `
@@ -522,26 +676,38 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    adminLeavesListContainer.innerHTML = leaves.map(leave => {
+    adminLeavesListContainer.innerHTML = leaves.map((leave, idx) => {
       const s = leave.start_date || today;
       const e = leave.end_date || today;
       const isActiveToday = (today >= s && today <= e);
       const code = leave.teacher_code && !/^(cg|eg|mg|hg|hgc)\d*$/i.test(leave.teacher_code) ? ` [${leave.teacher_code}]` : '';
+      const dateRangeDisplay = formatLeaveDates(s, e);
+      const halfDayBadge = leave.isHalfDay ? `<span style="background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; font-size: 0.68rem; font-weight: 800; padding: 2px 7px; border-radius: 9999px;">½ DAY</span>` : '';
+      const addedByBadge = leave.addedBy ? `<span style="font-size: 0.72rem; color: #64748B; margin-left: 6px;">(By: ${escapeHtml(leave.addedBy)})</span>` : '';
+
+      const singleLeaveMsg = `*SRCC Faculty Leave Update* 🏖️\n\n1. ${leave.teacher_name}${code} (${dateRangeDisplay})\n\n_Check free classrooms:_ https://srcc-free-classrooms.netlify.app/`;
 
       return `
         <div class="leave-item-row" data-leave-id="${leave.id}">
+          <span class="leave-item-num">${idx + 1}</span>
           <div class="leave-item-details">
             <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-              <span class="leave-item-teacher">👨‍🏫 ${escapeHtml(leave.teacher_name)}${code}</span>
-              <span style="font-size: 0.72rem; color: var(--text-secondary);">(${leave.department || 'Faculty'})</span>
-              ${isActiveToday ? '<span style="background: rgba(244, 63, 94, 0.25); color: #FDA4AF; border: 1px solid rgba(244, 63, 94, 0.4); font-size: 0.68rem; font-weight: 800; padding: 1px 6px; border-radius: 9999px;">ACTIVE TODAY</span>' : ''}
+              <span class="leave-item-teacher">${escapeHtml(leave.teacher_name)}${code}</span>
+              <span class="leave-item-dates">📅 ${dateRangeDisplay}</span>
+              ${halfDayBadge}
+              ${isActiveToday ? '<span style="background: #FEE2E2; color: #991B1B; border: 1px solid #FCA5A5; font-size: 0.68rem; font-weight: 800; padding: 2px 8px; border-radius: 9999px;">ACTIVE TODAY</span>' : ''}
+              ${addedByBadge}
             </div>
-            <span class="leave-item-dates">📅 Dates: ${s} to ${e}</span>
             ${leave.reason ? `<span class="leave-item-reason">"${escapeHtml(leave.reason)}"</span>` : ''}
           </div>
-          <button class="btn-delete-leave" data-leave-id="${leave.id}" title="Remove leave and restore scheduled classes">
-            ✕ Delete Leave
-          </button>
+          <div style="display: flex; align-items: center; gap: 6px; margin-left: auto;">
+            <a href="https://wa.me/?text=${encodeURIComponent(singleLeaveMsg)}" target="_blank" class="btn-share-wa" title="Share on WhatsApp">
+              💬 Share
+            </a>
+            <button class="btn-delete-leave" data-leave-id="${leave.id}" title="Remove leave and restore scheduled classes">
+              ✕ Delete
+            </button>
+          </div>
         </div>
       `;
     }).join('');
@@ -580,6 +746,76 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Export to CSV
+  const btnAdminExportCSV = document.getElementById('btnAdminExportCSV');
+  if (btnAdminExportCSV) {
+    btnAdminExportCSV.addEventListener('click', () => {
+      const leaves = getLeavesList();
+      if (leaves.length === 0) {
+        showToast('⚠️ No leaves to export.', false);
+        return;
+      }
+      
+      let csv = 'Teacher Name,Teacher Code,Department,Start Date,End Date,Reason,Added By,Half Day\n';
+      leaves.forEach(l => {
+        const name = `"${(l.teacher_name || '').replace(/"/g, '""')}"`;
+        const code = `"${(l.teacher_code || '').replace(/"/g, '""')}"`;
+        const dept = `"${(l.department || '').replace(/"/g, '""')}"`;
+        const reason = `"${(l.reason || '').replace(/"/g, '""')}"`;
+        const addedBy = `"${(l.addedBy || '').replace(/"/g, '""')}"`;
+        const isHalfDay = l.isHalfDay ? 'Yes' : 'No';
+        csv += `${name},${code},${dept},${l.start_date},${l.end_date},${reason},${addedBy},${isHalfDay}\n`;
+      });
+      
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.setAttribute('hidden', '');
+      a.setAttribute('href', url);
+      a.setAttribute('download', `srcc_leaves_export_${getTodayIsoDate()}.csv`);
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      showToast('⬇️ CSV Exported Successfully!');
+    });
+  }
+
+  // Share All Faculty Leaves List on WhatsApp
+  const btnAdminShareAllWhatsApp = document.getElementById('btnAdminShareAllWhatsApp');
+  if (btnAdminShareAllWhatsApp) {
+    btnAdminShareAllWhatsApp.addEventListener('click', () => {
+      const leaves = getLeavesList();
+      const msg = buildLeavesWhatsAppMessage(leaves);
+      window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+    });
+  }
+
+  // Clean Expired Leaves
+  const btnAdminCleanOld = document.getElementById('btnAdminCleanOld');
+  if (btnAdminCleanOld) {
+    btnAdminCleanOld.addEventListener('click', () => {
+      const leaves = getLeavesList();
+      const today = getTodayIsoDate();
+      
+      const newLeaves = leaves.filter(l => {
+        const e = l.end_date || l.start_date || today;
+        return e >= today; // Keep only leaves that end today or in the future
+      });
+      
+      const removedCount = leaves.length - newLeaves.length;
+      if (removedCount > 0) {
+        saveLeavesList(newLeaves);
+        renderLeavesTable();
+        updateKpis();
+        updateCodePreview();
+        syncLeavesToCloud(newLeaves, false);
+        showToast(`🧹 Cleaned ${removedCount} expired leave record(s).`);
+      } else {
+        showToast('✅ No expired leaves found. Database is clean.');
+      }
+    });
+  }
+
   // Update KPIs
   function updateKpis() {
     if (teachersData && teachersData.teachers && kpiTotalFaculty) {
@@ -611,6 +847,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (kpiUnlockedRooms) {
       kpiUnlockedRooms.textContent = unlockedRooms > 0 ? `${unlockedRooms} Slots` : '0';
+    }
+
+    renderAnalytics(leaves, today, activeToday);
+  }
+
+  function renderAnalytics(leaves, today, activeToday) {
+    const weeklyLeavesEl = document.getElementById('analyticsWeeklyLeaves');
+    const busiestDeptEl = document.getElementById('analyticsBusiestDept');
+    if (!weeklyLeavesEl || !busiestDeptEl) return;
+
+    // 1. Calculate leaves active this week (simplistic: active today or start date is within next 7 days)
+    const todayDate = new Date(today);
+    const nextWeekDate = new Date(todayDate);
+    nextWeekDate.setDate(nextWeekDate.getDate() + 7);
+    const nextWeekIso = nextWeekDate.toISOString().split('T')[0];
+    
+    const weeklyCount = leaves.filter(l => {
+      const s = l.start_date || today;
+      const e = l.end_date || today;
+      return (e >= today && s <= nextWeekIso);
+    }).length;
+    
+    weeklyLeavesEl.textContent = weeklyCount;
+
+    // 2. Calculate Busiest Dept Today
+    if (activeToday.length === 0) {
+      busiestDeptEl.textContent = 'None';
+    } else {
+      const deptCounts = {};
+      activeToday.forEach(l => {
+        const d = l.department || 'General';
+        deptCounts[d] = (deptCounts[d] || 0) + 1;
+      });
+      let maxDept = 'None';
+      let maxCount = 0;
+      for (const [dept, count] of Object.entries(deptCounts)) {
+        if (count > maxCount) {
+          maxCount = count;
+          maxDept = dept;
+        }
+      }
+      busiestDeptEl.textContent = maxDept + (maxCount > 1 ? ` (${maxCount})` : '');
     }
   }
 
@@ -722,46 +1000,50 @@ document.addEventListener('DOMContentLoaded', () => {
     if (adminUsersCount) adminUsersCount.textContent = users.length;
 
     adminUsersListContainer.innerHTML = `
-      <table style="width: 100%; border-collapse: collapse; font-size: 0.82rem; text-align: left;">
-        <thead>
-          <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary);">
-            <th style="padding: 8px;">Username</th>
-            <th style="padding: 8px;">Full Name</th>
-            <th style="padding: 8px;">Role</th>
-            <th style="padding: 8px;">Created</th>
-            <th style="padding: 8px; text-align: right;">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${users.map(u => {
-            const isSelf = u.username.toLowerCase() === activeUser.username.toLowerCase();
-            const canDelete = !u.isSuper && !isSelf;
-            const roleBadgeStyle = u.isSuper 
-              ? 'background: rgba(252, 235, 10, 0.15); color: var(--srcc-gold); border: 1px solid rgba(252, 235, 10, 0.3);'
-              : 'background: rgba(56, 189, 248, 0.15); color: #38BDF8; border: 1px solid rgba(56, 189, 248, 0.3);';
-            return `
-              <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                <td style="padding: 8px; font-weight: 700; color: #FFF;">
-                  <code>${escapeHtml(u.username)}</code>
-                  ${isSelf ? '<span style="font-size: 0.68rem; color: #34D399; margin-left: 4px;">(You)</span>' : ''}
-                </td>
-                <td style="padding: 8px; color: var(--text-primary);">${escapeHtml(u.fullName)}</td>
-                <td style="padding: 8px;">
-                  <span style="padding: 2px 8px; border-radius: var(--radius-full); font-size: 0.72rem; font-weight: 600; ${roleBadgeStyle}">${escapeHtml(u.role)}</span>
-                </td>
-                <td style="padding: 8px; color: var(--text-muted);">${escapeHtml(u.createdAt || 'N/A')}</td>
-                <td style="padding: 8px; text-align: right;">
-                  ${canDelete ? `
-                    <button type="button" class="btn-delete-admin-user" data-username="${escapeHtml(u.username)}" style="background: rgba(244,63,94,0.15); border: 1px solid rgba(244,63,94,0.3); color: #FECDD3; padding: 4px 9px; border-radius: var(--radius-sm); font-size: 0.72rem; cursor: pointer; font-weight: 600;">
-                      ✕ Remove
-                    </button>
-                  ` : `<span style="color: var(--text-muted); font-size: 0.72rem; font-style: italic;">Protected</span>`}
-                </td>
-              </tr>
-            `;
-          }).join('')}
-        </tbody>
-      </table>
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.84rem; text-align: left;">
+          <thead>
+            <tr style="border-bottom: 2px solid #cbd5e1; background: #f1f5f9; color: #334155;">
+              <th style="padding: 10px 12px; font-weight: 700; border-radius: 6px 0 0 0;">Username</th>
+              <th style="padding: 10px 12px; font-weight: 700;">Full Name</th>
+              <th style="padding: 10px 12px; font-weight: 700;">Role</th>
+              <th style="padding: 10px 12px; font-weight: 700;">Created</th>
+              <th style="padding: 10px 12px; text-align: right; font-weight: 700; border-radius: 0 6px 0 0;">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${users.map(u => {
+              const isSelf = u.username.toLowerCase() === activeUser.username.toLowerCase();
+              const canDelete = !u.isSuper && !isSelf;
+              const roleBadge = u.isSuper 
+                ? '<span style="background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; font-size: 0.74rem; font-weight: 700; padding: 3px 10px; border-radius: 9999px; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">👑 Super Admin</span>'
+                : '<span style="background: #e0f2fe; color: #0369a1; border: 1px solid #7dd3fc; font-size: 0.74rem; font-weight: 700; padding: 3px 10px; border-radius: 9999px; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🛡️ Leave Coordinator</span>';
+              return `
+                <tr style="border-bottom: 1px solid #e2e8f0; transition: background 0.15s ease;">
+                  <td style="padding: 10px 12px;">
+                    <div style="display: inline-flex; align-items: center; gap: 6px;">
+                      <code style="background: #f1f5f9; border: 1px solid #cbd5e1; color: #0f172a; padding: 3px 8px; border-radius: 6px; font-family: monospace; font-size: 0.85rem; font-weight: 800;">${escapeHtml(u.username)}</code>
+                      ${isSelf ? '<span style="font-size: 0.72rem; font-weight: 700; color: #059669; background: #ecfdf5; border: 1px solid #a7f3d0; padding: 2px 6px; border-radius: 9999px;">(You)</span>' : ''}
+                    </div>
+                  </td>
+                  <td style="padding: 10px 12px; color: #1e293b; font-weight: 600;">${escapeHtml(u.fullName)}</td>
+                  <td style="padding: 10px 12px;">
+                    ${roleBadge}
+                  </td>
+                  <td style="padding: 10px 12px; color: #64748b; font-size: 0.8rem; font-weight: 500;">${escapeHtml(u.createdAt || 'N/A')}</td>
+                  <td style="padding: 10px 12px; text-align: right;">
+                    ${canDelete ? `
+                      <button type="button" class="btn-delete-admin-user" data-username="${escapeHtml(u.username)}" style="background: #fee2e2; border: 1px solid #fca5a5; color: #991b1b; padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; font-weight: 700; transition: all 0.15s ease;">
+                        ✕ Remove
+                      </button>
+                    ` : `<span style="color: #94a3b8; font-size: 0.75rem; font-weight: 600; font-style: italic;">Protected</span>`}
+                  </td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
     `;
 
     document.querySelectorAll('.btn-delete-admin-user').forEach(btn => {
@@ -807,7 +1089,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const targetUser = users[userIdx];
       const isCurValid = (targetUser.passwordHash === curHash) ||
-                         (targetUser.isSuper && (AUTH_HASHES.includes(curHash)));
+                         (targetUser.isSuper && !targetUser.hasChangedPassword && (AUTH_HASHES.includes(curHash)));
 
       if (!isCurValid) {
         showToast('⚠️ Current password incorrect.', false);
@@ -817,6 +1099,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const newHash = await hashPasscode(n1);
       users[userIdx].passwordHash = newHash;
+      users[userIdx].hasChangedPassword = true;
       saveStoredUsers(users);
 
       showToast('✅ <strong>Password updated successfully!</strong> Keep your new password secure.');
@@ -874,6 +1157,119 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Search functionality
+  const adminLeavesSearch = document.getElementById('adminLeavesSearch');
+  if (adminLeavesSearch) {
+    adminLeavesSearch.addEventListener('input', () => {
+      renderLeavesTable();
+    });
+  }
+
+  // Fetch Visitor Count (Students)
+  async function fetchVisitorCount() {
+    let baseUrl = getBaseCloudDbUrl();
+    if (!baseUrl) return;
+    try {
+      const url = baseUrl + '/visitors.json?shallow=true';
+      const secret = getCloudDbSecret();
+      let finalUrl = url;
+      if (secret) {
+        finalUrl += '&auth=' + encodeURIComponent(secret);
+      }
+      
+      const res = await fetch(finalUrl);
+      if (res.ok) {
+        const data = await res.json();
+        const count = data ? Object.keys(data).length : 0;
+        const el = document.getElementById('kpiTotalVisitors');
+        if (el) el.textContent = count;
+      }
+    } catch (e) {
+      console.warn('Could not fetch visitor count:', e);
+    }
+  }
+
   // Check authentication on startup
-  checkAuth();
+  async function boot() {
+    checkAuth();
+    
+    // Fetch users (admins) in background
+    fetchUsersFromCloud().then(cloudUsers => {
+      if (cloudUsers) {
+        localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(cloudUsers));
+        if (adminDashboardView && adminDashboardView.style.display === 'block') {
+           renderAdminUsersList();
+        }
+      }
+    });
+
+    // Fetch visitor count in background
+    fetchVisitorCount();
+    
+    // Fetch student issues
+    fetchStudentIssues();
+  }
+  
+  // Fetch Student Issues
+  async function fetchStudentIssues() {
+    let baseUrl = getBaseCloudDbUrl();
+    if (!baseUrl) return;
+    try {
+      const secret = getCloudDbSecret();
+      let url = baseUrl + '/issues.json';
+      if (secret) url += '?auth=' + encodeURIComponent(secret);
+      
+      const res = await fetch(url);
+      if (res.ok) {
+        const data = await res.json();
+        const section = document.getElementById('adminStudentReportsSection');
+        const container = document.getElementById('adminReportsListContainer');
+        const countEl = document.getElementById('adminReportsCount');
+        
+        if (!data || Object.keys(data).length === 0) {
+          if (section) section.style.display = 'none';
+          return;
+        }
+        
+        if (section) section.style.display = 'block';
+        const issues = Object.entries(data).map(([id, val]) => ({ id, ...val })).reverse();
+        if (countEl) countEl.textContent = issues.length;
+        
+        if (container) {
+          container.innerHTML = issues.map(issue => `
+            <div class="leave-item-row" style="border-left: 4px solid #ef4444;">
+              <div class="leave-item-details">
+                <span class="leave-item-teacher" style="color: #b91c1c;">⚠️ ${escapeHtml(issue.type || 'Issue')}</span>
+                <span class="leave-item-dates" style="font-size: 0.75rem;">🕒 ${new Date(issue.timestamp).toLocaleString()}</span>
+                ${issue.details ? `<span class="leave-item-reason" style="margin-top:4px;">"${escapeHtml(issue.details)}"</span>` : ''}
+              </div>
+              <button class="btn-delete-leave" onclick="dismissIssue('${issue.id}')" title="Dismiss this report">
+                ✓ Dismiss
+              </button>
+            </div>
+          `).join('');
+        }
+      }
+    } catch (e) {
+      console.warn('Could not fetch student issues:', e);
+    }
+  }
+
+  window.dismissIssue = async function(issueId) {
+    let baseUrl = getBaseCloudDbUrl();
+    if (!baseUrl) return;
+    const secret = getCloudDbSecret();
+    let url = baseUrl + `/issues/${issueId}.json`;
+    if (secret) url += '?auth=' + encodeURIComponent(secret);
+    
+    try {
+      await fetch(url, { method: 'DELETE' });
+      fetchStudentIssues();
+      showToast('✅ Issue report dismissed.');
+    } catch (e) {
+      showToast('⚠️ Failed to dismiss issue.', false);
+    }
+  };
+  
+  boot();
 });

@@ -1,4 +1,81 @@
+// SRCC Official Faculty Leaves Data
+// Auto-synced from studentassistsrcc.app
+// Last Updated: 23 Sep 2026, 12:24 AM
 window.SRCC_FACULTY_LEAVES = {
-  "last_updated": "18 Sep 2026",
-  "leaves": []
+  "last_updated": "23 Sep 2026, 12:24 AM",
+  "last_synced_iso": "2026-09-23T00:24:00.000000",
+  "total_on_leave": 7,
+  "source": "https://studentassistsrcc.app",
+  "leaves": [
+    {
+      "teacher_id": "594",
+      "teacher_name": "Prof. Mallika Kumar",
+      "teacher_code": "MAK",
+      "department": "Commerce",
+      "start_date": "2026-09-21",
+      "end_date": "2026-09-23",
+      "reason": "Official Leave",
+      "status": "On Leave"
+    },
+    {
+      "teacher_id": "603",
+      "teacher_name": "Prof. Rachna Jawa",
+      "teacher_code": "RAJ",
+      "department": "Commerce",
+      "start_date": "2026-09-21",
+      "end_date": "2026-09-25",
+      "reason": "Official Leave",
+      "status": "On Leave"
+    },
+    {
+      "teacher_id": "599",
+      "teacher_name": "Prof. Aruna Jha",
+      "teacher_code": "AAJ",
+      "department": "Commerce",
+      "start_date": "2026-09-22",
+      "end_date": "2026-09-23",
+      "reason": "Official Leave",
+      "status": "On Leave"
+    },
+    {
+      "teacher_id": "593",
+      "teacher_name": "Prof. Ruchi Kaushik",
+      "teacher_code": "RUK",
+      "department": "English",
+      "start_date": "2026-09-22",
+      "end_date": "2026-09-23",
+      "reason": "Official Leave",
+      "status": "On Leave"
+    },
+    {
+      "teacher_id": "507",
+      "teacher_name": "Dr. Shruti Mallik",
+      "teacher_code": "SIM",
+      "department": "Commerce",
+      "start_date": "2026-09-22",
+      "end_date": "2026-09-28",
+      "reason": "Official Leave",
+      "status": "On Leave"
+    },
+    {
+      "teacher_id": "510",
+      "teacher_name": "Dr. Nikunj Aggarwal",
+      "teacher_code": "NJA",
+      "department": "Commerce",
+      "start_date": "2026-09-22",
+      "end_date": "2026-09-28",
+      "reason": "Official Leave",
+      "status": "On Leave"
+    },
+    {
+      "teacher_id": "506",
+      "teacher_name": "Dr. Shikha Gupta",
+      "teacher_code": "SAG",
+      "department": "Commerce",
+      "start_date": "2026-09-23",
+      "end_date": "2026-09-23",
+      "reason": "Official Leave",
+      "status": "On Leave"
+    }
+  ]
 };

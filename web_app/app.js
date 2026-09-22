@@ -42,6 +42,19 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(err => console.error('Failed to fetch srcc_data.json:', err))
     );
   }
+  
+  let directoryData = window.SRCC_DIRECTORY_DATA;
+  if (!directoryData) {
+    loadPromises.push(
+      fetch('directory_data.json')
+        .then(r => {
+          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+          return r.json();
+        })
+        .then(d => { directoryData = d; window.SRCC_DIRECTORY_DATA = d; })
+        .catch(err => console.warn('Failed to fetch directory_data.json:', err))
+    );
+  }
   if (!teachersData) {
     loadPromises.push(
       fetch('teachers_data.json')
@@ -56,28 +69,65 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     );
   }
-  if (!leavesData) {
-    loadPromises.push(
-      fetch('faculty_leaves.json')
-        .then(r => {
-          if (!r.ok) throw new Error(`HTTP ${r.status}`);
-          return r.json();
-        })
-        .then(d => { leavesData = d; })
-        .catch(err => {
-          console.warn('Failed to fetch faculty_leaves.json:', err);
-          leavesData = { leaves: [] };
-        })
-    );
+  // 🏖️ Smart Leaves Fetch:
+  // If running locally (file:// or localhost) -> prioritize local faculty_leaves.js / faculty_leaves.json
+  // If running on production (Netlify) -> fetch live from GitHub Raw CDN (0 Netlify build credits)
+  const isLocalEnv = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  const GITHUB_LIVE_LEAVES_URL = 'https://raw.githubusercontent.com/anand-srcc/srcc-free-classrooms/main/web_app/faculty_leaves.json';
+  
+  if (!isLocalEnv) {
+    const leavesFetchPromise = fetch(`${GITHUB_LIVE_LEAVES_URL}?t=${Date.now()}`, { cache: 'no-cache' })
+      .then(r => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      })
+      .then(d => {
+        if (d && Array.isArray(d.leaves)) {
+          leavesData = d;
+          window.SRCC_FACULTY_LEAVES = d;
+        }
+      })
+      .catch(() => {
+        if (!leavesData) {
+          return fetch('faculty_leaves.json')
+            .then(r => r.ok ? r.json() : null)
+            .then(d => {
+              if (d) {
+                leavesData = d;
+                window.SRCC_FACULTY_LEAVES = d;
+              }
+            })
+            .catch(e => console.warn('Leaves local fallback note:', e));
+        }
+      });
+    loadPromises.push(leavesFetchPromise);
+  } else {
+    // In local development / testing: use local faculty_leaves.js or faculty_leaves.json
+    if (!leavesData) {
+      loadPromises.push(
+        fetch('faculty_leaves.json?t=' + Date.now())
+          .then(r => r.ok ? r.json() : null)
+          .then(d => {
+            if (d) {
+              leavesData = d;
+              window.SRCC_FACULTY_LEAVES = d;
+            }
+          })
+          .catch(() => {})
+      );
+    }
   }
 
-  // ☁️ Live Cloud Database Fetch (100% Free Firebase Realtime DB)
-  const cloudDbUrl = (window.SRCC_CLOUD_CONFIG && window.SRCC_CLOUD_CONFIG.db_url) || localStorage.getItem('srcc_cloud_db_url') || 'https://srcc-leaves-default-rtdb.firebaseio.com/leaves.json';
-  if (cloudDbUrl) {
+  // ☁️ Optional Cloud Database Fetch (if custom cloud_config.js URL is provided)
+  const customCloudUrl = (window.SRCC_CLOUD_CONFIG && window.SRCC_CLOUD_CONFIG.db_url && window.SRCC_CLOUD_CONFIG.db_url.trim())
+    ? window.SRCC_CLOUD_CONFIG.db_url.trim()
+    : (localStorage.getItem('srcc_cloud_db_url_custom') || '');
+
+  if (customCloudUrl) {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 3000);
+    const timeoutId = setTimeout(() => controller.abort(), 2500);
     loadPromises.push(
-      fetch(cloudDbUrl, { signal: controller.signal, cache: 'no-cache' })
+      fetch(customCloudUrl, { signal: controller.signal, cache: 'no-cache' })
         .then(r => {
           clearTimeout(timeoutId);
           if (!r.ok) throw new Error(`HTTP ${r.status}`);
@@ -87,14 +137,16 @@ document.addEventListener('DOMContentLoaded', () => {
           if (d) {
             if (Array.isArray(d.leaves)) {
               leavesData = d;
+              window.SRCC_FACULTY_LEAVES = d;
             } else if (Array.isArray(d)) {
               leavesData = { leaves: d, last_updated: 'Live Cloud' };
+              window.SRCC_FACULTY_LEAVES = leavesData;
             }
           }
         })
         .catch(err => {
           clearTimeout(timeoutId);
-          console.warn('Live Cloud Sync fetch timed out or failed, using local fallback:', err);
+          console.warn('Custom Cloud Sync note:', err);
         })
     );
   }
@@ -162,9 +214,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const LEAVES_STORAGE_KEY = 'srcc_faculty_leaves_v2';
 
     function getLeavesList() {
-      // Prioritize authoritative leaves from Cloud DB or faculty_leaves.js
-      if (leavesData && Array.isArray(leavesData.leaves)) {
-        return [...leavesData.leaves];
+      // Prioritize authoritative leaves from window.SRCC_FACULTY_LEAVES or leavesData
+      const activeSource = (window.SRCC_FACULTY_LEAVES && Array.isArray(window.SRCC_FACULTY_LEAVES.leaves))
+        ? window.SRCC_FACULTY_LEAVES
+        : leavesData;
+      if (activeSource && Array.isArray(activeSource.leaves)) {
+        return [...activeSource.leaves];
       }
       try {
         const stored = localStorage.getItem(LEAVES_STORAGE_KEY);
@@ -271,9 +326,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const tabModeFaculty = document.getElementById('tabModeFaculty');
     const viewRoomsSection = document.getElementById('viewRoomsSection');
     const viewFacultySection = document.getElementById('viewFacultySection');
+    const tabModeDirectory = document.getElementById('tabModeDirectory');
+    const viewDirectorySection = document.getElementById('viewDirectorySection');
+    const directoryGrid = document.getElementById('directoryGrid');
+    const searchDirectoryInput = document.getElementById('searchDirectoryInput');
+
     const modeFacultyCount = document.getElementById('modeFacultyCount');
 
-    // DOM Elements - Room Controls
     const dayButtons = document.querySelectorAll('#dayPicker .day-btn');
     const catPills = document.querySelectorAll('.cat-pill');
     const searchInput = document.getElementById('searchInput');
@@ -543,27 +602,83 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ========================================================================
+    // 🏖️ OPEN FACULTY LEAVES VIEW (Native integration inside Faculty Locator)
+    // ========================================================================
+    function openFacultyLeavesView() {
+      setAppMode('faculty', true);
+      facultyState.activeDept = 'ALL';
+      facultyState.statusFilter = 'ON_LEAVE';
+      facultyState.alphabetFilter = 'ALL';
+      document.querySelectorAll('#facultyAzFilter .az-btn').forEach(b => b.classList.toggle('active', b.dataset.letter === 'ALL'));
+      facultyDeptPills.forEach(p => p.classList.toggle('active', p.dataset.dept === 'ALL'));
+      if (facultyDeptSelect) facultyDeptSelect.value = 'ALL';
+      if (facultyStatusSelect) facultyStatusSelect.value = 'ON_LEAVE';
+      facultyState.searchQuery = '';
+      if (facultySearchInput) facultySearchInput.value = '';
+      if (btnClearFacultySearch) btnClearFacultySearch.style.display = 'none';
+      if (statFacultyFilterDesc) statFacultyFilterDesc.innerHTML = '';
+      renderFaculty();
+      setTimeout(() => {
+        if (facultyGrid) {
+          facultyGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+
+      const todayDate = getTodayIsoDate();
+      let onLeaveCount = 0;
+      if (typeof teachersData !== 'undefined' && teachersData && teachersData.teachers) {
+        onLeaveCount = teachersData.teachers.filter(t => isTeacherOnLeave(t, todayDate)).length;
+      } else {
+        const allLeaves = getLeavesList();
+        onLeaveCount = allLeaves.filter(l => {
+          if (!l.start_date && !l.end_date) return true;
+          const s = l.start_date || '2000-01-01';
+          const e = l.end_date || '2099-12-31';
+          return (todayDate >= s && todayDate <= e);
+        }).length;
+      }
+      showToast(`🏖️ Showing <strong>${onLeaveCount} ${onLeaveCount === 1 ? 'professor' : 'professors'}</strong> currently on leave today.`);
+    }
+
+    // ========================================================================
     // 🔀 DUAL MODE SWITCHING (ROOMS ⇄ FACULTY)
     // ========================================================================
     function setAppMode(mode, preserveFilters = false) {
+      if (mode === 'leaves') {
+        openFacultyLeavesView();
+        return;
+      }
       state.activeMode = mode;
-
       const isRooms = (mode === 'rooms');
+      const isFaculty = (mode === 'faculty');
+      const isDirectory = (mode === 'directory');
+
       if (tabModeRooms) {
         tabModeRooms.classList.toggle('active', isRooms);
         tabModeRooms.setAttribute('aria-selected', isRooms ? 'true' : 'false');
       }
       if (tabModeFaculty) {
-        tabModeFaculty.classList.toggle('active', !isRooms);
-        tabModeFaculty.setAttribute('aria-selected', !isRooms ? 'true' : 'false');
+        tabModeFaculty.classList.toggle('active', isFaculty);
+        tabModeFaculty.setAttribute('aria-selected', isFaculty ? 'true' : 'false');
+      }
+      if (tabModeDirectory) {
+        tabModeDirectory.classList.toggle('active', isDirectory);
+        tabModeDirectory.setAttribute('aria-selected', isDirectory ? 'true' : 'false');
       }
 
       if (viewRoomsSection) viewRoomsSection.style.display = isRooms ? 'block' : 'none';
-      if (viewFacultySection) viewFacultySection.style.display = !isRooms ? 'block' : 'none';
+      if (viewFacultySection) viewFacultySection.style.display = isFaculty ? 'block' : 'none';
+      if (viewDirectorySection) {
+        viewDirectorySection.style.display = isDirectory ? 'block' : 'none';
+        if (isDirectory && !window._directoryRendered) {
+          renderDirectory();
+          window._directoryRendered = true;
+        }
+      }
 
       // Update mobile bottom nav
       if (bnavRooms) bnavRooms.classList.toggle('active', isRooms);
-      if (bnavFaculty) bnavFaculty.classList.toggle('active', !isRooms);
+      if (bnavFaculty) bnavFaculty.classList.toggle('active', isFaculty);
 
       // Clean filter reset when switching tabs so users never get stuck with leftover filters
       if (!preserveFilters) {
@@ -600,7 +715,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (isRooms) {
         render();
-      } else {
+      } else if (isFaculty) {
         renderFaculty();
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -772,6 +887,9 @@ document.addEventListener('DOMContentLoaded', () => {
         btnFreeNow.classList.toggle('active', isActive);
         btnFreeNow.setAttribute('aria-checked', isActive ? 'true' : 'false');
       }
+      if (toggleFreeNowWrapper) {
+        toggleFreeNowWrapper.classList.toggle('is-on', isActive);
+      }
       if (toggleStatusText) toggleStatusText.textContent = isActive ? 'ON' : 'OFF';
       if (bnavFreeNow) bnavFreeNow.classList.toggle('active', isActive);
 
@@ -890,7 +1008,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function closeAppModal(modalEl) {
       if (!modalEl) return;
       modalEl.style.display = 'none';
-      const anyOpen = [scheduleModal, shareModal, teacherModal, leaveManagerModal].some(m => m && m.style.display === 'flex');
+      const anyOpen = [scheduleModal, shareModal, teacherModal, leaveManagerModal, reportIssueModal].some(m => m && m.style.display === 'flex');
       if (!anyOpen) {
         document.body.classList.remove('modal-open');
       }
@@ -932,6 +1050,8 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (shareModal && shareModal.style.display !== 'none') closeAppModal(shareModal);
         else if (teacherModal && teacherModal.style.display !== 'none') closeAppModal(teacherModal);
         else if (leaveManagerModal && leaveManagerModal.style.display !== 'none') closeAppModal(leaveManagerModal);
+        else if (reportIssueModal && reportIssueModal.style.display !== 'none') closeAppModal(reportIssueModal);
+        else if (installModal && installModal.style.display !== 'none') closeModal();
         else if (daySheetOverlay && daySheetOverlay.style.display !== 'none') daySheetOverlay.style.display = 'none';
         else if (wingsSheetOverlay && wingsSheetOverlay.style.display !== 'none') wingsSheetOverlay.style.display = 'none';
         else if (document.activeElement === searchInput) searchInput.blur();
@@ -1085,32 +1205,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const sched = room.schedule[state.activeDay] || { free_slots: [] };
       const freeSlotsList = sched.free_slots.length > 0
-        ? sched.free_slots.map(s => `  • ${s.replace(' to ', ' – ')}`).join('\n')
+        ? sched.free_slots.map(s => `  • ${s.replace(' to ', ' – ')}`).join('\\n')
         : '  • Only Lunch Recess (1:30 PM – 2:00 PM)';
 
       const siteUrl = window.location.origin + window.location.pathname;
       const activeDateStr = getDateForDay(state.activeDay);
       const dayAndDateDisplay = `${state.activeDay}, ${activeDateStr}`;
 
-      const cleanMessage = `🎓 SRCC Classroom Vacancy Alert\n\n` +
-        `📍 Room: ${room.code} (${room.name})\n` +
-        `🏛️ Wing: ${room.category.split(' (')[0]}\n` +
-        `🗓️ Day & Date: ${dayAndDateDisplay}\n` +
-        `👥 Capacity: ${room.capacity} seats\n` +
-        `☕ Lunch Recess: 1:30 PM – 2:00 PM (Vacant)\n\n` +
-        `🕒 Free Academic Slots:\n${freeSlotsList}\n\n` +
+      const cleanMessage = `🎓 SRCC Classroom Vacancy Alert
+
+` +
+        `📍 Room: ${room.code} (${room.name})
+` +
+        `🏛️ Wing: ${room.category.split(' (')[0]}
+` +
+        `🗓️ Day & Date: ${dayAndDateDisplay}
+` +
+        `👥 Capacity: ${room.capacity} seats
+` +
+        `☕ Lunch Recess: 1:30 PM – 2:00 PM (Vacant)
+
+` +
+        `🕒 Free Academic Slots:
+${freeSlotsList}
+
+` +
         `🔍 Live Timetable & Vacancy Tracker: ${siteUrl}`;
 
-      const whatsappMessage = `🎓 *SRCC Classroom Vacancy Alert*\n\n` +
-        `📍 *Room:* ${room.code} (${room.name})\n` +
-        `🏛️ *Wing:* ${room.category.split(' (')[0]}\n` +
-        `🗓️ *Day & Date:* ${dayAndDateDisplay}\n` +
-        `👥 *Capacity:* ${room.capacity} seats\n` +
-        `☕ *Lunch Recess:* 1:30 PM – 2:00 PM (Vacant)\n\n` +
-        `🕒 *Free Academic Slots:*\n${freeSlotsList}\n\n` +
+      const whatsappMessage = `🎓 *SRCC Classroom Vacancy Alert*
+
+` +
+        `📍 *Room:* ${room.code} (${room.name})
+` +
+        `🏛️ *Wing:* ${room.category.split(' (')[0]}
+` +
+        `🗓️ *Day & Date:* ${dayAndDateDisplay}
+` +
+        `👥 *Capacity:* ${room.capacity} seats
+` +
+        `☕ *Lunch Recess:* 1:30 PM – 2:00 PM (Vacant)
+
+` +
+        `🕒 *Free Academic Slots:*
+${freeSlotsList}
+
+` +
         `🔍 *Live Timetable & Vacancy Tracker:* ${siteUrl}`;
 
-      const tweetText = `🎓 SRCC Vacancy: Room ${room.code} is FREE on ${dayAndDateDisplay}!\n🕒 Check live timetable:`;
+      const tweetText = `🎓 SRCC Vacancy: Room ${room.code} is FREE on ${dayAndDateDisplay}!
+🕒 Check live timetable:`;
       const emailSubject = `SRCC Room Vacancy: ${room.code} (${dayAndDateDisplay})`;
 
       currentShareMessage = cleanMessage;
@@ -1361,7 +1504,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }).join('');
 
           const bonusChips = bonusFreeSlots.map(b => {
-            return `<div class="slot-chip" style="background: rgba(168, 85, 247, 0.22); color: #E9D5FF; border: 1px solid rgba(168, 85, 247, 0.45);" title="Class cancelled: Prof. ${escapeHtml(b.teacher.clean_name)} on leave">✨ ${escapeHtml(b.slot.replace(' to ', '–'))} (Faculty Leave)</div>`;
+            return `<div class="slot-chip" style="background: rgba(168, 85, 247, 0.22); color: #6d28d9; border: 1px solid rgba(168, 85, 247, 0.45);" title="Class cancelled: Prof. ${escapeHtml(b.teacher.clean_name)} on leave">✨ ${escapeHtml(b.slot.replace(' to ', '–'))} (Faculty Leave)</div>`;
           }).join('');
 
           chipsHtml = regularChips + bonusChips;
@@ -1497,9 +1640,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function formatClassDetails(raw) {
       if (!raw || typeof raw !== 'string') return '<span class="class-batch-line">Scheduled Class</span>';
       let cleaned = raw.replace(/<[-=]+>/g, '').trim();
-      cleaned = cleaned.replace(/([A-Za-z0-9\.\)])(?=LAB[- ]\d+|TUTE[- ]\d+|BATCH[- ]\d+)/gi, '$1\n');
+      cleaned = cleaned.replace(/([A-Za-z0-9\.\)])(?=LAB[- ]\d+|TUTE[- ]\d+|BATCH[- ]\d+)/gi, '$1\\n');
 
-      const lines = cleaned.split('\n').map(l => l.trim()).filter(Boolean);
+      const lines = cleaned.split('\\n').map(l => l.trim()).filter(Boolean);
       const formattedLines = lines.map(line => {
         let text = line;
         if (/SEM(?:ESTER)?\s*(VIII|VII|VI|IV|V|III|II|I|\d+)(?=[A-Za-z])/i.test(text)) {
@@ -1560,7 +1703,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <td><strong>${timeSlot.replace(' to ', ' – ')}</strong></td>
               <td><span class="badge-slot-leave">✨ BONUS FREE (LEAVE)</span></td>
               <td>
-                <strong style="color: #E9D5FF;">Class Cancelled:</strong> Prof. <strong>${leaveInfo.teacher.clean_name}</strong> (${leaveInfo.teacher.short_code || ''}) is on leave. Room is open for study!
+                <strong style="color: #6d28d9;">Class Cancelled:</strong> Prof. <strong>${leaveInfo.teacher.clean_name}</strong> (${leaveInfo.teacher.short_code || ''}) is on leave. Room is open for study!
                 <div style="font-size: 0.76rem; color: var(--text-muted); margin-top: 2px;">Scheduled: ${formatClassDetails(occupiedObj ? occupiedObj.class : '')}</div>
               </td>
             </tr>
@@ -1858,7 +2001,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const buildBannerHtml = (context) => {
         if (activeToday.length === 0) return '';
-        const count = activeToday.length;
+        let count = activeToday.length;
+        if (typeof teachersData !== 'undefined' && teachersData && teachersData.teachers) {
+          count = teachersData.teachers.filter(t => isTeacherOnLeave(t, todayDate)).length;
+        }
+        if (count === 0) return '';
         const profWord = count === 1 ? 'Professor is' : 'Professors are';
         return `
           <div class="active-leaves-strip" role="button" tabindex="0" title="Click to view absent faculty & suspended classes">
@@ -1870,33 +2017,11 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
       };
 
-      const handleLeaveBannerClick = () => {
-        setAppMode('faculty', true);
-        facultyState.activeDept = 'ALL';
-        facultyState.statusFilter = 'ON_LEAVE';
-        facultyState.alphabetFilter = 'ALL';
-        document.querySelectorAll('#facultyAzFilter .az-btn').forEach(b => b.classList.toggle('active', b.dataset.letter === 'ALL'));
-        facultyDeptPills.forEach(p => p.classList.toggle('active', p.dataset.dept === 'ALL'));
-        if (facultyDeptSelect) facultyDeptSelect.value = 'ALL';
-        if (facultyStatusSelect) facultyStatusSelect.value = 'ON_LEAVE';
-        facultyState.searchQuery = '';
-        if (facultySearchInput) facultySearchInput.value = '';
-        if (btnClearFacultySearch) btnClearFacultySearch.style.display = 'none';
-        if (statFacultyFilterDesc) statFacultyFilterDesc.innerHTML = '';
-        renderFaculty();
-        setTimeout(() => {
-          if (facultyGrid) {
-            facultyGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        }, 100);
-        showToast(`🏖️ Showing <strong>${activeToday.length} ${activeToday.length === 1 ? 'professor' : 'professors'}</strong> currently on leave today.`);
-      };
-
       if (activeLeavesRoomBanner) {
         if (activeToday.length > 0) {
           activeLeavesRoomBanner.innerHTML = buildBannerHtml('rooms');
           activeLeavesRoomBanner.style.display = 'flex';
-          activeLeavesRoomBanner.onclick = handleLeaveBannerClick;
+          activeLeavesRoomBanner.onclick = openFacultyLeavesView;
         } else {
           activeLeavesRoomBanner.style.display = 'none';
         }
@@ -1906,7 +2031,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (activeToday.length > 0) {
           activeLeavesFacultyBanner.innerHTML = buildBannerHtml('faculty');
           activeLeavesFacultyBanner.style.display = 'flex';
-          activeLeavesFacultyBanner.onclick = handleLeaveBannerClick;
+          activeLeavesFacultyBanner.onclick = openFacultyLeavesView;
         } else {
           activeLeavesFacultyBanner.style.display = 'none';
         }
@@ -1916,7 +2041,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (activeToday.length > 0) {
           headerLeavePill.textContent = `${activeToday.length} on leave • View`;
           headerLeavePill.style.display = 'inline-block';
-          headerLeavePill.onclick = handleLeaveBannerClick;
+          headerLeavePill.onclick = openFacultyLeavesView;
         } else {
           headerLeavePill.style.display = 'none';
         }
@@ -1926,13 +2051,19 @@ document.addEventListener('DOMContentLoaded', () => {
       const btnRoomsFacultyLeavesQuick = document.getElementById('btnRoomsFacultyLeavesQuick');
       const roomsQuickLeaveCount = document.getElementById('roomsQuickLeaveCount');
       if (btnRoomsFacultyLeavesQuick) {
-        btnRoomsFacultyLeavesQuick.onclick = handleLeaveBannerClick;
+        btnRoomsFacultyLeavesQuick.onclick = openFacultyLeavesView;
       }
       if (roomsQuickLeaveCount) {
         roomsQuickLeaveCount.textContent = activeToday.length > 0
           ? `${activeToday.length} on leave`
           : '0 on leave';
         roomsQuickLeaveCount.style.background = activeToday.length > 0 ? '#E11D48' : 'rgba(255, 255, 255, 0.15)';
+      }
+
+      // Metric Tile in Faculty Locator ("On Leave Today")
+      const metricFacultyOnLeaveTile = document.getElementById('metricFacultyOnLeaveTile');
+      if (metricFacultyOnLeaveTile) {
+        metricFacultyOnLeaveTile.onclick = openFacultyLeavesView;
       }
     }
 
@@ -2097,8 +2228,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (headerLeavePill) {
         if (leaveCount > 0) {
-          headerLeavePill.textContent = `${leaveCount} on leave`;
+          headerLeavePill.textContent = `${leaveCount} on leave • View`;
           headerLeavePill.style.display = 'inline-block';
+          headerLeavePill.onclick = openFacultyLeavesView;
         } else {
           headerLeavePill.style.display = 'none';
         }
@@ -2453,7 +2585,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 2px;">
                 ${subjCode ? `<span class="subject-pill" style="font-size: 0.76rem; padding: 2px 7px;">${escapeHtml(subjCode)}</span>` : ''}
                 <strong style="color: var(--text-primary); font-size: 0.88rem;">${escapeHtml(courseName)}</strong>
-                ${sem ? `<span class="class-batch-badge" style="color: #38BDF8; border-color: rgba(56, 189, 248, 0.3);">${escapeHtml(sem)}</span>` : ''}
+                ${sem ? `<span class="class-batch-badge" style="color: #0369a1; border-color: rgba(56, 189, 248, 0.3);">${escapeHtml(sem)}</span>` : ''}
               </div>
               ${(sec || batch) ? `
                 <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 3px;">
@@ -2494,7 +2626,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="m-tt-course-row">
               ${subjCode ? `<span class="m-tt-subject">${escapeHtml(subjCode)}</span>` : ''}
               <span class="m-tt-coursename">${escapeHtml(courseName)}</span>
-              ${sem ? `<span class="class-batch-badge" style="color: #38BDF8; border-color: rgba(56, 189, 248, 0.3); font-size: 0.74rem;">${escapeHtml(sem)}</span>` : ''}
+              ${sem ? `<span class="class-batch-badge" style="color: #0369a1; border-color: rgba(56, 189, 248, 0.3); font-size: 0.74rem;">${escapeHtml(sem)}</span>` : ''}
             </div>
             <div class="m-tt-meta-row">
               <div class="m-tt-section-batch">
@@ -2698,7 +2830,13 @@ document.addEventListener('DOMContentLoaded', () => {
       btnDownloadLeavesJs.addEventListener('click', () => {
         const leaves = getLeavesList();
         const todayStr = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
-        const content = `// SRCC Official Faculty Leaves Data\n// Generated: ${todayStr}\nwindow.SRCC_FACULTY_LEAVES = {\n  "last_updated": "${todayStr}",\n  "leaves": ${JSON.stringify(leaves, null, 2)}\n};\n`;
+        const content = `// SRCC Official Faculty Leaves Data
+// Generated: ${todayStr}
+window.SRCC_FACULTY_LEAVES = {
+  "last_updated": "${todayStr}",
+  "leaves": ${JSON.stringify(leaves, null, 2)}
+};
+`;
         const blob = new Blob([content], { type: 'application/javascript;charset=utf-8' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -2716,7 +2854,11 @@ document.addEventListener('DOMContentLoaded', () => {
       btnCopyLeavesJs.addEventListener('click', () => {
         const leaves = getLeavesList();
         const todayStr = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
-        const content = `window.SRCC_FACULTY_LEAVES = {\n  "last_updated": "${todayStr}",\n  "leaves": ${JSON.stringify(leaves, null, 2)}\n};\n`;
+        const content = `window.SRCC_FACULTY_LEAVES = {
+  "last_updated": "${todayStr}",
+  "leaves": ${JSON.stringify(leaves, null, 2)}
+};
+`;
         copyToClipboard(content).then(() => {
           btnCopyLeavesJs.textContent = '✅ Copied!';
           showToast('📋 <strong>Leaves code copied to clipboard!</strong> Ready to paste into faculty_leaves.js.', true, 3500);
@@ -2724,6 +2866,87 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
     }
+
+    // ========================================================================
+    // ⚠️ REPORT ISSUE FEATURE
+    // ========================================================================
+    const btnReportIssue = document.getElementById('btnReportIssue');
+    const reportIssueModal = document.getElementById('reportIssueModal');
+    const btnCloseReportModal = document.getElementById('btnCloseReportModal');
+    const btnCancelReport = document.getElementById('btnCancelReport');
+    const btnSubmitReport = document.getElementById('btnSubmitReport');
+    
+    if (btnReportIssue && reportIssueModal) {
+      const openReportModal = () => { openAppModal(reportIssueModal); };
+      const closeReportModal = () => { closeAppModal(reportIssueModal); };
+      
+      btnReportIssue.addEventListener('click', openReportModal);
+      if (btnCloseReportModal) btnCloseReportModal.addEventListener('click', closeReportModal);
+      if (btnCancelReport) btnCancelReport.addEventListener('click', closeReportModal);
+      reportIssueModal.addEventListener('click', (e) => {
+        if (e.target === reportIssueModal) closeReportModal();
+      });
+      
+      if (btnSubmitReport) {
+        btnSubmitReport.addEventListener('click', async () => {
+          const type = document.getElementById('reportIssueType').value;
+          const details = document.getElementById('reportIssueDetails').value;
+          
+          // Close modal immediately so UI doesn't freeze
+          closeReportModal();
+          document.getElementById('reportIssueDetails').value = '';
+          
+          showToast('⏳ Submitting your issue...', false, 2000);
+          
+          const cloudUrl = (window.SRCC_CLOUD_CONFIG && window.SRCC_CLOUD_CONFIG.db_url) || localStorage.getItem('srcc_cloud_db_url') || 'https://srcc-leaves-default-rtdb.firebaseio.com/leaves.json';
+          if (cloudUrl) {
+            let baseUrl = cloudUrl;
+            let authParam = '';
+            if (baseUrl.includes('?')) {
+              const parts = baseUrl.split('?');
+              baseUrl = parts[0];
+              authParam = '?' + parts[1];
+            }
+            if (baseUrl.endsWith('/leaves.json')) baseUrl = baseUrl.substring(0, baseUrl.length - 12);
+            
+            try {
+              // Add a timeout signal to prevent hanging fetch
+              const controller = new AbortController();
+              const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 seconds timeout
+              
+              await fetch(baseUrl + '/issues.json' + authParam, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  type,
+                  details,
+                  timestamp: new Date().toISOString(),
+                  userAgent: navigator.userAgent
+                }),
+                signal: controller.signal
+              });
+              clearTimeout(timeoutId);
+              showToast('✅ Issue reported! Admins will check it shortly.', true, 4000);
+            } catch (e) {
+              console.error('Issue report error:', e);
+              showToast('⚠️ Failed to submit issue. Please try again later.', false, 4000);
+            }
+          } else {
+            // Local fallback
+            showToast('✅ Issue reported locally! (Cloud DB not configured)', true, 4000);
+          }
+        });
+      }
+    }
+
+    // ========================================================================
+    // 🏖️ FACULTY ON LEAVE DIRECTORY VIEW LOGIC
+    // ========================================================================
+    window._openTeacherTimetable = function(teacherId) {
+      if (typeof openTeacherModal === 'function') {
+        openTeacherModal(teacherId);
+      }
+    };
 
     // ========================================================================
     // 🚀 INITIAL BOOTSTRAP
@@ -2753,24 +2976,38 @@ if ('serviceWorker' in navigator) {
 
 // Catch the install prompt event
 window.addEventListener('beforeinstallprompt', (e) => {
-  // Prevent Chrome 67 and earlier from automatically showing the prompt
+  // Prevent Chrome from automatically showing the prompt
   e.preventDefault();
   // Stash the event so it can be triggered later.
   deferredPrompt = e;
   
+  // Do not auto-popup on localhost or if user dismissed it in this session
+  const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  if (isLocal || sessionStorage.getItem('pwa_dismissed')) {
+    return;
+  }
+
   // Show the modal after a short delay (3 seconds) to not interrupt immediate reading
   setTimeout(() => {
-    installModal.style.display = 'flex';
+    if (installModal && !sessionStorage.getItem('pwa_dismissed')) {
+      installModal.style.display = 'flex';
+    }
   }, 3000);
 });
 
 // Close modal handlers
 const closeModal = () => {
-  installModal.style.display = 'none';
+  if (installModal) installModal.style.display = 'none';
+  sessionStorage.setItem('pwa_dismissed', '1');
 };
 
-btnCloseInstall.addEventListener('click', closeModal);
-btnNotNowInstall.addEventListener('click', closeModal);
+if (btnCloseInstall) btnCloseInstall.addEventListener('click', closeModal);
+if (btnNotNowInstall) btnNotNowInstall.addEventListener('click', closeModal);
+if (installModal) {
+  installModal.addEventListener('click', (e) => {
+    if (e.target === installModal) closeModal();
+  });
+}
 
 // Install App click handler
 btnInstallApp.addEventListener('click', async () => {
