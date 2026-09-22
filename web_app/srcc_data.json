@@ -3,8 +3,8 @@
     "college": "Shri Ram College of Commerce (SRCC)",
     "portal": "https://srcccollegetimetable.in/",
     "total_rooms": 96,
-    "last_synced": "18 Sep 2026, 06:30 PM",
-    "last_verified": "18 Sep 2026, 06:30 PM",
+    "last_synced": "22 Sep 2026, 10:50 PM",
+    "last_synced_iso": "2026-09-22T22:50:50.383109",
     "academic_periods": [
       "8:30 AM to 9:30 AM",
       "9:30 AM to 10:30 AM",
@@ -882,11 +882,12 @@
         "Thursday": {
           "free_slots": [
             "8:30 AM to 9:30 AM",
+            "12:30 PM to 1:30 PM",
             "3:00 PM to 4:00 PM",
             "4:00 PM to 5:00 PM",
             "5:00 PM to 6:00 PM"
           ],
-          "free_hours": 4,
+          "free_hours": 5,
           "lunch_recess_free": true,
           "occupied_slots": [
             {
@@ -900,10 +901,6 @@
             {
               "slot": "11:30 AM to 12:30 PM",
               "class": "L-BCH-I-SEM IIICommerce-FMI-HHK"
-            },
-            {
-              "slot": "12:30 PM to 1:30 PM",
-              "class": "L-1. BCH-N-SEM VEconomics-TPF-KDL-2. BCH-M-SEM VEconomics-TPF-KDL-3. BCH-K-SEM VEconomics-TPF-KDL-4. BCH-L-SEM VEconomics-TPF-KD"
             },
             {
               "slot": "2:00 PM to 3:00 PM",
@@ -2653,11 +2650,10 @@
         },
         "Wednesday": {
           "free_slots": [
-            "12:30 PM to 1:30 PM",
             "4:00 PM to 5:00 PM",
             "5:00 PM to 6:00 PM"
           ],
-          "free_hours": 3,
+          "free_hours": 2,
           "lunch_recess_free": true,
           "occupied_slots": [
             {
@@ -2675,6 +2671,10 @@
             {
               "slot": "11:30 AM to 12:30 PM",
               "class": "L-BCH-C-SEM VCommerce-MA-DAB"
+            },
+            {
+              "slot": "12:30 PM to 1:30 PM",
+              "class": "L-1. BCH-K-SEM VEconomics-TPF-KDL-2. BCH-L-SEM VEconomics-TPF-KDL-3. BCH-M-SEM VEconomics-TPF-KDL-4. BCH-N-SEM VEconomics-TPF-KD"
             },
             {
               "slot": "2:00 PM to 3:00 PM",
@@ -4374,12 +4374,11 @@
       "schedule": {
         "Monday": {
           "free_slots": [
-            "12:30 PM to 1:30 PM",
             "2:00 PM to 3:00 PM",
             "4:00 PM to 5:00 PM",
             "5:00 PM to 6:00 PM"
           ],
-          "free_hours": 4,
+          "free_hours": 3,
           "lunch_recess_free": true,
           "occupied_slots": [
             {
@@ -4397,6 +4396,10 @@
             {
               "slot": "11:30 AM to 12:30 PM",
               "class": "L-BAHE-B-SEM IEconomics-Intro MME-SS6"
+            },
+            {
+              "slot": "12:30 PM to 1:30 PM",
+              "class": "L-JOINT-SEM IIIMaths-VM II-MG1-VAC27"
             },
             {
               "slot": "3:00 PM to 4:00 PM",
@@ -4520,11 +4523,12 @@
         },
         "Friday": {
           "free_slots": [
+            "2:00 PM to 3:00 PM",
             "3:00 PM to 4:00 PM",
             "4:00 PM to 5:00 PM",
             "5:00 PM to 6:00 PM"
           ],
-          "free_hours": 3,
+          "free_hours": 4,
           "lunch_recess_free": true,
           "occupied_slots": [
             {
@@ -4546,10 +4550,6 @@
             {
               "slot": "12:30 PM to 1:30 PM",
               "class": "L-1. BAHE-D-SEM ICommerce-GE-AFE-SMRCL-2. BAHE-C-SEM ICommerce-GE-AFE-SMRC"
-            },
-            {
-              "slot": "2:00 PM to 3:00 PM",
-              "class": "LAB-JOINT-SEM IIIMaths-VM II-MG1-VAC27"
             }
           ]
         },
@@ -6125,12 +6125,14 @@
       "schedule": {
         "Monday": {
           "free_slots": [
+            "11:30 AM to 12:30 PM",
+            "12:30 PM to 1:30 PM",
             "2:00 PM to 3:00 PM",
             "3:00 PM to 4:00 PM",
             "4:00 PM to 5:00 PM",
             "5:00 PM to 6:00 PM"
           ],
-          "free_hours": 4,
+          "free_hours": 6,
           "lunch_recess_free": true,
           "occupied_slots": [
             {
@@ -6144,14 +6146,6 @@
             {
               "slot": "10:30 AM to 11:30 AM",
               "class": "LAB-1. BCH-G-SEM ICommerce-FA-HNT-GP1LAB-2. BCH-G-SEM ICommerce-FA-HNT-GP3"
-            },
-            {
-              "slot": "11:30 AM to 12:30 PM",
-              "class": "LAB-JOINT-SEM VEconomics-ITSA II-EG23-SEC19<----------------------->"
-            },
-            {
-              "slot": "12:30 PM to 1:30 PM",
-              "class": "LAB-JOINT-SEM VEconomics-ITSA II-EG23-SEC19<----------------------->"
             }
           ]
         },
@@ -6279,11 +6273,9 @@
         "Friday": {
           "free_slots": [
             "11:30 AM to 12:30 PM",
-            "12:30 PM to 1:30 PM",
-            "4:00 PM to 5:00 PM",
-            "5:00 PM to 6:00 PM"
+            "12:30 PM to 1:30 PM"
           ],
-          "free_hours": 4,
+          "free_hours": 2,
           "lunch_recess_free": true,
           "occupied_slots": [
             {
@@ -6300,11 +6292,19 @@
             },
             {
               "slot": "2:00 PM to 3:00 PM",
-              "class": "LAB-JOINT-SEM VEconomics-ITSA II-EG23-SEC19<----------------------->"
+              "class": "LAB-JOINT-SEM VMaths-ITSA II-MG1-SEC19<----------------------->"
             },
             {
               "slot": "3:00 PM to 4:00 PM",
-              "class": "LAB-JOINT-SEM VEconomics-ITSA II-EG23-SEC19<----------------------->"
+              "class": "LAB-JOINT-SEM VMaths-ITSA II-MG1-SEC19<----------------------->"
+            },
+            {
+              "slot": "4:00 PM to 5:00 PM",
+              "class": "LAB-JOINT-SEM VMaths-ITSA II-MG1-SEC19"
+            },
+            {
+              "slot": "5:00 PM to 6:00 PM",
+              "class": "LAB-JOINT-SEM VMaths-ITSA II-MG1-SEC19"
             }
           ]
         },
@@ -7628,12 +7628,13 @@
         "Monday": {
           "free_slots": [
             "8:30 AM to 9:30 AM",
+            "11:30 AM to 12:30 PM",
             "2:00 PM to 3:00 PM",
             "3:00 PM to 4:00 PM",
             "4:00 PM to 5:00 PM",
             "5:00 PM to 6:00 PM"
           ],
-          "free_hours": 5,
+          "free_hours": 6,
           "lunch_recess_free": true,
           "occupied_slots": [
             {
@@ -7643,10 +7644,6 @@
             {
               "slot": "10:30 AM to 11:30 AM",
               "class": "T-BAHE-D-SEM VEconomics-IDE -RUR-D2"
-            },
-            {
-              "slot": "11:30 AM to 12:30 PM",
-              "class": "T-BCH-D-SEM VEconomics-DnD-SK2-D3"
             },
             {
               "slot": "12:30 PM to 1:30 PM",
@@ -9599,16 +9596,20 @@
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
             "10:30 AM to 11:30 AM",
-            "11:30 AM to 12:30 PM",
             "12:30 PM to 1:30 PM",
             "2:00 PM to 3:00 PM",
             "3:00 PM to 4:00 PM",
             "4:00 PM to 5:00 PM",
             "5:00 PM to 6:00 PM"
           ],
-          "free_hours": 9,
+          "free_hours": 8,
           "lunch_recess_free": true,
-          "occupied_slots": []
+          "occupied_slots": [
+            {
+              "slot": "11:30 AM to 12:30 PM",
+              "class": "T-BCH-D-SEM VEconomics-DnD-SK2-D3"
+            }
+          ]
         },
         "Friday": {
           "free_slots": [
@@ -15542,11 +15543,11 @@
             },
             {
               "slot": "4:00 PM to 5:00 PM",
-              "class": "LAB-JOINT-SEM IEconomics-ITSA I-EG23-SEC20<----------------------->"
+              "class": "LAB-JOINT-SEM IMaths-ITSA I-MG1-SEC20<----------------------->"
             },
             {
               "slot": "5:00 PM to 6:00 PM",
-              "class": "LAB-JOINT-SEM IEconomics-ITSA I-EG23-SEC20<----------------------->"
+              "class": "LAB-JOINT-SEM IMaths-ITSA I-MG1-SEC20<----------------------->"
             }
           ]
         },
