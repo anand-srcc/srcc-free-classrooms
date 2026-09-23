@@ -24,7 +24,14 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 echo.
-echo [3/3] Updating web app files and Netlify zip package...
+echo [3/4] Syncing live faculty leaves from studentassistsrcc.app...
+python sync_leaves.py
+if %ERRORLEVEL% NEQ 0 (
+    echo [WARNING] Leave sync encountered an issue, proceeding with web package...
+)
+
+echo.
+echo [4/4] Updating web app files and Netlify zip package...
 copy /Y SRCC_Free_Classrooms_Timetable.xlsx web_app\SRCC_Free_Classrooms_Timetable.xlsx
 copy /Y SRCC_Free_Classrooms_Timetable.xlsx preview_web_app\SRCC_Free_Classrooms_Timetable.xlsx
 copy /Y SRCC_Free_Classrooms_Timetable.xlsx "%USERPROFILE%\Downloads\SRCC_Free_Classrooms_Timetable.xlsx"
