@@ -46,6 +46,6 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes in faculty leaves."
           else
-            git commit -m "🏖️ [Automated] Sync live faculty leaves [skip netlify]"
+            git commit -m "🏖️ [Automated] Sync live faculty leaves"
             git push
           fi
