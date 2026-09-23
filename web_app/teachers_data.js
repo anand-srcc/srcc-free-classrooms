@@ -2,9 +2,8 @@ window.SRCC_TEACHERS_DATA = {
   "metadata": {
     "college": "Shri Ram College of Commerce (SRCC)",
     "total_teachers": 210,
-    "last_synced": "18 Sep 2026, 06:30 PM",
-    "last_verified": "18 Sep 2026, 06:30 PM",
-    "last_synced_iso": "2026-09-18T18:30:00.000000",
+    "last_synced": "23 Sep 2026, 05:10 PM",
+    "last_synced_iso": "2026-09-23T17:10:11.674960",
     "departments": [
       "Commerce",
       "EVS",
@@ -147,7 +146,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "AAIC",
+      "ref_code": "cg16",
       "subjects": [
         "ITLP"
       ]
@@ -303,7 +302,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "AB",
+      "ref_code": "hg4",
       "subjects": [
         "HB",
         "HD",
@@ -460,7 +459,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "21",
       "subjects": [
         "ITSA I"
       ]
@@ -614,7 +613,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "24",
       "subjects": [
         "AS"
       ]
@@ -741,7 +740,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "AC",
+      "ref_code": "cg11",
       "subjects": [
         "BIDV"
       ]
@@ -895,7 +894,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "AG11",
+      "ref_code": "11",
       "subjects": [
         "Intro MME"
       ]
@@ -1037,7 +1036,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "ASC",
+      "ref_code": "cg28",
       "subjects": [
         "EP",
         "PM",
@@ -1181,7 +1180,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "ANC",
+      "ref_code": "cg1",
       "subjects": [
         "BIDV",
         "EC"
@@ -1324,7 +1323,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "ANIC",
+      "ref_code": "cg10",
       "subjects": [
         "CAS",
         "DM",
@@ -1482,7 +1481,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AJC",
+      "ref_code": "cg17",
       "subjects": [
         "EI",
         "IE"
@@ -1639,7 +1638,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AGC",
+      "ref_code": "cg23",
       "subjects": [
         "BLAW",
         "IF"
@@ -1768,7 +1767,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "AIC",
+      "ref_code": "cg32",
       "subjects": [
         "BIT",
         "CLIB",
@@ -1913,7 +1912,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "APC",
+      "ref_code": "cg22",
       "subjects": [
         "PFP",
         "TGNLC"
@@ -2042,7 +2041,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AHC",
+      "ref_code": "cg25",
       "subjects": [
         "BLAW",
         "BRM"
@@ -2170,7 +2169,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "cg30",
       "subjects": [
         "BIT"
       ]
@@ -2313,7 +2312,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "CB29",
+      "ref_code": "29",
       "subjects": [
         "BDE",
         "EOE",
@@ -2494,7 +2493,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "ECOM",
+      "ref_code": "",
       "subjects": [
         "ECom"
       ]
@@ -2743,7 +2742,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "DA",
+      "ref_code": "10",
       "subjects": [
         "EHI",
         "MB"
@@ -2952,7 +2951,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "AOK",
+      "ref_code": "",
       "subjects": [
         "FA"
       ]
@@ -3160,7 +3159,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "ANK",
+      "ref_code": "",
       "subjects": [
         "MPA",
         "POM"
@@ -3395,7 +3394,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "ATS",
+      "ref_code": "",
       "subjects": [
         "CAS",
         "CLIB",
@@ -3631,7 +3630,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "AG",
+      "ref_code": "",
       "subjects": [
         "IM",
         "OEM"
@@ -3866,7 +3865,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "ATK",
+      "ref_code": "",
       "subjects": [
         "DM",
         "POM"
@@ -4075,7 +4074,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AMS",
+      "ref_code": "",
       "subjects": [
         "BECON",
         "POM"
@@ -4284,7 +4283,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "ASA",
+      "ref_code": "",
       "subjects": [
         "MPA",
         "POM"
@@ -4506,7 +4505,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "AJJ",
+      "ref_code": "",
       "subjects": [
         "BECON",
         "BLAW"
@@ -4741,7 +4740,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "AAA",
+      "ref_code": "",
       "subjects": [
         "BADS",
         "ITLP"
@@ -4976,7 +4975,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AAR",
+      "ref_code": "",
       "subjects": [
         "BMATH",
         "POM"
@@ -5185,7 +5184,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AKJ",
+      "ref_code": "",
       "subjects": [
         "GT",
         "IMIC1"
@@ -5394,7 +5393,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "AKS",
+      "ref_code": "",
       "subjects": [
         "DE",
         "NM"
@@ -5629,7 +5628,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "BLK",
+      "ref_code": "",
       "subjects": [
         "BLAW",
         "FM"
@@ -5864,7 +5863,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "DAB",
+      "ref_code": "",
       "subjects": [
         "ACR",
         "AIS",
@@ -6101,7 +6100,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "DTY",
+      "ref_code": "",
       "subjects": [
         "BRM",
         "MA",
@@ -6285,7 +6284,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "ENN",
+      "ref_code": "",
       "subjects": [
         "IDE"
       ]
@@ -6493,7 +6492,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "FYV",
+      "ref_code": "",
       "subjects": [
         "FF",
         "II"
@@ -6728,7 +6727,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "JDP",
+      "ref_code": "",
       "subjects": [
         "ECom",
         "MFB",
@@ -6964,7 +6963,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "JTW",
+      "ref_code": "",
       "subjects": [
         "BECON",
         "POM",
@@ -7200,7 +7199,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "KKS",
+      "ref_code": "",
       "subjects": [
         "AUD",
         "ITL"
@@ -7422,7 +7421,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "KAG",
+      "ref_code": "",
       "subjects": [
         "CW",
         "DEC",
@@ -7535,6 +7534,19 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec L",
             "batch": "K2",
             "formatted_display": "TPF · B.Com (Hons) · Sem V · Sec L · (K2)"
+          },
+          {
+            "raw": "L-BCH-K-SEM VEconomics-TPF-R15L-BCH-L-SEM VEconomics-TPF-R15L-BCH-M-SEM VEconomics-TPF-R15L-BCH-N-SEM VEconomics-TPF-R15",
+            "display": "L-BCH-K-SEM VEconomics-TPF-R15L-BCH-L-SEM VEconomics-TPF-R15L-BCH-M-SEM VEconomics-TPF-R15L-BCH-N-SEM VEconomics-TPF-R15",
+            "type": "Lecture",
+            "room": "R15",
+            "course": "B.Com (Hons)",
+            "semester": "Sem V",
+            "subject": "TPF",
+            "slot": "12:30 PM to 1:30 PM",
+            "section": "Sec K",
+            "batch": "",
+            "formatted_display": "TPF · B.Com (Hons) · Sem V · Sec K"
           }
         ],
         "Thursday": [
@@ -7589,19 +7601,6 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec C",
             "batch": "",
             "formatted_display": "PE · B.A. (Hons) Economics · Sem V · Sec C"
-          },
-          {
-            "raw": "L-BCH-N-SEM VEconomics-TPF-R4L-BCH-M-SEM VEconomics-TPF-R4L-BCH-K-SEM VEconomics-TPF-R4L-BCH-L-SEM VEconomics-TPF-R4",
-            "display": "L-BCH-N-SEM VEconomics-TPF-R4L-BCH-M-SEM VEconomics-TPF-R4L-BCH-K-SEM VEconomics-TPF-R4L-BCH-L-SEM VEconomics-TPF-R4",
-            "type": "Lecture",
-            "room": "R4",
-            "course": "B.Com (Hons)",
-            "semester": "Sem V",
-            "subject": "TPF",
-            "slot": "12:30 PM to 1:30 PM",
-            "section": "Sec N",
-            "batch": "",
-            "formatted_display": "TPF · B.Com (Hons) · Sem V · Sec N"
           }
         ],
         "Friday": [
@@ -7661,7 +7660,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "KD",
+      "ref_code": "",
       "subjects": [
         "PE",
         "TPF"
@@ -7896,7 +7895,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "KK",
+      "ref_code": "",
       "subjects": [
         "GBS",
         "IMA I"
@@ -8118,7 +8117,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "KTK",
+      "ref_code": "",
       "subjects": [
         "HFPE",
         "OE"
@@ -8327,7 +8326,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "LVV",
+      "ref_code": "",
       "subjects": [
         "CVFD",
         "NII"
@@ -8536,7 +8535,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "MIG",
+      "ref_code": "",
       "subjects": [
         "DE",
         "FC",
@@ -8791,7 +8790,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "MG",
+      "ref_code": "",
       "subjects": [
         "DnD",
         "EOE"
@@ -9000,7 +8999,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "NGG",
+      "ref_code": "",
       "subjects": [
         "FA"
       ]
@@ -9234,7 +9233,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "NJA",
+      "ref_code": "",
       "subjects": [
         "BMATH",
         "BRM"
@@ -9469,7 +9468,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "NAD",
+      "ref_code": "",
       "subjects": [
         "AUD",
         "MPA"
@@ -9704,7 +9703,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "PKK",
+      "ref_code": "",
       "subjects": [
         "BRM",
         "IMC"
@@ -9939,7 +9938,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "PRS",
+      "ref_code": "",
       "subjects": [
         "DMS",
         "OOPUP",
@@ -10176,7 +10175,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "PRA",
+      "ref_code": "",
       "subjects": [
         "AUD",
         "CLIB",
@@ -10412,7 +10411,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "PAC",
+      "ref_code": "",
       "subjects": [
         "CLIB",
         "DA",
@@ -10648,7 +10647,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "PAA",
+      "ref_code": "",
       "subjects": [
         "CLIB",
         "FA",
@@ -10858,7 +10857,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "RKS",
+      "ref_code": "",
       "subjects": [
         "FA"
       ]
@@ -11085,7 +11084,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "RAK",
+      "ref_code": "",
       "subjects": [
         "IMA I",
         "IMIC1"
@@ -11294,7 +11293,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "RK",
+      "ref_code": "",
       "subjects": [
         "DnD",
         "ED",
@@ -11524,7 +11523,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "RB",
+      "ref_code": "",
       "subjects": [
         "AdTrix"
       ]
@@ -11777,7 +11776,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "RAS",
+      "ref_code": "",
       "subjects": [
         "BRM",
         "SMM"
@@ -11986,7 +11985,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "SNK",
+      "ref_code": "",
       "subjects": [
         "BECON"
       ]
@@ -12194,7 +12193,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "SSS",
+      "ref_code": "",
       "subjects": [
         "ABH",
         "OB"
@@ -12429,7 +12428,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "SPB",
+      "ref_code": "",
       "subjects": [
         "DTHRS",
         "EoE1",
@@ -12666,7 +12665,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SJJ",
+      "ref_code": "",
       "subjects": [
         "CAS",
         "FA"
@@ -12901,7 +12900,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "SAA",
+      "ref_code": "",
       "subjects": [
         "CAS",
         "ITLP"
@@ -13136,7 +13135,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SHG",
+      "ref_code": "",
       "subjects": [
         "AUD",
         "CAS"
@@ -13371,7 +13370,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SIA",
+      "ref_code": "",
       "subjects": [
         "BLAW",
         "MA"
@@ -13606,7 +13605,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "SVP",
+      "ref_code": "",
       "subjects": [
         "BLAW",
         "MPA"
@@ -13841,7 +13840,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SFK",
+      "ref_code": "",
       "subjects": [
         "IGT",
         "VM I"
@@ -14076,7 +14075,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SAG",
+      "ref_code": "",
       "subjects": [
         "BMATH",
         "BRM"
@@ -14311,7 +14310,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "SAR",
+      "ref_code": "",
       "subjects": [
         "ACPA",
         "MA",
@@ -14547,7 +14546,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SVK",
+      "ref_code": "",
       "subjects": [
         "DE",
         "ISM",
@@ -14783,7 +14782,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "SIM",
+      "ref_code": "",
       "subjects": [
         "FM"
       ]
@@ -14991,7 +14990,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SLG",
+      "ref_code": "",
       "subjects": [
         "MA"
       ]
@@ -15225,7 +15224,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "SNS",
+      "ref_code": "",
       "subjects": [
         "BRM",
         "POM"
@@ -15460,7 +15459,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SAS",
+      "ref_code": "",
       "subjects": [
         "NM"
       ]
@@ -15694,7 +15693,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "YAM",
+      "ref_code": "",
       "subjects": [
         "BLAW",
         "BMATH"
@@ -15834,7 +15833,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "EG22",
+      "ref_code": "",
       "subjects": [
         "AS",
         "ITSA I"
@@ -15847,36 +15846,9 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "EG23",
       "initials": "EG",
       "department": "Economics",
-      "total_teaching_periods": 14,
+      "total_teaching_periods": 8,
       "schedule": {
-        "Monday": [
-          {
-            "raw": "LAB-JOINT-SEM VEconomics-ITSA II-R31-SEC19<----------------------->",
-            "display": "LAB-JOINT-SEM VEconomics-ITSA II-R31-SEC19",
-            "type": "Practical/Lab",
-            "room": "R31",
-            "course": "",
-            "semester": "Sem V",
-            "subject": "ITSA II",
-            "slot": "11:30 AM to 12:30 PM",
-            "section": "",
-            "batch": "",
-            "formatted_display": "ITSA II · Sem V"
-          },
-          {
-            "raw": "LAB-JOINT-SEM VEconomics-ITSA II-R31-SEC19<----------------------->",
-            "display": "LAB-JOINT-SEM VEconomics-ITSA II-R31-SEC19",
-            "type": "Practical/Lab",
-            "room": "R31",
-            "course": "",
-            "semester": "Sem V",
-            "subject": "ITSA II",
-            "slot": "12:30 PM to 1:30 PM",
-            "section": "",
-            "batch": "",
-            "formatted_display": "ITSA II · Sem V"
-          }
-        ],
+        "Monday": [],
         "Tuesday": [
           {
             "raw": "LAB-JOINT-SEM VEconomics-ITSA II-R30-SEC18<----------------------->",
@@ -15957,63 +15929,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "",
             "batch": "",
             "formatted_display": "AS · Sem I"
-          },
-          {
-            "raw": "LAB-JOINT-SEM IEconomics-ITSA I-CL1-SEC20<----------------------->",
-            "display": "LAB-JOINT-SEM IEconomics-ITSA I-CL1-SEC20",
-            "type": "Practical/Lab",
-            "room": "CL1",
-            "course": "",
-            "semester": "Sem I",
-            "subject": "ITSA I",
-            "slot": "4:00 PM to 5:00 PM",
-            "section": "",
-            "batch": "",
-            "formatted_display": "ITSA I · Sem I"
-          },
-          {
-            "raw": "LAB-JOINT-SEM IEconomics-ITSA I-CL1-SEC20<----------------------->",
-            "display": "LAB-JOINT-SEM IEconomics-ITSA I-CL1-SEC20",
-            "type": "Practical/Lab",
-            "room": "CL1",
-            "course": "",
-            "semester": "Sem I",
-            "subject": "ITSA I",
-            "slot": "5:00 PM to 6:00 PM",
-            "section": "",
-            "batch": "",
-            "formatted_display": "ITSA I · Sem I"
           }
         ],
         "Thursday": [],
-        "Friday": [
-          {
-            "raw": "LAB-JOINT-SEM VEconomics-ITSA II-R31-SEC19<----------------------->",
-            "display": "LAB-JOINT-SEM VEconomics-ITSA II-R31-SEC19",
-            "type": "Practical/Lab",
-            "room": "R31",
-            "course": "",
-            "semester": "Sem V",
-            "subject": "ITSA II",
-            "slot": "2:00 PM to 3:00 PM",
-            "section": "",
-            "batch": "",
-            "formatted_display": "ITSA II · Sem V"
-          },
-          {
-            "raw": "LAB-JOINT-SEM VEconomics-ITSA II-R31-SEC19<----------------------->",
-            "display": "LAB-JOINT-SEM VEconomics-ITSA II-R31-SEC19",
-            "type": "Practical/Lab",
-            "room": "R31",
-            "course": "",
-            "semester": "Sem V",
-            "subject": "ITSA II",
-            "slot": "3:00 PM to 4:00 PM",
-            "section": "",
-            "batch": "",
-            "formatted_display": "ITSA II · Sem V"
-          }
-        ],
+        "Friday": [],
         "Saturday": [
           {
             "raw": "LAB-JOINT-SEM IEconomics-AS-CL2-SEC23",
@@ -16043,10 +15962,9 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "EG23",
+      "ref_code": "",
       "subjects": [
         "AS",
-        "ITSA I",
         "ITSA II"
       ]
     },
@@ -16057,7 +15975,7 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "EG30",
       "initials": "EG",
       "department": "Economics",
-      "total_teaching_periods": 10,
+      "total_teaching_periods": 8,
       "schedule": {
         "Monday": [],
         "Tuesday": [
@@ -16168,41 +16086,13 @@ window.SRCC_TEACHERS_DATA = {
             "formatted_display": "AS · Sem I"
           }
         ],
-        "Thursday": [
-          {
-            "raw": "LAB-JOINT-SEM IIIEconomics-ITSA II-R31-SEC14<----------------------->",
-            "display": "LAB-JOINT-SEM IIIEconomics-ITSA II-R31-SEC14",
-            "type": "Practical/Lab",
-            "room": "R31",
-            "course": "",
-            "semester": "Sem III",
-            "subject": "ITSA II",
-            "slot": "4:00 PM to 5:00 PM",
-            "section": "",
-            "batch": "",
-            "formatted_display": "ITSA II · Sem III"
-          },
-          {
-            "raw": "LAB-JOINT-SEM IIIEconomics-ITSA II-R31-SEC14<----------------------->",
-            "display": "LAB-JOINT-SEM IIIEconomics-ITSA II-R31-SEC14",
-            "type": "Practical/Lab",
-            "room": "R31",
-            "course": "",
-            "semester": "Sem III",
-            "subject": "ITSA II",
-            "slot": "5:00 PM to 6:00 PM",
-            "section": "",
-            "batch": "",
-            "formatted_display": "ITSA II · Sem III"
-          }
-        ],
+        "Thursday": [],
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "EG30",
+      "ref_code": "",
       "subjects": [
-        "AS",
-        "ITSA II"
+        "AS"
       ]
     },
     {
@@ -16273,7 +16163,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "ENG",
+      "ref_code": "",
       "subjects": [
         "CPL"
       ]
@@ -16403,7 +16293,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "EVSG1",
+      "ref_code": "",
       "subjects": [
         "II"
       ]
@@ -16532,7 +16422,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "EVSG2",
+      "ref_code": "",
       "subjects": [
         "FF",
         "II"
@@ -16662,7 +16552,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "EVSG3",
+      "ref_code": "",
       "subjects": [
         "II"
       ]
@@ -16798,7 +16688,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "GYC",
+      "ref_code": "",
       "subjects": [
         "BMATH",
         "CLIB"
@@ -16941,7 +16831,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "HNC",
+      "ref_code": "cg7",
       "subjects": [
         "EC"
       ]
@@ -17056,7 +16946,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "HGC",
+      "ref_code": "cg12",
       "subjects": [
         "ITLP"
       ]
@@ -17210,7 +17100,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "HC",
+      "ref_code": "16",
       "subjects": [
         "Adv MME"
       ]
@@ -17312,7 +17202,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "HGC",
+      "ref_code": "cg24",
       "subjects": [
         "BLAW"
       ]
@@ -17453,7 +17343,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "HC",
+      "ref_code": "cg4",
       "subjects": [
         "PFP",
         "SRG"
@@ -17596,7 +17486,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "HT5",
+      "ref_code": "5",
       "subjects": [
         "BDE",
         "MB",
@@ -17758,7 +17648,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "HC26",
+      "ref_code": "26",
       "subjects": [
         "BDE",
         "EOE",
@@ -17916,7 +17806,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "IT3",
+      "ref_code": "3",
       "subjects": [
         "DnD"
       ]
@@ -18045,7 +17935,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "JK12",
+      "ref_code": "12",
       "subjects": [
         "GBS",
         "Intro MME"
@@ -18188,7 +18078,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "KG1",
+      "ref_code": "1",
       "subjects": [
         "MB",
         "RM"
@@ -18344,7 +18234,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "25",
       "subjects": [
         "Adv MME",
         "BIT",
@@ -18500,7 +18390,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "KG7",
+      "ref_code": "7",
       "subjects": [
         "ISME"
       ]
@@ -18655,7 +18545,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "KG",
+      "ref_code": "13",
       "subjects": [
         "IMIC1"
       ]
@@ -18797,7 +18687,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "MAC",
+      "ref_code": "cg5",
       "subjects": [
         "EI"
       ]
@@ -18951,7 +18841,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "MR",
+      "ref_code": "14",
       "subjects": [
         "IMIC1"
       ]
@@ -19105,7 +18995,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "",
+      "ref_code": "15",
       "subjects": [
         "Adv MME"
       ]
@@ -19117,9 +19007,22 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "MG1",
       "initials": "MG",
       "department": "Mathematics",
-      "total_teaching_periods": 2,
+      "total_teaching_periods": 10,
       "schedule": {
         "Monday": [
+          {
+            "raw": "L-JOINT-SEM IIIMaths-VM II-R23-VAC27",
+            "display": "L-JOINT-SEM IIIMaths-VM II-R23-VAC27",
+            "type": "Lecture",
+            "room": "R23",
+            "course": "",
+            "semester": "Sem III",
+            "subject": "VM II",
+            "slot": "12:30 PM to 1:30 PM",
+            "section": "",
+            "batch": "VAC27",
+            "formatted_display": "VM II · Sem III · (VAC27)"
+          },
           {
             "raw": "L-JOINT-SEM IIIMaths-VM II-R20-VAC26",
             "display": "L-JOINT-SEM IIIMaths-VM II-R20-VAC26",
@@ -19135,27 +19038,122 @@ window.SRCC_TEACHERS_DATA = {
           }
         ],
         "Tuesday": [],
-        "Wednesday": [],
-        "Thursday": [],
-        "Friday": [
+        "Wednesday": [
           {
-            "raw": "LAB-JOINT-SEM IIIMaths-VM II-R23-VAC27",
-            "display": "LAB-JOINT-SEM IIIMaths-VM II-R23-VAC27",
+            "raw": "LAB-JOINT-SEM IMaths-ITSA I-CL1-SEC20<----------------------->",
+            "display": "LAB-JOINT-SEM IMaths-ITSA I-CL1-SEC20",
             "type": "Practical/Lab",
-            "room": "R23",
+            "room": "CL1",
+            "course": "",
+            "semester": "Sem I",
+            "subject": "ITSA I",
+            "slot": "4:00 PM to 5:00 PM",
+            "section": "",
+            "batch": "",
+            "formatted_display": "ITSA I · Sem I"
+          },
+          {
+            "raw": "LAB-JOINT-SEM IMaths-ITSA I-CL1-SEC20<----------------------->",
+            "display": "LAB-JOINT-SEM IMaths-ITSA I-CL1-SEC20",
+            "type": "Practical/Lab",
+            "room": "CL1",
+            "course": "",
+            "semester": "Sem I",
+            "subject": "ITSA I",
+            "slot": "5:00 PM to 6:00 PM",
+            "section": "",
+            "batch": "",
+            "formatted_display": "ITSA I · Sem I"
+          }
+        ],
+        "Thursday": [
+          {
+            "raw": "LAB-JOINT-SEM IIIMaths-ITSA II-R31-SEC14<----------------------->",
+            "display": "LAB-JOINT-SEM IIIMaths-ITSA II-R31-SEC14",
+            "type": "Practical/Lab",
+            "room": "R31",
             "course": "",
             "semester": "Sem III",
-            "subject": "VM II",
+            "subject": "ITSA II",
+            "slot": "4:00 PM to 5:00 PM",
+            "section": "",
+            "batch": "",
+            "formatted_display": "ITSA II · Sem III"
+          },
+          {
+            "raw": "LAB-JOINT-SEM IIIMaths-ITSA II-R31-SEC14<----------------------->",
+            "display": "LAB-JOINT-SEM IIIMaths-ITSA II-R31-SEC14",
+            "type": "Practical/Lab",
+            "room": "R31",
+            "course": "",
+            "semester": "Sem III",
+            "subject": "ITSA II",
+            "slot": "5:00 PM to 6:00 PM",
+            "section": "",
+            "batch": "",
+            "formatted_display": "ITSA II · Sem III"
+          }
+        ],
+        "Friday": [
+          {
+            "raw": "LAB-JOINT-SEM VMaths-ITSA II-R31-SEC19<----------------------->",
+            "display": "LAB-JOINT-SEM VMaths-ITSA II-R31-SEC19",
+            "type": "Practical/Lab",
+            "room": "R31",
+            "course": "",
+            "semester": "Sem V",
+            "subject": "ITSA II",
             "slot": "2:00 PM to 3:00 PM",
             "section": "",
-            "batch": "VAC27",
-            "formatted_display": "VM II · Sem III · (VAC27)"
+            "batch": "",
+            "formatted_display": "ITSA II · Sem V"
+          },
+          {
+            "raw": "LAB-JOINT-SEM VMaths-ITSA II-R31-SEC19<----------------------->",
+            "display": "LAB-JOINT-SEM VMaths-ITSA II-R31-SEC19",
+            "type": "Practical/Lab",
+            "room": "R31",
+            "course": "",
+            "semester": "Sem V",
+            "subject": "ITSA II",
+            "slot": "3:00 PM to 4:00 PM",
+            "section": "",
+            "batch": "",
+            "formatted_display": "ITSA II · Sem V"
+          },
+          {
+            "raw": "LAB-JOINT-SEM VMaths-ITSA II-R31-SEC19",
+            "display": "LAB-JOINT-SEM VMaths-ITSA II-R31-SEC19",
+            "type": "Practical/Lab",
+            "room": "R31",
+            "course": "",
+            "semester": "Sem V",
+            "subject": "ITSA II",
+            "slot": "4:00 PM to 5:00 PM",
+            "section": "",
+            "batch": "",
+            "formatted_display": "ITSA II · Sem V"
+          },
+          {
+            "raw": "LAB-JOINT-SEM VMaths-ITSA II-R31-SEC19",
+            "display": "LAB-JOINT-SEM VMaths-ITSA II-R31-SEC19",
+            "type": "Practical/Lab",
+            "room": "R31",
+            "course": "",
+            "semester": "Sem V",
+            "subject": "ITSA II",
+            "slot": "5:00 PM to 6:00 PM",
+            "section": "",
+            "batch": "",
+            "formatted_display": "ITSA II · Sem V"
           }
         ],
         "Saturday": []
       },
-      "ref_code": "MG1",
+      "ref_code": "",
       "subjects": [
+        "ITSA I",
+        "ITSA II",
         "VM II"
       ]
     },
@@ -19310,7 +19308,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "MG2",
+      "ref_code": "",
       "subjects": [
         "VM I",
         "VM II",
@@ -19447,7 +19445,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "MKG",
+      "ref_code": "cg34",
       "subjects": [
         "CLIB",
         "ITLP"
@@ -19575,7 +19573,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "cg2",
       "subjects": [
         "SET"
       ]
@@ -19717,7 +19715,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "NSC",
+      "ref_code": "cg8",
       "subjects": [
         "BIDV",
         "EC"
@@ -19971,7 +19969,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AKY",
+      "ref_code": "",
       "subjects": [
         "DE",
         "FP"
@@ -20206,7 +20204,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "ALK",
+      "ref_code": "",
       "subjects": [
         "FM",
         "TA"
@@ -20441,7 +20439,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AVB",
+      "ref_code": "",
       "subjects": [
         "AUD",
         "FM"
@@ -20676,7 +20674,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AK",
+      "ref_code": "",
       "subjects": [
         "IM"
       ]
@@ -20910,7 +20908,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "GVR",
+      "ref_code": "",
       "subjects": [
         "IE",
         "SET"
@@ -21145,7 +21143,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "HHK",
+      "ref_code": "",
       "subjects": [
         "BFIM",
         "FMI",
@@ -21400,7 +21398,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "KNK",
+      "ref_code": "",
       "subjects": [
         "ITLP",
         "MPA"
@@ -21635,7 +21633,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "MDH",
+      "ref_code": "",
       "subjects": [
         "IBS",
         "PMEE",
@@ -21846,7 +21844,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "RHR",
+      "ref_code": "",
       "subjects": [
         "IIPT",
         "NL",
@@ -22055,7 +22053,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SKC",
+      "ref_code": "",
       "subjects": [
         "GF",
         "RIFE"
@@ -22238,7 +22236,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "SOC",
+      "ref_code": "",
       "subjects": [
         "CPL",
         "CW",
@@ -22476,7 +22474,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SUY",
+      "ref_code": "",
       "subjects": [
         "BLAW",
         "MPA",
@@ -22712,7 +22710,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SLK",
+      "ref_code": "",
       "subjects": [
         "CLIB"
       ]
@@ -22946,7 +22944,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "VIS",
+      "ref_code": "",
       "subjects": [
         "BRM",
         "POM"
@@ -23155,7 +23153,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AKG",
+      "ref_code": "",
       "subjects": [
         "BRM",
         "MPA"
@@ -23390,7 +23388,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "AUV",
+      "ref_code": "",
       "subjects": [
         "BMATH",
         "PM",
@@ -23645,7 +23643,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "AAG",
+      "ref_code": "",
       "subjects": [
         "BLAW",
         "BM"
@@ -23880,7 +23878,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AGD",
+      "ref_code": "",
       "subjects": [
         "GBS"
       ]
@@ -24114,7 +24112,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "CG",
+      "ref_code": "",
       "subjects": [
         "CFD",
         "IM"
@@ -24349,7 +24347,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "HA",
+      "ref_code": "",
       "subjects": [
         "DnD"
       ]
@@ -24531,7 +24529,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "KRA",
+      "ref_code": "",
       "subjects": [
         "FM"
       ]
@@ -24765,7 +24763,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "LKB",
+      "ref_code": "",
       "subjects": [
         "MPA",
         "ODI"
@@ -24974,7 +24972,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "MTS",
+      "ref_code": "",
       "subjects": [
         "BMATH"
       ]
@@ -25175,7 +25173,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "PB",
+      "ref_code": "",
       "subjects": [
         "ISME"
       ]
@@ -25383,7 +25381,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "RUA",
+      "ref_code": "",
       "subjects": [
         "MPA",
         "POM"
@@ -25618,7 +25616,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SHS",
+      "ref_code": "",
       "subjects": []
     },
     {
@@ -25850,7 +25848,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "VIC",
+      "ref_code": "",
       "subjects": [
         "CLIB",
         "FP",
@@ -26045,7 +26043,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "MK4",
+      "ref_code": "4",
       "subjects": [
         "BDE"
       ]
@@ -26121,7 +26119,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "MSN28",
+      "ref_code": "28",
       "subjects": [
         "CFD"
       ]
@@ -26251,7 +26249,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "BMATH",
+      "ref_code": "",
       "subjects": [
         "BMATH",
         "MPA"
@@ -26395,7 +26393,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "NC",
+      "ref_code": "cg33",
       "subjects": [
         "DE",
         "IMC",
@@ -26525,7 +26523,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "NBC",
+      "ref_code": "cg9",
       "subjects": [
         "BIT",
         "SET"
@@ -26670,7 +26668,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "PB27",
+      "ref_code": "27",
       "subjects": []
     },
     {
@@ -26689,7 +26687,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "cg31",
       "subjects": []
     },
     {
@@ -26777,7 +26775,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "PED1",
+      "ref_code": "",
       "subjects": [
         "IST"
       ]
@@ -26929,7 +26927,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "PSG1",
+      "ref_code": "",
       "subjects": [
         "NL"
       ]
@@ -27058,7 +27056,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "PSG2",
+      "ref_code": "",
       "subjects": [
         "GIC",
         "NL"
@@ -27433,7 +27431,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "PC",
+      "ref_code": "cg14",
       "subjects": [
         "IE",
         "ITLP"
@@ -27496,7 +27494,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "PKC",
+      "ref_code": "cg26",
       "subjects": [
         "PM"
       ]
@@ -27704,7 +27702,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AYJ",
+      "ref_code": "",
       "subjects": [
         "BF",
         "BLAW"
@@ -27887,7 +27885,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AAJ",
+      "ref_code": "",
       "subjects": [
         "AUD",
         "FM"
@@ -28096,7 +28094,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "DPE",
+      "ref_code": "",
       "subjects": [
         "ABH",
         "BECON"
@@ -28305,7 +28303,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "HNT",
+      "ref_code": "",
       "subjects": [
         "FA",
         "FM"
@@ -28488,7 +28486,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "KIJ",
+      "ref_code": "",
       "subjects": [
         "BLAW",
         "BSC"
@@ -28697,7 +28695,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "MAK",
+      "ref_code": "",
       "subjects": [
         "BECON",
         "EI"
@@ -28906,7 +28904,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "NNM",
+      "ref_code": "",
       "subjects": [
         "ITLP"
       ]
@@ -29114,7 +29112,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "PRD",
+      "ref_code": "",
       "subjects": [
         "BECON",
         "ME"
@@ -29323,7 +29321,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "RAJ",
+      "ref_code": "",
       "subjects": [
         "FM"
       ]
@@ -29531,7 +29529,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "RJ",
+      "ref_code": "",
       "subjects": [
         "GT",
         "ISME"
@@ -29714,7 +29712,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "RIS",
+      "ref_code": "",
       "subjects": [
         "H B",
         "HB"
@@ -29923,7 +29921,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "RUR",
+      "ref_code": "",
       "subjects": [
         "BDE",
         "IDE"
@@ -30106,7 +30104,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "RUK",
+      "ref_code": "",
       "subjects": [
         "CIEL",
         "DEC",
@@ -30316,7 +30314,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "SHK",
+      "ref_code": "",
       "subjects": [
         "BRM",
         "DM"
@@ -30532,7 +30530,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SAP",
+      "ref_code": "",
       "subjects": [
         "DM",
         "POM"
@@ -30741,7 +30739,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "TNM",
+      "ref_code": "",
       "subjects": [
         "BECON",
         "ME"
@@ -30950,7 +30948,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "VAJ",
+      "ref_code": "",
       "subjects": [
         "FM",
         "IF"
@@ -31107,7 +31105,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "RKS",
+      "ref_code": "hg1",
       "subjects": [
         "HA",
         "HB"
@@ -31250,7 +31248,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "RPC",
+      "ref_code": "cg6",
       "subjects": [
         "BLAW",
         "DE",
@@ -31407,7 +31405,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "SS",
+      "ref_code": "hg3",
       "subjects": [
         "H B"
       ]
@@ -31419,7 +31417,7 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "SK2",
       "initials": "SK",
       "department": "Economics",
-      "total_teaching_periods": 10,
+      "total_teaching_periods": 9,
       "schedule": {
         "Monday": [
           {
@@ -31434,19 +31432,6 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec B",
             "batch": "B2",
             "formatted_display": "DnD · B.Com (Hons) · Sem V · Sec B · (B2)"
-          },
-          {
-            "raw": "T-BCH-D-SEM VEconomics-DnD-T2-D3",
-            "display": "T-BCH-D-SEM VEconomics-DnD-T2-D3",
-            "type": "Tutorial",
-            "room": "T2",
-            "course": "B.Com (Hons)",
-            "semester": "Sem V",
-            "subject": "DnD",
-            "slot": "11:30 AM to 12:30 PM",
-            "section": "Sec D",
-            "batch": "D3",
-            "formatted_display": "DnD · B.Com (Hons) · Sem V · Sec D · (D3)"
           }
         ],
         "Tuesday": [],
@@ -31480,17 +31465,17 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Thursday": [
           {
-            "raw": "L-BCH-I-SEM VEconomics-DnD-R28",
-            "display": "L-BCH-I-SEM VEconomics-DnD-R28",
+            "raw": "L-BCH-I-SEM VEconomics-DnD-R28T-BCH-D-SEM VEconomics-DnD-T15-D3",
+            "display": "L-BCH-I-SEM VEconomics-DnD-R28T-BCH-D-SEM VEconomics-DnD-T15-D3",
             "type": "Lecture",
-            "room": "R28",
+            "room": "T15",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "subject": "DnD",
             "slot": "11:30 AM to 12:30 PM",
             "section": "Sec I",
-            "batch": "",
-            "formatted_display": "DnD · B.Com (Hons) · Sem V · Sec I"
+            "batch": "D3",
+            "formatted_display": "DnD · B.Com (Hons) · Sem V · Sec I · (D3)"
           },
           {
             "raw": "L-BCH-H-SEM VEconomics-DnD-R16",
@@ -31562,7 +31547,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SK2",
+      "ref_code": "2",
       "subjects": [
         "DnD"
       ]
@@ -31716,7 +31701,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "cg18",
       "subjects": [
         "BIT",
         "BRM",
@@ -31846,7 +31831,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SVM",
+      "ref_code": "cg3",
       "subjects": [
         "IE"
       ]
@@ -32000,7 +31985,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "SK20",
+      "ref_code": "20",
       "subjects": [
         "ITSA I",
         "SWR"
@@ -32129,7 +32114,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "SHC",
+      "ref_code": "cg27",
       "subjects": [
         "ABH",
         "DM"
@@ -32285,7 +32270,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "SS6",
+      "ref_code": "6",
       "subjects": [
         "Intro MME"
       ]
@@ -32440,7 +32425,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SK19",
+      "ref_code": "19",
       "subjects": [
         "BIT",
         "CLIB",
@@ -32584,7 +32569,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SMRC",
+      "ref_code": "cg20",
       "subjects": [
         "AFE"
       ]
@@ -32739,7 +32724,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "SOC",
+      "ref_code": "cg19",
       "subjects": [
         "BIDV",
         "DE"
@@ -32895,7 +32880,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "STK",
+      "ref_code": "hg2",
       "subjects": [
         "HB",
         "HC"
@@ -33052,7 +33037,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "TAMC",
+      "ref_code": "cg15",
       "subjects": [
         "AUD",
         "ITLP"
@@ -33180,7 +33165,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "cg29",
       "subjects": [
         "BIT"
       ]
@@ -33296,7 +33281,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "TTR",
+      "ref_code": "cg35",
       "subjects": [
         "ITLP"
       ]
@@ -33424,7 +33409,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "YC",
+      "ref_code": "cg21",
       "subjects": [
         "BIT",
         "DE"
