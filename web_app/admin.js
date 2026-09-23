@@ -302,10 +302,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const CLOUD_DB_SECRET_KEY = 'srcc_cloud_db_secret';
 
   function getCloudDbUrl() {
-    const custom = (window.SRCC_CLOUD_CONFIG && window.SRCC_CLOUD_CONFIG.db_url) || 
-                   localStorage.getItem(CLOUD_DB_STORAGE_KEY) || 
-                   localStorage.getItem('srcc_cloud_db_url_custom');
-    if (custom && custom.trim() && !custom.includes('srcc-leaves-default-rtdb.firebaseio.com')) {
+    const fromInput = (cloudDbUrlInput && cloudDbUrlInput.value && cloudDbUrlInput.value.trim()) || '';
+    const fromConfig = (window.SRCC_CLOUD_CONFIG && window.SRCC_CLOUD_CONFIG.db_url && window.SRCC_CLOUD_CONFIG.db_url.trim()) || '';
+    const fromStorage = localStorage.getItem(CLOUD_DB_STORAGE_KEY) || localStorage.getItem('srcc_cloud_db_url_custom') || '';
+
+    const custom = fromStorage || fromInput || fromConfig;
+    if (custom && custom.trim()) {
       return custom.trim();
     }
     return '';

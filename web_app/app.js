@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const rawCloudUrl = (window.SRCC_CLOUD_CONFIG && window.SRCC_CLOUD_CONFIG.db_url && window.SRCC_CLOUD_CONFIG.db_url.trim())
     ? window.SRCC_CLOUD_CONFIG.db_url.trim()
     : (localStorage.getItem('srcc_cloud_db_url') || localStorage.getItem('srcc_cloud_db_url_custom') || '');
-  const customCloudUrl = (rawCloudUrl && !rawCloudUrl.includes('srcc-leaves-default-rtdb.firebaseio.com')) ? rawCloudUrl : '';
+  const customCloudUrl = rawCloudUrl ? rawCloudUrl.trim() : '';
 
   if (customCloudUrl) {
     const controller = new AbortController();
@@ -926,14 +926,25 @@ document.addEventListener('DOMContentLoaded', () => {
       if (bnavFreeNow) bnavFreeNow.classList.toggle('active', isActive);
 
       if (isActive) {
-        if (state.currentLiveSlot) {
+        // Automatically switch day to Today (Monday to Saturday)
+        const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const todayName = daysOfWeek[getIstDate().getDay()];
+        if (todayName !== 'Sunday' && state.activeDay !== todayName) {
+          setActiveDay(todayName);
+        }
+
+        if (state.currentLiveSlot === '1:30 PM to 2:00 PM') {
+          state.activeSlot = '1:30 PM to 2:00 PM';
+          showToast('🥪 <strong>Lunch Recess Active (1:30–2:00 PM)!</strong> All 96 classrooms are 100% vacant and free right now.');
+        } else if (state.currentLiveSlot) {
           state.activeSlot = state.currentLiveSlot;
           if (slotSelect) slotSelect.value = state.currentLiveSlot;
+          showToast(`⚡ Showing classrooms vacant right now (${escapeHtml(state.currentLiveSlot)})!`);
         } else {
           state.activeSlot = 'ALL';
           if (slotSelect) slotSelect.value = 'ALL';
+          showToast('🌙 <strong>College Off-Hours right now.</strong> Classes run 8:30 AM – 6:00 PM (Showing all rooms).');
         }
-        showToast('⚡ Showing classrooms vacant right now!');
         setTimeout(() => {
           if (roomsGrid) {
             const rect = roomsGrid.getBoundingClientRect();
@@ -1389,6 +1400,10 @@ ${freeSlotsList}
         if (state.searchQuery && !matchesSearch(room, state.searchQuery)) return false;
 
         if (state.activeSlot !== 'ALL') {
+          // 🥪 Lunch Recess (1:30 PM - 2:00 PM): All 96 classrooms are 100% free!
+          if (state.activeSlot === '1:30 PM to 2:00 PM') {
+            return true;
+          }
           const daySched = room.schedule[state.activeDay];
           if (!daySched) return false;
           let isFree = daySched.free_slots.includes(state.activeSlot);
