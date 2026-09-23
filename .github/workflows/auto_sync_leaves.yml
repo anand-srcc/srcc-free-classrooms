@@ -2,17 +2,10 @@ name: Auto-Sync SRCC Faculty Leaves
 
 on:
   schedule:
-    # 8:40 AM IST Mon-Sat
-    - cron: '10 3 * * 1-6'
-    # 9:00 AM IST Mon-Sat
-    - cron: '30 3 * * 1-6'
-    # 10:00 AM IST Mon-Sat
-    - cron: '30 4 * * 1-6'
-    # 11:00 AM IST Mon-Sat
-    - cron: '30 5 * * 1-6'
-    # 12:00 PM IST Mon-Sat
-    - cron: '30 6 * * 1-6'
-  workflow_dispatch:
+    # Runs every 30 mins during college morning hours (8:45 AM - 1:45 PM IST, Mon-Sat)
+    # Uses minutes :15 and :45 to avoid congested :00 and :30 GitHub runner peaks
+    - cron: '15,45 3-8 * * 1-6'
+  workflow_dispatch: # Allows 1-click manual trigger from GitHub web or mobile app
 
 permissions:
   contents: write
@@ -20,6 +13,7 @@ permissions:
 jobs:
   sync_leaves:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -28,13 +22,18 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          cache: 'pip'
 
       - name: Install dependencies
         run: |
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
           python -m playwright install --with-deps chromium
 
       - name: Run Live Faculty Leave Synchronizer
+        env:
+          SRCC_ROLL: ${{ secrets.SRCC_ROLL || '25BC070' }}
+          SRCC_PASS: ${{ secrets.SRCC_PASS || 'RFSCH250900681809' }}
         run: |
           python sync_leaves.py
 
@@ -46,6 +45,14 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes in faculty leaves."
           else
-            git commit -m "🏖️ [Automated] Sync live faculty leaves"
+            git commit -m "🏖️ [Automated] Sync live faculty leaves from studentassistsrcc.app"
             git push
           fi
+
+      - name: Trigger Netlify Deploy Hook (if configured)
+        if: env.NETLIFY_BUILD_HOOK != ''
+        env:
+          NETLIFY_BUILD_HOOK: ${{ secrets.NETLIFY_BUILD_HOOK }}
+        run: |
+          curl -s -X POST -d '{}' "$NETLIFY_BUILD_HOOK"
+

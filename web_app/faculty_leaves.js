@@ -1,9 +1,9 @@
 // SRCC Official Faculty Leaves Data
 // Auto-synced from studentassistsrcc.app
-// Last Updated: 23 Sep 2026, 06:35 AM
+// Last Updated: 23 Sep 2026, 12:23 PM
 window.SRCC_FACULTY_LEAVES = {
-  "last_updated": "23 Sep 2026, 06:35 AM",
-  "last_synced_iso": "2026-09-23T06:35:37.105525",
+  "last_updated": "23 Sep 2026, 12:23 PM",
+  "last_synced_iso": "2026-09-23T12:23:05.537037",
   "total_on_leave": 7,
   "source": "https://studentassistsrcc.app",
   "leaves": [

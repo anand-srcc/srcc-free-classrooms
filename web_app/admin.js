@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     '68c7ac5777aac392b5e34d5c9e20421cd970534ae1529defd1ceb7a064be56cc', // srccadmin
     '5f4df959a11580fc14aa6b139adb2ab40a2cfde5399c1cb6f7c9968eae5a825f'  // anand
   ];
-  const LEAVES_STORAGE_KEY = 'srcc_faculty_leaves_custom_v1';
+  const LEAVES_STORAGE_KEY = 'srcc_faculty_leaves_v2';
   const AUTH_STORAGE_KEY = 'srcc_admin_session_auth';
   const USERS_STORAGE_KEY = 'srcc_admin_users_list_v1';
   const ACTIVE_USER_SESSION_KEY = 'srcc_admin_active_user_session';
@@ -185,9 +185,18 @@ document.addEventListener('DOMContentLoaded', () => {
   if (adminLoginForm) {
     adminLoginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const uInput = (adminUsername ? adminUsername.value : '').trim();
+      let uInput = (adminUsername ? adminUsername.value : '').trim().toLowerCase();
       const val = (adminPasscode ? adminPasscode.value : '').trim();
-      if (!val) return;
+      if (!val) {
+        showToast('⚠️ Please enter your password or passcode.', false);
+        if (adminPasscode) adminPasscode.focus();
+        return;
+      }
+
+      // If username input is blank, default to 'admin' (matching "Optional for default Admin")
+      if (!uInput) {
+        uInput = 'admin';
+      }
 
       // Emergency Reset Feature
       if (val === 'reset2026') {
@@ -200,18 +209,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const hashed = await hashPasscode(val);
       const users = getStoredUsers();
 
-      let matchedUser = null;
-      if (uInput) {
-        matchedUser = users.find(u => u.username.toLowerCase() === uInput.toLowerCase());
-        if (matchedUser) {
-          const isMatch = (matchedUser.passwordHash === hashed) || 
-                          (matchedUser.isSuper && !matchedUser.hasChangedPassword && (AUTH_HASHES.includes(hashed)));
-          if (!isMatch) matchedUser = null;
-        }
-      } else {
-        showToast('⚠️ Username is required.', false);
-        if (adminUsername) adminUsername.focus();
-        return;
+      let matchedUser = users.find(u => u.username.toLowerCase() === uInput);
+      if (matchedUser) {
+        const isMatch = (matchedUser.passwordHash === hashed) || 
+                        (matchedUser.isSuper && !matchedUser.hasChangedPassword && (AUTH_HASHES.includes(hashed)));
+        if (!isMatch) matchedUser = null;
       }
 
       if (matchedUser) {
@@ -222,12 +224,12 @@ document.addEventListener('DOMContentLoaded', () => {
           username: matchedUser.username,
           fullName: matchedUser.fullName,
           role: matchedUser.role,
-          isSuper: matchedUser.isSuper
+          isSuper: !!matchedUser.isSuper
         }));
         showToast(`🔓 <strong>Welcome, ${escapeHtml(matchedUser.fullName)}!</strong> Logged in successfully.`);
         checkAuth();
       } else {
-        showToast('⚠️ Incorrect username or administrator passcode.', false);
+        showToast('⚠️ Incorrect username or password. Please try again.', false);
         if (adminPasscode) {
           adminPasscode.value = '';
           adminPasscode.focus();
@@ -250,13 +252,21 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================================================
   function getLeavesList() {
     try {
-      const stored = localStorage.getItem(LEAVES_STORAGE_KEY);
+      const stored = localStorage.getItem(LEAVES_STORAGE_KEY) || localStorage.getItem('srcc_faculty_leaves_custom_v1');
       if (stored) {
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed)) return parsed;
+        if (Array.isArray(parsed)) {
+          if (!localStorage.getItem(LEAVES_STORAGE_KEY)) {
+            localStorage.setItem(LEAVES_STORAGE_KEY, stored);
+          }
+          return parsed;
+        }
       }
     } catch (e) {
       console.warn('Failed to parse stored leaves:', e);
+    }
+    if (window.SRCC_FACULTY_LEAVES && Array.isArray(window.SRCC_FACULTY_LEAVES.leaves)) {
+      return [...window.SRCC_FACULTY_LEAVES.leaves];
     }
     if (defaultLeaves && Array.isArray(defaultLeaves.leaves)) {
       return [...defaultLeaves.leaves];
@@ -267,6 +277,11 @@ document.addEventListener('DOMContentLoaded', () => {
   function saveLeavesList(leaves) {
     try {
       localStorage.setItem(LEAVES_STORAGE_KEY, JSON.stringify(leaves));
+      if (window.SRCC_FACULTY_LEAVES) {
+        window.SRCC_FACULTY_LEAVES.leaves = leaves;
+      } else {
+        window.SRCC_FACULTY_LEAVES = { leaves: leaves };
+      }
     } catch (e) {
       console.error('Failed to save leaves:', e);
     }
@@ -287,7 +302,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const CLOUD_DB_SECRET_KEY = 'srcc_cloud_db_secret';
 
   function getCloudDbUrl() {
-    return (window.SRCC_CLOUD_CONFIG && window.SRCC_CLOUD_CONFIG.db_url) || localStorage.getItem(CLOUD_DB_STORAGE_KEY) || 'https://srcc-leaves-default-rtdb.firebaseio.com/leaves.json';
+    const custom = (window.SRCC_CLOUD_CONFIG && window.SRCC_CLOUD_CONFIG.db_url) || 
+                   localStorage.getItem(CLOUD_DB_STORAGE_KEY) || 
+                   localStorage.getItem('srcc_cloud_db_url_custom');
+    if (custom && custom.trim() && !custom.includes('srcc-leaves-default-rtdb.firebaseio.com')) {
+      return custom.trim();
+    }
+    return '';
   }
 
   function getBaseCloudDbUrl() {
@@ -480,6 +501,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let selectedTeacherIds = new Set();
 
+  function updateSelectedTeacherCount() {
+    const countEl = document.getElementById('adminSelectedTeacherCount');
+    const clearBtn = document.getElementById('btnClearSelectedTeachers');
+    const count = selectedTeacherIds.size;
+    if (countEl) {
+      if (count === 0) {
+        countEl.textContent = '0 professors selected (click to select)';
+        countEl.style.color = 'var(--text-muted)';
+      } else {
+        countEl.textContent = `✅ ${count} professor${count > 1 ? 's' : ''} selected`;
+        countEl.style.color = '#16a34a';
+      }
+    }
+    if (clearBtn) {
+      clearBtn.style.display = count > 0 ? 'inline-block' : 'none';
+    }
+  }
+
   // Teacher Search & Select
   function populateTeacherSelect(filterQuery = '') {
     if (!adminTeacherSelect || !teachersData || !teachersData.teachers) return;
@@ -500,25 +539,38 @@ document.addEventListener('DOMContentLoaded', () => {
     adminTeacherSelect.innerHTML = filtered.map(t => {
       const code = getDisplayShortCode(t);
       const codeStr = code ? ` [${escapeHtml(code)}]` : '';
-      const isChecked = selectedTeacherIds.has(String(t.id)) ? 'checked' : '';
+      const isChecked = selectedTeacherIds.has(String(t.id));
+      const bgStyle = isChecked ? 'background: #EFF6FF; border-left: 3px solid #2563EB;' : 'background: #ffffff; border-left: 3px solid transparent;';
       return `
-        <label class="teacher-checkbox-item" style="display:flex; align-items:center; gap:10px; padding:6px 8px; cursor:pointer; border-bottom:1px solid var(--border-subtle);">
-          <input type="checkbox" value="${escapeHtml(t.id)}" class="teacher-checkbox-input" ${isChecked} style="width:16px; height:16px; cursor:pointer;" />
-          <span style="font-size: 0.85rem; color: var(--text-primary);">
+        <label class="teacher-checkbox-item" data-teacher-id="${escapeHtml(t.id)}" style="display:flex; align-items:center; gap:10px; padding:6px 8px; cursor:pointer; border-bottom:1px solid var(--border-subtle); transition: background 0.15s ease; ${bgStyle}">
+          <input type="checkbox" value="${escapeHtml(t.id)}" class="teacher-checkbox-input" ${isChecked ? 'checked' : ''} style="width:16px; height:16px; cursor:pointer;" />
+          <span style="font-size: 0.85rem; color: var(--text-primary); pointer-events: none;">
             ${escapeHtml(t.clean_name)}${codeStr} — <span style="color:var(--text-secondary);">${escapeHtml(t.department)} (${t.total_teaching_periods || 0} classes/wk)</span>
           </span>
         </label>
       `;
     }).join('');
 
+    updateSelectedTeacherCount();
+
     // Attach listeners to update state
     adminTeacherSelect.querySelectorAll('.teacher-checkbox-input').forEach(cb => {
       cb.addEventListener('change', (e) => {
+        const row = e.target.closest('.teacher-checkbox-item');
         if (e.target.checked) {
           selectedTeacherIds.add(e.target.value);
+          if (row) {
+            row.style.background = '#EFF6FF';
+            row.style.borderLeft = '3px solid #2563EB';
+          }
         } else {
           selectedTeacherIds.delete(e.target.value);
+          if (row) {
+            row.style.background = '#ffffff';
+            row.style.borderLeft = '3px solid transparent';
+          }
         }
+        updateSelectedTeacherCount();
       });
     });
   }
@@ -526,6 +578,24 @@ document.addEventListener('DOMContentLoaded', () => {
   if (adminTeacherSearch) {
     adminTeacherSearch.addEventListener('input', (e) => {
       populateTeacherSelect(e.target.value);
+    });
+    adminTeacherSearch.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const firstCb = adminTeacherSelect ? adminTeacherSelect.querySelector('.teacher-checkbox-input') : null;
+        if (firstCb) {
+          firstCb.checked = !firstCb.checked;
+          firstCb.dispatchEvent(new Event('change'));
+        }
+      }
+    });
+  }
+
+  const btnClearSelectedTeachers = document.getElementById('btnClearSelectedTeachers');
+  if (btnClearSelectedTeachers) {
+    btnClearSelectedTeachers.addEventListener('click', () => {
+      selectedTeacherIds.clear();
+      populateTeacherSelect(adminTeacherSearch ? adminTeacherSearch.value : '');
     });
   }
 
@@ -1014,7 +1084,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <tbody>
             ${users.map(u => {
               const isSelf = u.username.toLowerCase() === activeUser.username.toLowerCase();
-              const canDelete = !u.isSuper && !isSelf;
+              const canDelete = activeUser.isSuper && !u.isSuper && !isSelf;
               const roleBadge = u.isSuper 
                 ? '<span style="background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; font-size: 0.74rem; font-weight: 700; padding: 3px 10px; border-radius: 9999px; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">👑 Super Admin</span>'
                 : '<span style="background: #e0f2fe; color: #0369a1; border: 1px solid #7dd3fc; font-size: 0.74rem; font-weight: 700; padding: 3px 10px; border-radius: 9999px; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🛡️ Leave Coordinator</span>';
@@ -1048,6 +1118,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.btn-delete-admin-user').forEach(btn => {
       btn.addEventListener('click', () => {
+        const curActive = getActiveSessionUser();
+        if (!curActive.isSuper) {
+          showToast('⚠️ Only Super Administrators can remove accounts.', false);
+          return;
+        }
         const uname = btn.dataset.username;
         if (confirm(`Remove administrator account "${uname}"? They will no longer be able to log in.`)) {
           let users = getStoredUsers();
@@ -1068,6 +1143,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const n1 = (pwdNew ? pwdNew.value : '').trim();
       const n2 = (pwdConfirm ? pwdConfirm.value : '').trim();
 
+      if (!cur) {
+        showToast('⚠️ Please enter your current password.', false);
+        if (pwdCurrent) pwdCurrent.focus();
+        return;
+      }
       if (n1 !== n2) {
         showToast('⚠️ New passwords do not match.', false);
         return;
@@ -1092,7 +1172,7 @@ document.addEventListener('DOMContentLoaded', () => {
                          (targetUser.isSuper && !targetUser.hasChangedPassword && (AUTH_HASHES.includes(curHash)));
 
       if (!isCurValid) {
-        showToast('⚠️ Current password incorrect.', false);
+        showToast('⚠️ Current password incorrect. Please verify your existing password.', false);
         if (pwdCurrent) { pwdCurrent.value = ''; pwdCurrent.focus(); }
         return;
       }
@@ -1102,7 +1182,15 @@ document.addEventListener('DOMContentLoaded', () => {
       users[userIdx].hasChangedPassword = true;
       saveStoredUsers(users);
 
-      showToast('✅ <strong>Password updated successfully!</strong> Keep your new password secure.');
+      // Keep active session updated
+      sessionStorage.setItem(ACTIVE_USER_SESSION_KEY, JSON.stringify({
+        username: users[userIdx].username,
+        fullName: users[userIdx].fullName,
+        role: users[userIdx].role,
+        isSuper: !!users[userIdx].isSuper
+      }));
+
+      showToast('✅ <strong>Password updated successfully!</strong> Old password is now deactivated.');
       if (pwdCurrent) pwdCurrent.value = '';
       if (pwdNew) pwdNew.value = '';
       if (pwdConfirm) pwdConfirm.value = '';
@@ -1113,6 +1201,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (formCreateAdminUser) {
     formCreateAdminUser.addEventListener('submit', async (e) => {
       e.preventDefault();
+      const activeUser = getActiveSessionUser();
+      if (!activeUser.isSuper) {
+        showToast('⚠️ Only Super Administrators can create new accounts.', false);
+        return;
+      }
+
       const uname = (newUserUsername ? newUserUsername.value : '').trim().toLowerCase();
       const name = (newUserFullName ? newUserFullName.value : '').trim();
       const pwd = (newUserPassword ? newUserPassword.value : '').trim();
@@ -1145,7 +1239,8 @@ document.addEventListener('DOMContentLoaded', () => {
         role: role,
         passwordHash: pwdHash,
         createdAt: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
-        isSuper: false
+        isSuper: false,
+        hasChangedPassword: true
       });
 
       saveStoredUsers(users);
@@ -1193,10 +1288,35 @@ document.addEventListener('DOMContentLoaded', () => {
   async function boot() {
     checkAuth();
     
-    // Fetch users (admins) in background
+    // Fetch users (admins) in background with smart reconciliation (never wipes local users)
     fetchUsersFromCloud().then(cloudUsers => {
-      if (cloudUsers) {
-        localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(cloudUsers));
+      if (cloudUsers && Array.isArray(cloudUsers) && cloudUsers.length > 0) {
+        const localUsers = getStoredUsers();
+        const mergedMap = new Map();
+
+        // 1. Add all local users first (authoritative for recent local creations and password changes)
+        localUsers.forEach(u => {
+          if (u && u.username) mergedMap.set(u.username.toLowerCase(), u);
+        });
+
+        // 2. Add or merge cloud users
+        cloudUsers.forEach(cu => {
+          if (!cu || !cu.username) return;
+          const key = cu.username.toLowerCase();
+          if (!mergedMap.has(key)) {
+            // New user from cloud that does not exist locally
+            mergedMap.set(key, cu);
+          } else {
+            const local = mergedMap.get(key);
+            // If local hasn't changed password but cloud has, take cloud update
+            if (!local.hasChangedPassword && cu.hasChangedPassword) {
+              mergedMap.set(key, cu);
+            }
+          }
+        });
+
+        const merged = Array.from(mergedMap.values());
+        localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(merged));
         if (adminDashboardView && adminDashboardView.style.display === 'block') {
            renderAdminUsersList();
         }
@@ -1212,8 +1332,21 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Fetch Student Issues
   async function fetchStudentIssues() {
+    const section = document.getElementById('adminStudentReportsSection');
+    const container = document.getElementById('adminReportsListContainer');
+    const countEl = document.getElementById('adminReportsCount');
     let baseUrl = getBaseCloudDbUrl();
-    if (!baseUrl) return;
+    if (!baseUrl) {
+      if (countEl) countEl.textContent = '0';
+      if (container) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 18px 14px; color: #64748b; font-size: 0.85rem; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px;">
+            ℹ️ Connect your Cloud Database below to receive student issue reports live.
+          </div>
+        `;
+      }
+      return;
+    }
     try {
       const secret = getCloudDbSecret();
       let url = baseUrl + '/issues.json';
@@ -1222,12 +1355,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const res = await fetch(url);
       if (res.ok) {
         const data = await res.json();
-        const section = document.getElementById('adminStudentReportsSection');
-        const container = document.getElementById('adminReportsListContainer');
-        const countEl = document.getElementById('adminReportsCount');
         
         if (!data || Object.keys(data).length === 0) {
-          if (section) section.style.display = 'none';
+          if (countEl) countEl.textContent = '0';
+          if (container) {
+            container.innerHTML = `
+              <div style="text-align: center; padding: 18px 14px; color: #64748b; font-size: 0.85rem; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px;">
+                ✅ <strong>No open student reports.</strong> When students submit a wrong room or teacher attendance discrepancy, it will appear here immediately with 1-click dismiss.
+              </div>
+            `;
+          }
           return;
         }
         

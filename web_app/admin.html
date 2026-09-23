@@ -550,7 +550,7 @@
     </div>
 
     <!-- Student Reports Section -->
-    <section class="admin-section-card" id="adminStudentReportsSection" style="display: none; border-color: rgba(220, 38, 38, 0.35); margin-bottom: 24px;">
+    <section class="admin-section-card" id="adminStudentReportsSection" style="border-color: rgba(220, 38, 38, 0.35); margin-bottom: 24px;">
       <div class="admin-section-header">
         <div class="admin-section-title" style="color: #DC2626;">
           <span>⚠️</span>
@@ -580,6 +580,10 @@
           </div>
           <div id="adminTeacherSelect" style="height: 160px; overflow-y: auto; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 4px;">
             <!-- Populated dynamically via admin.js -->
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 5px;">
+            <span id="adminSelectedTeacherCount" style="font-size: 0.76rem; font-weight: 700; color: var(--text-muted);">0 professors selected (click to select)</span>
+            <button type="button" id="btnClearSelectedTeachers" style="display: none; background: none; border: none; color: #EF4444; font-size: 0.72rem; cursor: pointer; text-decoration: underline; font-weight: 600;">Clear selection</button>
           </div>
         </div>
 
@@ -846,6 +850,6 @@
   <script src="data.js"></script>
   <script src="faculty_leaves.js"></script>
   <script src="teachers_data.js"></script>
-  <script src="admin.js"></script>
+  <script src="admin.js?v=22"></script>
 </body>
 </html>

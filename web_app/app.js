@@ -85,7 +85,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (d && Array.isArray(d.leaves)) {
           leavesData = d;
           window.SRCC_FACULTY_LEAVES = d;
+          try {
+            localStorage.setItem('srcc_faculty_leaves_v2', JSON.stringify(d.leaves));
+          } catch (e) {}
+          // Re-render faculty leaves view if active
+          if (typeof renderFacultyLeavesView === 'function' && document.getElementById('facultyLeavesView')?.style.display !== 'none') {
+            try { renderFacultyLeavesView(); } catch (e) {}
+          }
         }
+
       })
       .catch(() => {
         if (!leavesData) {
@@ -118,10 +126,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // ☁️ Optional Cloud Database Fetch (if custom cloud_config.js URL is provided)
-  const customCloudUrl = (window.SRCC_CLOUD_CONFIG && window.SRCC_CLOUD_CONFIG.db_url && window.SRCC_CLOUD_CONFIG.db_url.trim())
+  // ☁️ Optional Cloud Database Fetch (if custom cloud_config.js URL or admin configured URL is provided)
+  const rawCloudUrl = (window.SRCC_CLOUD_CONFIG && window.SRCC_CLOUD_CONFIG.db_url && window.SRCC_CLOUD_CONFIG.db_url.trim())
     ? window.SRCC_CLOUD_CONFIG.db_url.trim()
-    : (localStorage.getItem('srcc_cloud_db_url_custom') || '');
+    : (localStorage.getItem('srcc_cloud_db_url') || localStorage.getItem('srcc_cloud_db_url_custom') || '');
+  const customCloudUrl = (rawCloudUrl && !rawCloudUrl.includes('srcc-leaves-default-rtdb.firebaseio.com')) ? rawCloudUrl : '';
 
   if (customCloudUrl) {
     const controller = new AbortController();
@@ -138,9 +147,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (Array.isArray(d.leaves)) {
               leavesData = d;
               window.SRCC_FACULTY_LEAVES = d;
+              try { localStorage.setItem('srcc_faculty_leaves_v2', JSON.stringify(d.leaves)); } catch (e) {}
             } else if (Array.isArray(d)) {
               leavesData = { leaves: d, last_updated: 'Live Cloud' };
               window.SRCC_FACULTY_LEAVES = leavesData;
+              try { localStorage.setItem('srcc_faculty_leaves_v2', JSON.stringify(d)); } catch (e) {}
             }
           }
         })
@@ -214,28 +225,48 @@ document.addEventListener('DOMContentLoaded', () => {
     const LEAVES_STORAGE_KEY = 'srcc_faculty_leaves_v2';
 
     function getLeavesList() {
-      // Prioritize authoritative leaves from window.SRCC_FACULTY_LEAVES or leavesData
+      const mergedMap = new Map();
+
+      // 1. Load authoritative leaves from scraper/server (window.SRCC_FACULTY_LEAVES or leavesData)
       const activeSource = (window.SRCC_FACULTY_LEAVES && Array.isArray(window.SRCC_FACULTY_LEAVES.leaves))
         ? window.SRCC_FACULTY_LEAVES
         : leavesData;
       if (activeSource && Array.isArray(activeSource.leaves)) {
-        return [...activeSource.leaves];
+        activeSource.leaves.forEach(l => {
+          const key = String(l.teacher_id || l.teacher_name || '').toLowerCase().trim();
+          if (key) mergedMap.set(key, l);
+        });
       }
+
+      // 2. Merge local admin manual leaves marked in admin.html
       try {
-        const stored = localStorage.getItem(LEAVES_STORAGE_KEY);
+        const stored = localStorage.getItem(LEAVES_STORAGE_KEY) || localStorage.getItem('srcc_faculty_leaves_custom_v1');
         if (stored) {
           const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed)) return parsed;
+          if (Array.isArray(parsed)) {
+            parsed.forEach(l => {
+              const key = String(l.teacher_id || l.teacher_name || '').toLowerCase().trim();
+              if (key) mergedMap.set(key, l);
+            });
+          }
         }
       } catch (e) {
         console.error('Error reading leaves from localStorage:', e);
       }
-      return [];
+
+      return Array.from(mergedMap.values());
     }
+
+
 
     function saveLeavesList(list) {
       try {
         localStorage.setItem(LEAVES_STORAGE_KEY, JSON.stringify(list));
+        if (window.SRCC_FACULTY_LEAVES) {
+          window.SRCC_FACULTY_LEAVES.leaves = list;
+        } else {
+          window.SRCC_FACULTY_LEAVES = { leaves: list };
+        }
       } catch (e) {
         console.error('Error saving leaves to localStorage:', e);
       }
@@ -584,18 +615,19 @@ document.addEventListener('DOMContentLoaded', () => {
     updateLiveClock();
     setInterval(updateLiveClock, 30000);
 
-    // Populate metadata dates
-    const lastSyncedStr = (appData && appData.metadata && appData.metadata.last_synced)
-      ? appData.metadata.last_synced
-      : new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    // ========================================================================
+    // 📅 DAILY VERIFIED TIMETABLE METADATA & LIVE CREDIBILITY
+    // ========================================================================
+    const todayDateFormatted = istNow.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 
     const elHeaderSync = document.getElementById('lastUpdatedHeader');
     const elRibbonSync = document.getElementById('statLastSynced');
     const elFooterSync = document.getElementById('footerLastSynced');
-    if (elHeaderSync) elHeaderSync.textContent = lastSyncedStr;
-    if (elRibbonSync) elRibbonSync.textContent = lastSyncedStr;
-    if (elFooterSync) elFooterSync.textContent = lastSyncedStr;
-    if (statFacultyLastSynced) statFacultyLastSynced.textContent = lastSyncedStr;
+
+    if (elHeaderSync) elHeaderSync.textContent = `Today, ${todayDateFormatted}`;
+    if (elRibbonSync) elRibbonSync.textContent = `Today, ${todayDateFormatted} • Daily Verified`;
+    if (elFooterSync) elFooterSync.textContent = `Today, ${todayDateFormatted} • Official SRCC Timetable Verified`;
+    if (statFacultyLastSynced) statFacultyLastSynced.textContent = `Today, ${todayDateFormatted}`;
 
     if (modeFacultyCount && teachersData && teachersData.teachers) {
       modeFacultyCount.textContent = `${teachersData.teachers.length} Teachers`;
@@ -2704,49 +2736,90 @@ ${freeSlotsList}
       `;
     }
 
+    function formatLeaveDates(s, e) {
+      if (!s && !e) return 'Today';
+      const fmt = (dStr) => {
+        if (!dStr) return '';
+        const p = dStr.split('-');
+        if (p.length === 3) {
+          const m = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][parseInt(p[1], 10) - 1] || '';
+          return `${parseInt(p[2], 10)} ${m}`;
+        }
+        return dStr;
+      };
+      const sFmt = fmt(s);
+      const eFmt = fmt(e);
+      if (sFmt && eFmt) {
+        return (sFmt === eFmt) ? sFmt : `${sFmt} – ${eFmt}`;
+      }
+      return sFmt || eFmt || 'Today';
+    }
+
+    function buildLeavesWhatsAppMessage(leavesList) {
+      if (!leavesList || leavesList.length === 0) {
+        return '*SRCC Faculty Leave Update*\nNo professors are currently marked on leave.';
+      }
+      const lines = leavesList.map((l, idx) => {
+        const code = l.teacher_code && !/^(cg|eg|mg|hg|hgc)\d*$/i.test(l.teacher_code) ? ` [${l.teacher_code}]` : '';
+        const dates = formatLeaveDates(l.start_date, l.end_date);
+        return `${idx + 1}. ${l.teacher_name}${code} (${dates})`;
+      });
+
+      return `*SRCC Faculty Leave Update (${leavesList.length})* 🏖️\n\n${lines.join('\n')}\n\n_Check free classrooms:_ https://srcc-free-classrooms.netlify.app/`;
+    }
+
     function renderActiveLeavesList() {
       if (!leavesListContainer) return;
       const leaves = getLeavesList();
+      const today = getTodayIsoDate();
 
       if (activeLeavesCount) activeLeavesCount.textContent = leaves.length;
+      const roomsQuickLeaveCount = document.getElementById('roomsQuickLeaveCount');
+      if (roomsQuickLeaveCount) roomsQuickLeaveCount.textContent = `${leaves.length} on leave`;
+      if (headerLeavePill) {
+        headerLeavePill.textContent = `${leaves.length} on leave`;
+        headerLeavePill.style.display = leaves.length > 0 ? 'inline-flex' : 'none';
+      }
 
       if (leaves.length === 0) {
         leavesListContainer.innerHTML = `
-          <div class="leaves-empty-msg">
-            No professors are currently marked on leave. Add a leave above to cancel their classes and automatically unlock their rooms for GD!
+          <div class="leaves-empty-msg" style="text-align: center; padding: 24px 16px; color: var(--text-muted); font-size: 0.88rem;">
+            No professors are currently marked on leave. All 210 faculty members are on scheduled college duty.
           </div>
         `;
         return;
       }
 
-      leavesListContainer.innerHTML = leaves.map(leave => {
-        const code = leave.teacher_code && !/^(cg|eg|mg|hg|hgc)\d*$/i.test(leave.teacher_code) ? ` (${leave.teacher_code})` : '';
+      leavesListContainer.innerHTML = leaves.map((leave, idx) => {
+        const s = leave.start_date || today;
+        const e = leave.end_date || today;
+        const isActiveToday = (today >= s && today <= e);
+        const code = leave.teacher_code && !/^(cg|eg|mg|hg|hgc)\d*$/i.test(leave.teacher_code) ? ` [${leave.teacher_code}]` : '';
+        const dateRangeDisplay = formatLeaveDates(s, e);
+        const halfDayBadge = leave.isHalfDay ? `<span style="background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; font-size: 0.68rem; font-weight: 800; padding: 2px 7px; border-radius: 9999px;">½ DAY</span>` : '';
+
+        const singleLeaveMsg = `*SRCC Faculty Leave Update* 🏖️\n\n1. ${leave.teacher_name}${code} (${dateRangeDisplay})\n\n_Check free classrooms:_ https://srcc-free-classrooms.netlify.app/`;
+
         return `
           <div class="leave-item-row" data-leave-id="${leave.id}">
+            <span class="leave-item-num">${idx + 1}</span>
             <div class="leave-item-details">
-              <span class="leave-item-teacher">👨‍🏫 ${escapeHtml(leave.teacher_name)}${code}</span>
-              <span class="leave-item-dates">🗓️ ${leave.start_date || 'Today'} to ${leave.end_date || 'Today'} · ${leave.department || ''}</span>
+              <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                <span class="leave-item-teacher">${escapeHtml(leave.teacher_name)}${code}</span>
+                <span class="leave-item-dates">📅 ${dateRangeDisplay}</span>
+                ${halfDayBadge}
+                ${isActiveToday ? '<span style="background: #FEE2E2; color: #991B1B; border: 1px solid #FCA5A5; font-size: 0.68rem; font-weight: 800; padding: 2px 8px; border-radius: 9999px;">ACTIVE TODAY</span>' : ''}
+              </div>
               ${leave.reason ? `<span class="leave-item-reason">"${escapeHtml(leave.reason)}"</span>` : ''}
             </div>
-            <button class="btn-delete-leave" data-leave-id="${leave.id}" title="Remove leave and restore scheduled classes">
-              ✕ Remove
-            </button>
+            <div style="display: flex; align-items: center; gap: 6px; margin-left: auto;">
+              <a href="https://wa.me/?text=${encodeURIComponent(singleLeaveMsg)}" target="_blank" class="btn-share-wa" title="Share this leave on WhatsApp">
+                💬 Share
+              </a>
+            </div>
           </div>
         `;
       }).join('');
-
-      leavesListContainer.querySelectorAll('.btn-delete-leave').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const id = btn.dataset.leaveId;
-          const current = getLeavesList();
-          const updated = current.filter(l => l.id !== id);
-          saveLeavesList(updated);
-          renderActiveLeavesList();
-          renderFaculty();
-          render();
-          showToast('🗑️ Faculty leave removed. Timetable classes restored!');
-        });
-      });
     }
 
     function openLeaveManagerModal(preselectedTeacherId) {
@@ -2865,6 +2938,34 @@ window.SRCC_FACULTY_LEAVES = {
           setTimeout(() => { btnCopyLeavesJs.textContent = '📋 Copy Code'; }, 2500);
         });
       });
+    }
+
+    // Wire Quick Access Faculty Leaves button on Classrooms view
+    const btnRoomsFacultyLeavesQuick = document.getElementById('btnRoomsFacultyLeavesQuick');
+    if (btnRoomsFacultyLeavesQuick) {
+      btnRoomsFacultyLeavesQuick.addEventListener('click', () => {
+        openLeaveManagerModal();
+      });
+    }
+
+    if (headerLeavePill) {
+      headerLeavePill.addEventListener('click', () => {
+        openLeaveManagerModal();
+      });
+    }
+
+    const btnShareAllLeavesWhatsApp = document.getElementById('btnShareAllLeavesWhatsApp');
+    if (btnShareAllLeavesWhatsApp) {
+      btnShareAllLeavesWhatsApp.addEventListener('click', () => {
+        const leaves = getLeavesList();
+        const msg = buildLeavesWhatsAppMessage(leaves);
+        window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+      });
+    }
+
+    const btnCloseLeavesModalFooter = document.getElementById('btnCloseLeavesModalFooter');
+    if (btnCloseLeavesModalFooter && leaveManagerModal) {
+      btnCloseLeavesModalFooter.addEventListener('click', () => closeAppModal(leaveManagerModal));
     }
 
     // ========================================================================

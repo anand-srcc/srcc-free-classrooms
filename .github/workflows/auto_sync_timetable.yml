@@ -2,9 +2,10 @@ name: Auto-Sync SRCC Timetable & Free Classrooms
 
 on:
   schedule:
-    # Runs automatically every 4 hours Monday to Saturday
-    - cron: '0 */4 * * 1-6'
-  workflow_dispatch:
+    # Runs automatically every 4 hours Monday to Saturday (college active days)
+    # Minute 20 avoids congested :00 peak runner load times
+    - cron: '20 */4 * * 1-6'
+  workflow_dispatch: # Allows 1-click manual trigger from GitHub web interface
 
 permissions:
   contents: write
@@ -30,14 +31,28 @@ jobs:
 
       - name: Run Timetable Auto-Sync & Change Detector
         id: run_sync
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
           python auto_sync_timetable.py
 
       - name: Commit & Push changes (Triggers Netlify Auto-Deploy)
-        if: steps.run_sync.outputs.changed == 'true'
         run: |
           git config --global user.name "SRCC-Timetable-Bot"
           git config --global user.email "bot@srcc-classroom-finder.internal"
-          git add web_app/srcc_data.json web_app/data.js web_app/SRCC_Free_Classrooms_Timetable.xlsx SRCC_Free_Classrooms_Timetable.xlsx
-          git commit -m "🤖 [Automated] Fresh SRCC Timetable sync & Excel refresh [skip ci]"
-          git push
+          git add web_app/ SRCC_Free_Classrooms_Timetable.xlsx
+          if git diff --staged --quiet; then
+            echo "No changes detected in web_app or Excel."
+          else
+            git commit -m "🤖 [Automated] Fresh SRCC Timetable sync & verification"
+            git push
+          fi
+
+      - name: Trigger Netlify Deploy Hook (if configured)
+        if: env.NETLIFY_BUILD_HOOK != ''
+        env:
+          NETLIFY_BUILD_HOOK: ${{ secrets.NETLIFY_BUILD_HOOK }}
+        run: |
+          curl -s -X POST -d '{}' "$NETLIFY_BUILD_HOOK"
+

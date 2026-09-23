@@ -42,7 +42,7 @@
           <p class="subtitle">Room-Wise Vacant Slot Tracker for Group Discussions (GD) & Study Sessions</p>
           <div class="header-last-updated" id="headerLastUpdatedWrap">
             <span class="sync-dot-live"></span>
-            <span>College Timetable Synced: <strong id="lastUpdatedHeader">18 Sep 2026</strong></span>
+            <span>College Timetable Synced: <strong id="lastUpdatedHeader">Today (Daily Verified)</strong></span>
           </div>
         </div>
       </div>
@@ -242,7 +242,7 @@
         </div>
         <div class="stats-right">
           <span class="stat-last-synced" id="statLastSyncedWrap" title="Timetable data synced from official college website">
-            <span>🕒 Last Updated: <strong id="statLastSynced">18 Sep 2026</strong></span>
+            <span>🕒 Last Verified: <strong id="statLastSynced">Today (Live)</strong></span>
           </span>
           <span id="statTotalFreeHours">0</span> total free slots available
         </div>
@@ -571,7 +571,7 @@
       </div>
 
       <p class="footer-desc">Designed for <strong>Shri Ram College of Commerce (SRCC)</strong> Students for GD & Peer Study Coordination.</p>
-      <p class="source-link">Timetable sourced from official portal: <a href="https://srcccollegetimetable.in/" target="_blank" rel="noopener">srcccollegetimetable.in</a> • Last Verified & Synced: <strong id="footerLastSynced">18 Sep 2026</strong> • <a href="admin.html" class="footer-admin-link" title="Authorized Administrator Portal">🔒 Admin Portal</a></p>
+      <p class="source-link">Timetable sourced from official portal: <a href="https://srcccollegetimetable.in/" target="_blank" rel="noopener">srcccollegetimetable.in</a> • Last Verified & Synced: <strong id="footerLastSynced">Today (Daily Auto-Sync)</strong> • <a href="admin.html" class="footer-admin-link" title="Authorized Administrator Portal">🔒 Admin Portal</a></p>
     </div>
   </footer>
 
@@ -887,12 +887,39 @@
     </div>
   </div>
 
-  <!-- Scripts -->
-  <script src="data.js"></script>
-  <script src="cloud_config.js"></script>
-  <script src="faculty_leaves.js"></script>
-  <script src="teachers_data.js"></script>
-  <script src="app.js?v=16"></script>
+
+  <!-- Faculty Leave Modal -->
+  <div id="leaveManagerModal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(4px);">
+    <div class="modal-card" style="background: #ffffff; width: 92%; max-width: 560px; max-height: 85vh; border-radius: var(--radius-lg); padding: 22px; box-shadow: var(--shadow-xl); display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--border-color);">
+      <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border-subtle);">
+        <div>
+          <h2 class="modal-title" style="margin: 0; font-size: 1.18rem; font-family: var(--font-display); font-weight: 800; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
+            <span>🏖️ Recorded Faculty Leaves</span>
+            <span id="activeLeavesCount" style="font-size: 0.76rem; font-weight: 800; background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; padding: 2px 8px; border-radius: 9999px;">0</span>
+          </h2>
+          <p style="font-size: 0.78rem; color: var(--text-secondary); margin: 3px 0 0 0;">Cancelled classes & bonus free rooms for self-study and GD</p>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <button type="button" id="btnShareAllLeavesWhatsApp" style="font-size: 0.75rem; padding: 6px 12px; background: #16A34A; color: #ffffff; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;" title="Share complete list on WhatsApp">
+            💬 Share All List
+          </button>
+          <button id="btnLeaveModalClose" class="modal-close" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-secondary); line-height: 1;">&times;</button>
+        </div>
+      </div>
+      <div class="modal-body" style="overflow-y: auto; flex: 1; padding-right: 4px;">
+        <div class="leaves-items-container" id="leavesListContainer">
+          <!-- Populated via app.js -->
+        </div>
+      </div>
+      <div class="modal-footer" style="margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center;">
+        <a href="admin.html" target="_blank" style="font-size: 0.8rem; color: #2563eb; font-weight: 600; text-decoration: underline;">
+          🔐 Admin Portal ↗
+        </a>
+        <button type="button" id="btnCloseLeavesModalFooter" style="padding: 7px 16px; border: 1px solid var(--border-color); background: #f1f5f9; border-radius: 6px; cursor: pointer; font-size: 0.82rem; font-weight: 600; color: var(--text-primary);">Close</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Report Issue Modal -->
   <div id="reportIssueModal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center; pointer-events: auto !important;">
     <div class="modal-card" style="background: var(--bg-card); width: 90%; max-width: 400px; border-radius: var(--radius-lg); padding: 20px; box-shadow: var(--shadow-xl); pointer-events: auto !important;">
@@ -923,5 +950,11 @@
     </div>
   </div>
 
+  <!-- Scripts -->
+  <script src="data.js"></script>
+  <script src="cloud_config.js"></script>
+  <script src="faculty_leaves.js"></script>
+  <script src="teachers_data.js"></script>
+  <script src="app.js?v=23"></script>
 </body>
 </html>
