@@ -2,8 +2,8 @@ window.SRCC_TEACHERS_DATA = {
   "metadata": {
     "college": "Shri Ram College of Commerce (SRCC)",
     "total_teachers": 210,
-    "last_synced": "24 Sep 2026, 01:39 PM",
-    "last_synced_iso": "2026-09-24T13:39:16.785714",
+    "last_synced": "24 Sep 2026, 08:01 PM",
+    "last_synced_iso": "2026-09-24T20:01:08.874847",
     "departments": [
       "Commerce",
       "EVS",
