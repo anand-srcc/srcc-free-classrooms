@@ -2,8 +2,8 @@ window.SRCC_TEACHERS_DATA = {
   "metadata": {
     "college": "Shri Ram College of Commerce (SRCC)",
     "total_teachers": 210,
-    "last_synced": "25 Sep 2026, 05:04 AM",
-    "last_synced_iso": "2026-09-25T05:04:25.520258",
+    "last_synced": "25 Sep 2026, 01:55 PM",
+    "last_synced_iso": "2026-09-25T13:55:26.226436",
     "departments": [
       "Commerce",
       "EVS",
@@ -17660,20 +17660,156 @@ window.SRCC_TEACHERS_DATA = {
       "id": "621",
       "label": "Ishika Tiwar (3)",
       "clean_name": "Ishika Tiwar",
-      "short_code": "",
+      "short_code": "IT3",
       "initials": "IT",
-      "department": "Commerce",
-      "total_teaching_periods": 0,
+      "department": "Economics",
+      "total_teaching_periods": 10,
       "schedule": {
-        "Monday": [],
+        "Monday": [
+          {
+            "raw": "T-BCH-K-SEM VEconomics-DnD-T53-K3T-BCH-A-SEM VEconomics-DnD-T53-A3",
+            "display": "T-BCH-K-SEM VEconomics-DnD-T53-K3T-BCH-A-SEM VEconomics-DnD-T53-A3",
+            "type": "Tutorial",
+            "room": "T53",
+            "course": "B.Com (Hons)",
+            "semester": "Sem V",
+            "subject": "DnD",
+            "slot": "9:30 AM to 10:30 AM",
+            "section": "Sec K",
+            "batch": "A3",
+            "formatted_display": "DnD · B.Com (Hons) · Sem V · Sec K · (A3)"
+          },
+          {
+            "raw": "L-BCH-D-SEM VEconomics-DnD-R28",
+            "display": "L-BCH-D-SEM VEconomics-DnD-R28",
+            "type": "Lecture",
+            "room": "R28",
+            "course": "B.Com (Hons)",
+            "semester": "Sem V",
+            "subject": "DnD",
+            "slot": "10:30 AM to 11:30 AM",
+            "section": "Sec D",
+            "batch": "",
+            "formatted_display": "DnD · B.Com (Hons) · Sem V · Sec D"
+          }
+        ],
         "Tuesday": [],
-        "Wednesday": [],
-        "Thursday": [],
-        "Friday": [],
+        "Wednesday": [
+          {
+            "raw": "T-BCH-I-SEM VEconomics-DnD-T54-I2",
+            "display": "T-BCH-I-SEM VEconomics-DnD-T54-I2",
+            "type": "Tutorial",
+            "room": "T54",
+            "course": "B.Com (Hons)",
+            "semester": "Sem V",
+            "subject": "DnD",
+            "slot": "12:30 PM to 1:30 PM",
+            "section": "Sec I",
+            "batch": "I2",
+            "formatted_display": "DnD · B.Com (Hons) · Sem V · Sec I · (I2)"
+          },
+          {
+            "raw": "L-BCH-E-SEM VEconomics-DnD-R19L-BCH-L-SEM VEconomics-DnD-R19L-BCH-M-SEM VEconomics-DnD-R19",
+            "display": "L-BCH-E-SEM VEconomics-DnD-R19L-BCH-L-SEM VEconomics-DnD-R19L-BCH-M-SEM VEconomics-DnD-R19",
+            "type": "Lecture",
+            "room": "R19",
+            "course": "B.Com (Hons)",
+            "semester": "Sem V",
+            "subject": "DnD",
+            "slot": "2:00 PM to 3:00 PM",
+            "section": "Sec E",
+            "batch": "",
+            "formatted_display": "DnD · B.Com (Hons) · Sem V · Sec E"
+          }
+        ],
+        "Thursday": [
+          {
+            "raw": "L-BCH-E-SEM VEconomics-DnD-R6L-BCH-L-SEM VEconomics-DnD-R6L-BCH-M-SEM VEconomics-DnD-R6",
+            "display": "L-BCH-E-SEM VEconomics-DnD-R6L-BCH-L-SEM VEconomics-DnD-R6L-BCH-M-SEM VEconomics-DnD-R6",
+            "type": "Lecture",
+            "room": "R6",
+            "course": "B.Com (Hons)",
+            "semester": "Sem V",
+            "subject": "DnD",
+            "slot": "11:30 AM to 12:30 PM",
+            "section": "Sec E",
+            "batch": "",
+            "formatted_display": "DnD · B.Com (Hons) · Sem V · Sec E"
+          },
+          {
+            "raw": "L-BCH-D-SEM VEconomics-DnD-R19",
+            "display": "L-BCH-D-SEM VEconomics-DnD-R19",
+            "type": "Lecture",
+            "room": "R19",
+            "course": "B.Com (Hons)",
+            "semester": "Sem V",
+            "subject": "DnD",
+            "slot": "12:30 PM to 1:30 PM",
+            "section": "Sec D",
+            "batch": "",
+            "formatted_display": "DnD · B.Com (Hons) · Sem V · Sec D"
+          },
+          {
+            "raw": "T-BCH-H-SEM VEconomics-DnD-T49-H2",
+            "display": "T-BCH-H-SEM VEconomics-DnD-T49-H2",
+            "type": "Tutorial",
+            "room": "T49",
+            "course": "B.Com (Hons)",
+            "semester": "Sem V",
+            "subject": "DnD",
+            "slot": "2:00 PM to 3:00 PM",
+            "section": "Sec H",
+            "batch": "H2",
+            "formatted_display": "DnD · B.Com (Hons) · Sem V · Sec H · (H2)"
+          }
+        ],
+        "Friday": [
+          {
+            "raw": "L-BCH-D-SEM VEconomics-DnD-R15",
+            "display": "L-BCH-D-SEM VEconomics-DnD-R15",
+            "type": "Lecture",
+            "room": "R15",
+            "course": "B.Com (Hons)",
+            "semester": "Sem V",
+            "subject": "DnD",
+            "slot": "8:30 AM to 9:30 AM",
+            "section": "Sec D",
+            "batch": "",
+            "formatted_display": "DnD · B.Com (Hons) · Sem V · Sec D"
+          },
+          {
+            "raw": "T-BCH-D-SEM VEconomics-DnD-T50-D2",
+            "display": "T-BCH-D-SEM VEconomics-DnD-T50-D2",
+            "type": "Tutorial",
+            "room": "T50",
+            "course": "B.Com (Hons)",
+            "semester": "Sem V",
+            "subject": "DnD",
+            "slot": "11:30 AM to 12:30 PM",
+            "section": "Sec D",
+            "batch": "D2",
+            "formatted_display": "DnD · B.Com (Hons) · Sem V · Sec D · (D2)"
+          },
+          {
+            "raw": "L-BCH-E-SEM VEconomics-DnD-R20L-BCH-L-SEM VEconomics-DnD-R20L-BCH-M-SEM VEconomics-DnD-R20",
+            "display": "L-BCH-E-SEM VEconomics-DnD-R20L-BCH-L-SEM VEconomics-DnD-R20L-BCH-M-SEM VEconomics-DnD-R20",
+            "type": "Lecture",
+            "room": "R20",
+            "course": "B.Com (Hons)",
+            "semester": "Sem V",
+            "subject": "DnD",
+            "slot": "12:30 PM to 1:30 PM",
+            "section": "Sec E",
+            "batch": "",
+            "formatted_display": "DnD · B.Com (Hons) · Sem V · Sec E"
+          }
+        ],
         "Saturday": []
       },
       "ref_code": "3",
-      "subjects": []
+      "subjects": [
+        "DnD"
+      ]
     },
     {
       "id": "677",
