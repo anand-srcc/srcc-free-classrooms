@@ -2,8 +2,8 @@ window.SRCC_TEACHERS_DATA = {
   "metadata": {
     "college": "Shri Ram College of Commerce (SRCC)",
     "total_teachers": 210,
-    "last_synced": "25 Sep 2026, 11:20 PM",
-    "last_synced_iso": "2026-09-25T23:20:46.283840",
+    "last_synced": "26 Sep 2026, 01:11 PM",
+    "last_synced_iso": "2026-09-26T13:11:13.374859",
     "departments": [
       "Commerce",
       "EVS",
@@ -3640,20 +3640,236 @@ window.SRCC_TEACHERS_DATA = {
       "id": "523",
       "label": "Dr. Amit Kumar",
       "clean_name": "Dr. Amit Kumar",
-      "short_code": "",
+      "short_code": "ATK",
       "initials": "DA",
       "department": "Commerce",
-      "total_teaching_periods": 0,
+      "total_teaching_periods": 16,
       "schedule": {
         "Monday": [],
-        "Tuesday": [],
-        "Wednesday": [],
-        "Thursday": [],
-        "Friday": [],
-        "Saturday": []
+        "Tuesday": [
+          {
+            "raw": "LAB-JOINT-SEM IIICommerce-DM-R2-SEC2",
+            "display": "LAB-JOINT-SEM IIICommerce-DM-R2-SEC2",
+            "type": "Practical/Lab",
+            "room": "R2",
+            "course": "",
+            "semester": "Sem III",
+            "subject": "DM",
+            "slot": "2:00 PM to 3:00 PM",
+            "section": "",
+            "batch": "",
+            "formatted_display": "DM · Sem III"
+          },
+          {
+            "raw": "LAB-JOINT-SEM IIICommerce-DM-R2-SEC2",
+            "display": "LAB-JOINT-SEM IIICommerce-DM-R2-SEC2",
+            "type": "Practical/Lab",
+            "room": "R2",
+            "course": "",
+            "semester": "Sem III",
+            "subject": "DM",
+            "slot": "3:00 PM to 4:00 PM",
+            "section": "",
+            "batch": "",
+            "formatted_display": "DM · Sem III"
+          }
+        ],
+        "Wednesday": [
+          {
+            "raw": "T-BCH-L-SEM IIICommerce-POM-T45-L1",
+            "display": "T-BCH-L-SEM IIICommerce-POM-T45-L1",
+            "type": "Tutorial",
+            "room": "T45",
+            "course": "B.Com (Hons)",
+            "semester": "Sem III",
+            "subject": "POM",
+            "slot": "11:30 AM to 12:30 PM",
+            "section": "Sec L",
+            "batch": "L1",
+            "formatted_display": "POM · B.Com (Hons) · Sem III · Sec L · (L1)"
+          },
+          {
+            "raw": "L-BCH-D-SEM IIICommerce-POM-R3",
+            "display": "L-BCH-D-SEM IIICommerce-POM-R3",
+            "type": "Lecture",
+            "room": "R3",
+            "course": "B.Com (Hons)",
+            "semester": "Sem III",
+            "subject": "POM",
+            "slot": "12:30 PM to 1:30 PM",
+            "section": "Sec D",
+            "batch": "",
+            "formatted_display": "POM · B.Com (Hons) · Sem III · Sec D"
+          },
+          {
+            "raw": "LAB-JOINT-SEM ICommerce-DM-R25-SEC5",
+            "display": "LAB-JOINT-SEM ICommerce-DM-R25-SEC5",
+            "type": "Practical/Lab",
+            "room": "R25",
+            "course": "",
+            "semester": "Sem I",
+            "subject": "DM",
+            "slot": "2:00 PM to 3:00 PM",
+            "section": "",
+            "batch": "",
+            "formatted_display": "DM · Sem I"
+          },
+          {
+            "raw": "LAB-JOINT-SEM ICommerce-DM-R2-SEC5",
+            "display": "LAB-JOINT-SEM ICommerce-DM-R2-SEC5",
+            "type": "Practical/Lab",
+            "room": "R2",
+            "course": "",
+            "semester": "Sem I",
+            "subject": "DM",
+            "slot": "3:00 PM to 4:00 PM",
+            "section": "",
+            "batch": "",
+            "formatted_display": "DM · Sem I"
+          }
+        ],
+        "Thursday": [
+          {
+            "raw": "T-BCH-M-SEM IIICommerce-POM-T48-M2",
+            "display": "T-BCH-M-SEM IIICommerce-POM-T48-M2",
+            "type": "Tutorial",
+            "room": "T48",
+            "course": "B.Com (Hons)",
+            "semester": "Sem III",
+            "subject": "POM",
+            "slot": "11:30 AM to 12:30 PM",
+            "section": "Sec M",
+            "batch": "M2",
+            "formatted_display": "POM · B.Com (Hons) · Sem III · Sec M · (M2)"
+          },
+          {
+            "raw": "T-BCH-I-SEM IIICommerce-POM-T49-I3",
+            "display": "T-BCH-I-SEM IIICommerce-POM-T49-I3",
+            "type": "Tutorial",
+            "room": "T49",
+            "course": "B.Com (Hons)",
+            "semester": "Sem III",
+            "subject": "POM",
+            "slot": "12:30 PM to 1:30 PM",
+            "section": "Sec I",
+            "batch": "I3",
+            "formatted_display": "POM · B.Com (Hons) · Sem III · Sec I · (I3)"
+          },
+          {
+            "raw": "LAB-JOINT-SEM IIICommerce-DM-R15-SEC2<----------------------->",
+            "display": "LAB-JOINT-SEM IIICommerce-DM-R15-SEC2",
+            "type": "Practical/Lab",
+            "room": "R15",
+            "course": "",
+            "semester": "Sem III",
+            "subject": "DM",
+            "slot": "2:00 PM to 3:00 PM",
+            "section": "",
+            "batch": "",
+            "formatted_display": "DM · Sem III"
+          },
+          {
+            "raw": "LAB-JOINT-SEM IIICommerce-DM-R15-SEC2<----------------------->",
+            "display": "LAB-JOINT-SEM IIICommerce-DM-R15-SEC2",
+            "type": "Practical/Lab",
+            "room": "R15",
+            "course": "",
+            "semester": "Sem III",
+            "subject": "DM",
+            "slot": "3:00 PM to 4:00 PM",
+            "section": "",
+            "batch": "",
+            "formatted_display": "DM · Sem III"
+          }
+        ],
+        "Friday": [
+          {
+            "raw": "T-BCH-I-SEM IIICommerce-POM-T49-I1",
+            "display": "T-BCH-I-SEM IIICommerce-POM-T49-I1",
+            "type": "Tutorial",
+            "room": "T49",
+            "course": "B.Com (Hons)",
+            "semester": "Sem III",
+            "subject": "POM",
+            "slot": "11:30 AM to 12:30 PM",
+            "section": "Sec I",
+            "batch": "I1",
+            "formatted_display": "POM · B.Com (Hons) · Sem III · Sec I · (I1)"
+          },
+          {
+            "raw": "L-BCH-D-SEM IIICommerce-POM-R18",
+            "display": "L-BCH-D-SEM IIICommerce-POM-R18",
+            "type": "Lecture",
+            "room": "R18",
+            "course": "B.Com (Hons)",
+            "semester": "Sem III",
+            "subject": "POM",
+            "slot": "12:30 PM to 1:30 PM",
+            "section": "Sec D",
+            "batch": "",
+            "formatted_display": "POM · B.Com (Hons) · Sem III · Sec D"
+          }
+        ],
+        "Saturday": [
+          {
+            "raw": "T-BCH-C-SEM IIICommerce-POM-T48-C2",
+            "display": "T-BCH-C-SEM IIICommerce-POM-T48-C2",
+            "type": "Tutorial",
+            "room": "T48",
+            "course": "B.Com (Hons)",
+            "semester": "Sem III",
+            "subject": "POM",
+            "slot": "9:30 AM to 10:30 AM",
+            "section": "Sec C",
+            "batch": "C2",
+            "formatted_display": "POM · B.Com (Hons) · Sem III · Sec C · (C2)"
+          },
+          {
+            "raw": "L-BCH-D-SEM IIICommerce-POM-R21",
+            "display": "L-BCH-D-SEM IIICommerce-POM-R21",
+            "type": "Lecture",
+            "room": "R21",
+            "course": "B.Com (Hons)",
+            "semester": "Sem III",
+            "subject": "POM",
+            "slot": "10:30 AM to 11:30 AM",
+            "section": "Sec D",
+            "batch": "",
+            "formatted_display": "POM · B.Com (Hons) · Sem III · Sec D"
+          },
+          {
+            "raw": "LAB-JOINT-SEM ICommerce-DM-R13-SEC5",
+            "display": "LAB-JOINT-SEM ICommerce-DM-R13-SEC5",
+            "type": "Practical/Lab",
+            "room": "R13",
+            "course": "",
+            "semester": "Sem I",
+            "subject": "DM",
+            "slot": "11:30 AM to 12:30 PM",
+            "section": "",
+            "batch": "",
+            "formatted_display": "DM · Sem I"
+          },
+          {
+            "raw": "LAB-JOINT-SEM ICommerce-DM-R13-SEC5",
+            "display": "LAB-JOINT-SEM ICommerce-DM-R13-SEC5",
+            "type": "Practical/Lab",
+            "room": "R13",
+            "course": "",
+            "semester": "Sem I",
+            "subject": "DM",
+            "slot": "12:30 PM to 1:30 PM",
+            "section": "",
+            "batch": "",
+            "formatted_display": "DM · Sem I"
+          }
+        ]
       },
       "ref_code": "",
-      "subjects": []
+      "subjects": [
+        "DM",
+        "POM"
+      ]
     },
     {
       "id": "604",
