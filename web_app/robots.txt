@@ -1,0 +1,26 @@
+# SRCC Room Finder - Anti-Scraper Policy
+User-agent: *
+Disallow: /srcc_data.json
+Disallow: /faculty_leaves.json
+Disallow: /teachers_data.json
+Disallow: /directory_data.json
+Disallow: /*.xlsx$
+
+# Block automated scrapers and AI harvesters
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: Scrapy
+Disallow: /
+
+User-agent: WebReaper
+Disallow: /

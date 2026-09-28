@@ -1,20 +1,24 @@
-const CACHE_NAME = 'srcc-classroom-v23';
+const CACHE_NAME = 'srcc-classroom-v24-ghpages';
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/app.js?v=23',
-  '/data.js',
-  '/faculty_leaves.js',
-  '/teachers_data.js',
-  '/assets/srcc_crest.png',
-  '/assets/srcc_100years.png'
+  './',
+  './index.html',
+  './style.css',
+  './security_guard.js?v=24',
+  './app.js?v=24',
+  './data.js?v=24',
+  './cloud_config.js?v=24',
+  './faculty_leaves.js?v=24',
+  './teachers_data.js?v=24',
+  './favicon.png',
+  './srcc_crest.png',
+  './srcc_100years.png',
+  './manifest.json'
 ];
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();
   e.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS)).catch(err => console.warn('SW addAll err:', err))
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS)).catch(err => console.warn('[SW] Cache addAll note:', err))
   );
 });
 
@@ -29,21 +33,31 @@ self.addEventListener('activate', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
-  // Always fetch live on localhost or for dynamic APIs / JSON
+  // Always fetch live on localhost or for live JSON / Firebase DB
   const isLocal = self.location.hostname === 'localhost' || self.location.hostname === '127.0.0.1';
-  if (isLocal || e.request.url.includes('.json') || e.request.url.includes('api')) {
+  if (isLocal || e.request.url.includes('.json') || e.request.url.includes('firebaseio.com')) {
     e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
     return;
   }
+
   e.respondWith(
-    fetch(e.request)
-      .then((networkResponse) => {
+    caches.match(e.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        // Stale-while-revalidate
+        fetch(e.request).then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            caches.open(CACHE_NAME).then((cache) => cache.put(e.request, networkResponse));
+          }
+        }).catch(() => {});
+        return cachedResponse;
+      }
+      return fetch(e.request).then((networkResponse) => {
         if (networkResponse && networkResponse.status === 200) {
           const resClone = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => cache.put(e.request, resClone));
         }
         return networkResponse;
-      })
-      .catch(() => caches.match(e.request))
+      });
+    }).catch(() => caches.match('./index.html'))
   );
 });
