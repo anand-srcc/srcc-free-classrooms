@@ -344,7 +344,9 @@
       // Check query parameter ?to=, otherwise default to relative 'web_app/'
       const params = new URLSearchParams(window.location.search);
       const customTo = params.get('to');
-      let targetUrl = 'web_app/';
+      const isNetlify = window.location.hostname.includes('netlify.app');
+      const defaultNewPortal = 'https://anand-srcc.github.io/srcc-free-classrooms/web_app/';
+      let targetUrl = isNetlify ? defaultNewPortal : 'web_app/';
 
       if (customTo && customTo.startsWith('http')) {
         targetUrl = customTo;
