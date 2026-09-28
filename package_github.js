@@ -63,6 +63,8 @@ const rootFiles = [
   'update_timetable.bat',
   'update_leaves.bat',
   'login_session.bat',
+  'push_to_github.bat',
+  'github_login_and_push.bat',
   'package_netlify.js',
   'SRCC_Free_Classrooms_Timetable.xlsx'
 ];
