@@ -1,0 +1,26 @@
+﻿{
+  "name": "SRCC Free Classroom Finder",
+  "short_name": "SRCC Rooms",
+  "description": "Find vacant classrooms and spaces at Shri Ram College of Commerce.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d1117",
+  "theme_color": "#111827",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/srcc_crest.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/srcc_100years.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

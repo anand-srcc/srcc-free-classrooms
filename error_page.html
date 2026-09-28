@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="google-site-verification" content="X0hFNA_KYCYG48OBsCuM_ek0cAdyZyGllDLPIdy1lVo">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#000066">
+    <meta name="background-color" content="#000066">
+    <meta name="description" content="Student Assist SRCC helps Shri Ram College of Commerce students generate timetables, manage courses, find rooms and access academic tools.">
+    <link rel="manifest" href="/manifest.json">
+    <!-- iOS ignores the manifest's icons and uses this one, and it does NOT
+         support transparency: it composites the alpha channel onto BLACK. The
+         PWA icons are 23% transparent (transparent corners around the crest),
+         so pointing this at icon-192.png produced a black square with the crest
+         floating in it on every iPhone that added the app to its home screen.
+         apple-touch-icon.png is the same crest flattened onto the white the
+         maskable icons already use, at the 180x180 iOS actually asks for. -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <title>Student Assist SRCC - SRCC Finder</title>
+
+    <!-- Outfit used to be pulled in by an @import at the top of index.css, so the
+         browser could not even discover it until the 92KB stylesheet had arrived
+         and parsed - then it still needed a cold DNS+TCP+TLS handshake before it
+         would paint anything. Declaring it here (with the handshake warmed by the
+         preconnects) moves that work off the critical path. Cinzel is NOT here on
+         purpose: it is used by one heading in MaintenanceGate, which loads it
+         itself when it actually renders. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&amp;display=swap">
+
+    <!-- The splash exists to put something on screen immediately, so its styles
+         cannot live in the render-blocking bundle stylesheet - that is what kept
+         it from painting until 1.4s on a slow link. Keep this block and the
+         markup below in sync; it is intentionally the only inline CSS we ship. -->
+    <style>
+      .cold-start-splash {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: #000066;
+        transition: opacity 0.5s ease;
+      }
+      .cold-start-splash__logo {
+        width: 64px;
+        height: 64px;
+        border-radius: 16px;
+        animation: splash-pulse 2s ease-in-out infinite;
+      }
+      .cold-start-splash__spinner {
+        width: 28px;
+        height: 28px;
+        margin-top: 24px;
+        border: 3px solid rgb(255 255 255 / 12%);
+        border-top-color: #fceb08;
+        border-radius: 50%;
+        animation: splash-spin 0.8s linear infinite;
+      }
+      @keyframes splash-pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.85;
+          transform: scale(1.05);
+        }
+      }
+      @keyframes splash-spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+    <script type="module" crossorigin="" src="/assets/index-DXpwrJG1.js"></script>
+    <link rel="modulepreload" crossorigin="" href="/assets/react-BISgi42A.js">
+    <link rel="stylesheet" crossorigin="" href="/assets/index-Ce3UXz1h.css">
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-ZLB69TLLK7" data-srcc-analytics=""></script><script id="cf-turnstile-script" src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async="" defer=""></script></head>
+  <body>
+    <div id="root"><div class="flex h-[100dvh] bg-gray-50 text-gray-900 font-sans selection:bg-indigo-100 font-outfit overflow-hidden"><div class="flex-1 flex flex-col relative overflow-hidden"><main class="flex-1 overflow-x-hidden overflow-y-auto pb-6 max-md:pb-[calc(var(--app-footer-h,0px)+1.5rem)] relative " style="background-image: url(&quot;/brand/backdrop.jpg&quot;); background-size: cover; background-position: center center; background-attachment: fixed; --app-footer-h: 67px;"><div class="fixed inset-0 bg-srcc-portalNavy/25 pointer-events-none z-0"></div><div class="relative z-10 w-full min-h-full flex flex-col items-center justify-center"><div class="animate-in fade-in slide-in-from-bottom-4 duration-500"><div class="w-full flex items-center justify-center pt-16 pb-8 px-4"><div class="w-full max-w-lg md:max-w-2xl lg:max-w-3xl text-white bg-white/8 backdrop-blur-2xl border border-white/25 rounded-2xl p-6 sm:p-10 lg:p-14 text-center shadow-[0_20px_60px_0_rgba(0,0,0,0.6)]"><picture><source type="image/webp" srcset="/brand/logo-144.webp 144w, /brand/logo-192.webp 192w, /brand/logo-288.webp 288w, /brand/logo-432.webp 432w" sizes="(min-width: 1024px) 144px, (min-width: 640px) 112px, 96px"><img alt="SRCC Assist" width="288" height="288" class="w-24 h-24 sm:w-28 sm:h-28 lg:w-36 lg:h-36 mx-auto mb-4 sm:mb-6 lg:mb-8 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] hover:scale-110 transition-transform duration-500" src="/brand/logo-288.png"></picture><h2 class="text-2xl sm:text-4xl lg:text-5xl font-black font-sans text-white mb-1 sm:mb-3 tracking-wide">SRCC ASSIST</h2><p class="text-gray-300 text-xs sm:text-sm mb-4 sm:mb-6 font-light">Sign in with your roll number and password</p><form class="space-y-5"><div class="relative group text-left"><input required="" autocomplete="username" class="w-full bg-transparent border border-[#DADADA] rounded-[5px] h-[45px] text-white px-4 pt-2 pb-1 focus:ring-0 focus:border-white transition-colors peer uppercase" type="text" value=""><label class="absolute left-4 top-[14px] text-[13px] tracking-[2px] text-[#DADADA] transition-all pointer-events-none peer-focus:top-[-8px] peer-focus:left-3 peer-focus:text-[11px] peer-focus:bg-srcc-portalNavy peer-focus:px-1 peer-valid:top-[-8px] peer-valid:left-3 peer-valid:text-[11px] peer-valid:bg-srcc-portalNavy peer-valid:px-1">ROLL NO</label></div><div class="relative group text-left"><input required="" maxlength="256" autocomplete="current-password" class="w-full bg-transparent border border-[#DADADA] rounded-[5px] h-[45px] text-white px-4 pr-12 pt-2 pb-1 focus:ring-0 focus:border-white transition-colors peer tracking-widest" type="password" value=""><label class="absolute left-4 top-[14px] text-[13px] tracking-[2px] text-[#DADADA] transition-all pointer-events-none peer-focus:top-[-8px] peer-focus:left-3 peer-focus:text-[11px] peer-focus:bg-srcc-portalNavy peer-focus:px-1 peer-valid:top-[-8px] peer-valid:left-3 peer-valid:text-[11px] peer-valid:bg-srcc-portalNavy peer-valid:px-1">PASSWORD</label><button type="button" aria-label="Show password" aria-pressed="false" tabindex="-1" class="absolute inset-y-0 right-0 flex w-12 items-center justify-center text-[#DADADA] transition-colors hover:text-white focus:outline-none focus-visible:text-srcc-yellow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye h-[18px] w-[18px]" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg></button></div><div class="flex justify-end -mt-2"><button type="button" class="text-xs sm:text-sm font-semibold text-srcc-yellow hover:text-yellow-300 underline underline-offset-4">Forgot password?</button></div><div class="my-2 flex justify-center"><div class="h-[65px] w-[300px] overflow-hidden max-[400px]:h-[51px] max-[400px]:w-[234px]"><div class="origin-top-left max-[400px]:scale-[0.78]"><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-ppelh_response"></div></div></div></div><button type="submit" class="w-full bg-srcc-yellow hover:bg-yellow-400 text-srcc-portalNavy py-[12px] mt-2 rounded-[5px] font-bold transition-all shadow-[0_4px_14px_0_rgba(252,235,8,0.39)] uppercase tracking-wide text-sm">Login</button></form><div class="mt-5 md:hidden"><button class="w-full flex items-center justify-center gap-2 py-3 rounded-[5px] border border-srcc-yellow/50 text-srcc-yellow bg-srcc-yellow/10 hover:bg-srcc-yellow hover:text-srcc-portalNavy font-bold text-sm transition-all"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download w-4 h-4" aria-hidden="true"><path d="M12 15V3"></path><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="m7 10 5 5 5-5"></path></svg>Install App on Your Phone</button></div></div></div></div></div></main><footer class="fixed bottom-0 inset-x-0 z-40 md:static md:shrink-0 w-full bg-srcc-portalNavy/95 border-t border-white/10 backdrop-blur-md pb-[env(safe-area-inset-bottom)]"><div class="max-w-4xl mx-auto px-4 py-2 md:py-3 flex flex-col items-center justify-center -mt-1 md:mt-0"><div class="flex flex-wrap justify-center items-center gap-x-4 md:gap-x-6 gap-y-1 text-[10px] md:text-sm font-medium text-white/80 mb-1"><button class="hover:text-white transition-colors focus:outline-none">Disclaimer</button><span class="text-white/20">|</span><button class="hover:text-white transition-colors focus:outline-none">Terms Of Use</button><span class="text-white/20">|</span><button class="hover:text-white transition-colors focus:outline-none">Policies</button><span class="text-white/20">|</span><button class="hover:text-white transition-colors focus:outline-none">Contact</button></div><div class="text-white/60 text-[11px] md:text-xs flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 text-center pb-0.5"><p>Developed with Curiosity by <a href="https://linkedin.com/in/keshavsingal" target="_blank" rel="noopener noreferrer" class="text-srcc-yellow hover:text-yellow-300 font-medium underline underline-offset-2 decoration-srcc-yellow/60 hover:decoration-yellow-300 transition-colors"><b>Keshav Singal (24BC702)</b></a></p></div></div></footer></div></div></div>
+  <!-- Cloudflare Pages Analytics --><script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;a6528e2bceaa40cb82564e9a40be7f16&quot;}"></script><!-- Cloudflare Pages Analytics -->
+
+</body></html>

@@ -1,0 +1,21 @@
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Python bytecode & cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Session state & credentials
+playwright_state.json
+
+# Local preview / temporary folders
+preview_web_app/
+check_syntax.py
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db

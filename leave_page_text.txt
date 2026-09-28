@@ -1,0 +1,17 @@
+SRCC ASSIST
+
+Sign in with your roll number and password
+
+ROLL NO
+PASSWORD
+Forgot password?
+LOGIN
+Disclaimer
+|
+Terms Of Use
+|
+Policies
+|
+Contact
+
+Developed with Curiosity by Keshav Singal (24BC702)

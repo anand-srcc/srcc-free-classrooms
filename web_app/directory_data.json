@@ -1,0 +1,62 @@
+[
+  {
+    "category": "Admissions",
+    "title": "UG Admission Queries",
+    "email": "admissions@srcc.du.ac.in"
+  },
+  {
+    "category": "Admissions",
+    "title": "PGDGBO Admission Queries",
+    "email": "pgdgbo@srcc.du.ac.in"
+  },
+  {
+    "category": "Administration",
+    "title": "Accounts & Finance (1)",
+    "email": "ao.accounts@srcc.du.ac.in"
+  },
+  {
+    "category": "Administration",
+    "title": "Accounts & Finance (2)",
+    "email": "accountsoffice@srcc.du.ac.in"
+  },
+  {
+    "category": "Administration",
+    "title": "Administrative Matters (1)",
+    "email": "ao.admin@srcc.du.ac.in"
+  },
+  {
+    "category": "Administration",
+    "title": "Administrative Matters (2)",
+    "email": "adminoffice@srcc.du.ac.in"
+  },
+  {
+    "category": "Student Queries",
+    "title": "Student Queries",
+    "email": "adminoffice@srcc.du.ac.in"
+  },
+  {
+    "category": "Sports",
+    "title": "Sports Queries",
+    "email": "sports@srcc.du.ac.in"
+  },
+  {
+    "category": "Hostel",
+    "title": "Girls' Hostel",
+    "email": "warden.gh@srcc.du.ac.in"
+  },
+  {
+    "category": "Hostel",
+    "title": "Boys' Hostel",
+    "email": "warden.bh@srcc.du.ac.in"
+  },
+  {
+    "category": "Alumni",
+    "title": "Alumni Relations",
+    "email": "alumni.relations@srcc.du.ac.in"
+  },
+  {
+    "category": "Administration",
+    "title": "Principal Office",
+    "email": "principaloffice@srcc.du.ac.in"
+  }
+]

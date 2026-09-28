@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="3; url=web_app/">
+  <meta name="description" content="Official SRCC Free Classrooms & Faculty Locator - Shri Ram College of Commerce">
+  <title>SRCC Free Classrooms & Faculty Locator - Redirecting...</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="web_app/favicon.png">
+
+  <style>
+    :root {
+      --bg-navy-deep: #070b19;
+      --bg-navy-card: rgba(15, 23, 42, 0.78);
+      --border-card: rgba(255, 255, 255, 0.12);
+      --accent-gold: #fceb08;
+      --accent-gold-hover: #eab308;
+      --text-white: #ffffff;
+      --text-muted: #94a3b8;
+      --navy-glow: rgba(59, 130, 246, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 50% 20%, #1e1b4b 0%, var(--bg-navy-deep) 70%);
+      color: var(--text-white);
+      padding: 1.5rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Ambient background glows */
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .glow-1 {
+      width: 320px;
+      height: 320px;
+      background: rgba(252, 235, 8, 0.15);
+      top: 10%;
+      left: 15%;
+      animation: floatSlow 8s ease-in-out infinite alternate;
+    }
+    .glow-2 {
+      width: 400px;
+      height: 400px;
+      background: rgba(59, 130, 246, 0.18);
+      bottom: 10%;
+      right: 15%;
+      animation: floatSlow 10s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes floatSlow {
+      0% { transform: translateY(0px) scale(1); }
+      100% { transform: translateY(30px) scale(1.1); }
+    }
+
+    /* Glass card container */
+    .redirect-card {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 520px;
+      background: var(--bg-navy-card);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-card);
+      border-radius: 24px;
+      padding: 2.75rem 2rem;
+      text-align: center;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7),
+                  0 0 40px rgba(59, 130, 246, 0.12);
+      animation: cardEntrance 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes cardEntrance {
+      from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.97);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* Crest / Logo */
+    .crest-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    .crest-img {
+      width: 82px;
+      height: 82px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 16px rgba(252, 235, 8, 0.4));
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 16px rgba(252, 235, 8, 0.4)); }
+      50% { transform: scale(1.05); filter: drop-shadow(0 0 24px rgba(252, 235, 8, 0.7)); }
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(252, 235, 8, 0.12);
+      border: 1px solid rgba(252, 235, 8, 0.35);
+      color: var(--accent-gold);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 0.35rem 0.9rem;
+      border-radius: 9999px;
+      margin-bottom: 1.1rem;
+    }
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      background: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #22c55e;
+      animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
+    @keyframes ping {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.3); }
+    }
+
+    h1 {
+      font-size: 1.65rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.6rem;
+      background: linear-gradient(135deg, #ffffff 30%, #e2e8f0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 1.8rem;
+    }
+
+    .countdown-highlight {
+      display: inline-block;
+      min-width: 24px;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--accent-gold);
+      padding: 0 2px;
+      transition: transform 0.2s ease;
+    }
+
+    /* Progress Bar */
+    .progress-track {
+      width: 100%;
+      height: 7px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 9999px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #3b82f6, var(--accent-gold));
+      border-radius: 9999px;
+      transition: width 0.1s linear;
+      box-shadow: 0 0 12px rgba(252, 235, 8, 0.6);
+    }
+
+    /* Action Buttons */
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      background: var(--accent-gold);
+      color: #000066;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 0.9rem 1.5rem;
+      border-radius: 12px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(252, 235, 8, 0.35);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-primary:hover {
+      background: #ffe600;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(252, 235, 8, 0.5);
+    }
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.06);
+      color: #cbd5e1;
+      font-weight: 600;
+      font-size: 0.92rem;
+      padding: 0.75rem 1.25rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .footer-note {
+      margin-top: 1.8rem;
+      font-size: 0.8rem;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .footer-note a {
+      color: var(--accent-gold);
+      text-decoration: none;
+      opacity: 0.85;
+      transition: opacity 0.2s;
+    }
+    .footer-note a:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .redirect-card {
+        padding: 2rem 1.4rem;
+        border-radius: 20px;
+      }
+      h1 {
+        font-size: 1.4rem;
+      }
+      .subtitle {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow-orb glow-1"></div>
+  <div class="glow-orb glow-2"></div>
+
+  <main class="redirect-card" role="main">
+    <div class="crest-wrapper">
+      <img src="web_app/srcc_crest.png" alt="SRCC Crest" class="crest-img" onerror="this.onerror=null; this.src='srcc_crest_official.png';">
+    </div>
+
+    <div class="badge-pill">
+      <span class="badge-dot"></span>
+      <span>Portal Updated &bull; Live</span>
+    </div>
+
+    <h1>SRCC Free Classrooms & Faculty Locator</h1>
+    <p class="subtitle" id="redirectMsg">
+      Redirecting to the new portal in <span class="countdown-highlight" id="timer">3</span> seconds...<br>
+      <span style="font-size: 0.86rem; color: #94a3b8; display: inline-block; margin-top: 4px;">
+        (3 सेकंड में आप नई वेबसाइट पर रीडायरेक्ट हो रहे हैं)
+      </span>
+    </p>
+
+    <div class="progress-track" aria-hidden="true">
+      <div class="progress-fill" id="progressBar"></div>
+    </div>
+
+    <div class="btn-group">
+      <a href="web_app/" id="btnProceed" class="btn-primary">
+        <span>Proceed to New Website Immediately</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      </a>
+
+      <button type="button" id="btnToggleRedirect" class="btn-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" id="toggleIcon"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+        <span id="toggleText">Pause Auto-Redirect</span>
+      </button>
+    </div>
+
+    <div class="footer-note">
+      <span>Shri Ram College of Commerce (University of Delhi)</span>
+    </div>
+  </main>
+
+  <script>
+    (function() {
+      // Determine destination URL
+      // Check query parameter ?to=, otherwise default to relative 'web_app/'
+      const params = new URLSearchParams(window.location.search);
+      const customTo = params.get('to');
+      let targetUrl = 'web_app/';
+
+      if (customTo && customTo.startsWith('http')) {
+        targetUrl = customTo;
+      } else if (customTo) {
+        targetUrl = customTo;
+      }
+
+      // Update proceed button href
+      const proceedBtn = document.getElementById('btnProceed');
+      if (proceedBtn) {
+        proceedBtn.href = targetUrl;
+      }
+
+      const TOTAL_SECONDS = 3;
+      const INTERVAL_MS = 50;
+      let remainingMs = TOTAL_SECONDS * 1000;
+      let isPaused = false;
+
+      const timerEl = document.getElementById('timer');
+      const progressBar = document.getElementById('progressBar');
+      const toggleBtn = document.getElementById('btnToggleRedirect');
+      const toggleText = document.getElementById('toggleText');
+      const toggleIcon = document.getElementById('toggleIcon');
+      const redirectMsg = document.getElementById('redirectMsg');
+
+      function updateUI() {
+        const secsLeft = Math.max(0, Math.ceil(remainingMs / 1000));
+        if (timerEl) {
+          timerEl.textContent = secsLeft;
+        }
+
+        const elapsedPercent = Math.min(100, Math.max(0, ((TOTAL_SECONDS * 1000 - remainingMs) / (TOTAL_SECONDS * 1000)) * 100));
+        if (progressBar) {
+          progressBar.style.width = elapsedPercent + '%';
+        }
+      }
+
+      const timerInterval = setInterval(function() {
+        if (isPaused) return;
+
+        remainingMs -= INTERVAL_MS;
+        updateUI();
+
+        if (remainingMs <= 0) {
+          clearInterval(timerInterval);
+          window.location.replace(targetUrl);
+        }
+      }, INTERVAL_MS);
+
+      // Pause / Resume toggle
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', function() {
+          isPaused = !isPaused;
+          if (isPaused) {
+            toggleText.textContent = 'Resume Auto-Redirect';
+            toggleIcon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"></polygon>';
+            if (redirectMsg) {
+              redirectMsg.innerHTML = '<span style="color: #fceb08; font-weight: 600;">Auto-redirect paused.</span> Click the button below whenever you are ready to proceed.';
+            }
+          } else {
+            toggleText.textContent = 'Pause Auto-Redirect';
+            toggleIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>';
+            if (redirectMsg) {
+              redirectMsg.innerHTML = 'Redirecting to the new portal in <span class="countdown-highlight" id="timer">' + Math.ceil(remainingMs / 1000) + '</span> seconds...<br><span style="font-size: 0.86rem; color: #94a3b8; display: inline-block; margin-top: 4px;">(3 सेकंड में आप नई वेबसाइट पर रीडायरेक्ट हो रहे हैं)</span>';
+            }
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
