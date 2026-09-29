@@ -3,8 +3,8 @@ window.SRCC_DATA = {
     "college": "Shri Ram College of Commerce (SRCC)",
     "portal": "https://srcccollegetimetable.in/",
     "total_rooms": 96,
-    "last_synced": "28 Sep 2026, 05:31 AM",
-    "last_synced_iso": "2026-09-28T05:31:52.345217",
+    "last_synced": "29 Sep 2026, 06:07 PM",
+    "last_synced_iso": "2026-09-29T18:07:38.104014",
     "academic_periods": [
       "8:30 AM to 9:30 AM",
       "9:30 AM to 10:30 AM",
@@ -818,7 +818,7 @@ window.SRCC_DATA = {
             },
             {
               "slot": "10:30 AM to 11:30 AM",
-              "class": "LAB-1. BCH-H-SEM VCommerce-ITLP-SAA-HP1LAB-2. BCH-H-SEM VCommerce-ITLP-SAA-HP2LAB-3. BCH-H-SEM VCommerce-ITLP-SAA-HP3"
+              "class": "L-BCH-M-SEM VCommerce-MA-ATS"
             },
             {
               "slot": "11:30 AM to 12:30 PM",
@@ -1032,7 +1032,7 @@ window.SRCC_DATA = {
             },
             {
               "slot": "10:30 AM to 11:30 AM",
-              "class": "L-BCH-M-SEM VCommerce-MA-ATS"
+              "class": "LAB-1. BCH-H-SEM VCommerce-ITLP-SAA-HP1LAB-2. BCH-H-SEM VCommerce-ITLP-SAA-HP2LAB-3. BCH-H-SEM VCommerce-ITLP-SAA-HP3"
             },
             {
               "slot": "11:30 AM to 12:30 PM",

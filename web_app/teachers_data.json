@@ -2,8 +2,8 @@
   "metadata": {
     "college": "Shri Ram College of Commerce (SRCC)",
     "total_teachers": 210,
-    "last_synced": "28 Sep 2026, 05:32 AM",
-    "last_synced_iso": "2026-09-28T05:32:36.464054",
+    "last_synced": "29 Sep 2026, 06:08 PM",
+    "last_synced_iso": "2026-09-29T18:08:15.764227",
     "departments": [
       "Commerce",
       "EVS",
@@ -3217,10 +3217,10 @@
             "formatted_display": "MA · B.Com (Hons) · Sem V · Sec M"
           },
           {
-            "raw": "L-BCH-M-SEM VCommerce-MA-R5",
-            "display": "L-BCH-M-SEM VCommerce-MA-R5",
+            "raw": "L-BCH-M-SEM VCommerce-MA-R4",
+            "display": "L-BCH-M-SEM VCommerce-MA-R4",
             "type": "Lecture",
-            "room": "R5",
+            "room": "R4",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "subject": "MA",
@@ -12709,10 +12709,10 @@
             "formatted_display": "ITLP · B.Com (Hons) · Sem V · Sec H"
           },
           {
-            "raw": "LAB-BCH-H-SEM VCommerce-ITLP-R4-HP1LAB-BCH-H-SEM VCommerce-ITLP-R4-HP2LAB-BCH-H-SEM VCommerce-ITLP-R4-HP3",
-            "display": "LAB-BCH-H-SEM VCommerce-ITLP-R4-HP1LAB-BCH-H-SEM VCommerce-ITLP-R4-HP2LAB-BCH-H-SEM VCommerce-ITLP-R4-HP3",
+            "raw": "LAB-BCH-H-SEM VCommerce-ITLP-R5-HP1LAB-BCH-H-SEM VCommerce-ITLP-R5-HP2LAB-BCH-H-SEM VCommerce-ITLP-R5-HP3",
+            "display": "LAB-BCH-H-SEM VCommerce-ITLP-R5-HP1LAB-BCH-H-SEM VCommerce-ITLP-R5-HP2LAB-BCH-H-SEM VCommerce-ITLP-R5-HP3",
             "type": "Practical/Lab",
-            "room": "R4",
+            "room": "R5",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "subject": "ITLP",
