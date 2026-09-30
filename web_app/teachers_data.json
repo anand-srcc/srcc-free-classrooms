@@ -2,8 +2,8 @@
   "metadata": {
     "college": "Shri Ram College of Commerce (SRCC)",
     "total_teachers": 210,
-    "last_synced": "29 Sep 2026, 06:08 PM",
-    "last_synced_iso": "2026-09-29T18:08:15.764227",
+    "last_synced": "30 Sep 2026, 02:58 PM",
+    "last_synced_iso": "2026-09-30T14:58:55.325398",
     "departments": [
       "Commerce",
       "EVS",
@@ -1854,10 +1854,10 @@
         ],
         "Wednesday": [
           {
-            "raw": "LAB-JOINT-SEM IIICommerce-TGNLC-R34-VAC29<----------------------->",
-            "display": "LAB-JOINT-SEM IIICommerce-TGNLC-R34-VAC29",
+            "raw": "LAB-JOINT-SEM IIICommerce-TGNLC-Library FF-VAC29<----------------------->",
+            "display": "LAB-JOINT-SEM IIICommerce-TGNLC-Library FF-VAC29",
             "type": "Practical/Lab",
-            "room": "R34",
+            "room": "LIBRARY",
             "course": "",
             "semester": "Sem III",
             "subject": "TGNLC",
@@ -1867,10 +1867,10 @@
             "formatted_display": "TGNLC · Sem III · (VAC29)"
           },
           {
-            "raw": "LAB-JOINT-SEM IIICommerce-TGNLC-R34-VAC29<----------------------->",
-            "display": "LAB-JOINT-SEM IIICommerce-TGNLC-R34-VAC29",
+            "raw": "LAB-JOINT-SEM IIICommerce-TGNLC-Library FF-VAC29<----------------------->",
+            "display": "LAB-JOINT-SEM IIICommerce-TGNLC-Library FF-VAC29",
             "type": "Practical/Lab",
-            "room": "R34",
+            "room": "LIBRARY",
             "course": "",
             "semester": "Sem III",
             "subject": "TGNLC",
@@ -16034,10 +16034,10 @@
         ],
         "Wednesday": [
           {
-            "raw": "LAB-JOINT-SEM IEconomics-AS-Library FF-SEC13",
-            "display": "LAB-JOINT-SEM IEconomics-AS-Library FF-SEC13",
+            "raw": "LAB-JOINT-SEM IEconomics-AS-R34-SEC13",
+            "display": "LAB-JOINT-SEM IEconomics-AS-R34-SEC13",
             "type": "Practical/Lab",
-            "room": "LIBRARY",
+            "room": "R34",
             "course": "",
             "semester": "Sem I",
             "subject": "AS",
@@ -16047,10 +16047,10 @@
             "formatted_display": "AS · Sem I"
           },
           {
-            "raw": "LAB-JOINT-SEM IEconomics-AS-Library FF-SEC13",
-            "display": "LAB-JOINT-SEM IEconomics-AS-Library FF-SEC13",
+            "raw": "LAB-JOINT-SEM IEconomics-AS-R34-SEC13",
+            "display": "LAB-JOINT-SEM IEconomics-AS-R34-SEC13",
             "type": "Practical/Lab",
-            "room": "LIBRARY",
+            "room": "R34",
             "course": "",
             "semester": "Sem I",
             "subject": "AS",
