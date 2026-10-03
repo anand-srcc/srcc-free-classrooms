@@ -2,8 +2,8 @@
   "metadata": {
     "college": "Shri Ram College of Commerce (SRCC)",
     "total_teachers": 210,
-    "last_synced": "30 Sep 2026, 02:58 PM",
-    "last_synced_iso": "2026-09-30T14:58:55.325398",
+    "last_synced": "03 Oct 2026, 07:17 PM",
+    "last_synced_iso": "2026-10-03T19:17:00.833419",
     "departments": [
       "Commerce",
       "EVS",
@@ -2059,30 +2059,30 @@
         "Monday": [],
         "Tuesday": [
           {
-            "raw": "LAB-JOINT-SEM VCommerce-BIT-SCR1-SEC11<----------------------->",
-            "display": "LAB-JOINT-SEM VCommerce-BIT-SCR1-SEC11",
+            "raw": "LAB-JOINT-SEM VCommerce-BIT-CLIB-SEC11<----------------------->",
+            "display": "LAB-JOINT-SEM VCommerce-BIT-CLIB-SEC11",
             "type": "Practical/Lab",
-            "room": "SCR1",
+            "room": "CLIB",
             "course": "",
             "semester": "Sem V",
-            "subject": "BIT",
+            "subject": "",
             "slot": "2:00 PM to 3:00 PM",
             "section": "",
             "batch": "",
-            "formatted_display": "BIT · Sem V"
+            "formatted_display": "Sem V"
           },
           {
-            "raw": "LAB-JOINT-SEM VCommerce-BIT-SCR1-SEC11<----------------------->",
-            "display": "LAB-JOINT-SEM VCommerce-BIT-SCR1-SEC11",
+            "raw": "LAB-JOINT-SEM VCommerce-BIT-CLIB-SEC11<----------------------->",
+            "display": "LAB-JOINT-SEM VCommerce-BIT-CLIB-SEC11",
             "type": "Practical/Lab",
-            "room": "SCR1",
+            "room": "CLIB",
             "course": "",
             "semester": "Sem V",
-            "subject": "BIT",
+            "subject": "",
             "slot": "3:00 PM to 4:00 PM",
             "section": "",
             "batch": "",
-            "formatted_display": "BIT · Sem V"
+            "formatted_display": "Sem V"
           },
           {
             "raw": "LAB-JOINT-SEM VCommerce-BIT-CLIB-SEC11<----------------------->",
@@ -7908,7 +7908,7 @@
       "short_code": "KTK",
       "initials": "DK",
       "department": "Physical Education",
-      "total_teaching_periods": 15,
+      "total_teaching_periods": 20,
       "schedule": {
         "Monday": [
           {
@@ -7964,6 +7964,32 @@
             "section": "Sec M",
             "batch": "",
             "formatted_display": "HFPE · B.Com (Hons) · Sem V · Sec M"
+          },
+          {
+            "raw": "L-BCH-A-SEM VIIPhy.Ed-IST-SCR1",
+            "display": "L-BCH-A-SEM VIIPhy.Ed-IST-SCR1",
+            "type": "Lecture",
+            "room": "SCR1",
+            "course": "B.Com (Hons)",
+            "semester": "Sem VII",
+            "subject": "IST",
+            "slot": "2:00 PM to 3:00 PM",
+            "section": "Sec A",
+            "batch": "",
+            "formatted_display": "IST · B.Com (Hons) · Sem VII · Sec A"
+          },
+          {
+            "raw": "L-BCH-A-SEM VIIPhy.Ed-IST-SCR1",
+            "display": "L-BCH-A-SEM VIIPhy.Ed-IST-SCR1",
+            "type": "Lecture",
+            "room": "SCR1",
+            "course": "B.Com (Hons)",
+            "semester": "Sem VII",
+            "subject": "IST",
+            "slot": "3:00 PM to 4:00 PM",
+            "section": "Sec A",
+            "batch": "",
+            "formatted_display": "IST · B.Com (Hons) · Sem VII · Sec A"
           }
         ],
         "Wednesday": [
@@ -8005,6 +8031,19 @@
             "section": "Sec M",
             "batch": "",
             "formatted_display": "HFPE · B.Com (Hons) · Sem V · Sec M"
+          },
+          {
+            "raw": "L-BCH-A-SEM VIIPhy.Ed-IST-SCR1",
+            "display": "L-BCH-A-SEM VIIPhy.Ed-IST-SCR1",
+            "type": "Lecture",
+            "room": "SCR1",
+            "course": "B.Com (Hons)",
+            "semester": "Sem VII",
+            "subject": "IST",
+            "slot": "3:00 PM to 4:00 PM",
+            "section": "Sec A",
+            "batch": "",
+            "formatted_display": "IST · B.Com (Hons) · Sem VII · Sec A"
           }
         ],
         "Thursday": [
@@ -8115,11 +8154,39 @@
             "formatted_display": "OE · B.Com (Hons) · Sem I · Sec K"
           }
         ],
-        "Saturday": []
+        "Saturday": [
+          {
+            "raw": "LAB-BCH-A-SEM VIIPhy.Ed-IST-PLAYGROUND<----------------------->",
+            "display": "LAB-BCH-A-SEM VIIPhy.Ed-IST-PLAYGROUND",
+            "type": "Practical/Lab",
+            "room": "PLAYGROUND",
+            "course": "B.Com (Hons)",
+            "semester": "Sem VII",
+            "subject": "IST",
+            "slot": "2:00 PM to 3:00 PM",
+            "section": "Sec A",
+            "batch": "",
+            "formatted_display": "IST · B.Com (Hons) · Sem VII · Sec A"
+          },
+          {
+            "raw": "LAB-BCH-A-SEM VIIPhy.Ed-IST-PLAYGROUND<----------------------->",
+            "display": "LAB-BCH-A-SEM VIIPhy.Ed-IST-PLAYGROUND",
+            "type": "Practical/Lab",
+            "room": "PLAYGROUND",
+            "course": "B.Com (Hons)",
+            "semester": "Sem VII",
+            "subject": "IST",
+            "slot": "3:00 PM to 4:00 PM",
+            "section": "Sec A",
+            "batch": "",
+            "formatted_display": "IST · B.Com (Hons) · Sem VII · Sec A"
+          }
+        ]
       },
       "ref_code": "",
       "subjects": [
         "HFPE",
+        "IST",
         "OE"
       ]
     },
@@ -19236,10 +19303,10 @@
             "formatted_display": "VM III · Sem III · (VAC27)"
           },
           {
-            "raw": "LAB-JOINT-SEM IIIMaths-VM III-SCR1-VAC27",
-            "display": "LAB-JOINT-SEM IIIMaths-VM III-SCR1-VAC27",
+            "raw": "LAB-JOINT-SEM IIIMaths-VM III-R19-VAC27",
+            "display": "LAB-JOINT-SEM IIIMaths-VM III-R19-VAC27",
             "type": "Practical/Lab",
-            "room": "SCR1",
+            "room": "R19",
             "course": "",
             "semester": "Sem III",
             "subject": "VM III",
@@ -19341,7 +19408,7 @@
       "short_code": "MKG",
       "initials": "MG",
       "department": "Commerce",
-      "total_teaching_periods": 7,
+      "total_teaching_periods": 10,
       "schedule": {
         "Monday": [
           {
@@ -19369,6 +19436,19 @@
             "section": "Sec I",
             "batch": "",
             "formatted_display": "ITLP · B.Com (Hons) · Sem V · Sec I"
+          },
+          {
+            "raw": "T-MCOM-A-SEM IIICommerce-CFCR-T5",
+            "display": "T-MCOM-A-SEM IIICommerce-CFCR-T5",
+            "type": "Tutorial",
+            "room": "T5",
+            "course": "",
+            "semester": "Sem III",
+            "subject": "CFCR",
+            "slot": "11:30 AM to 12:30 PM",
+            "section": "Sec A",
+            "batch": "",
+            "formatted_display": "CFCR · Sem III · Sec A"
           }
         ],
         "Tuesday": [
@@ -19429,6 +19509,32 @@
         ],
         "Thursday": [
           {
+            "raw": "LAB-MCOM-A-SEM IIICommerce-TR-T25<----------------------->",
+            "display": "LAB-MCOM-A-SEM IIICommerce-TR-T25",
+            "type": "Practical/Lab",
+            "room": "T25",
+            "course": "",
+            "semester": "Sem III",
+            "subject": "TR",
+            "slot": "8:30 AM to 9:30 AM",
+            "section": "Sec A",
+            "batch": "",
+            "formatted_display": "TR · Sem III · Sec A"
+          },
+          {
+            "raw": "LAB-MCOM-A-SEM IIICommerce-TR-T25<----------------------->",
+            "display": "LAB-MCOM-A-SEM IIICommerce-TR-T25",
+            "type": "Practical/Lab",
+            "room": "T25",
+            "course": "",
+            "semester": "Sem III",
+            "subject": "TR",
+            "slot": "9:30 AM to 10:30 AM",
+            "section": "Sec A",
+            "batch": "",
+            "formatted_display": "TR · Sem III · Sec A"
+          },
+          {
             "raw": "L-BCH-I-SEM VCommerce-ITLP-R33",
             "display": "L-BCH-I-SEM VCommerce-ITLP-R33",
             "type": "Lecture",
@@ -19447,8 +19553,10 @@
       },
       "ref_code": "cg34",
       "subjects": [
+        "CFCR",
         "CLIB",
-        "ITLP"
+        "ITLP",
+        "TR"
       ]
     },
     {
@@ -26694,91 +26802,20 @@
       "id": "672",
       "label": "Phy.ed. Guest",
       "clean_name": "Phy.ed. Guest",
-      "short_code": "PED1",
+      "short_code": "",
       "initials": "PG",
-      "department": "Physical Education",
-      "total_teaching_periods": 5,
+      "department": "Commerce",
+      "total_teaching_periods": 0,
       "schedule": {
         "Monday": [],
-        "Tuesday": [
-          {
-            "raw": "L-BCH-A-SEM VIIPhy.Ed-IST-SCR4",
-            "display": "L-BCH-A-SEM VIIPhy.Ed-IST-SCR4",
-            "type": "Lecture",
-            "room": "SCR4",
-            "course": "B.Com (Hons)",
-            "semester": "Sem VII",
-            "subject": "IST",
-            "slot": "12:30 PM to 1:30 PM",
-            "section": "Sec A",
-            "batch": "",
-            "formatted_display": "IST · B.Com (Hons) · Sem VII · Sec A"
-          }
-        ],
-        "Wednesday": [
-          {
-            "raw": "L-BCH-A-SEM VIIPhy.Ed-IST-SCR4",
-            "display": "L-BCH-A-SEM VIIPhy.Ed-IST-SCR4",
-            "type": "Lecture",
-            "room": "SCR4",
-            "course": "B.Com (Hons)",
-            "semester": "Sem VII",
-            "subject": "IST",
-            "slot": "2:00 PM to 3:00 PM",
-            "section": "Sec A",
-            "batch": "",
-            "formatted_display": "IST · B.Com (Hons) · Sem VII · Sec A"
-          }
-        ],
-        "Thursday": [
-          {
-            "raw": "LAB-BCH-A-SEM VIIPhy.Ed-IST-PLAYGROUND<----------------------->",
-            "display": "LAB-BCH-A-SEM VIIPhy.Ed-IST-PLAYGROUND",
-            "type": "Practical/Lab",
-            "room": "PLAYGROUND",
-            "course": "B.Com (Hons)",
-            "semester": "Sem VII",
-            "subject": "IST",
-            "slot": "11:30 AM to 12:30 PM",
-            "section": "Sec A",
-            "batch": "",
-            "formatted_display": "IST · B.Com (Hons) · Sem VII · Sec A"
-          },
-          {
-            "raw": "LAB-BCH-A-SEM VIIPhy.Ed-IST-PLAYGROUND<----------------------->",
-            "display": "LAB-BCH-A-SEM VIIPhy.Ed-IST-PLAYGROUND",
-            "type": "Practical/Lab",
-            "room": "PLAYGROUND",
-            "course": "B.Com (Hons)",
-            "semester": "Sem VII",
-            "subject": "IST",
-            "slot": "12:30 PM to 1:30 PM",
-            "section": "Sec A",
-            "batch": "",
-            "formatted_display": "IST · B.Com (Hons) · Sem VII · Sec A"
-          }
-        ],
+        "Tuesday": [],
+        "Wednesday": [],
+        "Thursday": [],
         "Friday": [],
-        "Saturday": [
-          {
-            "raw": "L-BCH-A-SEM VIIPhy.Ed-IST-SCR4",
-            "display": "L-BCH-A-SEM VIIPhy.Ed-IST-SCR4",
-            "type": "Lecture",
-            "room": "SCR4",
-            "course": "B.Com (Hons)",
-            "semester": "Sem VII",
-            "subject": "IST",
-            "slot": "10:30 AM to 11:30 AM",
-            "section": "Sec A",
-            "batch": "",
-            "formatted_display": "IST · B.Com (Hons) · Sem VII · Sec A"
-          }
-        ]
+        "Saturday": []
       },
       "ref_code": "",
-      "subjects": [
-        "IST"
-      ]
+      "subjects": []
     },
     {
       "id": "673",
