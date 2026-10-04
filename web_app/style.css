@@ -5145,3 +5145,575 @@ body.modal-open {
   text-align: center;
 }
 
+/* ==========================================================================
+   📅 STUDENT TIMETABLE VIEW & MODAL - UNIFIED APP UX/UI SYSTEM
+   Matches Room Finder & Faculty Locator (SRCC Deep Blue & Clean Slate)
+   ========================================================================== */
+
+/* Mode Switcher 3-Column Layout */
+.app-mode-switcher {
+  grid-template-columns: repeat(3, 1fr) !important;
+}
+
+.mode-tab.active[data-mode="timetable"] {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.18), rgba(37, 99, 235, 0.06));
+  border-color: #1d4ed8;
+  color: var(--text-primary);
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.2);
+}
+
+.mode-tab.active[data-mode="timetable"] .mode-tab-count {
+  background: rgba(37, 99, 235, 0.2);
+  color: var(--accent-blue);
+}
+
+/* Header Shortcut Button */
+.btn-timetable-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent-blue-bg);
+  color: var(--accent-blue);
+  border: 1px solid rgba(37, 99, 235, 0.3);
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  cursor: pointer;
+  padding: 6px 14px;
+  font-size: 0.75rem;
+  transition: all var(--transition-fast);
+}
+
+.btn-timetable-header:hover {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+/* Timetable Action Bar & Headers */
+.tt-action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 16px;
+}
+
+.tt-action-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tt-live-pill {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: var(--accent-blue-bg);
+  color: var(--accent-blue);
+  border: 1px solid rgba(37, 99, 235, 0.25);
+}
+
+/* Schedule Cards Grid - Unified with .room-card */
+.tt-schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.tt-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.tt-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent-blue);
+}
+
+.tt-card.free-period-card {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.tt-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.tt-period-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: var(--accent-blue-bg);
+  color: var(--accent-blue);
+  border: 1px solid rgba(37, 99, 235, 0.25);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tt-type-pill {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: var(--bg-card-hover);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.tt-free-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: #dcfce7;
+  color: #15803d;
+  border: 1px solid #86efac;
+}
+
+.tt-card-subject {
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.35;
+}
+
+.tt-card-meta {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.tt-card-faculty {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-surface);
+  padding: 9px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  margin-top: 2px;
+}
+
+.tt-faculty-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 2px 4px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.tt-faculty-info:hover {
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.tt-faculty-info:hover .tt-faculty-name {
+  color: var(--accent-blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.tt-faculty-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  background: var(--primary-color);
+  color: #ffffff;
+  font-size: 0.74rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.tt-faculty-name {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  transition: color 0.15s ease;
+}
+
+.tt-room-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--accent-blue-bg);
+  color: var(--accent-blue);
+  border: 1px solid rgba(37, 99, 235, 0.3);
+  border-radius: 6px;
+  padding: 5px 11px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.tt-room-btn:hover {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+  transform: translateY(-1px);
+}
+
+.tt-vacant-rooms-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.tt-vacant-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #166534;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tt-vacant-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tt-room-chip {
+  background: #ffffff;
+  border: 1px solid #86efac;
+  color: #15803d;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.tt-room-chip:hover {
+  background: #15803d;
+  color: #ffffff;
+  border-color: #15803d;
+  transform: scale(1.05);
+}
+
+/* ==========================================================================
+   My Timetable Modal - Light/Clean Design Matching leaveManagerModal
+   ========================================================================== */
+.tt-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 2200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.tt-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tt-modal-card {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  width: 100%;
+  max-width: 580px;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+  animation: ttModalSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tt-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 22px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+}
+
+.tt-modal-title {
+  margin: 0;
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  font-family: var(--font-display);
+}
+
+.tt-modal-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.45rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  line-height: 1;
+  transition: all var(--transition-fast);
+}
+
+.tt-modal-close:hover {
+  color: var(--text-primary);
+  background: var(--bg-card-hover);
+}
+
+.tt-filter-controls {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--bg-surface);
+}
+
+.tt-controls-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.tt-control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tt-label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.tt-select, .tt-search-input {
+  width: 100%;
+  background: var(--bg-input);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  font-size: 0.88rem;
+  outline: none;
+  font-family: inherit;
+  transition: all var(--transition-fast);
+}
+
+.tt-search-input {
+  cursor: text;
+  padding-left: 36px;
+  padding-right: 32px;
+}
+
+.tt-select:focus, .tt-search-input:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.tt-search-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.tt-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.tt-modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 20px 20px;
+}
+
+.tt-slot-row {
+  display: flex;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-subtle);
+  align-items: flex-start;
+}
+
+.tt-slot-row:last-child {
+  border-bottom: none;
+}
+
+.tt-slot-time {
+  min-width: 72px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent-blue);
+  background: var(--accent-blue-bg);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  text-align: center;
+}
+
+.tt-slot-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tt-class-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.tt-class-title {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  line-height: 1.35;
+}
+
+.tt-subject-name {
+  color: var(--primary-color);
+  font-weight: 800;
+}
+
+.tt-class-type {
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 0.82rem;
+}
+
+.tt-teacher-room {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
+.tt-free-title {
+  color: #15803d;
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.tt-free-rooms {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+.tt-free-rooms-interactive {
+  cursor: pointer;
+  color: #15803d;
+}
+
+.tt-free-rooms-interactive:hover {
+  text-decoration: underline;
+}
+
+.tt-leave-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fca5a5;
+  padding: 3px 8px;
+  border-radius: 6px;
+  margin-top: 6px;
+}
+
+.tt-card.is-faculty-leave {
+  border-left: 4px solid #ef4444;
+  background: linear-gradient(180deg, #fff7f7 0%, #ffffff 100%);
+}
+
+.tt-empty-state {
+  text-align: center;
+  padding: 40px 16px;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+@media (max-width: 768px) {
+  .app-mode-switcher {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+  .mode-tab {
+    padding: 7px 4px;
+    font-size: 0.8rem;
+    gap: 4px;
+  }
+  .mode-tab-icon {
+    font-size: 0.95rem;
+  }
+  .tt-action-bar {
+    padding: 12px 14px;
+  }
+  .tt-action-title {
+    font-size: 0.98rem;
+  }
+  .tt-schedule-grid {
+    grid-template-columns: 1fr;
+  }
+  .tt-filter-controls {
+    padding: 12px 14px;
+  }
+  .tt-modal-body {
+    padding: 6px 14px 18px;
+  }
+}
+
+
+

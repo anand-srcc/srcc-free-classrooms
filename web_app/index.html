@@ -7,7 +7,7 @@
   <meta name="description" content="Find vacant classrooms, tutorial rooms, Principal Bungalow (PB), Sports Complex (SCR) and labs for Group Discussion (GD) at Shri Ram College of Commerce (SRCC)." />
   
   <!-- Security Enhancements -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline';">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   
   <!-- PWA Manifest & Theme Color -->
@@ -61,6 +61,10 @@
             <span class="toggle-status-text" id="toggleStatusText">OFF</span>
           </button>
         </div>
+        <!-- My Timetable Button (Header) -->
+        <button id="btnHeaderTimetable" class="btn-timetable-header" title="Search Student Timetable & Free Rooms">
+          <span>📅 My Timetable</span>
+        </button>
         <!-- Report Issue Button (Header) -->
         <button id="btnReportIssue" style="display:flex; align-items:center; gap:6px; background: rgba(220, 38, 38, 0.1); color: #dc2626; border: 1px solid rgba(220, 38, 38, 0.3); border-radius: 9999px; font-weight: 600; cursor: pointer; padding: 6px 12px; font-size: 0.75rem; transition: all 0.2s ease;" title="Report wrong timetable data or present faculty marked absent">
           <span>⚠️ Report Issue</span>
@@ -106,6 +110,10 @@
         <button class="mode-tab" id="tabModeFaculty" role="tab" aria-selected="false" data-mode="faculty">
           <span class="mode-tab-icon">👨‍🏫</span>
           <span class="mode-tab-text">Faculty</span>
+        </button>
+        <button class="mode-tab" id="tabModeTimetable" role="tab" aria-selected="false" data-mode="timetable">
+          <span class="mode-tab-icon">📅</span>
+          <span class="mode-tab-text">Timetable</span>
         </button>
       </div>
     </div>
@@ -491,6 +499,145 @@
         <button class="btn-reset-filters" id="btnResetFacultyFilters">Reset Faculty Filters</button>
       </div>
     </div>
+
+    <!-- ====================================================================
+         VIEW SECTION 3: STUDENT TIMETABLE & VACANT ROOM FINDER
+         ==================================================================== -->
+    <div id="viewTimetableSection" class="app-view-section" style="display: none;">
+      <!-- Action Bar -->
+      <div class="tt-action-bar">
+        <div class="tt-action-title">
+          <span>📅 SRCC Student Timetable & Vacant Rooms</span>
+        </div>
+        <div class="faculty-action-leaves-wrap">
+          <span class="tt-live-pill">Live Daily Sync</span>
+        </div>
+      </div>
+
+      <!-- Controls Panel (100% Native App UX/UI) -->
+      <section class="controls-panel">
+        <!-- 1. Day Picker -->
+        <div class="control-row">
+          <span class="row-label">Select Day:</span>
+          <div class="day-picker" id="ttMainDayPicker">
+            <button class="day-btn" data-day="Monday">Monday</button>
+            <button class="day-btn" data-day="Tuesday">Tuesday</button>
+            <button class="day-btn" data-day="Wednesday">Wednesday</button>
+            <button class="day-btn" data-day="Thursday">Thursday</button>
+            <button class="day-btn" data-day="Friday">Friday</button>
+            <button class="day-btn" data-day="Saturday">Saturday</button>
+          </div>
+        </div>
+
+        <!-- 2. Course Selection Pills -->
+        <div class="control-row">
+          <span class="row-label">Course:</span>
+          <div class="category-pills" id="ttMainCoursePills">
+            <button class="cat-pill active" data-course="B.A. (Hons) Economics">B.A. (Hons) Economics</button>
+            <button class="cat-pill" data-course="B.Com (Hons)">B.Com (Hons)</button>
+          </div>
+        </div>
+
+        <!-- 3. Semester Selection Pills -->
+        <div class="control-row">
+          <span class="row-label">Semester:</span>
+          <div class="category-pills" id="ttMainSemPills">
+            <button class="cat-pill active" data-sem="Sem I">Sem I</button>
+            <button class="cat-pill" data-sem="Sem III">Sem III</button>
+            <button class="cat-pill" data-sem="Sem V">Sem V</button>
+            <button class="cat-pill" data-sem="Sem VII">Sem VII</button>
+          </div>
+        </div>
+
+        <!-- 4. Section, Batch, Slot & Search Filters Bar -->
+        <div class="filter-bar tt-filter-bar">
+          <div class="search-box-wrapper" style="flex: 1.5; min-width: 220px;">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="ttMainSearchInput" placeholder="Search subject (e.g. MME, BLAW), teacher, or room..." autocomplete="off" />
+            <button id="btnClearTtMainSearch" class="btn-clear-search" style="display: none;">✕</button>
+          </div>
+
+          <div class="slot-select-wrapper">
+            <label for="ttMainSecSelect">Section:</label>
+            <select id="ttMainSecSelect">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+
+          <div class="slot-select-wrapper">
+            <label for="ttMainBatchSelect">Batch:</label>
+            <select id="ttMainBatchSelect">
+              <option value="ALL">All batches</option>
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+
+          <div class="slot-select-wrapper">
+            <label for="ttMainSlotSelect">Time Slot:</label>
+            <select id="ttMainSlotSelect">
+              <option value="ALL" selected>All 9 Periods</option>
+              <option value="8:30 AM to 9:30 AM">Period 1 (8:30 AM – 9:30 AM)</option>
+              <option value="9:30 AM to 10:30 AM">Period 2 (9:30 AM – 10:30 AM)</option>
+              <option value="10:30 AM to 11:30 AM">Period 3 (10:30 AM – 11:30 AM)</option>
+              <option value="11:30 AM to 12:30 PM">Period 4 (11:30 AM – 12:30 PM)</option>
+              <option value="12:30 PM to 1:30 PM">Period 5 (12:30 PM – 1:30 PM)</option>
+              <option value="2:00 PM to 3:00 PM">Period 6 (2:00 PM – 3:00 PM)</option>
+              <option value="3:00 PM to 4:00 PM">Period 7 (3:00 PM – 4:00 PM)</option>
+              <option value="4:00 PM to 5:00 PM">Period 8 (4:00 PM – 5:00 PM)</option>
+              <option value="5:00 PM to 6:00 PM">Period 9 (5:00 PM – 6:00 PM)</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- Stat Badges Row -->
+      <div class="metric-tiles-row">
+        <div class="metric-tile">
+          <div class="metric-icon">📚</div>
+          <div class="metric-details">
+            <div class="metric-num" id="ttCountClasses">0</div>
+            <div class="metric-title">Classes Today</div>
+          </div>
+        </div>
+        <div class="metric-tile">
+          <div class="metric-icon">⚡</div>
+          <div class="metric-details">
+            <div class="metric-num" id="ttCountFreePeriods">0</div>
+            <div class="metric-title">Free Periods Today</div>
+          </div>
+        </div>
+        <div class="metric-tile">
+          <div class="metric-icon">🎓</div>
+          <div class="metric-details">
+            <div class="metric-num" id="ttSelectedSummary" style="font-size: 1.05rem;">Economics · Sem I</div>
+            <div class="metric-title" id="ttSelectedBatchSummary">Sec A · All batches</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Summary Ribbon -->
+      <div class="stats-ribbon">
+        <div class="stats-left">
+          Viewing timetable for <strong id="ttRibbonCourseSec" class="stat-highlight">B.A. (Hons) Economics, Sem I, Sec A</strong> on <strong id="ttRibbonDay" class="stat-highlight">Monday</strong>
+        </div>
+        <div class="stats-right">
+          <span>💡 Tap any <strong>Room</strong> or <strong>Free Period</strong> to check campus vacancy</span>
+        </div>
+      </div>
+
+      <!-- Schedule Cards Grid -->
+      <section class="tt-schedule-grid" id="ttMainScheduleGrid">
+        <!-- Dynamically rendered via app.js -->
+      </section>
+
+      <!-- Empty State -->
+      <div class="empty-state" id="ttMainEmptyState" style="display: none;">
+        <div class="empty-icon">🔎</div>
+        <h3>No matching classes found</h3>
+        <p>Try clearing your search query or switching Section / Day.</p>
+        <button class="btn-reset-filters" id="btnResetTtFilters">Reset Filters</button>
+      </div>
+    </div>
   </main>
 
   <!-- Modal: Full Day Schedule View -->
@@ -596,6 +743,10 @@
     <button class="bottom-nav-item" id="bnavFaculty" data-bnav="faculty" title="SRCC Faculty Locator">
       <span class="bnav-icon">👨‍🏫</span>
       <span class="bnav-label">Faculty</span>
+    </button>
+    <button class="bottom-nav-item" id="bnavTimetable" data-bnav="timetable" title="Student Timetable">
+      <span class="bnav-icon">📅</span>
+      <span class="bnav-label">Timetable</span>
     </button>
     <button class="bottom-nav-item" id="bnavFreeNow" data-bnav="freenow" title="Rooms Free Right Now">
       <span class="bnav-icon">⚡</span>
@@ -950,8 +1101,66 @@
     </div>
   </div>
 
+  <!-- My Timetable & Free Rooms Modal -->
+  <div id="myTimetableModal" class="tt-modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="ttModalTitle">
+    <div class="tt-modal-card">
+      <div class="tt-modal-header">
+        <h2 class="tt-modal-title" id="ttModalTitle">My timetable & free rooms</h2>
+        <button class="tt-modal-close" id="btnTtModalClose" aria-label="Close Timetable Modal">✕</button>
+      </div>
+      <div class="tt-filter-controls">
+        <div class="tt-controls-grid">
+          <div class="tt-control-group">
+            <label class="tt-label" for="ttCourseSelect">Course</label>
+            <select id="ttCourseSelect" class="tt-select">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+          <div class="tt-control-group">
+            <label class="tt-label" for="ttSemSelect">Semester</label>
+            <select id="ttSemSelect" class="tt-select">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+        </div>
+        <div class="tt-controls-grid">
+          <div class="tt-control-group">
+            <label class="tt-label" for="ttSecSelect">Section</label>
+            <select id="ttSecSelect" class="tt-select">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+          <div class="tt-control-group">
+            <label class="tt-label" for="ttBatchSelect">Batch</label>
+            <select id="ttBatchSelect" class="tt-select">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+        </div>
+        <div class="tt-control-group">
+          <label class="tt-label" for="ttDaySelect">Day</label>
+          <select id="ttDaySelect" class="tt-select">
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+          </select>
+        </div>
+        <div class="tt-search-wrapper">
+          <span class="tt-search-icon">🔍</span>
+          <input type="text" id="ttSearchInput" class="tt-search-input" placeholder="Search subject, teacher, room in timetable..." autocomplete="off" />
+          <button id="btnClearTtSearch" type="button" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #94a3b8; font-size: 14px; cursor: pointer; display: none;">✕</button>
+        </div>
+      </div>
+      <div class="tt-modal-body" id="ttScheduleBody">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
   <!-- Scripts -->
-  <script src="security_guard.js?v=24"></script>
   <script src="data.js?v=24"></script>
   <script src="cloud_config.js?v=24"></script>
   <script src="faculty_leaves.js?v=24"></script>

@@ -3,7 +3,6 @@ const ASSETS = [
   './',
   './index.html',
   './style.css',
-  './security_guard.js?v=24',
   './app.js?v=24',
   './data.js?v=24',
   './cloud_config.js?v=24',

@@ -355,12 +355,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========================================================================
     const tabModeRooms = document.getElementById('tabModeRooms');
     const tabModeFaculty = document.getElementById('tabModeFaculty');
+    const tabModeTimetable = document.getElementById('tabModeTimetable');
     const viewRoomsSection = document.getElementById('viewRoomsSection');
     const viewFacultySection = document.getElementById('viewFacultySection');
+    const viewTimetableSection = document.getElementById('viewTimetableSection');
     const tabModeDirectory = document.getElementById('tabModeDirectory');
     const viewDirectorySection = document.getElementById('viewDirectorySection');
     const directoryGrid = document.getElementById('directoryGrid');
     const searchDirectoryInput = document.getElementById('searchDirectoryInput');
+    const bnavTimetable = document.getElementById('bnavTimetable');
 
     const modeFacultyCount = document.getElementById('modeFacultyCount');
 
@@ -673,7 +676,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ========================================================================
-    // 🔀 DUAL MODE SWITCHING (ROOMS ⇄ FACULTY)
+    // 🔀 MULTI-MODE SWITCHING (ROOMS ⇄ FACULTY ⇄ TIMETABLE)
     // ========================================================================
     function setAppMode(mode, preserveFilters = false) {
       if (mode === 'leaves') {
@@ -683,6 +686,7 @@ document.addEventListener('DOMContentLoaded', () => {
       state.activeMode = mode;
       const isRooms = (mode === 'rooms');
       const isFaculty = (mode === 'faculty');
+      const isTimetable = (mode === 'timetable');
       const isDirectory = (mode === 'directory');
 
       if (tabModeRooms) {
@@ -693,6 +697,10 @@ document.addEventListener('DOMContentLoaded', () => {
         tabModeFaculty.classList.toggle('active', isFaculty);
         tabModeFaculty.setAttribute('aria-selected', isFaculty ? 'true' : 'false');
       }
+      if (tabModeTimetable) {
+        tabModeTimetable.classList.toggle('active', isTimetable);
+        tabModeTimetable.setAttribute('aria-selected', isTimetable ? 'true' : 'false');
+      }
       if (tabModeDirectory) {
         tabModeDirectory.classList.toggle('active', isDirectory);
         tabModeDirectory.setAttribute('aria-selected', isDirectory ? 'true' : 'false');
@@ -700,6 +708,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (viewRoomsSection) viewRoomsSection.style.display = isRooms ? 'block' : 'none';
       if (viewFacultySection) viewFacultySection.style.display = isFaculty ? 'block' : 'none';
+      if (viewTimetableSection) {
+        viewTimetableSection.style.display = isTimetable ? 'block' : 'none';
+        if (isTimetable) {
+          if (typeof window._setTimetableToToday === 'function') {
+            window._setTimetableToToday();
+          } else if (typeof window._renderMainTimetable === 'function') {
+            window._renderMainTimetable();
+          }
+        }
+      }
       if (viewDirectorySection) {
         viewDirectorySection.style.display = isDirectory ? 'block' : 'none';
         if (isDirectory && !window._directoryRendered) {
@@ -711,6 +729,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Update mobile bottom nav
       if (bnavRooms) bnavRooms.classList.toggle('active', isRooms);
       if (bnavFaculty) bnavFaculty.classList.toggle('active', isFaculty);
+      if (bnavTimetable) bnavTimetable.classList.toggle('active', isTimetable);
 
       // Clean filter reset when switching tabs so users never get stuck with leftover filters
       if (!preserveFilters) {
@@ -749,14 +768,20 @@ document.addEventListener('DOMContentLoaded', () => {
         render();
       } else if (isFaculty) {
         renderFaculty();
+      } else if (isTimetable && typeof window._renderMainTimetable === 'function') {
+        window._renderMainTimetable();
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     if (tabModeRooms) tabModeRooms.addEventListener('click', () => setAppMode('rooms'));
     if (tabModeFaculty) tabModeFaculty.addEventListener('click', () => setAppMode('faculty'));
+    if (tabModeTimetable) tabModeTimetable.addEventListener('click', () => setAppMode('timetable'));
     if (bnavRooms) bnavRooms.addEventListener('click', () => setAppMode('rooms'));
     if (bnavFaculty) bnavFaculty.addEventListener('click', () => setAppMode('faculty'));
+    if (bnavTimetable) bnavTimetable.addEventListener('click', () => setAppMode('timetable'));
+    const btnHeaderTimetable = document.getElementById('btnHeaderTimetable');
+    if (btnHeaderTimetable) btnHeaderTimetable.addEventListener('click', () => setAppMode('timetable'));
 
     // ========================================================================
     // 🏛️ ROOM FINDER HELPERS & LISTENERS
@@ -771,7 +796,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (bnavDayLabel) bnavDayLabel.textContent = day.slice(0, 3);
       if (state.activeMode === 'rooms') render();
-      else renderFaculty();
+      else if (state.activeMode === 'faculty') renderFaculty();
+      else if (state.activeMode === 'timetable' && typeof window._renderMainTimetable === 'function') window._renderMainTimetable();
     }
 
     function setActiveCategory(cat) {
@@ -2558,13 +2584,25 @@ ${freeSlotsList}
     // ========================================================================
     // 📅 TEACHER WEEKLY TIMETABLE MODAL (RESPONSIVE DESKTOP TABLE & MOBILE CARDS)
     // ========================================================================
-    function openTeacherModal(teacherId) {
+    function openTeacherModal(teacherIdOrName, targetDay = null) {
       if (!teachersData || !teachersData.teachers) return;
-      const teacher = teachersData.teachers.find(t => String(t.id) === String(teacherId));
-      if (!teacher) return;
+      const query = String(teacherIdOrName || '').trim().toLowerCase();
+      if (!query) return;
+
+      const teacher = teachersData.teachers.find(t => 
+        String(t.id).toLowerCase() === query ||
+        (t.clean_name && t.clean_name.toLowerCase() === query) ||
+        (t.name && t.name.toLowerCase() === query) ||
+        (t.clean_name && t.clean_name.toLowerCase().includes(query)) ||
+        (t.name && t.name.toLowerCase().includes(query))
+      );
+      if (!teacher) {
+        showToast(`Faculty schedule for "${escapeHtml(teacherIdOrName)}" not found.`);
+        return;
+      }
 
       facultyState.modalActiveTeacher = teacher;
-      facultyState.modalActiveDay = facultyState.activeDay;
+      facultyState.modalActiveDay = targetDay || facultyState.activeDay || initialDay;
 
       const initials = teacher.initials || teacher.clean_name.slice(0, 2).toUpperCase();
       const deptAvatarCls = getDeptAvatarClass(teacher.department);
@@ -2582,6 +2620,9 @@ ${freeSlotsList}
       renderTeacherModalDaySchedule();
       if (teacherModal) openAppModal(teacherModal);
     }
+
+    // Expose globally for 1-click teacher timetable inspection across all tabs
+    window.openTeacherModal = openTeacherModal;
 
     function renderTeacherModalDaySchedule() {
       const teacher = facultyState.modalActiveTeacher;
@@ -2602,10 +2643,32 @@ ${freeSlotsList}
       }, 50);
 
       const daySched = (teacher.schedule && teacher.schedule[facultyState.modalActiveDay]) || [];
+      const roomsToday = [...new Set(daySched.map(c => (c.room ? c.room.trim() : '')).filter(Boolean))];
+      const isToday = (facultyState.modalActiveDay === ((typeof getLiveDayName === 'function') ? getLiveDayName() : initialDay));
+
+      const leaveInfo = (leavesData?.leaves || []).find(l => {
+        const nameMatch = l.teacher_name && (teacher.clean_name.toLowerCase().includes(l.teacher_name.toLowerCase()) || l.teacher_name.toLowerCase().includes(teacher.clean_name.toLowerCase()));
+        const dayMatch = l.day === facultyState.modalActiveDay || !l.day;
+        return nameMatch && dayMatch;
+      });
+
+      const overviewStripHtml = `
+        <div style="background: rgba(30, 58, 138, 0.05); border: 1px solid rgba(37, 99, 235, 0.2); border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+          <div>
+            <span style="font-weight: 700; color: var(--primary-color);">📅 Schedule for ${escapeHtml(facultyState.modalActiveDay)}${isToday ? ' (Today)' : ''}:</span>
+            <span style="font-size: 0.88rem; color: var(--text-primary); margin-left: 6px;">
+              ${daySched.length > 0 ? `<strong>${daySched.length}</strong> scheduled ${daySched.length === 1 ? 'class' : 'classes'}` : 'No scheduled classes'}
+            </span>
+            ${roomsToday.length > 0 ? `<span style="font-size: 0.82rem; color: #1e40af; margin-left: 6px;">(Rooms: <strong>${roomsToday.join(', ')}</strong>)</span>` : ''}
+          </div>
+          ${leaveInfo ? `<span class="badge-leave" style="font-size: 0.76rem; background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; padding: 3px 8px; border-radius: 9999px; font-weight: 700;">🏖️ On Leave Today</span>` : ''}
+        </div>
+      `;
 
       if (daySched.length === 0) {
         modalTeacherBody.innerHTML = `
-          <div style="text-align: center; padding: 40px 20px; color: var(--text-muted);">
+          ${overviewStripHtml}
+          <div style="text-align: center; padding: 35px 20px; color: var(--text-muted);">
             <div style="font-size: 2.2rem; margin-bottom: 8px;">☕</div>
             <h4 style="color: var(--text-primary); margin-bottom: 4px; font-size: 1.15rem;">No Classes on ${escapeHtml(facultyState.modalActiveDay)}</h4>
             <p style="font-size: 0.88rem;">Prof. ${escapeHtml(teacher.clean_name)} has no scheduled lectures or tutorials on this day.</p>
@@ -2695,6 +2758,7 @@ ${freeSlotsList}
       }).join('');
 
       modalTeacherBody.innerHTML = `
+        ${overviewStripHtml}
         <table class="schedule-table modal-timetable-desktop-table">
           <thead>
             <tr>
@@ -3058,11 +3122,758 @@ window.SRCC_FACULTY_LEAVES = {
     // ========================================================================
     // 🏖️ FACULTY ON LEAVE DIRECTORY VIEW LOGIC
     // ========================================================================
-    window._openTeacherTimetable = function(teacherId) {
-      if (typeof openTeacherModal === 'function') {
-        openTeacherModal(teacherId);
+    // ========================================================================
+    // 📅 STUDENT TIMETABLE FEATURE - NATIVE APP INTEGRATION
+    // ========================================================================
+    function initTimetableFeature() {
+      const academicPeriods = [
+        { slot: "8:30 AM to 9:30 AM", time: "8:30 AM", num: 1 },
+        { slot: "9:30 AM to 10:30 AM", time: "9:30 AM", num: 2 },
+        { slot: "10:30 AM to 11:30 AM", time: "10:30 AM", num: 3 },
+        { slot: "11:30 AM to 12:30 PM", time: "11:30 AM", num: 4 },
+        { slot: "12:30 PM to 1:30 PM", time: "12:30 PM", num: 5 },
+        { slot: "2:00 PM to 3:00 PM", time: "2:00 PM", num: 6 },
+        { slot: "3:00 PM to 4:00 PM", time: "3:00 PM", num: 7 },
+        { slot: "4:00 PM to 5:00 PM", time: "4:00 PM", num: 8 },
+        { slot: "5:00 PM to 6:00 PM", time: "5:00 PM", num: 9 }
+      ];
+
+      // Extract Course -> Sem -> Sec -> Batches hierarchy from teachersData
+      const courseMap = {};
+      const getTeachers = () => (teachersData && teachersData.teachers) ? teachersData.teachers : (window.SRCC_TEACHERS_DATA?.teachers || []);
+
+      function buildHierarchy() {
+        const teachers = getTeachers();
+        teachers.forEach(t => {
+          if (!t.schedule) return;
+          Object.keys(t.schedule).forEach(day => {
+            (t.schedule[day] || []).forEach(s => {
+              const c = (s.course || '').trim();
+              const sem = (s.semester || '').trim();
+              const sec = (s.section || '').trim();
+              const batch = (s.batch || '').trim();
+
+              if (c && sem && sec) {
+                if (!courseMap[c]) courseMap[c] = {};
+                if (!courseMap[c][sem]) courseMap[c][sem] = {};
+                if (!courseMap[c][sem][sec]) courseMap[c][sem][sec] = new Set();
+                if (batch) courseMap[c][sem][sec].add(batch);
+              }
+            });
+          });
+        });
       }
-    };
+
+      buildHierarchy();
+
+      const availableCourses = Object.keys(courseMap).sort();
+      let savedCourse = localStorage.getItem('srcc_my_tt_course');
+      let savedSem = localStorage.getItem('srcc_my_tt_sem');
+      let savedSec = localStorage.getItem('srcc_my_tt_sec');
+      let savedBatch = localStorage.getItem('srcc_my_tt_batch') || 'ALL';
+
+      if (!savedCourse || !courseMap[savedCourse]) {
+        savedCourse = availableCourses.find(c => c.includes('B.Com')) || availableCourses[0] || 'B.Com (Hons)';
+      }
+      if (!savedSem || !courseMap[savedCourse]?.[savedSem]) {
+        savedSem = Object.keys(courseMap[savedCourse] || {})[0] || 'Sem I';
+      }
+      if (!savedSec || !courseMap[savedCourse]?.[savedSem]?.[savedSec]) {
+        savedSec = Object.keys(courseMap[savedCourse]?.[savedSem] || {})[0] || 'Sec A';
+      }
+
+      // Live day-wise auto-capture helper based on IST timezone
+      function getLiveDayName() {
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const istNow = getIstDate();
+        const todayName = days[istNow.getDay()];
+        return (todayName === 'Sunday') ? 'Monday' : todayName;
+      }
+
+      const initialDay = getLiveDayName();
+
+      // Timetable state
+      const ttState = {
+        day: initialDay,
+        course: savedCourse,
+        sem: savedSem,
+        sec: savedSec,
+        batch: savedBatch,
+        slot: 'ALL',
+        searchQuery: ''
+      };
+
+      // --- Main View Elements (#viewTimetableSection) ---
+      const ttMainDayButtons = document.querySelectorAll('#ttMainDayPicker .day-btn');
+      const ttMainCoursePills = document.querySelectorAll('#ttMainCoursePills .cat-pill');
+      const ttMainSemPills = document.querySelectorAll('#ttMainSemPills .cat-pill');
+      const ttMainSecSelect = document.getElementById('ttMainSecSelect');
+      const ttMainBatchSelect = document.getElementById('ttMainBatchSelect');
+      const ttMainSlotSelect = document.getElementById('ttMainSlotSelect');
+      const ttMainSearchInput = document.getElementById('ttMainSearchInput');
+      const btnClearTtMainSearch = document.getElementById('btnClearTtMainSearch');
+      const ttMainScheduleGrid = document.getElementById('ttMainScheduleGrid');
+      const ttMainEmptyState = document.getElementById('ttMainEmptyState');
+      const btnResetTtFilters = document.getElementById('btnResetTtFilters');
+
+      const ttSavedProfileBar = document.getElementById('ttSavedProfileBar');
+      const ttSavedProfileText = document.getElementById('ttSavedProfileText');
+      const btnTtQuickReset = document.getElementById('btnTtQuickReset');
+
+      const ttCountClasses = document.getElementById('ttCountClasses');
+      const ttCountFreePeriods = document.getElementById('ttCountFreePeriods');
+      const ttSelectedSummary = document.getElementById('ttSelectedSummary');
+      const ttSelectedBatchSummary = document.getElementById('ttSelectedBatchSummary');
+      const ttRibbonCourseSec = document.getElementById('ttRibbonCourseSec');
+      const ttRibbonDay = document.getElementById('ttRibbonDay');
+
+      // --- Modal Elements (#myTimetableModal) ---
+      const myTimetableModal = document.getElementById('myTimetableModal');
+      const btnTtModalClose = document.getElementById('btnTtModalClose');
+      const ttCourseSelect = document.getElementById('ttCourseSelect');
+      const ttSemSelect = document.getElementById('ttSemSelect');
+      const ttSecSelect = document.getElementById('ttSecSelect');
+      const ttBatchSelect = document.getElementById('ttBatchSelect');
+      const ttDaySelect = document.getElementById('ttDaySelect');
+      const ttSearchInput = document.getElementById('ttSearchInput');
+      const btnClearTtSearch = document.getElementById('btnClearTtSearch');
+      const ttScheduleBody = document.getElementById('ttScheduleBody');
+
+      // Silently persist last selected class filters so returning users immediately see their timetable
+      function savePreferences() {
+        try {
+          localStorage.setItem('srcc_my_tt_course', ttState.course);
+          localStorage.setItem('srcc_my_tt_sem', ttState.sem);
+          localStorage.setItem('srcc_my_tt_sec', ttState.sec);
+          localStorage.setItem('srcc_my_tt_batch', ttState.batch);
+        } catch (e) {}
+      }
+
+      function updateSectionsAndBatches(triggerSave = true) {
+        const secs = Object.keys(courseMap[ttState.course]?.[ttState.sem] || {}).sort();
+        if (ttMainSecSelect) {
+          ttMainSecSelect.innerHTML = '';
+          secs.forEach(s => {
+            const opt = document.createElement('option');
+            opt.value = s;
+            opt.textContent = s;
+            if (s === ttState.sec) opt.selected = true;
+            ttMainSecSelect.appendChild(opt);
+          });
+          if (!secs.includes(ttState.sec) && secs.length > 0) {
+            ttState.sec = secs[0];
+            ttMainSecSelect.value = secs[0];
+          }
+        }
+        if (ttSecSelect) {
+          ttSecSelect.innerHTML = '';
+          secs.forEach(s => {
+            const opt = document.createElement('option');
+            opt.value = s;
+            opt.textContent = s;
+            if (s === ttState.sec) opt.selected = true;
+            ttSecSelect.appendChild(opt);
+          });
+          if (!secs.includes(ttState.sec) && secs.length > 0) {
+            ttSecSelect.value = secs[0];
+          }
+        }
+
+        // Batches for current sec
+        const batchSet = courseMap[ttState.course]?.[ttState.sem]?.[ttState.sec] || new Set();
+        const batches = Array.from(batchSet).sort();
+
+        const batchOptionsHtml = '<option value="ALL">All batches</option>' + 
+          batches.map(b => `<option value="${escapeHtml(b)}">${escapeHtml(b)}</option>`).join('');
+
+        if (ttMainBatchSelect) {
+          ttMainBatchSelect.innerHTML = batchOptionsHtml;
+          if (ttState.batch !== 'ALL' && batches.includes(ttState.batch)) {
+            ttMainBatchSelect.value = ttState.batch;
+          } else {
+            ttMainBatchSelect.value = 'ALL';
+            ttState.batch = 'ALL';
+          }
+        }
+        if (ttBatchSelect) {
+          ttBatchSelect.innerHTML = batchOptionsHtml;
+          if (ttState.batch !== 'ALL' && batches.includes(ttState.batch)) {
+            ttBatchSelect.value = ttState.batch;
+          } else {
+            ttBatchSelect.value = 'ALL';
+          }
+        }
+
+        if (triggerSave) {
+          savePreferences();
+        }
+      }
+
+      function syncControlPills() {
+        ttMainDayButtons.forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.day === ttState.day);
+        });
+        ttMainCoursePills.forEach(pill => {
+          pill.classList.toggle('active', pill.dataset.course === ttState.course);
+        });
+        ttMainSemPills.forEach(pill => {
+          pill.classList.toggle('active', pill.dataset.sem === ttState.sem);
+        });
+        if (ttMainSecSelect) ttMainSecSelect.value = ttState.sec;
+        if (ttMainBatchSelect) ttMainBatchSelect.value = ttState.batch;
+        if (ttMainSlotSelect) ttMainSlotSelect.value = ttState.slot;
+
+        if (ttCourseSelect) ttCourseSelect.value = ttState.course;
+        if (ttSemSelect) ttSemSelect.value = ttState.sem;
+        if (ttSecSelect) ttSecSelect.value = ttState.sec;
+        if (ttBatchSelect) ttBatchSelect.value = ttState.batch;
+        if (ttDaySelect) ttDaySelect.value = ttState.day;
+      }
+
+      function getTimetableData() {
+        const teachers = getTeachers();
+        const activeLeaves = (leavesData && Array.isArray(leavesData.leaves)) 
+          ? leavesData.leaves 
+          : (window.SRCC_FACULTY_LEAVES?.leaves || []);
+
+        const classesBySlot = {};
+        academicPeriods.forEach(p => { classesBySlot[p.slot] = []; });
+
+        teachers.forEach(t => {
+          const tName = t.clean_name || t.label || 'Faculty';
+          const daySched = t.schedule?.[ttState.day] || [];
+          daySched.forEach(s => {
+            if (s.course === ttState.course && s.semester === ttState.sem && s.section === ttState.sec) {
+              const sBatch = (s.batch || '').trim();
+              if (ttState.batch !== 'ALL' && sBatch && sBatch.toUpperCase() !== ttState.batch.toUpperCase()) {
+                return;
+              }
+              const slot = s.slot;
+              if (classesBySlot[slot]) {
+                const leaveRecord = (typeof isTeacherOnLeave === 'function' ? isTeacherOnLeave(t) : null) || activeLeaves.find(l => {
+                  const nameMatch = l.teacher_name && (tName.toLowerCase().includes(l.teacher_name.toLowerCase()) || l.teacher_name.toLowerCase().includes(tName.toLowerCase()));
+                  const dayMatch = l.day === ttState.day || !l.day;
+                  return nameMatch && dayMatch;
+                });
+                const isOnLeave = Boolean(leaveRecord);
+
+                classesBySlot[slot].push({
+                  subject: s.subject || 'Subject',
+                  type: s.type || 'Lecture',
+                  batch: sBatch,
+                  teacher: tName,
+                  teacherId: t.id,
+                  room: s.room || '',
+                  isOnLeave: isOnLeave
+                });
+              }
+            }
+          });
+        });
+
+        // Compute free rooms for current day
+        const freeRoomsBySlot = {};
+        const roomsList = (appData && Array.isArray(appData.rooms)) ? appData.rooms : (window.SRCC_DATA?.rooms || []);
+
+        academicPeriods.forEach(p => {
+          const slot = p.slot;
+          const freeCodes = [];
+          roomsList.forEach(r => {
+            const daySched = r.schedule?.[ttState.day];
+            if (daySched && Array.isArray(daySched.free_slots) && daySched.free_slots.includes(slot)) {
+              freeCodes.push(r.code);
+            }
+          });
+          freeRoomsBySlot[slot] = freeCodes;
+        });
+
+        return { classesBySlot, freeRoomsBySlot };
+      }
+
+      // --- Render Native Full View Section (#viewTimetableSection) ---
+      function renderMainTimetableView() {
+        if (!viewTimetableSection) return;
+
+        syncControlPills();
+        const { classesBySlot, freeRoomsBySlot } = getTimetableData();
+        const filterQuery = (ttState.searchQuery || '').trim().toLowerCase();
+
+        if (btnClearTtMainSearch) {
+          btnClearTtMainSearch.style.display = filterQuery ? 'block' : 'none';
+        }
+
+        let totalClassesToday = 0;
+        let totalFreePeriodsToday = 0;
+        let matchCount = 0;
+        let cardsHtml = '';
+
+        academicPeriods.forEach(p => {
+          const slot = p.slot;
+          const timeLabel = p.time;
+          const slotClasses = classesBySlot[slot] || [];
+          const freeRooms = freeRoomsBySlot[slot] || [];
+
+          if (slotClasses.length > 0) {
+            totalClassesToday += slotClasses.length;
+          } else {
+            totalFreePeriodsToday++;
+          }
+
+          // Slot filter (ALL or specific period)
+          if (ttState.slot !== 'ALL' && ttState.slot !== slot) {
+            return;
+          }
+
+          // Search text filtering
+          let filteredClasses = slotClasses;
+          if (filterQuery) {
+            filteredClasses = slotClasses.filter(c => {
+              const fullText = `${c.subject} ${c.type} ${c.batch} ${c.teacher} ${c.room}`.toLowerCase();
+              return fullText.includes(filterQuery);
+            });
+            const matchesFree = 'free period vacant study gd'.includes(filterQuery) || freeRooms.some(r => r.toLowerCase().includes(filterQuery));
+            if (filteredClasses.length === 0 && !matchesFree) {
+              return;
+            }
+          }
+
+          matchCount++;
+
+          if (filteredClasses.length > 0) {
+            // Scheduled Classes Card
+            filteredClasses.forEach(c => {
+              const batchBadge = c.batch ? ` · Batch ${escapeHtml(c.batch)}` : '';
+              const initials = c.teacher.split(' ').map(n => n[0]).filter(Boolean).slice(0, 2).join('').toUpperCase() || 'FC';
+              const leaveHtml = c.isOnLeave 
+                ? `<div class="tt-leave-badge">🏖️ Faculty on Leave Today · Room available for GD / Self-Study</div>` 
+                : '';
+              const roomButtonHtml = c.room 
+                ? `<button type="button" class="tt-room-btn btn-jump-room" data-room="${escapeHtml(c.room)}" title="Click to view room in campus room finder">🏛️ Room ${escapeHtml(c.room)}</button>` 
+                : `<span style="font-size: 0.8rem; color: var(--text-muted);">Room TBD</span>`;
+
+              const leaveCardCls = c.isOnLeave ? ' is-faculty-leave' : '';
+              cardsHtml += `
+                <article class="tt-card${leaveCardCls}" data-slot="${escapeHtml(slot)}">
+                  <div class="tt-card-header">
+                    <span class="tt-period-badge">🕒 Period ${p.num} · ${timeLabel}</span>
+                    <span class="tt-type-pill">${escapeHtml(c.type)}${batchBadge}</span>
+                  </div>
+                  <div class="tt-card-subject">${escapeHtml(c.subject)}</div>
+                  <div class="tt-card-meta">
+                    <span>${escapeHtml(ttState.course)}</span> •
+                    <span>${escapeHtml(ttState.sem)}</span> •
+                    <span>${escapeHtml(ttState.sec)}</span>
+                  </div>
+                  <div class="tt-card-faculty">
+                    <div class="tt-faculty-info btn-view-teacher-today" data-teacher-id="${escapeHtml(c.teacherId || '')}" data-teacher-name="${escapeHtml(c.teacher)}" role="button" tabindex="0" title="View ${escapeHtml(c.teacher)}'s timetable">
+                      <div class="tt-faculty-avatar">${initials}</div>
+                      <div class="tt-faculty-name">${escapeHtml(c.teacher)}</div>
+                    </div>
+                    ${roomButtonHtml}
+                  </div>
+                  ${leaveHtml}
+                </article>
+              `;
+            });
+          } else {
+            // Free Period Card
+            const previewRooms = freeRooms.slice(0, 10);
+            const moreRoomsCount = freeRooms.length > 10 ? freeRooms.length - 10 : 0;
+            const chipsHtml = previewRooms.map(r => `
+              <button type="button" class="tt-room-chip btn-jump-room" data-room="${escapeHtml(r)}" title="View room ${escapeHtml(r)}">${escapeHtml(r)}</button>
+            `).join('');
+            const moreHtml = moreRoomsCount > 0 ? `<span style="font-size: 0.74rem; color: #15803d; align-self: center; font-weight: 600;">+${moreRoomsCount} more</span>` : '';
+
+            cardsHtml += `
+              <article class="tt-card free-period-card" data-slot="${escapeHtml(slot)}">
+                <div class="tt-card-header">
+                  <span class="tt-period-badge" style="background: #dcfce7; color: #15803d; border-color: #86efac;">🕒 Period ${p.num} · ${timeLabel}</span>
+                  <span class="tt-free-pill">⚡ Free Period</span>
+                </div>
+                <div class="tt-card-subject" style="color: #166534;">☕ Free Period for Study & GD</div>
+                <div class="tt-card-meta" style="color: #15803d;">
+                  <span>No lecture or tutorial scheduled for ${escapeHtml(ttState.sec)}</span>
+                </div>
+                <div class="tt-vacant-rooms-wrap">
+                  <span class="tt-vacant-label">🏛️ ${freeRooms.length} Classrooms Vacant College-Wide:</span>
+                  <div class="tt-vacant-chips">
+                    ${chipsHtml}
+                    ${moreHtml}
+                  </div>
+                </div>
+              </article>
+            `;
+          }
+        });
+
+        // Update Stat tiles
+        if (ttCountClasses) ttCountClasses.textContent = totalClassesToday;
+        if (ttCountFreePeriods) ttCountFreePeriods.textContent = totalFreePeriodsToday;
+        if (ttSelectedSummary) {
+          const shortCourse = ttState.course.includes('Economics') ? 'Economics' : 'B.Com (Hons)';
+          ttSelectedSummary.textContent = `${shortCourse} · ${ttState.sem}`;
+        }
+        if (ttSelectedBatchSummary) {
+          const batchLabel = ttState.batch === 'ALL' ? 'All batches' : `Batch ${ttState.batch}`;
+          ttSelectedBatchSummary.textContent = `${ttState.sec} · ${batchLabel}`;
+        }
+        if (ttRibbonCourseSec) {
+          ttRibbonCourseSec.textContent = `${ttState.course}, ${ttState.sem}, ${ttState.sec} (${ttState.batch === 'ALL' ? 'All batches' : 'Batch ' + ttState.batch})`;
+        }
+        if (ttRibbonDay) {
+          ttRibbonDay.textContent = ttState.day;
+        }
+
+        // Render schedule grid & empty state
+        if (ttMainScheduleGrid) {
+          ttMainScheduleGrid.innerHTML = cardsHtml;
+        }
+        if (ttMainEmptyState) {
+          ttMainEmptyState.style.display = (matchCount === 0) ? 'block' : 'none';
+        }
+
+        // Attach click listeners for 1-click teacher timetable inspection
+        if (ttMainScheduleGrid) {
+          ttMainScheduleGrid.querySelectorAll('.btn-view-teacher-today').forEach(btn => {
+            const handleTeacherClick = (e) => {
+              e.stopPropagation();
+              const tId = btn.dataset.teacherId;
+              const tName = btn.dataset.teacherName;
+              openTeacherModal(tId || tName, ttState.day);
+            };
+            btn.addEventListener('click', handleTeacherClick);
+            btn.addEventListener('keydown', (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleTeacherClick(e);
+              }
+            });
+          });
+
+          // Attach 1-click room jumping
+          ttMainScheduleGrid.querySelectorAll('.btn-jump-room').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              const targetRoom = btn.dataset.room;
+              if (targetRoom) {
+                setAppMode('rooms');
+                if (searchInput) {
+                  searchInput.value = targetRoom;
+                  state.searchQuery = targetRoom.toLowerCase();
+                  render();
+                  setTimeout(() => {
+                    searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    searchInput.classList.add('search-highlight-pulse');
+                    setTimeout(() => searchInput.classList.remove('search-highlight-pulse'), 1200);
+                  }, 250);
+                }
+              }
+            });
+          });
+        }
+      }
+
+      // --- Render Light Modal View (#myTimetableModal) ---
+      function renderModalTimetable() {
+        if (!ttScheduleBody) return;
+        const { classesBySlot, freeRoomsBySlot } = getTimetableData();
+        const filterQuery = (ttSearchInput?.value || '').trim().toLowerCase();
+
+        if (btnClearTtSearch) {
+          btnClearTtSearch.style.display = filterQuery ? 'block' : 'none';
+        }
+
+        let html = '';
+        let matchCount = 0;
+
+        academicPeriods.forEach(p => {
+          const slot = p.slot;
+          const timeLabel = p.time;
+          let slotClasses = classesBySlot[slot] || [];
+          const freeRooms = freeRoomsBySlot[slot] || [];
+
+          if (filterQuery) {
+            slotClasses = slotClasses.filter(c => {
+              const fullText = `${c.subject} ${c.type} ${c.batch} ${c.teacher} ${c.room}`.toLowerCase();
+              return fullText.includes(filterQuery);
+            });
+            const matchesFree = 'free period vacant'.includes(filterQuery) || freeRooms.some(r => r.toLowerCase().includes(filterQuery));
+            if (slotClasses.length === 0 && !matchesFree) return;
+          }
+
+          matchCount++;
+
+          if (slotClasses.length > 0) {
+            const entriesHtml = slotClasses.map(c => {
+              const batchBadge = c.batch ? ` · ${escapeHtml(c.batch)}` : '';
+              const leaveBadge = c.isOnLeave ? `<div class="tt-leave-badge">🏖️ Faculty on Leave Today</div>` : '';
+              const roomLink = c.room 
+                ? ` · <span class="tt-room-jump" data-room="${escapeHtml(c.room)}" style="cursor: pointer; color: var(--accent-blue); font-weight: 700; text-decoration: underline;" title="View Room in Campus Finder">Room ${escapeHtml(c.room)}</span>` 
+                : '';
+
+              return `
+                <div class="tt-class-entry">
+                  <div class="tt-class-title">
+                    <strong class="tt-subject-name">${escapeHtml(c.subject)}</strong>
+                    <span class="tt-class-type">${escapeHtml(c.type)}${batchBadge}</span>
+                  </div>
+                  <div class="tt-teacher-room">
+                    <span class="tt-teacher-link btn-view-teacher-today" data-teacher-id="${escapeHtml(c.teacherId || '')}" data-teacher-name="${escapeHtml(c.teacher)}" style="cursor: pointer; font-weight: 700; color: var(--primary-color);" title="View ${escapeHtml(c.teacher)}'s timetable">
+                      👨‍🏫 ${escapeHtml(c.teacher)}
+                    </span>${roomLink}
+                  </div>
+                  ${leaveBadge}
+                </div>
+              `;
+            }).join('');
+
+            html += `
+              <div class="tt-slot-row">
+                <div class="tt-slot-time">${timeLabel}</div>
+                <div class="tt-slot-content">${entriesHtml}</div>
+              </div>
+            `;
+          } else {
+            const previewCodes = freeRooms.slice(0, 6).join(', ');
+            const moreIndicator = freeRooms.length > 6 ? ` (+${freeRooms.length - 6} more)` : '';
+            const roomSummary = freeRooms.length > 0 
+              ? `${freeRooms.length} rooms free: ${previewCodes}${moreIndicator}`
+              : 'No free rooms available';
+
+            html += `
+              <div class="tt-slot-row">
+                <div class="tt-slot-time">${timeLabel}</div>
+                <div class="tt-slot-content">
+                  <div class="tt-class-entry">
+                    <div class="tt-free-title">⚡ Free period</div>
+                    <div class="tt-free-rooms tt-free-rooms-interactive" title="Click to view vacant rooms in this slot">
+                      ${escapeHtml(roomSummary)}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+          }
+        });
+
+        if (matchCount === 0) {
+          html = `
+            <div class="tt-empty-state">
+              <div style="font-size: 2rem; margin-bottom: 6px;">🔎</div>
+              <p>No matching classes found in timetable</p>
+            </div>
+          `;
+        }
+
+        ttScheduleBody.innerHTML = html;
+
+        ttScheduleBody.querySelectorAll('.btn-view-teacher-today').forEach(el => {
+          el.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const tId = el.dataset.teacherId;
+            const tName = el.dataset.teacherName;
+            closeTtModal();
+            openTeacherModal(tId || tName, ttState.day);
+          });
+        });
+
+        ttScheduleBody.querySelectorAll('.tt-room-jump').forEach(el => {
+          el.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const targetRoom = el.dataset.room;
+            if (targetRoom) {
+              closeTtModal();
+              setAppMode('rooms');
+              if (searchInput) {
+                searchInput.value = targetRoom;
+                state.searchQuery = targetRoom.toLowerCase();
+                render();
+                setTimeout(() => {
+                  searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 200);
+              }
+            }
+          });
+        });
+      }
+
+      function openTtModal() {
+        if (!myTimetableModal) return;
+        myTimetableModal.style.display = 'flex';
+        void myTimetableModal.offsetWidth;
+        myTimetableModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        renderModalTimetable();
+      }
+
+      function closeTtModal() {
+        if (!myTimetableModal) return;
+        myTimetableModal.classList.remove('active');
+        setTimeout(() => {
+          myTimetableModal.style.display = 'none';
+          document.body.style.overflow = '';
+        }, 200);
+      }
+
+      // --- Setup Event Listeners for Main View Section ---
+      ttMainDayButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          ttState.day = btn.dataset.day;
+          renderMainTimetableView();
+        });
+      });
+
+      ttMainCoursePills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          ttState.course = pill.dataset.course;
+          updateSectionsAndBatches(true);
+          renderMainTimetableView();
+        });
+      });
+
+      ttMainSemPills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          ttState.sem = pill.dataset.sem;
+          updateSectionsAndBatches(true);
+          renderMainTimetableView();
+        });
+      });
+
+      if (ttMainSecSelect) {
+        ttMainSecSelect.addEventListener('change', () => {
+          ttState.sec = ttMainSecSelect.value;
+          updateSectionsAndBatches(true);
+          renderMainTimetableView();
+        });
+      }
+
+      if (ttMainBatchSelect) {
+        ttMainBatchSelect.addEventListener('change', () => {
+          ttState.batch = ttMainBatchSelect.value;
+          savePreferences();
+          renderMainTimetableView();
+        });
+      }
+
+      if (ttMainSlotSelect) {
+        ttMainSlotSelect.addEventListener('change', () => {
+          ttState.slot = ttMainSlotSelect.value;
+          renderMainTimetableView();
+        });
+      }
+
+      if (ttMainSearchInput) {
+        ttMainSearchInput.addEventListener('input', () => {
+          ttState.searchQuery = ttMainSearchInput.value;
+          renderMainTimetableView();
+        });
+      }
+
+      if (btnClearTtMainSearch) {
+        btnClearTtMainSearch.addEventListener('click', () => {
+          ttMainSearchInput.value = '';
+          ttState.searchQuery = '';
+          ttMainSearchInput.focus();
+          renderMainTimetableView();
+        });
+      }
+
+      if (btnResetTtFilters) {
+        btnResetTtFilters.addEventListener('click', () => {
+          ttState.slot = 'ALL';
+          ttState.searchQuery = '';
+          if (ttMainSearchInput) ttMainSearchInput.value = '';
+          if (ttMainSlotSelect) ttMainSlotSelect.value = 'ALL';
+          renderMainTimetableView();
+        });
+      }
+
+      // --- Setup Event Listeners for Modal ---
+      if (btnTtModalClose) btnTtModalClose.addEventListener('click', closeTtModal);
+      if (myTimetableModal) {
+        myTimetableModal.addEventListener('click', (e) => {
+          if (e.target === myTimetableModal) closeTtModal();
+        });
+      }
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && myTimetableModal?.classList.contains('active')) {
+          closeTtModal();
+        }
+      });
+
+      if (ttCourseSelect) {
+        ttCourseSelect.addEventListener('change', () => {
+          ttState.course = ttCourseSelect.value;
+          updateSectionsAndBatches(true);
+          renderModalTimetable();
+          renderMainTimetableView();
+        });
+      }
+
+      if (ttSemSelect) {
+        ttSemSelect.addEventListener('change', () => {
+          ttState.sem = ttSemSelect.value;
+          updateSectionsAndBatches(true);
+          renderModalTimetable();
+          renderMainTimetableView();
+        });
+      }
+
+      if (ttSecSelect) {
+        ttSecSelect.addEventListener('change', () => {
+          ttState.sec = ttSecSelect.value;
+          updateSectionsAndBatches(true);
+          renderModalTimetable();
+          renderMainTimetableView();
+        });
+      }
+
+      if (ttBatchSelect) {
+        ttBatchSelect.addEventListener('change', () => {
+          ttState.batch = ttBatchSelect.value;
+          savePreferences();
+          renderModalTimetable();
+          renderMainTimetableView();
+        });
+      }
+
+      if (ttDaySelect) {
+        ttDaySelect.addEventListener('change', () => {
+          ttState.day = ttDaySelect.value;
+          renderModalTimetable();
+          renderMainTimetableView();
+        });
+      }
+
+      if (ttSearchInput) {
+        ttSearchInput.addEventListener('input', () => {
+          renderModalTimetable();
+        });
+      }
+
+      if (btnClearTtSearch) {
+        btnClearTtSearch.addEventListener('click', () => {
+          ttSearchInput.value = '';
+          ttSearchInput.focus();
+          renderModalTimetable();
+        });
+      }
+
+      // Live day-wise auto capture on timetable switch
+      window._setTimetableToToday = function() {
+        ttState.day = getLiveDayName();
+        syncControlPills();
+        renderMainTimetableView();
+      };
+
+      // Expose globally so mode switcher & tab switcher can trigger it
+      window._renderMainTimetable = renderMainTimetableView;
+      window._openTimetableModal = openTtModal;
+
+      // Populate initial values
+      updateSectionsAndBatches(false);
+      syncControlPills();
+    }
 
     // ========================================================================
     // 🚀 INITIAL BOOTSTRAP
@@ -3070,6 +3881,7 @@ window.SRCC_FACULTY_LEAVES = {
     populateLeaveTeacherSelect();
     render();
     renderFaculty();
+    initTimetableFeature();
   }
 });
 // --- PWA Installation Logic ---

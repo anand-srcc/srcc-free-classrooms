@@ -66,6 +66,8 @@ const rootFiles = [
   'push_to_github.bat',
   'github_login_and_push.bat',
   'package_netlify.js',
+  'package.json',
+  'dev-server.js',
   'SRCC_Free_Classrooms_Timetable.xlsx'
 ];
 

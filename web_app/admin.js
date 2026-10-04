@@ -6,9 +6,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Precomputed SHA-256 hashes for authorized administrator passcodes
   const AUTH_HASHES = [
-    '06f1339f683c69374e5805994b4956bc856e0204827364a6062894a88d792fae', // srcc2026
-    '68c7ac5777aac392b5e34d5c9e20421cd970534ae1529defd1ceb7a064be56cc', // srccadmin
-    '5f4df959a11580fc14aa6b139adb2ab40a2cfde5399c1cb6f7c9968eae5a825f'  // anand
+    '06f1339f683c69374e5805994b4956bc856e0204827364a6062894a88d792fae'
   ];
   const LEAVES_STORAGE_KEY = 'srcc_faculty_leaves_v2';
   const AUTH_STORAGE_KEY = 'srcc_admin_session_auth';
@@ -141,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
         username: 'admin',
         fullName: 'Master Administrator (Anand)',
         role: 'Super Admin',
-        passwordHash: '06f1339f683c69374e5805994b4956bc856e0204827364a6062894a88d792fae', // srcc2026
+        passwordHash: '06f1339f683c69374e5805994b4956bc856e0204827364a6062894a88d792fae',
         createdAt: 'Default Master Account',
         isSuper: true
       }
@@ -196,14 +194,6 @@ document.addEventListener('DOMContentLoaded', () => {
       // If username input is blank, default to 'admin' (matching "Optional for default Admin")
       if (!uInput) {
         uInput = 'admin';
-      }
-
-      // Emergency Reset Feature
-      if (val === 'reset2026') {
-        localStorage.removeItem(USERS_STORAGE_KEY);
-        alert('Password has been successfully reset to default! The page will now reload.');
-        window.location.reload();
-        return;
       }
 
       const hashed = await hashPasscode(val);
