@@ -707,7 +707,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return `${idx + 1}. ${l.teacher_name}${code} (${dates})`;
     });
 
-    return `*SRCC Faculty Leave Update (${leavesList.length})* 🏖️\n\n${lines.join('\n')}\n\n_Check free classrooms:_ https://srcc-free-classrooms.netlify.app/`;
+    return `*SRCC Faculty Leave Update (${leavesList.length})* 🏖️\n\n${lines.join('\n')}\n\n_Check free classrooms:_ https://anand-srcc.github.io/srcc-free-classrooms/`;
   }
 
   function renderLeavesTable() {
@@ -747,7 +747,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const halfDayBadge = leave.isHalfDay ? `<span style="background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; font-size: 0.68rem; font-weight: 800; padding: 2px 7px; border-radius: 9999px;">½ DAY</span>` : '';
       const addedByBadge = leave.addedBy ? `<span style="font-size: 0.72rem; color: #64748B; margin-left: 6px;">(By: ${escapeHtml(leave.addedBy)})</span>` : '';
 
-      const singleLeaveMsg = `*SRCC Faculty Leave Update* 🏖️\n\n1. ${leave.teacher_name}${code} (${dateRangeDisplay})\n\n_Check free classrooms:_ https://srcc-free-classrooms.netlify.app/`;
+      const singleLeaveMsg = `*SRCC Faculty Leave Update* 🏖️\n\n1. ${leave.teacher_name}${code} (${dateRangeDisplay})\n\n_Check free classrooms:_ https://anand-srcc.github.io/srcc-free-classrooms/`;
 
       return `
         <div class="leave-item-row" data-leave-id="${leave.id}">

@@ -1274,7 +1274,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const sched = room.schedule[state.activeDay] || { free_slots: [] };
       const freeSlotsList = sched.free_slots.length > 0
-        ? sched.free_slots.map(s => `  • ${s.replace(' to ', ' – ')}`).join('\\n')
+        ? sched.free_slots.map(s => `  • ${s.replace(' to ', ' – ')}`).join('\n')
         : '  • Only Lunch Recess (1:30 PM – 2:00 PM)';
 
       const siteUrl = window.location.origin + window.location.pathname;
@@ -1786,7 +1786,7 @@ ${freeSlotsList}
             <tr>
               <td><strong>${timeSlot.replace(' to ', ' – ')}</strong></td>
               <td><span class="badge-slot-free">FREE FOR GD</span></td>
-              <td style="color: var(--accent-green-light);">Vacant Classroom (Available for Study/GD)</td>
+              <td style="color: #15803d; font-weight: 600;">Vacant Classroom (Available for Study/GD)</td>
             </tr>
           `;
         } else {
@@ -2614,7 +2614,15 @@ ${freeSlotsList}
       }
       if (modalTeacherName) modalTeacherName.textContent = teacher.clean_name;
       if (modalTeacherMeta) {
-        modalTeacherMeta.textContent = `${teacher.department} · Short Code: ${displayCode || 'Official Faculty'} · ${teacher.total_teaching_periods || 0} Total Weekly Classes`;
+        const codeText = displayCode ? `Short Code: <strong>${escapeHtml(displayCode)}</strong>` : 'Official Faculty';
+        const periods = teacher.total_teaching_periods || 0;
+        modalTeacherMeta.innerHTML = `
+          <span>${escapeHtml(teacher.department || 'Faculty')}</span>
+          <span style="margin: 0 10px; color: var(--border-color, #cbd5e1);">•</span>
+          <span>${codeText}</span>
+          <span style="margin: 0 10px; color: var(--border-color, #cbd5e1);">•</span>
+          <span style="display: inline-flex; align-items: center; gap: 5px; font-weight: 600; color: var(--text-primary);"><span style="color: var(--primary);">🗓️</span> ${periods} Total Weekly Classes</span>
+        `;
       }
 
       renderTeacherModalDaySchedule();
@@ -2834,23 +2842,48 @@ ${freeSlotsList}
       return sFmt || eFmt || 'Today';
     }
 
-    function buildLeavesWhatsAppMessage(leavesList) {
-      if (!leavesList || leavesList.length === 0) {
-        return '*SRCC Faculty Leave Update*\nNo professors are currently marked on leave.';
+    function getAppPublicUrl() {
+      if (typeof window !== 'undefined' && window.location) {
+        if (window.location.origin && window.location.origin.includes('github.io')) {
+          return 'https://anand-srcc.github.io/srcc-free-classrooms/';
+        }
+        if (window.location.protocol && window.location.protocol.startsWith('http')) {
+          const path = window.location.pathname.replace(/\/(index|admin)\.html$/, '');
+          return window.location.origin + path + (path.endsWith('/') ? '' : '/');
+        }
       }
-      const lines = leavesList.map((l, idx) => {
+      return 'https://anand-srcc.github.io/srcc-free-classrooms/';
+    }
+
+    function buildLeavesWhatsAppMessage(leavesList) {
+      const today = getTodayIsoDate();
+      const activeList = (leavesList || []).filter(l => {
+        const e = l.end_date || l.start_date || today;
+        return e >= today;
+      });
+
+      if (!activeList || activeList.length === 0) {
+        return `*SRCC Faculty Leave Update*\nNo professors are currently marked on leave.\n\n_Check free classrooms:_ ${getAppPublicUrl()}`;
+      }
+      const lines = activeList.map((l, idx) => {
         const code = l.teacher_code && !/^(cg|eg|mg|hg|hgc)\d*$/i.test(l.teacher_code) ? ` [${l.teacher_code}]` : '';
         const dates = formatLeaveDates(l.start_date, l.end_date);
         return `${idx + 1}. ${l.teacher_name}${code} (${dates})`;
       });
 
-      return `*SRCC Faculty Leave Update (${leavesList.length})* 🏖️\n\n${lines.join('\n')}\n\n_Check free classrooms:_ https://srcc-free-classrooms.netlify.app/`;
+      return `*SRCC Faculty Leave Update (${activeList.length})* 🏖️\n\n${lines.join('\n')}\n\n_Check free classrooms:_ ${getAppPublicUrl()}`;
     }
 
     function renderActiveLeavesList() {
       if (!leavesListContainer) return;
-      const leaves = getLeavesList();
+      const allLeaves = getLeavesList();
       const today = getTodayIsoDate();
+
+      // Filter out past expired leaves (leaves where end_date < today)
+      const leaves = allLeaves.filter(l => {
+        const e = l.end_date || l.start_date || today;
+        return e >= today;
+      });
 
       if (activeLeavesCount) activeLeavesCount.textContent = leaves.length;
       const roomsQuickLeaveCount = document.getElementById('roomsQuickLeaveCount');
@@ -2869,6 +2902,8 @@ ${freeSlotsList}
         return;
       }
 
+      const shareSiteUrl = getAppPublicUrl();
+
       leavesListContainer.innerHTML = leaves.map((leave, idx) => {
         const s = leave.start_date || today;
         const e = leave.end_date || today;
@@ -2877,7 +2912,7 @@ ${freeSlotsList}
         const dateRangeDisplay = formatLeaveDates(s, e);
         const halfDayBadge = leave.isHalfDay ? `<span style="background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; font-size: 0.68rem; font-weight: 800; padding: 2px 7px; border-radius: 9999px;">½ DAY</span>` : '';
 
-        const singleLeaveMsg = `*SRCC Faculty Leave Update* 🏖️\n\n1. ${leave.teacher_name}${code} (${dateRangeDisplay})\n\n_Check free classrooms:_ https://srcc-free-classrooms.netlify.app/`;
+        const singleLeaveMsg = `*SRCC Faculty Leave Update* 🏖️\n\n1. ${leave.teacher_name}${code} (${dateRangeDisplay})\n\n_Check free classrooms:_ ${shareSiteUrl}`;
 
         return `
           <div class="leave-item-row" data-leave-id="${leave.id}">
