@@ -146,7 +146,7 @@ def extract_room_code(text):
     if re.search(r'seminar', text, re.I):
         return 'SEMINAR'
     if re.search(r'library', text, re.I):
-        return 'LIBRARY'
+        return 'Library FF'
     if re.search(r'playground|ground', text, re.I):
         return 'PLAYGROUND'
     

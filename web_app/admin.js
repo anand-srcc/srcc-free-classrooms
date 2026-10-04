@@ -682,10 +682,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!s && !e) return 'Today';
     const fmt = (dStr) => {
       if (!dStr) return '';
-      const p = dStr.split('-');
+      const p = String(dStr).trim().split('-');
       if (p.length === 3) {
-        const m = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][parseInt(p[1], 10) - 1] || '';
-        return `${parseInt(p[2], 10)} ${m}`;
+        const day = p[2].padStart(2, '0');
+        const mon = p[1].padStart(2, '0');
+        const yr = p[0];
+        return `${day}/${mon}/${yr}`;
       }
       return dStr;
     };

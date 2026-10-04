@@ -219,6 +219,48 @@ document.addEventListener('DOMContentLoaded', () => {
       return `${year}-${month}-${day}`;
     }
 
+    // Format ISO date (YYYY-MM-DD) to DD/MM/YYYY
+    function formatIsoToDdMmYyyy(isoStr) {
+      if (!isoStr) return '';
+      const p = String(isoStr).trim().split('-');
+      if (p.length === 3) {
+        const day = p[2].padStart(2, '0');
+        const mon = p[1].padStart(2, '0');
+        const yr = p[0];
+        return `${day}/${mon}/${yr}`;
+      }
+      return isoStr;
+    }
+
+    function formatLeaveDateRangeDdMmYyyy(s, e) {
+      if (!s && !e) return 'Today';
+      const sFmt = formatIsoToDdMmYyyy(s);
+      const eFmt = formatIsoToDdMmYyyy(e);
+      if (sFmt && eFmt) {
+        return (sFmt === eFmt) ? sFmt : `${sFmt} – ${eFmt}`;
+      }
+      return sFmt || eFmt || 'Today';
+    }
+
+    // Room display & jump helpers for Library First Floor and other facilities
+    function getDisplayRoomName(room) {
+      if (!room || room === 'TBD') return 'No Room';
+      const trimmed = String(room).trim();
+      if (/^library(\s*ff)?$/i.test(trimmed)) {
+        return 'LIB (FF)';
+      }
+      return trimmed;
+    }
+
+    function getTargetRoomJumpCode(room) {
+      if (!room || room === 'TBD') return '';
+      const trimmed = String(room).trim();
+      if (/^library(\s*ff)?$/i.test(trimmed)) {
+        return 'Library FF';
+      }
+      return trimmed;
+    }
+
     // ========================================================================
     // 🏖️ FACULTY LEAVE MANAGEMENT STORAGE & HELPERS
     // ========================================================================
@@ -1970,11 +2012,12 @@ ${freeSlotsList}
       const leave = isTeacherOnLeave(teacher, todayDate);
 
       if (leave) {
+        const dateDisplay = formatLeaveDateRangeDdMmYyyy(leave.start_date, leave.end_date);
         return {
           type: 'LEAVE',
           badgeClass: 'status-leave',
           dotClass: 'dot-leave',
-          text: `🏖️ On Leave: ${leave.reason || 'Class Cancelled'} (${leave.start_date || ''} – ${leave.end_date || ''})`,
+          text: `🏖️ On Leave: ${leave.reason || 'Class Cancelled'} (${dateDisplay})`,
           isTeachingNow: false,
           isOnLeave: true,
           isFreeNow: false,
@@ -2469,8 +2512,8 @@ ${freeSlotsList}
                   </span>
                 </div>
                 ${roomCode !== 'TBD' ? `
-                  <button class="room-badge-link" data-room="${roomCode}" title="Jump to Room ${roomCode} in Free Classroom Finder">
-                    🏛️ ${roomCode} ↗
+                  <button class="room-badge-link" data-room="${escapeHtml(getTargetRoomJumpCode(roomCode))}" title="Jump to Room ${escapeHtml(getTargetRoomJumpCode(roomCode))} in Free Classroom Finder">
+                    🏛️ ${escapeHtml(getDisplayRoomName(roomCode))} ↗
                   </button>
                 ` : `<span style="font-size: 0.72rem; color: var(--text-muted);">No Room</span>`}
               </div>
@@ -2673,6 +2716,27 @@ ${freeSlotsList}
         </div>
       `;
 
+      if (teacher.total_teaching_periods === 0) {
+        modalTeacherBody.innerHTML = `
+          <div style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; display: flex; align-items: flex-start; gap: 10px;">
+            <span style="font-size: 1.3rem; line-height: 1;">ℹ️</span>
+            <div>
+              <strong style="color: #b45309; font-size: 0.9rem;">Official SRCC Portal Allocation:</strong>
+              <p style="font-size: 0.84rem; color: var(--text-primary); margin: 3px 0 0 0; line-height: 1.4;">
+                No teaching lectures are allocated for <strong>${escapeHtml(teacher.clean_name)}</strong> on the official SRCC college timetable portal for this semester (Faculty on study leave, research sabbatical, or administrative assignment).
+              </p>
+            </div>
+          </div>
+          <div style="text-align: center; padding: 30px 20px; color: var(--text-muted);">
+            <div style="font-size: 2.2rem; margin-bottom: 8px;">☕</div>
+            <h4 style="color: var(--text-primary); margin-bottom: 4px; font-size: 1.15rem;">No Classes Scheduled</h4>
+            <p style="font-size: 0.88rem;">All weekly periods are free / unallocated on the central timetable system.</p>
+          </div>
+          <p class="modal-disclaimer-note">ℹ️ <strong>Timetable Notice:</strong> Verified directly against official SRCC timetable portal (<a href="https://srcccollegetimetable.in/" target="_blank" style="color: #2563eb; text-decoration: underline;">srcccollegetimetable.in</a>).</p>
+        `;
+        return;
+      }
+
       if (daySched.length === 0) {
         modalTeacherBody.innerHTML = `
           ${overviewStripHtml}
@@ -2714,8 +2778,8 @@ ${freeSlotsList}
             </td>
             <td>
               ${roomCode !== 'TBD' ? `
-                <button class="room-badge-link modal-room-jump" data-room="${escapeHtml(roomCode)}" title="View room vacancy in Free Classroom Finder">
-                  🏛️ ${escapeHtml(roomCode)} ↗
+                <button class="room-badge-link modal-room-jump" data-room="${escapeHtml(getTargetRoomJumpCode(roomCode))}" title="View room vacancy in Free Classroom Finder">
+                  🏛️ ${escapeHtml(getDisplayRoomName(roomCode))} ↗
                 </button>
               ` : `<span style="color: var(--text-muted); font-size: 0.78rem;">TBD</span>`}
             </td>
@@ -2755,8 +2819,8 @@ ${freeSlotsList}
               </div>
               <div>
                 ${roomCode !== 'TBD' ? `
-                  <button class="m-tt-room-btn modal-room-jump" data-room="${escapeHtml(roomCode)}" title="View room in Free Classroom Finder">
-                    🏛️ ${escapeHtml(roomCode)} ↗
+                  <button class="m-tt-room-btn modal-room-jump" data-room="${escapeHtml(getTargetRoomJumpCode(roomCode))}" title="View room in Free Classroom Finder">
+                    🏛️ ${escapeHtml(getDisplayRoomName(roomCode))} ↗
                   </button>
                 ` : `<span style="color: var(--text-muted); font-size: 0.78rem;">TBD</span>`}
               </div>
@@ -2824,22 +2888,7 @@ ${freeSlotsList}
     }
 
     function formatLeaveDates(s, e) {
-      if (!s && !e) return 'Today';
-      const fmt = (dStr) => {
-        if (!dStr) return '';
-        const p = dStr.split('-');
-        if (p.length === 3) {
-          const m = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][parseInt(p[1], 10) - 1] || '';
-          return `${parseInt(p[2], 10)} ${m}`;
-        }
-        return dStr;
-      };
-      const sFmt = fmt(s);
-      const eFmt = fmt(e);
-      if (sFmt && eFmt) {
-        return (sFmt === eFmt) ? sFmt : `${sFmt} – ${eFmt}`;
-      }
-      return sFmt || eFmt || 'Today';
+      return formatLeaveDateRangeDdMmYyyy(s, e);
     }
 
     function getAppPublicUrl() {
@@ -3466,24 +3515,24 @@ window.SRCC_FACULTY_LEAVES = {
               const fullText = `${c.subject} ${c.type} ${c.batch} ${c.teacher} ${c.room}`.toLowerCase();
               return fullText.includes(filterQuery);
             });
-            const matchesFree = 'free period vacant study gd'.includes(filterQuery) || freeRooms.some(r => r.toLowerCase().includes(filterQuery));
-            if (filteredClasses.length === 0 && !matchesFree) {
+            if (filteredClasses.length === 0) {
               return;
             }
           }
 
-          matchCount++;
-
           if (filteredClasses.length > 0) {
+            matchCount += filteredClasses.length;
             // Scheduled Classes Card
             filteredClasses.forEach(c => {
               const batchBadge = c.batch ? ` · Batch ${escapeHtml(c.batch)}` : '';
               const initials = c.teacher.split(' ').map(n => n[0]).filter(Boolean).slice(0, 2).join('').toUpperCase() || 'FC';
               const leaveHtml = c.isOnLeave 
-                ? `<div class="tt-leave-badge">🏖️ Faculty on Leave Today · Room available for GD / Self-Study</div>` 
+                ? `<div class="tt-leave-badge">🏖️ Faculty on Leave Today · Class Suspended</div>` 
                 : '';
+              const targetRoom = getTargetRoomJumpCode(c.room);
+              const displayRoom = getDisplayRoomName(c.room);
               const roomButtonHtml = c.room 
-                ? `<button type="button" class="tt-room-btn btn-jump-room" data-room="${escapeHtml(c.room)}" title="Click to view room in campus room finder">🏛️ Room ${escapeHtml(c.room)}</button>` 
+                ? `<button type="button" class="tt-room-btn btn-jump-room" data-room="${escapeHtml(targetRoom)}" title="Click to view room in campus room finder">🏛️ ${escapeHtml(displayRoom)}</button>` 
                 : `<span style="font-size: 0.8rem; color: var(--text-muted);">Room TBD</span>`;
 
               const leaveCardCls = c.isOnLeave ? ' is-faculty-leave' : '';
@@ -3510,34 +3559,6 @@ window.SRCC_FACULTY_LEAVES = {
                 </article>
               `;
             });
-          } else {
-            // Free Period Card
-            const previewRooms = freeRooms.slice(0, 10);
-            const moreRoomsCount = freeRooms.length > 10 ? freeRooms.length - 10 : 0;
-            const chipsHtml = previewRooms.map(r => `
-              <button type="button" class="tt-room-chip btn-jump-room" data-room="${escapeHtml(r)}" title="View room ${escapeHtml(r)}">${escapeHtml(r)}</button>
-            `).join('');
-            const moreHtml = moreRoomsCount > 0 ? `<span style="font-size: 0.74rem; color: #15803d; align-self: center; font-weight: 600;">+${moreRoomsCount} more</span>` : '';
-
-            cardsHtml += `
-              <article class="tt-card free-period-card" data-slot="${escapeHtml(slot)}">
-                <div class="tt-card-header">
-                  <span class="tt-period-badge" style="background: #dcfce7; color: #15803d; border-color: #86efac;">🕒 Period ${p.num} · ${timeLabel}</span>
-                  <span class="tt-free-pill">⚡ Free Period</span>
-                </div>
-                <div class="tt-card-subject" style="color: #166534;">☕ Free Period for Study & GD</div>
-                <div class="tt-card-meta" style="color: #15803d;">
-                  <span>No lecture or tutorial scheduled for ${escapeHtml(ttState.sec)}</span>
-                </div>
-                <div class="tt-vacant-rooms-wrap">
-                  <span class="tt-vacant-label">🏛️ ${freeRooms.length} Classrooms Vacant College-Wide:</span>
-                  <div class="tt-vacant-chips">
-                    ${chipsHtml}
-                    ${moreHtml}
-                  </div>
-                </div>
-              </article>
-            `;
           }
         });
 
