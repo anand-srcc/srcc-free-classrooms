@@ -1,13 +1,13 @@
-const CACHE_NAME = 'srcc-classroom-v24-ghpages';
+const CACHE_NAME = 'srcc-classroom-v25-ghpages';
 const ASSETS = [
   './',
   './index.html',
   './style.css',
-  './app.js?v=24',
-  './data.js?v=24',
-  './cloud_config.js?v=24',
-  './faculty_leaves.js?v=24',
-  './teachers_data.js?v=24',
+  './app.js?v=25',
+  './data.js?v=25',
+  './cloud_config.js?v=25',
+  './faculty_leaves.js?v=25',
+  './teachers_data.js?v=25',
   './favicon.png',
   './srcc_crest.png',
   './srcc_100years.png',
