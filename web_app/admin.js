@@ -1290,7 +1290,7 @@ document.addEventListener('DOMContentLoaded', () => {
         isSuper: !!users[userIdx].isSuper
       }));
 
-      showToast('✅ <strong>Password updated and synced to Cloud Database!</strong> Old password is now deactivated.');
+      showToast('✅ <strong>Password updated successfully!</strong> Synced to Cloud Database.');
       if (pwdCurrent) pwdCurrent.value = '';
       if (pwdNew) pwdNew.value = '';
       if (pwdConfirm) pwdConfirm.value = '';

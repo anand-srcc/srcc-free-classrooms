@@ -4413,15 +4413,17 @@ if (installModal) {
 }
 
 // Install App click handler
-btnInstallApp.addEventListener('click', async () => {
-  if (deferredPrompt) {
-    installModal.style.display = 'none';
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    console.log(`User response to install prompt: ${outcome}`);
-    deferredPrompt = null;
-  }
-});
+if (btnInstallApp) {
+  btnInstallApp.addEventListener('click', async () => {
+    if (deferredPrompt) {
+      if (installModal) installModal.style.display = 'none';
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`User response to install prompt: ${outcome}`);
+      deferredPrompt = null;
+    }
+  });
+}
 
 // Hide modal if successfully installed
 window.addEventListener('appinstalled', () => {
