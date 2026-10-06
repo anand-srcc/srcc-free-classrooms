@@ -3,8 +3,8 @@ window.SRCC_DATA = {
     "college": "Shri Ram College of Commerce (SRCC)",
     "portal": "https://srcccollegetimetable.in/",
     "total_rooms": 96,
-    "last_synced": "03 Oct 2026, 07:16 PM",
-    "last_synced_iso": "2026-10-03T19:16:23.266965",
+    "last_synced": "06 Oct 2026, 06:26 PM",
+    "last_synced_iso": "2026-10-06T18:26:55.694034",
     "academic_periods": [
       "8:30 AM to 9:30 AM",
       "9:30 AM to 10:30 AM",
@@ -3548,10 +3548,11 @@ window.SRCC_DATA = {
         "Wednesday": {
           "free_slots": [
             "12:30 PM to 1:30 PM",
+            "3:00 PM to 4:00 PM",
             "4:00 PM to 5:00 PM",
             "5:00 PM to 6:00 PM"
           ],
-          "free_hours": 3,
+          "free_hours": 4,
           "lunch_recess_free": true,
           "occupied_slots": [
             {
@@ -3573,10 +3574,6 @@ window.SRCC_DATA = {
             {
               "slot": "2:00 PM to 3:00 PM",
               "class": "L-1. BCH-E-SEM VEconomics-DnD-IT3L-2. BCH-L-SEM VEconomics-DnD-IT3L-3. BCH-M-SEM VEconomics-DnD-IT3"
-            },
-            {
-              "slot": "3:00 PM to 4:00 PM",
-              "class": "LAB-JOINT-SEM IIIMaths-VM III-MG2-VAC27"
             }
           ]
         },
@@ -5114,11 +5111,10 @@ window.SRCC_DATA = {
         },
         "Wednesday": {
           "free_slots": [
-            "3:00 PM to 4:00 PM",
             "4:00 PM to 5:00 PM",
             "5:00 PM to 6:00 PM"
           ],
-          "free_hours": 3,
+          "free_hours": 2,
           "lunch_recess_free": true,
           "occupied_slots": [
             {
@@ -5143,7 +5139,11 @@ window.SRCC_DATA = {
             },
             {
               "slot": "2:00 PM to 3:00 PM",
-              "class": "L-JOINT-SEM IIICommerce-EC-NSC-VAC14"
+              "class": "LAB-JOINT-SEM IIIMaths-VM III-MG2-VAC27"
+            },
+            {
+              "slot": "3:00 PM to 4:00 PM",
+              "class": "LAB-JOINT-SEM IIIMaths-VM III-MG2-VAC27"
             }
           ]
         },
@@ -16102,7 +16102,7 @@ window.SRCC_DATA = {
             },
             {
               "slot": "2:00 PM to 3:00 PM",
-              "class": "LAB-JOINT-SEM IIIMaths-VM III-MG2-VAC27"
+              "class": "L-JOINT-SEM IIICommerce-EC-NSC-VAC14"
             },
             {
               "slot": "3:00 PM to 4:00 PM",
