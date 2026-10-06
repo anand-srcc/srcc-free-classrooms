@@ -4060,6 +4060,104 @@ body {
   color: var(--text-primary);
 }
 
+/* One-Time Faculty Leave Notification Opt-in Prompt Banner */
+.leave-notif-banner {
+  background: linear-gradient(135deg, #1e1b4b, #312e81);
+  color: #ffffff;
+  border-bottom: 2px solid #818cf8;
+  padding: 10px 16px;
+  position: relative;
+  z-index: 150;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  animation: slideDownBanner 0.3s ease-out;
+}
+
+@keyframes slideDownBanner {
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.leave-notif-banner-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.leave-notif-bell-icon {
+  font-size: 1.3rem;
+  animation: ringBell 2s infinite ease-in-out;
+}
+
+@keyframes ringBell {
+  0%, 100% { transform: rotate(0deg); }
+  10%, 30% { transform: rotate(-14deg); }
+  20%, 40% { transform: rotate(14deg); }
+  50% { transform: rotate(0deg); }
+}
+
+.leave-notif-text {
+  flex: 1;
+  min-width: 220px;
+  font-size: 0.84rem;
+  line-height: 1.35;
+}
+
+.leave-notif-text strong {
+  display: block;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #fbbf24;
+}
+
+.leave-notif-text span {
+  color: #e0e7ff;
+}
+
+.leave-notif-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-notif-allow {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  color: #0f172a;
+  border: none;
+  border-radius: 9999px;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.4);
+}
+
+.btn-notif-allow:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(245, 158, 11, 0.6);
+}
+
+.btn-notif-dismiss {
+  background: rgba(255, 255, 255, 0.15);
+  color: #e0e7ff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 9999px;
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-notif-dismiss:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
 /* Subtle Footer Admin Portal Link */
 .footer-admin-link {
   color: var(--text-muted);

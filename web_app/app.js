@@ -334,6 +334,28 @@ document.addEventListener('DOMContentLoaded', () => {
       }) || null;
     }
 
+    // Single unified, deduplicated active leaves helper for today or selected date
+    function getActiveTodayLeaves(checkDateStr) {
+      const targetDate = checkDateStr || getTodayIsoDate();
+      const allLeaves = getLeavesList();
+      const active = allLeaves.filter(leave => {
+        if (!leave.start_date && !leave.end_date) return true;
+        const s = leave.start_date || '2000-01-01';
+        const e = leave.end_date || '2099-12-31';
+        return (targetDate >= s && targetDate <= e);
+      });
+
+      // Deduplicate by teacher ID or clean name so each professor is represented exactly once
+      const dedupMap = new Map();
+      active.forEach(l => {
+        const key = (l.teacher_id ? String(l.teacher_id) : '') || (l.teacher_name ? l.teacher_name.toLowerCase().trim() : '');
+        if (key && !dedupMap.has(key)) {
+          dedupMap.set(key, l);
+        }
+      });
+      return Array.from(dedupMap.values());
+    }
+
     // Reverse lookup map: given a room and a time slot on active day, find teacher and if on leave
     function getRoomScheduledTeacherLeave(roomCode, day, slot) {
       if (!teachersData || !teachersData.teachers) return null;
@@ -702,18 +724,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 100);
 
       const todayDate = getTodayIsoDate();
-      let onLeaveCount = 0;
-      if (typeof teachersData !== 'undefined' && teachersData && teachersData.teachers) {
-        onLeaveCount = teachersData.teachers.filter(t => isTeacherOnLeave(t, todayDate)).length;
-      } else {
-        const allLeaves = getLeavesList();
-        onLeaveCount = allLeaves.filter(l => {
-          if (!l.start_date && !l.end_date) return true;
-          const s = l.start_date || '2000-01-01';
-          const e = l.end_date || '2099-12-31';
-          return (todayDate >= s && todayDate <= e);
-        }).length;
-      }
+      const activeToday = getActiveTodayLeaves(todayDate);
+      const onLeaveCount = activeToday.length;
       showToast(`🏖️ Showing <strong>${onLeaveCount} ${onLeaveCount === 1 ? 'professor' : 'professors'}</strong> currently on leave today.`);
     }
 
@@ -2106,21 +2118,11 @@ ${freeSlotsList}
 
     // Active Leaves Callout Banner Renderer (Syncs across Rooms and Faculty Locator)
     function renderActiveLeavesBanners() {
-      const allLeaves = getLeavesList();
       const todayDate = getTodayIsoDate();
-      const activeToday = allLeaves.filter(l => {
-        if (!l.start_date && !l.end_date) return true;
-        const s = l.start_date || '2000-01-01';
-        const e = l.end_date || '2099-12-31';
-        return (todayDate >= s && todayDate <= e);
-      });
+      const activeToday = getActiveTodayLeaves(todayDate);
+      const count = activeToday.length;
 
       const buildBannerHtml = (context) => {
-        if (activeToday.length === 0) return '';
-        let count = activeToday.length;
-        if (typeof teachersData !== 'undefined' && teachersData && teachersData.teachers) {
-          count = teachersData.teachers.filter(t => isTeacherOnLeave(t, todayDate)).length;
-        }
         if (count === 0) return '';
         const profWord = count === 1 ? 'Professor is' : 'Professors are';
         return `
@@ -2134,7 +2136,7 @@ ${freeSlotsList}
       };
 
       if (activeLeavesRoomBanner) {
-        if (activeToday.length > 0) {
+        if (count > 0) {
           activeLeavesRoomBanner.innerHTML = buildBannerHtml('rooms');
           activeLeavesRoomBanner.style.display = 'flex';
           activeLeavesRoomBanner.onclick = openFacultyLeavesView;
@@ -2144,7 +2146,7 @@ ${freeSlotsList}
       }
 
       if (activeLeavesFacultyBanner) {
-        if (activeToday.length > 0) {
+        if (count > 0) {
           activeLeavesFacultyBanner.innerHTML = buildBannerHtml('faculty');
           activeLeavesFacultyBanner.style.display = 'flex';
           activeLeavesFacultyBanner.onclick = openFacultyLeavesView;
@@ -2154,8 +2156,8 @@ ${freeSlotsList}
       }
 
       if (headerLeavePill) {
-        if (activeToday.length > 0) {
-          headerLeavePill.textContent = `${activeToday.length} on leave • View`;
+        if (count > 0) {
+          headerLeavePill.textContent = `${count} on leave • View`;
           headerLeavePill.style.display = 'inline-block';
           headerLeavePill.onclick = openFacultyLeavesView;
         } else {
@@ -2170,10 +2172,10 @@ ${freeSlotsList}
         btnRoomsFacultyLeavesQuick.onclick = openFacultyLeavesView;
       }
       if (roomsQuickLeaveCount) {
-        roomsQuickLeaveCount.textContent = activeToday.length > 0
-          ? `${activeToday.length} on leave`
+        roomsQuickLeaveCount.textContent = count > 0
+          ? `${count} on leave`
           : '0 on leave';
-        roomsQuickLeaveCount.style.background = activeToday.length > 0 ? '#E11D48' : 'rgba(255, 255, 255, 0.15)';
+        roomsQuickLeaveCount.style.background = count > 0 ? '#E11D48' : 'rgba(255, 255, 255, 0.15)';
       }
 
       // Metric Tile in Faculty Locator ("On Leave Today")
@@ -3061,13 +3063,10 @@ ${freeSlotsList}
 
     function buildLeavesWhatsAppMessage(leavesList) {
       const today = getTodayIsoDate();
-      const activeList = (leavesList || []).filter(l => {
-        const e = l.end_date || l.start_date || today;
-        return e >= today;
-      });
+      const activeList = getActiveTodayLeaves(today);
 
       if (!activeList || activeList.length === 0) {
-        return `*SRCC Faculty Leave Update*\nNo professors are currently marked on leave.\n\n_Check free classrooms:_ ${getAppPublicUrl()}`;
+        return `*SRCC Faculty Leave Update*\nNo professors are currently marked on leave today.\n\n_Check free classrooms:_ ${getAppPublicUrl()}`;
       }
       const lines = activeList.map((l, idx) => {
         const code = l.teacher_code && !/^(cg|eg|mg|hg|hgc)\d*$/i.test(l.teacher_code) ? ` [${l.teacher_code}]` : '';
@@ -3080,20 +3079,14 @@ ${freeSlotsList}
 
     function renderActiveLeavesList() {
       if (!leavesListContainer) return;
-      const allLeaves = getLeavesList();
       const today = getTodayIsoDate();
-
-      // Filter out past expired leaves (leaves where end_date < today)
-      const leaves = allLeaves.filter(l => {
-        const e = l.end_date || l.start_date || today;
-        return e >= today;
-      });
+      const leaves = getActiveTodayLeaves(today);
 
       if (activeLeavesCount) activeLeavesCount.textContent = leaves.length;
       const roomsQuickLeaveCount = document.getElementById('roomsQuickLeaveCount');
       if (roomsQuickLeaveCount) roomsQuickLeaveCount.textContent = `${leaves.length} on leave`;
       if (headerLeavePill) {
-        headerLeavePill.textContent = `${leaves.length} on leave`;
+        headerLeavePill.textContent = `${leaves.length} on leave • View`;
         headerLeavePill.style.display = leaves.length > 0 ? 'inline-flex' : 'none';
       }
 
@@ -4121,12 +4114,222 @@ window.SRCC_FACULTY_LEAVES = {
     }
 
     // ========================================================================
+    // 👥 UNIQUE STUDENT VISITOR TRACKING (Firebase Realtime DB)
+    // ========================================================================
+    function trackStudentVisitor() {
+      try {
+        let visitorUuid = localStorage.getItem('srcc_student_uuid');
+        if (!visitorUuid) {
+          visitorUuid = 'v_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 9);
+          localStorage.setItem('srcc_student_uuid', visitorUuid);
+          localStorage.setItem('srcc_student_first_seen', new Date().toISOString());
+        }
+
+        const sessionLogged = sessionStorage.getItem('srcc_student_session_logged');
+        if (sessionLogged) return; // Only log once per session to conserve bandwidth
+        sessionStorage.setItem('srcc_student_session_logged', '1');
+
+        let cloudUrl = (window.SRCC_CLOUD_CONFIG && window.SRCC_CLOUD_CONFIG.db_url) || localStorage.getItem('srcc_cloud_db_url') || 'https://srcc-leaves-default-rtdb.firebaseio.com/leaves.json';
+        if (!cloudUrl) return;
+        let baseUrl = cloudUrl;
+        if (baseUrl.endsWith('/leaves.json')) {
+          baseUrl = baseUrl.substring(0, baseUrl.length - 12);
+        }
+
+        const payload = {
+          lastSeen: new Date().toISOString(),
+          firstSeen: localStorage.getItem('srcc_student_first_seen') || new Date().toISOString(),
+          platform: (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || 'web',
+          isPwa: window.matchMedia('(display-mode: standalone)').matches
+        };
+
+        fetch(`${baseUrl}/visitors/${visitorUuid}.json`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).catch(() => {});
+      } catch (e) {
+        console.warn('Visitor tracking note:', e);
+      }
+    }
+
+    // ========================================================================
+    // 🔔 FACULTY LEAVE LIVE NOTIFICATIONS SYSTEM
+    // ========================================================================
+    function notifyFacultyLeaves(activeLeaves, isLiveUpdate = false) {
+      if (!activeLeaves || activeLeaves.length === 0) return;
+      
+      const sig = activeLeaves.map(l => (l.teacher_name || '') + '_' + (l.start_date || '') + '_' + (l.end_date || '')).sort().join('|');
+      const lastSig = localStorage.getItem('srcc_last_notified_leaves');
+
+      if (sig === lastSig && !isLiveUpdate) {
+        return; // Already notified for this exact set of leaves
+      }
+
+      localStorage.setItem('srcc_last_notified_leaves', sig);
+
+      const count = activeLeaves.length;
+      let bodyText = '';
+      if (count === 1) {
+        bodyText = `Prof. ${activeLeaves[0].teacher_name} is marked on leave today. Check suspended classes & vacant rooms.`;
+      } else {
+        const topNames = activeLeaves.slice(0, 3).map(l => l.teacher_name).join(', ');
+        bodyText = `${count} professors on leave today (${topNames}${count > 3 ? '...' : ''}). Classrooms updated!`;
+      }
+
+      // 1. Browser Native Notification (if permitted)
+      if ('Notification' in window && Notification.permission === 'granted') {
+        try {
+          if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+            navigator.serviceWorker.ready.then(reg => {
+              reg.showNotification('SRCC Faculty Leave Alert 🏖️', {
+                body: bodyText,
+                icon: 'assets/srcc_crest.png',
+                badge: 'assets/srcc_crest.png',
+                tag: 'srcc-leave-alert',
+                renotify: true
+              });
+            }).catch(() => {
+              new Notification('SRCC Faculty Leave Alert 🏖️', {
+                body: bodyText,
+                icon: 'assets/srcc_crest.png',
+                tag: 'srcc-leave-alert'
+              });
+            });
+          } else {
+            new Notification('SRCC Faculty Leave Alert 🏖️', {
+              body: bodyText,
+              icon: 'assets/srcc_crest.png',
+              tag: 'srcc-leave-alert'
+            });
+          }
+        } catch (e) {
+          console.warn('Native notification trigger:', e);
+        }
+      }
+
+      // 2. In-app Toast Banner for live changes
+      if (isLiveUpdate) {
+        showToast(`🔔 <strong>Live Leave Update:</strong> ${escapeHtml(bodyText)} <button onclick="openFacultyLeavesView()" style="margin-left:8px; padding:3px 8px; border-radius:4px; border:none; background:#070D18; color:#fff; cursor:pointer; font-size:0.75rem;">View</button>`, true, 7000);
+      }
+    }
+
+    function initLeaveNotificationSystem() {
+      const banner = document.getElementById('leaveNotificationPromptBanner');
+      const btnAllow = document.getElementById('btnAllowLeaveNotif');
+      const btnDismiss = document.getElementById('btnDismissLeaveNotif');
+
+      const isPrompted = localStorage.getItem('srcc_leave_notif_prompted');
+
+      // Only prompt if user hasn't made a choice yet and browser supports Notifications
+      if (!isPrompted && 'Notification' in window && Notification.permission !== 'denied') {
+        setTimeout(() => {
+          if (banner) banner.style.display = 'block';
+        }, 1500);
+      }
+
+      if (btnAllow) {
+        btnAllow.addEventListener('click', async () => {
+          if (banner) banner.style.display = 'none';
+          localStorage.setItem('srcc_leave_notif_prompted', 'true');
+          localStorage.setItem('srcc_leave_notif_enabled', 'true');
+
+          if ('Notification' in window) {
+            try {
+              const perm = await Notification.requestPermission();
+              if (perm === 'granted') {
+                showToast('🔔 <strong>Notifications enabled!</strong> You will be notified whenever faculty members are on leave.', true, 4500);
+                const todayActive = getActiveTodayLeaves();
+                if (todayActive.length > 0) {
+                  notifyFacultyLeaves(todayActive, false);
+                }
+              } else {
+                showToast('ℹ️ Notifications declined. You can enable them anytime in browser settings.', false, 3500);
+              }
+            } catch (err) {
+              console.warn('Notification permission error:', err);
+            }
+          }
+        });
+      }
+
+      if (btnDismiss) {
+        btnDismiss.addEventListener('click', () => {
+          if (banner) banner.style.display = 'none';
+          localStorage.setItem('srcc_leave_notif_prompted', 'true');
+          localStorage.setItem('srcc_leave_notif_enabled', 'false');
+          showToast('ℹ️ Notification prompt dismissed.', false, 2500);
+        });
+      }
+
+      // If already enabled and granted, check active leaves
+      if (localStorage.getItem('srcc_leave_notif_enabled') === 'true' && 'Notification' in window && Notification.permission === 'granted') {
+        const todayActive = getActiveTodayLeaves();
+        if (todayActive.length > 0) {
+          notifyFacultyLeaves(todayActive, false);
+        }
+      }
+    }
+
+    // ========================================================================
+    // ☁️ LIVE BACKGROUND REALTIME DB SYNC (Every 45s)
+    // ========================================================================
+    function startLiveCloudLeavesSync() {
+      let cloudUrl = (window.SRCC_CLOUD_CONFIG && window.SRCC_CLOUD_CONFIG.db_url) || localStorage.getItem('srcc_cloud_db_url') || 'https://srcc-leaves-default-rtdb.firebaseio.com/leaves.json';
+      if (!cloudUrl) return;
+
+      setInterval(async () => {
+        try {
+          const res = await fetch(cloudUrl, { cache: 'no-cache' });
+          if (!res.ok) return;
+          const data = await res.json();
+          let newLeaves = [];
+          if (data && Array.isArray(data.leaves)) {
+            newLeaves = data.leaves;
+          } else if (Array.isArray(data)) {
+            newLeaves = data;
+          } else {
+            return;
+          }
+
+          const currentStored = localStorage.getItem(LEAVES_STORAGE_KEY) || '[]';
+          const newJson = JSON.stringify(newLeaves);
+          if (newJson !== currentStored) {
+            // New leaves update from cloud!
+            localStorage.setItem(LEAVES_STORAGE_KEY, newJson);
+            if (window.SRCC_FACULTY_LEAVES) {
+              window.SRCC_FACULTY_LEAVES.leaves = newLeaves;
+            } else {
+              window.SRCC_FACULTY_LEAVES = { leaves: newLeaves };
+            }
+            leavesData = window.SRCC_FACULTY_LEAVES;
+
+            // Re-render UI
+            renderActiveLeavesBanners();
+            render();
+            if (state.activeMode === 'faculty') renderFaculty();
+            if (typeof renderFacultyLeavesView === 'function' && document.getElementById('facultyLeavesView')?.style.display !== 'none') {
+              renderFacultyLeavesView();
+            }
+
+            // Trigger notification
+            const todayActive = getActiveTodayLeaves();
+            notifyFacultyLeaves(todayActive, true);
+          }
+        } catch (e) {}
+      }, 45000);
+    }
+
+    // ========================================================================
     // 🚀 INITIAL BOOTSTRAP
     // ========================================================================
     populateLeaveTeacherSelect();
     render();
     renderFaculty();
     initTimetableFeature();
+    trackStudentVisitor();
+    initLeaveNotificationSystem();
+    startLiveCloudLeavesSync();
   }
 });
 // --- PWA Installation Logic ---

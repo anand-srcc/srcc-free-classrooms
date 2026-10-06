@@ -148,12 +148,14 @@ document.addEventListener('DOMContentLoaded', () => {
     return defaultUsers;
   }
 
-  function saveStoredUsers(users) {
+  async function saveStoredUsers(users) {
     try {
       localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
-      syncUsersToCloud(users);
+      const ok = await syncUsersToCloud(users);
+      return ok;
     } catch (e) {
       console.error('Error saving admin users', e);
+      return false;
     }
   }
 
@@ -197,13 +199,34 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const hashed = await hashPasscode(val);
-      const users = getStoredUsers();
+      let users = getStoredUsers();
 
       let matchedUser = users.find(u => u.username.toLowerCase() === uInput);
       if (matchedUser) {
         const isMatch = (matchedUser.passwordHash === hashed) || 
                         (matchedUser.isSuper && !matchedUser.hasChangedPassword && (AUTH_HASHES.includes(hashed)));
         if (!isMatch) matchedUser = null;
+      }
+
+      // If local matching failed, check Firebase Cloud DB for newly created accounts or updated passwords
+      if (!matchedUser) {
+        try {
+          const cloudUsers = await fetchUsersFromCloud();
+          if (cloudUsers && Array.isArray(cloudUsers) && cloudUsers.length > 0) {
+            const cloudMatch = cloudUsers.find(u => u && u.username && u.username.toLowerCase() === uInput);
+            if (cloudMatch) {
+              const isMatch = (cloudMatch.passwordHash === hashed) || 
+                              (cloudMatch.isSuper && !cloudMatch.hasChangedPassword && (AUTH_HASHES.includes(hashed)));
+              if (isMatch) {
+                matchedUser = cloudMatch;
+                // Merge cloud users into local cache
+                localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(cloudUsers));
+              }
+            }
+          }
+        } catch (e) {
+          console.warn('Cloud user login fallback check error:', e);
+        }
       }
 
       if (matchedUser) {
@@ -636,6 +659,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const teacher = teachersData.teachers.find(t => String(t.id) === String(optVal));
         if (!teacher) return;
         
+        // Upsert: Remove existing leave for this teacher so the latest update takes precedence without duplication
+        const existingIdx = current.findIndex(l => 
+          (l.teacher_id && String(l.teacher_id) === String(teacher.id)) ||
+          (l.teacher_name && l.teacher_name.toLowerCase().trim() === teacher.clean_name.toLowerCase().trim())
+        );
+        if (existingIdx !== -1) {
+          current.splice(existingIdx, 1);
+        }
+
         const newLeave = {
           id: 'leave_' + Date.now() + '_' + Math.floor(Math.random()*1000),
           teacher_id: teacher.id,
@@ -768,6 +800,9 @@ document.addEventListener('DOMContentLoaded', () => {
             <a href="https://wa.me/?text=${encodeURIComponent(singleLeaveMsg)}" target="_blank" class="btn-share-wa" title="Share on WhatsApp">
               💬 Share
             </a>
+            <button class="btn-edit-leave" data-leave-id="${leave.id}" data-teacher-id="${leave.teacher_id || ''}" data-teacher-name="${escapeHtml(leave.teacher_name || '')}" data-start="${s}" data-end="${e}" data-reason="${escapeHtml(leave.reason || '')}" data-halfday="${leave.isHalfDay ? '1' : '0'}" style="background: #e0f2fe; border: 1px solid #7dd3fc; color: #0369a1; padding: 6px 12px; border-radius: 6px; font-size: 0.76rem; font-weight: 700; cursor: pointer; transition: all 0.15s ease;" title="Edit leave dates or reason">
+              ✏️ Edit
+            </button>
             <button class="btn-delete-leave" data-leave-id="${leave.id}" title="Remove leave and restore scheduled classes">
               ✕ Delete
             </button>
@@ -775,6 +810,33 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       `;
     }).join('');
+
+    adminLeavesListContainer.querySelectorAll('.btn-edit-leave').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tId = btn.dataset.teacherId;
+        const tName = btn.dataset.teacherName;
+        const s = btn.dataset.start;
+        const e = btn.dataset.end;
+        const reason = btn.dataset.reason;
+        const isHalfDay = btn.dataset.halfday === '1';
+
+        if (adminStartDate) adminStartDate.value = s;
+        if (adminEndDate) adminEndDate.value = e;
+        if (adminLeaveReason) adminLeaveReason.value = reason;
+        if (document.getElementById('adminHalfDayLeave')) document.getElementById('adminHalfDayLeave').checked = isHalfDay;
+
+        if (tId) {
+          selectedTeacherIds.clear();
+          selectedTeacherIds.add(String(tId));
+          if (adminTeacherSearch) adminTeacherSearch.value = tName;
+          populateTeacherSelect(tName);
+        }
+
+        const formCard = document.querySelector('.admin-section-card');
+        if (formCard) formCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        showToast(`✏️ Loaded <strong>${escapeHtml(tName)}</strong> into editor. Update dates/reason and click "Save & Apply".`, true, 5000);
+      });
+    });
 
     adminLeavesListContainer.querySelectorAll('.btn-delete-leave').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1111,17 +1173,18 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
 
     document.querySelectorAll('.btn-delete-admin-user').forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', async () => {
         const curActive = getActiveSessionUser();
-        if (!curActive.isSuper) {
-          showToast('⚠️ Only Super Administrators can remove accounts.', false);
+        const canManage = curActive.isSuper || curActive.role === 'Admin' || curActive.role === 'Super Admin';
+        if (!canManage) {
+          showToast('⚠️ Only Administrators can remove accounts.', false);
           return;
         }
         const uname = btn.dataset.username;
         if (confirm(`Remove administrator account "${uname}"? They will no longer be able to log in.`)) {
           let users = getStoredUsers();
           users = users.filter(u => u.username.toLowerCase() !== uname.toLowerCase());
-          saveStoredUsers(users);
+          await saveStoredUsers(users);
           renderAdminUsersList();
           showToast(`🗑️ Account <strong>${escapeHtml(uname)}</strong> removed successfully.`);
         }
@@ -1174,7 +1237,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const newHash = await hashPasscode(n1);
       users[userIdx].passwordHash = newHash;
       users[userIdx].hasChangedPassword = true;
-      saveStoredUsers(users);
+      users[userIdx].updatedAt = Date.now();
+      await saveStoredUsers(users);
 
       // Keep active session updated
       sessionStorage.setItem(ACTIVE_USER_SESSION_KEY, JSON.stringify({
@@ -1184,7 +1248,7 @@ document.addEventListener('DOMContentLoaded', () => {
         isSuper: !!users[userIdx].isSuper
       }));
 
-      showToast('✅ <strong>Password updated successfully!</strong> Old password is now deactivated.');
+      showToast('✅ <strong>Password updated and synced to Cloud Database!</strong> Old password is now deactivated.');
       if (pwdCurrent) pwdCurrent.value = '';
       if (pwdNew) pwdNew.value = '';
       if (pwdConfirm) pwdConfirm.value = '';
@@ -1196,8 +1260,9 @@ document.addEventListener('DOMContentLoaded', () => {
     formCreateAdminUser.addEventListener('submit', async (e) => {
       e.preventDefault();
       const activeUser = getActiveSessionUser();
-      if (!activeUser.isSuper) {
-        showToast('⚠️ Only Super Administrators can create new accounts.', false);
+      const canManage = activeUser.isSuper || activeUser.role === 'Admin' || activeUser.role === 'Super Admin';
+      if (!canManage) {
+        showToast('⚠️ Only Administrators can create new accounts.', false);
         return;
       }
 
@@ -1227,19 +1292,21 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const pwdHash = await hashPasscode(pwd);
+      const isSuperRole = (role === 'Admin' || role === 'Super Admin' || activeUser.isSuper);
       users.push({
         username: uname,
         fullName: name,
         role: role,
         passwordHash: pwdHash,
         createdAt: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
-        isSuper: false,
-        hasChangedPassword: true
+        isSuper: isSuperRole,
+        hasChangedPassword: true,
+        updatedAt: Date.now()
       });
 
-      saveStoredUsers(users);
+      await saveStoredUsers(users);
       renderAdminUsersList();
-      showToast(`🎉 <strong>Account created!</strong> User <code>${escapeHtml(uname)}</code> can now log in.`);
+      showToast(`🎉 <strong>Account created!</strong> User <code>${escapeHtml(uname)}</code> can now log in and is synced to Cloud Database.`);
       if (newUserUsername) newUserUsername.value = '';
       if (newUserFullName) newUserFullName.value = '';
       if (newUserPassword) newUserPassword.value = '';
@@ -1302,8 +1369,8 @@ document.addEventListener('DOMContentLoaded', () => {
             mergedMap.set(key, cu);
           } else {
             const local = mergedMap.get(key);
-            // If local hasn't changed password but cloud has, take cloud update
-            if (!local.hasChangedPassword && cu.hasChangedPassword) {
+            // If cloud has newer timestamp or local hasn't changed password, take cloud update
+            if ((cu.updatedAt && (!local.updatedAt || cu.updatedAt >= local.updatedAt)) || (!local.hasChangedPassword && cu.hasChangedPassword)) {
               mergedMap.set(key, cu);
             }
           }
