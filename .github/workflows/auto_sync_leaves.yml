@@ -24,11 +24,16 @@ jobs:
           python-version: '3.11'
           cache: 'pip'
 
-      - name: Install dependencies
+      - name: Install dependencies & Playwright
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           python -m playwright install --with-deps chromium
+
+      - name: Install Xvfb (Virtual Display for Turnstile Bypass)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
 
       - name: Run Live Faculty Leave Synchronizer
         env:
@@ -36,7 +41,7 @@ jobs:
           SRCC_PASS: ${{ secrets.SRCC_PASS || 'RFSCH250900681809' }}
           PLAYWRIGHT_STATE: ${{ secrets.PLAYWRIGHT_STATE }}
         run: |
-          python sync_leaves.py
+          xvfb-run --auto-servernum python sync_leaves.py --headed
 
       - name: Commit and push updated leaves
         id: commit_step
@@ -48,7 +53,7 @@ jobs:
             echo "No changes in faculty leaves."
             echo "committed=false" >> $GITHUB_OUTPUT
           else
-            git commit -m "🏖️ [Automated] Sync live faculty leaves from studentassistsrcc.app"
+            git commit -m "🏖️ [Automated] Sync live faculty leaves (Dual StudentAssist + Cloud DB)"
             git push
             echo "committed=true" >> $GITHUB_OUTPUT
           fi
@@ -59,4 +64,3 @@ jobs:
           NETLIFY_BUILD_HOOK: ${{ secrets.NETLIFY_BUILD_HOOK }}
         run: |
           curl -s -X POST -d '{}' "$NETLIFY_BUILD_HOOK"
-
