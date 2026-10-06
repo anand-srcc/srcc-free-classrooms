@@ -2,8 +2,8 @@ window.SRCC_TEACHERS_DATA = {
   "metadata": {
     "college": "Shri Ram College of Commerce (SRCC)",
     "total_teachers": 210,
-    "last_synced": "03 Oct 2026, 07:17 PM",
-    "last_synced_iso": "2026-10-03T19:17:00.833419",
+    "last_synced": "06 Oct 2026, 01:52 PM",
+    "last_synced_iso": "2026-10-06T13:52:25.894828",
     "departments": [
       "Commerce",
       "EVS",
@@ -190,7 +190,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "AAIC",
+      "ref_code": "cg16",
       "subjects": [
         "ITLP",
         "Income Tax Law and Practice"
@@ -367,7 +367,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "AB",
+      "ref_code": "hg4",
       "subjects": [
         "HB",
         "HD",
@@ -547,7 +547,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "21",
       "subjects": [
         "ITSA I",
         "Introduction to Statistics and Analysis I"
@@ -722,7 +722,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "24",
       "subjects": [
         "AS",
         "Applied Statistics"
@@ -866,7 +866,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "AC",
+      "ref_code": "cg11",
       "subjects": [
         "BIDV",
         "Business Intelligence & Data Visualization"
@@ -1041,7 +1041,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "AG11",
+      "ref_code": "11",
       "subjects": [
         "Intro MME",
         "Introductory Mathematical Methods for Economics"
@@ -1202,7 +1202,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "ASC",
+      "ref_code": "cg28",
       "subjects": [
         "EP",
         "Economic Policy",
@@ -1367,7 +1367,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "ANC",
+      "ref_code": "cg1",
       "subjects": [
         "BIDV",
         "Business Intelligence & Data Visualization",
@@ -1530,7 +1530,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "ANIC",
+      "ref_code": "cg10",
       "subjects": [
         "CAS",
         "Cost Accounting System",
@@ -1711,7 +1711,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AJC",
+      "ref_code": "cg17",
       "subjects": [
         "EI",
         "Economics of Industry",
@@ -1890,7 +1890,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AGC",
+      "ref_code": "cg23",
       "subjects": [
         "BLAW",
         "Business Law",
@@ -2037,7 +2037,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "AIC",
+      "ref_code": "cg32",
       "subjects": [
         "BIT",
         "Business Information Technologies",
@@ -2201,7 +2201,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "APC",
+      "ref_code": "cg22",
       "subjects": [
         "PFP",
         "Personal Financial Planning",
@@ -2348,7 +2348,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AHC",
+      "ref_code": "cg25",
       "subjects": [
         "BLAW",
         "BRM",
@@ -2494,7 +2494,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "cg30",
       "subjects": [
         "BIT",
         "Business Information Technologies"
@@ -2656,7 +2656,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "CB29",
+      "ref_code": "29",
       "subjects": [
         "BDE",
         "Business Data Ecosystem",
@@ -2670,71 +2670,20 @@ window.SRCC_TEACHERS_DATA = {
       "id": "689",
       "label": "Commerce Guest 36",
       "clean_name": "Commerce Guest 36",
-      "short_code": "ECOM",
+      "short_code": "",
       "initials": "CG",
       "department": "Commerce",
-      "total_teaching_periods": 3,
+      "total_teaching_periods": 0,
       "schedule": {
         "Monday": [],
-        "Tuesday": [
-          {
-            "raw": "L-BAHE-A-SEM VIICommerce-ECom-PB3",
-            "display": "L-BAHE-A-SEM VIICommerce-ECom-PB3",
-            "type": "Lecture",
-            "room": "PB3",
-            "course": "B.A. (Hons) Economics",
-            "semester": "Sem VII",
-            "section": "Sec A",
-            "batch": "",
-            "raw_batch": "",
-            "subject": "ECom",
-            "subject_name": "E-Commerce",
-            "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "E-Commerce (ECom) · B.A. (Hons) Economics · Sem VII · Sec A"
-          }
-        ],
+        "Tuesday": [],
         "Wednesday": [],
-        "Thursday": [
-          {
-            "raw": "L-BAHE-A-SEM VIICommerce-ECom-PB2",
-            "display": "L-BAHE-A-SEM VIICommerce-ECom-PB2",
-            "type": "Lecture",
-            "room": "PB2",
-            "course": "B.A. (Hons) Economics",
-            "semester": "Sem VII",
-            "section": "Sec A",
-            "batch": "",
-            "raw_batch": "",
-            "subject": "ECom",
-            "subject_name": "E-Commerce",
-            "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "E-Commerce (ECom) · B.A. (Hons) Economics · Sem VII · Sec A"
-          }
-        ],
-        "Friday": [
-          {
-            "raw": "L-BAHE-A-SEM VIICommerce-ECom-PB3",
-            "display": "L-BAHE-A-SEM VIICommerce-ECom-PB3",
-            "type": "Lecture",
-            "room": "PB3",
-            "course": "B.A. (Hons) Economics",
-            "semester": "Sem VII",
-            "section": "Sec A",
-            "batch": "",
-            "raw_batch": "",
-            "subject": "ECom",
-            "subject_name": "E-Commerce",
-            "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "E-Commerce (ECom) · B.A. (Hons) Economics · Sem VII · Sec A"
-          }
-        ],
+        "Thursday": [],
+        "Friday": [],
         "Saturday": []
       },
-      "ref_code": "ECOM",
-      "subjects": [
-        "E-Commerce",
-        "ECom"
-      ]
+      "ref_code": "",
+      "subjects": []
     },
     {
       "id": "690",
@@ -3015,7 +2964,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "DA",
+      "ref_code": "10",
       "subjects": [
         "EHI",
         "Economic History of India",
@@ -3147,7 +3096,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "cg13",
       "subjects": [
         "DE",
         "Development Economics",
@@ -3446,7 +3395,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "AOK",
+      "ref_code": "",
       "subjects": [
         "FA",
         "Financial Accounting"
@@ -3683,7 +3632,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "ANK",
+      "ref_code": "",
       "subjects": [
         "MPA",
         "Management Principles and Applications",
@@ -4012,7 +3961,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "ATS",
+      "ref_code": "",
       "subjects": [
         "CAS",
         "Cost Accounting System",
@@ -4281,7 +4230,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "AG",
+      "ref_code": "",
       "subjects": [
         "IM",
         "International Marketing",
@@ -4552,7 +4501,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "ATK",
+      "ref_code": "",
       "subjects": [
         "DM",
         "Digital Marketing",
@@ -4791,7 +4740,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AMS",
+      "ref_code": "",
       "subjects": [
         "BECON",
         "Business Economics",
@@ -4803,240 +4752,20 @@ window.SRCC_TEACHERS_DATA = {
       "id": "569",
       "label": "Dr. Anisha",
       "clean_name": "Dr. Anisha",
-      "short_code": "ASA",
+      "short_code": "",
       "initials": "DA",
       "department": "Commerce",
-      "total_teaching_periods": 14,
+      "total_teaching_periods": 0,
       "schedule": {
-        "Monday": [
-          {
-            "raw": "L-BCH-B-SEM IIICommerce-POM-R18",
-            "display": "L-BCH-B-SEM IIICommerce-POM-R18",
-            "type": "Lecture",
-            "room": "R18",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec B",
-            "batch": "",
-            "raw_batch": "",
-            "subject": "POM",
-            "subject_name": "Principles of Marketing",
-            "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec B"
-          },
-          {
-            "raw": "L-BCH-H-SEM IIICommerce-POM-R21",
-            "display": "L-BCH-H-SEM IIICommerce-POM-R21",
-            "type": "Lecture",
-            "room": "R21",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec H",
-            "batch": "",
-            "raw_batch": "",
-            "subject": "POM",
-            "subject_name": "Principles of Marketing",
-            "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec H"
-          },
-          {
-            "raw": "T-BCH-F-SEM IIICommerce-POM-T8-F2",
-            "display": "T-BCH-F-SEM IIICommerce-POM-T8-F2",
-            "type": "Tutorial",
-            "room": "T8",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec F",
-            "batch": "F2",
-            "raw_batch": "F2",
-            "subject": "POM",
-            "subject_name": "Principles of Marketing",
-            "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec F · (F2)"
-          }
-        ],
-        "Tuesday": [
-          {
-            "raw": "L-BCH-H-SEM IIICommerce-POM-R18",
-            "display": "L-BCH-H-SEM IIICommerce-POM-R18",
-            "type": "Lecture",
-            "room": "R18",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec H",
-            "batch": "",
-            "raw_batch": "",
-            "subject": "POM",
-            "subject_name": "Principles of Marketing",
-            "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec H"
-          },
-          {
-            "raw": "T-BCH-D-SEM ICommerce-MPA-T8-D3",
-            "display": "T-BCH-D-SEM ICommerce-MPA-T8-D3",
-            "type": "Tutorial",
-            "room": "T8",
-            "course": "B.Com (Hons)",
-            "semester": "Sem I",
-            "section": "Sec D",
-            "batch": "D3",
-            "raw_batch": "D3",
-            "subject": "MPA",
-            "subject_name": "Management Principles and Applications",
-            "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec D · (D3)"
-          },
-          {
-            "raw": "T-BCH-K-SEM IIICommerce-POM-T8-K3",
-            "display": "T-BCH-K-SEM IIICommerce-POM-T8-K3",
-            "type": "Tutorial",
-            "room": "T8",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec K",
-            "batch": "K3",
-            "raw_batch": "K3",
-            "subject": "POM",
-            "subject_name": "Principles of Marketing",
-            "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec K · (K3)"
-          }
-        ],
-        "Wednesday": [
-          {
-            "raw": "L-BCH-B-SEM IIICommerce-POM-R18",
-            "display": "L-BCH-B-SEM IIICommerce-POM-R18",
-            "type": "Lecture",
-            "room": "R18",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec B",
-            "batch": "",
-            "raw_batch": "",
-            "subject": "POM",
-            "subject_name": "Principles of Marketing",
-            "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec B"
-          },
-          {
-            "raw": "T-BCH-D-SEM ICommerce-MPA-T8-D2",
-            "display": "T-BCH-D-SEM ICommerce-MPA-T8-D2",
-            "type": "Tutorial",
-            "room": "T8",
-            "course": "B.Com (Hons)",
-            "semester": "Sem I",
-            "section": "Sec D",
-            "batch": "D2",
-            "raw_batch": "D2",
-            "subject": "MPA",
-            "subject_name": "Management Principles and Applications",
-            "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec D · (D2)"
-          },
-          {
-            "raw": "T-BCH-F-SEM IIICommerce-POM-T27-F1",
-            "display": "T-BCH-F-SEM IIICommerce-POM-T27-F1",
-            "type": "Tutorial",
-            "room": "T27",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec F",
-            "batch": "F1",
-            "raw_batch": "F1",
-            "subject": "POM",
-            "subject_name": "Principles of Marketing",
-            "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec F · (F1)"
-          }
-        ],
-        "Thursday": [
-          {
-            "raw": "L-BCH-H-SEM IIICommerce-POM-R18",
-            "display": "L-BCH-H-SEM IIICommerce-POM-R18",
-            "type": "Lecture",
-            "room": "R18",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec H",
-            "batch": "",
-            "raw_batch": "",
-            "subject": "POM",
-            "subject_name": "Principles of Marketing",
-            "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec H"
-          },
-          {
-            "raw": "T-BCH-F-SEM IIICommerce-POM-T8-F3",
-            "display": "T-BCH-F-SEM IIICommerce-POM-T8-F3",
-            "type": "Tutorial",
-            "room": "T8",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec F",
-            "batch": "F3",
-            "raw_batch": "F3",
-            "subject": "POM",
-            "subject_name": "Principles of Marketing",
-            "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec F · (F3)"
-          }
-        ],
-        "Friday": [
-          {
-            "raw": "L-BCH-B-SEM IIICommerce-POM-R2",
-            "display": "L-BCH-B-SEM IIICommerce-POM-R2",
-            "type": "Lecture",
-            "room": "R2",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec B",
-            "batch": "",
-            "raw_batch": "",
-            "subject": "POM",
-            "subject_name": "Principles of Marketing",
-            "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec B"
-          },
-          {
-            "raw": "T-BCH-K-SEM IIICommerce-POM-T8-K1",
-            "display": "T-BCH-K-SEM IIICommerce-POM-T8-K1",
-            "type": "Tutorial",
-            "room": "T8",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec K",
-            "batch": "K1",
-            "raw_batch": "K1",
-            "subject": "POM",
-            "subject_name": "Principles of Marketing",
-            "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec K · (K1)"
-          },
-          {
-            "raw": "T-BCH-D-SEM IIICommerce-POM-T31-D1",
-            "display": "T-BCH-D-SEM IIICommerce-POM-T31-D1",
-            "type": "Tutorial",
-            "room": "T31",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec D",
-            "batch": "D1",
-            "raw_batch": "D1",
-            "subject": "POM",
-            "subject_name": "Principles of Marketing",
-            "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec D · (D1)"
-          }
-        ],
+        "Monday": [],
+        "Tuesday": [],
+        "Wednesday": [],
+        "Thursday": [],
+        "Friday": [],
         "Saturday": []
       },
-      "ref_code": "ASA",
-      "subjects": [
-        "MPA",
-        "Management Principles and Applications",
-        "POM",
-        "Principles of Marketing"
-      ]
+      "ref_code": "",
+      "subjects": []
     },
     {
       "id": "527",
@@ -5284,7 +5013,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "AJJ",
+      "ref_code": "",
       "subjects": [
         "BECON",
         "BLAW",
@@ -5613,7 +5342,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "AAA",
+      "ref_code": "",
       "subjects": [
         "BADS",
         "Business Analytics & Data Science",
@@ -5942,7 +5671,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AAR",
+      "ref_code": "",
       "subjects": [
         "BMATH",
         "Business Mathematics",
@@ -6181,7 +5910,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AKJ",
+      "ref_code": "",
       "subjects": [
         "GT",
         "Game Theory",
@@ -6450,7 +6179,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "AKS",
+      "ref_code": "",
       "subjects": [
         "DE",
         "Development Economics",
@@ -6779,7 +6508,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "BLK",
+      "ref_code": "",
       "subjects": [
         "BLAW",
         "Business Law",
@@ -7108,7 +6837,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "DAB",
+      "ref_code": "",
       "subjects": [
         "ACR",
         "AIS",
@@ -7410,7 +7139,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "DTY",
+      "ref_code": "",
       "subjects": [
         "BRM",
         "Business Research Methods",
@@ -7621,7 +7350,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "ENN",
+      "ref_code": "",
       "subjects": [
         "IDE",
         "Issues in Development Economics"
@@ -7858,7 +7587,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "FYV",
+      "ref_code": "",
       "subjects": [
         "EVS-I",
         "Environmental Studies I (Theory into Practice)"
@@ -8125,7 +7854,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "JDP",
+      "ref_code": "",
       "subjects": [
         "E-Commerce",
         "ECom",
@@ -8396,7 +8125,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "JTW",
+      "ref_code": "",
       "subjects": [
         "BECON",
         "Business Economics",
@@ -8667,7 +8396,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "KKS",
+      "ref_code": "",
       "subjects": [
         "AUD",
         "Auditing and Corporate Governance",
@@ -8936,7 +8665,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "KAG",
+      "ref_code": "",
       "subjects": [
         "CW",
         "Creative Writing",
@@ -9362,7 +9091,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "KD",
+      "ref_code": "",
       "subjects": [
         "PE",
         "Political Economy",
@@ -9631,7 +9360,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "KK",
+      "ref_code": "",
       "subjects": [
         "GBS",
         "Global Business Strategy",
@@ -10201,7 +9930,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "KTK",
+      "ref_code": "",
       "subjects": [
         "HFPE",
         "Health, Fitness & Physical Education",
@@ -10442,7 +10171,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "LVV",
+      "ref_code": "",
       "subjects": [
         "CVFD",
         "Corporate Valuation & Financial Decisions",
@@ -10726,7 +10455,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "MIG",
+      "ref_code": "",
       "subjects": [
         "DE",
         "Development Economics",
@@ -11121,7 +10850,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "MG",
+      "ref_code": "",
       "subjects": [
         "DnD",
         "EOE",
@@ -11420,7 +11149,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "NGG",
+      "ref_code": "",
       "subjects": [
         "FA",
         "Financial Accounting"
@@ -11747,7 +11476,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "NJA",
+      "ref_code": "",
       "subjects": [
         "BMATH",
         "BRM",
@@ -12016,7 +11745,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "NAD",
+      "ref_code": "",
       "subjects": [
         "AUD",
         "Auditing and Corporate Governance",
@@ -12285,7 +12014,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "PKK",
+      "ref_code": "",
       "subjects": [
         "BRM",
         "Business Research Methods",
@@ -12719,7 +12448,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "PRS",
+      "ref_code": "",
       "subjects": [
         "DMS",
         "Database Management Systems",
@@ -13051,7 +12780,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "PRA",
+      "ref_code": "",
       "subjects": [
         "AUD",
         "Auditing and Corporate Governance",
@@ -13380,7 +13109,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "PAC",
+      "ref_code": "",
       "subjects": [
         "DA",
         "Data Analysis",
@@ -13709,7 +13438,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "PAA",
+      "ref_code": "",
       "subjects": [
         "FA",
         "Financial Accounting",
@@ -14008,7 +13737,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "RKS",
+      "ref_code": "",
       "subjects": [
         "FA",
         "Financial Accounting"
@@ -14264,7 +13993,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "RAK",
+      "ref_code": "",
       "subjects": [
         "IMA I",
         "IMIC1",
@@ -14668,7 +14397,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "RK",
+      "ref_code": "",
       "subjects": [
         "DnD",
         "ED",
@@ -14930,7 +14659,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "RB",
+      "ref_code": "",
       "subjects": [
         "AdTrix",
         "Advertising and Media Management",
@@ -15218,7 +14947,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "RAS",
+      "ref_code": "",
       "subjects": [
         "BRM",
         "Business Research Methods",
@@ -15457,7 +15186,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "SNK",
+      "ref_code": "",
       "subjects": [
         "BECON",
         "Business Economics"
@@ -15694,7 +15423,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "SSS",
+      "ref_code": "",
       "subjects": [
         "ABH",
         "Anuvad: Vyavahar aur Siddhant",
@@ -15993,7 +15722,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "SPB",
+      "ref_code": "",
       "subjects": [
         "DTHRS",
         "Design Thinking & HR Systems",
@@ -16326,7 +16055,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SJJ",
+      "ref_code": "",
       "subjects": [
         "CAS",
         "Cost Accounting System",
@@ -16655,7 +16384,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "SAA",
+      "ref_code": "",
       "subjects": [
         "CAS",
         "Cost Accounting System",
@@ -16924,7 +16653,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SHG",
+      "ref_code": "",
       "subjects": [
         "AUD",
         "Auditing and Corporate Governance",
@@ -17253,7 +16982,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SIA",
+      "ref_code": "",
       "subjects": [
         "BLAW",
         "Business Law",
@@ -17522,7 +17251,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "SVP",
+      "ref_code": "",
       "subjects": [
         "BLAW",
         "Business Law",
@@ -17791,7 +17520,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SFK",
+      "ref_code": "",
       "subjects": [
         "IGT",
         "Interactive Game Theory",
@@ -18120,7 +17849,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SAG",
+      "ref_code": "",
       "subjects": [
         "BMATH",
         "BRM",
@@ -18419,7 +18148,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "SAR",
+      "ref_code": "",
       "subjects": [
         "ACPA",
         "Accounting & Auditing",
@@ -18690,7 +18419,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SVK",
+      "ref_code": "",
       "subjects": [
         "DE",
         "Development Economics",
@@ -19021,7 +18750,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "SIM",
+      "ref_code": "",
       "subjects": [
         "FM",
         "Financial Management"
@@ -19318,7 +19047,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SLG",
+      "ref_code": "",
       "subjects": [
         "MA",
         "Management Accounting"
@@ -19585,7 +19314,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "SNS",
+      "ref_code": "",
       "subjects": [
         "BRM",
         "Business Research Methods",
@@ -20004,7 +19733,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SAS",
+      "ref_code": "",
       "subjects": [
         "NM",
         "Numerical Methods"
@@ -20331,7 +20060,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "YAM",
+      "ref_code": "",
       "subjects": [
         "BLAW",
         "BMATH",
@@ -20485,7 +20214,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "EG22",
+      "ref_code": "",
       "subjects": [
         "AS",
         "Applied Statistics",
@@ -20632,7 +20361,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "EG23",
+      "ref_code": "",
       "subjects": [
         "AS",
         "Applied Statistics",
@@ -20778,7 +20507,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "EG30",
+      "ref_code": "",
       "subjects": [
         "AS",
         "Applied Statistics"
@@ -20854,7 +20583,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "ENG",
+      "ref_code": "",
       "subjects": [
         "CPL",
         "Corporate Planning & Law"
@@ -21001,7 +20730,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "EVSG1",
+      "ref_code": "",
       "subjects": [
         "EVS-I",
         "Environmental Studies I (Theory into Practice)"
@@ -21147,7 +20876,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "EVSG2",
+      "ref_code": "",
       "subjects": [
         "EVS-I",
         "Environmental Studies I (Theory into Practice)"
@@ -21293,7 +21022,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "EVSG3",
+      "ref_code": "",
       "subjects": [
         "EVS-I",
         "Environmental Studies I (Theory into Practice)"
@@ -21474,7 +21203,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "GYC",
+      "ref_code": "",
       "subjects": [
         "BMATH",
         "Business Mathematics"
@@ -21635,7 +21364,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "HNC",
+      "ref_code": "cg7",
       "subjects": [
         "E-Commerce",
         "EC"
@@ -21795,7 +21524,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "HGC",
+      "ref_code": "cg12",
       "subjects": [
         "ITLP",
         "Income Tax Law and Practice"
@@ -21970,7 +21699,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "HC",
+      "ref_code": "16",
       "subjects": [
         "Adv MME",
         "Advanced Mathematical Methods for Economics"
@@ -22085,7 +21814,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "HGC",
+      "ref_code": "cg24",
       "subjects": [
         "BLAW",
         "Business Law"
@@ -22245,7 +21974,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "HC",
+      "ref_code": "cg4",
       "subjects": [
         "PFP",
         "Personal Financial Planning",
@@ -22513,7 +22242,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "HT5",
+      "ref_code": "5",
       "subjects": [
         "BDE",
         "Business Data Ecosystem",
@@ -22711,7 +22440,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "HC26",
+      "ref_code": "26",
       "subjects": [
         "BDE",
         "Business Data Ecosystem",
@@ -22997,7 +22726,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "IT3",
+      "ref_code": "3",
       "subjects": [
         "DnD",
         "Negotiation and Deal Making"
@@ -23143,7 +22872,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "JK12",
+      "ref_code": "12",
       "subjects": [
         "GBS",
         "Global Business Strategy",
@@ -23306,7 +23035,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "KG1",
+      "ref_code": "1",
       "subjects": [
         "MB",
         "Money and Banking",
@@ -23484,7 +23213,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "25",
       "subjects": [
         "Adv MME",
         "Advanced Mathematical Methods for Economics",
@@ -23663,7 +23392,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "KG7",
+      "ref_code": "7",
       "subjects": [
         "ISME",
         "Introductory Statistics for Economics"
@@ -23839,7 +23568,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "KG",
+      "ref_code": "13",
       "subjects": [
         "IMIC1",
         "Intermediate Microeconomics I"
@@ -24000,7 +23729,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "MAC",
+      "ref_code": "cg5",
       "subjects": [
         "EI",
         "Economics of Industry"
@@ -24175,7 +23904,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "MR",
+      "ref_code": "14",
       "subjects": [
         "IMIC1",
         "Intermediate Microeconomics I"
@@ -24350,7 +24079,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "",
+      "ref_code": "15",
       "subjects": [
         "Adv MME",
         "Advanced Mathematical Methods for Economics"
@@ -24526,7 +24255,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "MG1",
+      "ref_code": "",
       "subjects": [
         "ITSA I",
         "ITSA II",
@@ -24707,7 +24436,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "MG2",
+      "ref_code": "",
       "subjects": [
         "VM I",
         "VM II",
@@ -24936,7 +24665,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "MKG",
+      "ref_code": "cg34",
       "subjects": [
         "CFCR",
         "Corporate Finance & Restructuring",
@@ -25084,7 +24813,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "cg2",
       "subjects": [
         "SET",
         "Statistical Economics & Techniques"
@@ -25245,7 +24974,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "NSC",
+      "ref_code": "cg8",
       "subjects": [
         "BIDV",
         "Business Intelligence & Data Visualization",
@@ -25533,7 +25262,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AKY",
+      "ref_code": "",
       "subjects": [
         "DE",
         "Development Economics",
@@ -25862,7 +25591,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "ALK",
+      "ref_code": "",
       "subjects": [
         "FM",
         "Financial Management",
@@ -26161,7 +25890,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AVB",
+      "ref_code": "",
       "subjects": [
         "AUD",
         "Auditing and Corporate Governance",
@@ -26430,7 +26159,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AK",
+      "ref_code": "",
       "subjects": [
         "IM",
         "International Marketing",
@@ -26699,7 +26428,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "GVR",
+      "ref_code": "",
       "subjects": [
         "IE",
         "International Economics",
@@ -26968,7 +26697,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "HHK",
+      "ref_code": "",
       "subjects": [
         "BFIM",
         "Banking & Financial Institutions Management",
@@ -27318,7 +27047,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "KNK",
+      "ref_code": "",
       "subjects": [
         "ITLP",
         "Income Tax Law and Practice",
@@ -27587,7 +27316,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "MDH",
+      "ref_code": "",
       "subjects": [
         "IBS",
         "International Business Strategy",
@@ -28010,7 +27739,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "RHR",
+      "ref_code": "",
       "subjects": [
         "IIPT",
         "Indian Political Thought",
@@ -28304,7 +28033,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SKC",
+      "ref_code": "",
       "subjects": [
         "GF",
         "Global Finance",
@@ -28558,7 +28287,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "SOC",
+      "ref_code": "",
       "subjects": [
         "CPL",
         "CW",
@@ -28834,7 +28563,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SUY",
+      "ref_code": "",
       "subjects": [
         "BLAW",
         "Business Law",
@@ -29105,7 +28834,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SLK",
+      "ref_code": "",
       "subjects": [
         "EVS-I",
         "Environmental Studies I (Theory into Practice)"
@@ -29372,7 +29101,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "VIS",
+      "ref_code": "",
       "subjects": [
         "BRM",
         "Business Research Methods",
@@ -29611,7 +29340,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AKG",
+      "ref_code": "",
       "subjects": [
         "BRM",
         "Business Research Methods",
@@ -29940,7 +29669,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "AUV",
+      "ref_code": "",
       "subjects": [
         "BMATH",
         "Business Mathematics",
@@ -30230,7 +29959,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "AAG",
+      "ref_code": "",
       "subjects": [
         "BLAW",
         "BM",
@@ -30499,7 +30228,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AGD",
+      "ref_code": "",
       "subjects": [
         "GBS",
         "Global Business Strategy"
@@ -30766,7 +30495,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "CG",
+      "ref_code": "",
       "subjects": [
         "CFD",
         "Corporate Financial Decisions",
@@ -31035,7 +30764,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "HA",
+      "ref_code": "",
       "subjects": [
         "DnD",
         "Negotiation and Deal Making",
@@ -31304,7 +31033,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "KRA",
+      "ref_code": "",
       "subjects": [
         "FM",
         "Financial Management"
@@ -31631,7 +31360,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "LKB",
+      "ref_code": "",
       "subjects": [
         "MPA",
         "Management Principles and Applications",
@@ -31930,7 +31659,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "MTS",
+      "ref_code": "",
       "subjects": [
         "BMATH",
         "Business Mathematics"
@@ -32156,7 +31885,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "PB",
+      "ref_code": "",
       "subjects": [
         "ISME",
         "Introductory Statistics for Economics"
@@ -32393,7 +32122,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "RUA",
+      "ref_code": "",
       "subjects": [
         "MPA",
         "Management Principles and Applications",
@@ -32662,7 +32391,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SHS",
+      "ref_code": "",
       "subjects": [
         "PME-I",
         "Principles of Microeconomics I"
@@ -32989,7 +32718,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "VIC",
+      "ref_code": "",
       "subjects": [
         "FP",
         "Financial Planning",
@@ -33340,7 +33069,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "MK4",
+      "ref_code": "4",
       "subjects": [
         "BDE",
         "Business Data Ecosystem"
@@ -33425,7 +33154,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "MSN28",
+      "ref_code": "28",
       "subjects": [
         "CFD",
         "Corporate Financial Decisions"
@@ -33602,7 +33331,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "BMATH",
+      "ref_code": "",
       "subjects": [
         "BMATH",
         "Business Mathematics",
@@ -33766,7 +33495,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "NC",
+      "ref_code": "cg33",
       "subjects": [
         "DE",
         "Development Economics",
@@ -33915,7 +33644,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "NBC",
+      "ref_code": "cg9",
       "subjects": [
         "BIT",
         "Business Information Technologies",
@@ -34080,7 +33809,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "PB27",
+      "ref_code": "27",
       "subjects": [
         "PME-I",
         "Principles of Microeconomics I"
@@ -34102,7 +33831,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "cg31",
       "subjects": []
     },
     {
@@ -34285,7 +34014,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "PSG1",
+      "ref_code": "",
       "subjects": [
         "NL",
         "Nationalism in India"
@@ -34491,7 +34220,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "PSG2",
+      "ref_code": "",
       "subjects": [
         "GIC",
         "Global Institutions and Commerce",
@@ -34984,7 +34713,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "PC",
+      "ref_code": "cg14",
       "subjects": [
         "IE",
         "ITLP",
@@ -35055,7 +34784,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "PKC",
+      "ref_code": "cg26",
       "subjects": [
         "PM",
         "Project Management"
@@ -35292,7 +35021,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AYJ",
+      "ref_code": "",
       "subjects": [
         "BF",
         "BLAW",
@@ -35531,7 +35260,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AAJ",
+      "ref_code": "",
       "subjects": [
         "AUD",
         "Auditing and Corporate Governance",
@@ -35770,7 +35499,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "DPE",
+      "ref_code": "",
       "subjects": [
         "ABH",
         "Anuvad: Vyavahar aur Siddhant",
@@ -36069,7 +35798,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "HNT",
+      "ref_code": "",
       "subjects": [
         "FA",
         "FM",
@@ -36278,7 +36007,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "KIJ",
+      "ref_code": "",
       "subjects": [
         "BLAW",
         "BSC",
@@ -36517,7 +36246,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "MAK",
+      "ref_code": "",
       "subjects": [
         "BECON",
         "Business Economics",
@@ -36816,7 +36545,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "NNM",
+      "ref_code": "",
       "subjects": [
         "ITLP",
         "Income Tax Law and Practice"
@@ -37053,7 +36782,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "PRD",
+      "ref_code": "",
       "subjects": [
         "BECON",
         "Business Economics",
@@ -37352,7 +37081,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "RAJ",
+      "ref_code": "",
       "subjects": [
         "FM",
         "Financial Management"
@@ -37589,7 +37318,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "RJ",
+      "ref_code": "",
       "subjects": [
         "GT",
         "Game Theory",
@@ -37798,7 +37527,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "RIS",
+      "ref_code": "",
       "subjects": [
         "H B",
         "HB",
@@ -38037,7 +37766,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "RUR",
+      "ref_code": "",
       "subjects": [
         "BDE",
         "Business Data Ecosystem",
@@ -38246,7 +37975,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "RUK",
+      "ref_code": "",
       "subjects": [
         "CIEL",
         "Corporate Insolvency & Environmental Law",
@@ -38517,7 +38246,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "SHK",
+      "ref_code": "",
       "subjects": [
         "BRM",
         "Business Research Methods",
@@ -38764,7 +38493,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SAP",
+      "ref_code": "",
       "subjects": [
         "DM",
         "Digital Marketing",
@@ -39003,7 +38732,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "TNM",
+      "ref_code": "",
       "subjects": [
         "BECON",
         "Business Economics",
@@ -39287,7 +39016,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "VAJ",
+      "ref_code": "",
       "subjects": [
         "FM",
         "Financial Management",
@@ -39466,7 +39195,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "RKS",
+      "ref_code": "hg1",
       "subjects": [
         "HA",
         "HB",
@@ -39629,7 +39358,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "RPC",
+      "ref_code": "cg6",
       "subjects": [
         "BLAW",
         "Business Law",
@@ -39809,7 +39538,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "SS",
+      "ref_code": "hg3",
       "subjects": [
         "H B",
         "Hindi B"
@@ -39985,7 +39714,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SK2",
+      "ref_code": "2",
       "subjects": [
         "DnD",
         "Negotiation and Deal Making"
@@ -40160,7 +39889,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "cg18",
       "subjects": [
         "BIT",
         "BRM",
@@ -40309,7 +40038,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SVM",
+      "ref_code": "cg3",
       "subjects": [
         "IE",
         "International Economics"
@@ -40484,7 +40213,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "SK20",
+      "ref_code": "20",
       "subjects": [
         "ITSA I",
         "Introduction to Statistics and Analysis I",
@@ -40631,7 +40360,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "SHC",
+      "ref_code": "cg27",
       "subjects": [
         "ABH",
         "Anuvad: Vyavahar aur Siddhant",
@@ -40809,7 +40538,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "SS6",
+      "ref_code": "6",
       "subjects": [
         "Intro MME",
         "Introductory Mathematical Methods for Economics"
@@ -40985,7 +40714,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SK19",
+      "ref_code": "19",
       "subjects": [
         "BIT",
         "Business Information Technologies",
@@ -41148,7 +40877,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SMRC",
+      "ref_code": "cg20",
       "subjects": [
         "AFE",
         "Accounting for Financial Entities"
@@ -41324,7 +41053,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "SOC",
+      "ref_code": "cg19",
       "subjects": [
         "BIDV",
         "Business Intelligence & Data Visualization",
@@ -41502,7 +41231,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "STK",
+      "ref_code": "hg2",
       "subjects": [
         "HB",
         "HC",
@@ -41711,7 +41440,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "TAMC",
+      "ref_code": "cg15",
       "subjects": [
         "AUD",
         "Auditing and Corporate Governance",
@@ -41857,7 +41586,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "cg29",
       "subjects": [
         "BIT",
         "Business Information Technologies"
@@ -42018,7 +41747,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "TTR",
+      "ref_code": "cg35",
       "subjects": [
         "ITLP",
         "Income Tax Law and Practice"
@@ -42163,7 +41892,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "YC",
+      "ref_code": "cg21",
       "subjects": [
         "BIT",
         "Business Information Technologies",
