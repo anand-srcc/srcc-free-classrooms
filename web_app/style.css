@@ -5303,6 +5303,30 @@ body.modal-open {
   font-weight: 800;
   color: var(--text-primary);
   line-height: 1.35;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tt-subj-code-pill {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: var(--radius-sm, 4px);
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--accent-blue, #2563eb);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  vertical-align: middle;
+  letter-spacing: 0.03em;
+}
+
+[data-theme="dark"] .tt-subj-code-pill {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.3);
 }
 
 .tt-card-meta {

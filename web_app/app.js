@@ -2625,6 +2625,155 @@ ${freeSlotsList}
     }
 
     // ========================================================================
+    // 📚 COMPREHENSIVE SRCC & DU SUBJECT ABBREVIATIONS TO FULL NAMES MAP
+    // ========================================================================
+    const SRCC_SUBJECT_MAP = {
+      'BLAW': 'Business Law',
+      'FA': 'Financial Accounting',
+      'MPA': 'Management Principles & Applications',
+      'BECON': 'Business Economics',
+      'POM': 'Principles of Marketing',
+      'AUD': 'Auditing & Corporate Governance',
+      'FMI': 'Financial Markets & Institutions',
+      'EOE': 'Principles of Microeconomics',
+      'EoE': 'Principles of Microeconomics',
+      'EoE1': 'Principles of Microeconomics I',
+      'BMATH': 'Business Mathematics',
+      'ITLP': 'Income Tax Law & Practice',
+      'MA': 'Management Accounting',
+      'ED': 'Entrepreneurship Development',
+      'MB': 'Money & Banking',
+      'FM': 'Financial Management',
+      'EVS': 'Environmental Studies',
+      'EVS-I': 'Environmental Studies I (Theory into Practice)',
+      'EVS-II': 'Environmental Studies II (Theory into Practice)',
+      'PME-I': 'Principles of Microeconomics I',
+      'PME': 'Principles of Microeconomics',
+      'PMEE': 'Principles of Microeconomics',
+
+      'Intro MME': 'Introductory Mathematical Methods for Economics',
+      'Adv MME': 'Advanced Mathematical Methods for Economics',
+      'IMA I': 'Intermediate Macroeconomics I',
+      'IMIC1': 'Intermediate Microeconomics I',
+      'ISME': 'Introductory Statistics for Economics',
+      'DE': 'Development Economics',
+      'EHI': 'Economic History of India',
+      'IDE': 'Issues in Development Economics',
+      'GT': 'Game Theory',
+      'PE': 'Political Economy',
+      'PM': 'Project Management',
+      'RM': 'Research Methodology',
+      'GBS': 'Global Business Strategy',
+      'OEM': 'Open Elective Management',
+      'AdTrix': 'Advertising & Media Management',
+      'IIPT': 'Indian Political Thought',
+      'NL': 'Nationalism in India',
+      'NII': 'Nationalism & Indian Identity',
+      'UIR': 'Understanding International Relations',
+      'GIC': 'Global Institutions & Commerce',
+      'IGT': 'Interactive Game Theory',
+      'IMC': 'Integrated Marketing Communication',
+      'IST': 'Information Systems & Technology',
+      'RIDL': 'Readings in Indian Democratic Literature',
+
+      'AS': 'Applied Statistics',
+      'BIT': 'Business Information Technologies',
+      'ITSA I': 'Introduction to Statistics & Analysis I',
+      'ITSA II': 'Introduction to Statistics & Analysis II',
+      'BIDV': 'Business Intelligence & Data Visualization',
+      'BADS': 'Business Analytics & Data Science',
+      'BDE': 'Business Data Ecosystem',
+      'DEC': 'Digital Economy & E-Commerce',
+      'EC': 'E-Commerce',
+      'ECom': 'E-Commerce',
+      'DA': 'Data Analysis',
+      'DM': 'Digital Marketing',
+      'DMS': 'Database Management Systems',
+      'CAS': 'Cost Accounting System',
+      'CFD': 'Corporate Financial Decisions',
+      'CFCR': 'Corporate Finance & Restructuring',
+      'CIEL': 'Corporate Insolvency & Environmental Law',
+      'CPL': 'Corporate Planning & Law',
+      'CVFD': 'Corporate Valuation & Financial Decisions',
+      'DnD': 'Negotiation & Deal Making',
+      'EI': 'Economics of Industry',
+      'EP': 'Economic Policy',
+      'FC': 'Finance for Everyone',
+      'FOC': 'Fundamentals of Computing',
+      'FP': 'Financial Planning',
+      'PFP': 'Personal Financial Planning',
+      'GF': 'Global Finance',
+      'IF': 'International Finance',
+      'IE': 'International Economics',
+      'IBS': 'International Business Strategy',
+      'IM': 'International Marketing',
+      'ISM': 'Information Systems Management',
+      'ITL': 'Income Tax Law',
+      'ITPD': 'IT for Professional Development',
+      'ME': 'Managerial Economics',
+      'MFB': 'Management of Financial Banks',
+      'MFD': 'Macro Financial Dynamics',
+      'NM': 'Numerical Methods',
+      'OB': 'Organizational Behavior',
+      'ODI': 'Organizational Dynamics & Intervention',
+      'OE': 'Open Elective',
+      'OOPUP': 'Programming Using Python',
+      'OPUP': 'Programming Using Python',
+      'PUP': 'Programming Using Python',
+      'OS': 'Operating Systems',
+      'PAB': 'Public Administration & Business',
+      'PSEL': 'Professional Skills in English Language',
+      'PSELL': 'Professional Skills in English Language',
+      'RIFE': 'Risk & Insurance in Financial Engineering',
+      'SET': 'Statistical Economics & Techniques',
+      'SHRM': 'Strategic Human Resource Management',
+      'SM': 'Strategic Management',
+      'SMM': 'Social Media Marketing',
+      'SRG': 'Social Responsibility & Governance',
+      'SWR': 'Social Work & Relations',
+      'TA': 'Taxation & Accounting',
+      'TGNLC': 'The Good, Nature & Local Community',
+      'TPF': 'Theory of Public Finance',
+      'TR': 'Tax Research',
+      'VAC SEL': 'Value Addition Course Elective',
+      'VM I': 'Vedic Mathematics I',
+      'VM II': 'Vedic Mathematics II',
+      'VM III': 'Vedic Mathematics III',
+      'WM': 'Wealth Management',
+      'BF': 'Banking & Finance',
+      'BFIM': 'Banking & Financial Institutions Management',
+      'BM': 'Business Management',
+      'BRM': 'Business Research Methods',
+      'BSC': 'Business Communication',
+      'CW': 'Creative Writing',
+      'DTHRS': 'Design Thinking & HR Systems',
+      'HFPE': 'Health, Fitness & Physical Education',
+      'HA': 'Hindi Cinema aur Uska Adhyayan (Hindi A)',
+      'HB': 'Hindi Gadhya (Hindi B)',
+      'HC': 'Hindi Bhasha aur Sahitya (Hindi C)',
+      'HD': 'Hindi Gadhy: Udbhav aur Vikas (Hindi D)',
+      'HE': 'Hindi Sahitya (Hindi E)',
+      'H B': 'Hindi B',
+      'ABH': 'Anuvad: Vyavahar aur Siddhant',
+      'ACPA': 'Accounting & Auditing',
+      'ACR': 'Academic & Creative Research',
+      'AFE': 'Accounting for Financial Entities'
+    };
+
+    function getSubjectDetails(code, givenFullName) {
+      const cleanCode = (code || '').trim();
+      let fullName = (givenFullName || '').trim();
+      if (!fullName || fullName.toLowerCase() === cleanCode.toLowerCase()) {
+        fullName = SRCC_SUBJECT_MAP[cleanCode] || SRCC_SUBJECT_MAP[cleanCode.toUpperCase()] || cleanCode;
+      }
+      return {
+        code: cleanCode,
+        fullName: fullName || cleanCode || 'Subject',
+        hasFull: Boolean(fullName && fullName.toLowerCase() !== cleanCode.toLowerCase())
+      };
+    }
+
+    // ========================================================================
     // 📅 TEACHER WEEKLY TIMETABLE MODAL (RESPONSIVE DESKTOP TABLE & MOBILE CARDS)
     // ========================================================================
     function openTeacherModal(teacherIdOrName, targetDay = null) {
@@ -2753,11 +2902,14 @@ ${freeSlotsList}
       // 1. Desktop Table Rows (> 640px)
       const tableRows = daySched.map(cls => {
         const roomCode = cls.room ? cls.room.trim() : 'TBD';
-        const subjCode = cls.subject || '';
+        const subjInfo = getSubjectDetails(cls.subject, cls.subject_name);
+        const subjCode = subjInfo.code;
+        const subjFullName = subjInfo.fullName;
         const courseName = cls.course || 'B.Com (Hons)';
         const sem = cls.semester || '';
         const sec = cls.section || '';
         const batch = cls.batch || '';
+        const rawBatch = cls.raw_batch || '';
 
         return `
           <tr>
@@ -2765,14 +2917,14 @@ ${freeSlotsList}
             <td><span class="badge-slot-occupied">${escapeHtml(cls.type || 'Lecture')}</span></td>
             <td>
               <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 2px;">
-                ${subjCode ? `<span class="subject-pill" style="font-size: 0.76rem; padding: 2px 7px;">${escapeHtml(subjCode)}</span>` : ''}
-                <strong style="color: var(--text-primary); font-size: 0.88rem;">${escapeHtml(courseName)}</strong>
+                ${subjCode ? `<span class="subject-pill" title="${escapeHtml(subjFullName)}" style="font-size: 0.76rem; padding: 2px 7px;">${escapeHtml(subjCode)}</span>` : ''}
+                <strong style="color: var(--text-primary); font-size: 0.88rem;">${escapeHtml(subjFullName && subjFullName !== subjCode ? subjFullName : courseName)}</strong>
                 ${sem ? `<span class="class-batch-badge" style="color: #0369a1; border-color: rgba(56, 189, 248, 0.3);">${escapeHtml(sem)}</span>` : ''}
               </div>
               ${(sec || batch) ? `
                 <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 3px;">
                   ${sec ? `<span class="class-batch-badge">${escapeHtml(sec)}</span>` : ''}
-                  ${batch ? `<span class="class-batch-badge" style="color: var(--srcc-gold); border-color: rgba(252, 235, 10, 0.3);">Batch ${escapeHtml(batch)}</span>` : ''}
+                  ${batch ? `<span class="class-batch-badge" style="color: var(--srcc-gold); border-color: rgba(252, 235, 10, 0.3);">Batch ${escapeHtml(batch)}${rawBatch && rawBatch !== batch ? ` (${escapeHtml(rawBatch)})` : ''}</span>` : ''}
                 </div>
               ` : ''}
             </td>
@@ -2790,11 +2942,14 @@ ${freeSlotsList}
       // 2. Mobile Schedule Cards (<= 640px)
       const mobileCards = daySched.map(cls => {
         const roomCode = cls.room ? cls.room.trim() : 'TBD';
-        const subjCode = cls.subject || '';
+        const subjInfo = getSubjectDetails(cls.subject, cls.subject_name);
+        const subjCode = subjInfo.code;
+        const subjFullName = subjInfo.fullName;
         const courseName = cls.course || 'B.Com (Hons)';
         const sem = cls.semester || '';
         const sec = cls.section || '';
         const batch = cls.batch || '';
+        const rawBatch = cls.raw_batch || '';
 
         return `
           <div class="modal-timetable-card">
@@ -2806,15 +2961,15 @@ ${freeSlotsList}
               <span class="m-tt-type">${escapeHtml(cls.type || 'Lecture')}</span>
             </div>
             <div class="m-tt-course-row">
-              ${subjCode ? `<span class="m-tt-subject">${escapeHtml(subjCode)}</span>` : ''}
-              <span class="m-tt-coursename">${escapeHtml(courseName)}</span>
+              ${subjCode ? `<span class="m-tt-subject" title="${escapeHtml(subjFullName)}">${escapeHtml(subjCode)}</span>` : ''}
+              <span class="m-tt-coursename">${escapeHtml(subjFullName && subjFullName !== subjCode ? subjFullName : courseName)}</span>
               ${sem ? `<span class="class-batch-badge" style="color: #0369a1; border-color: rgba(56, 189, 248, 0.3); font-size: 0.74rem;">${escapeHtml(sem)}</span>` : ''}
             </div>
             <div class="m-tt-meta-row">
               <div class="m-tt-section-batch">
                 ${sec ? `<span>Sec: <strong>${escapeHtml(sec)}</strong></span>` : ''}
                 ${(sec && batch) ? `<span>•</span>` : ''}
-                ${batch ? `<span style="color: var(--srcc-gold);">Batch ${escapeHtml(batch)}</span>` : ''}
+                ${batch ? `<span style="color: var(--srcc-gold);">Batch ${escapeHtml(batch)}${rawBatch && rawBatch !== batch ? ` (${escapeHtml(rawBatch)})` : ''}</span>` : ''}
                 ${(!sec && !batch) ? `<span style="color: var(--text-muted);">Whole Class</span>` : ''}
               </div>
               <div>
@@ -3428,10 +3583,24 @@ window.SRCC_FACULTY_LEAVES = {
           const daySched = t.schedule?.[ttState.day] || [];
           daySched.forEach(s => {
             if (s.course === ttState.course && s.semester === ttState.sem && s.section === ttState.sec) {
-              const sBatch = (s.batch || '').trim();
-              if (ttState.batch !== 'ALL' && sBatch && sBatch.toUpperCase() !== ttState.batch.toUpperCase()) {
-                return;
+              const sBatch = (s.batch || '').trim().toUpperCase();
+              const sRawBatch = (s.raw_batch || '').trim().toUpperCase();
+              const selBatch = (ttState.batch || 'ALL').trim().toUpperCase();
+
+              // Batch filtering:
+              if (selBatch !== 'ALL') {
+                if (sBatch) {
+                  // Only match if sBatch equals selected batch, or raw practical batch matches (e.g. JP1 for J1)
+                  const matches = (sBatch === selBatch) || 
+                                  (sRawBatch === selBatch) ||
+                                  (sRawBatch.replace(/P(\d+)$/, '$1') === selBatch);
+                  if (!matches) {
+                    return;
+                  }
+                }
+                // If class has no batch specified (e.g. general lectures), it is meant for all batches in this section
               }
+
               const slot = s.slot;
               if (classesBySlot[slot]) {
                 const leaveRecord = (typeof isTeacherOnLeave === 'function' ? isTeacherOnLeave(t) : null) || activeLeaves.find(l => {
@@ -3441,10 +3610,14 @@ window.SRCC_FACULTY_LEAVES = {
                 });
                 const isOnLeave = Boolean(leaveRecord);
 
+                const subjInfo = getSubjectDetails(s.subject, s.subject_name);
+
                 classesBySlot[slot].push({
-                  subject: s.subject || 'Subject',
+                  subject: subjInfo.code,
+                  subjectName: subjInfo.fullName,
                   type: s.type || 'Lecture',
-                  batch: sBatch,
+                  batch: s.batch || '',
+                  rawBatch: s.raw_batch || '',
                   teacher: tName,
                   teacherId: t.id,
                   room: s.room || '',
@@ -3512,7 +3685,7 @@ window.SRCC_FACULTY_LEAVES = {
           let filteredClasses = slotClasses;
           if (filterQuery) {
             filteredClasses = slotClasses.filter(c => {
-              const fullText = `${c.subject} ${c.type} ${c.batch} ${c.teacher} ${c.room}`.toLowerCase();
+              const fullText = `${c.subject} ${c.subjectName || ''} ${c.type} ${c.batch} ${c.rawBatch || ''} ${c.teacher} ${c.room}`.toLowerCase();
               return fullText.includes(filterQuery);
             });
             if (filteredClasses.length === 0) {
@@ -3524,7 +3697,9 @@ window.SRCC_FACULTY_LEAVES = {
             matchCount += filteredClasses.length;
             // Scheduled Classes Card
             filteredClasses.forEach(c => {
-              const batchBadge = c.batch ? ` · Batch ${escapeHtml(c.batch)}` : '';
+              const batchBadge = c.batch 
+                ? (c.rawBatch && c.rawBatch !== c.batch ? ` · Batch ${escapeHtml(c.batch)} (${escapeHtml(c.rawBatch)})` : ` · Batch ${escapeHtml(c.batch)}`)
+                : '';
               const initials = c.teacher.split(' ').map(n => n[0]).filter(Boolean).slice(0, 2).join('').toUpperCase() || 'FC';
               const leaveHtml = c.isOnLeave 
                 ? `<div class="tt-leave-badge">🏖️ Faculty on Leave Today · Class Suspended</div>` 
@@ -3536,13 +3711,19 @@ window.SRCC_FACULTY_LEAVES = {
                 : `<span style="font-size: 0.8rem; color: var(--text-muted);">Room TBD</span>`;
 
               const leaveCardCls = c.isOnLeave ? ' is-faculty-leave' : '';
+              const displaySubject = c.subjectName || c.subject || 'Subject';
+              const showCodeBadge = Boolean(c.subject && c.subject.toLowerCase() !== displaySubject.toLowerCase());
+
               cardsHtml += `
                 <article class="tt-card${leaveCardCls}" data-slot="${escapeHtml(slot)}">
                   <div class="tt-card-header">
                     <span class="tt-period-badge">🕒 Period ${p.num} · ${timeLabel}</span>
                     <span class="tt-type-pill">${escapeHtml(c.type)}${batchBadge}</span>
                   </div>
-                  <div class="tt-card-subject">${escapeHtml(c.subject)}</div>
+                  <div class="tt-card-subject">
+                    <span>${escapeHtml(displaySubject)}</span>
+                    ${showCodeBadge ? `<span class="tt-subj-code-pill">${escapeHtml(c.subject)}</span>` : ''}
+                  </div>
                   <div class="tt-card-meta">
                     <span>${escapeHtml(ttState.course)}</span> •
                     <span>${escapeHtml(ttState.sem)}</span> •
@@ -3650,7 +3831,7 @@ window.SRCC_FACULTY_LEAVES = {
 
           if (filterQuery) {
             slotClasses = slotClasses.filter(c => {
-              const fullText = `${c.subject} ${c.type} ${c.batch} ${c.teacher} ${c.room}`.toLowerCase();
+              const fullText = `${c.subject} ${c.subjectName || ''} ${c.type} ${c.batch} ${c.rawBatch || ''} ${c.teacher} ${c.room}`.toLowerCase();
               return fullText.includes(filterQuery);
             });
             const matchesFree = 'free period vacant'.includes(filterQuery) || freeRooms.some(r => r.toLowerCase().includes(filterQuery));
@@ -3661,16 +3842,24 @@ window.SRCC_FACULTY_LEAVES = {
 
           if (slotClasses.length > 0) {
             const entriesHtml = slotClasses.map(c => {
-              const batchBadge = c.batch ? ` · ${escapeHtml(c.batch)}` : '';
+              const batchBadge = c.batch 
+                ? (c.rawBatch && c.rawBatch !== c.batch ? ` · ${escapeHtml(c.batch)} (${escapeHtml(c.rawBatch)})` : ` · ${escapeHtml(c.batch)}`)
+                : '';
               const leaveBadge = c.isOnLeave ? `<div class="tt-leave-badge">🏖️ Faculty on Leave Today</div>` : '';
               const roomLink = c.room 
                 ? ` · <span class="tt-room-jump" data-room="${escapeHtml(c.room)}" style="cursor: pointer; color: var(--accent-blue); font-weight: 700; text-decoration: underline;" title="View Room in Campus Finder">Room ${escapeHtml(c.room)}</span>` 
                 : '';
 
+              const displaySubject = c.subjectName || c.subject || 'Subject';
+              const showCodeBadge = Boolean(c.subject && c.subject.toLowerCase() !== displaySubject.toLowerCase());
+
               return `
                 <div class="tt-class-entry">
                   <div class="tt-class-title">
-                    <strong class="tt-subject-name">${escapeHtml(c.subject)}</strong>
+                    <strong class="tt-subject-name">
+                      ${escapeHtml(displaySubject)}
+                      ${showCodeBadge ? `<span class="tt-subj-code-pill">${escapeHtml(c.subject)}</span>` : ''}
+                    </strong>
                     <span class="tt-class-type">${escapeHtml(c.type)}${batchBadge}</span>
                   </div>
                   <div class="tt-teacher-room">

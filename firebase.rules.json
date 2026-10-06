@@ -1,0 +1,23 @@
+{
+  "rules": {
+    "leaves": {
+      ".read": true,
+      ".write": false
+    },
+    "issues": {
+      ".read": false,
+      "$issue_id": {
+        ".write": "!data.exists() && newData.exists()",
+        ".validate": "newData.hasChildren(['type', 'timestamp']) && newData.child('type').isString()"
+      }
+    },
+    "push": {
+      ".read": false,
+      "$key": {
+        ".write": "$key.length === 32 && (!newData.exists() || (newData.hasChild('sub') && newData.hasChild('hourly')))"
+      }
+    },
+    ".read": false,
+    ".write": false
+  }
+}

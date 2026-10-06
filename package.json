@@ -1,0 +1,22 @@
+{
+  "name": "srcc-free-classrooms",
+  "version": "1.0.0",
+  "description": "SRCC Free Classrooms & Faculty Locator - Shri Ram College of Commerce",
+  "main": "dev-server.js",
+  "scripts": {
+    "dev": "node dev-server.js",
+    "start": "node dev-server.js",
+    "package:netlify": "node package_netlify.js",
+    "package:github": "node package_github.js",
+    "sync:leaves": "python sync_leaves.py",
+    "sync:timetable": "python auto_sync_timetable.py"
+  },
+  "keywords": [
+    "srcc",
+    "timetable",
+    "classroom-finder",
+    "faculty-locator"
+  ],
+  "author": "SRCC Dev",
+  "license": "ISC"
+}
