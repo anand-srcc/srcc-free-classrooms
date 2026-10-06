@@ -148,7 +148,10 @@ document.addEventListener('DOMContentLoaded', () => {
     return defaultUsers;
   }
 
+  let lastUserActionTimestamp = 0;
+
   async function saveStoredUsers(users) {
+    lastUserActionTimestamp = Date.now();
     try {
       localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
       const ok = await syncUsersToCloud(users);
@@ -1181,11 +1184,20 @@ document.addEventListener('DOMContentLoaded', () => {
           </thead>
           <tbody>
             ${users.map(u => {
-              const isSelf = u.username.toLowerCase() === activeUser.username.toLowerCase();
-              const canDelete = activeUser.isSuper && !u.isSuper && !isSelf;
-              const roleBadge = u.isSuper 
-                ? '<span style="background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; font-size: 0.74rem; font-weight: 700; padding: 3px 10px; border-radius: 9999px; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">👑 Super Admin</span>'
-                : '<span style="background: #e0f2fe; color: #0369a1; border: 1px solid #7dd3fc; font-size: 0.74rem; font-weight: 700; padding: 3px 10px; border-radius: 9999px; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🛡️ Leave Coordinator</span>';
+              const uname = (u.username || '').toLowerCase();
+              const isSelf = uname === activeUser.username.toLowerCase();
+              const isRootAdmin = uname === 'admin';
+              const canDelete = (activeUser.isSuper || activeUser.role === 'Admin' || activeUser.role === 'Super Admin') && !isSelf && !isRootAdmin;
+              
+              let roleBadge = '';
+              if (u.isSuper || uname === 'admin') {
+                roleBadge = '<span style="background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; font-size: 0.74rem; font-weight: 700; padding: 3px 10px; border-radius: 9999px; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">👑 Super Admin</span>';
+              } else if (u.role === 'Admin') {
+                roleBadge = '<span style="background: #e0e7ff; color: #4338ca; border: 1px solid #c7d2fe; font-size: 0.74rem; font-weight: 700; padding: 3px 10px; border-radius: 9999px; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">⚡ Full Admin</span>';
+              } else {
+                roleBadge = '<span style="background: #e0f2fe; color: #0369a1; border: 1px solid #7dd3fc; font-size: 0.74rem; font-weight: 700; padding: 3px 10px; border-radius: 9999px; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🛡️ Leave Coordinator</span>';
+              }
+
               return `
                 <tr style="border-bottom: 1px solid #e2e8f0; transition: background 0.15s ease;">
                   <td style="padding: 10px 12px;">
@@ -1202,9 +1214,9 @@ document.addEventListener('DOMContentLoaded', () => {
                   <td style="padding: 10px 12px; text-align: right;">
                     ${canDelete ? `
                       <button type="button" class="btn-delete-admin-user" data-username="${escapeHtml(u.username)}" style="background: #fee2e2; border: 1px solid #fca5a5; color: #991b1b; padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; font-weight: 700; transition: all 0.15s ease;">
-                        ✕ Remove
+                        🗑️ Remove Access
                       </button>
-                    ` : `<span style="color: #94a3b8; font-size: 0.75rem; font-weight: 600; font-style: italic;">Protected</span>`}
+                    ` : (isRootAdmin ? `<span style="color: #64748b; font-size: 0.75rem; font-weight: 600; font-style: italic;">Primary Master</span>` : `<span style="color: #059669; font-size: 0.75rem; font-weight: 600;">Current User</span>`)}
                   </td>
                 </tr>
               `;
@@ -1228,7 +1240,7 @@ document.addEventListener('DOMContentLoaded', () => {
           users = users.filter(u => u.username.toLowerCase() !== uname.toLowerCase());
           await saveStoredUsers(users);
           renderAdminUsersList();
-          showToast(`🗑️ Account <strong>${escapeHtml(uname)}</strong> removed successfully.`);
+          showToast(`🗑️ Account <strong>${escapeHtml(uname)}</strong> removed successfully and synced to Cloud.`);
         }
       });
     });
@@ -1334,7 +1346,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const pwdHash = await hashPasscode(pwd);
-      const isSuperRole = (role === 'Admin' || role === 'Super Admin' || activeUser.isSuper);
+      const isSuperRole = (uname === 'admin');
       users.push({
         username: uname,
         fullName: name,
@@ -1391,35 +1403,23 @@ document.addEventListener('DOMContentLoaded', () => {
   async function boot() {
     checkAuth();
     
-    // Fetch users (admins) in background with smart reconciliation (never wipes local users)
+    // Fetch users (admins) from Cloud Database
     fetchUsersFromCloud().then(cloudUsers => {
+      if (Date.now() - lastUserActionTimestamp < 4000) return;
       if (cloudUsers && Array.isArray(cloudUsers) && cloudUsers.length > 0) {
-        const localUsers = getStoredUsers();
-        const mergedMap = new Map();
-
-        // 1. Add all local users first (authoritative for recent local creations and password changes)
-        localUsers.forEach(u => {
-          if (u && u.username) mergedMap.set(u.username.toLowerCase(), u);
-        });
-
-        // 2. Add or merge cloud users
-        cloudUsers.forEach(cu => {
-          if (!cu || !cu.username) return;
-          const key = cu.username.toLowerCase();
-          if (!mergedMap.has(key)) {
-            // New user from cloud that does not exist locally
-            mergedMap.set(key, cu);
-          } else {
-            const local = mergedMap.get(key);
-            // If cloud has newer timestamp or local hasn't changed password, take cloud update
-            if ((cu.updatedAt && (!local.updatedAt || cu.updatedAt >= local.updatedAt)) || (!local.hasChangedPassword && cu.hasChangedPassword)) {
-              mergedMap.set(key, cu);
-            }
-          }
-        });
-
-        const merged = Array.from(mergedMap.values());
-        localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(merged));
+        const hasRootAdmin = cloudUsers.some(u => u && u.username && u.username.toLowerCase() === 'admin');
+        let finalUsers = [...cloudUsers];
+        if (!hasRootAdmin) {
+          finalUsers.unshift({
+            username: 'admin',
+            fullName: 'Master Administrator (Anand)',
+            role: 'Super Admin',
+            passwordHash: '06f1339f683c69374e5805994b4956bc856e0204827364a6062894a88d792fae',
+            createdAt: 'Default Master Account',
+            isSuper: true
+          });
+        }
+        localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(finalUsers));
         if (adminDashboardView && adminDashboardView.style.display === 'block') {
            renderAdminUsersList();
         }
