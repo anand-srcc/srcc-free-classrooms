@@ -264,27 +264,43 @@ document.addEventListener('DOMContentLoaded', () => {
   // 💾 LEAVES LOCAL STORAGE SYNC
   // ==========================================================================
   function getLeavesList() {
+    let raw = [];
     try {
       const stored = localStorage.getItem(LEAVES_STORAGE_KEY) || localStorage.getItem('srcc_faculty_leaves_custom_v1');
       if (stored) {
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed)) {
-          if (!localStorage.getItem(LEAVES_STORAGE_KEY)) {
-            localStorage.setItem(LEAVES_STORAGE_KEY, stored);
-          }
-          return parsed;
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          raw = parsed;
         }
       }
     } catch (e) {
       console.warn('Failed to parse stored leaves:', e);
     }
-    if (window.SRCC_FACULTY_LEAVES && Array.isArray(window.SRCC_FACULTY_LEAVES.leaves)) {
-      return [...window.SRCC_FACULTY_LEAVES.leaves];
+
+    if (raw.length === 0) {
+      if (window.SRCC_FACULTY_LEAVES && Array.isArray(window.SRCC_FACULTY_LEAVES.leaves)) {
+        raw = [...window.SRCC_FACULTY_LEAVES.leaves];
+      } else if (defaultLeaves && Array.isArray(defaultLeaves.leaves)) {
+        raw = [...defaultLeaves.leaves];
+      }
     }
-    if (defaultLeaves && Array.isArray(defaultLeaves.leaves)) {
-      return [...defaultLeaves.leaves];
+
+    // Deduplicate by teacher ID or clean name (preserves latest entry)
+    const dedupMap = new Map();
+    raw.forEach(l => {
+      const key = (l.teacher_id ? String(l.teacher_id) : '') || (l.teacher_name ? l.teacher_name.toLowerCase().trim() : '');
+      if (key && !dedupMap.has(key)) {
+        dedupMap.set(key, l);
+      }
+    });
+
+    const deduped = Array.from(dedupMap.values());
+    if (raw.length !== deduped.length) {
+      try {
+        localStorage.setItem(LEAVES_STORAGE_KEY, JSON.stringify(deduped));
+      } catch (e) {}
     }
-    return [];
+    return deduped;
   }
 
   function saveLeavesList(leaves) {
@@ -410,6 +426,32 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } catch (err) {
       console.error('Error fetching users from cloud:', err);
+    }
+    return null;
+  }
+
+  async function fetchLeavesFromCloud() {
+    let baseUrl = getBaseCloudDbUrl();
+    if (!baseUrl) return null;
+    let url = baseUrl + '/leaves.json';
+    
+    const secret = getCloudDbSecret();
+    if (secret) {
+      url += (url.includes('?') ? '&' : '?') + 'auth=' + encodeURIComponent(secret);
+    }
+
+    try {
+      const res = await fetch(url, { cache: 'no-cache' });
+      if (res.ok) {
+        const data = await res.json();
+        if (data && Array.isArray(data.leaves)) {
+          return data.leaves;
+        } else if (Array.isArray(data)) {
+          return data;
+        }
+      }
+    } catch (err) {
+      console.warn('Error fetching leaves from cloud:', err);
     }
     return null;
   }
@@ -1381,6 +1423,27 @@ document.addEventListener('DOMContentLoaded', () => {
         if (adminDashboardView && adminDashboardView.style.display === 'block') {
            renderAdminUsersList();
         }
+      }
+    });
+
+    // Fetch latest leaves from Cloud DB to ensure 100% parity with client app
+    fetchLeavesFromCloud().then(cloudLeaves => {
+      if (cloudLeaves && Array.isArray(cloudLeaves) && cloudLeaves.length > 0) {
+        const dedupMap = new Map();
+        cloudLeaves.forEach(l => {
+          const key = (l.teacher_id ? String(l.teacher_id) : '') || (l.teacher_name ? l.teacher_name.toLowerCase().trim() : '');
+          if (key && !dedupMap.has(key)) {
+            dedupMap.set(key, l);
+          }
+        });
+        const deduped = Array.from(dedupMap.values());
+        localStorage.setItem(LEAVES_STORAGE_KEY, JSON.stringify(deduped));
+        if (window.SRCC_FACULTY_LEAVES) {
+          window.SRCC_FACULTY_LEAVES.leaves = deduped;
+        }
+        renderLeavesTable();
+        updateKpis();
+        updateCodePreview();
       }
     });
 

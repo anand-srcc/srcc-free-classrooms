@@ -4219,25 +4219,40 @@ window.SRCC_FACULTY_LEAVES = {
       const btnAllow = document.getElementById('btnAllowLeaveNotif');
       const btnDismiss = document.getElementById('btnDismissLeaveNotif');
 
-      const isPrompted = localStorage.getItem('srcc_leave_notif_prompted');
+      // 1. If user has already granted notification permission, NEVER show prompt banner!
+      if ('Notification' in window && Notification.permission === 'granted') {
+        if (banner) banner.style.display = 'none';
+        window._isNotifBannerActive = false;
+        const todayActive = getActiveTodayLeaves();
+        if (todayActive.length > 0) {
+          notifyFacultyLeaves(todayActive, false);
+        }
+        return;
+      }
 
-      // Only prompt if user hasn't made a choice yet and browser supports Notifications
-      if (!isPrompted && 'Notification' in window && Notification.permission !== 'denied') {
+      // 2. For users who haven't granted notifications yet: pop up the banner!
+      // Coordinated so it doesn't show simultaneously with PWA install modal, and avoids immediate refresh repeat in same session
+      const sessionDismissed = sessionStorage.getItem('srcc_notif_session_dismissed');
+      if (!sessionDismissed && 'Notification' in window && Notification.permission !== 'granted') {
         setTimeout(() => {
-          if (banner) banner.style.display = 'block';
+          // Check that installModal is not open
+          if (banner && (!installModal || installModal.style.display !== 'flex')) {
+            banner.style.display = 'block';
+            window._isNotifBannerActive = true;
+          }
         }, 1500);
       }
 
       if (btnAllow) {
         btnAllow.addEventListener('click', async () => {
           if (banner) banner.style.display = 'none';
-          localStorage.setItem('srcc_leave_notif_prompted', 'true');
-          localStorage.setItem('srcc_leave_notif_enabled', 'true');
+          window._isNotifBannerActive = false;
 
           if ('Notification' in window) {
             try {
               const perm = await Notification.requestPermission();
               if (perm === 'granted') {
+                localStorage.setItem('srcc_leave_notif_enabled', 'true');
                 showToast('🔔 <strong>Notifications enabled!</strong> You will be notified whenever faculty members are on leave.', true, 4500);
                 const todayActive = getActiveTodayLeaves();
                 if (todayActive.length > 0) {
@@ -4250,24 +4265,24 @@ window.SRCC_FACULTY_LEAVES = {
               console.warn('Notification permission error:', err);
             }
           }
+          // After notification banner is resolved, allow deferred PWA prompt if available
+          if (typeof window._triggerDeferredPwaPrompt === 'function') {
+            window._triggerDeferredPwaPrompt(6000);
+          }
         });
       }
 
       if (btnDismiss) {
         btnDismiss.addEventListener('click', () => {
           if (banner) banner.style.display = 'none';
-          localStorage.setItem('srcc_leave_notif_prompted', 'true');
-          localStorage.setItem('srcc_leave_notif_enabled', 'false');
-          showToast('ℹ️ Notification prompt dismissed.', false, 2500);
+          window._isNotifBannerActive = false;
+          sessionStorage.setItem('srcc_notif_session_dismissed', '1');
+          showToast('ℹ️ Notification prompt dismissed for this session.', false, 2500);
+          // After dismiss, allow deferred PWA prompt if available
+          if (typeof window._triggerDeferredPwaPrompt === 'function') {
+            window._triggerDeferredPwaPrompt(6000);
+          }
         });
-      }
-
-      // If already enabled and granted, check active leaves
-      if (localStorage.getItem('srcc_leave_notif_enabled') === 'true' && 'Notification' in window && Notification.permission === 'granted') {
-        const todayActive = getActiveTodayLeaves();
-        if (todayActive.length > 0) {
-          notifyFacultyLeaves(todayActive, false);
-        }
       }
     }
 
@@ -4332,12 +4347,28 @@ window.SRCC_FACULTY_LEAVES = {
     startLiveCloudLeavesSync();
   }
 });
-// --- PWA Installation Logic ---
+
+// --- PWA Installation Logic (Coordinated to NEVER clash with Notification Prompt) ---
 let deferredPrompt;
 const installModal = document.getElementById('pwaInstallModal');
 const btnInstallApp = document.getElementById('btnInstallApp');
 const btnCloseInstall = document.getElementById('btnCloseInstall');
 const btnNotNowInstall = document.getElementById('btnNotNowInstall');
+
+window._triggerDeferredPwaPrompt = function(delayMs = 3000) {
+  setTimeout(() => {
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    if (isLocal || sessionStorage.getItem('pwa_dismissed')) return;
+
+    // Check if notification banner is currently active
+    const notifBanner = document.getElementById('leaveNotificationPromptBanner');
+    const isNotifActive = window._isNotifBannerActive || (notifBanner && notifBanner.style.display === 'block');
+
+    if (deferredPrompt && installModal && !isNotifActive) {
+      installModal.style.display = 'flex';
+    }
+  }, delayMs);
+};
 
 // Register Service Worker
 if ('serviceWorker' in navigator) {
@@ -4352,23 +4383,19 @@ if ('serviceWorker' in navigator) {
 
 // Catch the install prompt event
 window.addEventListener('beforeinstallprompt', (e) => {
-  // Prevent Chrome from automatically showing the prompt
   e.preventDefault();
-  // Stash the event so it can be triggered later.
   deferredPrompt = e;
   
-  // Do not auto-popup on localhost or if user dismissed it in this session
   const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
   if (isLocal || sessionStorage.getItem('pwa_dismissed')) {
     return;
   }
 
-  // Show the modal after a short delay (3 seconds) to not interrupt immediate reading
-  setTimeout(() => {
-    if (installModal && !sessionStorage.getItem('pwa_dismissed')) {
-      installModal.style.display = 'flex';
-    }
-  }, 3000);
+  // If user hasn't granted notifications yet, notification banner will pop up first.
+  // Defer PWA modal by 12 seconds so they NEVER appear together!
+  const needsNotif = ('Notification' in window && Notification.permission !== 'granted' && !sessionStorage.getItem('srcc_notif_session_dismissed'));
+  const delay = needsNotif ? 12000 : 3500;
+  window._triggerDeferredPwaPrompt(delay);
 });
 
 // Close modal handlers
@@ -4389,12 +4416,9 @@ if (installModal) {
 btnInstallApp.addEventListener('click', async () => {
   if (deferredPrompt) {
     installModal.style.display = 'none';
-    // Show the install prompt
     deferredPrompt.prompt();
-    // Wait for the user to respond to the prompt
     const { outcome } = await deferredPrompt.userChoice;
-    console.log(`User response to the install prompt: ${outcome}`);
-    // We've used the prompt, and can't use it again, throw it away
+    console.log(`User response to install prompt: ${outcome}`);
     deferredPrompt = null;
   }
 });
