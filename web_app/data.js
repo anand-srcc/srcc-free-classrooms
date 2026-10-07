@@ -3,8 +3,8 @@ window.SRCC_DATA = {
     "college": "Shri Ram College of Commerce (SRCC)",
     "portal": "https://srcccollegetimetable.in/",
     "total_rooms": 96,
-    "last_synced": "06 Oct 2026, 06:26 PM",
-    "last_synced_iso": "2026-10-06T18:26:55.694034",
+    "last_synced": "07 Oct 2026, 06:07 AM",
+    "last_synced_iso": "2026-10-07T06:07:49.890470",
     "academic_periods": [
       "8:30 AM to 9:30 AM",
       "9:30 AM to 10:30 AM",
@@ -5940,19 +5940,19 @@ window.SRCC_DATA = {
             },
             {
               "slot": "2:00 PM to 3:00 PM",
-              "class": "LAB-JOINT-SEM VEconomics-ITSA II-EG23-SEC18<----------------------->"
+              "class": "LAB-JOINT-SEM VEconomics-ITSA II-AM23-SEC18<----------------------->"
             },
             {
               "slot": "3:00 PM to 4:00 PM",
-              "class": "LAB-JOINT-SEM VEconomics-ITSA II-EG23-SEC18<----------------------->"
+              "class": "LAB-JOINT-SEM VEconomics-ITSA II-AM23-SEC18<----------------------->"
             },
             {
               "slot": "4:00 PM to 5:00 PM",
-              "class": "LAB-JOINT-SEM VEconomics-ITSA II-EG23-SEC18<----------------------->"
+              "class": "LAB-JOINT-SEM VEconomics-ITSA II-AM23-SEC18<----------------------->"
             },
             {
               "slot": "5:00 PM to 6:00 PM",
-              "class": "LAB-JOINT-SEM VEconomics-ITSA II-EG23-SEC18<----------------------->"
+              "class": "LAB-JOINT-SEM VEconomics-ITSA II-AM23-SEC18<----------------------->"
             }
           ]
         },
@@ -6100,19 +6100,19 @@ window.SRCC_DATA = {
             },
             {
               "slot": "11:30 AM to 12:30 PM",
-              "class": "LAB-JOINT-SEM IEconomics-ITSA I-EG22-SEC8"
+              "class": "LAB-JOINT-SEM IEconomics-ITSA I-NA22-SEC8"
             },
             {
               "slot": "12:30 PM to 1:30 PM",
-              "class": "LAB-JOINT-SEM IEconomics-ITSA I-EG22-SEC8"
+              "class": "LAB-JOINT-SEM IEconomics-ITSA I-NA22-SEC8"
             },
             {
               "slot": "2:00 PM to 3:00 PM",
-              "class": "LAB-JOINT-SEM IEconomics-ITSA I-EG22-SEC8"
+              "class": "LAB-JOINT-SEM IEconomics-ITSA I-NA22-SEC8"
             },
             {
               "slot": "3:00 PM to 4:00 PM",
-              "class": "LAB-JOINT-SEM IEconomics-ITSA I-EG22-SEC8"
+              "class": "LAB-JOINT-SEM IEconomics-ITSA I-NA22-SEC8"
             }
           ]
         }
@@ -6222,11 +6222,11 @@ window.SRCC_DATA = {
             },
             {
               "slot": "2:00 PM to 3:00 PM",
-              "class": "LAB-JOINT-SEM IEconomics-AS-EG23-SEC12"
+              "class": "LAB-JOINT-SEM IEconomics-AS-AM23-SEC12"
             },
             {
               "slot": "3:00 PM to 4:00 PM",
-              "class": "LAB-JOINT-SEM IEconomics-AS-EG23-SEC12"
+              "class": "LAB-JOINT-SEM IEconomics-AS-AM23-SEC12"
             }
           ]
         },
@@ -6373,11 +6373,11 @@ window.SRCC_DATA = {
             },
             {
               "slot": "11:30 AM to 12:30 PM",
-              "class": "LAB-JOINT-SEM IEconomics-AS-EG22-SEC23<----------------------->"
+              "class": "LAB-JOINT-SEM IEconomics-AS-NA22-SEC23<----------------------->"
             },
             {
               "slot": "12:30 PM to 1:30 PM",
-              "class": "LAB-JOINT-SEM IEconomics-AS-EG22-SEC23<----------------------->"
+              "class": "LAB-JOINT-SEM IEconomics-AS-NA22-SEC23<----------------------->"
             },
             {
               "slot": "2:00 PM to 3:00 PM",
@@ -6896,11 +6896,11 @@ window.SRCC_DATA = {
             },
             {
               "slot": "2:00 PM to 3:00 PM",
-              "class": "LAB-JOINT-SEM IEconomics-AS-EG30-SEC13"
+              "class": "LAB-JOINT-SEM IEconomics-AS-TM30-SEC13"
             },
             {
               "slot": "3:00 PM to 4:00 PM",
-              "class": "LAB-JOINT-SEM IEconomics-AS-EG30-SEC13"
+              "class": "LAB-JOINT-SEM IEconomics-AS-TM30-SEC13"
             },
             {
               "slot": "4:00 PM to 5:00 PM",
@@ -15086,19 +15086,19 @@ window.SRCC_DATA = {
             },
             {
               "slot": "2:00 PM to 3:00 PM",
-              "class": "LAB-JOINT-SEM IIIEconomics-AS-EG30-SEC15"
+              "class": "LAB-JOINT-SEM IIIEconomics-AS-TM30-SEC15"
             },
             {
               "slot": "3:00 PM to 4:00 PM",
-              "class": "LAB-JOINT-SEM IIIEconomics-AS-EG30-SEC15<----------------------->"
+              "class": "LAB-JOINT-SEM IIIEconomics-AS-TM30-SEC15<----------------------->"
             },
             {
               "slot": "4:00 PM to 5:00 PM",
-              "class": "LAB-JOINT-SEM IIIEconomics-AS-EG30-SEC15<----------------------->"
+              "class": "LAB-JOINT-SEM IIIEconomics-AS-TM30-SEC15<----------------------->"
             },
             {
               "slot": "5:00 PM to 6:00 PM",
-              "class": "LAB-JOINT-SEM IIIEconomics-AS-EG30-SEC15<----------------------->"
+              "class": "LAB-JOINT-SEM IIIEconomics-AS-TM30-SEC15<----------------------->"
             }
           ]
         },
@@ -15789,11 +15789,11 @@ window.SRCC_DATA = {
             },
             {
               "slot": "4:00 PM to 5:00 PM",
-              "class": "LAB-JOINT-SEM IEconomics-AS-EG30-SEC13"
+              "class": "LAB-JOINT-SEM IEconomics-AS-TM30-SEC13"
             },
             {
               "slot": "5:00 PM to 6:00 PM",
-              "class": "LAB-JOINT-SEM IEconomics-AS-EG30-SEC13"
+              "class": "LAB-JOINT-SEM IEconomics-AS-TM30-SEC13"
             }
           ]
         },
@@ -15896,11 +15896,11 @@ window.SRCC_DATA = {
             },
             {
               "slot": "11:30 AM to 12:30 PM",
-              "class": "LAB-JOINT-SEM IEconomics-AS-EG23-SEC23"
+              "class": "LAB-JOINT-SEM IEconomics-AS-AM23-SEC23"
             },
             {
               "slot": "12:30 PM to 1:30 PM",
-              "class": "LAB-JOINT-SEM IEconomics-AS-EG23-SEC23"
+              "class": "LAB-JOINT-SEM IEconomics-AS-AM23-SEC23"
             }
           ]
         }
