@@ -4005,6 +4005,39 @@ body {
   0% { border-color: #6d28d9; box-shadow: 0 0 0 rgba(168, 85, 247, 0); }
   50% { border-color: #6d28d9; box-shadow: 0 0 12px rgba(168, 85, 247, 0.25); }
   100% { border-color: #6d28d9; box-shadow: 0 0 0 rgba(168, 85, 247, 0); }
+.locked-room-banner {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.16), rgba(245, 158, 11, 0.12));
+  border: 1px solid rgba(239, 68, 68, 0.45);
+  color: #b91c1c;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  animation: pulse-lock 3s infinite;
+}
+
+.extra-class-banner {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.16), rgba(99, 102, 241, 0.12));
+  border: 1px solid rgba(59, 130, 246, 0.45);
+  color: #1d4ed8;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+@keyframes pulse-lock {
+  0% { border-color: rgba(239, 68, 68, 0.45); }
+  50% { border-color: rgba(239, 68, 68, 0.85); box-shadow: 0 0 10px rgba(239, 68, 68, 0.2); }
+  100% { border-color: rgba(239, 68, 68, 0.45); }
 }
 
 /* ==========================================================================

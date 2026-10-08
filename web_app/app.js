@@ -162,6 +162,32 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   }
 
+  // 🔒 Fetch Active Room Locks & Extra Classes
+  let roomLocksList = [];
+  const ROOM_LOCKS_STORAGE_KEY = 'srcc_room_locks_v1';
+  try {
+    const cachedLocks = localStorage.getItem(ROOM_LOCKS_STORAGE_KEY);
+    if (cachedLocks) roomLocksList = JSON.parse(cachedLocks) || [];
+  } catch (e) {}
+
+  const FIREBASE_BASE_URL = 'https://srcc-leaves-default-rtdb.firebaseio.com';
+  loadPromises.push(
+    fetch(`${FIREBASE_BASE_URL}/room_locks.json?t=${Date.now()}`)
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        if (Array.isArray(d)) {
+          roomLocksList = d;
+          window.SRCC_ROOM_LOCKS = d;
+          try { localStorage.setItem(ROOM_LOCKS_STORAGE_KEY, JSON.stringify(d)); } catch (e) {}
+        } else if (d && typeof d === 'object') {
+          roomLocksList = Object.values(d);
+          window.SRCC_ROOM_LOCKS = roomLocksList;
+          try { localStorage.setItem(ROOM_LOCKS_STORAGE_KEY, JSON.stringify(roomLocksList)); } catch (e) {}
+        }
+      })
+      .catch(() => {})
+  );
+
   if (loadPromises.length > 0) {
     Promise.all(loadPromises)
       .then(() => initApp())
@@ -312,6 +338,31 @@ document.addEventListener('DOMContentLoaded', () => {
       } catch (e) {
         console.error('Error saving leaves to localStorage:', e);
       }
+    }
+
+    // ========================================================================
+    // 🔒 ROOM LOCKS & EXTRA CLASSES HELPERS
+    // ========================================================================
+    function getRoomActiveLocks(roomCode, checkDateStr) {
+      const targetDate = checkDateStr || getTodayIsoDate();
+      const targetRoom = (roomCode || '').trim().toUpperCase();
+
+      return (roomLocksList || []).filter(lock => {
+        const lockRoom = (lock.room || '').trim().toUpperCase();
+        if (lockRoom !== targetRoom && lockRoom.replace(/\s+/g, '') !== targetRoom.replace(/\s+/g, '')) {
+          return false;
+        }
+        const lockDate = lock.date || targetDate;
+        return lockDate === targetDate;
+      });
+    }
+
+    function isRoomLocked(roomCode, slot, checkDateStr) {
+      const locks = getRoomActiveLocks(roomCode, checkDateStr);
+      if (!locks || locks.length === 0) return false;
+      if (locks.some(l => l.slot === 'ALL_DAY')) return true;
+      if (slot && locks.some(l => l.slot === slot)) return true;
+      return false;
     }
 
     function isTeacherOnLeave(teacher, checkDateStr) {
@@ -1429,6 +1480,11 @@ ${freeSlotsList}
         if (state.searchQuery && !matchesSearch(room, state.searchQuery)) return false;
 
         if (state.activeSlot !== 'ALL') {
+          // If room is locked or booked for an extra class in this slot, it is NOT free!
+          if (isRoomLocked(room.code, state.activeSlot, getTodayIsoDate())) {
+            return false;
+          }
+
           // 🥪 Lunch Recess (1:30 PM - 2:00 PM): All 96 classrooms are 100% free!
           if (state.activeSlot === '1:30 PM to 2:00 PM') {
             return true;
@@ -1545,7 +1601,20 @@ ${freeSlotsList}
           }
         });
 
-        const effectiveFreeHours = sched.free_hours + bonusFreeSlots.length;
+        // Check if this room has active locks / extra classes pushed by admin
+        const todayIso = getTodayIsoDate();
+        const activeRoomLocks = getRoomActiveLocks(room.code, todayIso);
+        const isFullDayLocked = activeRoomLocks.some(l => l.slot === 'ALL_DAY');
+        const lockedSlotsSet = new Set(activeRoomLocks.filter(l => l.slot !== 'ALL_DAY').map(l => l.slot));
+
+        let effectiveFreeSlots = (sched.free_slots || []).filter(s => !lockedSlotsSet.has(s));
+        let effectiveBonusSlots = bonusFreeSlots.filter(b => !lockedSlotsSet.has(b.slot));
+        if (isFullDayLocked) {
+          effectiveFreeSlots = [];
+          effectiveBonusSlots = [];
+        }
+
+        const effectiveFreeHours = isFullDayLocked ? 0 : (effectiveFreeSlots.length + effectiveBonusSlots.length);
         let cardStyleClass = 'is-booked';
         if (effectiveFreeHours >= 5) cardStyleClass = 'has-many-free';
         else if (effectiveFreeHours > 0) cardStyleClass = 'has-some-free';
@@ -1553,7 +1622,7 @@ ${freeSlotsList}
         const themeClass = getCategoryThemeClass(room);
 
         // Calculate consecutive free windows (continuous periods)
-        const consecutiveWindows = getConsecutiveFreeWindows(sched.free_slots, bonusFreeSlots);
+        const consecutiveWindows = isFullDayLocked ? [] : getConsecutiveFreeWindows(effectiveFreeSlots, effectiveBonusSlots);
         const multiPeriodWindows = (effectiveFreeHours === 9)
           ? consecutiveWindows
           : consecutiveWindows.filter(w => w.periodsCount >= 2);
@@ -1574,8 +1643,8 @@ ${freeSlotsList}
         }
 
         // Filter out slots that are ALREADY covered by continuous windows above to prevent repetition!
-        const standaloneRegularSlots = sched.free_slots.filter(s => !coveredContinuousSlots.has(s));
-        const standaloneBonusSlots = bonusFreeSlots.filter(b => !coveredContinuousSlots.has(b.slot));
+        const standaloneRegularSlots = effectiveFreeSlots.filter(s => !coveredContinuousSlots.has(s));
+        const standaloneBonusSlots = effectiveBonusSlots.filter(b => !coveredContinuousSlots.has(b.slot));
 
         // Format standalone/remaining free slot chips
         let chipsHtml = '';
@@ -1595,8 +1664,17 @@ ${freeSlotsList}
 
         // Timeline strip
         const p1_5 = periodIntervals.slice(0, 5).map(p => {
-          let isFree = sched.free_slots.includes(p.slot);
-          const hasBonus = bonusFreeSlots.find(b => b.slot === p.slot);
+          const lock = activeRoomLocks.find(l => l.slot === 'ALL_DAY' || l.slot === p.slot);
+          if (lock) {
+            const isExtra = lock.type === 'extra_class';
+            const icon = isExtra ? '📚' : '🔒';
+            const badgeTitle = `${p.full}: ${icon} ${isExtra ? 'EXTRA CLASS' : 'ROOM LOCKED'} - ${escapeHtml(lock.title || '')}`;
+            const lockStyle = isExtra ? 'background: #2563eb; color: #FFF;' : 'background: #dc2626; color: #FFF;';
+            return `<div class="p-block busy" style="${lockStyle}" data-room="${room.code}" data-slot="${p.slot}" title="${badgeTitle}">${icon}</div>`;
+          }
+
+          let isFree = effectiveFreeSlots.includes(p.slot);
+          const hasBonus = effectiveBonusSlots.find(b => b.slot === p.slot);
           if (hasBonus) isFree = true;
 
           const cls = isFree ? (hasBonus ? 'p-block' : 'p-block free') : 'p-block busy';
@@ -1610,8 +1688,17 @@ ${freeSlotsList}
         const recessMarker = `<div class="p-recess-divider" title="1:30–2:00 PM Lunch Recess (All 96 rooms vacant)">☕</div>`;
 
         const p6_9 = periodIntervals.slice(5).map(p => {
-          let isFree = sched.free_slots.includes(p.slot);
-          const hasBonus = bonusFreeSlots.find(b => b.slot === p.slot);
+          const lock = activeRoomLocks.find(l => l.slot === 'ALL_DAY' || l.slot === p.slot);
+          if (lock) {
+            const isExtra = lock.type === 'extra_class';
+            const icon = isExtra ? '📚' : '🔒';
+            const badgeTitle = `${p.full}: ${icon} ${isExtra ? 'EXTRA CLASS' : 'ROOM LOCKED'} - ${escapeHtml(lock.title || '')}`;
+            const lockStyle = isExtra ? 'background: #2563eb; color: #FFF;' : 'background: #dc2626; color: #FFF;';
+            return `<div class="p-block busy" style="${lockStyle}" data-room="${room.code}" data-slot="${p.slot}" title="${badgeTitle}">${icon}</div>`;
+          }
+
+          let isFree = effectiveFreeSlots.includes(p.slot);
+          const hasBonus = effectiveBonusSlots.find(b => b.slot === p.slot);
           if (hasBonus) isFree = true;
 
           const cls = isFree ? (hasBonus ? 'p-block' : 'p-block free') : 'p-block busy';
@@ -1622,10 +1709,24 @@ ${freeSlotsList}
           return `<div class="${cls}" style="${bonusStyle}" data-room="${room.code}" data-slot="${p.slot}" title="${title}">${p.label}</div>`;
         }).join('');
 
-        const bonusBannerHtml = bonusFreeSlots.length > 0
+        const roomLockBannersHtml = activeRoomLocks.length > 0
+          ? activeRoomLocks.map(l => {
+              const isExtra = l.type === 'extra_class';
+              const icon = isExtra ? '📚' : '🔒';
+              const label = isExtra ? 'EXTRA CLASS SCHEDULED' : 'ROOM LOCKED';
+              const slotText = l.slot === 'ALL_DAY' ? 'Full Day (8:30 AM – 6:00 PM)' : l.slot;
+              const bannerClass = isExtra ? 'extra-class-banner' : 'locked-room-banner';
+              return `<div class="${bannerClass}">
+                <span>${icon}</span>
+                <span><strong>${label}:</strong> ${escapeHtml(l.title || '')} (${escapeHtml(slotText)})</span>
+              </div>`;
+            }).join('')
+          : '';
+
+        const bonusBannerHtml = effectiveBonusSlots.length > 0
           ? `<div class="bonus-free-banner">
                <span>✨</span>
-               <span><strong>BONUS FREE ROOM:</strong> ${bonusFreeSlots.length} lecture(s) cancelled (Faculty on Leave)</span>
+               <span><strong>BONUS FREE ROOM:</strong> ${effectiveBonusSlots.length} lecture(s) cancelled (Faculty on Leave)</span>
              </div>`
           : '';
 
@@ -1644,6 +1745,7 @@ ${freeSlotsList}
               </div>
             </div>
 
+            ${roomLockBannersHtml}
             ${bonusBannerHtml}
 
             <div class="card-timeline-wrapper">
@@ -4273,7 +4375,7 @@ window._triggerDeferredPwaPrompt = function(delayMs = 3000) {
 // Register Service Worker with robust relative path and periodic sync
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    const swUrl = './sw.js?v=35';
+    const swUrl = './sw.js?v=36';
     navigator.serviceWorker.register(swUrl, { scope: './' }).then(async (registration) => {
       console.log('[SW] Registered successfully with scope:', registration.scope);
 

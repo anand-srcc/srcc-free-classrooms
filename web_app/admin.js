@@ -501,14 +501,271 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================================
+  // 🔒 ROOM LOCKS & EXTRA CLASSES MANAGEMENT
+  // ==========================================================================
+  const ROOM_LOCKS_STORAGE_KEY = 'srcc_room_locks_v1';
+
+  function getRoomLocksList() {
+    try {
+      const stored = localStorage.getItem(ROOM_LOCKS_STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch (e) {
+      console.error('Error reading room locks:', e);
+    }
+    return [];
+  }
+
+  function saveRoomLocksList(list) {
+    try {
+      localStorage.setItem(ROOM_LOCKS_STORAGE_KEY, JSON.stringify(list));
+      window.SRCC_ROOM_LOCKS = list;
+    } catch (e) {
+      console.error('Error saving room locks:', e);
+    }
+  }
+
+  async function syncRoomLocksToCloud(locksList, showSuccessToast = false) {
+    const baseUrl = getBaseCloudDbUrl();
+    if (!baseUrl) return false;
+    const secret = getCloudDbSecret();
+    let url = baseUrl + '/room_locks.json';
+    if (secret) url += '?auth=' + encodeURIComponent(secret);
+
+    try {
+      const resp = await fetch(url, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(locksList)
+      });
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      if (showSuccessToast) showToast('☁️ Room locks synced with Cloud DB.');
+      return true;
+    } catch (e) {
+      console.warn('Room locks cloud sync note:', e);
+      return false;
+    }
+  }
+
+  async function fetchCloudRoomLocks() {
+    const baseUrl = getBaseCloudDbUrl();
+    if (!baseUrl) return;
+    try {
+      const res = await fetch(baseUrl + '/room_locks.json');
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          saveRoomLocksList(data);
+          renderLocksTable();
+          updateKpis();
+        } else if (data && typeof data === 'object') {
+          const list = Object.values(data);
+          saveRoomLocksList(list);
+          renderLocksTable();
+          updateKpis();
+        }
+      }
+    } catch (e) {
+      console.warn('Could not fetch cloud room locks:', e);
+    }
+  }
+
+  function populateRoomLockDropdown() {
+    const select = document.getElementById('adminLockRoomSelect');
+    if (!select) return;
+
+    let rooms = [];
+    if (appData && Array.isArray(appData.rooms) && appData.rooms.length > 0) {
+      rooms = appData.rooms.map(r => ({ code: r.code, name: r.name, category: r.category }));
+    } else {
+      const rRooms = Array.from({ length: 35 }, (_, i) => ({ code: `R${i + 1}`, name: `Room ${i + 1}`, category: 'Classrooms' }));
+      const tRooms = Array.from({ length: 48 }, (_, i) => ({ code: `T${i + 1}`, name: `Tutorial ${i + 1}`, category: 'Tutorials' }));
+      const pbRooms = Array.from({ length: 12 }, (_, i) => ({ code: `PB-${i + 1}`, name: `PB Room ${i + 1}`, category: 'PB Wing' }));
+      rooms = [...rRooms, ...tRooms, ...pbRooms, { code: 'SCR', name: 'Sports Complex', category: 'Sports' }, { code: 'Library FF', name: 'Library First Floor', category: 'Facility' }];
+    }
+
+    rooms.sort((a, b) => a.code.localeCompare(b.code, undefined, { numeric: true }));
+
+    select.innerHTML = rooms.map(r => {
+      return `<option value="${escapeHtml(r.code)}">${escapeHtml(r.code)} · ${escapeHtml(r.name || r.code)} (${escapeHtml(r.category || 'Room')})</option>`;
+    }).join('');
+  }
+
+  function renderLocksTable() {
+    const container = document.getElementById('adminLocksListContainer');
+    const countEl = document.getElementById('adminLocksCount');
+    const kpiLocks = document.getElementById('kpiActiveLocks');
+    const tabLocksBadge = document.getElementById('tabLocksBadge');
+
+    const locks = getRoomLocksList();
+    if (countEl) countEl.textContent = locks.length;
+    if (kpiLocks) kpiLocks.textContent = locks.length;
+    if (tabLocksBadge) {
+      tabLocksBadge.textContent = locks.length;
+      tabLocksBadge.style.display = locks.length > 0 ? 'inline-block' : 'none';
+    }
+
+    if (!container) return;
+
+    if (locks.length === 0) {
+      container.innerHTML = `
+        <div style="text-align: center; padding: 22px 14px; color: var(--text-muted); font-size: 0.86rem; background: #f8fafc; border: 1px dashed var(--border-color); border-radius: 8px;">
+          🔒 No locked classrooms or extra classes active. All rooms follow the regular timetable.
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = locks.map(lock => {
+      const isExtra = lock.type === 'extra_class';
+      const badgeClass = isExtra ? 'badge-extra' : 'badge-lock';
+      const badgeIcon = isExtra ? '📚' : '🔒';
+      const typeLabel = isExtra ? 'Extra Class' : 'Room Locked';
+      const slotLabel = lock.slot === 'ALL_DAY' ? 'Full Day (8:30 AM – 6:00 PM)' : lock.slot;
+
+      return `
+        <div class="leave-item-row" style="border-left: 4px solid ${isExtra ? '#3b82f6' : '#ef4444'};">
+          <div class="leave-item-details">
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 3px;">
+              <span style="font-weight: 800; font-size: 0.95rem; color: var(--text-primary);">${escapeHtml(lock.room)}</span>
+              <span class="room-lock-badge ${badgeClass}">${badgeIcon} ${typeLabel}</span>
+              <span style="font-size: 0.74rem; color: var(--text-secondary); background: #f1f5f9; padding: 2px 7px; border-radius: 4px; font-weight: 600;">🕒 ${escapeHtml(slotLabel)}</span>
+            </div>
+            <div style="font-size: 0.82rem; color: var(--text-secondary); display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+              <span>📅 ${escapeHtml(lock.date || 'Today')}</span>
+              ${lock.title ? `<span>·</span><span style="font-weight: 600; color: var(--text-primary);">"${escapeHtml(lock.title)}"</span>` : ''}
+              ${lock.added_by ? `<span style="font-size: 0.72rem; color: var(--text-muted);">(By ${escapeHtml(lock.added_by)})</span>` : ''}
+            </div>
+          </div>
+          <button type="button" class="btn-delete-leave" onclick="deleteRoomLock('${escapeHtml(lock.id)}')" title="Unlock classroom">
+            🔓 Unlock
+          </button>
+        </div>
+      `;
+    }).join('');
+  }
+
+  window.deleteRoomLock = async function(lockId) {
+    let locks = getRoomLocksList();
+    const target = locks.find(l => l.id === lockId);
+    locks = locks.filter(l => l.id !== lockId);
+    saveRoomLocksList(locks);
+    renderLocksTable();
+    updateKpis();
+    syncRoomLocksToCloud(locks, false);
+    showToast(`🔓 Classroom <strong>${target ? target.room : ''}</strong> unlocked successfully.`);
+  };
+
+  function initRoomLocksListeners() {
+    const btnAddLock = document.getElementById('btnAdminAddLock');
+    if (btnAddLock) {
+      btnAddLock.addEventListener('click', () => {
+        const roomSelect = document.getElementById('adminLockRoomSelect');
+        const lockType = document.getElementById('adminLockType');
+        const lockSlot = document.getElementById('adminLockSlot');
+        const lockDate = document.getElementById('adminLockDate');
+        const lockTitle = document.getElementById('adminLockTitle');
+
+        const room = (roomSelect ? roomSelect.value : '').trim();
+        const type = (lockType ? lockType.value : 'lock').trim();
+        const slot = (lockSlot ? lockSlot.value : 'ALL_DAY').trim();
+        const date = (lockDate ? lockDate.value : getTodayIsoDate()).trim();
+        const title = (lockTitle ? lockTitle.value : '').trim();
+
+        if (!room) {
+          showToast('⚠️ Please select a classroom to lock.', false);
+          return;
+        }
+
+        const activeUser = getActiveSessionUser();
+        const newLock = {
+          id: 'lock_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+          room: room,
+          type: type,
+          slot: slot,
+          date: date || getTodayIsoDate(),
+          title: title || (type === 'extra_class' ? 'Special Lecture Scheduled' : 'Room Reserved / Locked'),
+          added_by: activeUser.fullName || 'Admin',
+          created_at: new Date().toISOString()
+        };
+
+        const locks = getRoomLocksList();
+        locks.unshift(newLock);
+        saveRoomLocksList(locks);
+        renderLocksTable();
+        updateKpis();
+        syncRoomLocksToCloud(locks, true);
+
+        if (lockTitle) lockTitle.value = '';
+        showToast(`🔒 <strong>Room ${room}</strong> locked successfully! Live for all students.`);
+      });
+    }
+
+    const btnClearLocks = document.getElementById('btnAdminClearAllLocks');
+    if (btnClearLocks) {
+      btnClearLocks.addEventListener('click', () => {
+        if (confirm('Unlock all classrooms and remove all active extra class notices?')) {
+          saveRoomLocksList([]);
+          renderLocksTable();
+          updateKpis();
+          syncRoomLocksToCloud([], false);
+          showToast('🔓 All classrooms unlocked and notices cleared.');
+        }
+      });
+    }
+
+    const lockDateInput = document.getElementById('adminLockDate');
+    if (lockDateInput && !lockDateInput.value) {
+      lockDateInput.value = getTodayIsoDate();
+    }
+  }
+
+  // ==========================================================================
+  // 📑 TAB NAVIGATION & LIVE DATE DISPLAY
+  // ==========================================================================
+  function setupAdminTabs() {
+    const adminTabBtns = document.querySelectorAll('.admin-tab-btn');
+    const tabPanes = {
+      leaves: document.getElementById('tabContentLeaves'),
+      locks: document.getElementById('tabContentLocks'),
+      broadcast: document.getElementById('tabContentBroadcast'),
+      reports: document.getElementById('tabContentReports'),
+      settings: document.getElementById('tabContentSettings')
+    };
+
+    adminTabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.tab;
+        adminTabBtns.forEach(b => b.classList.toggle('active', b === btn));
+        Object.entries(tabPanes).forEach(([tabName, el]) => {
+          if (el) el.classList.toggle('active', tabName === target);
+        });
+      });
+    });
+
+    const dateDisplay = document.getElementById('adminLiveDateDisplay');
+    if (dateDisplay) {
+      const now = new Date();
+      dateDisplay.textContent = now.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' });
+    }
+  }
+
+  // ==========================================================================
   // 📊 DASHBOARD INITIALIZATION
   // ==========================================================================
   function initDashboard() {
     populateTeacherSelect();
+    populateRoomLockDropdown();
     setDefaultDates();
     renderLeavesTable();
+    renderLocksTable();
     updateKpis();
     updateCodePreview();
+    setupAdminTabs();
+    initRoomLocksListeners();
+    fetchCloudRoomLocks();
 
     // Populate Cloud DB URL & Status
     if (cloudDbUrlInput) {
@@ -1020,6 +1277,18 @@ document.addEventListener('DOMContentLoaded', () => {
       kpiUnlockedRooms.textContent = unlockedRooms > 0 ? `${unlockedRooms} Slots` : '0';
     }
 
+    const kpiActiveLocks = document.getElementById('kpiActiveLocks');
+    const tabLocksBadge = document.getElementById('tabLocksBadge');
+    const tabLeavesBadge = document.getElementById('tabLeavesBadge');
+    if (tabLeavesBadge) tabLeavesBadge.textContent = leaves.length;
+
+    const locks = getRoomLocksList();
+    if (kpiActiveLocks) kpiActiveLocks.textContent = locks.length;
+    if (tabLocksBadge) {
+      tabLocksBadge.textContent = locks.length;
+      tabLocksBadge.style.display = locks.length > 0 ? 'inline-block' : 'none';
+    }
+
     renderAnalytics(leaves, today, activeToday);
   }
 
@@ -1488,7 +1757,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (container) {
             container.innerHTML = `
               <div style="text-align: center; padding: 18px 14px; color: #64748b; font-size: 0.85rem; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px;">
-                ✅ <strong>No open student reports.</strong> When students submit a wrong room or teacher attendance discrepancy, it will appear here immediately with 1-click dismiss.
+                ✅ <strong>No open student reports.</strong>
               </div>
             `;
           }

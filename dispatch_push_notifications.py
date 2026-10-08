@@ -80,7 +80,23 @@ def calculate_campus_update():
                 seen.add(key)
                 active_leaves.append(l)
 
-    # 2. Free rooms right now
+    # 2. Fetch room locks & extra classes
+    locked_rooms = set()
+    try:
+        r_locks = requests.get(f"{FIREBASE_DB_BASE}/room_locks.json", timeout=8)
+        if r_locks.ok and r_locks.json():
+            locks_data = r_locks.json()
+            locks_list = locks_data if isinstance(locks_data, list) else list(locks_data.values())
+            for lk in locks_list:
+                if isinstance(lk, dict) and lk.get("date", today_iso) == today_iso:
+                    slot = lk.get("slot")
+                    room = (lk.get("room") or "").strip().upper()
+                    if slot == "ALL_DAY":
+                        locked_rooms.add(room)
+    except Exception as e:
+        print(f"[Warning] Could not fetch room locks from Firebase: {e}")
+
+    # 3. Free rooms right now
     free_rooms_count = 0
     data_path = os.path.join(os.path.dirname(__file__), "web_app", "srcc_data.json")
     if os.path.exists(data_path):
@@ -91,7 +107,7 @@ def calculate_campus_update():
 
             # Check lunch recess
             if 13 * 60 + 30 <= current_minutes < 14 * 60:
-                free_rooms_count = len(rooms)
+                free_rooms_count = sum(1 for r in rooms if r.get("code", "").strip().upper() not in locked_rooms)
             else:
                 curr_period = None
                 for p in PERIOD_INTERVALS:
@@ -101,6 +117,9 @@ def calculate_campus_update():
 
                 if curr_period:
                     for r in rooms:
+                        r_code = r.get("code", "").strip().upper()
+                        if r_code in locked_rooms:
+                            continue
                         sched = r.get("schedule", {}).get(day_name, {})
                         free_slots = sched.get("free_slots", [])
                         if curr_period["slot"] in free_slots:
