@@ -664,7 +664,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const currentMinutes = now.getHours() * 60 + now.getMinutes();
 
       // Check lunch recess specifically (1:30 PM - 2:00 PM)
-      if (currentMinutes >= 13 * 60 + 30 && currentMinutes < 14 * 60 + 0) {
+      const isLunchRecess = currentMinutes >= 13 * 60 + 30 && currentMinutes < 14 * 60 + 0;
+      const recessBanner = document.getElementById('recessBanner');
+      if (recessBanner) {
+        recessBanner.style.display = isLunchRecess ? 'flex' : 'none';
+      }
+
+      if (isLunchRecess) {
         state.currentLiveSlot = '1:30 PM to 2:00 PM';
         if (liveClockText) liveClockText.textContent = `${timeStr} · Lunch Recess (All 96 Rooms Free)`;
       } else {
@@ -876,67 +882,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.addEventListener('click', () => setActiveDay(btn.dataset.day));
     });
 
-    sheetDayButtons.forEach(btn => {
-      if (btn.dataset.day === state.activeDay) btn.classList.add('active');
-      btn.addEventListener('click', () => {
-        setActiveDay(btn.dataset.day);
-        if (daySheetOverlay) daySheetOverlay.style.display = 'none';
-      });
-    });
-
-    if (bnavDayLabel) bnavDayLabel.textContent = state.activeDay.slice(0, 3);
-
-    // Mobile Bottom Sheet Handlers
-    if (bnavDay && daySheetOverlay) {
-      bnavDay.addEventListener('click', () => {
-        daySheetOverlay.style.display = 'flex';
-      });
-    }
-
-    if (btnCloseDaySheet && daySheetOverlay) {
-      btnCloseDaySheet.addEventListener('click', () => { daySheetOverlay.style.display = 'none'; });
-      daySheetOverlay.addEventListener('click', (e) => {
-        if (e.target === daySheetOverlay) daySheetOverlay.style.display = 'none';
-      });
-    }
-
-    if (btnCloseWingsSheet && wingsSheetOverlay) {
-      btnCloseWingsSheet.addEventListener('click', () => { wingsSheetOverlay.style.display = 'none'; });
-      wingsSheetOverlay.addEventListener('click', (e) => {
-        if (e.target === wingsSheetOverlay) wingsSheetOverlay.style.display = 'none';
-      });
-    }
-
-    sheetWingItems.forEach(item => {
-      item.addEventListener('click', () => {
-        const cat = item.dataset.cat;
-        setActiveCategory(cat);
-        if (wingsSheetOverlay) wingsSheetOverlay.style.display = 'none';
-        const titleText = item.querySelector('.wing-title')?.textContent || cat;
-        showToast(`🏛️ Showing wing: <strong>${escapeHtml(titleText)}</strong>`);
-      });
-    });
-
-    // Mobile Search Button
-    if (bnavSearch) {
-      bnavSearch.addEventListener('click', () => {
-        if (state.activeMode === 'rooms' && searchInput) {
-          searchInput.focus();
-          window.scrollTo({ top: searchInput.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
-        } else if (facultySearchInput) {
-          facultySearchInput.focus();
-          window.scrollTo({ top: facultySearchInput.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
-        }
-      });
-    }
-
     // Community Link Handlers
-    if (bnavCommunity) {
-      bnavCommunity.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.open(SRCC_WHATSAPP_LINK, '_blank', 'noopener,noreferrer');
-      });
-    }
 
     document.querySelectorAll('.btn-community-header, .whatsapp-card').forEach(card => {
       card.href = SRCC_WHATSAPP_LINK;
@@ -1617,11 +1563,9 @@ ${freeSlotsList}
           }
         }
 
-        // Format free slot chips
+        // Format free slot chips (individual period slots)
         let chipsHtml = '';
-        if (effectiveFreeHours === 9) {
-          chipsHtml = `<div class="slot-chip slot-all-free">★ ALL DAY VACANT (8:30 AM – 6:00 PM)</div>`;
-        } else if (effectiveFreeHours === 0) {
+        if (effectiveFreeHours === 0) {
           chipsHtml = `<div class="slot-chip slot-none">No free periods on this day</div>`;
         } else {
           const regularChips = sched.free_slots.map(slot => {
@@ -1710,17 +1654,23 @@ ${freeSlotsList}
 
               ${consecutiveChipsHtml ? `
                 <div class="consecutive-windows-section" style="margin: 8px 0 6px 0;">
-                  <div style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">Continuous Vacant Windows:</div>
+                  <div style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">Vacant Windows for GD:</div>
                   <div style="display: flex; flex-direction: column; gap: 4px;">
                     ${consecutiveChipsHtml}
                   </div>
                 </div>
               ` : ''}
 
-              <div class="slots-chips-title">Free Timings for GD:</div>
-              <div class="slots-chips-container room-free-list">
-                ${chipsHtml}
-              </div>
+              ${effectiveFreeHours > 0 ? `
+                <div class="slots-chips-title" style="margin-top: 6px;">Free Timings for GD:</div>
+                <div class="slots-chips-container room-free-list">
+                  ${chipsHtml}
+                </div>
+              ` : (effectiveFreeHours === 0 ? `
+                <div class="slots-chips-container room-free-list">
+                  ${chipsHtml}
+                </div>
+              ` : '')}
             </div>
 
             <div class="card-actions room-card-actions">
@@ -3459,18 +3409,6 @@ window.SRCC_FACULTY_LEAVES = {
       const ttRibbonCourseSec = document.getElementById('ttRibbonCourseSec');
       const ttRibbonDay = document.getElementById('ttRibbonDay');
 
-      // --- Modal Elements (#myTimetableModal) ---
-      const myTimetableModal = document.getElementById('myTimetableModal');
-      const btnTtModalClose = document.getElementById('btnTtModalClose');
-      const ttCourseSelect = document.getElementById('ttCourseSelect');
-      const ttSemSelect = document.getElementById('ttSemSelect');
-      const ttSecSelect = document.getElementById('ttSecSelect');
-      const ttBatchSelect = document.getElementById('ttBatchSelect');
-      const ttDaySelect = document.getElementById('ttDaySelect');
-      const ttSearchInput = document.getElementById('ttSearchInput');
-      const btnClearTtSearch = document.getElementById('btnClearTtSearch');
-      const ttScheduleBody = document.getElementById('ttScheduleBody');
-
       // Silently persist last selected class filters so returning users immediately see their timetable
       function savePreferences() {
         try {
@@ -3497,19 +3435,6 @@ window.SRCC_FACULTY_LEAVES = {
             ttMainSecSelect.value = secs[0];
           }
         }
-        if (ttSecSelect) {
-          ttSecSelect.innerHTML = '';
-          secs.forEach(s => {
-            const opt = document.createElement('option');
-            opt.value = s;
-            opt.textContent = s;
-            if (s === ttState.sec) opt.selected = true;
-            ttSecSelect.appendChild(opt);
-          });
-          if (!secs.includes(ttState.sec) && secs.length > 0) {
-            ttSecSelect.value = secs[0];
-          }
-        }
 
         // Batches for current sec
         const batchSet = courseMap[ttState.course]?.[ttState.sem]?.[ttState.sec] || new Set();
@@ -3525,14 +3450,6 @@ window.SRCC_FACULTY_LEAVES = {
           } else {
             ttMainBatchSelect.value = 'ALL';
             ttState.batch = 'ALL';
-          }
-        }
-        if (ttBatchSelect) {
-          ttBatchSelect.innerHTML = batchOptionsHtml;
-          if (ttState.batch !== 'ALL' && batches.includes(ttState.batch)) {
-            ttBatchSelect.value = ttState.batch;
-          } else {
-            ttBatchSelect.value = 'ALL';
           }
         }
 
@@ -3554,12 +3471,6 @@ window.SRCC_FACULTY_LEAVES = {
         if (ttMainSecSelect) ttMainSecSelect.value = ttState.sec;
         if (ttMainBatchSelect) ttMainBatchSelect.value = ttState.batch;
         if (ttMainSlotSelect) ttMainSlotSelect.value = ttState.slot;
-
-        if (ttCourseSelect) ttCourseSelect.value = ttState.course;
-        if (ttSemSelect) ttSemSelect.value = ttState.sem;
-        if (ttSecSelect) ttSecSelect.value = ttState.sec;
-        if (ttBatchSelect) ttBatchSelect.value = ttState.batch;
-        if (ttDaySelect) ttDaySelect.value = ttState.day;
       }
 
       function getTimetableData() {
@@ -3803,156 +3714,6 @@ window.SRCC_FACULTY_LEAVES = {
         }
       }
 
-      // --- Render Light Modal View (#myTimetableModal) ---
-      function renderModalTimetable() {
-        if (!ttScheduleBody) return;
-        const { classesBySlot, freeRoomsBySlot } = getTimetableData();
-        const filterQuery = (ttSearchInput?.value || '').trim().toLowerCase();
-
-        if (btnClearTtSearch) {
-          btnClearTtSearch.style.display = filterQuery ? 'block' : 'none';
-        }
-
-        let html = '';
-        let matchCount = 0;
-
-        academicPeriods.forEach(p => {
-          const slot = p.slot;
-          const timeLabel = p.time;
-          let slotClasses = classesBySlot[slot] || [];
-          const freeRooms = freeRoomsBySlot[slot] || [];
-
-          if (filterQuery) {
-            slotClasses = slotClasses.filter(c => {
-              const fullText = `${c.subject} ${c.subjectName || ''} ${c.type} ${c.batch} ${c.rawBatch || ''} ${c.teacher} ${c.room}`.toLowerCase();
-              return fullText.includes(filterQuery);
-            });
-            const matchesFree = 'free period vacant'.includes(filterQuery) || freeRooms.some(r => r.toLowerCase().includes(filterQuery));
-            if (slotClasses.length === 0 && !matchesFree) return;
-          }
-
-          matchCount++;
-
-          if (slotClasses.length > 0) {
-            const entriesHtml = slotClasses.map(c => {
-              const batchBadge = c.batch 
-                ? (c.rawBatch && c.rawBatch !== c.batch ? ` · ${escapeHtml(c.batch)} (${escapeHtml(c.rawBatch)})` : ` · ${escapeHtml(c.batch)}`)
-                : '';
-              const leaveBadge = c.isOnLeave ? `<div class="tt-leave-badge">🏖️ Faculty on Leave Today</div>` : '';
-              const roomLink = c.room 
-                ? ` · <span class="tt-room-jump" data-room="${escapeHtml(c.room)}" style="cursor: pointer; color: var(--accent-blue); font-weight: 700; text-decoration: underline;" title="View Room in Campus Finder">Room ${escapeHtml(c.room)}</span>` 
-                : '';
-
-              const displaySubject = c.subjectName || c.subject || 'Subject';
-              const showCodeBadge = Boolean(c.subject && c.subject.toLowerCase() !== displaySubject.toLowerCase());
-
-              return `
-                <div class="tt-class-entry">
-                  <div class="tt-class-title">
-                    <strong class="tt-subject-name">
-                      ${escapeHtml(displaySubject)}
-                      ${showCodeBadge ? `<span class="tt-subj-code-pill">${escapeHtml(c.subject)}</span>` : ''}
-                    </strong>
-                    <span class="tt-class-type">${escapeHtml(c.type)}${batchBadge}</span>
-                  </div>
-                  <div class="tt-teacher-room">
-                    <span class="tt-teacher-link btn-view-teacher-today" data-teacher-id="${escapeHtml(c.teacherId || '')}" data-teacher-name="${escapeHtml(c.teacher)}" style="cursor: pointer; font-weight: 700; color: var(--primary-color);" title="View ${escapeHtml(c.teacher)}'s timetable">
-                      👨‍🏫 ${escapeHtml(c.teacher)}
-                    </span>${roomLink}
-                  </div>
-                  ${leaveBadge}
-                </div>
-              `;
-            }).join('');
-
-            html += `
-              <div class="tt-slot-row">
-                <div class="tt-slot-time">${timeLabel}</div>
-                <div class="tt-slot-content">${entriesHtml}</div>
-              </div>
-            `;
-          } else {
-            const previewCodes = freeRooms.slice(0, 6).join(', ');
-            const moreIndicator = freeRooms.length > 6 ? ` (+${freeRooms.length - 6} more)` : '';
-            const roomSummary = freeRooms.length > 0 
-              ? `${freeRooms.length} rooms free: ${previewCodes}${moreIndicator}`
-              : 'No free rooms available';
-
-            html += `
-              <div class="tt-slot-row">
-                <div class="tt-slot-time">${timeLabel}</div>
-                <div class="tt-slot-content">
-                  <div class="tt-class-entry">
-                    <div class="tt-free-title">⚡ Free period</div>
-                    <div class="tt-free-rooms tt-free-rooms-interactive" title="Click to view vacant rooms in this slot">
-                      ${escapeHtml(roomSummary)}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            `;
-          }
-        });
-
-        if (matchCount === 0) {
-          html = `
-            <div class="tt-empty-state">
-              <div style="font-size: 2rem; margin-bottom: 6px;">🔎</div>
-              <p>No matching classes found in timetable</p>
-            </div>
-          `;
-        }
-
-        ttScheduleBody.innerHTML = html;
-
-        ttScheduleBody.querySelectorAll('.btn-view-teacher-today').forEach(el => {
-          el.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const tId = el.dataset.teacherId;
-            const tName = el.dataset.teacherName;
-            closeTtModal();
-            openTeacherModal(tId || tName, ttState.day);
-          });
-        });
-
-        ttScheduleBody.querySelectorAll('.tt-room-jump').forEach(el => {
-          el.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const targetRoom = el.dataset.room;
-            if (targetRoom) {
-              closeTtModal();
-              setAppMode('rooms');
-              if (searchInput) {
-                searchInput.value = targetRoom;
-                state.searchQuery = targetRoom.toLowerCase();
-                render();
-                setTimeout(() => {
-                  searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 200);
-              }
-            }
-          });
-        });
-      }
-
-      function openTtModal() {
-        if (!myTimetableModal) return;
-        myTimetableModal.style.display = 'flex';
-        void myTimetableModal.offsetWidth;
-        myTimetableModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        renderModalTimetable();
-      }
-
-      function closeTtModal() {
-        if (!myTimetableModal) return;
-        myTimetableModal.classList.remove('active');
-        setTimeout(() => {
-          myTimetableModal.style.display = 'none';
-          document.body.style.overflow = '';
-        }, 200);
-      }
-
       // --- Setup Event Listeners for Main View Section ---
       ttMainDayButtons.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -4026,77 +3787,6 @@ window.SRCC_FACULTY_LEAVES = {
         });
       }
 
-      // --- Setup Event Listeners for Modal ---
-      if (btnTtModalClose) btnTtModalClose.addEventListener('click', closeTtModal);
-      if (myTimetableModal) {
-        myTimetableModal.addEventListener('click', (e) => {
-          if (e.target === myTimetableModal) closeTtModal();
-        });
-      }
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && myTimetableModal?.classList.contains('active')) {
-          closeTtModal();
-        }
-      });
-
-      if (ttCourseSelect) {
-        ttCourseSelect.addEventListener('change', () => {
-          ttState.course = ttCourseSelect.value;
-          updateSectionsAndBatches(true);
-          renderModalTimetable();
-          renderMainTimetableView();
-        });
-      }
-
-      if (ttSemSelect) {
-        ttSemSelect.addEventListener('change', () => {
-          ttState.sem = ttSemSelect.value;
-          updateSectionsAndBatches(true);
-          renderModalTimetable();
-          renderMainTimetableView();
-        });
-      }
-
-      if (ttSecSelect) {
-        ttSecSelect.addEventListener('change', () => {
-          ttState.sec = ttSecSelect.value;
-          updateSectionsAndBatches(true);
-          renderModalTimetable();
-          renderMainTimetableView();
-        });
-      }
-
-      if (ttBatchSelect) {
-        ttBatchSelect.addEventListener('change', () => {
-          ttState.batch = ttBatchSelect.value;
-          savePreferences();
-          renderModalTimetable();
-          renderMainTimetableView();
-        });
-      }
-
-      if (ttDaySelect) {
-        ttDaySelect.addEventListener('change', () => {
-          ttState.day = ttDaySelect.value;
-          renderModalTimetable();
-          renderMainTimetableView();
-        });
-      }
-
-      if (ttSearchInput) {
-        ttSearchInput.addEventListener('input', () => {
-          renderModalTimetable();
-        });
-      }
-
-      if (btnClearTtSearch) {
-        btnClearTtSearch.addEventListener('click', () => {
-          ttSearchInput.value = '';
-          ttSearchInput.focus();
-          renderModalTimetable();
-        });
-      }
-
       // Live day-wise auto capture on timetable switch
       window._setTimetableToToday = function() {
         ttState.day = getLiveDayName();
@@ -4106,7 +3796,9 @@ window.SRCC_FACULTY_LEAVES = {
 
       // Expose globally so mode switcher & tab switcher can trigger it
       window._renderMainTimetable = renderMainTimetableView;
-      window._openTimetableModal = openTtModal;
+      window._openTimetableModal = function() {
+        setAppMode('timetable');
+      };
 
       // Populate initial values
       updateSectionsAndBatches(false);
@@ -4515,7 +4207,7 @@ window._triggerDeferredPwaPrompt = function(delayMs = 3000) {
 // Register Service Worker with robust relative path and periodic sync
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    const swUrl = './sw.js?v=31';
+    const swUrl = './sw.js?v=32';
     navigator.serviceWorker.register(swUrl, { scope: './' }).then(async (registration) => {
       console.log('[SW] Registered successfully with scope:', registration.scope);
 

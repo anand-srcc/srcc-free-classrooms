@@ -61,13 +61,9 @@
             <span class="toggle-status-text" id="toggleStatusText">OFF</span>
           </button>
         </div>
-        <!-- My Timetable Button (Header) -->
-        <button id="btnHeaderTimetable" class="btn-timetable-header" title="Search Student Timetable & Free Rooms">
-          <span>📅 My Timetable</span>
-        </button>
         <!-- Report Issue Button (Header) -->
-        <button id="btnReportIssue" style="display:flex; align-items:center; gap:6px; background: rgba(220, 38, 38, 0.1); color: #dc2626; border: 1px solid rgba(220, 38, 38, 0.3); border-radius: 9999px; font-weight: 600; cursor: pointer; padding: 6px 12px; font-size: 0.75rem; transition: all 0.2s ease;" title="Report wrong timetable data or present faculty marked absent">
-          <span>⚠️ Report Issue</span>
+        <button id="btnReportIssue" class="btn-report-header" title="Report wrong timetable data or present faculty marked absent">
+          <span>⚠️ Report</span>
         </button>
         <!-- WhatsApp Community Button (Header) -->
         <a href="https://chat.whatsapp.com/H6qxq6fGSDVJNPCEtzQgjf" target="_blank" rel="noopener noreferrer" class="btn-community-header" title="Join SRCC WhatsApp Community">
@@ -75,23 +71,7 @@
             <path fill="#25D366" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/>
             <path fill="#FFF" d="M17.47 14.38c-.28-.14-1.67-.82-1.93-.91-.26-.1-.45-.14-.64.14-.19.28-.73.91-.89 1.1-.16.18-.33.21-.61.07-.28-.14-1.18-.44-2.25-1.39-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.46.1-.19.05-.35-.02-.49-.07-.14-.64-1.54-.88-2.11-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.49.07-.75.35-.26.28-1 1-1 2.43 0 1.44 1.03 2.82 1.18 3.01.14.19 2.03 3.1 4.93 4.35.69.3 1.23.48 1.65.61.69.22 1.32.19 1.81.12.55-.08 1.67-.68 1.91-1.34.23-.65.23-1.22.16-1.34-.07-.11-.26-.18-.54-.32z"/>
           </svg>
-          <span>Join Community</span>
-        </a>
-        <a href="SRCC_Free_Classrooms_Timetable.xlsx" download class="btn-download-excel" id="btnDownloadExcel" title="Download Official SRCC Timetable Spreadsheet (.xlsx)">
-          <svg class="excel-header-icon" width="17" height="17" viewBox="0 0 24 24" fill="none">
-            <rect x="2" y="2" width="20" height="20" rx="3.5" fill="#107C41"/>
-            <path d="M12 5v14M12 9.5h7.5M12 14.5h7.5" stroke="rgba(255,255,255,0.45)" stroke-width="1.2"/>
-            <rect x="3" y="4" width="9" height="16" rx="2" fill="#185C37" stroke="#107C41" stroke-width="0.5"/>
-            <path d="M5.5 8.5l4 7M9.5 8.5l-4 7" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
-          <span>Download Excel</span>
-        </a>
-        <a href="https://www.linkedin.com/in/anandkumar563/" target="_blank" rel="noopener noreferrer" class="btn-dev-header" title="Built by Anand Kumar (25BC070) - Connect on LinkedIn">
-          <svg class="linkedin-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45c-.89 0-1.61.72-1.61 1.61 0 .89.72 1.61 1.61 1.61.89 0 1.61-.72 1.61-1.61 0-.89-.72-1.61-1.61-1.61Z"/>
-          </svg>
-          <span>Built by Anand Kumar (25BC070)</span>
-          <span class="external-arrow">↗</span>
+          <span>Community</span>
         </a>
       </div>
     </div>
@@ -199,14 +179,6 @@
             </select>
           </div>
 
-          <!-- Quick Access: Faculty On Leave Redirect Button -->
-          <button type="button" class="btn-check-faculty-leaves" id="btnRoomsFacultyLeavesQuick" title="View teachers on leave today">
-            <span class="btn-leave-icon">🏖️</span>
-            <span class="btn-leave-text">Faculty on Leave</span>
-            <span class="leave-pill-count" id="roomsQuickLeaveCount">0 on leave</span>
-            <span class="btn-leave-arrow">↗</span>
-          </button>
-
           <!-- Desktop View Mode Toggle (Grid vs Compact) -->
           <div class="view-toggle-wrapper" id="viewToggleWrapper">
             <button class="btn-view-mode active" id="btnViewGrid" title="Rich Card Grid View">
@@ -221,8 +193,8 @@
         </div>
       </section>
 
-      <!-- Recess Callout Banner (Compact 1-2 lines) -->
-      <div class="recess-banner" id="recessBanner">
+      <!-- Recess Callout Banner (Shown dynamically during lunch recess 1:30–2:00 PM) -->
+      <div class="recess-banner" id="recessBanner" style="display: none;">
         <span class="recess-badge">☕ LUNCH RECESS</span>
         <span class="recess-info">
           <strong>1:30 PM – 2:00 PM:</strong> All 96 classrooms &amp; tutorial rooms are universally free for GD &amp; lunch.
@@ -265,16 +237,9 @@
         </div>
         <div class="stats-right">
           <span class="stat-last-synced" id="statLastSyncedWrap" title="Timetable data synced from official college website">
-            <span>🕒 Last Verified: <strong id="statLastSynced">Today (Live)</strong></span>
+            <span>🕒 Verified: <strong id="statLastSynced">Today (Live)</strong></span>
           </span>
-          <span id="statTotalFreeHours">0</span> total free slots available
         </div>
-      </div>
-
-      <!-- Published Timetable Vacancy Disclaimer -->
-      <div class="timetable-disclaimer-banner">
-        <span class="disclaimer-icon">ℹ️</span>
-        <span class="disclaimer-text"><strong>Timetable Notice:</strong> Availability is calculated from the published SRCC college timetable. Physical room vacancy may vary due to unscheduled room changes, society events, or exam duties.</span>
       </div>
 
       <!-- Interactive Loading Skeleton State -->
@@ -374,43 +339,6 @@
           </div>
         </div>
 
-        <!-- 3. Alphabet Quick Jump Bar (A to Z) -->
-        <div class="control-row faculty-az-row">
-          <div class="az-row-header">
-            <span class="row-label">A–Z Quick Jump:</span>
-            <span class="az-hint">(Skips 'Dr.' / 'Prof.' titles)</span>
-          </div>
-          <div class="az-filter-scroll" id="facultyAzFilter" role="toolbar" aria-label="Alphabetical quick jump">
-            <button type="button" class="az-btn active" data-letter="ALL">All</button>
-            <button type="button" class="az-btn" data-letter="A">A</button>
-            <button type="button" class="az-btn" data-letter="B">B</button>
-            <button type="button" class="az-btn" data-letter="C">C</button>
-            <button type="button" class="az-btn" data-letter="D">D</button>
-            <button type="button" class="az-btn" data-letter="E">E</button>
-            <button type="button" class="az-btn" data-letter="F">F</button>
-            <button type="button" class="az-btn" data-letter="G">G</button>
-            <button type="button" class="az-btn" data-letter="H">H</button>
-            <button type="button" class="az-btn" data-letter="I">I</button>
-            <button type="button" class="az-btn" data-letter="J">J</button>
-            <button type="button" class="az-btn" data-letter="K">K</button>
-            <button type="button" class="az-btn" data-letter="L">L</button>
-            <button type="button" class="az-btn" data-letter="M">M</button>
-            <button type="button" class="az-btn" data-letter="N">N</button>
-            <button type="button" class="az-btn" data-letter="O">O</button>
-            <button type="button" class="az-btn" data-letter="P">P</button>
-            <button type="button" class="az-btn" data-letter="Q">Q</button>
-            <button type="button" class="az-btn" data-letter="R">R</button>
-            <button type="button" class="az-btn" data-letter="S">S</button>
-            <button type="button" class="az-btn" data-letter="T">T</button>
-            <button type="button" class="az-btn" data-letter="U">U</button>
-            <button type="button" class="az-btn" data-letter="V">V</button>
-            <button type="button" class="az-btn" data-letter="W">W</button>
-            <button type="button" class="az-btn" data-letter="X">X</button>
-            <button type="button" class="az-btn" data-letter="Y">Y</button>
-            <button type="button" class="az-btn" data-letter="Z">Z</button>
-          </div>
-        </div>
-
         <!-- 3. Search & Status Filters Bar -->
         <div class="filter-bar faculty-filter-bar">
           <div class="search-box-wrapper">
@@ -452,9 +380,6 @@
           </div>
         </div>
       </section>
-
-      <!-- Active Leaves Alert Banner for Faculty -->
-      <div class="active-leaves-callout" id="activeLeavesFacultyBanner" style="display: none;"></div>
 
       <!-- Faculty Metric Stat Badges -->
       <div class="metric-tiles-row faculty-metrics-row">
@@ -733,29 +658,18 @@
       </div>
 
       <p class="footer-desc">Designed for <strong>Shri Ram College of Commerce (SRCC)</strong> Students for GD & Peer Study Coordination.</p>
-      <p class="source-link">Timetable sourced from official portal: <a href="https://srcccollegetimetable.in/" target="_blank" rel="noopener">srcccollegetimetable.in</a> • Last Verified & Synced: <strong id="footerLastSynced">Today (Daily Auto-Sync)</strong> • <a href="admin.html" class="footer-admin-link" title="Authorized Administrator Portal">🔒 Admin Portal</a></p>
+      <p class="source-link">Timetable sourced from official portal: <a href="https://srcccollegetimetable.in/" target="_blank" rel="noopener">srcccollegetimetable.in</a> • Last Verified & Synced: <strong id="footerLastSynced">Today (Daily Auto-Sync)</strong></p>
     </div>
   </footer>
 
   <!-- Mobile Bottom Navigation Bar -->
+  <!-- Mobile Bottom Navigation Bar (Streamlined to 4 Primary Actions) -->
   <nav class="mobile-bottom-nav" id="mobileBottomNav">
-    <button class="bottom-nav-item active" id="bnavDay" data-bnav="day" title="Change Day">
-      <span class="bnav-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="4" width="18" height="18" rx="2"></rect>
-          <line x1="16" y1="2" x2="16" y2="6"></line>
-          <line x1="8" y1="2" x2="8" y2="6"></line>
-          <line x1="3" y1="10" x2="21" y2="10"></line>
-          <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01" stroke-width="2.5"></path>
-        </svg>
-      </span>
-      <span class="bnav-label" id="bnavDayLabel">Day</span>
-    </button>
-    <button class="bottom-nav-item" id="bnavRooms" data-bnav="rooms" title="Browse Wings & Categories">
+    <button class="bottom-nav-item active" id="bnavRooms" data-bnav="rooms" title="Browse Classrooms">
       <span class="bnav-icon">🏛️</span>
       <span class="bnav-label">Rooms</span>
     </button>
-    <button class="bottom-nav-item" id="bnavFaculty" data-bnav="faculty" title="SRCC Faculty Locator">
+    <button class="bottom-nav-item" id="bnavFaculty" data-bnav="faculty" title="Faculty Locator">
       <span class="bnav-icon">👨‍🏫</span>
       <span class="bnav-label">Faculty</span>
     </button>
@@ -767,141 +681,7 @@
       <span class="bnav-icon">⚡</span>
       <span class="bnav-label">Free Now</span>
     </button>
-    <button class="bottom-nav-item" id="bnavSearch" data-bnav="search" title="Search Rooms or Faculty">
-      <span class="bnav-icon">🔍</span>
-      <span class="bnav-label">Search</span>
-    </button>
-    <button class="bottom-nav-item bnav-community" id="bnavCommunity" title="Join WhatsApp Community">
-      <span class="bnav-icon whatsapp-nav-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24">
-          <path fill="#25D366" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/>
-          <path fill="#FFF" d="M17.47 14.38c-.28-.14-1.67-.82-1.93-.91-.26-.1-.45-.14-.64.14-.19.28-.73.91-.89 1.1-.16.18-.33.21-.61.07-.28-.14-1.18-.44-2.25-1.39-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.46.1-.19.05-.35-.02-.49-.07-.14-.64-1.54-.88-2.11-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.49.07-.75.35-.26.28-1 1-1 2.43 0 1.44 1.03 2.82 1.18 3.01.14.19 2.03 3.1 4.93 4.35.69.3 1.23.48 1.65.61.69.22 1.32.19 1.81.12.55-.08 1.67-.68 1.91-1.34.23-.65.23-1.22.16-1.34-.07-.11-.26-.18-.54-.32z"/>
-        </svg>
-      </span>
-      <span class="bnav-label">Chat</span>
-    </button>
   </nav>
-
-  <!-- Quick Day Selection Bottom Sheet for Mobile -->
-  <div class="bottom-sheet-overlay" id="daySheetOverlay" style="display: none;">
-    <div class="bottom-sheet">
-      <div class="bottom-sheet-handle"></div>
-      <div class="bottom-sheet-header">
-        <h3 style="display: flex; align-items: center; gap: 8px;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--srcc-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="4" width="18" height="18" rx="2"></rect>
-            <line x1="16" y1="2" x2="16" y2="6"></line>
-            <line x1="8" y1="2" x2="8" y2="6"></line>
-            <line x1="3" y1="10" x2="21" y2="10"></line>
-            <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01" stroke-width="2.5"></path>
-          </svg>
-          Select Timetable Day
-        </h3>
-        <button class="sheet-close-btn" id="btnCloseDaySheet">✕</button>
-      </div>
-      <div class="sheet-days-grid" id="sheetDaysGrid">
-        <button class="sheet-day-btn" data-day="Monday">Monday</button>
-        <button class="sheet-day-btn" data-day="Tuesday">Tuesday</button>
-        <button class="sheet-day-btn" data-day="Wednesday">Wednesday</button>
-        <button class="sheet-day-btn" data-day="Thursday">Thursday</button>
-        <button class="sheet-day-btn" data-day="Friday">Friday</button>
-        <button class="sheet-day-btn" data-day="Saturday">Saturday</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Quick Wings / Category Selection Bottom Sheet for Mobile (With SRCC Crest Branding) -->
-  <div class="bottom-sheet-overlay" id="wingsSheetOverlay" style="display: none;">
-    <div class="bottom-sheet wings-bottom-sheet">
-      <div class="bottom-sheet-handle"></div>
-      <div class="bottom-sheet-header">
-        <div class="sheet-brand-heading">
-          <div class="sheet-logos-strip">
-            <img src="assets/srcc_crest.png" onerror="this.onerror=null; this.src='srcc_crest.png';" alt="SRCC Crest" class="sheet-brand-crest" />
-            <span class="sheet-brand-separator">|</span>
-            <img src="assets/srcc_100years.png" onerror="this.onerror=null; this.src='srcc_100years.png';" alt="SRCC 100 Years" class="sheet-brand-crest" />
-          </div>
-          <div class="sheet-title-text">
-            <h3>Campus Wings & Facilities</h3>
-            <span class="sheet-subtitle-mini">Shri Ram College of Commerce · Filter by Wing</span>
-          </div>
-        </div>
-        <button class="sheet-close-btn" id="btnCloseWingsSheet">✕</button>
-      </div>
-      <div class="sheet-wings-list" id="sheetWingsList">
-        <button class="sheet-wing-item active" data-cat="ALL">
-          <div class="wing-img-badge wing-badge-all">
-            <img src="assets/srcc_100years.png" onerror="this.onerror=null; this.src='srcc_100years.png';" alt="SRCC 100 Years" class="wing-centenary-logo" />
-          </div>
-          <div class="wing-info">
-            <span class="wing-title">All Rooms & Facilities</span>
-            <span class="wing-sub">96 Rooms College-wide · Complete Timetable</span>
-          </div>
-          <span class="wing-count-pill">96</span>
-        </button>
-        <button class="sheet-wing-item" data-cat="PB">
-          <div class="wing-img-badge wing-badge-pb">
-            <span>🏡</span>
-          </div>
-          <div class="wing-info">
-            <span class="wing-title">Principal Bungalow (PB)</span>
-            <span class="wing-sub">Historic Heritage Wing · PB2, PB3, PB4</span>
-          </div>
-          <span class="wing-count-pill">3</span>
-        </button>
-        <button class="sheet-wing-item" data-cat="T">
-          <div class="wing-img-badge wing-badge-t">
-            <span>📚</span>
-          </div>
-          <div class="wing-info">
-            <span class="wing-title">Tutorial Rooms (T)</span>
-            <span class="wing-sub">Dedicated GD & Study Rooms · T1 to T54</span>
-          </div>
-          <span class="wing-count-pill">47</span>
-        </button>
-        <button class="sheet-wing-item" data-cat="SCR">
-          <div class="wing-img-badge wing-badge-scr">
-            <span>⚽</span>
-          </div>
-          <div class="wing-info">
-            <span class="wing-title">Sports Complex (SCR)</span>
-            <span class="wing-sub">Athletic Center Halls · SCR1 to SCR4</span>
-          </div>
-          <span class="wing-count-pill">4</span>
-        </button>
-        <button class="sheet-wing-item" data-cat="R">
-          <div class="wing-img-badge wing-badge-r">
-            <img src="assets/srcc_crest.png" onerror="this.onerror=null; this.src='srcc_crest.png';" alt="SRCC Crest" class="wing-crest-badge-img" />
-          </div>
-          <div class="wing-info">
-            <span class="wing-title">Classrooms (R)</span>
-            <span class="wing-sub">Main Academic Block · R1 to R37</span>
-          </div>
-          <span class="wing-count-pill">34</span>
-        </button>
-        <button class="sheet-wing-item" data-cat="CL">
-          <div class="wing-img-badge wing-badge-cl">
-            <span>💻</span>
-          </div>
-          <div class="wing-info">
-            <span class="wing-title">Computer Labs (CL)</span>
-            <span class="wing-sub">IT & Systems Center · CL1 to CLIB</span>
-          </div>
-          <span class="wing-count-pill">4</span>
-        </button>
-        <button class="sheet-wing-item" data-cat="OTHER">
-          <div class="wing-img-badge wing-badge-other">
-            <span>📖</span>
-          </div>
-          <div class="wing-info">
-            <span class="wing-title">Library & Special Facilities</span>
-            <span class="wing-sub">Library, Seminar Room, Principal Office</span>
-          </div>
-          <span class="wing-count-pill">4</span>
-        </button>
-      </div>
-    </div>
-  </div>
 
   <!-- Social Media Direct Share Modal (With Authentic Brand Logos) -->
   <div class="modal-overlay" id="shareModal" style="display: none;">
@@ -1113,70 +893,13 @@
     </div>
   </div>
 
-  <!-- My Timetable & Free Rooms Modal -->
-  <div id="myTimetableModal" class="tt-modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="ttModalTitle">
-    <div class="tt-modal-card">
-      <div class="tt-modal-header">
-        <h2 class="tt-modal-title" id="ttModalTitle">My timetable & free rooms</h2>
-        <button class="tt-modal-close" id="btnTtModalClose" aria-label="Close Timetable Modal">✕</button>
-      </div>
-      <div class="tt-filter-controls">
-        <div class="tt-controls-grid">
-          <div class="tt-control-group">
-            <label class="tt-label" for="ttCourseSelect">Course</label>
-            <select id="ttCourseSelect" class="tt-select">
-              <!-- Populated dynamically -->
-            </select>
-          </div>
-          <div class="tt-control-group">
-            <label class="tt-label" for="ttSemSelect">Semester</label>
-            <select id="ttSemSelect" class="tt-select">
-              <!-- Populated dynamically -->
-            </select>
-          </div>
-        </div>
-        <div class="tt-controls-grid">
-          <div class="tt-control-group">
-            <label class="tt-label" for="ttSecSelect">Section</label>
-            <select id="ttSecSelect" class="tt-select">
-              <!-- Populated dynamically -->
-            </select>
-          </div>
-          <div class="tt-control-group">
-            <label class="tt-label" for="ttBatchSelect">Batch</label>
-            <select id="ttBatchSelect" class="tt-select">
-              <!-- Populated dynamically -->
-            </select>
-          </div>
-        </div>
-        <div class="tt-control-group">
-          <label class="tt-label" for="ttDaySelect">Day</label>
-          <select id="ttDaySelect" class="tt-select">
-            <option value="Monday">Monday</option>
-            <option value="Tuesday">Tuesday</option>
-            <option value="Wednesday">Wednesday</option>
-            <option value="Thursday">Thursday</option>
-            <option value="Friday">Friday</option>
-            <option value="Saturday">Saturday</option>
-          </select>
-        </div>
-        <div class="tt-search-wrapper">
-          <span class="tt-search-icon">🔍</span>
-          <input type="text" id="ttSearchInput" class="tt-search-input" placeholder="Search subject, teacher, room in timetable..." autocomplete="off" />
-          <button id="btnClearTtSearch" type="button" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #94a3b8; font-size: 14px; cursor: pointer; display: none;">✕</button>
-        </div>
-      </div>
-      <div class="tt-modal-body" id="ttScheduleBody">
-        <!-- Rendered dynamically -->
-      </div>
-    </div>
-  </div>
+
 
   <!-- Scripts -->
-  <script src="data.js?v=31"></script>
-  <script src="cloud_config.js?v=31"></script>
-  <script src="faculty_leaves.js?v=31"></script>
-  <script src="teachers_data.js?v=31"></script>
-  <script src="app.js?v=31"></script>
+  <script src="data.js?v=32"></script>
+  <script src="cloud_config.js?v=32"></script>
+  <script src="faculty_leaves.js?v=32"></script>
+  <script src="teachers_data.js?v=32"></script>
+  <script src="app.js?v=32"></script>
 </body>
 </html>

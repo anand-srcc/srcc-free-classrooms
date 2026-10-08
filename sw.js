@@ -1,32 +1,33 @@
-const CACHE_NAME = 'srcc-classroom-v31';
+const CACHE_NAME = 'srcc-classroom-v32';
 const ASSETS = [
   './',
   './index.html',
-  './web_app/index.html',
-  './web_app/style.css',
-  './web_app/app.js?v=31',
-  './web_app/data.js?v=31',
-  './web_app/cloud_config.js?v=31',
-  './web_app/faculty_leaves.js?v=31',
-  './web_app/teachers_data.js?v=31',
-  './web_app/srcc_data.json',
-  './web_app/favicon.png',
-  './web_app/srcc_crest.png',
-  './web_app/srcc_100years.png',
-  './web_app/manifest.json'
+  './style.css',
+  './app.js?v=32',
+  './data.js?v=32',
+  './cloud_config.js?v=32',
+  './faculty_leaves.js?v=32',
+  './teachers_data.js?v=32',
+  './srcc_data.json',
+  './favicon.png',
+  './srcc_crest.png',
+  './srcc_100years.png',
+  './manifest.json'
 ];
 
 const FIREBASE_LEAVES_URL = 'https://srcc-leaves-default-rtdb.firebaseio.com/leaves.json';
-const LOCAL_LEAVES_URL = './web_app/faculty_leaves.json';
-const LOCAL_DATA_URL = './web_app/srcc_data.json';
+const LOCAL_LEAVES_URL = './faculty_leaves.json';
+const LOCAL_DATA_URL = './srcc_data.json';
 
+// --- Install Event ---
 self.addEventListener('install', (e) => {
   self.skipWaiting();
   e.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS)).catch(err => console.warn('[SW Root] Cache note:', err))
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS)).catch(err => console.warn('[SW] Cache addAll note:', err))
   );
 });
 
+// --- Activate Event ---
 self.addEventListener('activate', (e) => {
   e.waitUntil(
     caches.keys().then((keys) => {
@@ -37,6 +38,7 @@ self.addEventListener('activate', (e) => {
   );
 });
 
+// --- Fetch Event ---
 self.addEventListener('fetch', (e) => {
   const isLocal = self.location.hostname === 'localhost' || self.location.hostname === '127.0.0.1';
   if (isLocal || e.request.url.includes('.json') || e.request.url.includes('firebaseio.com')) {
@@ -61,23 +63,31 @@ self.addEventListener('fetch', (e) => {
         }
         return networkResponse;
       });
-    }).catch(() => caches.match('./web_app/index.html'))
+    }).catch(() => caches.match('./index.html'))
   );
 });
 
+// ============================================================================
+// 🔔 BACKGROUND HOURLY CAMPUS NOTIFICATION DISPATCHER (Every 1 Hour)
+// Dispatches absent faculty count + currently free rooms count!
+// ============================================================================
 async function checkLeavesAndNotifyInBackground(isForced = false) {
   try {
     const ONE_HOUR = 60 * 60 * 1000;
     const cache = await caches.open(CACHE_NAME);
 
+    // 1. Enforce 1-hour interval unless explicitly broadcasted from Admin
     if (!isForced) {
       const lastHourlyResp = await cache.match('/__srcc_sw_last_hourly_time');
       if (lastHourlyResp) {
         const lastTime = parseInt(await lastHourlyResp.text(), 10);
-        if (Date.now() - lastTime < ONE_HOUR) return;
+        if (Date.now() - lastTime < ONE_HOUR) {
+          return; // Skip if less than 1 hour has elapsed
+        }
       }
     }
 
+    // 2. Fetch leaves from Firebase RTDB (fallback to local JSON)
     let leaves = [];
     try {
       const resp = await fetch(FIREBASE_LEAVES_URL, { cache: 'no-cache' });
@@ -97,6 +107,7 @@ async function checkLeavesAndNotifyInBackground(isForced = false) {
       } catch (e) {}
     }
 
+    // 3. Compute IST date & time
     const now = new Date();
     const istOffset = 5.5 * 60 * 60 * 1000;
     const istDate = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + istOffset);
@@ -118,6 +129,7 @@ async function checkLeavesAndNotifyInBackground(isForced = false) {
       return ds;
     };
 
+    // Filter active leaves for today
     const activeLeaves = leaves.filter(l => {
       const s = parseIso(l.start_date) || '2000-01-01';
       const e = parseIso(l.end_date) || s;
@@ -132,6 +144,7 @@ async function checkLeavesAndNotifyInBackground(isForced = false) {
     const uniqueLeaves = Array.from(dedupMap.values());
     const count = uniqueLeaves.length;
 
+    // 4. Calculate Number of Classrooms Free Right Now
     let freeRoomsCount = 0;
     let freeRoomsLine = '';
 
@@ -173,6 +186,7 @@ async function checkLeavesAndNotifyInBackground(isForced = false) {
       }
     }
 
+    // 5. Build Combined Body Text
     let bodyText = '';
     if (count === 1) {
       bodyText = `Prof. ${uniqueLeaves[0].teacher_name} is marked on leave today.\n${freeRoomsLine}`;
@@ -183,43 +197,56 @@ async function checkLeavesAndNotifyInBackground(isForced = false) {
       bodyText = `All professors present today.\n${freeRoomsLine}`;
     }
 
+    // Record timestamp in cache to maintain 1-hour interval
     await cache.put('/__srcc_sw_last_hourly_time', new Response(String(Date.now())));
 
+    // 6. Fire Notification on Screen / Lock Screen
     const baseOrigin = self.location.origin;
+    const basePath = self.location.pathname.substring(0, self.location.pathname.lastIndexOf('/') + 1);
+    const iconUrl = new URL(basePath + 'srcc_crest.png', baseOrigin).href;
+    const badgeUrl = new URL(basePath + 'favicon.png', baseOrigin).href;
+
     await self.registration.showNotification('SRCC Live Campus Update 🔔', {
       body: bodyText,
-      icon: new URL('./web_app/srcc_crest.png', baseOrigin).href,
-      badge: new URL('./web_app/favicon.png', baseOrigin).href,
+      icon: iconUrl,
+      badge: badgeUrl,
       tag: 'srcc-campus-hourly-update',
       renotify: true,
       vibrate: [200, 100, 200, 100, 200],
       requireInteraction: false,
       data: {
-        url: './web_app/index.html?view=leaves'
+        url: basePath + 'index.html?view=leaves'
       }
     });
-  } catch (err) {}
+  } catch (err) {
+    console.warn('[SW Hourly Alert Note]', err);
+  }
 }
 
+// --- Periodic Background Sync (Runs every 1 hour in background) ---
 self.addEventListener('periodicsync', (event) => {
   if (event.tag === 'srcc-check-leaves' || event.tag === 'check-faculty-leaves') {
     event.waitUntil(checkLeavesAndNotifyInBackground(false));
   }
 });
 
+// --- Standard Background Sync ---
 self.addEventListener('sync', (event) => {
   if (event.tag === 'srcc-check-leaves-sync' || event.tag === 'check-faculty-leaves') {
     event.waitUntil(checkLeavesAndNotifyInBackground(false));
   }
 });
 
+// --- Push Event ---
 self.addEventListener('push', (event) => {
   event.waitUntil(checkLeavesAndNotifyInBackground(true));
 });
 
+// --- Notification Click ---
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
-  const targetUrl = (event.notification.data && event.notification.data.url) || './web_app/index.html?view=leaves';
+  const targetUrl = (event.notification.data && event.notification.data.url) || './index.html?view=leaves';
+
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
       for (const client of clientList) {
@@ -228,14 +255,35 @@ self.addEventListener('notificationclick', (event) => {
           return client.focus();
         }
       }
-      if (clients.openWindow) return clients.openWindow(targetUrl);
+      if (clients.openWindow) {
+        return clients.openWindow(targetUrl);
+      }
     })
   );
 });
 
+// --- Message Event (Handles broadcast from admin portal & test requests) ---
 self.addEventListener('message', (event) => {
   if (!event.data) return;
-  if (event.data === 'BROADCAST_LEAVES_ALERT' || event.data.type === 'BROADCAST_LEAVES_ALERT') {
+
+  if (event.data === 'BROADCAST_LEAVES_ALERT' || event.data.type === 'BROADCAST_LEAVES_ALERT' || event.data.type === 'CHECK_LEAVES') {
     event.waitUntil(checkLeavesAndNotifyInBackground(true));
+  }
+
+  if (event.data.type === 'TEST_NOTIFICATION') {
+    const basePath = self.location.pathname.substring(0, self.location.pathname.lastIndexOf('/') + 1);
+    event.waitUntil(
+      self.registration.showNotification('SRCC Live Campus Update 🔔 (Test)', {
+        body: '✅ Live Alerts Active! You will receive hourly updates with absent faculty & free classrooms.',
+        icon: new URL(basePath + 'srcc_crest.png', self.location.origin).href,
+        badge: new URL(basePath + 'favicon.png', self.location.origin).href,
+        tag: 'srcc-test-alert',
+        renotify: true,
+        vibrate: [200, 100, 200],
+        data: {
+          url: basePath + 'index.html?view=leaves'
+        }
+      })
+    );
   }
 });

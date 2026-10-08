@@ -2887,7 +2887,29 @@ body {
 }
 
 
-/* WhatsApp Community Button in Header */
+/* Header Actions: Report Issue & Community */
+.btn-report-header {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.35);
+  color: #dc2626;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-report-header:hover {
+  background: rgba(220, 38, 38, 0.2);
+  border-color: #dc2626;
+  transform: translateY(-1px);
+}
+
 .btn-community-header {
   display: inline-flex;
   align-items: center;
