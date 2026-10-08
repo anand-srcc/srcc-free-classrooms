@@ -596,7 +596,8 @@ document.addEventListener('DOMContentLoaded', () => {
           end: '6:00 PM',
           durationHours: 9.5,
           periodsCount: 9,
-          text: '8:30 AM – 6:00 PM (Full Day Continuous)'
+          text: '8:30 AM – 6:00 PM (Full Day Continuous)',
+          slots: periodIntervals.map(p => p.slot)
         }];
       }
 
@@ -626,13 +627,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const durationStr = (duration % 1 === 0) ? `${duration} hrs` : `${duration} hrs`;
         const startStr = startP.slot.split(' to ')[0];
         const endStr = endP.slot.split(' to ')[1];
+        const coveredSlots = periodIntervals.filter(p => group.includes(p.num)).map(p => p.slot);
 
         return {
           start: startStr,
           end: endStr,
           durationHours: duration,
           periodsCount: group.length,
-          text: `${startStr} – ${endStr} (${durationStr} continuous)`
+          text: `${startStr} – ${endStr} (${durationStr} continuous)`,
+          slots: coveredSlots
         };
       });
     }
@@ -1551,30 +1554,39 @@ ${freeSlotsList}
 
         // Calculate consecutive free windows (continuous periods)
         const consecutiveWindows = getConsecutiveFreeWindows(sched.free_slots, bonusFreeSlots);
+        const multiPeriodWindows = (effectiveFreeHours === 9)
+          ? consecutiveWindows
+          : consecutiveWindows.filter(w => w.periodsCount >= 2);
+
         let consecutiveChipsHtml = '';
+        const coveredContinuousSlots = new Set();
+
         if (effectiveFreeHours === 9) {
           consecutiveChipsHtml = `<div class="consecutive-window-chip" title="Full Day Uninterrupted Free Window">⚡ ★ 8:30 AM – 6:00 PM (Full Day Continuous)</div>`;
-        } else if (consecutiveWindows.length > 0 && effectiveFreeHours >= 2) {
-          const multiPeriodWindows = consecutiveWindows.filter(w => w.periodsCount >= 2);
-          if (multiPeriodWindows.length > 0) {
-            consecutiveChipsHtml = multiPeriodWindows.map(w =>
-              `<div class="consecutive-window-chip" title="Continuous uninterrupted free window">⚡ ${escapeHtml(w.text)}</div>`
-            ).join('');
-          }
+          periodIntervals.forEach(p => coveredContinuousSlots.add(p.slot));
+        } else if (multiPeriodWindows.length > 0) {
+          consecutiveChipsHtml = multiPeriodWindows.map(w =>
+            `<div class="consecutive-window-chip" title="Continuous uninterrupted free window">⚡ ${escapeHtml(w.text)}</div>`
+          ).join('');
+          multiPeriodWindows.forEach(w => {
+            (w.slots || []).forEach(s => coveredContinuousSlots.add(s));
+          });
         }
 
-        // Format free slot chips (individual period slots)
+        // Filter out slots that are ALREADY covered by continuous windows above to prevent repetition!
+        const standaloneRegularSlots = sched.free_slots.filter(s => !coveredContinuousSlots.has(s));
+        const standaloneBonusSlots = bonusFreeSlots.filter(b => !coveredContinuousSlots.has(b.slot));
+
+        // Format standalone/remaining free slot chips
         let chipsHtml = '';
-        if (effectiveFreeHours === 0) {
-          chipsHtml = `<div class="slot-chip slot-none">No free periods on this day</div>`;
-        } else {
-          const regularChips = sched.free_slots.map(slot => {
+        if (standaloneRegularSlots.length > 0 || standaloneBonusSlots.length > 0) {
+          const regularChips = standaloneRegularSlots.map(slot => {
             const isHighlight = (state.activeSlot !== 'ALL' && state.activeSlot === slot);
             const chipClass = isHighlight ? 'slot-chip slot-highlight' : 'slot-chip slot-free';
             return `<div class="${chipClass}">${escapeHtml(slot.replace(' to ', ' – '))}</div>`;
           }).join('');
 
-          const bonusChips = bonusFreeSlots.map(b => {
+          const bonusChips = standaloneBonusSlots.map(b => {
             return `<div class="slot-chip" style="background: rgba(168, 85, 247, 0.22); color: #6d28d9; border: 1px solid rgba(168, 85, 247, 0.45);" title="Class cancelled: Prof. ${escapeHtml(b.teacher.clean_name)} on leave">✨ ${escapeHtml(b.slot.replace(' to ', '–'))} (Faculty Leave)</div>`;
           }).join('');
 
@@ -1661,14 +1673,14 @@ ${freeSlotsList}
                 </div>
               ` : ''}
 
-              ${effectiveFreeHours > 0 ? `
-                <div class="slots-chips-title" style="margin-top: 6px;">Free Timings for GD:</div>
+              ${chipsHtml ? `
+                <div class="slots-chips-title" style="margin-top: 6px;">${consecutiveChipsHtml ? 'Other Free Timings for GD:' : 'Free Timings for GD:'}</div>
                 <div class="slots-chips-container room-free-list">
                   ${chipsHtml}
                 </div>
               ` : (effectiveFreeHours === 0 ? `
                 <div class="slots-chips-container room-free-list">
-                  ${chipsHtml}
+                  <div class="slot-chip slot-none">No free periods on this day</div>
                 </div>
               ` : '')}
             </div>
@@ -4336,7 +4348,7 @@ window._triggerDeferredPwaPrompt = function(delayMs = 3000) {
 // Register Service Worker with robust relative path and periodic sync
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    const swUrl = './sw.js?v=33';
+    const swUrl = './sw.js?v=34';
     navigator.serviceWorker.register(swUrl, { scope: './' }).then(async (registration) => {
       console.log('[SW] Registered successfully with scope:', registration.scope);
 
