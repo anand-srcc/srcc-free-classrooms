@@ -2,30 +2,29 @@ const CACHE_NAME = 'srcc-classroom-v30';
 const ASSETS = [
   './',
   './index.html',
-  './style.css',
-  './app.js?v=30',
-  './data.js?v=30',
-  './cloud_config.js?v=30',
-  './faculty_leaves.js?v=30',
-  './teachers_data.js?v=30',
-  './favicon.png',
-  './srcc_crest.png',
-  './srcc_100years.png',
-  './manifest.json'
+  './web_app/index.html',
+  './web_app/style.css',
+  './web_app/app.js?v=30',
+  './web_app/data.js?v=30',
+  './web_app/cloud_config.js?v=30',
+  './web_app/faculty_leaves.js?v=30',
+  './web_app/teachers_data.js?v=30',
+  './web_app/favicon.png',
+  './web_app/srcc_crest.png',
+  './web_app/srcc_100years.png',
+  './web_app/manifest.json'
 ];
 
 const FIREBASE_LEAVES_URL = 'https://srcc-leaves-default-rtdb.firebaseio.com/leaves.json';
-const LOCAL_LEAVES_URL = './faculty_leaves.json';
+const LOCAL_LEAVES_URL = './web_app/faculty_leaves.json';
 
-// --- Install Event ---
 self.addEventListener('install', (e) => {
   self.skipWaiting();
   e.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS)).catch(err => console.warn('[SW] Cache addAll note:', err))
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS)).catch(err => console.warn('[SW Root] Cache note:', err))
   );
 });
 
-// --- Activate Event ---
 self.addEventListener('activate', (e) => {
   e.waitUntil(
     caches.keys().then((keys) => {
@@ -36,7 +35,6 @@ self.addEventListener('activate', (e) => {
   );
 });
 
-// --- Fetch Event (Bypasses live Firebase DB and dynamic requests) ---
 self.addEventListener('fetch', (e) => {
   const isLocal = self.location.hostname === 'localhost' || self.location.hostname === '127.0.0.1';
   if (isLocal || e.request.url.includes('.json') || e.request.url.includes('firebaseio.com')) {
@@ -47,7 +45,6 @@ self.addEventListener('fetch', (e) => {
   e.respondWith(
     caches.match(e.request).then((cachedResponse) => {
       if (cachedResponse) {
-        // Stale-while-revalidate in background
         fetch(e.request).then((networkResponse) => {
           if (networkResponse && networkResponse.status === 200) {
             caches.open(CACHE_NAME).then((cache) => cache.put(e.request, networkResponse));
@@ -62,30 +59,22 @@ self.addEventListener('fetch', (e) => {
         }
         return networkResponse;
       });
-    }).catch(() => caches.match('./index.html'))
+    }).catch(() => caches.match('./web_app/index.html'))
   );
 });
 
-// ============================================================================
-// 🔔 BACKGROUND FACULTY LEAVE VERIFIER & NOTIFICATION DISPATCHER
-// Runs in background via Periodic Sync, Background Sync, Push, or Device Wakeup
-// ============================================================================
+// Periodic background sync & push delegate to same leaves check
 async function checkLeavesAndNotifyInBackground() {
   try {
     let leaves = [];
-
-    // 1. Fetch live leaves from Firebase Realtime Database
     try {
       const resp = await fetch(FIREBASE_LEAVES_URL, { cache: 'no-cache' });
       if (resp.ok) {
         const data = await resp.json();
         leaves = Array.isArray(data?.leaves) ? data.leaves : (Array.isArray(data) ? data : []);
       }
-    } catch (err) {
-      console.warn('[SW] Firebase background fetch failed, trying local fallback:', err);
-    }
+    } catch (err) {}
 
-    // Fallback to local faculty_leaves.json if cloud fetch timed out
     if (!leaves || leaves.length === 0) {
       try {
         const resp2 = await fetch(LOCAL_LEAVES_URL, { cache: 'no-cache' });
@@ -98,7 +87,6 @@ async function checkLeavesAndNotifyInBackground() {
 
     if (!leaves || leaves.length === 0) return;
 
-    // 2. Compute current IST (Asia/Kolkata) date for SRCC (Delhi, India)
     const now = new Date();
     const istOffset = 5.5 * 60 * 60 * 1000;
     const istDate = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + istOffset);
@@ -117,7 +105,6 @@ async function checkLeavesAndNotifyInBackground() {
       return ds;
     };
 
-    // Filter active leaves for today
     const activeLeaves = leaves.filter(l => {
       const s = parseIso(l.start_date) || '2000-01-01';
       const e = parseIso(l.end_date) || s;
@@ -126,7 +113,6 @@ async function checkLeavesAndNotifyInBackground() {
 
     if (activeLeaves.length === 0) return;
 
-    // Deduplicate by teacher name / ID
     const dedupMap = new Map();
     activeLeaves.forEach(l => {
       const key = String(l.teacher_id || l.teacher_name || '').toLowerCase().trim();
@@ -135,21 +121,15 @@ async function checkLeavesAndNotifyInBackground() {
     const uniqueLeaves = Array.from(dedupMap.values());
     if (uniqueLeaves.length === 0) return;
 
-    // 3. Prevent duplicate notifications on same day for unchanged leaves
     const sig = todayIso + '__' + uniqueLeaves.map(l => (l.teacher_name || '') + '_' + (l.start_date || '')).sort().join('|');
     const cache = await caches.open(CACHE_NAME);
     const lastSigResp = await cache.match('/__srcc_sw_last_notified');
     if (lastSigResp) {
       const lastSig = await lastSigResp.text();
-      if (lastSig === sig) {
-        return; // Already notified today for this set
-      }
+      if (lastSig === sig) return;
     }
-
-    // Store signature in cache
     await cache.put('/__srcc_sw_last_notified', new Response(sig));
 
-    // 4. Construct message body
     const count = uniqueLeaves.length;
     let bodyText = '';
     if (count === 1) {
@@ -159,94 +139,47 @@ async function checkLeavesAndNotifyInBackground() {
       bodyText = `${count} professors on leave today (${topNames}${count > 3 ? '...' : ''}). Classrooms updated!`;
     }
 
-    // 5. Fire Device Notification via Service Worker Registration (Android & Desktop Compatible)
     const baseOrigin = self.location.origin;
-    const basePath = self.location.pathname.substring(0, self.location.pathname.lastIndexOf('/') + 1);
-    const iconUrl = new URL(basePath + 'srcc_crest.png', baseOrigin).href;
-    const badgeUrl = new URL(basePath + 'favicon.png', baseOrigin).href;
-
     await self.registration.showNotification('SRCC Faculty Leave Alert 🏖️', {
       body: bodyText,
-      icon: iconUrl,
-      badge: badgeUrl,
+      icon: new URL('./web_app/srcc_crest.png', baseOrigin).href,
+      badge: new URL('./web_app/favicon.png', baseOrigin).href,
       tag: 'srcc-leave-alert-' + todayIso,
       renotify: true,
-      vibrate: [200, 100, 200, 100, 200],
-      requireInteraction: false,
-      data: {
-        url: basePath + 'index.html?view=leaves'
-      }
+      vibrate: [200, 100, 200],
+      data: { url: './web_app/index.html?view=leaves' }
     });
-  } catch (err) {
-    console.warn('[SW Background Leaves Note]', err);
-  }
+  } catch (err) {}
 }
 
-// --- Periodic Background Sync (Triggers when Chrome opens or mobile wakes up) ---
 self.addEventListener('periodicsync', (event) => {
   if (event.tag === 'srcc-check-leaves' || event.tag === 'check-faculty-leaves') {
     event.waitUntil(checkLeavesAndNotifyInBackground());
   }
 });
 
-// --- Standard Background Sync ---
 self.addEventListener('sync', (event) => {
   if (event.tag === 'srcc-check-leaves-sync' || event.tag === 'check-faculty-leaves') {
     event.waitUntil(checkLeavesAndNotifyInBackground());
   }
 });
 
-// --- Web Push Event (For cloud push triggers) ---
 self.addEventListener('push', (event) => {
   event.waitUntil(checkLeavesAndNotifyInBackground());
 });
 
-// --- Notification Click Event (Brings app to foreground and opens Leaves tab) ---
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
-  const targetUrl = (event.notification.data && event.notification.data.url) || './index.html?view=leaves';
-
+  const targetUrl = (event.notification.data && event.notification.data.url) || './web_app/index.html?view=leaves';
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
-      // If a window is already open, focus and navigate it
       for (const client of clientList) {
         if ('focus' in client) {
-          if ('navigate' in client) {
-            client.navigate(targetUrl);
-          }
+          if ('navigate' in client) client.navigate(targetUrl);
           return client.focus();
         }
       }
-      // If no window is open, open a new window/tab
-      if (clients.openWindow) {
-        return clients.openWindow(targetUrl);
-      }
+      if (clients.openWindow) return clients.openWindow(targetUrl);
     })
   );
-});
-
-// --- Message Event (Allows web app to trigger background checks or test alerts) ---
-self.addEventListener('message', (event) => {
-  if (!event.data) return;
-
-  if (event.data === 'CHECK_LEAVES' || event.data.type === 'CHECK_LEAVES') {
-    event.waitUntil(checkLeavesAndNotifyInBackground());
-  }
-
-  if (event.data.type === 'TEST_NOTIFICATION') {
-    const basePath = self.location.pathname.substring(0, self.location.pathname.lastIndexOf('/') + 1);
-    event.waitUntil(
-      self.registration.showNotification('SRCC Faculty Leave Alert 🏖️ (Test)', {
-        body: '✅ Live Alerts are Active! You will receive instant notifications on mobile & laptop whenever teachers are on leave.',
-        icon: new URL(basePath + 'srcc_crest.png', self.location.origin).href,
-        badge: new URL(basePath + 'favicon.png', self.location.origin).href,
-        tag: 'srcc-leave-test',
-        renotify: true,
-        vibrate: [200, 100, 200],
-        data: {
-          url: basePath + 'index.html?view=leaves'
-        }
-      })
-    );
-  }
 });

@@ -4158,6 +4158,79 @@ body {
   color: #ffffff;
 }
 
+/* Header Leave Alerts Button */
+.btn-notif-header {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(245, 158, 11, 0.12);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: 9999px;
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.btn-notif-header:hover {
+  background: rgba(245, 158, 11, 0.22);
+  border-color: #fbbf24;
+  transform: translateY(-1px);
+}
+.btn-notif-header.granted {
+  background: rgba(16, 185, 129, 0.12);
+  color: #34d399;
+  border-color: rgba(16, 185, 129, 0.35);
+}
+.btn-notif-header.denied {
+  background: rgba(239, 68, 68, 0.12);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.35);
+}
+.notif-header-bell {
+  font-size: 0.88rem;
+  display: inline-block;
+}
+.btn-notif-header.active-anim .notif-header-bell {
+  animation: ringBell 2s infinite ease-in-out;
+}
+
+/* Leave Alerts Configuration Modal */
+.alerts-guide-card {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+.alerts-guide-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.alerts-guide-item:last-child {
+  margin-bottom: 0;
+}
+.alerts-guide-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.alerts-guide-text {
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: #cbd5e1;
+}
+.alerts-guide-text strong {
+  color: #f8fafc;
+  display: block;
+  font-size: 0.86rem;
+  margin-bottom: 2px;
+}
+
 /* Subtle Footer Admin Portal Link */
 .footer-admin-link {
   color: var(--text-muted);

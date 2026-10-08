@@ -4154,16 +4154,72 @@ window.SRCC_FACULTY_LEAVES = {
     }
 
     // ========================================================================
+    // 🔔 BULLETPROOF CROSS-PLATFORM DEVICE NOTIFICATION DISPATCHER
+    // (Fully compatible with Android Mobile, Windows/Mac Laptop Chrome, iOS PWA)
+    // ========================================================================
+    async function triggerDeviceNotification(title, options = {}) {
+      if (!('Notification' in window)) return false;
+      if (Notification.permission !== 'granted') return false;
+
+      const baseHref = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+      const iconUrl = options.icon ? new URL(options.icon, baseHref).href : new URL('srcc_crest.png', baseHref).href;
+      const badgeUrl = options.badge ? new URL(options.badge, baseHref).href : new URL('favicon.png', baseHref).href;
+
+      const resolvedOptions = {
+        body: options.body || '',
+        icon: iconUrl,
+        badge: badgeUrl,
+        tag: options.tag || 'srcc-leave-alert',
+        renotify: true,
+        vibrate: options.vibrate || [200, 100, 200, 100, 200],
+        requireInteraction: false,
+        data: options.data || { url: baseHref + 'index.html?view=leaves' }
+      };
+
+      // 1. Primary Method: Service Worker showNotification (MANDATORY for Android Mobile Chrome to avoid Illegal Constructor, works excellently on Laptop Chrome)
+      if ('serviceWorker' in navigator) {
+        try {
+          const reg = await (navigator.serviceWorker.ready || navigator.serviceWorker.getRegistration());
+          if (reg && typeof reg.showNotification === 'function') {
+            await reg.showNotification(title, resolvedOptions);
+            return true;
+          }
+        } catch (swErr) {
+          console.warn('[SW Notification Note]', swErr);
+        }
+      }
+
+      // 2. Desktop Fallback: new Notification() (Only on Desktop browsers supporting window constructor)
+      try {
+        new Notification(title, resolvedOptions);
+        return true;
+      } catch (e) {
+        console.warn('[Desktop Notification Note]', e);
+      }
+      return false;
+    }
+
+    // ========================================================================
     // 🔔 FACULTY LEAVE LIVE NOTIFICATIONS SYSTEM
     // ========================================================================
-    function notifyFacultyLeaves(activeLeaves, isLiveUpdate = false) {
+    function notifyFacultyLeaves(activeLeaves, isLiveUpdate = false, isTest = false) {
+      if (isTest) {
+        triggerDeviceNotification('SRCC Faculty Leave Alert 🏖️ (Test)', {
+          body: '✅ Live Alerts are Active! Notifications will pop up automatically when Chrome opens or mobile unlocks.',
+          tag: 'srcc-test-alert'
+        });
+        showToast('🔔 <strong>Test Alert Sent!</strong> Check your laptop notification tray or phone lock screen.', true, 4500);
+        return;
+      }
+
       if (!activeLeaves || activeLeaves.length === 0) return;
-      
-      const sig = activeLeaves.map(l => (l.teacher_name || '') + '_' + (l.start_date || '') + '_' + (l.end_date || '')).sort().join('|');
+
+      const todayDate = getTodayIsoDate();
+      const sig = todayDate + '__' + activeLeaves.map(l => (l.teacher_name || '') + '_' + (l.start_date || '') + '_' + (l.end_date || '')).sort().join('|');
       const lastSig = localStorage.getItem('srcc_last_notified_leaves');
 
       if (sig === lastSig && !isLiveUpdate) {
-        return; // Already notified for this exact set of leaves
+        return; // Already notified for today with this exact set
       }
 
       localStorage.setItem('srcc_last_notified_leaves', sig);
@@ -4177,49 +4233,234 @@ window.SRCC_FACULTY_LEAVES = {
         bodyText = `${count} professors on leave today (${topNames}${count > 3 ? '...' : ''}). Classrooms updated!`;
       }
 
-      // 1. Browser Native Notification (if permitted)
+      // 1. Browser Native Device Notification (Laptop + Mobile)
       if ('Notification' in window && Notification.permission === 'granted') {
-        try {
-          if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-            navigator.serviceWorker.ready.then(reg => {
-              reg.showNotification('SRCC Faculty Leave Alert 🏖️', {
-                body: bodyText,
-                icon: 'assets/srcc_crest.png',
-                badge: 'assets/srcc_crest.png',
-                tag: 'srcc-leave-alert',
-                renotify: true
-              });
-            }).catch(() => {
-              new Notification('SRCC Faculty Leave Alert 🏖️', {
-                body: bodyText,
-                icon: 'assets/srcc_crest.png',
-                tag: 'srcc-leave-alert'
-              });
-            });
-          } else {
-            new Notification('SRCC Faculty Leave Alert 🏖️', {
-              body: bodyText,
-              icon: 'assets/srcc_crest.png',
-              tag: 'srcc-leave-alert'
-            });
-          }
-        } catch (e) {
-          console.warn('Native notification trigger:', e);
-        }
+        triggerDeviceNotification('SRCC Faculty Leave Alert 🏖️', {
+          body: bodyText,
+          tag: 'srcc-leave-alert-' + todayDate
+        });
       }
 
-      // 2. In-app Toast Banner for live changes
+      // 2. In-app Toast Banner for live updates
       if (isLiveUpdate) {
         showToast(`🔔 <strong>Live Leave Update:</strong> ${escapeHtml(bodyText)} <button onclick="openFacultyLeavesView()" style="margin-left:8px; padding:3px 8px; border-radius:4px; border:none; background:#070D18; color:#fff; cursor:pointer; font-size:0.75rem;">View</button>`, true, 7000);
       }
     }
 
+    // ========================================================================
+    // ☁️ LIVE CLOUD LEAVES SYNC (Runs on load, every 45s, and on device wakeup)
+    // ========================================================================
+    async function syncLeavesFromCloud(isWakeupTrigger = false) {
+      let cloudUrl = (window.SRCC_CLOUD_CONFIG && window.SRCC_CLOUD_CONFIG.db_url) || localStorage.getItem('srcc_cloud_db_url') || 'https://srcc-leaves-default-rtdb.firebaseio.com/leaves.json';
+      if (!cloudUrl) return;
+
+      try {
+        const res = await fetch(cloudUrl, { cache: 'no-cache' });
+        if (!res.ok) return;
+        const data = await res.json();
+        let newLeaves = [];
+        if (data && Array.isArray(data.leaves)) {
+          newLeaves = data.leaves;
+        } else if (Array.isArray(data)) {
+          newLeaves = data;
+        } else {
+          return;
+        }
+
+        const currentStored = localStorage.getItem(LEAVES_STORAGE_KEY) || '[]';
+        const newJson = JSON.stringify(newLeaves);
+
+        if (newJson !== currentStored) {
+          // New leaves update from cloud!
+          localStorage.setItem(LEAVES_STORAGE_KEY, newJson);
+          if (window.SRCC_FACULTY_LEAVES) {
+            window.SRCC_FACULTY_LEAVES.leaves = newLeaves;
+          } else {
+            window.SRCC_FACULTY_LEAVES = { leaves: newLeaves };
+          }
+          leavesData = window.SRCC_FACULTY_LEAVES;
+
+          // Re-render UI
+          renderActiveLeavesBanners();
+          render();
+          if (state.activeMode === 'faculty') renderFaculty();
+          if (typeof renderFacultyLeavesView === 'function' && document.getElementById('facultyLeavesView')?.style.display !== 'none') {
+            renderFacultyLeavesView();
+          }
+
+          // Trigger notification
+          const todayActive = getActiveTodayLeaves();
+          if (todayActive.length > 0) {
+            notifyFacultyLeaves(todayActive, true);
+          }
+        } else if (isWakeupTrigger) {
+          // Device unlocked or Chrome opened: check if today's leaves haven't been notified yet today!
+          const todayActive = getActiveTodayLeaves();
+          if (todayActive.length > 0) {
+            notifyFacultyLeaves(todayActive, false);
+          }
+        }
+      } catch (e) {
+        // Fallback: check existing loaded leaves on wakeup
+        if (isWakeupTrigger) {
+          const todayActive = getActiveTodayLeaves();
+          if (todayActive.length > 0) {
+            notifyFacultyLeaves(todayActive, false);
+          }
+        }
+      }
+    }
+
+    // ========================================================================
+    // 📱 DEVICE WAKEUP & APP FOCUS LISTENERS
+    // Automatically triggers when Laptop Chrome is opened or Phone is unlocked!
+    // ========================================================================
+    function initDeviceWakeupListeners() {
+      let lastWakeupTime = 0;
+      const onWakeup = () => {
+        const now = Date.now();
+        if (now - lastWakeupTime < 1500) return; // Debounce 1.5s
+        lastWakeupTime = now;
+        syncLeavesFromCloud(true);
+      };
+
+      // 1. Mobile screen unlock & Tab foregrounded
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          onWakeup();
+        }
+      });
+
+      // 2. Laptop Chrome Window Focus
+      window.addEventListener('focus', onWakeup);
+
+      // 3. Page restore from mobile memory / sleep cache
+      window.addEventListener('pageshow', onWakeup);
+
+      // 4. Device reconnected to Wi-Fi/Mobile Data after sleep
+      window.addEventListener('online', onWakeup);
+    }
+
+    // ========================================================================
+    // ⚙️ INITIALIZE LEAVE NOTIFICATION SYSTEM & UI CONTROLS
+    // ========================================================================
     function initLeaveNotificationSystem() {
       const banner = document.getElementById('leaveNotificationPromptBanner');
       const btnAllow = document.getElementById('btnAllowLeaveNotif');
       const btnDismiss = document.getElementById('btnDismissLeaveNotif');
+      const btnHeaderAlerts = document.getElementById('btnHeaderLeaveAlerts');
+      const headerStatusText = document.getElementById('headerNotifStatusText');
+      const modal = document.getElementById('leaveAlertsModal');
+      const btnCloseModal = document.getElementById('btnCloseAlertsModal');
+      const btnModalEnable = document.getElementById('btnModalEnableAlerts');
+      const btnModalTest = document.getElementById('btnModalTestAlert');
+      const btnModalViewLeaves = document.getElementById('btnModalViewLeaves');
+      const modalBadge = document.getElementById('alertsModalStatusBadge');
 
-      // 1. If user has already granted notification permission, NEVER show prompt banner!
+      function updateNotifUiState() {
+        if (!('Notification' in window)) {
+          if (headerStatusText) headerStatusText.textContent = 'Alerts N/A';
+          if (modalBadge) {
+            modalBadge.textContent = 'Not Supported';
+            modalBadge.style.background = '#64748b';
+          }
+          if (btnModalEnable) btnModalEnable.style.display = 'none';
+          return;
+        }
+
+        const perm = Notification.permission;
+        if (perm === 'granted') {
+          if (btnHeaderAlerts) {
+            btnHeaderAlerts.classList.add('granted');
+            btnHeaderAlerts.classList.remove('denied');
+          }
+          if (headerStatusText) headerStatusText.textContent = 'Alerts Active';
+          if (modalBadge) {
+            modalBadge.textContent = 'Active ✅';
+            modalBadge.style.background = '#059669';
+            modalBadge.style.color = '#ecfdf5';
+          }
+          if (btnModalEnable) {
+            btnModalEnable.textContent = '🔔 Alerts Already Active';
+            btnModalEnable.style.background = '#059669';
+            btnModalEnable.style.color = '#ffffff';
+          }
+          if (banner) banner.style.display = 'none';
+          window._isNotifBannerActive = false;
+        } else if (perm === 'denied') {
+          if (btnHeaderAlerts) {
+            btnHeaderAlerts.classList.add('denied');
+            btnHeaderAlerts.classList.remove('granted');
+          }
+          if (headerStatusText) headerStatusText.textContent = 'Alerts Blocked';
+          if (modalBadge) {
+            modalBadge.textContent = 'Blocked in Browser ❌';
+            modalBadge.style.background = '#dc2626';
+            modalBadge.style.color = '#fef2f2';
+          }
+          if (btnModalEnable) {
+            btnModalEnable.textContent = '⚠️ Blocked: Enable in Browser URL Bar';
+            btnModalEnable.disabled = true;
+          }
+        } else {
+          if (btnHeaderAlerts) {
+            btnHeaderAlerts.classList.remove('granted', 'denied');
+          }
+          if (headerStatusText) headerStatusText.textContent = 'Enable Alerts';
+          if (modalBadge) {
+            modalBadge.textContent = 'Not Enabled ⚠️';
+            modalBadge.style.background = '#d97706';
+            modalBadge.style.color = '#fffbeb';
+          }
+          if (btnModalEnable) {
+            btnModalEnable.textContent = '✅ Allow / Enable Device Alerts';
+            btnModalEnable.disabled = false;
+          }
+        }
+      }
+
+      updateNotifUiState();
+
+      // Request permission helper
+      async function requestLeavePermission() {
+        if (!('Notification' in window)) {
+          showToast('⚠️ Notifications are not supported in this browser. Try Chrome or Edge.', false, 4000);
+          return;
+        }
+
+        try {
+          const perm = await Notification.requestPermission();
+          updateNotifUiState();
+
+          if (perm === 'granted') {
+            localStorage.setItem('srcc_leave_notif_enabled', 'true');
+            showToast('🔔 <strong>Alerts Enabled!</strong> You will be notified automatically when Chrome opens or phone unlocks.', true, 5000);
+
+            // Register periodic background sync
+            if ('serviceWorker' in navigator) {
+              navigator.serviceWorker.ready.then(reg => {
+                if ('periodicSync' in reg) {
+                  reg.periodicSync.register('srcc-check-leaves', { minInterval: 15 * 60 * 1000 }).catch(() => {});
+                }
+              });
+            }
+
+            // Immediately check and notify
+            const todayActive = getActiveTodayLeaves();
+            if (todayActive.length > 0) {
+              notifyFacultyLeaves(todayActive, false);
+            } else {
+              notifyFacultyLeaves([], false, true);
+            }
+          } else {
+            showToast('ℹ️ Notification permission was not granted. You can enable anytime via browser URL icon.', false, 4000);
+          }
+        } catch (e) {
+          console.warn('Permission request error:', e);
+        }
+      }
+
+      // 1. One-Time Banner Prompt for new users
       if ('Notification' in window && Notification.permission === 'granted') {
         if (banner) banner.style.display = 'none';
         window._isNotifBannerActive = false;
@@ -4227,45 +4468,23 @@ window.SRCC_FACULTY_LEAVES = {
         if (todayActive.length > 0) {
           notifyFacultyLeaves(todayActive, false);
         }
-        return;
-      }
-
-      // 2. For users who haven't granted notifications yet: pop up the banner!
-      // Coordinated so it doesn't show simultaneously with PWA install modal, and avoids immediate refresh repeat in same session
-      const sessionDismissed = sessionStorage.getItem('srcc_notif_session_dismissed');
-      if (!sessionDismissed && 'Notification' in window && Notification.permission !== 'granted') {
-        setTimeout(() => {
-          // Check that installModal is not open
-          if (banner && (!installModal || installModal.style.display !== 'flex')) {
-            banner.style.display = 'block';
-            window._isNotifBannerActive = true;
-          }
-        }, 1500);
+      } else {
+        const sessionDismissed = sessionStorage.getItem('srcc_notif_session_dismissed');
+        if (!sessionDismissed && 'Notification' in window && Notification.permission !== 'granted') {
+          setTimeout(() => {
+            if (banner && (!installModal || installModal.style.display !== 'flex')) {
+              banner.style.display = 'block';
+              window._isNotifBannerActive = true;
+            }
+          }, 1500);
+        }
       }
 
       if (btnAllow) {
         btnAllow.addEventListener('click', async () => {
           if (banner) banner.style.display = 'none';
           window._isNotifBannerActive = false;
-
-          if ('Notification' in window) {
-            try {
-              const perm = await Notification.requestPermission();
-              if (perm === 'granted') {
-                localStorage.setItem('srcc_leave_notif_enabled', 'true');
-                showToast('🔔 <strong>Notifications enabled!</strong> You will be notified whenever faculty members are on leave.', true, 4500);
-                const todayActive = getActiveTodayLeaves();
-                if (todayActive.length > 0) {
-                  notifyFacultyLeaves(todayActive, false);
-                }
-              } else {
-                showToast('ℹ️ Notifications declined. You can enable them anytime in browser settings.', false, 3500);
-              }
-            } catch (err) {
-              console.warn('Notification permission error:', err);
-            }
-          }
-          // After notification banner is resolved, allow deferred PWA prompt if available
+          await requestLeavePermission();
           if (typeof window._triggerDeferredPwaPrompt === 'function') {
             window._triggerDeferredPwaPrompt(6000);
           }
@@ -4277,62 +4496,56 @@ window.SRCC_FACULTY_LEAVES = {
           if (banner) banner.style.display = 'none';
           window._isNotifBannerActive = false;
           sessionStorage.setItem('srcc_notif_session_dismissed', '1');
-          showToast('ℹ️ Notification prompt dismissed for this session.', false, 2500);
-          // After dismiss, allow deferred PWA prompt if available
+          showToast('ℹ️ Notification banner dismissed.', false, 2500);
           if (typeof window._triggerDeferredPwaPrompt === 'function') {
             window._triggerDeferredPwaPrompt(6000);
           }
         });
       }
-    }
 
-    // ========================================================================
-    // ☁️ LIVE BACKGROUND REALTIME DB SYNC (Every 45s)
-    // ========================================================================
-    function startLiveCloudLeavesSync() {
-      let cloudUrl = (window.SRCC_CLOUD_CONFIG && window.SRCC_CLOUD_CONFIG.db_url) || localStorage.getItem('srcc_cloud_db_url') || 'https://srcc-leaves-default-rtdb.firebaseio.com/leaves.json';
-      if (!cloudUrl) return;
+      // Header button opens Leave Alerts settings modal
+      if (btnHeaderAlerts) {
+        btnHeaderAlerts.addEventListener('click', () => {
+          updateNotifUiState();
+          if (modal) modal.style.display = 'flex';
+        });
+      }
 
-      setInterval(async () => {
-        try {
-          const res = await fetch(cloudUrl, { cache: 'no-cache' });
-          if (!res.ok) return;
-          const data = await res.json();
-          let newLeaves = [];
-          if (data && Array.isArray(data.leaves)) {
-            newLeaves = data.leaves;
-          } else if (Array.isArray(data)) {
-            newLeaves = data;
+      if (btnCloseModal && modal) {
+        btnCloseModal.addEventListener('click', () => {
+          modal.style.display = 'none';
+        });
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) modal.style.display = 'none';
+        });
+      }
+
+      if (btnModalEnable) {
+        btnModalEnable.addEventListener('click', async () => {
+          if (Notification.permission !== 'granted') {
+            await requestLeavePermission();
           } else {
-            return;
+            notifyFacultyLeaves([], false, true);
           }
+        });
+      }
 
-          const currentStored = localStorage.getItem(LEAVES_STORAGE_KEY) || '[]';
-          const newJson = JSON.stringify(newLeaves);
-          if (newJson !== currentStored) {
-            // New leaves update from cloud!
-            localStorage.setItem(LEAVES_STORAGE_KEY, newJson);
-            if (window.SRCC_FACULTY_LEAVES) {
-              window.SRCC_FACULTY_LEAVES.leaves = newLeaves;
-            } else {
-              window.SRCC_FACULTY_LEAVES = { leaves: newLeaves };
-            }
-            leavesData = window.SRCC_FACULTY_LEAVES;
-
-            // Re-render UI
-            renderActiveLeavesBanners();
-            render();
-            if (state.activeMode === 'faculty') renderFaculty();
-            if (typeof renderFacultyLeavesView === 'function' && document.getElementById('facultyLeavesView')?.style.display !== 'none') {
-              renderFacultyLeavesView();
-            }
-
-            // Trigger notification
-            const todayActive = getActiveTodayLeaves();
-            notifyFacultyLeaves(todayActive, true);
+      if (btnModalTest) {
+        btnModalTest.addEventListener('click', async () => {
+          if (Notification.permission !== 'granted') {
+            await requestLeavePermission();
+          } else {
+            notifyFacultyLeaves([], false, true);
           }
-        } catch (e) {}
-      }, 45000);
+        });
+      }
+
+      if (btnModalViewLeaves) {
+        btnModalViewLeaves.addEventListener('click', () => {
+          if (modal) modal.style.display = 'none';
+          openFacultyLeavesView();
+        });
+      }
     }
 
     // ========================================================================
@@ -4344,7 +4557,9 @@ window.SRCC_FACULTY_LEAVES = {
     initTimetableFeature();
     trackStudentVisitor();
     initLeaveNotificationSystem();
-    startLiveCloudLeavesSync();
+    initDeviceWakeupListeners();
+    syncLeavesFromCloud(false);
+    setInterval(() => syncLeavesFromCloud(false), 45000);
   }
 });
 
@@ -4370,13 +4585,27 @@ window._triggerDeferredPwaPrompt = function(delayMs = 3000) {
   }, delayMs);
 };
 
-// Register Service Worker
+// Register Service Worker with robust relative path and periodic sync
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').then(registration => {
-      console.log('SW registered: ', registration);
+    const swUrl = './sw.js?v=30';
+    navigator.serviceWorker.register(swUrl, { scope: './' }).then(async (registration) => {
+      console.log('[SW] Registered successfully with scope:', registration.scope);
+
+      // Register Periodic Background Sync if supported (Chromium Desktop & Android)
+      if ('periodicSync' in registration) {
+        try {
+          await registration.periodicSync.register('srcc-check-leaves', {
+            minInterval: 15 * 60 * 1000 // 15 mins background check
+          });
+          console.log('[SW] Periodic sync active for SRCC leave alerts');
+        } catch (e) {
+          console.log('[SW] Periodic sync note:', e);
+        }
+      }
     }).catch(registrationError => {
-      console.log('SW registration failed: ', registrationError);
+      console.warn('[SW] Registration note, attempting fallback:', registrationError);
+      navigator.serviceWorker.register('sw.js').catch(() => {});
     });
   });
 }
