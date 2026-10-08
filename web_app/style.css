@@ -4226,39 +4226,43 @@ body {
   0% { border-color: #6d28d9; box-shadow: 0 0 0 rgba(168, 85, 247, 0); }
   50% { border-color: #6d28d9; box-shadow: 0 0 12px rgba(168, 85, 247, 0.25); }
   100% { border-color: #6d28d9; box-shadow: 0 0 0 rgba(168, 85, 247, 0); }
+}
+
 .locked-room-banner {
   background: linear-gradient(135deg, rgba(239, 68, 68, 0.16), rgba(245, 158, 11, 0.12));
   border: 1px solid rgba(239, 68, 68, 0.45);
-  color: #b91c1c;
-  font-size: 0.74rem;
+  color: #dc2626;
+  font-size: 0.76rem;
   font-weight: 700;
-  padding: 6px 10px;
-  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm, 6px);
   margin-bottom: 8px;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   animation: pulse-lock 3s infinite;
+  box-shadow: 0 1px 4px rgba(239, 68, 68, 0.12);
 }
 
 .extra-class-banner {
   background: linear-gradient(135deg, rgba(59, 130, 246, 0.16), rgba(99, 102, 241, 0.12));
   border: 1px solid rgba(59, 130, 246, 0.45);
   color: #1d4ed8;
-  font-size: 0.74rem;
+  font-size: 0.76rem;
   font-weight: 700;
-  padding: 6px 10px;
-  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm, 6px);
   margin-bottom: 8px;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  box-shadow: 0 1px 4px rgba(59, 130, 246, 0.12);
 }
 
 @keyframes pulse-lock {
-  0% { border-color: rgba(239, 68, 68, 0.45); }
-  50% { border-color: rgba(239, 68, 68, 0.85); box-shadow: 0 0 10px rgba(239, 68, 68, 0.2); }
-  100% { border-color: rgba(239, 68, 68, 0.45); }
+  0% { border-color: rgba(239, 68, 68, 0.45); box-shadow: 0 0 0 rgba(239, 68, 68, 0); }
+  50% { border-color: rgba(239, 68, 68, 0.85); box-shadow: 0 0 10px rgba(239, 68, 68, 0.25); }
+  100% { border-color: rgba(239, 68, 68, 0.45); box-shadow: 0 0 0 rgba(239, 68, 68, 0); }
 }
 
 /* ==========================================================================
@@ -4520,61 +4524,188 @@ body {
   text-decoration: underline;
 }
 
-/* Faculty Subjects Taught Row */
+/* Faculty Subjects Taught Row & Rich Spaced Pills */
 .faculty-subjects-row {
   display: flex;
-  align-items: center;
-  gap: 6px;
-  margin: 6px 0 10px;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 8px 0 12px;
   flex-wrap: wrap;
 }
 
 .subjects-label {
   font-size: 0.72rem;
   color: var(--text-muted);
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding-top: 4px;
+  flex-shrink: 0;
 }
 
-.subjects-pills-wrap {
+.faculty-subjects-list {
   display: flex;
-  gap: 5px;
   flex-wrap: wrap;
+  gap: 6px;
   align-items: center;
+  flex: 1;
 }
 
 .subject-pill {
-  font-size: 0.72rem;
-  font-weight: 700;
-  padding: 2px 7px;
-  border-radius: 4px;
-  background: rgba(56, 189, 248, 0.12);
-  color: #1d4ed8 ;
-  border: 1px solid rgba(56, 189, 248, 0.28);
-  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.73rem;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(37, 99, 235, 0.08);
+  color: var(--text-primary);
+  border: 1px solid rgba(37, 99, 235, 0.22);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
+  user-select: none;
+  line-height: 1.3;
+}
+
+.subject-pill .subj-code-badge {
+  font-weight: 800;
+  color: #1d4ed8;
+  background: rgba(37, 99, 235, 0.14);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.71rem;
+  letter-spacing: 0.03em;
+  display: inline-block;
+}
+
+.subject-pill .subj-name-text {
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.subject-pill .subj-clear-icon {
+  font-size: 0.65rem;
+  color: #ffffff;
+  margin-left: 2px;
 }
 
 .subject-pill:hover {
-  background: rgba(56, 189, 248, 0.25);
-  border-color: #1d4ed8 ;
-  color: var(--text-primary);
+  background: rgba(37, 99, 235, 0.16);
+  border-color: #2563eb;
   transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.16);
+}
+
+.subject-pill:hover .subj-name-text {
+  color: var(--text-primary);
 }
 
 .subject-pill.active-filter {
-  background: linear-gradient(135deg, #0284C7, #0369A1) !important;
-  color: var(--text-primary) !important;
-  border-color: #1d4ed8 !important;
-  box-shadow: 0 0 10px rgba(56, 189, 248, 0.45);
-  font-weight: 800;
+  background: linear-gradient(135deg, #1d4ed8, #2563eb) !important;
+  color: #ffffff !important;
+  border-color: #1e40af !important;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35);
+  font-weight: 700;
+}
+
+.subject-pill.active-filter .subj-code-badge {
+  background: rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+}
+
+.subject-pill.active-filter .subj-name-text {
+  color: #ffffff;
 }
 
 .subject-pill.active-filter:hover {
-  background: #DC2626 !important;
-  border-color: #be123c !important;
-  box-shadow: 0 0 10px rgba(220, 38, 38, 0.45);
+  background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+  border-color: #991b1b !important;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.35);
+}
+
+/* Room Schedule Modal: Teacher info & Direct Timetable Links */
+.modal-lock-alert {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.14), rgba(245, 158, 11, 0.1));
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #dc2626;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm, 6px);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.room-sched-details-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.room-sched-meta-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.room-sched-teacher-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 4px;
+  padding-top: 5px;
+  border-top: 1px dashed rgba(0, 0, 0, 0.08);
+  flex-wrap: wrap;
+}
+
+.rs-teacher-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--text-primary);
+}
+
+.rs-teacher-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 800;
+}
+
+.btn-room-view-teacher-tt {
+  background: rgba(37, 99, 235, 0.08);
+  color: #2563eb;
+  border: 1px solid rgba(37, 99, 235, 0.25);
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-room-view-teacher-tt:hover {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+  transform: translateY(-1px);
 }
 
 /* Faculty View Mode: Compact List / Table View */
@@ -5774,6 +5905,36 @@ body.modal-open {
   background: rgba(56, 189, 248, 0.15);
   color: #38bdf8;
   border-color: rgba(56, 189, 248, 0.3);
+}
+
+[data-theme="dark"] .subject-pill {
+  background: rgba(56, 189, 248, 0.08);
+  border-color: rgba(56, 189, 248, 0.22);
+  color: #e2e8f0;
+}
+[data-theme="dark"] .subject-pill .subj-code-badge {
+  background: rgba(56, 189, 248, 0.18);
+  color: #38bdf8;
+}
+[data-theme="dark"] .subject-pill .subj-name-text {
+  color: #cbd5e1;
+}
+[data-theme="dark"] .subject-pill:hover {
+  background: rgba(56, 189, 248, 0.18);
+  border-color: #38bdf8;
+}
+[data-theme="dark"] .room-sched-teacher-row {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+[data-theme="dark"] .btn-room-view-teacher-tt {
+  background: rgba(56, 189, 248, 0.12);
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.3);
+}
+[data-theme="dark"] .btn-room-view-teacher-tt:hover {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
 }
 
 .tt-card-meta {

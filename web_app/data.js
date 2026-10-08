@@ -3548,11 +3548,10 @@ window.SRCC_DATA = {
         "Wednesday": {
           "free_slots": [
             "12:30 PM to 1:30 PM",
-            "3:00 PM to 4:00 PM",
             "4:00 PM to 5:00 PM",
             "5:00 PM to 6:00 PM"
           ],
-          "free_hours": 4,
+          "free_hours": 3,
           "lunch_recess_free": true,
           "occupied_slots": [
             {
@@ -3574,6 +3573,10 @@ window.SRCC_DATA = {
             {
               "slot": "2:00 PM to 3:00 PM",
               "class": "L-1. BCH-E-SEM VEconomics-DnD-IT3L-2. BCH-L-SEM VEconomics-DnD-IT3L-3. BCH-M-SEM VEconomics-DnD-IT3"
+            },
+            {
+              "slot": "3:00 PM to 4:00 PM",
+              "class": "LAB-JOINT-SEM IIIMaths-VM III-R19-VAC27"
             }
           ]
         },
