@@ -3,8 +3,8 @@
     "college": "Shri Ram College of Commerce (SRCC)",
     "portal": "https://srcccollegetimetable.in/",
     "total_rooms": 96,
-    "last_synced": "07 Oct 2026, 06:07 AM",
-    "last_synced_iso": "2026-10-07T06:07:49.890470",
+    "last_synced": "08 Oct 2026, 09:22 PM",
+    "last_synced_iso": "2026-10-08T21:22:46.371351",
     "academic_periods": [
       "8:30 AM to 9:30 AM",
       "9:30 AM to 10:30 AM",
@@ -3548,10 +3548,11 @@
         "Wednesday": {
           "free_slots": [
             "12:30 PM to 1:30 PM",
+            "3:00 PM to 4:00 PM",
             "4:00 PM to 5:00 PM",
             "5:00 PM to 6:00 PM"
           ],
-          "free_hours": 3,
+          "free_hours": 4,
           "lunch_recess_free": true,
           "occupied_slots": [
             {
@@ -3573,10 +3574,6 @@
             {
               "slot": "2:00 PM to 3:00 PM",
               "class": "L-1. BCH-E-SEM VEconomics-DnD-IT3L-2. BCH-L-SEM VEconomics-DnD-IT3L-3. BCH-M-SEM VEconomics-DnD-IT3"
-            },
-            {
-              "slot": "3:00 PM to 4:00 PM",
-              "class": "LAB-JOINT-SEM IIIMaths-VM III-R19-VAC27"
             }
           ]
         },
@@ -16050,10 +16047,12 @@
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "10:30 AM to 11:30 AM",
+            "2:00 PM to 3:00 PM",
+            "3:00 PM to 4:00 PM",
             "4:00 PM to 5:00 PM",
             "5:00 PM to 6:00 PM"
           ],
-          "free_hours": 4,
+          "free_hours": 6,
           "lunch_recess_free": true,
           "occupied_slots": [
             {
@@ -16067,14 +16066,6 @@
             {
               "slot": "12:30 PM to 1:30 PM",
               "class": "L-1. BCH-M-SEM VPhy.Ed-HFPE-KTKL-2. BCH-K-SEM VPhy.Ed-HFPE-KTKL-3. BCH-L-SEM VPhy.Ed-HFPE-KTKL-4. BCH-N-SEM VPhy.Ed-HFPE-KTKL-5. BAHE-D-SEM VPhy.Ed-HFPE-KTKL-6. BAHE-B-SEM VPhy.Ed-HFPE-KTK"
-            },
-            {
-              "slot": "2:00 PM to 3:00 PM",
-              "class": "L-BCH-A-SEM VIIPhy.Ed-IST-KTK"
-            },
-            {
-              "slot": "3:00 PM to 4:00 PM",
-              "class": "L-BCH-A-SEM VIIPhy.Ed-IST-KTK"
             }
           ]
         },
@@ -16165,14 +16156,21 @@
             "10:30 AM to 11:30 AM",
             "11:30 AM to 12:30 PM",
             "12:30 PM to 1:30 PM",
-            "2:00 PM to 3:00 PM",
-            "3:00 PM to 4:00 PM",
             "4:00 PM to 5:00 PM",
             "5:00 PM to 6:00 PM"
           ],
-          "free_hours": 9,
+          "free_hours": 7,
           "lunch_recess_free": true,
-          "occupied_slots": []
+          "occupied_slots": [
+            {
+              "slot": "2:00 PM to 3:00 PM",
+              "class": "L-BCH-A-SEM VIIPhy.Ed-IST-KTK"
+            },
+            {
+              "slot": "3:00 PM to 4:00 PM",
+              "class": "L-BCH-A-SEM VIIPhy.Ed-IST-KTK"
+            }
+          ]
         }
       }
     },
@@ -16934,14 +16932,21 @@
             "10:30 AM to 11:30 AM",
             "11:30 AM to 12:30 PM",
             "12:30 PM to 1:30 PM",
-            "2:00 PM to 3:00 PM",
-            "3:00 PM to 4:00 PM",
             "4:00 PM to 5:00 PM",
             "5:00 PM to 6:00 PM"
           ],
-          "free_hours": 9,
+          "free_hours": 7,
           "lunch_recess_free": true,
-          "occupied_slots": []
+          "occupied_slots": [
+            {
+              "slot": "2:00 PM to 3:00 PM",
+              "class": "LAB-BCH-A-SEM VIIPhy.Ed-IST-KTK<----------------------->"
+            },
+            {
+              "slot": "3:00 PM to 4:00 PM",
+              "class": "LAB-BCH-A-SEM VIIPhy.Ed-IST-KTK<----------------------->"
+            }
+          ]
         },
         "Wednesday": {
           "free_slots": [
@@ -17019,21 +17024,14 @@
             "10:30 AM to 11:30 AM",
             "11:30 AM to 12:30 PM",
             "12:30 PM to 1:30 PM",
+            "2:00 PM to 3:00 PM",
+            "3:00 PM to 4:00 PM",
             "4:00 PM to 5:00 PM",
             "5:00 PM to 6:00 PM"
           ],
-          "free_hours": 7,
+          "free_hours": 9,
           "lunch_recess_free": true,
-          "occupied_slots": [
-            {
-              "slot": "2:00 PM to 3:00 PM",
-              "class": "LAB-BCH-A-SEM VIIPhy.Ed-IST-KTK<----------------------->"
-            },
-            {
-              "slot": "3:00 PM to 4:00 PM",
-              "class": "LAB-BCH-A-SEM VIIPhy.Ed-IST-KTK<----------------------->"
-            }
-          ]
+          "occupied_slots": []
         }
       }
     },
