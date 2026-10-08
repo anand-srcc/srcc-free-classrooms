@@ -560,6 +560,50 @@
       <div class="leaves-items-container" id="adminReportsListContainer">
         <!-- Populated via admin.js -->
       </div>
+    <!-- Section: Live Notification & Hourly Broadcast Center -->
+    <section class="admin-section-card" id="adminBroadcastSection" style="border: 1px solid rgba(245, 158, 11, 0.4); background: linear-gradient(135deg, #ffffff, #fffbeb); margin-bottom: 24px;">
+      <div class="admin-section-header">
+        <div class="admin-section-title" style="color: #b45309;">
+          <span>🔔</span>
+          <span>Live Campus Notification & Hourly Broadcast Center</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span id="adminBroadcastStatusBadge" style="font-size: 0.74rem; font-weight: 700; padding: 4px 10px; border-radius: 9999px; background: #059669; color: #ffffff;">
+            ⏰ Auto-Hourly: Active (Every 1 Hr)
+          </span>
+        </div>
+      </div>
+
+      <p style="font-size: 0.84rem; color: var(--text-secondary); margin: 0 0 16px 0; line-height: 1.5;">
+        Notifications are automatically delivered to students' mobile lock screen and laptop Chrome <strong>every 1 hour</strong> containing today's absent faculty count combined with the number of classrooms free right now for study.
+      </p>
+
+      <!-- Live Payload Preview Card -->
+      <div style="background: #0f172a; color: #f8fafc; border-radius: 12px; padding: 14px 18px; margin-bottom: 16px; border: 1px solid rgba(255,255,255,0.12);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: #fbbf24; letter-spacing: 0.5px;">Live Broadcast Preview (What Users See)</span>
+          <span id="adminLivePeriodSlot" style="font-size: 0.72rem; color: #94a3b8; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 4px;">Loading slot...</span>
+        </div>
+        <div id="adminBroadcastPreviewTitle" style="font-weight: 800; font-size: 0.95rem; color: #38bdf8; margin-bottom: 4px;">
+          SRCC Live Campus Update 🔔
+        </div>
+        <div id="adminBroadcastPreviewBody" style="font-size: 0.85rem; color: #e2e8f0; line-height: 1.45;">
+          Loading live payload...
+        </div>
+      </div>
+
+      <!-- Admin Action Buttons -->
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <button type="button" class="btn-primary" id="btnAdminBroadcastNow" style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #070d18; border: none; font-weight: 800; font-size: 0.86rem; padding: 10px 18px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);">
+          <span>📢</span> Send Live Notification Now
+        </button>
+        <button type="button" class="btn-primary" id="btnAdminTestAlert" style="background: #0284c7; color: #ffffff; border: none; font-weight: 700; font-size: 0.84rem; padding: 10px 16px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+          <span>🧪</span> Test on My Screen
+        </button>
+        <button type="button" class="btn-reset-filters" id="btnAdminRefreshPreview" style="font-size: 0.82rem; padding: 10px 14px;">
+          🔄 Refresh Preview
+        </button>
+      </div>
     </section>
 
     <!-- Section 1: Mark Professor on Leave Form -->
@@ -846,10 +890,10 @@
   <div class="toast-container" id="toastContainer"></div>
 
   <!-- Data Scripts -->
-  <script src="cloud_config.js?v=29"></script>
-  <script src="data.js?v=29"></script>
-  <script src="faculty_leaves.js?v=29"></script>
-  <script src="teachers_data.js?v=29"></script>
-  <script src="admin.js?v=29"></script>
+  <script src="cloud_config.js?v=31"></script>
+  <script src="data.js?v=31"></script>
+  <script src="faculty_leaves.js?v=31"></script>
+  <script src="teachers_data.js?v=31"></script>
+  <script src="admin.js?v=31"></script>
 </body>
 </html>

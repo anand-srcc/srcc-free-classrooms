@@ -1,14 +1,15 @@
-const CACHE_NAME = 'srcc-classroom-v30';
+const CACHE_NAME = 'srcc-classroom-v31';
 const ASSETS = [
   './',
   './index.html',
   './web_app/index.html',
   './web_app/style.css',
-  './web_app/app.js?v=30',
-  './web_app/data.js?v=30',
-  './web_app/cloud_config.js?v=30',
-  './web_app/faculty_leaves.js?v=30',
-  './web_app/teachers_data.js?v=30',
+  './web_app/app.js?v=31',
+  './web_app/data.js?v=31',
+  './web_app/cloud_config.js?v=31',
+  './web_app/faculty_leaves.js?v=31',
+  './web_app/teachers_data.js?v=31',
+  './web_app/srcc_data.json',
   './web_app/favicon.png',
   './web_app/srcc_crest.png',
   './web_app/srcc_100years.png',
@@ -17,6 +18,7 @@ const ASSETS = [
 
 const FIREBASE_LEAVES_URL = 'https://srcc-leaves-default-rtdb.firebaseio.com/leaves.json';
 const LOCAL_LEAVES_URL = './web_app/faculty_leaves.json';
+const LOCAL_DATA_URL = './web_app/srcc_data.json';
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();
@@ -63,9 +65,19 @@ self.addEventListener('fetch', (e) => {
   );
 });
 
-// Periodic background sync & push delegate to same leaves check
-async function checkLeavesAndNotifyInBackground() {
+async function checkLeavesAndNotifyInBackground(isForced = false) {
   try {
+    const ONE_HOUR = 60 * 60 * 1000;
+    const cache = await caches.open(CACHE_NAME);
+
+    if (!isForced) {
+      const lastHourlyResp = await cache.match('/__srcc_sw_last_hourly_time');
+      if (lastHourlyResp) {
+        const lastTime = parseInt(await lastHourlyResp.text(), 10);
+        if (Date.now() - lastTime < ONE_HOUR) return;
+      }
+    }
+
     let leaves = [];
     try {
       const resp = await fetch(FIREBASE_LEAVES_URL, { cache: 'no-cache' });
@@ -85,8 +97,6 @@ async function checkLeavesAndNotifyInBackground() {
       } catch (e) {}
     }
 
-    if (!leaves || leaves.length === 0) return;
-
     const now = new Date();
     const istOffset = 5.5 * 60 * 60 * 1000;
     const istDate = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + istOffset);
@@ -94,6 +104,9 @@ async function checkLeavesAndNotifyInBackground() {
     const mm = String(istDate.getMonth() + 1).padStart(2, '0');
     const dd = String(istDate.getDate()).padStart(2, '0');
     const todayIso = `${yyyy}-${mm}-${dd}`;
+    const currentMinutes = istDate.getHours() * 60 + istDate.getMinutes();
+    const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const currentDay = dayNames[istDate.getDay()];
 
     const parseIso = (ds) => {
       if (!ds) return '';
@@ -111,61 +124,97 @@ async function checkLeavesAndNotifyInBackground() {
       return s <= todayIso && todayIso <= e;
     });
 
-    if (activeLeaves.length === 0) return;
-
     const dedupMap = new Map();
     activeLeaves.forEach(l => {
       const key = String(l.teacher_id || l.teacher_name || '').toLowerCase().trim();
       if (key && !dedupMap.has(key)) dedupMap.set(key, l);
     });
     const uniqueLeaves = Array.from(dedupMap.values());
-    if (uniqueLeaves.length === 0) return;
-
-    const sig = todayIso + '__' + uniqueLeaves.map(l => (l.teacher_name || '') + '_' + (l.start_date || '')).sort().join('|');
-    const cache = await caches.open(CACHE_NAME);
-    const lastSigResp = await cache.match('/__srcc_sw_last_notified');
-    if (lastSigResp) {
-      const lastSig = await lastSigResp.text();
-      if (lastSig === sig) return;
-    }
-    await cache.put('/__srcc_sw_last_notified', new Response(sig));
-
     const count = uniqueLeaves.length;
+
+    let freeRoomsCount = 0;
+    let freeRoomsLine = '';
+
+    if (currentDay === 'Sunday') {
+      freeRoomsLine = '🕒 College Closed Today (Sunday)';
+    } else if (currentMinutes >= 13 * 60 + 30 && currentMinutes < 14 * 60) {
+      freeRoomsLine = '🥪 Lunch Recess: All 96 Classrooms Free Right Now!';
+    } else {
+      const periods = [
+        { start: 8 * 60 + 30, end: 9 * 60 + 30, slot: '8:30 AM to 9:30 AM' },
+        { start: 9 * 60 + 30, end: 10 * 60 + 30, slot: '9:30 AM to 10:30 AM' },
+        { start: 10 * 60 + 30, end: 11 * 60 + 30, slot: '10:30 AM to 11:30 AM' },
+        { start: 11 * 60 + 30, end: 12 * 60 + 30, slot: '11:30 AM to 12:30 PM' },
+        { start: 12 * 60 + 30, end: 13 * 60 + 30, slot: '12:30 PM to 1:30 PM' },
+        { start: 14 * 60, end: 15 * 60, slot: '2:00 PM to 3:00 PM' },
+        { start: 15 * 60, end: 16 * 60, slot: '3:00 PM to 4:00 PM' },
+        { start: 16 * 60, end: 17 * 60, slot: '4:00 PM to 5:00 PM' },
+        { start: 17 * 60, end: 18 * 60, slot: '5:00 PM to 6:00 PM' }
+      ];
+      const matchedP = periods.find(p => currentMinutes >= p.start && currentMinutes < p.end);
+      if (matchedP) {
+        try {
+          const dataResp = await caches.match(LOCAL_DATA_URL).then(r => r || fetch(LOCAL_DATA_URL));
+          if (dataResp && dataResp.ok) {
+            const dataJson = await dataResp.json();
+            if (dataJson && Array.isArray(dataJson.rooms)) {
+              freeRoomsCount = dataJson.rooms.filter(r => {
+                const s = r.schedule && r.schedule[currentDay];
+                return s && s.free_slots && s.free_slots.includes(matchedP.slot);
+              }).length;
+            }
+          }
+        } catch (e) {}
+        freeRoomsLine = freeRoomsCount > 0
+          ? `⚡ ${freeRoomsCount} Classrooms Free Right Now for GD & Study!`
+          : `⚡ Check live vacant classrooms for study!`;
+      } else {
+        freeRoomsLine = '🕒 College Off-Hours.';
+      }
+    }
+
     let bodyText = '';
     if (count === 1) {
-      bodyText = `Prof. ${uniqueLeaves[0].teacher_name} is marked on leave today. Check suspended classes & vacant rooms.`;
-    } else {
+      bodyText = `Prof. ${uniqueLeaves[0].teacher_name} is marked on leave today.\n${freeRoomsLine}`;
+    } else if (count > 1) {
       const topNames = uniqueLeaves.slice(0, 3).map(l => l.teacher_name).join(', ');
-      bodyText = `${count} professors on leave today (${topNames}${count > 3 ? '...' : ''}). Classrooms updated!`;
+      bodyText = `${count} professors on leave today (${topNames}${count > 3 ? '...' : ''}).\n${freeRoomsLine}`;
+    } else {
+      bodyText = `All professors present today.\n${freeRoomsLine}`;
     }
 
+    await cache.put('/__srcc_sw_last_hourly_time', new Response(String(Date.now())));
+
     const baseOrigin = self.location.origin;
-    await self.registration.showNotification('SRCC Faculty Leave Alert 🏖️', {
+    await self.registration.showNotification('SRCC Live Campus Update 🔔', {
       body: bodyText,
       icon: new URL('./web_app/srcc_crest.png', baseOrigin).href,
       badge: new URL('./web_app/favicon.png', baseOrigin).href,
-      tag: 'srcc-leave-alert-' + todayIso,
+      tag: 'srcc-campus-hourly-update',
       renotify: true,
-      vibrate: [200, 100, 200],
-      data: { url: './web_app/index.html?view=leaves' }
+      vibrate: [200, 100, 200, 100, 200],
+      requireInteraction: false,
+      data: {
+        url: './web_app/index.html?view=leaves'
+      }
     });
   } catch (err) {}
 }
 
 self.addEventListener('periodicsync', (event) => {
   if (event.tag === 'srcc-check-leaves' || event.tag === 'check-faculty-leaves') {
-    event.waitUntil(checkLeavesAndNotifyInBackground());
+    event.waitUntil(checkLeavesAndNotifyInBackground(false));
   }
 });
 
 self.addEventListener('sync', (event) => {
   if (event.tag === 'srcc-check-leaves-sync' || event.tag === 'check-faculty-leaves') {
-    event.waitUntil(checkLeavesAndNotifyInBackground());
+    event.waitUntil(checkLeavesAndNotifyInBackground(false));
   }
 });
 
 self.addEventListener('push', (event) => {
-  event.waitUntil(checkLeavesAndNotifyInBackground());
+  event.waitUntil(checkLeavesAndNotifyInBackground(true));
 });
 
 self.addEventListener('notificationclick', (event) => {
@@ -182,4 +231,11 @@ self.addEventListener('notificationclick', (event) => {
       if (clients.openWindow) return clients.openWindow(targetUrl);
     })
   );
+});
+
+self.addEventListener('message', (event) => {
+  if (!event.data) return;
+  if (event.data === 'BROADCAST_LEAVES_ALERT' || event.data.type === 'BROADCAST_LEAVES_ALERT') {
+    event.waitUntil(checkLeavesAndNotifyInBackground(true));
+  }
 });

@@ -1452,6 +1452,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Fetch student issues
     fetchStudentIssues();
+
+    // Initialize Live Notification & Hourly Broadcast Center
+    initAdminBroadcastCenter();
   }
   
   // Fetch Student Issues
@@ -1531,6 +1534,183 @@ document.addEventListener('DOMContentLoaded', () => {
       showToast('⚠️ Failed to dismiss issue.', false);
     }
   };
-  
+
+  // ========================================================================
+  // 🔔 ADMIN LIVE BROADCAST & HOURLY CAMPUS ALERTS CENTER
+  // ========================================================================
+  function initAdminBroadcastCenter() {
+    const btnBroadcastNow = document.getElementById('btnAdminBroadcastNow');
+    const btnTestAlert = document.getElementById('btnAdminTestAlert');
+    const btnRefreshPreview = document.getElementById('btnAdminRefreshPreview');
+    const previewSlotEl = document.getElementById('adminLivePeriodSlot');
+    const previewTitleEl = document.getElementById('adminBroadcastPreviewTitle');
+    const previewBodyEl = document.getElementById('adminBroadcastPreviewBody');
+
+    const periodIntervals = [
+      { num: 1, start: 8 * 60 + 30, end: 9 * 60 + 30, slot: '8:30 AM to 9:30 AM', full: 'Period 1 (8:30–9:30 AM)' },
+      { num: 2, start: 9 * 60 + 30, end: 10 * 60 + 30, slot: '9:30 AM to 10:30 AM', full: 'Period 2 (9:30–10:30 AM)' },
+      { num: 3, start: 10 * 60 + 30, end: 11 * 60 + 30, slot: '10:30 AM to 11:30 AM', full: 'Period 3 (10:30–11:30 AM)' },
+      { num: 4, start: 11 * 60 + 30, end: 12 * 60 + 30, slot: '11:30 AM to 12:30 PM', full: 'Period 4 (11:30 AM–12:30 PM)' },
+      { num: 5, start: 12 * 60 + 30, end: 13 * 60 + 30, slot: '12:30 PM to 1:30 PM', full: 'Period 5 (12:30–1:30 PM)' },
+      { num: 6, start: 14 * 60 + 0, end: 15 * 60 + 0, slot: '2:00 PM to 3:00 PM', full: 'Period 6 (2:00–3:00 PM)' },
+      { num: 7, start: 15 * 60 + 0, end: 16 * 60 + 0, slot: '3:00 PM to 4:00 PM', full: 'Period 7 (3:00–4:00 PM)' },
+      { num: 8, start: 16 * 60 + 0, end: 17 * 60 + 0, slot: '4:00 PM to 5:00 PM', full: 'Period 8 (4:00–5:00 PM)' },
+      { num: 9, start: 17 * 60 + 0, end: 18 * 60 + 0, slot: '5:00 PM to 6:00 PM', full: 'Period 9 (5:00–6:00 PM)' }
+    ];
+
+    function getIstNow() {
+      const now = new Date();
+      const istOffset = 5.5 * 60 * 60 * 1000;
+      return new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + istOffset);
+    }
+
+    function calculateLivePayload() {
+      const istDate = getIstNow();
+      const currentMinutes = istDate.getHours() * 60 + istDate.getMinutes();
+      const dayName = istDate.toLocaleDateString('en-US', { weekday: 'long' });
+      const todayIso = `${istDate.getFullYear()}-${String(istDate.getMonth() + 1).padStart(2, '0')}-${String(istDate.getDate()).padStart(2, '0')}`;
+
+      // 1. Calculate Active Leaves for Today
+      const allLeaves = getLeavesList();
+      const activeTodayLeaves = allLeaves.filter(leave => {
+        if (!leave.start_date && !leave.end_date) return true;
+        const s = leave.start_date || '2000-01-01';
+        const e = leave.end_date || '2099-12-31';
+        return (todayIso >= s && todayIso <= e);
+      });
+
+      // 2. Calculate Free Rooms Right Now
+      let freeRoomsCount = 0;
+      let slotText = 'Off-Hours';
+      let freeRoomsLine = '';
+
+      if (dayName === 'Sunday') {
+        slotText = 'Sunday (Closed)';
+        freeRoomsLine = '🕒 College closed today (Sunday).';
+      } else if (currentMinutes >= 13 * 60 + 30 && currentMinutes < 14 * 60) {
+        slotText = '1:30 PM to 2:00 PM (Lunch)';
+        freeRoomsCount = (appData && appData.rooms) ? appData.rooms.length : 96;
+        freeRoomsLine = '🥪 Lunch Recess: All 96 Classrooms Free Right Now!';
+      } else {
+        const matched = periodIntervals.find(p => currentMinutes >= p.start && currentMinutes < p.end);
+        if (matched) {
+          slotText = matched.full;
+          if (appData && appData.rooms) {
+            freeRoomsCount = appData.rooms.filter(r => {
+              const s = r.schedule && r.schedule[dayName];
+              if (!s) return false;
+              if (s.free_slots && s.free_slots.includes(matched.slot)) return true;
+              return false;
+            }).length;
+          }
+          freeRoomsLine = `⚡ ${freeRoomsCount} Classrooms Free Right Now for GD & Study!`;
+        } else {
+          slotText = 'Off-Hours';
+          freeRoomsLine = '🕒 College Off-Hours.';
+        }
+      }
+
+      // 3. Build Body Text
+      let leaveLine = '';
+      const lCount = activeTodayLeaves.length;
+      if (lCount === 1) {
+        leaveLine = `Prof. ${activeTodayLeaves[0].teacher_name} is marked on leave today.`;
+      } else if (lCount > 1) {
+        const topNames = activeTodayLeaves.slice(0, 3).map(l => l.teacher_name).join(', ');
+        leaveLine = `${lCount} professors on leave today (${topNames}${lCount > 3 ? '...' : ''}).`;
+      } else {
+        leaveLine = `All professors present today.`;
+      }
+
+      const fullBody = `🏖️ ${leaveLine}\n${freeRoomsLine}`;
+      return {
+        title: 'SRCC Live Campus Update 🔔',
+        body: fullBody,
+        slot: slotText,
+        leaveCount: lCount,
+        freeRooms: freeRoomsCount
+      };
+    }
+
+    function updateBroadcastPreview() {
+      const payload = calculateLivePayload();
+      if (previewSlotEl) previewSlotEl.textContent = payload.slot;
+      if (previewTitleEl) previewTitleEl.textContent = payload.title;
+      if (previewBodyEl) previewBodyEl.innerHTML = payload.body.replace(/\n/g, '<br/>');
+    }
+
+    updateBroadcastPreview();
+    setInterval(updateBroadcastPreview, 30000);
+
+    if (btnRefreshPreview) {
+      btnRefreshPreview.addEventListener('click', () => {
+        updateBroadcastPreview();
+        showToast('🔄 Live broadcast preview updated.');
+      });
+    }
+
+    async function triggerBroadcast(isTestOnly = false) {
+      const payload = calculateLivePayload();
+
+      // Check permission
+      if ('Notification' in window && Notification.permission !== 'granted') {
+        try {
+          const perm = await Notification.requestPermission();
+          if (perm !== 'granted') {
+            showToast('⚠️ Notification permission not granted in browser.', false);
+            return;
+          }
+        } catch (e) {}
+      }
+
+      // 1. Trigger native device notification via Service Worker / Native Notification
+      const baseHref = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+      const notifOptions = {
+        body: isTestOnly ? `[Test Alert] ${payload.body}` : payload.body,
+        icon: new URL('assets/srcc_crest.png', baseHref).href,
+        badge: new URL('favicon.png', baseHref).href,
+        tag: 'srcc-admin-broadcast-' + Date.now(),
+        renotify: true,
+        vibrate: [200, 100, 200, 100, 200]
+      };
+
+      if ('serviceWorker' in navigator) {
+        try {
+          const reg = await (navigator.serviceWorker.ready || navigator.serviceWorker.getRegistration());
+          if (reg && reg.showNotification) {
+            await reg.showNotification(payload.title, notifOptions);
+          } else if ('Notification' in window) {
+            new Notification(payload.title, notifOptions);
+          }
+        } catch (e) {
+          if ('Notification' in window) {
+            try { new Notification(payload.title, notifOptions); } catch (err) {}
+          }
+        }
+      } else if ('Notification' in window && Notification.permission === 'granted') {
+        try { new Notification(payload.title, notifOptions); } catch (e) {}
+      }
+
+      // 2. Post message to Service Worker to trigger background broadcast
+      if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({
+          type: 'BROADCAST_LEAVES_ALERT',
+          title: payload.title,
+          body: payload.body
+        });
+      }
+
+      showToast(`📢 <strong>Notification Dispatched!</strong> Leaves: ${payload.leaveCount}, Free Rooms: ${payload.freeRooms}`);
+    }
+
+    if (btnBroadcastNow) {
+      btnBroadcastNow.addEventListener('click', () => triggerBroadcast(false));
+    }
+
+    if (btnTestAlert) {
+      btnTestAlert.addEventListener('click', () => triggerBroadcast(true));
+    }
+  }
+
   boot();
 });
