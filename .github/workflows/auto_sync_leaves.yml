@@ -43,6 +43,10 @@ jobs:
         run: |
           xvfb-run --auto-servernum python sync_leaves.py --headed
 
+      - name: Dispatch Closed-Browser Web Push Notifications (Hourly Device Alerts)
+        run: |
+          python dispatch_push_notifications.py
+
       - name: Commit and push updated leaves
         id: commit_step
         run: |

@@ -4094,89 +4094,62 @@ window.SRCC_FACULTY_LEAVES = {
     // ========================================================================
     // ⚙️ INITIALIZE LEAVE NOTIFICATION SYSTEM (Public Client One-Time Banner)
     // ========================================================================
+    // Standard RFC-compliant Web Push VAPID Public Key for Chrome/Android PushManager
+    const VAPID_PUBLIC_KEY = 'BJfmbvYuaQnKot04ZeKfaQrZBHgQVMubvYF02BZwLbT2TWqVEbRIJ8_A_vFsuGMNMMDQWYoObRw1gNfhA4_P-3w';
+
+    function urlBase64ToUint8Array(base64String) {
+      const padding = '='.repeat((4 - base64String.length % 4) % 4);
+      const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+      const rawData = window.atob(base64);
+      const outputArray = new Uint8Array(rawData.length);
+      for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i);
+      }
+      return outputArray;
+    }
+
+    async function registerDeviceWebPushSubscription() {
+      try {
+        if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
+        const reg = await navigator.serviceWorker.ready;
+        if (!reg || !reg.pushManager) return;
+
+        let sub = await reg.pushManager.getSubscription();
+        if (!sub) {
+          sub = await reg.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
+          });
+        }
+
+        if (sub) {
+          const cloudUrl = (window.SRCC_CLOUD_CONFIG && window.SRCC_CLOUD_CONFIG.db_url) || 'https://srcc-leaves-default-rtdb.firebaseio.com/leaves.json';
+          const baseUrl = cloudUrl.substring(0, cloudUrl.lastIndexOf('/'));
+          const subJson = sub.toJSON();
+          const subId = btoa(sub.endpoint).replace(/[^a-zA-Z0-9]/g, '').slice(-32);
+
+          await fetch(`${baseUrl}/push_subscriptions/${subId}.json`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              endpoint: sub.endpoint,
+              keys: subJson.keys,
+              updatedAt: new Date().toISOString(),
+              platform: navigator.platform || 'unknown'
+            })
+          }).catch(() => {});
+        }
+      } catch (err) {
+        console.warn('[Web Push Registration Note]', err);
+      }
+    }
+
     function initLeaveNotificationSystem() {
       const banner = document.getElementById('leaveNotificationPromptBanner');
       const btnAllow = document.getElementById('btnAllowLeaveNotif');
       const btnDismiss = document.getElementById('btnDismissLeaveNotif');
-      const btnHeaderAlerts = document.getElementById('btnHeaderLeaveAlerts');
-      const headerStatusText = document.getElementById('headerNotifStatusText');
-      const modal = document.getElementById('leaveAlertsModal');
-      const btnCloseModal = document.getElementById('btnCloseAlertsModal');
-      const btnModalEnable = document.getElementById('btnModalEnableAlerts');
-      const btnModalTest = document.getElementById('btnModalTestAlert');
-      const btnModalViewLeaves = document.getElementById('btnModalViewLeaves');
-      const modalBadge = document.getElementById('alertsModalStatusBadge');
 
-      function updateNotifUiState() {
-        if (!('Notification' in window)) {
-          if (headerStatusText) headerStatusText.textContent = 'Alerts';
-          if (modalBadge) {
-            modalBadge.textContent = 'Safari PWA Mode';
-            modalBadge.style.background = '#64748b';
-            modalBadge.style.color = '#fff';
-          }
-          if (btnModalEnable) {
-            btnModalEnable.textContent = '📱 Add to Home Screen for iOS Alerts';
-            btnModalEnable.onclick = () => {
-              showToast('🍏 <strong>iOS Safari:</strong> Tap Share (⎋) at bottom of Safari & select "Add to Home Screen".', true, 5000);
-            };
-          }
-          return;
-        }
-
-        const perm = Notification.permission;
-        if (perm === 'granted') {
-          if (btnHeaderAlerts) {
-            btnHeaderAlerts.classList.add('granted');
-            btnHeaderAlerts.classList.remove('denied', 'active-anim');
-          }
-          if (headerStatusText) headerStatusText.textContent = 'Alerts Active';
-          if (modalBadge) {
-            modalBadge.textContent = 'Active ✅';
-            modalBadge.style.background = '#059669';
-            modalBadge.style.color = '#ecfdf5';
-          }
-          if (btnModalEnable) {
-            btnModalEnable.textContent = '✅ Device Alerts Active';
-            btnModalEnable.style.background = 'linear-gradient(135deg, #10B981, #059669)';
-            btnModalEnable.style.color = '#fff';
-          }
-        } else if (perm === 'denied') {
-          if (btnHeaderAlerts) {
-            btnHeaderAlerts.classList.add('denied');
-            btnHeaderAlerts.classList.remove('granted', 'active-anim');
-          }
-          if (headerStatusText) headerStatusText.textContent = 'Alerts Blocked';
-          if (modalBadge) {
-            modalBadge.textContent = 'Blocked ❌';
-            modalBadge.style.background = '#dc2626';
-            modalBadge.style.color = '#fef2f2';
-          }
-          if (btnModalEnable) {
-            btnModalEnable.textContent = '⚠️ Blocked: Tap URL lock icon to Allow';
-            btnModalEnable.style.background = '#ef4444';
-            btnModalEnable.style.color = '#fff';
-          }
-        } else {
-          if (btnHeaderAlerts) {
-            btnHeaderAlerts.classList.add('active-anim');
-            btnHeaderAlerts.classList.remove('granted', 'denied');
-          }
-          if (headerStatusText) headerStatusText.textContent = 'Allow Alerts';
-          if (modalBadge) {
-            modalBadge.textContent = 'Not Enabled 🔔';
-            modalBadge.style.background = '#f59e0b';
-            modalBadge.style.color = '#fff';
-          }
-          if (btnModalEnable) {
-            btnModalEnable.textContent = '✅ Allow / Enable Device Alerts';
-            btnModalEnable.style.background = 'linear-gradient(135deg, #fbbf24, #f59e0b)';
-            btnModalEnable.style.color = '#0f172a';
-          }
-        }
-      }
-
-      // Request permission helper
+      // Request permission helper (Registers closed-browser Push Alerts like Zomato/Blinkit)
       async function requestLeavePermission() {
         if (!('Notification' in window)) {
           showToast('⚠️ Notifications are not supported in this browser. Try Chrome or Edge.', false, 4000);
@@ -4185,12 +4158,14 @@ window.SRCC_FACULTY_LEAVES = {
 
         try {
           const perm = await Notification.requestPermission();
-          updateNotifUiState();
           if (perm === 'granted') {
             localStorage.setItem('srcc_leave_notif_enabled', 'true');
-            showToast('🔔 <strong>Hourly Alerts Enabled!</strong> You will receive automatic updates on Chrome open & phone unlock.', true, 5000);
+            showToast('🔔 <strong>Hourly Alerts Enabled!</strong> You will receive automatic campus updates even when Chrome is closed.', true, 5000);
 
-            // Register periodic background sync
+            // 1. Register closed-browser Web Push subscription (Wakes up device even when Chrome is shut)
+            registerDeviceWebPushSubscription();
+
+            // 2. Register periodic background sync
             if ('serviceWorker' in navigator) {
               navigator.serviceWorker.ready.then(reg => {
                 if ('periodicSync' in reg) {
@@ -4210,10 +4185,11 @@ window.SRCC_FACULTY_LEAVES = {
         }
       }
 
-      // 1. One-Time Banner Prompt for new users
+      // 1. One-Time Banner Prompt for new users (Silent if already granted or closed)
       if ('Notification' in window && Notification.permission === 'granted') {
         if (banner) banner.style.display = 'none';
         window._isNotifBannerActive = false;
+        registerDeviceWebPushSubscription();
         const todayActive = getActiveTodayLeaves();
         notifyFacultyLeaves(todayActive, false);
       } else {
@@ -4250,57 +4226,6 @@ window.SRCC_FACULTY_LEAVES = {
           }
         });
       }
-
-      // Header button click -> Open Alerts modal
-      if (btnHeaderAlerts) {
-        btnHeaderAlerts.addEventListener('click', () => {
-          updateNotifUiState();
-          if (modal) modal.style.display = 'flex';
-        });
-      }
-
-      if (btnCloseModal && modal) {
-        btnCloseModal.addEventListener('click', () => { modal.style.display = 'none'; });
-        modal.addEventListener('click', (e) => {
-          if (e.target === modal) modal.style.display = 'none';
-        });
-      }
-
-      if (btnModalEnable) {
-        btnModalEnable.addEventListener('click', async () => {
-          await requestLeavePermission();
-          updateNotifUiState();
-        });
-      }
-
-      if (btnModalTest) {
-        btnModalTest.addEventListener('click', () => {
-          if ('Notification' in window && Notification.permission === 'granted') {
-            if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-              navigator.serviceWorker.controller.postMessage({ type: 'TEST_NOTIFICATION' });
-            } else {
-              new Notification('SRCC Live Campus Update 🔔 (Test)', {
-                body: '✅ Live Alerts Active! You will receive hourly updates with absent faculty & free classrooms.',
-                icon: 'assets/srcc_crest.png'
-              });
-            }
-            showToast('🧪 <strong>Test alert dispatched!</strong> Check notification tray / lock screen.', true, 4000);
-          } else {
-            showToast('⚠️ Please tap "Allow Alerts" first to enable notifications!', false, 3500);
-            requestLeavePermission().then(() => updateNotifUiState());
-          }
-        });
-      }
-
-      if (btnModalViewLeaves) {
-        btnModalViewLeaves.addEventListener('click', () => {
-          if (modal) modal.style.display = 'none';
-          openFacultyLeavesView();
-        });
-      }
-
-      // Initial UI state update
-      updateNotifUiState();
     }
 
     // ========================================================================
@@ -4348,7 +4273,7 @@ window._triggerDeferredPwaPrompt = function(delayMs = 3000) {
 // Register Service Worker with robust relative path and periodic sync
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    const swUrl = './sw.js?v=34';
+    const swUrl = './sw.js?v=35';
     navigator.serviceWorker.register(swUrl, { scope: './' }).then(async (registration) => {
       console.log('[SW] Registered successfully with scope:', registration.scope);
 

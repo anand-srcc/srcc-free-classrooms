@@ -1,13 +1,13 @@
-const CACHE_NAME = 'srcc-classroom-v34';
+const CACHE_NAME = 'srcc-classroom-v35';
 const ASSETS = [
   './',
   './index.html',
   './style.css',
-  './app.js?v=34',
-  './data.js?v=34',
-  './cloud_config.js?v=34',
-  './faculty_leaves.js?v=34',
-  './teachers_data.js?v=34',
+  './app.js?v=35',
+  './data.js?v=35',
+  './cloud_config.js?v=35',
+  './faculty_leaves.js?v=35',
+  './teachers_data.js?v=35',
   './srcc_data.json',
   './favicon.png',
   './srcc_crest.png',
@@ -237,9 +237,40 @@ self.addEventListener('sync', (event) => {
   }
 });
 
-// --- Push Event ---
+// --- Push Event (Wakes up device lock screen even when Chrome is closed!) ---
 self.addEventListener('push', (event) => {
-  event.waitUntil(checkLeavesAndNotifyInBackground(true));
+  let pushData = null;
+  if (event.data) {
+    try {
+      pushData = event.data.json();
+    } catch (e) {
+      try { pushData = { body: event.data.text() }; } catch (err) {}
+    }
+  }
+
+  if (pushData && pushData.title) {
+    const baseOrigin = self.location.origin;
+    const basePath = self.location.pathname.substring(0, self.location.pathname.lastIndexOf('/') + 1);
+    const iconUrl = pushData.icon || new URL(basePath + 'srcc_crest.png', baseOrigin).href;
+    const badgeUrl = pushData.badge || new URL(basePath + 'favicon.png', baseOrigin).href;
+
+    event.waitUntil(
+      self.registration.showNotification(pushData.title, {
+        body: pushData.body || 'Live campus timetable update',
+        icon: iconUrl,
+        badge: badgeUrl,
+        tag: pushData.tag || 'srcc-campus-hourly-update',
+        renotify: true,
+        vibrate: [200, 100, 200, 100, 200],
+        requireInteraction: false,
+        data: {
+          url: pushData.url || (basePath + 'index.html?view=leaves')
+        }
+      })
+    );
+  } else {
+    event.waitUntil(checkLeavesAndNotifyInBackground(true));
+  }
 });
 
 // --- Notification Click ---
