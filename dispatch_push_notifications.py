@@ -88,11 +88,28 @@ def calculate_campus_update():
             locks_data = r_locks.json()
             locks_list = locks_data if isinstance(locks_data, list) else list(locks_data.values())
             for lk in locks_list:
-                if isinstance(lk, dict) and lk.get("date", today_iso) == today_iso:
-                    slot = lk.get("slot")
-                    room = (lk.get("room") or "").strip().upper()
-                    if slot == "ALL_DAY":
-                        locked_rooms.add(room)
+                if isinstance(lk, dict):
+                    recurrence = lk.get("recurrence", "once")
+                    is_active = False
+                    if recurrence == "once" and lk.get("date", today_iso) == today_iso:
+                        is_active = True
+                    elif recurrence == "weekend" and day_name in ["Saturday", "Sunday"]:
+                        is_active = True
+                    elif recurrence == "daily" and day_name != "Sunday":
+                        is_active = True
+                    elif recurrence == "weekly" and day_name in (lk.get("recurring_days") or []):
+                        is_active = True
+                    elif not recurrence and lk.get("date", today_iso) == today_iso:
+                        is_active = True
+
+                    if is_active and lk.get("date") and today_iso < lk.get("date"):
+                        is_active = False
+
+                    if is_active:
+                        slot = lk.get("slot")
+                        room = (lk.get("room") or "").strip().upper()
+                        if slot == "ALL_DAY":
+                            locked_rooms.add(room)
     except Exception as e:
         print(f"[Warning] Could not fetch room locks from Firebase: {e}")
 

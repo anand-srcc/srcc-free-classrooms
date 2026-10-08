@@ -18,5 +18,8 @@
     "faculty-locator"
   ],
   "author": "SRCC Dev",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "web-push": "^3.6.7"
+  }
 }

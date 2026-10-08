@@ -625,6 +625,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const typeLabel = isExtra ? 'Extra Class' : 'Room Locked';
       const slotLabel = lock.slot === 'ALL_DAY' ? 'Full Day (8:30 AM – 6:00 PM)' : lock.slot;
 
+      let recurrenceLabel = `📅 ${escapeHtml(lock.date || 'Today')}`;
+      if (lock.recurrence === 'weekend') {
+        recurrenceLabel = '🔁 Every Weekend (Sat & Sun)';
+      } else if (lock.recurrence === 'daily') {
+        recurrenceLabel = '🔁 Everyday (Mon–Sat)';
+      } else if (lock.recurrence === 'weekly' && Array.isArray(lock.recurring_days) && lock.recurring_days.length > 0) {
+        recurrenceLabel = `🔁 Every ${escapeHtml(lock.recurring_days.join(', '))}`;
+      }
+
       return `
         <div class="leave-item-row" style="border-left: 4px solid ${isExtra ? '#3b82f6' : '#ef4444'};">
           <div class="leave-item-details">
@@ -634,7 +643,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <span style="font-size: 0.74rem; color: var(--text-secondary); background: #f1f5f9; padding: 2px 7px; border-radius: 4px; font-weight: 600;">🕒 ${escapeHtml(slotLabel)}</span>
             </div>
             <div style="font-size: 0.82rem; color: var(--text-secondary); display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
-              <span>📅 ${escapeHtml(lock.date || 'Today')}</span>
+              <span style="color: #2563eb; font-weight: 700;">${recurrenceLabel}</span>
               ${lock.title ? `<span>·</span><span style="font-weight: 600; color: var(--text-primary);">"${escapeHtml(lock.title)}"</span>` : ''}
               ${lock.added_by ? `<span style="font-size: 0.72rem; color: var(--text-muted);">(By ${escapeHtml(lock.added_by)})</span>` : ''}
             </div>
@@ -660,6 +669,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function initRoomLocksListeners() {
     const btnAddLock = document.getElementById('btnAdminAddLock');
+    const recurrenceSelect = document.getElementById('adminLockRecurrence');
+    const daysGroup = document.getElementById('adminLockDaysGroup');
+    const dateFieldGroup = document.getElementById('adminLockDateFieldGroup');
+
+    if (recurrenceSelect) {
+      recurrenceSelect.addEventListener('change', () => {
+        const val = recurrenceSelect.value;
+        if (daysGroup) {
+          daysGroup.style.display = (val === 'weekly') ? 'block' : 'none';
+        }
+      });
+    }
+
     if (btnAddLock) {
       btnAddLock.addEventListener('click', () => {
         const roomSelect = document.getElementById('adminLockRoomSelect');
@@ -671,6 +693,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const room = (roomSelect ? roomSelect.value : '').trim();
         const type = (lockType ? lockType.value : 'lock').trim();
         const slot = (lockSlot ? lockSlot.value : 'ALL_DAY').trim();
+        const recurrence = (recurrenceSelect ? recurrenceSelect.value : 'once').trim();
         const date = (lockDate ? lockDate.value : getTodayIsoDate()).trim();
         const title = (lockTitle ? lockTitle.value : '').trim();
 
@@ -679,12 +702,28 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
 
+        let recurringDays = [];
+        if (recurrence === 'weekly') {
+          const checked = Array.from(document.querySelectorAll('.lock-day-check:checked')).map(c => c.value);
+          if (checked.length === 0) {
+            showToast('⚠️ Please select at least one day of the week for weekly recurrence.', false);
+            return;
+          }
+          recurringDays = checked;
+        } else if (recurrence === 'weekend') {
+          recurringDays = ['Saturday', 'Sunday'];
+        } else if (recurrence === 'daily') {
+          recurringDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        }
+
         const activeUser = getActiveSessionUser();
         const newLock = {
           id: 'lock_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
           room: room,
           type: type,
           slot: slot,
+          recurrence: recurrence,
+          recurring_days: recurringDays,
           date: date || getTodayIsoDate(),
           title: title || (type === 'extra_class' ? 'Special Lecture Scheduled' : 'Room Reserved / Locked'),
           added_by: activeUser.fullName || 'Admin',
@@ -699,7 +738,7 @@ document.addEventListener('DOMContentLoaded', () => {
         syncRoomLocksToCloud(locks, true);
 
         if (lockTitle) lockTitle.value = '';
-        showToast(`🔒 <strong>Room ${room}</strong> locked successfully! Live for all students.`);
+        showToast(`🔒 <strong>Room ${room}</strong> locked successfully (${recurrence === 'once' ? 'One-time' : recurrence})! Live for all students.`);
       });
     }
 
@@ -723,6 +762,314 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================================
+  // 📢 CAMPUS NOTICES & BANNERS (Freshers, Elections, Official Circulars)
+  // ==========================================================================
+  const CAMPUS_NOTICES_STORAGE_KEY = 'srcc_campus_notices_v1';
+  let pendingNoticeAttachment = null;
+
+  function getCampusNoticesList() {
+    try {
+      const stored = localStorage.getItem(CAMPUS_NOTICES_STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch (e) {
+      console.error('Error reading campus notices:', e);
+    }
+    return [];
+  }
+
+  function saveCampusNoticesList(list) {
+    try {
+      localStorage.setItem(CAMPUS_NOTICES_STORAGE_KEY, JSON.stringify(list));
+      window.SRCC_CAMPUS_NOTICES = list;
+    } catch (e) {
+      console.error('Error saving campus notices:', e);
+    }
+  }
+
+  async function syncCampusNoticesToCloud(noticesList, showSuccessToast = false) {
+    const baseUrl = getBaseCloudDbUrl();
+    if (!baseUrl) return false;
+    const secret = getCloudDbSecret();
+    let url = baseUrl + '/campus_notices.json';
+    if (secret) url += '?auth=' + encodeURIComponent(secret);
+
+    try {
+      const resp = await fetch(url, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(noticesList)
+      });
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      if (showSuccessToast) showToast('☁️ Campus notices synced with Cloud DB.');
+      return true;
+    } catch (e) {
+      console.warn('Campus notices cloud sync note:', e);
+      return false;
+    }
+  }
+
+  async function fetchCloudCampusNotices() {
+    const baseUrl = getBaseCloudDbUrl();
+    if (!baseUrl) return;
+    try {
+      const res = await fetch(baseUrl + '/campus_notices.json');
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          saveCampusNoticesList(data);
+          renderCampusNoticesTable();
+        } else if (data && typeof data === 'object') {
+          const list = Object.values(data);
+          saveCampusNoticesList(list);
+          renderCampusNoticesTable();
+        }
+      }
+    } catch (e) {
+      console.warn('Could not fetch cloud campus notices:', e);
+    }
+  }
+
+  function renderCampusNoticesTable() {
+    const container = document.getElementById('adminNoticesListContainer');
+    const countEl = document.getElementById('adminNoticesCount');
+    const kpiNotices = document.getElementById('kpiActiveNotices');
+    const tabNoticesBadge = document.getElementById('tabNoticesBadge');
+
+    const notices = getCampusNoticesList();
+    if (countEl) countEl.textContent = notices.length;
+    if (kpiNotices) kpiNotices.textContent = notices.length;
+    if (tabNoticesBadge) {
+      tabNoticesBadge.textContent = notices.length;
+      tabNoticesBadge.style.display = notices.length > 0 ? 'inline-block' : 'none';
+    }
+
+    if (!container) return;
+
+    if (notices.length === 0) {
+      container.innerHTML = `
+        <div style="text-align: center; padding: 22px 14px; color: var(--text-muted); font-size: 0.86rem; background: #f8fafc; border: 1px dashed var(--border-color); border-radius: 8px;">
+          📢 No active campus notices or banners published. Students will see no banners on their main screen.
+        </div>
+      `;
+      return;
+    }
+
+    const categoryBadges = {
+      freshers: '<span class="campus-notice-badge badge-notice-freshers">🎉 Freshers 2026</span>',
+      elections: '<span class="campus-notice-badge badge-notice-elections">🗳️ Student Elections</span>',
+      circular: '<span class="campus-notice-badge badge-notice-circular">📢 Circular</span>',
+      societies: '<span class="campus-notice-badge badge-notice-societies">🏆 Societies</span>',
+      urgent: '<span class="campus-notice-badge badge-notice-urgent">📌 Urgent Alert</span>'
+    };
+
+    container.innerHTML = notices.map(n => {
+      const catBadge = categoryBadges[n.category] || categoryBadges.circular;
+      const expiryText = n.expiry_date ? `📅 Expires: ${escapeHtml(n.expiry_date)}` : '📅 No Expiry';
+      const hasAttachment = n.attachment && n.attachment.dataUrl;
+
+      return `
+        <div class="leave-item-row" style="border-left: 4px solid #d97706;">
+          <div class="leave-item-details" style="width: 100%;">
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px;">
+              ${catBadge}
+              <span style="font-weight: 800; font-size: 0.95rem; color: var(--text-primary);">${escapeHtml(n.title)}</span>
+              <span style="font-size: 0.72rem; color: var(--text-muted);">${expiryText}</span>
+            </div>
+            ${n.body ? `<div style="font-size: 0.82rem; color: #475569; margin-bottom: 6px; white-space: pre-line;">${escapeHtml(n.body)}</div>` : ''}
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 4px;">
+              ${hasAttachment ? `
+                <button type="button" class="btn-notice-attachment" onclick="openAdminAttachment('${escapeHtml(n.id)}')" style="font-size: 0.74rem; padding: 4px 10px;">
+                  📎 View ${n.attachment.type === 'pdf' ? 'PDF Circular' : 'Poster Image'} (${escapeHtml(n.attachment.name || 'File')})
+                </button>
+              ` : '<span style="font-size: 0.72rem; color: var(--text-muted);">No file attached</span>'}
+              ${n.published_by ? `<span style="font-size: 0.72rem; color: var(--text-muted); margin-left: auto;">By ${escapeHtml(n.published_by)}</span>` : ''}
+            </div>
+          </div>
+          <button type="button" class="btn-delete-leave" onclick="deleteCampusNotice('${escapeHtml(n.id)}')" title="Delete notice banner">
+            ✕ Delete
+          </button>
+        </div>
+      `;
+    }).join('');
+  }
+
+  window.deleteCampusNotice = async function(noticeId) {
+    let notices = getCampusNoticesList();
+    const target = notices.find(n => n.id === noticeId);
+    notices = notices.filter(n => n.id !== noticeId);
+    saveCampusNoticesList(notices);
+    renderCampusNoticesTable();
+    syncCampusNoticesToCloud(notices, false);
+    showToast(`🗑️ Notice <strong>"${target ? target.title : ''}"</strong> removed.`);
+  };
+
+  window.openAdminAttachment = function(noticeId) {
+    const notices = getCampusNoticesList();
+    const notice = notices.find(n => n.id === noticeId);
+    if (!notice || !notice.attachment) return;
+    openAttachmentViewer(notice.title, notice.attachment);
+  };
+
+  function openAttachmentViewer(title, attachment) {
+    const overlay = document.getElementById('attachmentModalOverlay');
+    const titleEl = document.getElementById('attachmentModalTitle');
+    const bodyEl = document.getElementById('attachmentModalBody');
+
+    if (!overlay || !bodyEl) return;
+    if (titleEl) titleEl.textContent = title || 'Notice Attachment';
+
+    if (attachment.type === 'pdf') {
+      bodyEl.innerHTML = `
+        <iframe src="${attachment.dataUrl}" style="width: 100%; height: 70vh; border: none; border-radius: 6px;"></iframe>
+        <div style="margin-top: 10px; display: flex; justify-content: flex-end;">
+          <a href="${attachment.dataUrl}" download="${escapeHtml(attachment.name || 'SRCC_Notice.pdf')}" class="btn-primary" style="text-decoration: none; font-size: 0.8rem; padding: 6px 14px;">
+            ⬇️ Download PDF
+          </a>
+        </div>
+      `;
+    } else {
+      bodyEl.innerHTML = `
+        <div style="text-align: center;">
+          <img src="${attachment.dataUrl}" alt="Notice Attachment" style="max-width: 100%; max-height: 70vh; object-fit: contain; border-radius: 6px;" />
+          <div style="margin-top: 10px; display: flex; justify-content: flex-end;">
+            <a href="${attachment.dataUrl}" download="${escapeHtml(attachment.name || 'SRCC_Poster.png')}" class="btn-primary" style="text-decoration: none; font-size: 0.8rem; padding: 6px 14px;">
+              ⬇️ Download Image
+            </a>
+          </div>
+        </div>
+      `;
+    }
+
+    overlay.style.display = 'flex';
+  }
+
+  function initAttachmentModal() {
+    const overlay = document.getElementById('attachmentModalOverlay');
+    const btnClose = document.getElementById('btnCloseAttachmentModal');
+    if (btnClose && overlay) {
+      btnClose.addEventListener('click', () => { overlay.style.display = 'none'; });
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) overlay.style.display = 'none';
+      });
+    }
+  }
+
+  function initCampusNoticesListeners() {
+    const fileInput = document.getElementById('adminNoticeFileInput');
+    const btnClearFile = document.getElementById('btnClearNoticeFile');
+    const previewText = document.getElementById('noticeFilePreviewText');
+    const btnPublish = document.getElementById('btnAdminPublishNotice');
+    const btnClearAll = document.getElementById('btnAdminClearAllNotices');
+
+    if (fileInput) {
+      fileInput.addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) {
+          pendingNoticeAttachment = null;
+          if (previewText) previewText.style.display = 'none';
+          if (btnClearFile) btnClearFile.style.display = 'none';
+          return;
+        }
+
+        if (file.size > 3.8 * 1024 * 1024) {
+          showToast('⚠️ File is larger than 3.5MB. Please choose a smaller compressed image or PDF.', false);
+          fileInput.value = '';
+          return;
+        }
+
+        const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          pendingNoticeAttachment = {
+            name: file.name,
+            type: isPdf ? 'pdf' : 'image',
+            size: file.size,
+            dataUrl: evt.target.result
+          };
+          if (previewText) {
+            const kb = Math.round(file.size / 1024);
+            previewText.textContent = `📎 Ready to attach: ${file.name} (${kb} KB, ${isPdf ? 'PDF' : 'Image'})`;
+            previewText.style.display = 'block';
+          }
+          if (btnClearFile) btnClearFile.style.display = 'inline-block';
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    if (btnClearFile) {
+      btnClearFile.addEventListener('click', () => {
+        pendingNoticeAttachment = null;
+        if (fileInput) fileInput.value = '';
+        if (previewText) previewText.style.display = 'none';
+        btnClearFile.style.display = 'none';
+      });
+    }
+
+    if (btnPublish) {
+      btnPublish.addEventListener('click', () => {
+        const catSelect = document.getElementById('adminNoticeCategory');
+        const expiryInput = document.getElementById('adminNoticeExpiry');
+        const titleInput = document.getElementById('adminNoticeTitle');
+        const bodyInput = document.getElementById('adminNoticeBody');
+
+        const category = (catSelect ? catSelect.value : 'circular').trim();
+        const expiry = (expiryInput ? expiryInput.value : '').trim();
+        const title = (titleInput ? titleInput.value : '').trim();
+        const body = (bodyInput ? bodyInput.value : '').trim();
+
+        if (!title) {
+          showToast('⚠️ Please enter a notice title or headline.', false);
+          if (titleInput) titleInput.focus();
+          return;
+        }
+
+        const activeUser = getActiveSessionUser();
+        const newNotice = {
+          id: 'notice_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+          category: category,
+          title: title,
+          body: body,
+          expiry_date: expiry,
+          attachment: pendingNoticeAttachment || null,
+          published_by: activeUser.fullName || 'Admin',
+          created_at: new Date().toISOString()
+        };
+
+        const notices = getCampusNoticesList();
+        notices.unshift(newNotice);
+        saveCampusNoticesList(notices);
+        renderCampusNoticesTable();
+        syncCampusNoticesToCloud(notices, true);
+
+        // Reset form
+        if (titleInput) titleInput.value = '';
+        if (bodyInput) bodyInput.value = '';
+        if (fileInput) fileInput.value = '';
+        if (previewText) previewText.style.display = 'none';
+        if (btnClearFile) btnClearFile.style.display = 'none';
+        pendingNoticeAttachment = null;
+
+        showToast(`📢 <strong>Notice published!</strong> "${title}" is now live on student screens.`);
+      });
+    }
+
+    if (btnClearAll) {
+      btnClearAll.addEventListener('click', () => {
+        if (confirm('Clear all active campus notices and banners? Student screens will display no banners.')) {
+          saveCampusNoticesList([]);
+          renderCampusNoticesTable();
+          syncCampusNoticesToCloud([], false);
+          showToast('🗑️ All campus notices cleared.');
+        }
+      });
+    }
+  }
+
+  // ==========================================================================
   // 📑 TAB NAVIGATION & LIVE DATE DISPLAY
   // ==========================================================================
   function setupAdminTabs() {
@@ -730,6 +1077,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tabPanes = {
       leaves: document.getElementById('tabContentLeaves'),
       locks: document.getElementById('tabContentLocks'),
+      notices: document.getElementById('tabContentNotices'),
       broadcast: document.getElementById('tabContentBroadcast'),
       reports: document.getElementById('tabContentReports'),
       settings: document.getElementById('tabContentSettings')
@@ -761,11 +1109,15 @@ document.addEventListener('DOMContentLoaded', () => {
     setDefaultDates();
     renderLeavesTable();
     renderLocksTable();
+    renderCampusNoticesTable();
     updateKpis();
     updateCodePreview();
     setupAdminTabs();
     initRoomLocksListeners();
+    initCampusNoticesListeners();
+    initAttachmentModal();
     fetchCloudRoomLocks();
+    fetchCloudCampusNotices();
 
     // Populate Cloud DB URL & Status
     if (cloudDbUrlInput) {
@@ -1087,18 +1439,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
       return `
         <div class="leave-item-row" data-leave-id="${leave.id}">
-          <span class="leave-item-num">${idx + 1}</span>
-          <div class="leave-item-details">
-            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-              <span class="leave-item-teacher">${escapeHtml(leave.teacher_name)}${code}</span>
-              <span class="leave-item-dates">📅 ${dateRangeDisplay}</span>
-              ${halfDayBadge}
-              ${isActiveToday ? '<span style="background: #FEE2E2; color: #991B1B; border: 1px solid #FCA5A5; font-size: 0.68rem; font-weight: 800; padding: 2px 8px; border-radius: 9999px;">ACTIVE TODAY</span>' : ''}
-              ${addedByBadge}
+          <div style="display: flex; align-items: flex-start; gap: 10px; width: 100%;">
+            <span class="leave-item-num">${idx + 1}</span>
+            <div class="leave-item-details">
+              <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                <span class="leave-item-teacher">${escapeHtml(leave.teacher_name)}${code}</span>
+                <span class="leave-item-dates">📅 ${dateRangeDisplay}</span>
+                ${halfDayBadge}
+                ${isActiveToday ? '<span style="background: #FEE2E2; color: #991B1B; border: 1px solid #FCA5A5; font-size: 0.68rem; font-weight: 800; padding: 2px 8px; border-radius: 9999px;">ACTIVE TODAY</span>' : ''}
+                ${addedByBadge}
+              </div>
+              ${leave.reason ? `<span class="leave-item-reason">"${escapeHtml(leave.reason)}"</span>` : ''}
             </div>
-            ${leave.reason ? `<span class="leave-item-reason">"${escapeHtml(leave.reason)}"</span>` : ''}
           </div>
-          <div style="display: flex; align-items: center; gap: 6px; margin-left: auto;">
+          <div class="leave-item-actions">
             <a href="https://wa.me/?text=${encodeURIComponent(singleLeaveMsg)}" target="_blank" class="btn-share-wa" title="Share on WhatsApp">
               💬 Share
             </a>
@@ -1918,6 +2272,97 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    const VAPID_PUBLIC_KEY = 'BJfmbvYuaQnKot04ZeKfaQrZBHgQVMubvYF02BZwLbT2TWqVEbRIJ8_A_vFsuGMNMMDQWYoObRw1gNfhA4_P-3w';
+    const subscribersCountEl = document.getElementById('adminSubscribersCount');
+    const btnRegisterDevicePush = document.getElementById('btnAdminRegisterDevicePush');
+
+    function urlBase64ToUint8Array(base64String) {
+      const padding = '='.repeat((4 - base64String.length % 4) % 4);
+      const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+      const rawData = window.atob(base64);
+      const outputArray = new Uint8Array(rawData.length);
+      for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i);
+      }
+      return outputArray;
+    }
+
+    async function updateSubscriberCount() {
+      if (!subscribersCountEl) return;
+      let baseUrl = getBaseCloudDbUrl();
+      if (!baseUrl) {
+        subscribersCountEl.textContent = 'Cloud DB not connected';
+        return;
+      }
+      try {
+        const secret = getCloudDbSecret();
+        let url = `${baseUrl}/push_subscriptions.json?shallow=true`;
+        if (secret) url += `?auth=${encodeURIComponent(secret)}`;
+        const res = await fetch(url);
+        if (res.ok) {
+          const data = await res.json();
+          const count = data ? Object.keys(data).length : 0;
+          subscribersCountEl.textContent = `${count} Device(s) Registered`;
+        } else {
+          subscribersCountEl.textContent = 'Active (Ready)';
+        }
+      } catch (e) {
+        subscribersCountEl.textContent = 'Active (Ready)';
+      }
+    }
+
+    updateSubscriberCount();
+
+    if (btnRegisterDevicePush) {
+      btnRegisterDevicePush.addEventListener('click', async () => {
+        try {
+          if (!('Notification' in window) || !('serviceWorker' in navigator) || !('PushManager' in window)) {
+            showToast('⚠️ Web Push notifications not supported on this browser.', false);
+            return;
+          }
+          const perm = await Notification.requestPermission();
+          if (perm !== 'granted') {
+            showToast('⚠️ Notification permission was blocked or denied.', false);
+            return;
+          }
+          showToast('⏳ Registering device for closed-Chrome push alerts...', true, 2000);
+          const reg = await (navigator.serviceWorker.ready || navigator.serviceWorker.getRegistration());
+          let sub = await reg.pushManager.getSubscription();
+          if (!sub) {
+            sub = await reg.pushManager.subscribe({
+              userVisibleOnly: true,
+              applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
+            });
+          }
+          if (sub) {
+            let baseUrl = getBaseCloudDbUrl();
+            if (baseUrl) {
+              const subJson = sub.toJSON();
+              const subId = btoa(sub.endpoint).replace(/[^a-zA-Z0-9]/g, '').slice(-32);
+              const secret = getCloudDbSecret();
+              let putUrl = `${baseUrl}/push_subscriptions/${subId}.json`;
+              if (secret) putUrl += `?auth=${encodeURIComponent(secret)}`;
+              await fetch(putUrl, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  endpoint: sub.endpoint,
+                  keys: subJson.keys,
+                  updatedAt: new Date().toISOString(),
+                  platform: (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || 'Admin Device'
+                })
+              });
+              updateSubscriberCount();
+              showToast('🎉 <strong>Admin Device Registered!</strong> You will now receive hourly & instant push alerts even when Chrome is shut.');
+            }
+          }
+        } catch (err) {
+          console.warn('Device push registration error:', err);
+          showToast('⚠️ Could not complete device push registration: ' + err.message, false);
+        }
+      });
+    }
+
     async function triggerBroadcast(isTestOnly = false) {
       const payload = calculateLivePayload();
 
@@ -1932,7 +2377,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (e) {}
       }
 
-      // 1. Trigger native device notification via Service Worker / Native Notification
+      // 1. Trigger local notification for immediate feedback
       const baseHref = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
       const notifOptions = {
         body: isTestOnly ? `[Test Alert] ${payload.body}` : payload.body,
@@ -1960,16 +2405,45 @@ document.addEventListener('DOMContentLoaded', () => {
         try { new Notification(payload.title, notifOptions); } catch (e) {}
       }
 
-      // 2. Post message to Service Worker to trigger background broadcast
-      if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-        navigator.serviceWorker.controller.postMessage({
-          type: 'BROADCAST_LEAVES_ALERT',
-          title: payload.title,
-          body: payload.body
-        });
-      }
+      // 2. If it's a real broadcast, dispatch to all devices across campus!
+      if (!isTestOnly) {
+        let baseUrl = getBaseCloudDbUrl();
+        // Record broadcast trigger in Cloud Realtime DB
+        if (baseUrl) {
+          const secret = getCloudDbSecret();
+          let trigUrl = `${baseUrl}/broadcast_triggers/latest.json`;
+          if (secret) trigUrl += `?auth=${encodeURIComponent(secret)}`;
+          fetch(trigUrl, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              title: payload.title,
+              body: payload.body,
+              timestamp: Date.now(),
+              sentBy: getActiveSessionUser().fullName || 'Admin'
+            })
+          }).catch(() => {});
+        }
 
-      showToast(`📢 <strong>Notification Dispatched!</strong> Leaves: ${payload.leaveCount}, Free Rooms: ${payload.freeRooms}`);
+        // Call Netlify Web Push Serverless Function to push to all phones/laptops
+        fetch('/.netlify/functions/push_dispatch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            title: payload.title,
+            body: payload.body,
+            url: './'
+          })
+        }).then(res => res.json()).then(resData => {
+          if (resData && resData.count !== undefined) {
+            showToast(`📢 <strong>Broadcast Sent!</strong> Reached ${resData.count} registered device(s) via Web Push.`);
+          }
+        }).catch(() => {});
+
+        showToast(`📢 <strong>Broadcast Pushed to All Users!</strong> Leaves: ${payload.leaveCount}, Free Rooms: ${payload.freeRooms}`);
+      } else {
+        showToast(`🧪 <strong>Test alert displayed on your screen.</strong>`);
+      }
     }
 
     if (btnBroadcastNow) {

@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=36" />
+  <link rel="stylesheet" href="style.css?v=37" />
   <style>
     /* Admin Portal Specific Modern Styling */
     *, *::before, *::after {
@@ -510,7 +510,8 @@
     }
 
     .leave-field-group input,
-    .leave-field-group select {
+    .leave-field-group select,
+    .leave-field-group textarea {
       width: 100%;
       box-sizing: border-box;
       padding: 9px 12px;
@@ -523,7 +524,8 @@
     }
 
     .leave-field-group input:focus,
-    .leave-field-group select:focus {
+    .leave-field-group select:focus,
+    .leave-field-group textarea:focus {
       border-color: #f59e0b;
       box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.15);
     }
@@ -609,7 +611,7 @@
       <img src="assets/srcc_crest.png" onerror="this.onerror=null; this.src='srcc_crest.png';" alt="SRCC Crest" />
       <div class="admin-nav-titles">
         <h1>SRCC Admin Portal <span class="admin-badge-role">Administrator</span></h1>
-        <p>Faculty Leaves & Classroom Allocation Manager</p>
+        <p>Faculty Leaves, Room Locks & Notices Manager</p>
       </div>
     </div>
     <div class="admin-nav-actions" id="adminNavActions" style="display: none;">
@@ -690,10 +692,10 @@
         </div>
       </div>
       <div class="admin-kpi-card">
-        <div class="admin-kpi-icon" style="background: rgba(16, 185, 129, 0.12); color: #059669;">⚡</div>
+        <div class="admin-kpi-icon" style="background: rgba(217, 119, 6, 0.12); color: #d97706;">📢</div>
         <div>
-          <div class="admin-kpi-val" id="kpiUnlockedRooms">0</div>
-          <div class="admin-kpi-title">Bonus Free Rooms</div>
+          <div class="admin-kpi-val" id="kpiActiveNotices">0</div>
+          <div class="admin-kpi-title">Campus Notices</div>
         </div>
       </div>
     </div>
@@ -709,6 +711,11 @@
         <span>🔒</span>
         <span>Room Locks & Extra Classes</span>
         <span class="admin-tab-badge" id="tabLocksBadge" style="display: none;">0</span>
+      </button>
+      <button type="button" class="admin-tab-btn" data-tab="notices">
+        <span>📢</span>
+        <span>Campus Notices</span>
+        <span class="admin-tab-badge" id="tabNoticesBadge" style="display: none;">0</span>
       </button>
       <button type="button" class="admin-tab-btn" data-tab="broadcast">
         <span>🔔</span>
@@ -827,7 +834,7 @@
     </div>
 
     <!-- ================================================================= -->
-    <!-- TAB 2: ROOM LOCKS & EXTRA CLASSES (NEW FEATURE) -->
+    <!-- TAB 2: ROOM LOCKS & RECURRING EXTRA CLASSES -->
     <!-- ================================================================= -->
     <div class="admin-tab-pane" id="tabContentLocks">
       <!-- Lock Room / Schedule Extra Class Form -->
@@ -839,25 +846,25 @@
           </div>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 12px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 12px;">
           <div class="leave-field-group">
             <label for="adminLockRoomSelect">Select Room:</label>
-            <select id="adminLockRoomSelect" style="width: 100%; box-sizing: border-box; padding: 10px 12px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-size: 0.88rem; font-weight: 700; color: var(--text-primary);">
+            <select id="adminLockRoomSelect" style="font-weight: 700;">
               <!-- Populated dynamically via admin.js with all 96 rooms -->
             </select>
           </div>
 
           <div class="leave-field-group">
             <label for="adminLockType">Action Type:</label>
-            <select id="adminLockType" style="width: 100%; box-sizing: border-box; padding: 10px 12px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-size: 0.88rem; font-weight: 700; color: var(--text-primary);">
-              <option value="lock">🔒 Lock Room (Notice / Society Event / Examination / Seminar)</option>
-              <option value="extra_class">📚 Schedule Extra Class (Room Occupied for Lecture)</option>
+            <select id="adminLockType" style="font-weight: 700;">
+              <option value="lock">🔒 Lock Room (Event / Notice / Seminar / Exam)</option>
+              <option value="extra_class">📚 Schedule Extra Class (Room Occupied)</option>
             </select>
           </div>
 
           <div class="leave-field-group">
             <label for="adminLockSlot">Time Slot / Duration:</label>
-            <select id="adminLockSlot" style="width: 100%; box-sizing: border-box; padding: 10px 12px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-size: 0.88rem; color: var(--text-primary);">
+            <select id="adminLockSlot">
               <option value="ALL_DAY">Full Day (8:30 AM – 6:00 PM)</option>
               <option value="8:30 AM to 9:30 AM">Period 1 (8:30 AM – 9:30 AM)</option>
               <option value="9:30 AM to 10:30 AM">Period 2 (9:30 AM – 10:30 AM)</option>
@@ -872,14 +879,37 @@
           </div>
 
           <div class="leave-field-group">
-            <label for="adminLockDate">Date:</label>
-            <input type="date" id="adminLockDate" style="width: 100%; box-sizing: border-box; padding: 10px 12px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-size: 0.88rem; color: var(--text-primary);" />
+            <label for="adminLockRecurrence">Recurrence / Frequency:</label>
+            <select id="adminLockRecurrence" style="font-weight: 700;">
+              <option value="once">📅 One-Time (Selected Date Only)</option>
+              <option value="weekend">🔁 Every Weekend (Saturday & Sunday)</option>
+              <option value="weekly">🔁 Specific Days of the Week</option>
+              <option value="daily">🔁 Everyday (Monday to Saturday)</option>
+            </select>
+          </div>
+
+          <div class="leave-field-group" id="adminLockDateFieldGroup">
+            <label for="adminLockDate">Effective Date:</label>
+            <input type="date" id="adminLockDate" />
+          </div>
+        </div>
+
+        <!-- Checkboxes for specific days of week (when weekly recurrence selected) -->
+        <div id="adminLockDaysGroup" style="display: none; margin-bottom: 12px; padding: 10px 14px; background: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+          <label style="font-size: 0.78rem; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px;">Select Days for Recurring Extra Class:</label>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <label style="font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; gap: 4px; cursor: pointer;"><input type="checkbox" class="lock-day-check" value="Monday" /> Mon</label>
+            <label style="font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; gap: 4px; cursor: pointer;"><input type="checkbox" class="lock-day-check" value="Tuesday" /> Tue</label>
+            <label style="font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; gap: 4px; cursor: pointer;"><input type="checkbox" class="lock-day-check" value="Wednesday" /> Wed</label>
+            <label style="font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; gap: 4px; cursor: pointer;"><input type="checkbox" class="lock-day-check" value="Thursday" /> Thu</label>
+            <label style="font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; gap: 4px; cursor: pointer;"><input type="checkbox" class="lock-day-check" value="Friday" /> Fri</label>
+            <label style="font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; gap: 4px; cursor: pointer;"><input type="checkbox" class="lock-day-check" value="Saturday" /> Sat</label>
           </div>
         </div>
 
         <div class="leave-field-group">
           <label for="adminLockTitle">Reason / Notice Title / Event Name:</label>
-          <input type="text" id="adminLockTitle" placeholder="e.g. Commerce Society Audition, Extra Stats Class (Sec A), Seminar Setup" style="width: 100%; box-sizing: border-box; padding: 10px 12px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-size: 0.88rem; color: var(--text-primary);" />
+          <input type="text" id="adminLockTitle" placeholder="e.g. Commerce Society Audition, Weekend Stats Batch, Seminar Setup" />
         </div>
 
         <div style="margin-top: 14px;">
@@ -908,7 +938,85 @@
     </div>
 
     <!-- ================================================================= -->
-    <!-- TAB 3: HOURLY BROADCAST CENTER -->
+    <!-- TAB 3: CAMPUS NOTICES & BANNERS (Freshers, Elections, Circulars) -->
+    <!-- ================================================================= -->
+    <div class="admin-tab-pane" id="tabContentNotices">
+      <!-- Create Notice Form -->
+      <section class="admin-section-card">
+        <div class="admin-section-header">
+          <div class="admin-section-title" style="color: #d97706;">
+            <span>📢</span>
+            <span>Publish Campus Notice Banner (Freshers / Elections / Circulars)</span>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 12px;">
+          <div class="leave-field-group">
+            <label for="adminNoticeCategory">Category / Event:</label>
+            <select id="adminNoticeCategory" style="font-weight: 700;">
+              <option value="freshers">🎉 Freshers 2026</option>
+              <option value="elections">🗳️ Student Elections</option>
+              <option value="circular">📢 Official Notice / Circular</option>
+              <option value="societies">🏆 Societies & Auditions</option>
+              <option value="urgent">📌 Urgent Campus Alert</option>
+            </select>
+          </div>
+
+          <div class="leave-field-group">
+            <label for="adminNoticeExpiry">Expiry / Event Date:</label>
+            <input type="date" id="adminNoticeExpiry" />
+          </div>
+        </div>
+
+        <div class="leave-field-group" style="margin-bottom: 12px;">
+          <label for="adminNoticeTitle">Notice Title / Headline:</label>
+          <input type="text" id="adminNoticeTitle" placeholder="e.g. SRCC Students' Union Elections 2026 - Code of Conduct" required />
+        </div>
+
+        <div class="leave-field-group" style="margin-bottom: 12px;">
+          <label for="adminNoticeBody">Notice Details / Announcement Message:</label>
+          <textarea id="adminNoticeBody" rows="3" placeholder="Enter instructions, schedule, or details for students..."></textarea>
+        </div>
+
+        <!-- Attachment Upload (Image or PDF) -->
+        <div class="leave-field-group" style="margin-bottom: 12px;">
+          <label for="adminNoticeFileInput">Attach Poster / Circular (Image or PDF):</label>
+          <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+            <input type="file" id="adminNoticeFileInput" accept="image/*,application/pdf" style="flex: 1; min-width: 220px; padding: 8px; background: #ffffff; border: 1px dashed var(--border-color); border-radius: var(--radius-md);" />
+            <button type="button" id="btnClearNoticeFile" style="display: none; background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; padding: 8px 12px; border-radius: var(--radius-sm); font-size: 0.76rem; font-weight: 700; cursor: pointer;">✕ Remove</button>
+          </div>
+          <div id="noticeFilePreviewText" style="display: none; margin-top: 6px; font-size: 0.78rem; font-weight: 600; color: #059669;">
+            <!-- File info preview -->
+          </div>
+        </div>
+
+        <div style="margin-top: 14px;">
+          <button type="button" class="btn-primary" id="btnAdminPublishNotice" style="width: 100%; justify-content: center; padding: 11px; font-weight: 800; font-size: 0.9rem; background: linear-gradient(135deg, #f59e0b, #d97706); color: #070d18; border: none; border-radius: var(--radius-md); cursor: pointer; box-shadow: 0 4px 14px rgba(217, 119, 6, 0.25);">
+            📢 Publish Campus Notice Banner (Live for Students)
+          </button>
+        </div>
+      </section>
+
+      <!-- Active Campus Notices List -->
+      <section class="admin-section-card">
+        <div class="admin-section-header">
+          <div class="admin-section-title">
+            <span>📋</span>
+            <span>Active Campus Notices (<span id="adminNoticesCount">0</span>)</span>
+          </div>
+          <button type="button" class="btn-reset-filters" id="btnAdminClearAllNotices" style="font-size: 0.74rem; padding: 5px 10px;">
+            Clear All Notices
+          </button>
+        </div>
+
+        <div class="leaves-items-container" id="adminNoticesListContainer">
+          <!-- Populated via admin.js -->
+        </div>
+      </section>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TAB 4: HOURLY BROADCAST CENTER -->
     <!-- ================================================================= -->
     <div class="admin-tab-pane" id="tabContentBroadcast">
       <section class="admin-section-card" id="adminBroadcastSection" style="border: 1px solid rgba(245, 158, 11, 0.4); background: linear-gradient(135deg, #ffffff, #fffbeb);">
@@ -917,9 +1025,20 @@
             <span>🔔</span>
             <span>Live Campus Broadcast Center</span>
           </div>
-          <span id="adminBroadcastStatusBadge" style="font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 9999px; background: #059669; color: #ffffff;">
-            ⏰ Auto-Hourly: Active
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span id="adminBroadcastStatusBadge" style="font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 9999px; background: #059669; color: #ffffff;">
+              ⏰ Auto-Hourly: Active
+            </span>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+          <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary);">
+            📲 Registered Devices for Web Push: <strong id="adminSubscribersCount" style="color: #0284c7;">Loading...</strong>
           </span>
+          <button type="button" id="btnAdminRegisterDevicePush" class="btn-primary" style="background: #10b981; color: #ffffff; border: none; font-size: 0.76rem; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: 700;">
+            📲 Register My Device for Closed-Chrome Alerts
+          </button>
         </div>
 
         <!-- Live Payload Preview Card -->
@@ -939,7 +1058,7 @@
         <!-- Admin Action Buttons -->
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
           <button type="button" class="btn-primary" id="btnAdminBroadcastNow" style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #070d18; border: none; font-weight: 800; font-size: 0.84rem; padding: 9px 16px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
-            <span>📢</span> Send Notification Now
+            <span>📢</span> Send Notification to All Users Now
           </button>
           <button type="button" class="btn-primary" id="btnAdminTestAlert" style="background: #0284c7; color: #ffffff; border: none; font-weight: 700; font-size: 0.82rem; padding: 9px 14px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
             <span>🧪</span> Test on My Screen
@@ -952,7 +1071,7 @@
     </div>
 
     <!-- ================================================================= -->
-    <!-- TAB 4: STUDENT REPORTS -->
+    <!-- TAB 5: STUDENT REPORTS -->
     <!-- ================================================================= -->
     <div class="admin-tab-pane" id="tabContentReports">
       <section class="admin-section-card" id="adminStudentReportsSection" style="border-color: rgba(220, 38, 38, 0.35);">
@@ -969,7 +1088,7 @@
     </div>
 
     <!-- ================================================================= -->
-    <!-- TAB 5: CLOUD & SETTINGS -->
+    <!-- TAB 6: CLOUD & SETTINGS -->
     <!-- ================================================================= -->
     <div class="admin-tab-pane" id="tabContentSettings">
       <!-- Zero-Cost Cloud Auto-Sync -->
@@ -1108,14 +1227,29 @@
 
   </main>
 
+  <!-- Notice Attachment Modal Viewer (Image / PDF) -->
+  <div class="attachment-modal-overlay" id="attachmentModalOverlay">
+    <div class="attachment-modal-card">
+      <div class="attachment-modal-header">
+        <h3 id="attachmentModalTitle" style="margin: 0; font-family: var(--font-display); font-size: 1rem; color: #1e293b;">
+          Attachment Preview
+        </h3>
+        <button type="button" id="btnCloseAttachmentModal" style="background: transparent; border: none; font-size: 1.2rem; cursor: pointer; color: #64748b; padding: 4px;">✕</button>
+      </div>
+      <div class="attachment-modal-body" id="attachmentModalBody">
+        <!-- Image or PDF viewer injected here -->
+      </div>
+    </div>
+  </div>
+
   <!-- Toast Container -->
   <div class="toast-container" id="toastContainer"></div>
 
   <!-- Data Scripts -->
-  <script src="cloud_config.js?v=36"></script>
-  <script src="data.js?v=36"></script>
-  <script src="faculty_leaves.js?v=36"></script>
-  <script src="teachers_data.js?v=36"></script>
-  <script src="admin.js?v=36"></script>
+  <script src="cloud_config.js?v=37"></script>
+  <script src="data.js?v=37"></script>
+  <script src="faculty_leaves.js?v=37"></script>
+  <script src="teachers_data.js?v=37"></script>
+  <script src="admin.js?v=37"></script>
 </body>
 </html>

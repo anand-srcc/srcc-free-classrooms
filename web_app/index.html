@@ -95,6 +95,9 @@
   <!-- Main Content Container -->
   <main class="main-container">
     
+    <!-- Campus Notice & Banner Container (Shows ONLY when Admin pushes a notice, e.g. Freshers / Elections / Circulars) -->
+    <div id="campusNoticeBannerContainer" style="display: none;"></div>
+
     <!-- Top Dual-Mode Switcher: Free Classrooms vs Faculty Locator -->
     <div class="app-mode-switcher-container">
       <div class="app-mode-switcher" role="tablist">
@@ -895,11 +898,24 @@
 
 
 
+  <!-- Student Attachment Modal Viewer (Image / PDF) -->
+  <div class="attachment-modal-overlay" id="studentAttachmentModal">
+    <div class="attachment-modal-card">
+      <div class="attachment-modal-header">
+        <h3 id="studentAttachmentModalTitle" style="margin: 0; font-family: var(--font-display); font-size: 1rem; color: #1e293b;">
+          Notice Attachment
+        </h3>
+        <button type="button" id="btnCloseStudentAttachmentModal" style="background: transparent; border: none; font-size: 1.25rem; cursor: pointer; color: #64748b; padding: 4px;">✕</button>
+      </div>
+      <div class="attachment-modal-body" id="studentAttachmentModalBody"></div>
+    </div>
+  </div>
+
   <!-- Scripts -->
-  <script src="data.js?v=36"></script>
-  <script src="cloud_config.js?v=36"></script>
-  <script src="faculty_leaves.js?v=36"></script>
-  <script src="teachers_data.js?v=36"></script>
-  <script src="app.js?v=36"></script>
+  <script src="data.js?v=37"></script>
+  <script src="cloud_config.js?v=37"></script>
+  <script src="faculty_leaves.js?v=37"></script>
+  <script src="teachers_data.js?v=37"></script>
+  <script src="app.js?v=37"></script>
 </body>
 </html>

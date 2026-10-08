@@ -188,6 +188,31 @@ document.addEventListener('DOMContentLoaded', () => {
       .catch(() => {})
   );
 
+  // 📢 Fetch Active Campus Notices & Banners
+  let campusNoticesList = [];
+  const CAMPUS_NOTICES_STORAGE_KEY = 'srcc_campus_notices_v1';
+  try {
+    const cachedNotices = localStorage.getItem(CAMPUS_NOTICES_STORAGE_KEY);
+    if (cachedNotices) campusNoticesList = JSON.parse(cachedNotices) || [];
+  } catch (e) {}
+
+  loadPromises.push(
+    fetch(`${FIREBASE_BASE_URL}/campus_notices.json?t=${Date.now()}`)
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        if (Array.isArray(d)) {
+          campusNoticesList = d;
+          window.SRCC_CAMPUS_NOTICES = d;
+          try { localStorage.setItem(CAMPUS_NOTICES_STORAGE_KEY, JSON.stringify(d)); } catch (e) {}
+        } else if (d && typeof d === 'object') {
+          campusNoticesList = Object.values(d);
+          window.SRCC_CAMPUS_NOTICES = campusNoticesList;
+          try { localStorage.setItem(CAMPUS_NOTICES_STORAGE_KEY, JSON.stringify(campusNoticesList)); } catch (e) {}
+        }
+      })
+      .catch(() => {})
+  );
+
   if (loadPromises.length > 0) {
     Promise.all(loadPromises)
       .then(() => initApp())
@@ -341,19 +366,168 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ========================================================================
-    // 🔒 ROOM LOCKS & EXTRA CLASSES HELPERS
+    // 🔒 ROOM LOCKS & EXTRA CLASSES HELPERS (Includes Recurring Locks & Weekend Batches)
     // ========================================================================
     function getRoomActiveLocks(roomCode, checkDateStr) {
       const targetDate = checkDateStr || getTodayIsoDate();
       const targetRoom = (roomCode || '').trim().toUpperCase();
+      const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      let targetDayName = 'Monday';
+      try {
+        const d = new Date(targetDate + 'T00:00:00');
+        targetDayName = daysOfWeek[d.getDay()];
+      } catch (e) {}
 
       return (roomLocksList || []).filter(lock => {
         const lockRoom = (lock.room || '').trim().toUpperCase();
         if (lockRoom !== targetRoom && lockRoom.replace(/\s+/g, '') !== targetRoom.replace(/\s+/g, '')) {
           return false;
         }
-        const lockDate = lock.date || targetDate;
-        return lockDate === targetDate;
+
+        const recurrence = lock.recurrence || 'once';
+        let isActive = false;
+        if (recurrence === 'once') {
+          isActive = (lock.date === targetDate);
+        } else if (recurrence === 'weekend') {
+          isActive = (targetDayName === 'Saturday' || targetDayName === 'Sunday');
+        } else if (recurrence === 'daily') {
+          isActive = (targetDayName !== 'Sunday');
+        } else if (recurrence === 'weekly') {
+          isActive = Array.isArray(lock.recurring_days) && lock.recurring_days.includes(targetDayName);
+        } else {
+          isActive = (lock.date === targetDate);
+        }
+
+        // If an effective date is given, don't trigger prior to that starting date
+        if (isActive && lock.date && targetDate < lock.date) {
+          return false;
+        }
+
+        return isActive;
+      });
+    }
+
+    // ========================================================================
+    // 📢 CAMPUS NOTICE BANNER & ATTACHMENT MODAL (Freshers / Elections / Circulars)
+    // Only visible when an active notice is pushed by Admin; otherwise completely hidden!
+    // ========================================================================
+    function renderCampusNoticeBanner() {
+      const container = document.getElementById('campusNoticeBannerContainer');
+      if (!container) return;
+
+      const notices = window.SRCC_CAMPUS_NOTICES || campusNoticesList || [];
+      if (!Array.isArray(notices) || notices.length === 0) {
+        container.style.display = 'none';
+        container.innerHTML = '';
+        return;
+      }
+
+      const todayIso = getTodayIsoDate();
+      const activeNotices = notices.filter(n => {
+        if (!n || !n.title) return false;
+        if (n.expiry_date && todayIso > n.expiry_date) return false;
+        return true;
+      });
+
+      if (activeNotices.length === 0) {
+        container.style.display = 'none';
+        container.innerHTML = '';
+        return;
+      }
+
+      const notice = activeNotices[0];
+      const dismissedNoticeId = sessionStorage.getItem('srcc_dismissed_notice_id');
+      if (dismissedNoticeId === notice.id) {
+        container.style.display = 'none';
+        return;
+      }
+
+      const categoryBadges = {
+        freshers: '<span class="campus-notice-badge badge-notice-freshers">🎉 Freshers 2026</span>',
+        elections: '<span class="campus-notice-badge badge-notice-elections">🗳️ Student Elections</span>',
+        circular: '<span class="campus-notice-badge badge-notice-circular">📢 Official Circular</span>',
+        societies: '<span class="campus-notice-badge badge-notice-societies">🏆 Societies & Auditions</span>',
+        urgent: '<span class="campus-notice-badge badge-notice-urgent">📌 Urgent Alert</span>'
+      };
+
+      const catBadge = categoryBadges[notice.category] || categoryBadges.circular;
+      const hasAttachment = notice.attachment && notice.attachment.dataUrl;
+
+      container.innerHTML = `
+        <div class="campus-notice-card">
+          <button type="button" class="btn-notice-dismiss" id="btnDismissCampusNotice" title="Dismiss notice">✕</button>
+          <div class="campus-notice-header">
+            ${catBadge}
+            ${notice.expiry_date ? `<span style="font-size: 0.72rem; color: #64748b; font-weight: 600;">Valid till: ${formatIsoToDdMmYyyy(notice.expiry_date)}</span>` : ''}
+          </div>
+          <h3 class="campus-notice-title">${escapeHtml(notice.title)}</h3>
+          ${notice.body ? `<p class="campus-notice-body">${escapeHtml(notice.body)}</p>` : ''}
+          <div class="campus-notice-actions">
+            ${hasAttachment ? `
+              <button type="button" class="btn-notice-attachment" id="btnViewNoticeAttachment">
+                📎 View ${notice.attachment.type === 'pdf' ? 'Official Circular (PDF)' : 'Event Poster (Image)'} (${escapeHtml(notice.attachment.name || 'Attachment')})
+              </button>
+            ` : ''}
+          </div>
+        </div>
+      `;
+      container.style.display = 'block';
+
+      const btnDismiss = document.getElementById('btnDismissCampusNotice');
+      if (btnDismiss) {
+        btnDismiss.addEventListener('click', () => {
+          sessionStorage.setItem('srcc_dismissed_notice_id', notice.id);
+          container.style.display = 'none';
+        });
+      }
+
+      const btnAttachment = document.getElementById('btnViewNoticeAttachment');
+      if (btnAttachment && hasAttachment) {
+        btnAttachment.addEventListener('click', () => {
+          openStudentAttachmentViewer(notice.title, notice.attachment);
+        });
+      }
+    }
+
+    function openStudentAttachmentViewer(title, attachment) {
+      const modal = document.getElementById('studentAttachmentModal');
+      const titleEl = document.getElementById('studentAttachmentModalTitle');
+      const bodyEl = document.getElementById('studentAttachmentModalBody');
+
+      if (!modal || !bodyEl) return;
+      if (titleEl) titleEl.textContent = title || 'Campus Notice Attachment';
+
+      if (attachment.type === 'pdf') {
+        bodyEl.innerHTML = `
+          <iframe src="${attachment.dataUrl}" style="width: 100%; height: 70vh; border: none; border-radius: 6px;"></iframe>
+          <div style="margin-top: 10px; display: flex; justify-content: flex-end;">
+            <a href="${attachment.dataUrl}" download="${escapeHtml(attachment.name || 'SRCC_Notice.pdf')}" class="btn-primary" style="text-decoration: none; font-size: 0.8rem; padding: 6px 14px; background: #1e293b; color: #fff; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px;">
+              ⬇️ Download PDF
+            </a>
+          </div>
+        `;
+      } else {
+        bodyEl.innerHTML = `
+          <div style="text-align: center;">
+            <img src="${attachment.dataUrl}" alt="Notice Poster" style="max-width: 100%; max-height: 70vh; object-fit: contain; border-radius: 6px; box-shadow: 0 4px 14px rgba(0,0,0,0.1);" />
+            <div style="margin-top: 10px; display: flex; justify-content: flex-end;">
+              <a href="${attachment.dataUrl}" download="${escapeHtml(attachment.name || 'SRCC_Poster.png')}" class="btn-primary" style="text-decoration: none; font-size: 0.8rem; padding: 6px 14px; background: #1e293b; color: #fff; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px;">
+                ⬇️ Download Image
+              </a>
+            </div>
+          </div>
+        `;
+      }
+
+      modal.style.display = 'flex';
+    }
+
+    const btnCloseStudentModal = document.getElementById('btnCloseStudentAttachmentModal');
+    const studentModal = document.getElementById('studentAttachmentModal');
+    if (btnCloseStudentModal && studentModal) {
+      btnCloseStudentModal.addEventListener('click', () => { studentModal.style.display = 'none'; });
+      studentModal.addEventListener('click', (e) => {
+        if (e.target === studentModal) studentModal.style.display = 'none';
       });
     }
 
@@ -4328,12 +4502,48 @@ window.SRCC_FACULTY_LEAVES = {
           }
         });
       }
+
+      // 📡 Listen to Instant Admin Broadcasts from Cloud Database
+      let lastBroadcastTimestamp = parseInt(localStorage.getItem('srcc_last_broadcast_ts') || '0', 10);
+      async function checkLiveBroadcastTrigger() {
+        const cloudUrl = (window.SRCC_CLOUD_CONFIG && window.SRCC_CLOUD_CONFIG.db_url) || 'https://srcc-leaves-default-rtdb.firebaseio.com/leaves.json';
+        const baseUrl = cloudUrl.substring(0, cloudUrl.lastIndexOf('/'));
+        try {
+          const res = await fetch(`${baseUrl}/broadcast_triggers/latest.json?t=${Date.now()}`);
+          if (!res.ok) return;
+          const trig = await res.json();
+          if (trig && trig.timestamp && trig.timestamp > lastBroadcastTimestamp) {
+            lastBroadcastTimestamp = trig.timestamp;
+            localStorage.setItem('srcc_last_broadcast_ts', String(trig.timestamp));
+            if ('Notification' in window && Notification.permission === 'granted') {
+              const notifTitle = trig.title || 'SRCC Live Campus Update 🔔';
+              const notifBody = trig.body || 'Live campus announcement from college administration.';
+              if ('serviceWorker' in navigator) {
+                const reg = await (navigator.serviceWorker.ready || navigator.serviceWorker.getRegistration());
+                if (reg && reg.showNotification) {
+                  reg.showNotification(notifTitle, {
+                    body: notifBody,
+                    icon: 'assets/srcc_crest.png',
+                    badge: 'favicon.png',
+                    tag: 'srcc-live-alert-' + trig.timestamp,
+                    renotify: true,
+                    vibrate: [200, 100, 200]
+                  });
+                }
+              }
+            }
+          }
+        } catch (e) {}
+      }
+      setInterval(checkLiveBroadcastTrigger, 20000);
+      checkLiveBroadcastTrigger();
     }
 
     // ========================================================================
     // 🚀 INITIAL BOOTSTRAP
     // ========================================================================
     populateLeaveTeacherSelect();
+    renderCampusNoticeBanner();
     render();
     renderFaculty();
     initTimetableFeature();
@@ -4342,6 +4552,8 @@ window.SRCC_FACULTY_LEAVES = {
     initDeviceWakeupListeners();
     syncLeavesFromCloud(false);
     setInterval(() => syncLeavesFromCloud(false), 45000);
+    // Periodically refresh active notices
+    setInterval(() => renderCampusNoticeBanner(), 60000);
     // ⏰ Auto-Hourly Campus Notification Dispatcher (Every 1 Hour)
     setInterval(() => {
       const todayActive = getActiveTodayLeaves();

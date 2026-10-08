@@ -1,3 +1,4 @@
 # Netlify Configuration for SRCC Timetable & Faculty Locator
 [build]
   publish = "web_app"
+  functions = "netlify/functions"
