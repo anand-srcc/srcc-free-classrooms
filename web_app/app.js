@@ -4086,6 +4086,83 @@ window.SRCC_FACULTY_LEAVES = {
       const banner = document.getElementById('leaveNotificationPromptBanner');
       const btnAllow = document.getElementById('btnAllowLeaveNotif');
       const btnDismiss = document.getElementById('btnDismissLeaveNotif');
+      const btnHeaderAlerts = document.getElementById('btnHeaderLeaveAlerts');
+      const headerStatusText = document.getElementById('headerNotifStatusText');
+      const modal = document.getElementById('leaveAlertsModal');
+      const btnCloseModal = document.getElementById('btnCloseAlertsModal');
+      const btnModalEnable = document.getElementById('btnModalEnableAlerts');
+      const btnModalTest = document.getElementById('btnModalTestAlert');
+      const btnModalViewLeaves = document.getElementById('btnModalViewLeaves');
+      const modalBadge = document.getElementById('alertsModalStatusBadge');
+
+      function updateNotifUiState() {
+        if (!('Notification' in window)) {
+          if (headerStatusText) headerStatusText.textContent = 'Alerts';
+          if (modalBadge) {
+            modalBadge.textContent = 'Safari PWA Mode';
+            modalBadge.style.background = '#64748b';
+            modalBadge.style.color = '#fff';
+          }
+          if (btnModalEnable) {
+            btnModalEnable.textContent = '📱 Add to Home Screen for iOS Alerts';
+            btnModalEnable.onclick = () => {
+              showToast('🍏 <strong>iOS Safari:</strong> Tap Share (⎋) at bottom of Safari & select "Add to Home Screen".', true, 5000);
+            };
+          }
+          return;
+        }
+
+        const perm = Notification.permission;
+        if (perm === 'granted') {
+          if (btnHeaderAlerts) {
+            btnHeaderAlerts.classList.add('granted');
+            btnHeaderAlerts.classList.remove('denied', 'active-anim');
+          }
+          if (headerStatusText) headerStatusText.textContent = 'Alerts Active';
+          if (modalBadge) {
+            modalBadge.textContent = 'Active ✅';
+            modalBadge.style.background = '#059669';
+            modalBadge.style.color = '#ecfdf5';
+          }
+          if (btnModalEnable) {
+            btnModalEnable.textContent = '✅ Device Alerts Active';
+            btnModalEnable.style.background = 'linear-gradient(135deg, #10B981, #059669)';
+            btnModalEnable.style.color = '#fff';
+          }
+        } else if (perm === 'denied') {
+          if (btnHeaderAlerts) {
+            btnHeaderAlerts.classList.add('denied');
+            btnHeaderAlerts.classList.remove('granted', 'active-anim');
+          }
+          if (headerStatusText) headerStatusText.textContent = 'Alerts Blocked';
+          if (modalBadge) {
+            modalBadge.textContent = 'Blocked ❌';
+            modalBadge.style.background = '#dc2626';
+            modalBadge.style.color = '#fef2f2';
+          }
+          if (btnModalEnable) {
+            btnModalEnable.textContent = '⚠️ Blocked: Tap URL lock icon to Allow';
+            btnModalEnable.style.background = '#ef4444';
+            btnModalEnable.style.color = '#fff';
+          }
+        } else {
+          if (btnHeaderAlerts) {
+            btnHeaderAlerts.classList.add('active-anim');
+            btnHeaderAlerts.classList.remove('granted', 'denied');
+          }
+          if (headerStatusText) headerStatusText.textContent = 'Allow Alerts';
+          if (modalBadge) {
+            modalBadge.textContent = 'Not Enabled 🔔';
+            modalBadge.style.background = '#f59e0b';
+            modalBadge.style.color = '#fff';
+          }
+          if (btnModalEnable) {
+            btnModalEnable.textContent = '✅ Allow / Enable Device Alerts';
+            btnModalEnable.style.background = 'linear-gradient(135deg, #fbbf24, #f59e0b)';
+            btnModalEnable.style.color = '#0f172a';
+          }
+        }
+      }
 
       // Request permission helper
       async function requestLeavePermission() {
@@ -4096,6 +4173,7 @@ window.SRCC_FACULTY_LEAVES = {
 
         try {
           const perm = await Notification.requestPermission();
+          updateNotifUiState();
           if (perm === 'granted') {
             localStorage.setItem('srcc_leave_notif_enabled', 'true');
             showToast('🔔 <strong>Hourly Alerts Enabled!</strong> You will receive automatic updates on Chrome open & phone unlock.', true, 5000);
@@ -4160,6 +4238,57 @@ window.SRCC_FACULTY_LEAVES = {
           }
         });
       }
+
+      // Header button click -> Open Alerts modal
+      if (btnHeaderAlerts) {
+        btnHeaderAlerts.addEventListener('click', () => {
+          updateNotifUiState();
+          if (modal) modal.style.display = 'flex';
+        });
+      }
+
+      if (btnCloseModal && modal) {
+        btnCloseModal.addEventListener('click', () => { modal.style.display = 'none'; });
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) modal.style.display = 'none';
+        });
+      }
+
+      if (btnModalEnable) {
+        btnModalEnable.addEventListener('click', async () => {
+          await requestLeavePermission();
+          updateNotifUiState();
+        });
+      }
+
+      if (btnModalTest) {
+        btnModalTest.addEventListener('click', () => {
+          if ('Notification' in window && Notification.permission === 'granted') {
+            if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+              navigator.serviceWorker.controller.postMessage({ type: 'TEST_NOTIFICATION' });
+            } else {
+              new Notification('SRCC Live Campus Update 🔔 (Test)', {
+                body: '✅ Live Alerts Active! You will receive hourly updates with absent faculty & free classrooms.',
+                icon: 'assets/srcc_crest.png'
+              });
+            }
+            showToast('🧪 <strong>Test alert dispatched!</strong> Check notification tray / lock screen.', true, 4000);
+          } else {
+            showToast('⚠️ Please tap "Allow Alerts" first to enable notifications!', false, 3500);
+            requestLeavePermission().then(() => updateNotifUiState());
+          }
+        });
+      }
+
+      if (btnModalViewLeaves) {
+        btnModalViewLeaves.addEventListener('click', () => {
+          if (modal) modal.style.display = 'none';
+          openFacultyLeavesView();
+        });
+      }
+
+      // Initial UI state update
+      updateNotifUiState();
     }
 
     // ========================================================================
@@ -4207,7 +4336,7 @@ window._triggerDeferredPwaPrompt = function(delayMs = 3000) {
 // Register Service Worker with robust relative path and periodic sync
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    const swUrl = './sw.js?v=32';
+    const swUrl = './sw.js?v=33';
     navigator.serviceWorker.register(swUrl, { scope: './' }).then(async (registration) => {
       console.log('[SW] Registered successfully with scope:', registration.scope);
 
