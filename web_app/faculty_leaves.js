@@ -1,12 +1,62 @@
 // SRCC Official Faculty Leaves Data
 // Auto-synced from studentassistsrcc.app & Firebase Cloud DB
-// Last Updated: 08 Oct 2026, 10:40 AM
+// Last Updated: 09 Oct 2026, 10:39 AM
 window.SRCC_FACULTY_LEAVES = {
-  "last_updated": "08 Oct 2026, 10:40 AM",
-  "last_synced_iso": "2026-10-08T10:40:27.430811",
-  "total_on_leave": 4,
+  "last_updated": "09 Oct 2026, 10:39 AM",
+  "last_synced_iso": "2026-10-09T10:39:40.774107",
+  "total_on_leave": 8,
   "source": "https://studentassistsrcc.app / Firebase Cloud DB",
   "leaves": [
+    {
+      "teacher_id": "538",
+      "teacher_name": "Ms. Anju Verma",
+      "teacher_code": "AUV",
+      "department": "Commerce",
+      "start_date": "2026-10-09",
+      "end_date": "2026-10-09",
+      "reason": "Faculty Leave",
+      "status": "On Leave"
+    },
+    {
+      "teacher_id": "593",
+      "teacher_name": "Prof. Ruchi Kaushik",
+      "teacher_code": "RUK",
+      "department": "English",
+      "start_date": "2026-10-09",
+      "end_date": "2026-10-09",
+      "reason": "Faculty Leave",
+      "status": "On Leave"
+    },
+    {
+      "teacher_id": "501",
+      "teacher_name": "Dr. Sapna Bansal",
+      "teacher_code": "SPB",
+      "department": "Commerce",
+      "start_date": "2026-10-09",
+      "end_date": "2026-10-10",
+      "reason": "Faculty Leave",
+      "status": "On Leave"
+    },
+    {
+      "teacher_id": "571",
+      "teacher_name": "Dr. Amanpreet Kaur",
+      "teacher_code": "ANK",
+      "department": "Commerce",
+      "start_date": "2026-10-09",
+      "end_date": "2026-10-15",
+      "reason": "Faculty Leave",
+      "status": "On Leave"
+    },
+    {
+      "teacher_id": "547",
+      "teacher_name": "Ms. Manpreet Sharma",
+      "teacher_code": "MTS",
+      "department": "Commerce",
+      "start_date": "2026-10-09",
+      "end_date": "2026-10-15",
+      "reason": "Faculty Leave",
+      "status": "On Leave"
+    },
     {
       "teacher_id": "587",
       "teacher_name": "Prof. Abhay Jain",
@@ -14,16 +64,6 @@ window.SRCC_FACULTY_LEAVES = {
       "department": "Commerce",
       "start_date": "2026-10-08",
       "end_date": "2026-10-09",
-      "reason": "Faculty Leave",
-      "status": "On Leave"
-    },
-    {
-      "teacher_id": "583",
-      "teacher_name": "Prof. Harendra Nath Tiwari",
-      "teacher_code": "HNT",
-      "department": "Commerce",
-      "start_date": "2026-10-08",
-      "end_date": "2026-10-08",
       "reason": "Faculty Leave",
       "status": "On Leave"
     },
