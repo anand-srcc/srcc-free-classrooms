@@ -2071,18 +2071,19 @@ ${freeSlotsList}
           }).join('')
         : '';
 
-      const rowsHtml = allSlots.map((timeSlot) => {
+      // 1. Desktop Table Rows (> 640px)
+      const tableRows = allSlots.map((timeSlot) => {
+        const slotFormatted = timeSlot.replace(' to ', ' – ');
         if (timeSlot === '1:30 PM to 2:00 PM') {
           return `
             <tr>
-              <td><strong>1:30 PM – 2:00 PM</strong></td>
-              <td><span class="badge-slot-recess">☕ LUNCH RECESS</span></td>
+              <td style="white-space: nowrap;"><strong>1:30 PM – 2:00 PM</strong></td>
+              <td style="white-space: nowrap;"><span class="badge-slot-recess">☕ LUNCH RECESS</span></td>
               <td>College-wide recess. Room is vacant & open for peer discussions.</td>
             </tr>
           `;
         }
 
-        // 1. Check if administrative lock applies to this slot
         const lock = activeRoomLocks.find(l => l.slot === 'ALL_DAY' || l.slot === timeSlot);
         if (lock) {
           const isExtra = lock.type === 'extra_class';
@@ -2091,8 +2092,8 @@ ${freeSlotsList}
           const badgeBg = isExtra ? 'background: #2563eb; color: #fff;' : 'background: #dc2626; color: #fff; border: 1px solid #b91c1c;';
           return `
             <tr style="background: ${isExtra ? 'rgba(37, 99, 235, 0.08)' : 'rgba(239, 68, 68, 0.08)'};">
-              <td><strong>${timeSlot.replace(' to ', ' – ')}</strong></td>
-              <td><span class="badge-slot-occupied" style="${badgeBg}">${lockIcon} ${lockBadge}</span></td>
+              <td style="white-space: nowrap;"><strong>${slotFormatted}</strong></td>
+              <td style="white-space: nowrap;"><span class="badge-slot-occupied" style="${badgeBg}">${lockIcon} ${lockBadge}</span></td>
               <td>
                 <strong style="${isExtra ? 'color: #1d4ed8;' : 'color: #dc2626;'}">${isExtra ? 'Extra Class Scheduled' : 'Classroom Reserved / Locked'}:</strong> ${escapeHtml(lock.title || 'Administrative arrangement')}
                 <div style="font-size: 0.74rem; color: var(--text-muted); margin-top: 2px;">Classroom is reserved and not available for self-study during this period.</div>
@@ -2110,8 +2111,8 @@ ${freeSlotsList}
           const teach = leaveInfo.teacher;
           return `
             <tr style="background: rgba(168, 85, 247, 0.08);">
-              <td><strong>${timeSlot.replace(' to ', ' – ')}</strong></td>
-              <td><span class="badge-slot-leave">✨ BONUS FREE (LEAVE)</span></td>
+              <td style="white-space: nowrap;"><strong>${slotFormatted}</strong></td>
+              <td style="white-space: nowrap;"><span class="badge-slot-leave">✨ BONUS FREE (LEAVE)</span></td>
               <td>
                 <div class="room-sched-details-wrap">
                   <div>
@@ -2120,8 +2121,8 @@ ${freeSlotsList}
                   <div class="room-sched-teacher-row">
                     <div class="rs-teacher-chip">
                       <span class="rs-teacher-avatar">${escapeHtml(teach.initials || teach.clean_name.slice(0, 2).toUpperCase())}</span>
-                      <span>Prof. <strong>${escapeHtml(teach.clean_name)}</strong></span>
-                      <span style="font-size: 0.72rem; color: var(--text-muted);">(${escapeHtml(teach.department || 'Faculty')})</span>
+                      <span class="rs-teacher-name">Prof. <strong>${escapeHtml(teach.clean_name)}</strong></span>
+                      <span class="rs-dept-badge">${escapeHtml(teach.department || 'Faculty')}</span>
                     </div>
                     <button type="button" class="btn-room-view-teacher-tt" data-teacher-id="${escapeHtml(teach.id)}">
                       🗓️ View Teacher Timetable ↗
@@ -2134,8 +2135,8 @@ ${freeSlotsList}
         } else if (isFree) {
           return `
             <tr>
-              <td><strong>${timeSlot.replace(' to ', ' – ')}</strong></td>
-              <td><span class="badge-slot-free">FREE FOR GD</span></td>
+              <td style="white-space: nowrap;"><strong>${slotFormatted}</strong></td>
+              <td style="white-space: nowrap;"><span class="badge-slot-free">FREE FOR GD</span></td>
               <td style="color: #15803d; font-weight: 600;">Vacant Classroom (Available for Study/GD)</td>
             </tr>
           `;
@@ -2159,14 +2160,14 @@ ${freeSlotsList}
                       <strong class="subj-code-badge">${escapeHtml(m.subjectCode)}</strong>
                       <span class="subj-name-text">${escapeHtml(m.subjectFullName)}</span>
                     </span>
-                    <span style="font-size: 0.76rem; color: var(--text-secondary);">${escapeHtml(courseStr)} ${escapeHtml(semStr)}</span>
-                    ${secBatchStr ? `<span style="font-size: 0.72rem; background: var(--bg-surface); padding: 1px 6px; border-radius: 4px; border: 1px solid var(--border-subtle); color: var(--text-muted);">${escapeHtml(secBatchStr)}</span>` : ''}
+                    <span class="class-sem-badge">${escapeHtml(courseStr)} ${escapeHtml(semStr)}</span>
+                    ${secBatchStr ? `<span class="class-sec-badge">${escapeHtml(secBatchStr)}</span>` : ''}
                   </div>
                   <div class="room-sched-teacher-row">
                     <div class="rs-teacher-chip">
                       <span class="rs-teacher-avatar">${escapeHtml(teach.initials || teach.clean_name.slice(0, 2).toUpperCase())}</span>
-                      <span>Prof. <strong>${escapeHtml(teach.clean_name)}</strong> ${teach.short_code ? `(${escapeHtml(teach.short_code)})` : ''}</span>
-                      <span style="font-size: 0.72rem; color: var(--text-muted);">· ${escapeHtml(teach.department || 'Faculty')}</span>
+                      <span class="rs-teacher-name">Prof. <strong>${escapeHtml(teach.clean_name)}</strong> ${teach.short_code ? `(${escapeHtml(teach.short_code)})` : ''}</span>
+                      <span class="rs-dept-badge">${escapeHtml(teach.department || 'Faculty')}</span>
                     </div>
                     <button type="button" class="btn-room-view-teacher-tt" data-teacher-id="${escapeHtml(teach.id)}">
                       🗓️ View Teacher Timetable ↗
@@ -2181,10 +2182,143 @@ ${freeSlotsList}
 
           return `
             <tr>
-              <td><strong>${timeSlot.replace(' to ', ' – ')}</strong></td>
-              <td><span class="badge-slot-occupied">CLASS IN SESSION</span></td>
+              <td style="white-space: nowrap;"><strong>${slotFormatted}</strong></td>
+              <td style="white-space: nowrap;"><span class="badge-slot-occupied">CLASS IN SESSION</span></td>
               <td>${detailsHtml}</td>
             </tr>
+          `;
+        }
+      }).join('');
+
+      // 2. Mobile Cards (<= 640px)
+      const mobileCards = allSlots.map((timeSlot) => {
+        const slotFormatted = timeSlot.replace(' to ', ' – ');
+        if (timeSlot === '1:30 PM to 2:00 PM') {
+          return `
+            <div class="room-sched-mobile-card is-recess">
+              <div class="rsm-header">
+                <div class="rsm-time">🕒 ${slotFormatted}</div>
+                <span class="badge-slot-recess">☕ LUNCH RECESS</span>
+              </div>
+              <div class="rsm-body-text">College-wide recess. Room is vacant & open for peer discussions.</div>
+            </div>
+          `;
+        }
+
+        const lock = activeRoomLocks.find(l => l.slot === 'ALL_DAY' || l.slot === timeSlot);
+        if (lock) {
+          const isExtra = lock.type === 'extra_class';
+          const lockIcon = isExtra ? '📚' : '🔒';
+          const lockBadge = isExtra ? 'EXTRA CLASS' : 'ROOM LOCKED';
+          const badgeBg = isExtra ? 'background: #2563eb; color: #fff;' : 'background: #dc2626; color: #fff; border: 1px solid #b91c1c;';
+          return `
+            <div class="room-sched-mobile-card is-locked" style="${isExtra ? 'border-left-color: #2563eb;' : ''}">
+              <div class="rsm-header">
+                <div class="rsm-time">🕒 ${slotFormatted}</div>
+                <span class="badge-slot-occupied" style="${badgeBg}">${lockIcon} ${lockBadge}</span>
+              </div>
+              <div class="rsm-body-text">
+                <strong style="${isExtra ? 'color: #1d4ed8;' : 'color: #dc2626;'}">${isExtra ? 'Extra Class Scheduled' : 'Classroom Reserved / Locked'}:</strong> ${escapeHtml(lock.title || 'Administrative arrangement')}
+                <div style="font-size: 0.74rem; color: var(--text-muted); margin-top: 3px;">Classroom is reserved and not available for self-study during this period.</div>
+              </div>
+            </div>
+          `;
+        }
+
+        const isFree = sched.free_slots.includes(timeSlot);
+        const occupiedObj = sched.occupied_slots.find(o => o.slot === timeSlot);
+        const leaveInfo = getRoomScheduledTeacherLeave(room.code, state.activeDay, timeSlot);
+        const matchedTeachers = getRoomScheduledClassDetails(room.code, state.activeDay, timeSlot);
+
+        if (leaveInfo) {
+          const teach = leaveInfo.teacher;
+          return `
+            <div class="room-sched-mobile-card is-leave">
+              <div class="rsm-header">
+                <div class="rsm-time">🕒 ${slotFormatted}</div>
+                <span class="badge-slot-leave">✨ BONUS FREE (LEAVE)</span>
+              </div>
+              <div class="rsm-body-text">
+                <div style="margin-bottom: 6px;"><strong style="color: #6d28d9;">Class Cancelled:</strong> Prof. <strong>${escapeHtml(teach.clean_name)}</strong> is on leave. Room is open for self-study!</div>
+                <div class="room-sched-teacher-row">
+                  <div class="rs-teacher-chip">
+                    <span class="rs-teacher-avatar">${escapeHtml(teach.initials || teach.clean_name.slice(0, 2).toUpperCase())}</span>
+                    <span class="rs-teacher-name">Prof. <strong>${escapeHtml(teach.clean_name)}</strong></span>
+                    <span class="rs-dept-badge">${escapeHtml(teach.department || 'Faculty')}</span>
+                  </div>
+                  <button type="button" class="btn-room-view-teacher-tt" data-teacher-id="${escapeHtml(teach.id)}">
+                    🗓️ View Teacher Timetable ↗
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        } else if (isFree) {
+          return `
+            <div class="room-sched-mobile-card is-free">
+              <div class="rsm-header">
+                <div class="rsm-time">🕒 ${slotFormatted}</div>
+                <span class="badge-slot-free">FREE FOR GD</span>
+              </div>
+              <div class="rsm-free-badge-wrap">
+                <span style="font-size: 1.1rem;">✨</span>
+                <div>
+                  <strong style="color: #047857; font-size: 0.88rem;">Vacant Classroom</strong>
+                  <div style="font-size: 0.76rem; color: var(--text-muted); margin-top: 1px;">Available for Group Discussions (GD), self-study & peer work.</div>
+                </div>
+              </div>
+            </div>
+          `;
+        } else {
+          // Class in Session
+          const classDesc = occupiedObj ? occupiedObj.class : 'Scheduled Class';
+          let innerContent = '';
+
+          if (matchedTeachers.length > 0) {
+            innerContent = matchedTeachers.map(m => {
+              const teach = m.teacher;
+              const cls = m.classInfo;
+              const courseStr = cls.course ? `${cls.course}` : 'B.Com (Hons)';
+              const semStr = cls.semester ? `(${cls.semester})` : '';
+              const secBatchStr = [cls.section, cls.batch ? `Batch ${cls.batch}` : ''].filter(Boolean).join(' · ');
+
+              return `
+                <div class="room-sched-details-wrap" style="margin-bottom: 6px;">
+                  <div class="room-sched-meta-line">
+                    <span class="subject-pill" style="cursor: default;">
+                      <strong class="subj-code-badge">${escapeHtml(m.subjectCode)}</strong>
+                      <span class="subj-name-text">${escapeHtml(m.subjectFullName)}</span>
+                    </span>
+                    <span class="class-sem-badge">${escapeHtml(courseStr)} ${escapeHtml(semStr)}</span>
+                    ${secBatchStr ? `<span class="class-sec-badge">${escapeHtml(secBatchStr)}</span>` : ''}
+                  </div>
+                  <div class="room-sched-teacher-row">
+                    <div class="rs-teacher-chip">
+                      <span class="rs-teacher-avatar">${escapeHtml(teach.initials || teach.clean_name.slice(0, 2).toUpperCase())}</span>
+                      <span class="rs-teacher-name">Prof. <strong>${escapeHtml(teach.clean_name)}</strong> ${teach.short_code ? `(${escapeHtml(teach.short_code)})` : ''}</span>
+                      <span class="rs-dept-badge">${escapeHtml(teach.department || 'Faculty')}</span>
+                    </div>
+                    <button type="button" class="btn-room-view-teacher-tt" data-teacher-id="${escapeHtml(teach.id)}">
+                      🗓️ View Teacher Timetable ↗
+                    </button>
+                  </div>
+                </div>
+              `;
+            }).join('');
+          } else {
+            innerContent = formatClassDetails(classDesc);
+          }
+
+          return `
+            <div class="room-sched-mobile-card is-occupied">
+              <div class="rsm-header">
+                <div class="rsm-time">🕒 ${slotFormatted}</div>
+                <span class="badge-slot-occupied">CLASS IN SESSION</span>
+              </div>
+              <div class="rsm-body-content">
+                ${innerContent}
+              </div>
+            </div>
           `;
         }
       }).join('');
@@ -2192,18 +2326,25 @@ ${freeSlotsList}
       if (modalBody) {
         modalBody.innerHTML = `
           ${modalLocksBanner}
-          <table class="schedule-table">
+          <!-- Desktop Table (visible > 640px) -->
+          <table class="schedule-table room-schedule-desktop-table">
             <thead>
               <tr>
-                <th style="width: 25%;">Period / Time</th>
-                <th style="width: 25%;">Status</th>
-                <th style="width: 50%;">Class Details / Availability</th>
+                <th style="width: 22%;">Period / Time</th>
+                <th style="width: 22%;">Status</th>
+                <th style="width: 56%;">Class Details / Availability</th>
               </tr>
             </thead>
             <tbody>
-              ${rowsHtml}
+              ${tableRows}
             </tbody>
           </table>
+
+          <!-- Mobile Cards (visible <= 640px) -->
+          <div class="room-schedule-mobile-cards">
+            ${mobileCards}
+          </div>
+
           <p class="modal-disclaimer-note">ℹ️ <strong>Timetable Vacancy Notice:</strong> Based on official SRCC published schedule. Physical vacancy may vary for student societies, seminars, or exam arrangements.</p>
         `;
 
@@ -2218,6 +2359,9 @@ ${freeSlotsList}
 
       if (scheduleModal) openAppModal(scheduleModal);
     }
+
+    // Expose globally for quick modal inspection across views
+    window.openScheduleModal = openScheduleModal;
 
     // ========================================================================
     // 👨‍🏫 FACULTY LOCATOR - CORE IMPLEMENTATION
@@ -3246,14 +3390,13 @@ ${freeSlotsList}
       }
       if (modalTeacherName) modalTeacherName.textContent = teacher.clean_name;
       if (modalTeacherMeta) {
-        const codeText = displayCode ? `Short Code: <strong>${escapeHtml(displayCode)}</strong>` : 'Official Faculty';
         const periods = teacher.total_teaching_periods || 0;
         modalTeacherMeta.innerHTML = `
-          <span>${escapeHtml(teacher.department || 'Faculty')}</span>
-          <span style="margin: 0 10px; color: var(--border-color, #cbd5e1);">•</span>
-          <span>${codeText}</span>
-          <span style="margin: 0 10px; color: var(--border-color, #cbd5e1);">•</span>
-          <span style="display: inline-flex; align-items: center; gap: 5px; font-weight: 600; color: var(--text-primary);"><span style="color: var(--primary);">🗓️</span> ${periods} Total Weekly Classes</span>
+          <div class="teacher-header-chips">
+            <span class="th-chip th-dept">🏛️ ${escapeHtml(teacher.department || 'Faculty')}</span>
+            ${displayCode ? `<span class="th-chip th-code">🏷️ Code: <strong>${escapeHtml(displayCode)}</strong></span>` : ''}
+            <span class="th-chip th-load">📅 <strong>${periods}</strong> Weekly Classes</span>
+          </div>
         `;
       }
 
@@ -3293,15 +3436,15 @@ ${freeSlotsList}
       });
 
       const overviewStripHtml = `
-        <div style="background: rgba(30, 58, 138, 0.05); border: 1px solid rgba(37, 99, 235, 0.2); border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
-          <div>
-            <span style="font-weight: 700; color: var(--primary-color);">📅 Schedule for ${escapeHtml(facultyState.modalActiveDay)}${isToday ? ' (Today)' : ''}:</span>
-            <span style="font-size: 0.88rem; color: var(--text-primary); margin-left: 6px;">
-              ${daySched.length > 0 ? `<strong>${daySched.length}</strong> scheduled ${daySched.length === 1 ? 'class' : 'classes'}` : 'No scheduled classes'}
-            </span>
-            ${roomsToday.length > 0 ? `<span style="font-size: 0.82rem; color: #1e40af; margin-left: 6px;">(Rooms: <strong>${roomsToday.join(', ')}</strong>)</span>` : ''}
+        <div class="teacher-overview-banner">
+          <div class="tob-left">
+            <span class="tob-day-tag">📅 Schedule for ${escapeHtml(facultyState.modalActiveDay)}${isToday ? ' (Today)' : ''}:</span>
+            <span class="tob-count-badge">${daySched.length > 0 ? `<strong>${daySched.length}</strong> scheduled ${daySched.length === 1 ? 'class' : 'classes'}` : 'No scheduled classes'}</span>
           </div>
-          ${leaveInfo ? `<span class="badge-leave" style="font-size: 0.76rem; background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; padding: 3px 8px; border-radius: 9999px; font-weight: 700;">🏖️ On Leave Today</span>` : ''}
+          <div class="tob-right">
+            ${roomsToday.length > 0 ? `<span class="tob-rooms-tag">🏛️ Rooms: <strong>${roomsToday.join(', ')}</strong></span>` : ''}
+            ${leaveInfo ? `<span class="badge-leave" style="font-size: 0.76rem; background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; padding: 3px 10px; border-radius: 9999px; font-weight: 700;">🏖️ On Leave Today</span>` : ''}
+          </div>
         </div>
       `;
 
@@ -3390,9 +3533,10 @@ ${freeSlotsList}
         const sec = cls.section || '';
         const batch = cls.batch || '';
         const rawBatch = cls.raw_batch || '';
+        const typeCls = (cls.type && cls.type.toLowerCase().includes('tut')) ? 'is-tut' : (cls.type && cls.type.toLowerCase().includes('prac')) ? 'is-prac' : 'is-lec';
 
         return `
-          <div class="modal-timetable-card">
+          <div class="modal-timetable-card ${typeCls}">
             <div class="m-tt-header">
               <div class="m-tt-slot">
                 <span>🕒</span>
@@ -3403,21 +3547,20 @@ ${freeSlotsList}
             <div class="m-tt-course-row">
               ${subjCode ? `<span class="m-tt-subject" title="${escapeHtml(subjFullName)}">${escapeHtml(subjCode)}</span>` : ''}
               <span class="m-tt-coursename">${escapeHtml(subjFullName && subjFullName !== subjCode ? subjFullName : courseName)}</span>
-              ${sem ? `<span class="class-batch-badge" style="color: #0369a1; border-color: rgba(56, 189, 248, 0.3); font-size: 0.74rem;">${escapeHtml(sem)}</span>` : ''}
+              ${sem ? `<span class="class-sem-badge">${escapeHtml(sem)}</span>` : ''}
             </div>
             <div class="m-tt-meta-row">
               <div class="m-tt-section-batch">
-                ${sec ? `<span>Sec: <strong>${escapeHtml(sec)}</strong></span>` : ''}
-                ${(sec && batch) ? `<span>•</span>` : ''}
-                ${batch ? `<span style="color: var(--srcc-gold);">Batch ${escapeHtml(batch)}${rawBatch && rawBatch !== batch ? ` (${escapeHtml(rawBatch)})` : ''}</span>` : ''}
-                ${(!sec && !batch) ? `<span style="color: var(--text-muted);">Whole Class</span>` : ''}
+                ${sec ? `<span class="sec-chip">Sec: <strong>${escapeHtml(sec)}</strong></span>` : ''}
+                ${batch ? `<span class="batch-chip">Batch ${escapeHtml(batch)}${rawBatch && rawBatch !== batch ? ` (${escapeHtml(rawBatch)})` : ''}</span>` : ''}
+                ${(!sec && !batch) ? `<span class="sec-chip">Whole Class</span>` : ''}
               </div>
               <div>
                 ${roomCode !== 'TBD' ? `
                   <button class="m-tt-room-btn modal-room-jump" data-room="${escapeHtml(getTargetRoomJumpCode(roomCode))}" title="View room in Free Classroom Finder">
-                    🏛️ ${escapeHtml(getDisplayRoomName(roomCode))} ↗
+                    🏛️ Room ${escapeHtml(getDisplayRoomName(roomCode))} ↗
                   </button>
-                ` : `<span style="color: var(--text-muted); font-size: 0.78rem;">TBD</span>`}
+                ` : `<span style="color: var(--text-muted); font-size: 0.78rem;">Room TBD</span>`}
               </div>
             </div>
           </div>

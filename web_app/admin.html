@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>SRCC Timetable Admin Portal | Control Center</title>
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
   <link rel="icon" type="image/png" href="assets/srcc_crest.png" />
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -636,15 +637,19 @@
 
       <form id="adminLoginForm">
         <div class="auth-input-group">
-          <label for="adminUsername">Username (Optional):</label>
-          <input type="text" id="adminUsername" placeholder="e.g. admin" autocomplete="username" />
+          <label for="adminUsername">Username:</label>
+          <input type="text" id="adminUsername" placeholder="Enter username" autocomplete="username" />
         </div>
         <div class="auth-input-group">
-          <label for="adminPasscode">Administrator PIN / Password:</label>
-          <input type="password" id="adminPasscode" placeholder="Enter password" required autofocus autocomplete="current-password" />
+          <label for="adminPasscode">Password:</label>
+          <div class="password-input-wrapper" style="position: relative; display: flex; align-items: center;">
+            <input type="password" id="adminPasscode" placeholder="Enter password" required autofocus autocomplete="current-password" style="width: 100%; padding-right: 44px;" />
+            <button type="button" id="btnTogglePassword" class="btn-toggle-pwd" title="Show / Hide password" style="position: absolute; right: 8px; background: none; border: none; cursor: pointer; font-size: 1.15rem; padding: 4px; color: var(--text-muted); line-height: 1;">👁️</button>
+          </div>
         </div>
+
         <button type="submit" class="btn-auth-submit" id="btnAuthSubmit">
-          🔓 Unlock Admin Portal
+          🔒 Unlock Admin Portal
         </button>
       </form>
     </div>
@@ -1157,26 +1162,30 @@
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 16px;">
-          <!-- Reset Password -->
+          <!-- Change Username & Password -->
           <div style="background: #f8fafc; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 14px;">
             <h4 style="color: var(--text-primary); font-size: 0.9rem; margin: 0 0 10px 0; font-family: var(--font-display);">
-              🔑 Change Password
+              🛡️ Change Username & Password
             </h4>
             <form id="formChangePassword">
               <div class="leave-field-group" style="margin-bottom: 8px;">
-                <label for="pwdCurrent">Current Password:</label>
-                <input type="password" id="pwdCurrent" required />
+                <label for="editNewUsername">New Username (Optional):</label>
+                <input type="text" id="editNewUsername" placeholder="Enter new username" />
               </div>
               <div class="leave-field-group" style="margin-bottom: 8px;">
-                <label for="pwdNew">New Password (Min 4 chars):</label>
-                <input type="password" id="pwdNew" required minlength="4" />
+                <label for="pwdCurrent">Current Password (Required to verify):</label>
+                <input type="password" id="pwdCurrent" required placeholder="Enter current password" />
+              </div>
+              <div class="leave-field-group" style="margin-bottom: 8px;">
+                <label for="pwdNew">New Password (Min 4 chars, optional if only changing username):</label>
+                <input type="password" id="pwdNew" minlength="4" placeholder="Leave blank to keep same" />
               </div>
               <div class="leave-field-group" style="margin-bottom: 10px;">
-                <label for="pwdConfirm">Confirm Password:</label>
-                <input type="password" id="pwdConfirm" required minlength="4" />
+                <label for="pwdConfirm">Confirm New Password:</label>
+                <input type="password" id="pwdConfirm" minlength="4" placeholder="Repeat new password" />
               </div>
               <button type="submit" class="btn-primary" id="btnSubmitChangePwd" style="width: 100%; padding: 9px; font-size: 0.82rem; background: linear-gradient(135deg, #9333EA, #7C3AED); color: #ffffff; border: none; border-radius: var(--radius-sm); font-weight: 700; cursor: pointer;">
-                🔄 Update Password
+                💾 Save Account Credentials
               </button>
             </form>
           </div>

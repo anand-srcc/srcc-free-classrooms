@@ -39,7 +39,6 @@
         </div>
         <div class="brand-titles">
           <h1>SRCC Free Classroom Finder</h1>
-          <p class="subtitle">Room-Wise Vacant Slot Tracker for Group Discussions (GD) & Study Sessions</p>
           <div class="header-last-updated" id="headerLastUpdatedWrap">
             <span class="sync-dot-live"></span>
             <span>College Timetable Synced: <strong id="lastUpdatedHeader">Today (Daily Verified)</strong></span>
@@ -238,10 +237,8 @@
           Showing <span id="statRoomCount" class="stat-highlight">0</span> rooms on <span id="statActiveDay" class="stat-highlight">Monday</span>
           <span id="statFilterDesc" class="filter-desc-tag"></span>
         </div>
-        <div class="stats-right">
-          <span class="stat-last-synced" id="statLastSyncedWrap" title="Timetable data synced from official college website">
-            <span>🕒 Verified: <strong id="statLastSynced">Today (Live)</strong></span>
-          </span>
+        <div class="stats-right" style="display: none;">
+          <span id="statLastSynced"></span>
         </div>
       </div>
 
@@ -416,17 +413,12 @@
         </div>
       </div>
 
-      <!-- Faculty Stats Ribbon -->
-      <div class="stats-ribbon">
-        <div class="stats-left">
-          Showing <span id="statFacultyCount" class="stat-highlight">0</span> faculty members on <span id="statFacultyDay" class="stat-highlight">Monday</span>
-          <span id="statFacultyFilterDesc" class="filter-desc-tag"></span>
-        </div>
-        <div class="stats-right">
-          <span class="stat-last-synced">
-            <span>🕒 Timetable Synced: <strong id="statFacultyLastSynced">18 Sep 2026</strong></span>
-          </span>
-        </div>
+      <!-- Faculty Stats (Text hidden per user request) -->
+      <div style="display: none;" aria-hidden="true">
+        <span id="statFacultyCount">0</span>
+        <span id="statFacultyDay">Monday</span>
+        <span id="statFacultyFilterDesc"></span>
+        <span id="statFacultyLastSynced"></span>
       </div>
 
       <!-- Faculty Cards Grid -->

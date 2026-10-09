@@ -13,6 +13,113 @@ document.addEventListener('DOMContentLoaded', () => {
   const USERS_STORAGE_KEY = 'srcc_admin_users_list_v1';
   const ACTIVE_USER_SESSION_KEY = 'srcc_admin_active_user_session';
 
+  // Pure JS SHA-256 fallback (guarantees 100% reliable hashing across HTTP, mobile browsers & webviews)
+  function pureJsSha256(ascii) {
+    function rightRotate(value, amount) { return (value >>> amount) | (value << (32 - amount)); }
+    var mathPow = Math.pow;
+    var maxWord = mathPow(2, 32);
+    var lengthProperty = 'length';
+    var i, j;
+    var result = '';
+    var words = [];
+    var asciiBitLength = ascii[lengthProperty] * 8;
+    var hash = pureJsSha256.h = pureJsSha256.h || [];
+    var k = pureJsSha256.k = pureJsSha256.k || [];
+    var primeCounter = k[lengthProperty];
+    var isComposite = {};
+    for (var candidate = 2; primeCounter < 64; candidate++) {
+      if (!isComposite[candidate]) {
+        for (i = 0; i < 313; i += candidate) {
+          isComposite[i] = candidate;
+        }
+        hash[primeCounter] = (mathPow(candidate, .5) * maxWord) | 0;
+        k[primeCounter++] = (mathPow(candidate, 1 / 3) * maxWord) | 0;
+      }
+    }
+    ascii += '\x80';
+    while (ascii[lengthProperty] % 64 - 56) ascii += '\x00';
+    for (i = 0; i < ascii[lengthProperty]; i++) {
+      j = ascii.charCodeAt(i);
+      if (j >> 8) return '';
+      words[i >> 2] |= j << ((3 - i % 4) * 8);
+    }
+    words[words[lengthProperty]] = ((asciiBitLength / maxWord) | 0);
+    words[words[lengthProperty]] = (asciiBitLength);
+    for (j = 0; j < words[lengthProperty];) {
+      var w = words.slice(j, j += 16);
+      var oldHash = hash;
+      hash = hash.slice(0, 8);
+      for (i = 0; i < 64; i++) {
+        var w15 = w[i - 15], w2 = w[i - 2];
+        var a = hash[0], e = hash[4];
+        var temp1 = hash[7]
+          + (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25))
+          + ((e & hash[5]) ^ ((~e) & hash[6]))
+          + k[i]
+          + (w[i] = (i < 16) ? w[i] : (
+              w[i - 16]
+              + (rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3))
+              + w[i - 7]
+              + (rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10))
+            ) | 0
+          );
+        var temp2 = (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22))
+          + ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
+        hash = [(temp1 + temp2) | 0].concat(hash);
+        hash[4] = (hash[4] + temp1) | 0;
+      }
+      for (i = 0; i < 8; i++) {
+        hash[i] = (hash[i] + oldHash[i]) | 0;
+      }
+    }
+    for (i = 0; i < 8; i++) {
+      for (j = 3; j >= 0; j--) {
+        var b = (hash[i] >> (8 * j)) & 255;
+        result += ((b < 16) ? '0' : '') + b.toString(16);
+      }
+    }
+    return result;
+  }
+
+  // Brute-force protection & Login Lockout
+  const LOCKOUT_KEY = 'srcc_admin_login_lockout';
+  const MAX_LOGIN_ATTEMPTS = 5;
+  const LOCKOUT_DURATION_MS = 60 * 1000; // 60s lockdown after 5 consecutive failures
+
+  function getLoginLockoutStatus() {
+    try {
+      const data = JSON.parse(sessionStorage.getItem(LOCKOUT_KEY) || localStorage.getItem(LOCKOUT_KEY) || '{}');
+      if (data && data.lockedUntil && Date.now() < data.lockedUntil) {
+        return Math.ceil((data.lockedUntil - Date.now()) / 1000);
+      }
+    } catch (e) {}
+    return 0;
+  }
+
+  function recordFailedLogin() {
+    try {
+      const cur = JSON.parse(sessionStorage.getItem(LOCKOUT_KEY) || localStorage.getItem(LOCKOUT_KEY) || '{"attempts":0}');
+      const attempts = (cur.attempts || 0) + 1;
+      let lockedUntil = 0;
+      if (attempts >= MAX_LOGIN_ATTEMPTS) {
+        lockedUntil = Date.now() + LOCKOUT_DURATION_MS;
+      }
+      const updated = { attempts: attempts >= MAX_LOGIN_ATTEMPTS ? 0 : attempts, lockedUntil };
+      sessionStorage.setItem(LOCKOUT_KEY, JSON.stringify(updated));
+      localStorage.setItem(LOCKOUT_KEY, JSON.stringify(updated));
+      return lockedUntil > 0;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function resetLoginLockout() {
+    try {
+      sessionStorage.removeItem(LOCKOUT_KEY);
+      localStorage.removeItem(LOCKOUT_KEY);
+    } catch (e) {}
+  }
+
   async function hashPasscode(str) {
     try {
       if (window.crypto && window.crypto.subtle) {
@@ -23,9 +130,9 @@ document.addEventListener('DOMContentLoaded', () => {
         return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
       }
     } catch (e) {
-      console.warn('Crypto subtle unavailable, using fallback', e);
+      console.warn('Crypto subtle unavailable, using pureJsSha256 fallback', e);
     }
-    return str;
+    return pureJsSha256(str);
   }
 
   // DOM Elements - Auth & Nav
@@ -41,6 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // DOM Elements - User Management & Password Reset
   const adminActiveUserDisplay = document.getElementById('adminActiveUserDisplay');
   const formChangePassword = document.getElementById('formChangePassword');
+  const editNewUsername = document.getElementById('editNewUsername');
   const pwdCurrent = document.getElementById('pwdCurrent');
   const pwdNew = document.getElementById('pwdNew');
   const pwdConfirm = document.getElementById('pwdConfirm');
@@ -171,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function checkAuth() {
-    const sessionVal = sessionStorage.getItem(AUTH_STORAGE_KEY);
+    const sessionVal = sessionStorage.getItem(AUTH_STORAGE_KEY) || localStorage.getItem(AUTH_STORAGE_KEY);
     const isAuth = sessionVal && sessionVal.startsWith('srcc_auth_');
     if (isAuth) {
       if (adminAuthView) adminAuthView.style.display = 'none';
@@ -188,15 +296,22 @@ document.addEventListener('DOMContentLoaded', () => {
   if (adminLoginForm) {
     adminLoginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      // Check brute-force lockout
+      const remainingLockout = getLoginLockoutStatus();
+      if (remainingLockout > 0) {
+        showToast(`⛔ <strong>Access Locked:</strong> Too many failed attempts. Please wait ${remainingLockout}s before trying again.`, false);
+        return;
+      }
+
       let uInput = (adminUsername ? adminUsername.value : '').trim().toLowerCase();
       const val = (adminPasscode ? adminPasscode.value : '').trim();
       if (!val) {
-        showToast('⚠️ Please enter your password or passcode.', false);
+        showToast('⚠️ Please enter your password.', false);
         if (adminPasscode) adminPasscode.focus();
         return;
       }
 
-      // If username input is blank, default to 'admin' (matching "Optional for default Admin")
       if (!uInput) {
         uInput = 'admin';
       }
@@ -204,10 +319,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const hashed = await hashPasscode(val);
       let users = getStoredUsers();
 
-      let matchedUser = users.find(u => u.username.toLowerCase() === uInput);
+      let matchedUser = users.find(u => u && u.username && u.username.toLowerCase() === uInput);
+
       if (matchedUser) {
         const isMatch = (matchedUser.passwordHash === hashed) || 
-                        (matchedUser.isSuper && !matchedUser.hasChangedPassword && (AUTH_HASHES.includes(hashed)));
+                        (matchedUser.isSuper && !matchedUser.hasChangedPassword && AUTH_HASHES.includes(hashed));
         if (!isMatch) matchedUser = null;
       }
 
@@ -219,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const cloudMatch = cloudUsers.find(u => u && u.username && u.username.toLowerCase() === uInput);
             if (cloudMatch) {
               const isMatch = (cloudMatch.passwordHash === hashed) || 
-                              (cloudMatch.isSuper && !cloudMatch.hasChangedPassword && (AUTH_HASHES.includes(hashed)));
+                              (cloudMatch.isSuper && !cloudMatch.hasChangedPassword && AUTH_HASHES.includes(hashed));
               if (isMatch) {
                 matchedUser = cloudMatch;
                 // Merge cloud users into local cache
@@ -233,19 +349,28 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (matchedUser) {
+        resetLoginLockout();
         // Obfuscate the token slightly to deter casual localStorage modification
         const tokenStr = 'srcc_auth_' + btoa(Date.now().toString());
         sessionStorage.setItem(AUTH_STORAGE_KEY, tokenStr);
-        sessionStorage.setItem(ACTIVE_USER_SESSION_KEY, JSON.stringify({
+        localStorage.setItem(AUTH_STORAGE_KEY, tokenStr);
+        const sessionPayload = JSON.stringify({
           username: matchedUser.username,
           fullName: matchedUser.fullName,
           role: matchedUser.role,
           isSuper: !!matchedUser.isSuper
-        }));
+        });
+        sessionStorage.setItem(ACTIVE_USER_SESSION_KEY, sessionPayload);
+        localStorage.setItem(ACTIVE_USER_SESSION_KEY, sessionPayload);
         showToast(`🔓 <strong>Welcome, ${escapeHtml(matchedUser.fullName)}!</strong> Logged in successfully.`);
         checkAuth();
       } else {
-        showToast('⚠️ Incorrect username or password. Please try again.', false);
+        const isNowLocked = recordFailedLogin();
+        if (isNowLocked) {
+          showToast('⛔ <strong>Security Lockdown!</strong> 5 consecutive failed attempts. System locked for 60 seconds.', false);
+        } else {
+          showToast('⚠️ <strong>Access Denied:</strong> Invalid username or password.', false);
+        }
         if (adminPasscode) {
           adminPasscode.value = '';
           adminPasscode.focus();
@@ -254,10 +379,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Password visibility toggle
+  const btnTogglePassword = document.getElementById('btnTogglePassword');
+  if (btnTogglePassword && adminPasscode) {
+    btnTogglePassword.addEventListener('click', () => {
+      const isPwd = adminPasscode.type === 'password';
+      adminPasscode.type = isPwd ? 'text' : 'password';
+      btnTogglePassword.textContent = isPwd ? '🙈' : '👁️';
+    });
+  }
+
   if (btnAdminLogout) {
     btnAdminLogout.addEventListener('click', () => {
       sessionStorage.removeItem(AUTH_STORAGE_KEY);
+      localStorage.removeItem(AUTH_STORAGE_KEY);
       sessionStorage.removeItem(ACTIVE_USER_SESSION_KEY);
+      localStorage.removeItem(ACTIVE_USER_SESSION_KEY);
       showToast('🔒 Logged out of Admin Portal.');
       checkAuth();
     });
@@ -1785,6 +1922,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (adminActiveUserDisplay) {
       adminActiveUserDisplay.textContent = `Active: ${active.fullName} (${active.role})`;
     }
+    if (editNewUsername) {
+      editNewUsername.value = active.username || '';
+    }
   }
 
   function renderAdminUsersList() {
@@ -1869,32 +2009,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Change Password Form Submission
+  // Change Username & Password Form Submission
   if (formChangePassword) {
     formChangePassword.addEventListener('submit', async (e) => {
       e.preventDefault();
+      const newUname = (editNewUsername ? editNewUsername.value : '').trim();
       const cur = (pwdCurrent ? pwdCurrent.value : '').trim();
       const n1 = (pwdNew ? pwdNew.value : '').trim();
       const n2 = (pwdConfirm ? pwdConfirm.value : '').trim();
 
       if (!cur) {
-        showToast('⚠️ Please enter your current password.', false);
+        showToast('⚠️ Please enter your current password to verify your identity.', false);
         if (pwdCurrent) pwdCurrent.focus();
         return;
       }
-      if (n1 !== n2) {
-        showToast('⚠️ New passwords do not match.', false);
-        return;
-      }
-      if (n1.length < 4) {
-        showToast('⚠️ New password must be at least 4 characters long.', false);
-        return;
-      }
 
-      const curHash = await hashPasscode(cur);
       const activeUser = getActiveSessionUser();
       const users = getStoredUsers();
-      const userIdx = users.findIndex(u => u.username.toLowerCase() === activeUser.username.toLowerCase());
+      const userIdx = users.findIndex(u => u && u.username && u.username.toLowerCase() === activeUser.username.toLowerCase());
 
       if (userIdx === -1) {
         showToast('⚠️ User session invalid. Please log in again.', false);
@@ -1902,30 +2034,87 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const targetUser = users[userIdx];
+      const curHash = await hashPasscode(cur);
       const isCurValid = (targetUser.passwordHash === curHash) ||
                          (targetUser.isSuper && !targetUser.hasChangedPassword && (AUTH_HASHES.includes(curHash)));
 
       if (!isCurValid) {
-        showToast('⚠️ Current password incorrect. Please verify your existing password.', false);
+        showToast('⚠️ Current password incorrect. Access denied.', false);
         if (pwdCurrent) { pwdCurrent.value = ''; pwdCurrent.focus(); }
         return;
       }
 
-      const newHash = await hashPasscode(n1);
-      users[userIdx].passwordHash = newHash;
-      users[userIdx].hasChangedPassword = true;
-      users[userIdx].updatedAt = Date.now();
+      const isUsernameChanging = Boolean(newUname && newUname.toLowerCase() !== targetUser.username.toLowerCase());
+      const isPasswordChanging = Boolean(n1);
+
+      if (!isUsernameChanging && !isPasswordChanging) {
+        showToast('ℹ️ No changes detected. Enter a new username or new password to update.');
+        return;
+      }
+
+      if (isUsernameChanging) {
+        if (newUname.length < 3) {
+          showToast('⚠️ New username must be at least 3 characters long.', false);
+          if (editNewUsername) editNewUsername.focus();
+          return;
+        }
+        if (!/^[a-zA-Z0-9_.-]+$/.test(newUname)) {
+          showToast('⚠️ Username may only contain letters, numbers, underscores, dashes, and periods.', false);
+          if (editNewUsername) editNewUsername.focus();
+          return;
+        }
+        const isTaken = users.some((u, idx) => idx !== userIdx && u && u.username && u.username.toLowerCase() === newUname.toLowerCase());
+        if (isTaken) {
+          showToast(`⚠️ Username "<strong>${escapeHtml(newUname)}</strong>" is already taken. Please choose another.`, false);
+          if (editNewUsername) editNewUsername.focus();
+          return;
+        }
+      }
+
+      if (isPasswordChanging) {
+        if (n1 !== n2) {
+          showToast('⚠️ New passwords do not match.', false);
+          if (pwdConfirm) pwdConfirm.focus();
+          return;
+        }
+        if (n1.length < 4) {
+          showToast('⚠️ New password must be at least 4 characters long.', false);
+          if (pwdNew) pwdNew.focus();
+          return;
+        }
+      }
+
+      const changesDone = [];
+      if (isUsernameChanging) {
+        targetUser.username = newUname;
+        changesDone.push(`Username updated to <code>${escapeHtml(newUname)}</code>`);
+      }
+
+      if (isPasswordChanging) {
+        const newHash = await hashPasscode(n1);
+        targetUser.passwordHash = newHash;
+        targetUser.hasChangedPassword = true;
+        changesDone.push('Password updated');
+      }
+
+      targetUser.updatedAt = Date.now();
+      users[userIdx] = targetUser;
       await saveStoredUsers(users);
 
       // Keep active session updated
-      sessionStorage.setItem(ACTIVE_USER_SESSION_KEY, JSON.stringify({
-        username: users[userIdx].username,
-        fullName: users[userIdx].fullName,
-        role: users[userIdx].role,
-        isSuper: !!users[userIdx].isSuper
-      }));
+      const updatedSession = {
+        username: targetUser.username,
+        fullName: targetUser.fullName,
+        role: targetUser.role,
+        isSuper: !!targetUser.isSuper
+      };
+      sessionStorage.setItem(ACTIVE_USER_SESSION_KEY, JSON.stringify(updatedSession));
+      localStorage.setItem(ACTIVE_USER_SESSION_KEY, JSON.stringify(updatedSession));
 
-      showToast('✅ <strong>Password updated successfully!</strong> Synced to Cloud Database.');
+      updateActiveUserDisplay();
+      renderAdminUsersList();
+
+      showToast(`✅ <strong>Security Credentials Updated!</strong> ${changesDone.join(' & ')}.`);
       if (pwdCurrent) pwdCurrent.value = '';
       if (pwdNew) pwdNew.value = '';
       if (pwdConfirm) pwdConfirm.value = '';
