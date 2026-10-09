@@ -768,7 +768,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } else if (lock.recurrence === 'daily') {
         recurrenceLabel = '🔁 Everyday (Mon–Sat)';
       } else if (lock.recurrence === 'weekly' && Array.isArray(lock.recurring_days) && lock.recurring_days.length > 0) {
-        recurrenceLabel = `🔁 Every ${escapeHtml(lock.recurring_days.join(', '))}`;
+        recurrenceLabel = `🔁 Every ${lock.recurring_days.join(', ')}`;
       }
 
       return `
@@ -785,15 +785,85 @@ document.addEventListener('DOMContentLoaded', () => {
               ${lock.added_by ? `<span style="font-size: 0.72rem; color: var(--text-muted);">(By ${escapeHtml(lock.added_by)})</span>` : ''}
             </div>
           </div>
-          <button type="button" class="btn-delete-leave" onclick="deleteRoomLock('${escapeHtml(lock.id)}')" title="Unlock classroom">
-            🔓 Unlock
-          </button>
+          <div style="display: flex; gap: 6px; align-items: center;">
+            <button type="button" class="btn-edit-leave" onclick="editRoomLock('${escapeHtml(lock.id)}')" title="Edit lock parameters">
+              ✏️ Edit
+            </button>
+            <button type="button" class="btn-delete-leave" onclick="deleteRoomLock('${escapeHtml(lock.id)}')" title="Unlock classroom">
+              🔓 Unlock
+            </button>
+          </div>
         </div>
       `;
     }).join('');
   }
 
+  let editingLockId = null;
+
+  window.editRoomLock = function(lockId) {
+    const locks = getRoomLocksList();
+    const lock = locks.find(l => l.id === lockId);
+    if (!lock) return;
+
+    editingLockId = lock.id;
+    const roomSelect = document.getElementById('adminLockRoomSelect');
+    const lockType = document.getElementById('adminLockType');
+    const lockSlot = document.getElementById('adminLockSlot');
+    const recurrenceSelect = document.getElementById('adminLockRecurrence');
+    const lockDate = document.getElementById('adminLockDate');
+    const lockTitle = document.getElementById('adminLockTitle');
+    const btnAddLock = document.getElementById('btnAdminAddLock');
+    const btnCancel = document.getElementById('btnAdminCancelLockEdit');
+    const daysGroup = document.getElementById('adminLockDaysGroup');
+
+    if (roomSelect) roomSelect.value = lock.room;
+    if (lockType) lockType.value = lock.type || 'lock';
+    if (lockSlot) lockSlot.value = lock.slot || 'ALL_DAY';
+    if (recurrenceSelect) {
+      recurrenceSelect.value = lock.recurrence || 'once';
+      if (daysGroup) daysGroup.style.display = (lock.recurrence === 'weekly') ? 'block' : 'none';
+    }
+    if (lockDate) lockDate.value = lock.date || getTodayIsoDate();
+    if (lockTitle) lockTitle.value = lock.title || '';
+
+    // If weekly recurrence, check matching checkboxes
+    if (Array.isArray(lock.recurring_days)) {
+      document.querySelectorAll('.lock-day-check').forEach(cb => {
+        cb.checked = lock.recurring_days.includes(cb.value);
+      });
+    }
+
+    if (btnAddLock) {
+      btnAddLock.innerHTML = '💾 Update Room Lock / Extra Class';
+      btnAddLock.style.background = 'linear-gradient(135deg, #2563eb, #1d4ed8)';
+    }
+    if (btnCancel) btnCancel.style.display = 'inline-block';
+
+    const lockCard = document.getElementById('adminLockRoomSelect');
+    if (lockCard) lockCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    showToast(`✏️ Editing lock for <strong>${escapeHtml(lock.room)}</strong>. Adjust fields and click Update.`);
+  };
+
+  function resetRoomLockForm() {
+    editingLockId = null;
+    const lockTitle = document.getElementById('adminLockTitle');
+    const btnAddLock = document.getElementById('btnAdminAddLock');
+    const btnCancel = document.getElementById('btnAdminCancelLockEdit');
+    if (lockTitle) lockTitle.value = '';
+    if (btnAddLock) {
+      btnAddLock.innerHTML = '🔒 Push Room Lock / Extra Class';
+      btnAddLock.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+    }
+    if (btnCancel) btnCancel.style.display = 'none';
+    document.querySelectorAll('.lock-day-check').forEach(cb => { cb.checked = false; });
+  }
+
   window.deleteRoomLock = async function(lockId) {
+    const user = getActiveSessionUser();
+    if (!user || !user.username) {
+      showToast('⚠️ Admin authentication required to unlock rooms.', false);
+      return;
+    }
     let locks = getRoomLocksList();
     const target = locks.find(l => l.id === lockId);
     locks = locks.filter(l => l.id !== lockId);
@@ -801,14 +871,23 @@ document.addEventListener('DOMContentLoaded', () => {
     renderLocksTable();
     updateKpis();
     syncRoomLocksToCloud(locks, false);
+    if (editingLockId === lockId) resetRoomLockForm();
     showToast(`🔓 Classroom <strong>${target ? target.room : ''}</strong> unlocked successfully.`);
   };
 
   function initRoomLocksListeners() {
     const btnAddLock = document.getElementById('btnAdminAddLock');
+    const btnCancelLock = document.getElementById('btnAdminCancelLockEdit');
     const recurrenceSelect = document.getElementById('adminLockRecurrence');
     const daysGroup = document.getElementById('adminLockDaysGroup');
     const dateFieldGroup = document.getElementById('adminLockDateFieldGroup');
+
+    if (btnCancelLock) {
+      btnCancelLock.addEventListener('click', () => {
+        resetRoomLockForm();
+        showToast('Cancelled room lock edit.');
+      });
+    }
 
     if (recurrenceSelect) {
       recurrenceSelect.addEventListener('change', () => {
@@ -854,6 +933,33 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const activeUser = getActiveSessionUser();
+        let locks = getRoomLocksList();
+
+        if (editingLockId) {
+          const idx = locks.findIndex(l => l.id === editingLockId);
+          if (idx !== -1) {
+            locks[idx] = {
+              ...locks[idx],
+              room: room,
+              type: type,
+              slot: slot,
+              recurrence: recurrence,
+              recurring_days: recurringDays,
+              date: date || getTodayIsoDate(),
+              title: title || (type === 'extra_class' ? 'Special Lecture Scheduled' : 'Room Reserved / Locked'),
+              updated_by: activeUser.fullName || 'Admin',
+              updated_at: new Date().toISOString()
+            };
+            saveRoomLocksList(locks);
+            renderLocksTable();
+            updateKpis();
+            syncRoomLocksToCloud(locks, true);
+            resetRoomLockForm();
+            showToast(`💾 <strong>Room ${room}</strong> lock updated successfully!`);
+            return;
+          }
+        }
+
         const newLock = {
           id: 'lock_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
           room: room,
@@ -867,14 +973,13 @@ document.addEventListener('DOMContentLoaded', () => {
           created_at: new Date().toISOString()
         };
 
-        const locks = getRoomLocksList();
         locks.unshift(newLock);
         saveRoomLocksList(locks);
         renderLocksTable();
         updateKpis();
         syncRoomLocksToCloud(locks, true);
+        resetRoomLockForm();
 
-        if (lockTitle) lockTitle.value = '';
         showToast(`🔒 <strong>Room ${room}</strong> locked successfully (${recurrence === 'once' ? 'One-time' : recurrence})! Live for all students.`);
       });
     }
@@ -887,6 +992,7 @@ document.addEventListener('DOMContentLoaded', () => {
           renderLocksTable();
           updateKpis();
           syncRoomLocksToCloud([], false);
+          resetRoomLockForm();
           showToast('🔓 All classrooms unlocked and notices cleared.');
         }
       });
@@ -1004,6 +1110,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     container.innerHTML = notices.map(n => {
       const catBadge = categoryBadges[n.category] || categoryBadges.circular;
+      const eventBadge = n.event_date ? `<span class="campus-notice-event-date">🗓️ Event: ${escapeHtml(n.event_date)}</span>` : '';
       const expiryText = n.expiry_date ? `📅 Expires: ${escapeHtml(n.expiry_date)}` : '📅 No Expiry';
       const hasAttachment = n.attachment && n.attachment.dataUrl;
 
@@ -1012,6 +1119,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="leave-item-details" style="width: 100%;">
             <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px;">
               ${catBadge}
+              ${eventBadge}
               <span style="font-weight: 800; font-size: 0.95rem; color: var(--text-primary);">${escapeHtml(n.title)}</span>
               <span style="font-size: 0.72rem; color: var(--text-muted);">${expiryText}</span>
             </div>
@@ -1025,21 +1133,110 @@ document.addEventListener('DOMContentLoaded', () => {
               ${n.published_by ? `<span style="font-size: 0.72rem; color: var(--text-muted); margin-left: auto;">By ${escapeHtml(n.published_by)}</span>` : ''}
             </div>
           </div>
-          <button type="button" class="btn-delete-leave" onclick="deleteCampusNotice('${escapeHtml(n.id)}')" title="Delete notice banner">
-            ✕ Delete
-          </button>
+          <div style="display: flex; gap: 6px; align-items: center;">
+            <button type="button" class="btn-edit-leave" onclick="editCampusNotice('${escapeHtml(n.id)}')" title="Edit notice">
+              ✏️ Edit
+            </button>
+            <button type="button" class="btn-delete-leave" onclick="deleteCampusNotice('${escapeHtml(n.id)}')" title="Delete notice banner">
+              ✕ Delete
+            </button>
+          </div>
         </div>
       `;
     }).join('');
   }
 
+  let editingNoticeId = null;
+
+  window.editCampusNotice = function(noticeId) {
+    const notices = getCampusNoticesList();
+    const notice = notices.find(n => n.id === noticeId);
+    if (!notice) return;
+
+    editingNoticeId = notice.id;
+    const catSelect = document.getElementById('adminNoticeCategory');
+    const eventDateInput = document.getElementById('adminNoticeEventDate');
+    const expiryInput = document.getElementById('adminNoticeExpiry');
+    const titleInput = document.getElementById('adminNoticeTitle');
+    const bodyInput = document.getElementById('adminNoticeBody');
+    const btnPublish = document.getElementById('btnAdminPublishNotice');
+    const btnCancel = document.getElementById('btnAdminCancelNoticeEdit');
+    const previewText = document.getElementById('noticeFilePreviewText');
+    const btnClearFile = document.getElementById('btnClearNoticeFile');
+
+    if (catSelect) catSelect.value = notice.category || 'circular';
+    if (eventDateInput) eventDateInput.value = notice.event_date || '';
+    if (expiryInput) expiryInput.value = notice.expiry_date || '';
+    if (titleInput) titleInput.value = notice.title || '';
+    if (bodyInput) bodyInput.value = notice.body || '';
+
+    if (notice.attachment) {
+      pendingNoticeAttachment = notice.attachment;
+      if (previewText) {
+        previewText.textContent = `📎 Current attachment: ${notice.attachment.name || 'File'} (${notice.attachment.type === 'pdf' ? 'PDF' : 'Image'})`;
+        previewText.style.display = 'block';
+      }
+      if (btnClearFile) btnClearFile.style.display = 'inline-block';
+    } else {
+      pendingNoticeAttachment = null;
+      if (previewText) previewText.style.display = 'none';
+      if (btnClearFile) btnClearFile.style.display = 'none';
+    }
+
+    if (btnPublish) {
+      btnPublish.innerHTML = '💾 Update Campus Notice';
+      btnPublish.style.background = 'linear-gradient(135deg, #2563eb, #1d4ed8)';
+      btnPublish.style.color = '#ffffff';
+    }
+    if (btnCancel) btnCancel.style.display = 'inline-block';
+
+    const formEl = document.getElementById('adminNoticeTitle');
+    if (formEl) formEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    showToast(`✏️ Editing notice <strong>"${escapeHtml(notice.title)}"</strong>. Modify fields and click Update.`);
+  };
+
+  function resetCampusNoticeForm() {
+    editingNoticeId = null;
+    const eventDateInput = document.getElementById('adminNoticeEventDate');
+    const expiryInput = document.getElementById('adminNoticeExpiry');
+    const titleInput = document.getElementById('adminNoticeTitle');
+    const bodyInput = document.getElementById('adminNoticeBody');
+    const fileInput = document.getElementById('adminNoticeFileInput');
+    const previewText = document.getElementById('noticeFilePreviewText');
+    const btnClearFile = document.getElementById('btnClearNoticeFile');
+    const btnPublish = document.getElementById('btnAdminPublishNotice');
+    const btnCancel = document.getElementById('btnAdminCancelNoticeEdit');
+
+    if (eventDateInput) eventDateInput.value = '';
+    if (expiryInput) expiryInput.value = '';
+    if (titleInput) titleInput.value = '';
+    if (bodyInput) bodyInput.value = '';
+    if (fileInput) fileInput.value = '';
+    if (previewText) previewText.style.display = 'none';
+    if (btnClearFile) btnClearFile.style.display = 'none';
+    pendingNoticeAttachment = null;
+
+    if (btnPublish) {
+      btnPublish.innerHTML = '📢 Publish Campus Notice Banner (Live for Students)';
+      btnPublish.style.background = 'linear-gradient(135deg, #f59e0b, #d97706)';
+      btnPublish.style.color = '#070d18';
+    }
+    if (btnCancel) btnCancel.style.display = 'none';
+  }
+
   window.deleteCampusNotice = async function(noticeId) {
+    const user = getActiveSessionUser();
+    if (!user || !user.username) {
+      showToast('⚠️ Admin authentication required to delete campus notices.', false);
+      return;
+    }
     let notices = getCampusNoticesList();
     const target = notices.find(n => n.id === noticeId);
     notices = notices.filter(n => n.id !== noticeId);
     saveCampusNoticesList(notices);
     renderCampusNoticesTable();
     syncCampusNoticesToCloud(notices, false);
+    if (editingNoticeId === noticeId) resetCampusNoticeForm();
     showToast(`🗑️ Notice <strong>"${target ? target.title : ''}"</strong> removed.`);
   };
 
@@ -1099,7 +1296,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnClearFile = document.getElementById('btnClearNoticeFile');
     const previewText = document.getElementById('noticeFilePreviewText');
     const btnPublish = document.getElementById('btnAdminPublishNotice');
+    const btnCancel = document.getElementById('btnAdminCancelNoticeEdit');
     const btnClearAll = document.getElementById('btnAdminClearAllNotices');
+
+    if (btnCancel) {
+      btnCancel.addEventListener('click', () => {
+        resetCampusNoticeForm();
+        showToast('Cancelled notice edit.');
+      });
+    }
 
     if (fileInput) {
       fileInput.addEventListener('change', (e) => {
@@ -1149,11 +1354,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnPublish) {
       btnPublish.addEventListener('click', () => {
         const catSelect = document.getElementById('adminNoticeCategory');
+        const eventDateInput = document.getElementById('adminNoticeEventDate');
         const expiryInput = document.getElementById('adminNoticeExpiry');
         const titleInput = document.getElementById('adminNoticeTitle');
         const bodyInput = document.getElementById('adminNoticeBody');
 
         const category = (catSelect ? catSelect.value : 'circular').trim();
+        const eventDate = (eventDateInput ? eventDateInput.value : '').trim();
         const expiry = (expiryInput ? expiryInput.value : '').trim();
         const title = (titleInput ? titleInput.value : '').trim();
         const body = (bodyInput ? bodyInput.value : '').trim();
@@ -1165,9 +1372,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const activeUser = getActiveSessionUser();
+        let notices = getCampusNoticesList();
+
+        if (editingNoticeId) {
+          const idx = notices.findIndex(n => n.id === editingNoticeId);
+          if (idx !== -1) {
+            notices[idx] = {
+              ...notices[idx],
+              category: category,
+              event_date: eventDate,
+              expiry_date: expiry,
+              title: title,
+              body: body,
+              attachment: pendingNoticeAttachment || notices[idx].attachment || null,
+              updated_by: activeUser.fullName || 'Admin',
+              updated_at: new Date().toISOString()
+            };
+            saveCampusNoticesList(notices);
+            renderCampusNoticesTable();
+            syncCampusNoticesToCloud(notices, true);
+            resetCampusNoticeForm();
+            showToast(`📢 <strong>Notice updated!</strong> "${title}" is live.`);
+            return;
+          }
+        }
+
         const newNotice = {
           id: 'notice_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
           category: category,
+          event_date: eventDate,
           title: title,
           body: body,
           expiry_date: expiry,
@@ -1176,19 +1409,11 @@ document.addEventListener('DOMContentLoaded', () => {
           created_at: new Date().toISOString()
         };
 
-        const notices = getCampusNoticesList();
         notices.unshift(newNotice);
         saveCampusNoticesList(notices);
         renderCampusNoticesTable();
         syncCampusNoticesToCloud(notices, true);
-
-        // Reset form
-        if (titleInput) titleInput.value = '';
-        if (bodyInput) bodyInput.value = '';
-        if (fileInput) fileInput.value = '';
-        if (previewText) previewText.style.display = 'none';
-        if (btnClearFile) btnClearFile.style.display = 'none';
-        pendingNoticeAttachment = null;
+        resetCampusNoticeForm();
 
         showToast(`📢 <strong>Notice published!</strong> "${title}" is now live on student screens.`);
       });
@@ -1200,6 +1425,7 @@ document.addEventListener('DOMContentLoaded', () => {
           saveCampusNoticesList([]);
           renderCampusNoticesTable();
           syncCampusNoticesToCloud([], false);
+          resetCampusNoticeForm();
           showToast('🗑️ All campus notices cleared.');
         }
       });

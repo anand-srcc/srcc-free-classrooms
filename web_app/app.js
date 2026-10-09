@@ -517,9 +517,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       container.innerHTML = `
         <div class="campus-notice-card">
-          <button type="button" class="btn-notice-dismiss" id="btnDismissCampusNotice" title="Dismiss notice">✕</button>
+          <button type="button" class="btn-notice-dismiss" id="btnDismissCampusNotice" title="Dismiss notice for this session (Admin notices remain active)">✕</button>
           <div class="campus-notice-header">
             ${catBadge}
+            ${notice.event_date ? `<span class="campus-notice-event-date">🗓️ Event Date: ${escapeHtml(notice.event_date)}</span>` : ''}
             ${notice.expiry_date ? `<span style="font-size: 0.72rem; color: #64748b; font-weight: 600;">Valid till: ${formatIsoToDdMmYyyy(notice.expiry_date)}</span>` : ''}
           </div>
           <h3 class="campus-notice-title">${escapeHtml(notice.title)}</h3>
@@ -966,6 +967,195 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ========================================================================
+    // ⏱️ "FREE UNTIL" COUNTDOWN CALCULATOR
+    // Answers student question: "Har free room kab tak khali hai (Free until 12:30)?"
+    // ========================================================================
+    function getRoomFreeUntilStatus(room, targetDay) {
+      if (!room || !room.schedule) return null;
+      const sched = room.schedule[targetDay] || { free_slots: [], occupied_slots: [] };
+      const todayIso = getTodayIsoDate();
+      const activeRoomLocks = getRoomActiveLocks(room.code, todayIso);
+      const isFullDayLocked = activeRoomLocks.some(l => l.slot === 'ALL_DAY');
+      if (isFullDayLocked) {
+        return {
+          isFreeNow: false,
+          badgeText: '🔒 Room Locked All Day',
+          calloutText: '🔒 Room is fully locked today (Maintenance / Reserved).'
+        };
+      }
+
+      const lockedSlotsSet = new Set(activeRoomLocks.filter(l => l.slot !== 'ALL_DAY').map(l => l.slot));
+
+      // Calculate bonus free slots (classes where faculty is on leave)
+      const bonusSlots = [];
+      sched.occupied_slots.forEach(o => {
+        const leave = getRoomScheduledTeacherLeave(room.code, targetDay, o.slot);
+        if (leave) bonusSlots.push(o.slot);
+      });
+
+      const effectiveFreeSlots = new Set([
+        ...(sched.free_slots || []).filter(s => !lockedSlotsSet.has(s)),
+        ...bonusSlots.filter(s => !lockedSlotsSet.has(s))
+      ]);
+
+      const istNow = getIstDate();
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const todayName = days[istNow.getDay()];
+      const isToday = (targetDay === todayName);
+      const currentMinutes = istNow.getHours() * 60 + istNow.getMinutes();
+
+      if (isToday) {
+        const isLunchRecess = currentMinutes >= 13 * 60 + 30 && currentMinutes < 14 * 60 + 0;
+
+        let isFreeNow = false;
+        if (isLunchRecess) {
+          isFreeNow = true;
+        } else {
+          const livePeriod = periodIntervals.find(p => currentMinutes >= p.start && currentMinutes < p.end);
+          if (livePeriod && effectiveFreeSlots.has(livePeriod.slot)) {
+            isFreeNow = true;
+          } else if (currentMinutes < 8 * 60 + 30) {
+            isFreeNow = effectiveFreeSlots.has(periodIntervals[0].slot);
+          }
+        }
+
+        if (currentMinutes >= 18 * 60) {
+          return {
+            isFreeNow: false,
+            badgeText: '🌙 College Closed',
+            calloutText: 'Classes completed for today (Closed at 6:00 PM).'
+          };
+        }
+
+        if (isFreeNow) {
+          // Find next occupied lecture starting after currentMinutes
+          const futureOccupied = sched.occupied_slots.filter(o => {
+            const leave = getRoomScheduledTeacherLeave(room.code, targetDay, o.slot);
+            if (leave) return false;
+            const p = periodIntervals.find(pi => pi.slot === o.slot);
+            return p && p.start >= currentMinutes;
+          }).sort((a, b) => {
+            const pa = periodIntervals.find(p => p.slot === a.slot);
+            const pb = periodIntervals.find(p => p.slot === b.slot);
+            return (pa ? pa.start : 0) - (pb ? pb.start : 0);
+          });
+
+          // Also check future locks
+          const futureLocks = activeRoomLocks.filter(l => {
+            const p = periodIntervals.find(pi => pi.slot === l.slot);
+            return p && p.start >= currentMinutes;
+          }).sort((a, b) => {
+            const pa = periodIntervals.find(p => p.slot === a.slot);
+            const pb = periodIntervals.find(p => p.slot === b.slot);
+            return (pa ? pa.start : 0) - (pb ? pb.start : 0);
+          });
+
+          const nextStart = futureOccupied[0]
+            ? periodIntervals.find(p => p.slot === futureOccupied[0].slot)?.start
+            : (futureLocks[0] ? periodIntervals.find(p => p.slot === futureLocks[0].slot)?.start : null);
+
+          if (nextStart) {
+            const h = Math.floor(nextStart / 60);
+            const m = nextStart % 60;
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            const displayH = h > 12 ? h - 12 : (h === 0 ? 12 : h);
+            const timeStr = `${displayH}:${String(m).padStart(2, '0')} ${ampm}`;
+            const diffM = Math.max(0, nextStart - currentMinutes);
+            const countdownStr = diffM >= 60 ? `${Math.floor(diffM / 60)}h ${diffM % 60}m left` : `${diffM}m left`;
+
+            return {
+              isFreeNow: true,
+              badgeText: `Free until ${timeStr}`,
+              calloutText: `🟢 Free until ${timeStr} (${countdownStr})`
+            };
+          } else {
+            return {
+              isFreeNow: true,
+              badgeText: 'Free until 6:00 PM',
+              calloutText: '🟢 Free until 6:00 PM (No more classes today)'
+            };
+          }
+        } else {
+          // Room is currently occupied
+          const nextFreePeriod = periodIntervals.find(p => p.start >= currentMinutes && effectiveFreeSlots.has(p.slot));
+          if (nextFreePeriod) {
+            const h = Math.floor(nextFreePeriod.start / 60);
+            const m = nextFreePeriod.start % 60;
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            const displayH = h > 12 ? h - 12 : (h === 0 ? 12 : h);
+            const timeStr = `${displayH}:${String(m).padStart(2, '0')} ${ampm}`;
+            return {
+              isFreeNow: false,
+              badgeText: `Free at ${timeStr}`,
+              calloutText: `🔴 Class in session · Free at ${timeStr}`
+            };
+          } else {
+            return {
+              isFreeNow: false,
+              badgeText: 'Occupied today',
+              calloutText: '🔴 Class in session · Booked for remaining periods'
+            };
+          }
+        }
+      } else {
+        // Browsing another day
+        if (state.activeSlot !== 'ALL') {
+          const isSlotFree = effectiveFreeSlots.has(state.activeSlot);
+          if (isSlotFree) {
+            const curP = periodIntervals.find(p => p.slot === state.activeSlot);
+            const futureOcc = sched.occupied_slots.filter(o => {
+              const leave = getRoomScheduledTeacherLeave(room.code, targetDay, o.slot);
+              if (leave) return false;
+              const p = periodIntervals.find(pi => pi.slot === o.slot);
+              return p && curP && p.start >= curP.end;
+            });
+            if (futureOcc[0]) {
+              const p = periodIntervals.find(pi => pi.slot === futureOcc[0].slot);
+              const timeStr = p ? (p.start >= 12 * 60 ? `${p.start > 12 * 60 ? Math.floor(p.start / 60) - 12 : 12}:${String(p.start % 60).padStart(2, '0')} PM` : `${Math.floor(p.start / 60)}:${String(p.start % 60).padStart(2, '0')} AM`) : 'Later';
+              return {
+                isFreeNow: true,
+                badgeText: `Free until ${timeStr}`,
+                calloutText: `🟢 Free in selected slot (until ${timeStr})`
+              };
+            } else {
+              return {
+                isFreeNow: true,
+                badgeText: 'Free until 6:00 PM',
+                calloutText: `🟢 Free in this slot and remainder of day`
+              };
+            }
+          } else {
+            return {
+              isFreeNow: false,
+              badgeText: 'Occupied in this slot',
+              calloutText: `🔴 Class scheduled in ${state.activeSlot}`
+            };
+          }
+        }
+
+        if (effectiveFreeSlots.size === 9) {
+          return {
+            isFreeNow: true,
+            badgeText: 'Free all day',
+            calloutText: `🟢 Entire day free on ${targetDay} (8:30 AM – 6:00 PM)`
+          };
+        } else if (effectiveFreeSlots.size > 0) {
+          return {
+            isFreeNow: true,
+            badgeText: `${effectiveFreeSlots.size}/9 Hours Free`,
+            calloutText: `🟢 ${effectiveFreeSlots.size} academic hours available on ${targetDay}`
+          };
+        } else {
+          return {
+            isFreeNow: false,
+            badgeText: 'Fully Booked',
+            calloutText: `🔴 Fully booked on ${targetDay}`
+          };
+        }
+      }
+    }
+
+    // ========================================================================
     // 🔔 TOAST HELPER
     // ========================================================================
     function showToast(message, isCopied = false, duration = 3600) {
@@ -1009,6 +1199,10 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
           state.currentLiveSlot = null;
           if (liveClockText) liveClockText.textContent = `${timeStr} · College Off-Hours`;
+        }
+
+        if (typeof window.renderMyBatchDailyWidget === 'function') {
+          window.renderMyBatchDailyWidget();
         }
       }
     }
@@ -1671,8 +1865,12 @@ document.addEventListener('DOMContentLoaded', () => {
         : '  • Only Lunch Recess (1:30 PM – 2:00 PM)';
 
       const siteUrl = window.location.origin + window.location.pathname;
+      const directRoomUrl = `${siteUrl}?room=${encodeURIComponent(room.code)}`;
       const activeDateStr = getDateForDay(state.activeDay);
       const dayAndDateDisplay = `${state.activeDay}, ${activeDateStr}`;
+
+      const freeUntilStatus = getRoomFreeUntilStatus(room, state.activeDay);
+      const freeUntilNote = freeUntilStatus.text ? `\n⏳ Status: ${freeUntilStatus.text}` : '';
 
       const cleanMessage = `🎓 SRCC Classroom Vacancy Alert
 
@@ -1681,7 +1879,7 @@ document.addEventListener('DOMContentLoaded', () => {
 ` +
         `🏛️ Wing: ${room.category.split(' (')[0]}
 ` +
-        `🗓️ Day & Date: ${dayAndDateDisplay}
+        `🗓️ Day & Date: ${dayAndDateDisplay}${freeUntilNote}
 ` +
         `👥 Capacity: ${room.capacity} seats
 ` +
@@ -1692,7 +1890,9 @@ document.addEventListener('DOMContentLoaded', () => {
 ${freeSlotsList}
 
 ` +
-        `🔍 Live Timetable & Vacancy Tracker: ${siteUrl}`;
+        `🔗 Direct Room Schedule & QR: ${directRoomUrl}
+` +
+        `🔍 SRCC Live Timetable Tracker: ${siteUrl}`;
 
       const whatsappMessage = `🎓 *SRCC Classroom Vacancy Alert*
 
@@ -1701,7 +1901,7 @@ ${freeSlotsList}
 ` +
         `🏛️ *Wing:* ${room.category.split(' (')[0]}
 ` +
-        `🗓️ *Day & Date:* ${dayAndDateDisplay}
+        `🗓️ *Day & Date:* ${dayAndDateDisplay}${freeUntilNote}
 ` +
         `👥 *Capacity:* ${room.capacity} seats
 ` +
@@ -1712,16 +1912,15 @@ ${freeSlotsList}
 ${freeSlotsList}
 
 ` +
-        `🔍 *Live Timetable & Vacancy Tracker:* ${siteUrl}`;
+        `🔗 *Open Room Schedule Directly:* ${directRoomUrl}`;
 
-      const tweetText = `🎓 SRCC Vacancy: Room ${room.code} is FREE on ${dayAndDateDisplay}!
-🕒 Check live timetable:`;
+      const tweetText = `🎓 SRCC Vacancy: Room ${room.code} is FREE on ${dayAndDateDisplay}! Check room schedule:`;
       const emailSubject = `SRCC Room Vacancy: ${room.code} (${dayAndDateDisplay})`;
 
       currentShareMessage = cleanMessage;
 
       copyToClipboard(cleanMessage)
-        .then(() => showToast(`📋 Room details for <strong>${escapeHtml(room.code)}</strong> copied to clipboard!`, true, 3500))
+        .then(() => showToast(`📋 Room details & direct link for <strong>${escapeHtml(room.code)}</strong> copied!`, true, 3500))
         .catch(() => showToast(`📤 Share Room <strong>${escapeHtml(room.code)}</strong>`, false, 2500));
 
       if (shareModalTitle) shareModalTitle.textContent = `📤 Share ${room.code} (${room.name})`;
@@ -1729,7 +1928,7 @@ ${freeSlotsList}
 
       const encodedCleanMsg = encodeURIComponent(cleanMessage);
       const encodedWaMsg = encodeURIComponent(whatsappMessage);
-      const encodedUrl = encodeURIComponent(siteUrl);
+      const encodedUrl = encodeURIComponent(directRoomUrl);
 
       if (shareBtnWhatsapp) {
         shareBtnWhatsapp.href = `https://api.whatsapp.com/send?text=${encodedWaMsg}`;
@@ -1748,7 +1947,7 @@ ${freeSlotsList}
         shareBtnLinkedin.onclick = (e) => {
           e.preventDefault();
           if (navigator.share) {
-            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage }).catch(() => {});
+            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage, url: directRoomUrl }).catch(() => {});
           } else {
             copyToClipboard(cleanMessage);
             window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`, '_blank', 'noopener,noreferrer');
@@ -1760,7 +1959,7 @@ ${freeSlotsList}
         shareBtnInstagram.onclick = (e) => {
           e.preventDefault();
           if (navigator.share) {
-            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage }).catch(() => {});
+            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage, url: directRoomUrl }).catch(() => {});
           } else {
             copyToClipboard(cleanMessage).then(() => showToast('📸 Copied! Opening Instagram...', true));
             window.open('https://www.instagram.com/direct/inbox/', '_blank', 'noopener,noreferrer');
@@ -1772,7 +1971,7 @@ ${freeSlotsList}
         shareBtnFacebook.onclick = (e) => {
           e.preventDefault();
           if (navigator.share) {
-            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage }).catch(() => {});
+            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage, url: directRoomUrl }).catch(() => {});
           } else {
             copyToClipboard(cleanMessage);
             window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`, '_blank', 'noopener,noreferrer');
@@ -1783,14 +1982,52 @@ ${freeSlotsList}
       if (navigator.share && btnPrimaryShare) {
         btnPrimaryShare.style.display = 'flex';
         btnPrimaryShare.onclick = () => {
-          navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage }).catch(() => {});
+          navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage, url: directRoomUrl }).catch(() => {});
         };
       } else if (btnPrimaryShare) {
         btnPrimaryShare.style.display = 'none';
       }
 
+      // Direct Room Link button
+      const btnCopyDirectRoomLink = document.getElementById('btnCopyDirectRoomLink');
+      if (btnCopyDirectRoomLink) {
+        btnCopyDirectRoomLink.textContent = `🔗 Copy Direct Room Link (?room=${room.code})`;
+        btnCopyDirectRoomLink.onclick = () => {
+          copyToClipboard(directRoomUrl).then(() => {
+            btnCopyDirectRoomLink.textContent = `✅ Direct Link Copied! (?room=${room.code})`;
+            showToast(`🔗 Direct room link copied: <strong>${escapeHtml(room.code)}</strong>`, true, 3000);
+            setTimeout(() => {
+              btnCopyDirectRoomLink.textContent = `🔗 Copy Direct Room Link (?room=${room.code})`;
+            }, 2500);
+          });
+        };
+      }
+
+      // Room QR Code toggle
+      const btnToggleRoomQr = document.getElementById('btnToggleRoomQr');
+      const roomQrContainer = document.getElementById('roomQrContainer');
+      const roomQrImg = document.getElementById('roomQrImg');
+      if (btnToggleRoomQr && roomQrContainer && roomQrImg) {
+        roomQrContainer.style.display = 'none';
+        btnToggleRoomQr.textContent = '📷 Show Room QR Code for Group Study';
+        btnToggleRoomQr.onclick = () => {
+          const isHidden = (roomQrContainer.style.display === 'none');
+          if (isHidden) {
+            roomQrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(directRoomUrl)}`;
+            roomQrContainer.style.display = 'block';
+            btnToggleRoomQr.textContent = '✕ Hide QR Code';
+          } else {
+            roomQrContainer.style.display = 'none';
+            btnToggleRoomQr.textContent = '📷 Show Room QR Code for Group Study';
+          }
+        };
+      }
+
       if (shareModal) openAppModal(shareModal);
     }
+
+    // Expose openShareModal globally
+    window.openShareModal = openShareModal;
 
     if (btnCopyShareText) {
       btnCopyShareText.addEventListener('click', () => {
@@ -2072,6 +2309,13 @@ ${freeSlotsList}
           : '';
 
         const catBadgeClass = getCategoryBadgeClass(room.category);
+        const freeUntilStatus = getRoomFreeUntilStatus(room, state.activeDay);
+        const freeUntilBadgeHtml = freeUntilStatus
+          ? `<span class="badge-free-until ${freeUntilStatus.isFreeNow ? 'is-free-now' : 'is-busy-now'}" title="${escapeHtml(freeUntilStatus.calloutText)}"><span class="live-dot"></span>${escapeHtml(freeUntilStatus.badgeText)}</span>`
+          : '';
+        const freeUntilCalloutHtml = freeUntilStatus
+          ? `<div class="free-until-callout">⏱️ <strong>${escapeHtml(freeUntilStatus.calloutText)}</strong></div>`
+          : '';
 
         return `
           <article class="room-card ${cardStyleClass} ${themeClass}" data-room-code="${escapeHtml(room.code)}">
@@ -2083,6 +2327,7 @@ ${freeSlotsList}
               <div class="card-meta-badges">
                 <span class="badge-category ${catBadgeClass}">${escapeHtml(room.category.split(' (')[0])}</span>
                 <span class="badge-capacity">${escapeHtml(room.capacity)} Seats</span>
+                ${freeUntilBadgeHtml}
               </div>
             </div>
 
@@ -2106,6 +2351,7 @@ ${freeSlotsList}
                 <span>${effectiveFreeHours > 0 ? `🟢 ${effectiveFreeHours} Academic Hours Free` : `🔴 Fully Booked Day`}</span>
                 <span>${sched.occupied_slots.length} Classes Scheduled</span>
               </div>
+              ${freeUntilCalloutHtml}
 
               ${consecutiveChipsHtml ? `
                 <div class="consecutive-windows-section" style="margin: 8px 0 6px 0;">
@@ -2232,8 +2478,18 @@ ${freeSlotsList}
       state.activeDay = dayToUse;
 
       const sched = room.schedule[dayToUse] || { free_slots: [], occupied_slots: [], lunch_recess_free: true };
+      const freeUntil = getRoomFreeUntilStatus(room, dayToUse);
 
-      if (modalRoomTitle) modalRoomTitle.textContent = `${room.code} - ${room.name}`;
+      if (modalRoomTitle) {
+        modalRoomTitle.innerHTML = `
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+            <span>${escapeHtml(room.code)} - ${escapeHtml(room.name)}</span>
+            <button type="button" class="btn-share-modal-shortcut" onclick="openShareModal('${escapeHtml(room.code)}')" style="font-size: 0.82rem; padding: 6px 12px; border-radius: 8px; background: rgba(37,99,235,0.12); color: var(--primary-accent, #2563eb); border: 1px solid rgba(37,99,235,0.25); cursor: pointer; display: inline-flex; align-items: center; gap: 5px; font-weight: 600;">
+              📤 Share Room & QR
+            </button>
+          </div>
+        `;
+      }
       if (modalRoomMeta) modalRoomMeta.textContent = `${room.category} · Capacity: ${room.capacity} · Selected Day: ${dayToUse}`;
 
       // Synchronize modal day tabs
@@ -2535,6 +2791,7 @@ ${freeSlotsList}
 
       if (modalBody) {
         modalBody.innerHTML = `
+          ${freeUntil.calloutHtml}
           ${modalLocksBanner}
           <!-- Desktop Table (visible > 640px) -->
           <table class="schedule-table room-schedule-desktop-table">
@@ -5262,9 +5519,409 @@ window.SRCC_FACULTY_LEAVES = {
         setAppMode('timetable');
       };
 
+      // ========================================================================
+      // 📌 "MERE BATCH KA AAJ KA SCHEDULE" (DAILY PINNED BATCH WIDGET)
+      // ========================================================================
+      const WIDGET_STORAGE_KEY = 'srcc_my_batch_widget_pref_v1';
+      const myBatchContainer = document.getElementById('myBatchScheduleWidget');
+
+      function getMyBatchPref() {
+        try {
+          const raw = localStorage.getItem(WIDGET_STORAGE_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch (e) {
+          return null;
+        }
+      }
+
+      function saveMyBatchPref(pref) {
+        try {
+          localStorage.setItem(WIDGET_STORAGE_KEY, JSON.stringify(pref));
+        } catch (e) {}
+      }
+
+      function renderMyBatchSetupForm() {
+        if (!myBatchContainer) return;
+        const currentPref = getMyBatchPref() || {
+          course: 'B.Com (Hons)',
+          sem: 'Sem IV',
+          sec: 'Section A',
+          batch: 'ALL'
+        };
+
+        const courses = Object.keys(courseMap).filter(c => c && c !== 'SEC' && c !== 'VAC' && c !== 'SEC_VAC' && c !== 'SEC / VAC');
+        if (!courses.includes('B.Com (Hons)')) courses.unshift('B.Com (Hons)');
+        if (!courses.includes('B.A. (Hons) Economics')) courses.push('B.A. (Hons) Economics');
+        if (!courses.includes('M.Com')) courses.push('M.Com');
+        courses.push('SEC Papers', 'VAC Papers');
+
+        myBatchContainer.innerHTML = `
+          <div class="my-batch-widget my-batch-setup-card">
+            <div class="my-batch-setup-header">
+              <div class="my-batch-title-row">
+                <span class="my-batch-icon">📌</span>
+                <div>
+                  <h3 style="margin: 0; font-size: 1.15rem; font-weight: 700; color: var(--text-heading);">Mere Batch Ka Aaj Ka Schedule (Daily Widget)</h3>
+                  <p style="margin: 4px 0 0; font-size: 0.85rem; color: var(--text-muted);">Apna course, semester aur section select karo — har roz home screen par aaj ka schedule, next class reminder aur live teacher leave alert apne aap update hoga!</p>
+                </div>
+              </div>
+            </div>
+            <div class="my-batch-form-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 14px;">
+              <div class="my-batch-field">
+                <label style="display: block; font-size: 0.78rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;">Course</label>
+                <select id="mbCourseSelect" class="my-batch-select" style="width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border-color, #e2e8f0); background: var(--bg-card); color: var(--text-heading);">
+                  <option value="B.Com (Hons)" ${currentPref.course === 'B.Com (Hons)' ? 'selected' : ''}>B.Com (Hons)</option>
+                  <option value="B.A. (Hons) Economics" ${currentPref.course === 'B.A. (Hons) Economics' ? 'selected' : ''}>B.A. (Hons) Economics</option>
+                  <option value="M.Com" ${currentPref.course === 'M.Com' ? 'selected' : ''}>M.Com</option>
+                  <option value="SEC" ${currentPref.course === 'SEC' ? 'selected' : ''}>Skill Enhancement (SEC)</option>
+                  <option value="VAC" ${currentPref.course === 'VAC' ? 'selected' : ''}>Value Addition (VAC)</option>
+                </select>
+              </div>
+              <div class="my-batch-field">
+                <label style="display: block; font-size: 0.78rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;">Semester</label>
+                <select id="mbSemSelect" class="my-batch-select" style="width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border-color, #e2e8f0); background: var(--bg-card); color: var(--text-heading);"></select>
+              </div>
+              <div class="my-batch-field" id="mbSecField">
+                <label style="display: block; font-size: 0.78rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;">Section</label>
+                <select id="mbSecSelect" class="my-batch-select" style="width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border-color, #e2e8f0); background: var(--bg-card); color: var(--text-heading);"></select>
+              </div>
+              <div class="my-batch-field">
+                <label style="display: block; font-size: 0.78rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;">Batch / Group</label>
+                <select id="mbBatchSelect" class="my-batch-select" style="width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border-color, #e2e8f0); background: var(--bg-card); color: var(--text-heading);"></select>
+              </div>
+            </div>
+            <div class="my-batch-actions" style="margin-top: 16px; display: flex; gap: 10px; align-items: center; justify-content: flex-end;">
+              ${getMyBatchPref() ? `<button type="button" id="mbBtnCancelEdit" style="padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: transparent; color: var(--text-muted); cursor: pointer; font-size: 0.88rem;">Cancel</button>` : ''}
+              <button type="button" id="mbBtnSaveWidget" style="padding: 9px 20px; border-radius: 8px; border: none; background: #2563eb; color: #fff; font-weight: 600; cursor: pointer; font-size: 0.92rem; box-shadow: 0 2px 8px rgba(37,99,235,0.3);">
+                📌 Pin Mere Batch Ka Schedule
+              </button>
+            </div>
+          </div>
+        `;
+
+        const elCourse = document.getElementById('mbCourseSelect');
+        const elSem = document.getElementById('mbSemSelect');
+        const elSec = document.getElementById('mbSecSelect');
+        const elBatch = document.getElementById('mbBatchSelect');
+        const elSecField = document.getElementById('mbSecField');
+        const btnSave = document.getElementById('mbBtnSaveWidget');
+        const btnCancel = document.getElementById('mbBtnCancelEdit');
+
+        function updateFormOptions() {
+          const selectedCourse = elCourse.value;
+          const isSecOrVac = (selectedCourse === 'SEC' || selectedCourse === 'VAC');
+
+          // Sems
+          const sems = (selectedCourse === 'M.Com')
+            ? ['Sem II', 'Sem IV']
+            : (isSecOrVac ? ['Sem I', 'Sem II', 'Sem III', 'Sem IV', 'Sem V', 'Sem VI'] : ['Sem II', 'Sem IV', 'Sem VI', 'Sem VII']);
+
+          const curSem = sems.includes(elSem.value) ? elSem.value : (sems.includes(currentPref.sem) ? currentPref.sem : sems[0]);
+          elSem.innerHTML = sems.map(s => `<option value="${s}" ${s === curSem ? 'selected' : ''}>${s}</option>`).join('');
+
+          // Secs
+          if (isSecOrVac) {
+            elSecField.style.display = 'none';
+          } else {
+            elSecField.style.display = 'block';
+            const secs = Object.keys(courseMap[selectedCourse]?.[curSem] || {}).sort();
+            const curSec = secs.includes(elSec.value) ? elSec.value : (secs.includes(currentPref.sec) ? currentPref.sec : (secs[0] || ''));
+            elSec.innerHTML = secs.map(s => `<option value="${s}" ${s === curSec ? 'selected' : ''}>${s}</option>`).join('');
+          }
+
+          // Batches
+          let batchOptions = '<option value="ALL">All Batches (Whole Section)</option>';
+          if (selectedCourse === 'SEC') {
+            const bList = Array.from(secBatchesBySem[curSem] || []);
+            batchOptions = '<option value="ALL">All SEC Batches</option>' + bList.map(b => `<option value="${b}">${b}</option>`).join('');
+          } else if (selectedCourse === 'VAC') {
+            const bList = Array.from(vacBatchesBySem[curSem] || []);
+            batchOptions = '<option value="ALL">All VAC Batches</option>' + bList.map(b => `<option value="${b}">${b}</option>`).join('');
+          } else {
+            const rawSet = courseMap[selectedCourse]?.[curSem]?.[elSec.value] || new Set();
+            const bList = getCleanBatchesForSection(rawSet, elSec.value);
+            batchOptions += bList.map(b => `<option value="${b}">${b}</option>`).join('');
+          }
+          elBatch.innerHTML = batchOptions;
+        }
+
+        if (elCourse) elCourse.addEventListener('change', updateFormOptions);
+        if (elSem) elSem.addEventListener('change', updateFormOptions);
+        if (elSec) elSec.addEventListener('change', updateFormOptions);
+
+        updateFormOptions();
+
+        if (btnCancel) {
+          btnCancel.addEventListener('click', () => {
+            renderMyBatchDailyWidget();
+          });
+        }
+
+        if (btnSave) {
+          btnSave.addEventListener('click', () => {
+            const newPref = {
+              course: elCourse.value,
+              sem: elSem.value,
+              sec: (elCourse.value === 'SEC' || elCourse.value === 'VAC') ? '' : elSec.value,
+              batch: elBatch.value || 'ALL'
+            };
+            saveMyBatchPref(newPref);
+            showToast('✅ <strong>Mere Batch Ka Schedule</strong> successfully pinned to home screen!', true, 3500);
+            renderMyBatchDailyWidget();
+          });
+        }
+      }
+
+      function parseTimeToMinutes(timeStr) {
+        if (!timeStr) return -1;
+        const m = timeStr.trim().match(/(\d+):(\d+)\s*(AM|PM)/i);
+        if (!m) return -1;
+        let h = parseInt(m[1], 10);
+        const min = parseInt(m[2], 10);
+        const ampm = m[3].toUpperCase();
+        if (ampm === 'PM' && h < 12) h += 12;
+        if (ampm === 'AM' && h === 12) h = 0;
+        return h * 60 + min;
+      }
+
+      function renderMyBatchDailyWidget() {
+        if (!myBatchContainer) return;
+        const pref = getMyBatchPref();
+        if (!pref) {
+          renderMyBatchSetupForm();
+          return;
+        }
+
+        // Live day name for today
+        const todayDay = getLiveDayName();
+        const istNow = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
+        const nowMins = istNow.getHours() * 60 + istNow.getMinutes();
+        const dateFormatted = istNow.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+
+        const isSunday = (todayDay === 'Sunday');
+        const classesDay = isSunday ? 'Monday' : todayDay;
+
+        // Fetch classes
+        const rawClasses = getClassesForParameters(classesDay, pref.sem, pref.course, pref.batch, pref.sec);
+        const mergedClasses = mergeConsecutiveSessions(rawClasses);
+
+        // Teacher leaves active today
+        const todayLeaves = getActiveTodayLeaves();
+        const leaveProfMap = {};
+        todayLeaves.forEach(l => {
+          if (l.teacher_id) leaveProfMap[l.teacher_id] = l;
+          if (l.teacher_name) leaveProfMap[l.teacher_name.trim().toLowerCase()] = l;
+        });
+
+        function checkClassTeacherLeave(cls) {
+          if (cls.teacherId && leaveProfMap[cls.teacherId]) return leaveProfMap[cls.teacherId];
+          if (cls.teacher && leaveProfMap[cls.teacher.trim().toLowerCase()]) return leaveProfMap[cls.teacher.trim().toLowerCase()];
+          return null;
+        }
+
+        // Identify Current and Next Class
+        let currentClass = null;
+        let nextClass = null;
+        let minsToNext = 999999;
+
+        if (!isSunday) {
+          mergedClasses.forEach(cls => {
+            const startMins = parseTimeToMinutes(cls.startTime);
+            const endMins = parseTimeToMinutes(cls.endTime);
+
+            if (startMins !== -1 && endMins !== -1) {
+              if (nowMins >= startMins && nowMins < endMins) {
+                currentClass = cls;
+              } else if (nowMins < startMins) {
+                const diff = startMins - nowMins;
+                if (diff < minsToNext) {
+                  minsToNext = diff;
+                  nextClass = cls;
+                }
+              }
+            }
+          });
+        }
+
+        // Build Next Class Reminder UI
+        let reminderHtml = '';
+        if (isSunday) {
+          reminderHtml = `
+            <div class="my-batch-next-class-card status-free" style="background: rgba(16, 185, 129, 0.08); border-left: 4px solid #10b981; padding: 12px 16px; border-radius: 10px; margin-top: 12px;">
+              <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; color: #059669; font-size: 0.95rem;">
+                <span>🏖️ Sunday · College Closed Today</span>
+              </div>
+              <p style="margin: 4px 0 0; font-size: 0.85rem; color: var(--text-muted);">No academic lectures today. Showing Monday's upcoming schedule below for planning!</p>
+            </div>
+          `;
+        } else if (currentClass) {
+          const leave = checkClassTeacherLeave(currentClass);
+          const endMins = parseTimeToMinutes(currentClass.endTime);
+          const remainingMins = endMins - nowMins;
+          reminderHtml = `
+            <div class="my-batch-next-class-card status-current" style="background: rgba(239, 68, 68, 0.08); border-left: 4px solid #ef4444; padding: 12px 16px; border-radius: 10px; margin-top: 12px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; color: #dc2626; font-size: 0.95rem;">
+                  <span class="pulsing-live-dot" style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#ef4444; animation: livePulse 1.5s infinite;"></span>
+                  <span>CLASS IN PROGRESS NOW</span>
+                  <span style="font-size: 0.82rem; font-weight: normal; color: var(--text-muted);">(Ends at ${currentClass.endTime}, in ${remainingMins} min${remainingMins === 1 ? '' : 's'})</span>
+                </div>
+                <button type="button" class="btn-batch-room-jump" onclick="openScheduleModal('${escapeHtml(currentClass.room)}')" style="padding: 4px 10px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; background: #ef4444; color: #fff; border: none; cursor: pointer;">
+                  📍 Room ${escapeHtml(currentClass.room)} Schedule ↗
+                </button>
+              </div>
+              <div style="margin-top: 8px; font-size: 1.05rem; font-weight: 700; color: var(--text-heading);">
+                ${escapeHtml(currentClass.subject)} ${currentClass.subject_name ? `<span style="font-size: 0.88rem; font-weight: 500; opacity: 0.85;">(${escapeHtml(currentClass.subject_name)})</span>` : ''}
+              </div>
+              <div style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">
+                Prof. <strong>${escapeHtml(currentClass.teacher)}</strong> · ${currentClass.periodsCount > 1 ? `${currentClass.periodsCount} Continuous Periods` : '1 Period'}
+              </div>
+              ${leave ? `
+                <div class="batch-teacher-leave-alert" style="margin-top: 8px; padding: 6px 10px; border-radius: 6px; background: rgba(217, 119, 6, 0.12); border: 1px solid rgba(217, 119, 6, 0.3); color: #b45309; font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; gap: 6px;">
+                  <span>🏖️</span>
+                  <span><strong>FACULTY LEAVE ALERT:</strong> Prof. ${escapeHtml(currentClass.teacher)} is on leave today. This class may not be held!</span>
+                </div>
+              ` : ''}
+            </div>
+          `;
+        } else if (nextClass) {
+          const leave = checkClassTeacherLeave(nextClass);
+          const timeText = minsToNext > 60
+            ? `${Math.floor(minsToNext / 60)}h ${minsToNext % 60}m`
+            : `${minsToNext} min${minsToNext === 1 ? '' : 's'}`;
+          reminderHtml = `
+            <div class="my-batch-next-class-card status-upcoming" style="background: rgba(37, 99, 235, 0.08); border-left: 4px solid #2563eb; padding: 12px 16px; border-radius: 10px; margin-top: 12px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; color: #2563eb; font-size: 0.95rem;">
+                  <span>⏳ NEXT CLASS IN ${timeText.toUpperCase()} (Starts at ${nextClass.startTime})</span>
+                </div>
+                <button type="button" class="btn-batch-room-jump" onclick="openScheduleModal('${escapeHtml(nextClass.room)}')" style="padding: 4px 10px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; background: #2563eb; color: #fff; border: none; cursor: pointer;">
+                  📍 Room ${escapeHtml(nextClass.room)} Schedule ↗
+                </button>
+              </div>
+              <div style="margin-top: 8px; font-size: 1.05rem; font-weight: 700; color: var(--text-heading);">
+                ${escapeHtml(nextClass.subject)} ${nextClass.subject_name ? `<span style="font-size: 0.88rem; font-weight: 500; opacity: 0.85;">(${escapeHtml(nextClass.subject_name)})</span>` : ''}
+              </div>
+              <div style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">
+                Prof. <strong>${escapeHtml(nextClass.teacher)}</strong> in Room <strong>${escapeHtml(nextClass.room)}</strong>
+              </div>
+              ${leave ? `
+                <div class="batch-teacher-leave-alert" style="margin-top: 8px; padding: 6px 10px; border-radius: 6px; background: rgba(217, 119, 6, 0.12); border: 1px solid rgba(217, 119, 6, 0.3); color: #b45309; font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; gap: 6px;">
+                  <span>🏖️</span>
+                  <span><strong>FACULTY LEAVE ALERT:</strong> Prof. ${escapeHtml(nextClass.teacher)} is on leave today! This lecture might be cancelled or substituted.</span>
+                </div>
+              ` : ''}
+            </div>
+          `;
+        } else if (mergedClasses.length > 0 && nowMins >= 1080) { // After 6 PM
+          reminderHtml = `
+            <div class="my-batch-next-class-card status-free" style="background: rgba(16, 185, 129, 0.08); border-left: 4px solid #10b981; padding: 12px 16px; border-radius: 10px; margin-top: 12px;">
+              <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; color: #059669; font-size: 0.95rem;">
+                <span>🎉 All Classes For Today Are Over!</span>
+              </div>
+              <p style="margin: 4px 0 0; font-size: 0.85rem; color: var(--text-muted);">All lectures have concluded. Enjoy your evening & review notes!</p>
+            </div>
+          `;
+        } else if (mergedClasses.length === 0) {
+          reminderHtml = `
+            <div class="my-batch-next-class-card status-free" style="background: rgba(16, 185, 129, 0.08); border-left: 4px solid #10b981; padding: 12px 16px; border-radius: 10px; margin-top: 12px;">
+              <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; color: #059669; font-size: 0.95rem;">
+                <span>🎉 No Scheduled Classes Today</span>
+              </div>
+              <p style="margin: 4px 0 0; font-size: 0.85rem; color: var(--text-muted);">No academic lectures scheduled for your batch on ${todayDay}.</p>
+            </div>
+          `;
+        }
+
+        // Today's classes timeline strip
+        const classesTimelineHtml = mergedClasses.length === 0
+          ? `<div style="text-align: center; padding: 16px; color: var(--text-muted); font-size: 0.88rem;">No classes found for this day.</div>`
+          : mergedClasses.map(cls => {
+              const leave = checkClassTeacherLeave(cls);
+              const isContinuous = cls.isContinuous;
+              const periodBadge = isContinuous
+                ? `<span style="font-size: 0.72rem; padding: 2px 7px; border-radius: 4px; background: #dbeafe; color: #1e40af; font-weight: 700;">${cls.periodsCount} Periods (${cls.startTime} – ${cls.endTime})</span>`
+                : `<span style="font-size: 0.72rem; padding: 2px 7px; border-radius: 4px; background: var(--bg-hover); color: var(--text-muted); font-weight: 600;">${cls.startTime} – ${cls.endTime}</span>`;
+
+              return `
+                <div class="my-batch-class-item ${leave ? 'has-leave' : ''}" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding: 10px 14px; border-radius: 8px; background: var(--bg-hover, #f8fafc); border: 1px solid var(--border-color, #e2e8f0); margin-bottom: 8px;">
+                  <div style="display: flex; flex-direction: column; gap: 2px;">
+                    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                      <span style="font-weight: 700; font-size: 0.94rem; color: var(--text-heading);">${escapeHtml(cls.subject)}</span>
+                      ${periodBadge}
+                      ${cls.rawBatch && cls.rawBatch !== 'Whole Section' ? `<span style="font-size: 0.72rem; padding: 1px 6px; border-radius: 4px; background: #fef3c7; color: #92400e;">${escapeHtml(cls.rawBatch)}</span>` : ''}
+                    </div>
+                    <div style="font-size: 0.82rem; color: var(--text-muted);">
+                      Prof. <strong>${escapeHtml(cls.teacher)}</strong>
+                      ${leave ? `<span style="margin-left: 6px; color: #dc2626; font-weight: 700; background: rgba(220, 38, 38, 0.1); padding: 1px 6px; border-radius: 4px;">🏖️ On Leave</span>` : ''}
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <button type="button" onclick="openScheduleModal('${escapeHtml(cls.room)}')" style="padding: 4px 10px; border-radius: 6px; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-heading); font-size: 0.82rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+                      📍 <strong>${escapeHtml(cls.room)}</strong>
+                    </button>
+                    ${cls.teacherId ? `
+                      <button type="button" onclick="openTeacherModal('${escapeHtml(cls.teacherId)}', '${classesDay}')" title="View Teacher Timetable" style="padding: 4px 8px; border-radius: 6px; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.8rem; cursor: pointer;">
+                        🗓️
+                      </button>
+                    ` : ''}
+                  </div>
+                </div>
+              `;
+            }).join('');
+
+        const batchDesc = pref.sec ? `${pref.course} · ${pref.sem} · ${pref.sec}${pref.batch !== 'ALL' ? ` (${pref.batch})` : ''}` : `${pref.course} · ${pref.sem}`;
+
+        myBatchContainer.innerHTML = `
+          <div class="my-batch-widget my-batch-active-card" style="background: var(--bg-card, #ffffff); border: 1px solid var(--border-color, #e2e8f0); border-radius: 14px; padding: 16px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; border-bottom: 1px solid var(--border-color, #e2e8f0); padding-bottom: 12px;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 1.35rem;">📌</span>
+                <div>
+                  <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                    <h3 style="margin: 0; font-size: 1.05rem; font-weight: 700; color: var(--text-heading);">Mere Batch Ka Aaj Ka Schedule</h3>
+                    <span style="font-size: 0.78rem; font-weight: 600; padding: 2px 8px; border-radius: 6px; background: rgba(37,99,235,0.1); color: #2563eb;">${escapeHtml(batchDesc)}</span>
+                  </div>
+                  <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">
+                    📅 ${todayDay}, ${dateFormatted} · Daily Auto-Updated Widget
+                  </div>
+                </div>
+              </div>
+              <button type="button" id="btnEditMyBatchWidget" style="padding: 5px 12px; border-radius: 8px; border: 1px solid var(--border-color); background: transparent; color: var(--text-heading); font-size: 0.82rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 5px;">
+                ⚙️ Change Batch
+              </button>
+            </div>
+
+            <!-- Next Class Live Alert -->
+            ${reminderHtml}
+
+            <!-- Today's Classes List Header -->
+            <div style="margin: 16px 0 8px; display: flex; align-items: center; justify-content: space-between;">
+              <span style="font-size: 0.84rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted);">Today's Lectures (${mergedClasses.length})</span>
+              <span style="font-size: 0.78rem; color: var(--text-muted);">Tap room to view vacancy</span>
+            </div>
+
+            <div class="my-batch-timeline-list">
+              ${classesTimelineHtml}
+            </div>
+          </div>
+        `;
+
+        const btnEdit = document.getElementById('btnEditMyBatchWidget');
+        if (btnEdit) {
+          btnEdit.addEventListener('click', () => {
+            renderMyBatchSetupForm();
+          });
+        }
+      }
+
+      // Expose globally so updateLiveClock can trigger seamless updates
+      window.renderMyBatchDailyWidget = renderMyBatchDailyWidget;
+
       // Populate initial values
       updateSectionsAndBatches(false);
       syncControlPills();
+      renderMyBatchDailyWidget();
     }
 
     // ========================================================================
@@ -5714,6 +6371,43 @@ window.SRCC_FACULTY_LEAVES = {
     }
 
     // ========================================================================
+    // ⚡ OFFLINE MODE DETECTION & NOTIFICATION
+    // ========================================================================
+    function initOfflineDetection() {
+      const banner = document.getElementById('offlineIndicatorBanner');
+      if (!banner) return;
+      function updateOnlineStatus() {
+        if (!navigator.onLine) {
+          banner.classList.add('is-visible');
+        } else {
+          banner.classList.remove('is-visible');
+        }
+      }
+      window.addEventListener('online', updateOnlineStatus);
+      window.addEventListener('offline', updateOnlineStatus);
+      updateOnlineStatus();
+    }
+
+    // ========================================================================
+    // 🔗 DIRECT ROOM LINK PARAMETER (?room=R36)
+    // ========================================================================
+    function handleInitialRoomFromUrl() {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const roomParam = urlParams.get('room');
+        if (roomParam) {
+          const cleanCode = roomParam.trim().toUpperCase();
+          const found = appData.rooms.find(r => r.code.toUpperCase() === cleanCode);
+          if (found) {
+            setTimeout(() => {
+              openScheduleModal(found.code);
+            }, 450);
+          }
+        }
+      } catch (e) {}
+    }
+
+    // ========================================================================
     // 🚀 INITIAL BOOTSTRAP
     // ========================================================================
     populateLeaveTeacherSelect();
@@ -5724,6 +6418,8 @@ window.SRCC_FACULTY_LEAVES = {
     trackStudentVisitor();
     initLeaveNotificationSystem();
     initDeviceWakeupListeners();
+    initOfflineDetection();
+    handleInitialRoomFromUrl();
     syncLeavesFromCloud(false);
     setInterval(() => syncLeavesFromCloud(false), 45000);
     // Periodically refresh active notices

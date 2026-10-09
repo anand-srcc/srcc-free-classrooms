@@ -6815,5 +6815,553 @@ body.dark-mode .tt-room-btn:hover,
   }
 }
 
+/* ==========================================================================
+   ⚡ OFFLINE MODE STICKY INDICATOR
+   ========================================================================== */
+.offline-indicator-banner {
+  background: linear-gradient(135deg, #78350f, #92400e);
+  color: #fef3c7;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  border-bottom: 1px solid rgba(245, 158, 11, 0.4);
+  animation: bannerSlideDown 0.3s ease;
+}
+
+@keyframes bannerSlideDown {
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.offline-banner-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.offline-pulse-dot {
+  width: 9px;
+  height: 9px;
+  background-color: #f59e0b;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px #f59e0b;
+  animation: pulseDot 1.4s infinite;
+}
+
+@keyframes pulseDot {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  50% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.8; }
+}
+
+.offline-cache-badge {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   ⏱️ "FREE UNTIL" COUNTDOWN BADGES (ON ROOM CARDS & MODAL)
+   ========================================================================== */
+.badge-free-until {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  font-size: 0.73rem;
+  font-weight: 700;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  transition: all var(--transition-fast);
+}
+
+.badge-free-until.is-free-now {
+  background: rgba(16, 185, 129, 0.14);
+  color: #047857;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+[data-theme="dark"] .badge-free-until.is-free-now {
+  background: rgba(16, 185, 129, 0.22);
+  color: #34d399;
+  border-color: rgba(52, 211, 153, 0.4);
+}
+
+.badge-free-until.is-busy-now {
+  background: rgba(239, 68, 68, 0.12);
+  color: #b91c1c;
+  border: 1px solid rgba(239, 68, 68, 0.28);
+}
+
+[data-theme="dark"] .badge-free-until.is-busy-now {
+  background: rgba(239, 68, 68, 0.22);
+  color: #f87171;
+  border-color: rgba(248, 113, 113, 0.35);
+}
+
+.badge-free-until .live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: currentColor;
+  box-shadow: 0 0 6px currentColor;
+  animation: pulseDot 1.8s infinite;
+}
+
+.free-until-callout {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(6, 95, 70, 0.05));
+  border: 1px solid rgba(16, 185, 129, 0.28);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  margin: 8px 0;
+  font-size: 0.84rem;
+  color: #065f46;
+  font-weight: 600;
+}
+
+[data-theme="dark"] .free-until-callout {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.35);
+  color: #6ee7b7;
+}
+
+/* ==========================================================================
+   📌 "MY BATCH · MERA SCHEDULE" DAILY WIDGET
+   ========================================================================== */
+.my-batch-widget {
+  margin-bottom: 16px;
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: visible;
+  transition: all var(--transition-normal);
+}
+
+.my-batch-setup-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.9));
+  border: 1.5px dashed rgba(217, 119, 6, 0.45);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .my-batch-setup-card {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(30, 41, 59, 0.8));
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.my-batch-setup-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.my-batch-icon-badge {
+  font-size: 1.6rem;
+  background: rgba(245, 158, 11, 0.15);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  flex-shrink: 0;
+}
+
+.my-batch-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.my-batch-subtitle {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.35;
+}
+
+.my-batch-form-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.widget-select {
+  padding: 8px 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  min-width: 130px;
+  cursor: pointer;
+}
+
+.btn-save-widget {
+  padding: 9px 16px;
+  font-size: 0.84rem;
+  font-weight: 800;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #0b1329;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.25);
+  transition: transform 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-save-widget:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.35);
+}
+
+/* Active Pinned Batch Card */
+.my-batch-active-card {
+  background: var(--bg-card);
+  border: 1.5px solid rgba(245, 158, 11, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+  box-shadow: var(--shadow-sm);
+  background-image: radial-gradient(circle at top right, rgba(245, 158, 11, 0.05), transparent 60%);
+}
+
+[data-theme="dark"] .my-batch-active-card {
+  border-color: rgba(245, 158, 11, 0.3);
+  background-color: rgba(15, 23, 42, 0.7);
+}
+
+.my-batch-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.my-batch-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.92rem;
+  color: var(--text-primary);
+}
+
+.batch-live-dot {
+  width: 9px;
+  height: 9px;
+  background: #10b981;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px #10b981;
+  animation: pulseDot 1.6s infinite;
+}
+
+.my-batch-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.batch-day-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.btn-change-batch {
+  padding: 4px 10px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  background: var(--bg-card-hover);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-change-batch:hover {
+  color: var(--text-primary);
+  border-color: var(--accent-blue);
+}
+
+/* Next Class Highlight Tile */
+.my-batch-next-class-card {
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  margin-bottom: 12px;
+  border: 1px solid rgba(37, 99, 235, 0.25);
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(37, 99, 235, 0.02));
+}
+
+.my-batch-next-class-card.warning-leave {
+  border-color: rgba(239, 68, 68, 0.4);
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.02));
+}
+
+.my-batch-next-class-card.is-live-now {
+  border-color: rgba(16, 185, 129, 0.45);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(16, 185, 129, 0.02));
+}
+
+.my-batch-next-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  margin-bottom: 6px;
+}
+
+.badge-live-now {
+  background: rgba(16, 185, 129, 0.2);
+  color: #047857;
+}
+
+[data-theme="dark"] .badge-live-now {
+  color: #34d399;
+}
+
+.badge-next-up {
+  background: rgba(37, 99, 235, 0.18);
+  color: #1d4ed8;
+}
+
+[data-theme="dark"] .badge-next-up {
+  color: #60a5fa;
+}
+
+.my-batch-next-info {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.my-batch-subj-name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.my-batch-room-pill {
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-gold-bg);
+  color: var(--accent-gold-text);
+  border: 1px solid rgba(217, 119, 6, 0.3);
+}
+
+.my-batch-next-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* Faculty Leave Alert in Next Class Widget */
+.my-batch-leave-alert {
+  margin-top: 8px;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #b91c1c;
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+[data-theme="dark"] .my-batch-leave-alert {
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.2);
+}
+
+/* Today's Full Schedule Strip for the Batch */
+.my-batch-timeline-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.my-batch-period-tile {
+  background: var(--bg-card-hover);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 8px 10px;
+  font-size: 0.78rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  transition: all 0.15s ease;
+}
+
+.my-batch-period-tile:hover {
+  border-color: var(--accent-blue);
+  transform: translateY(-1px);
+}
+
+.my-batch-period-tile.is-past {
+  opacity: 0.65;
+}
+
+.my-batch-period-tile.is-current {
+  border: 1.5px solid #10b981;
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.my-batch-period-tile.has-leave {
+  border-color: rgba(239, 68, 68, 0.5);
+  background: rgba(239, 68, 68, 0.08);
+}
+
+/* ==========================================================================
+   🔗 DIRECT LINK & QR CODE GENERATOR IN SHARE MODAL
+   ========================================================================== */
+.btn-copy-direct-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 14px;
+  margin-top: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-copy-direct-link:hover {
+  background: var(--bg-card);
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+}
+
+.btn-toggle-qr {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 14px;
+  margin-top: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--border-color);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-toggle-qr:hover {
+  color: var(--text-primary);
+  border-color: var(--text-secondary);
+}
+
+.room-qr-box {
+  margin-top: 10px;
+  padding: 14px;
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.room-qr-img {
+  width: 160px;
+  height: 160px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.room-qr-caption {
+  font-size: 0.74rem;
+  color: #475569;
+  line-height: 1.3;
+}
+
+/* ==========================================================================
+   📢 NOTICE EVENT DATE & ADMIN EDIT BUTTONS
+   ========================================================================== */
+.campus-notice-event-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #b45309;
+  background: #fef3c7;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.btn-edit-leave {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-edit-leave:hover {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
 
 

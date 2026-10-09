@@ -917,9 +917,12 @@
           <input type="text" id="adminLockTitle" placeholder="e.g. Commerce Society Audition, Weekend Stats Batch, Seminar Setup" />
         </div>
 
-        <div style="margin-top: 14px;">
-          <button type="button" class="btn-primary" id="btnAdminAddLock" style="width: 100%; justify-content: center; padding: 11px; font-weight: 800; font-size: 0.9rem; background: linear-gradient(135deg, #ef4444, #dc2626); color: #ffffff; border: none; border-radius: var(--radius-md); cursor: pointer; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);">
+        <div style="margin-top: 14px; display: flex; gap: 10px;">
+          <button type="button" class="btn-primary" id="btnAdminAddLock" style="flex: 1; justify-content: center; padding: 11px; font-weight: 800; font-size: 0.9rem; background: linear-gradient(135deg, #ef4444, #dc2626); color: #ffffff; border: none; border-radius: var(--radius-md); cursor: pointer; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);">
             🔒 Push Room Lock / Extra Class
+          </button>
+          <button type="button" id="btnAdminCancelLockEdit" style="display: none; padding: 11px 18px; background: #e2e8f0; color: #334155; border: 1px solid #cbd5e1; border-radius: var(--radius-md); font-weight: 700; cursor: pointer;">
+            ✕ Cancel Edit
           </button>
         </div>
       </section>
@@ -968,7 +971,12 @@
           </div>
 
           <div class="leave-field-group">
-            <label for="adminNoticeExpiry">Expiry / Event Date:</label>
+            <label for="adminNoticeEventDate">🗓️ Event Date / Schedule (When is event?):</label>
+            <input type="text" id="adminNoticeEventDate" placeholder="e.g. 15 Oct 2026 or 15–17 Oct 2026" />
+          </div>
+
+          <div class="leave-field-group">
+            <label for="adminNoticeExpiry">📅 Auto-Expiry Date (Banner hides after):</label>
             <input type="date" id="adminNoticeExpiry" />
           </div>
         </div>
@@ -995,9 +1003,12 @@
           </div>
         </div>
 
-        <div style="margin-top: 14px;">
-          <button type="button" class="btn-primary" id="btnAdminPublishNotice" style="width: 100%; justify-content: center; padding: 11px; font-weight: 800; font-size: 0.9rem; background: linear-gradient(135deg, #f59e0b, #d97706); color: #070d18; border: none; border-radius: var(--radius-md); cursor: pointer; box-shadow: 0 4px 14px rgba(217, 119, 6, 0.25);">
+        <div style="margin-top: 14px; display: flex; gap: 10px;">
+          <button type="button" class="btn-primary" id="btnAdminPublishNotice" style="flex: 1; justify-content: center; padding: 11px; font-weight: 800; font-size: 0.9rem; background: linear-gradient(135deg, #f59e0b, #d97706); color: #070d18; border: none; border-radius: var(--radius-md); cursor: pointer; box-shadow: 0 4px 14px rgba(217, 119, 6, 0.25);">
             📢 Publish Campus Notice Banner (Live for Students)
+          </button>
+          <button type="button" id="btnAdminCancelNoticeEdit" style="display: none; padding: 11px 18px; background: #e2e8f0; color: #334155; border: 1px solid #cbd5e1; border-radius: var(--radius-md); font-weight: 700; cursor: pointer;">
+            ✕ Cancel Edit
           </button>
         </div>
       </section>

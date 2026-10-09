@@ -94,8 +94,20 @@
   <!-- Main Content Container -->
   <main class="main-container">
     
+    <!-- ⚡ Sticky Offline Indicator Banner -->
+    <div id="offlineIndicatorBanner" class="offline-indicator-banner" style="display: none;" role="status" aria-live="polite">
+      <div class="offline-banner-content">
+        <span class="offline-pulse-dot"></span>
+        <span><strong>Offline Mode</strong> — College network weak or offline. Showing last synced timetable.</span>
+      </div>
+      <span class="offline-cache-badge">Offline Cached</span>
+    </div>
+
     <!-- Campus Notice & Banner Container (Shows ONLY when Admin pushes a notice, e.g. Freshers / Elections / Circulars) -->
     <div id="campusNoticeBannerContainer" style="display: none;"></div>
+
+    <!-- 📌 "MERE BATCH KA AAJ KA SCHEDULE" & NEXT CLASS WIDGET -->
+    <section id="myBatchScheduleWidget" class="my-batch-widget"></section>
 
     <!-- Top Dual-Mode Switcher: Free Classrooms vs Faculty Locator -->
     <div class="app-mode-switcher-container">
@@ -799,6 +811,18 @@
           <button class="btn-copy-full-text" id="btnCopyShareText">
             📋 Copy Formatted Text to Clipboard
           </button>
+        </div>
+
+        <!-- 🔗 Direct Room Link & QR Code Box -->
+        <button type="button" class="btn-copy-direct-link" id="btnCopyDirectRoomLink">
+          🔗 Copy Direct Room Link (?room=...)
+        </button>
+        <button type="button" class="btn-toggle-qr" id="btnToggleRoomQr">
+          📷 Show Room QR Code for Group Study
+        </button>
+        <div id="roomQrContainer" class="room-qr-box" style="display: none;">
+          <img id="roomQrImg" class="room-qr-img" src="" alt="Room Schedule QR Code" />
+          <p class="room-qr-caption">Scan with any phone camera or WhatsApp scanner to open this room directly!</p>
         </div>
       </div>
     </div>
