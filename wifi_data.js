@@ -1,0 +1,32 @@
+// Official SRCC WiFi Password Directory (Loaded as fallback/offline)
+window.SRCC_WIFI_DATA = {
+  "last_updated": "2026-10-10",
+  "whatsapp_group": "https://chat.whatsapp.com/DzGsKlDwZG6DgDTcRIlCRW?s=cl&p=a&ilr=1",
+  "source": "Campus Atlas - SRCC WiFi Password Directory",
+  "networks": [
+    { "id": "wifi-1", "ssid": "CLASS 1-4G", "password": "wlan@12340#", "location": "Classrooms 1 to 4", "wing": "Main Building", "band": "4G", "notes": "General classroom corridor" },
+    { "id": "wifi-2", "ssid": "FAC-T9_5G", "password": "21AdSr@4631", "location": "Tutorial 9 / Faculty Wing", "wing": "Tutorials", "band": "5G", "notes": "High speed 5G faculty connection" },
+    { "id": "wifi-3", "ssid": "FAC_36_5G", "password": "21AdSr@4631", "location": "Room 36 (R36) / Faculty", "wing": "Main Building", "band": "5G", "notes": "Near Room 36 top floor" },
+    { "id": "wifi-4", "ssid": "FAC_C28-4G", "password": "21AdSr@4631", "location": "Room C28 / Faculty", "wing": "Main Building", "band": "4G", "notes": "Corridor near Room 28" },
+    { "id": "wifi-5", "ssid": "FAC_R21", "password": "21AdSr@4631", "location": "Room 21 (R21)", "wing": "Main Building", "band": "Dual", "notes": "Ground floor near R21" },
+    { "id": "wifi-6", "ssid": "FAC_R20", "password": "21AdSr@4631", "location": "Room 20 (R20)", "wing": "Main Building", "band": "Dual", "notes": "Ground floor near R20" },
+    { "id": "wifi-7", "ssid": "FAC_R17", "password": "21AdSr@4631", "location": "Room 17 (R17)", "wing": "Main Building", "band": "Dual", "notes": "Near Room 17" },
+    { "id": "wifi-8", "ssid": "FAC_MAIN_R8_4G", "password": "21AdSr@4631", "location": "Main Building Room 8 (R8)", "wing": "Main Building", "band": "4G", "notes": "Ground floor near R8" },
+    { "id": "wifi-9", "ssid": "Main_FAC_C-26_4G", "password": "21AdSr@4631", "location": "Main Building Room C26", "wing": "Main Building", "band": "4G", "notes": "First floor near Room 26" },
+    { "id": "wifi-10", "ssid": "MAIN_FAC_R18-5G", "password": "21AdSr@4631", "location": "Main Building Room 18 (R18)", "wing": "Main Building", "band": "5G", "notes": "High speed 5G near Room 18" },
+    { "id": "wifi-11", "ssid": "FAC_R36-4G", "password": "21AdSr@4631", "location": "Room 36 (R36)", "wing": "Main Building", "band": "4G", "notes": "Near Room 36" },
+    { "id": "wifi-12", "ssid": "FAC_R25", "password": "21AdSr@4631", "location": "Room 25 (R25)", "wing": "Main Building", "band": "Dual", "notes": "Near Room 25" },
+    { "id": "wifi-13", "ssid": "Main_FAC_R5", "password": "21AdSr@4631", "location": "Main Building Room 5 (R5)", "wing": "Main Building", "band": "Dual", "notes": "Near Room 5" },
+    { "id": "wifi-14", "ssid": "Main_FAC_R24", "password": "21AdSr@4631", "location": "Main Building Room 24 (R24)", "wing": "Main Building", "band": "Dual", "notes": "Near Room 24" },
+    { "id": "wifi-15", "ssid": "Main_FAC_R18", "password": "21AdSr@4631", "location": "Main Building Room 18 (R18)", "wing": "Main Building", "band": "Dual", "notes": "Standard band near Room 18" },
+    { "id": "wifi-16", "ssid": "Main_FAC_C_26_5G", "password": "21AdSr@4631", "location": "Main Building Room C26", "wing": "Main Building", "band": "5G", "notes": "5G network near Room 26" },
+    { "id": "wifi-17", "ssid": "PB-4G", "password": "Ce@c5134", "location": "Principal Bungalow (PB Wing)", "wing": "Principal Bungalow", "band": "4G", "notes": "PB classrooms & lawn area" },
+    { "id": "wifi-18", "ssid": "Main_Fac_R5-5G", "password": "21AdSr@4631", "location": "Main Building Room 5 (R5)", "wing": "Main Building", "band": "5G", "notes": "5G near Room 5" },
+    { "id": "wifi-19", "ssid": "Main_FAC_R_22_5G", "password": "21AdSr@4631", "location": "Main Building Room 22 (R22)", "wing": "Main Building", "band": "5G", "notes": "5G near Room 22" },
+    { "id": "wifi-20", "ssid": "Main_FAC_R_22_4G", "password": "21AdSr@4631", "location": "Main Building Room 22 (R22)", "wing": "Main Building", "band": "4G", "notes": "4G near Room 22" },
+    { "id": "wifi-21", "ssid": "SRCC", "password": "12345678", "location": "General Campus Open Access", "wing": "Campus Wide", "band": "Dual", "notes": "Default campus student hotspot" },
+    { "id": "wifi-22", "ssid": "PB_3_5G", "password": "Ce@c5134", "location": "Principal Bungalow PB3", "wing": "Principal Bungalow", "band": "5G", "notes": "PB3 classroom 5G" },
+    { "id": "wifi-23", "ssid": "PB_3", "password": "Ce@c5134", "location": "Principal Bungalow PB3", "wing": "Principal Bungalow", "band": "Dual", "notes": "PB3 classroom standard" },
+    { "id": "wifi-24", "ssid": "PB-5G", "password": "Ce@c5134", "location": "Principal Bungalow", "wing": "Principal Bungalow", "band": "5G", "notes": "PB classrooms 5G network" }
+  ]
+};

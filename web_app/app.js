@@ -213,6 +213,60 @@ document.addEventListener('DOMContentLoaded', () => {
       .catch(() => {})
   );
 
+  // 🏛️ Fetch Active Room Management Overrides
+  let roomOverridesMap = {};
+  const ROOM_OVERRIDES_STORAGE_KEY = 'srcc_room_overrides_v1';
+  try {
+    const cachedOverrides = localStorage.getItem(ROOM_OVERRIDES_STORAGE_KEY);
+    if (cachedOverrides) roomOverridesMap = JSON.parse(cachedOverrides) || {};
+  } catch (e) {}
+  window.SRCC_ROOM_OVERRIDES = roomOverridesMap;
+
+  loadPromises.push(
+    fetch(`${FIREBASE_BASE_URL}/room_overrides.json?t=${Date.now()}`)
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        if (d && typeof d === 'object') {
+          roomOverridesMap = d;
+          window.SRCC_ROOM_OVERRIDES = d;
+          try { localStorage.setItem(ROOM_OVERRIDES_STORAGE_KEY, JSON.stringify(d)); } catch (e) {}
+        }
+      })
+      .catch(() => {})
+  );
+
+  // 📶 Fetch Campus WiFi Directory (Custom / Updated Networks)
+  let campusWifiList = [];
+  const CAMPUS_WIFI_STORAGE_KEY = 'srcc_campus_wifi_v1';
+  try {
+    const cachedWifi = localStorage.getItem(CAMPUS_WIFI_STORAGE_KEY);
+    if (cachedWifi) campusWifiList = JSON.parse(cachedWifi) || [];
+  } catch (e) {}
+  if (!campusWifiList.length && window.SRCC_WIFI_DATA && Array.isArray(window.SRCC_WIFI_DATA.networks)) {
+    campusWifiList = [...window.SRCC_WIFI_DATA.networks];
+  }
+  window.SRCC_CAMPUS_WIFI = campusWifiList;
+
+  loadPromises.push(
+    fetch(`${FIREBASE_BASE_URL}/campus_wifi.json?t=${Date.now()}`)
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        if (Array.isArray(d) && d.length > 0) {
+          campusWifiList = d;
+          window.SRCC_CAMPUS_WIFI = d;
+          try { localStorage.setItem(CAMPUS_WIFI_STORAGE_KEY, JSON.stringify(d)); } catch (e) {}
+        } else if (d && typeof d === 'object') {
+          const arr = Object.values(d);
+          if (arr.length > 0) {
+            campusWifiList = arr;
+            window.SRCC_CAMPUS_WIFI = arr;
+            try { localStorage.setItem(CAMPUS_WIFI_STORAGE_KEY, JSON.stringify(arr)); } catch (e) {}
+          }
+        }
+      })
+      .catch(() => {})
+  );
+
   if (loadPromises.length > 0) {
     Promise.all(loadPromises)
       .then(() => initApp())
@@ -505,6 +559,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const categoryBadges = {
+        timetable_change: '<span class="campus-notice-badge" style="background: #ea580c; color: #fff;">⚠️ Timetable Change Notice</span>',
         freshers: '<span class="campus-notice-badge badge-notice-freshers">🎉 Freshers 2026</span>',
         elections: '<span class="campus-notice-badge badge-notice-elections">🗳️ Student Elections</span>',
         circular: '<span class="campus-notice-badge badge-notice-circular">📢 Official Circular</span>',
@@ -1270,6 +1325,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const isFaculty = (mode === 'faculty');
       const isTimetable = (mode === 'timetable');
       const isDirectory = (mode === 'directory');
+      const isWifi = (mode === 'wifi');
+
+      const tabModeWifi = document.getElementById('tabModeWifi');
+      const viewWifiSection = document.getElementById('viewWifiSection');
 
       if (tabModeRooms) {
         tabModeRooms.classList.toggle('active', isRooms);
@@ -1286,6 +1345,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (tabModeDirectory) {
         tabModeDirectory.classList.toggle('active', isDirectory);
         tabModeDirectory.setAttribute('aria-selected', isDirectory ? 'true' : 'false');
+      }
+      if (tabModeWifi) {
+        tabModeWifi.classList.toggle('active', isWifi);
+        tabModeWifi.setAttribute('aria-selected', isWifi ? 'true' : 'false');
       }
 
       if (viewRoomsSection) viewRoomsSection.style.display = isRooms ? 'block' : 'none';
@@ -1305,6 +1368,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isDirectory && !window._directoryRendered) {
           renderDirectory();
           window._directoryRendered = true;
+        }
+      }
+      if (viewWifiSection) {
+        viewWifiSection.style.display = isWifi ? 'block' : 'none';
+        if (isWifi && typeof window._renderWifiDirectory === 'function') {
+          window._renderWifiDirectory('wifiViewGrid');
         }
       }
 
@@ -1368,6 +1437,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (tabModeRooms) tabModeRooms.addEventListener('click', () => setAppMode('rooms'));
     if (tabModeFaculty) tabModeFaculty.addEventListener('click', () => setAppMode('faculty'));
     if (tabModeTimetable) tabModeTimetable.addEventListener('click', () => setAppMode('timetable'));
+    const tabModeWifiBtn = document.getElementById('tabModeWifi');
+    if (tabModeWifiBtn) tabModeWifiBtn.addEventListener('click', () => setAppMode('wifi'));
     if (bnavRooms) bnavRooms.addEventListener('click', () => setAppMode('rooms'));
     if (bnavFaculty) bnavFaculty.addEventListener('click', () => setAppMode('faculty'));
     if (bnavTimetable) bnavTimetable.addEventListener('click', () => setAppMode('timetable'));
@@ -2045,6 +2116,13 @@ ${freeSlotsList}
     // ========================================================================
     // 🎨 RENDER CLASSROOM FINDER VIEW
     // ========================================================================
+    function getRoomOverride(code) {
+      if (!code) return null;
+      const c = code.trim().toUpperCase();
+      const overrides = window.SRCC_ROOM_OVERRIDES || roomOverridesMap || {};
+      return overrides[c] || overrides[c.replace(/\s+/g, '')] || null;
+    }
+
     function render() {
       renderActiveLeavesBanners();
       if (statActiveDay) statActiveDay.textContent = state.activeDay;
@@ -2052,8 +2130,15 @@ ${freeSlotsList}
 
       // Filter Rooms
       let filtered = appData.rooms.filter(room => {
+        const roomOv = getRoomOverride(room.code);
+        if (roomOv && roomOv.status === 'DELETED') return false;
         if (!matchesCategory(room, state.activeCategory)) return false;
         if (state.searchQuery && !matchesSearch(room, state.searchQuery)) return false;
+
+        // If filtering by slot or Free Now, unavailable rooms are NOT free
+        if (state.activeSlot !== 'ALL' || state.freeNowActive) {
+          if (roomOv && roomOv.status === 'UNAVAILABLE') return false;
+        }
 
         if (state.activeSlot !== 'ALL') {
           // If room is locked or booked for an extra class in this slot, it is NOT free!
@@ -2183,16 +2268,20 @@ ${freeSlotsList}
         const isFullDayLocked = activeRoomLocks.some(l => l.slot === 'ALL_DAY');
         const lockedSlotsSet = new Set(activeRoomLocks.filter(l => l.slot !== 'ALL_DAY').map(l => l.slot));
 
+        const roomOv = getRoomOverride(room.code);
+        const isUnavailable = (roomOv && roomOv.status === 'UNAVAILABLE');
+
         let effectiveFreeSlots = (sched.free_slots || []).filter(s => !lockedSlotsSet.has(s));
         let effectiveBonusSlots = bonusFreeSlots.filter(b => !lockedSlotsSet.has(b.slot));
-        if (isFullDayLocked) {
+        if (isFullDayLocked || isUnavailable) {
           effectiveFreeSlots = [];
           effectiveBonusSlots = [];
         }
 
-        const effectiveFreeHours = isFullDayLocked ? 0 : (effectiveFreeSlots.length + effectiveBonusSlots.length);
+        const effectiveFreeHours = (isFullDayLocked || isUnavailable) ? 0 : (effectiveFreeSlots.length + effectiveBonusSlots.length);
         let cardStyleClass = 'is-booked';
-        if (effectiveFreeHours >= 5) cardStyleClass = 'has-many-free';
+        if (isUnavailable) cardStyleClass = 'is-booked is-unavailable';
+        else if (effectiveFreeHours >= 5) cardStyleClass = 'has-many-free';
         else if (effectiveFreeHours > 0) cardStyleClass = 'has-some-free';
 
         const themeClass = getCategoryThemeClass(room);
@@ -2317,6 +2406,17 @@ ${freeSlotsList}
           ? `<div class="free-until-callout">⏱️ <strong>${escapeHtml(freeUntilStatus.calloutText)}</strong></div>`
           : '';
 
+        const unavailableBadgeHtml = isUnavailable
+          ? `<span class="badge-room-unavailable">🛠️ Unavailable</span>`
+          : '';
+
+        const unavailableCalloutHtml = isUnavailable
+          ? `<div class="unavailable-callout">
+               <span>🛠️</span>
+               <span><strong>Under Maintenance:</strong> ${escapeHtml(roomOv.reason || 'Temporarily Unavailable')}${roomOv.duration ? ` (${escapeHtml(roomOv.duration)})` : ''}</span>
+             </div>`
+          : '';
+
         return `
           <article class="room-card ${cardStyleClass} ${themeClass}" data-room-code="${escapeHtml(room.code)}">
             <div class="card-header room-card-header">
@@ -2327,10 +2427,12 @@ ${freeSlotsList}
               <div class="card-meta-badges">
                 <span class="badge-category ${catBadgeClass}">${escapeHtml(room.category.split(' (')[0])}</span>
                 <span class="badge-capacity">${escapeHtml(room.capacity)} Seats</span>
+                ${unavailableBadgeHtml}
                 ${freeUntilBadgeHtml}
               </div>
             </div>
 
+            ${unavailableCalloutHtml}
             ${roomLockBannersHtml}
             ${bonusBannerHtml}
 
@@ -2517,6 +2619,21 @@ ${freeSlotsList}
 
       const todayIso = getTodayIsoDate();
       const activeRoomLocks = getRoomActiveLocks(room.code, todayIso);
+      const roomOv = getRoomOverride(room.code);
+      const isUnavailable = (roomOv && roomOv.status === 'UNAVAILABLE');
+      const modalUnavailableBanner = isUnavailable
+        ? `
+          <div class="modal-lock-alert" style="background: rgba(220, 38, 38, 0.12); color: #b91c1c; border-color: rgba(220, 38, 38, 0.4); margin-bottom: 12px;">
+            <span style="font-size: 1.3rem;">🛠️</span>
+            <div style="flex: 1;">
+              <strong>TEMPORARILY UNAVAILABLE / UNDER MAINTENANCE</strong>
+              <div style="font-size: 0.82rem; margin-top: 3px;">
+                ${escapeHtml(roomOv.reason || 'Under Maintenance')}${roomOv.duration ? ` · Expected duration: ${escapeHtml(roomOv.duration)}` : ''}
+              </div>
+            </div>
+          </div>
+        `
+        : '';
 
       const modalLocksBanner = activeRoomLocks.length > 0
         ? activeRoomLocks.map(l => {
@@ -2792,6 +2909,7 @@ ${freeSlotsList}
       if (modalBody) {
         modalBody.innerHTML = `
           ${freeUntil.calloutHtml}
+          ${modalUnavailableBanner}
           ${modalLocksBanner}
           <!-- Desktop Table (visible > 640px) -->
           <table class="schedule-table room-schedule-desktop-table">
@@ -5218,10 +5336,45 @@ window.SRCC_FACULTY_LEAVES = {
         `;
       }
 
+      // 📢 Render Timetable Specific Notices & Rescheduling Banners
+      function renderTimetableNotices() {
+        const container = document.getElementById('timetableNoticesContainer');
+        if (!container) return;
+
+        const notices = window.SRCC_CAMPUS_NOTICES || campusNoticesList || [];
+        const todayIso = getTodayIsoDate();
+        const ttNotices = notices.filter(n => {
+          if (!n || !n.title) return false;
+          if (n.category !== 'timetable_change' && !n.title.toLowerCase().includes('timetable') && !n.title.toLowerCase().includes('rescheduled')) return false;
+          if (n.expiry_date && todayIso > n.expiry_date) return false;
+          return true;
+        });
+
+        if (ttNotices.length === 0) {
+          container.style.display = 'none';
+          container.innerHTML = '';
+          return;
+        }
+
+        container.innerHTML = ttNotices.map(n => `
+          <div class="timetable-notice-alert-banner">
+            <div class="tt-notice-header">
+              <span class="tt-notice-badge">⚠️ Timetable Notice</span>
+              ${n.event_date ? `<span style="font-size: 0.78rem; font-weight:700; color:#b45309;">🗓️ ${escapeHtml(n.event_date)}</span>` : ''}
+              ${n.expiry_date ? `<span style="font-size: 0.72rem; color:#92400e;">Valid till: ${formatIsoToDdMmYyyy(n.expiry_date)}</span>` : ''}
+            </div>
+            <h4 class="tt-notice-title">${escapeHtml(n.title)}</h4>
+            ${n.body ? `<p class="tt-notice-body">${escapeHtml(n.body)}</p>` : ''}
+          </div>
+        `).join('');
+        container.style.display = 'block';
+      }
+
       // --- Render Native Full View Section (#viewTimetableSection) ---
       function renderMainTimetableView() {
         if (!viewTimetableSection) return;
 
+        renderTimetableNotices();
         syncControlPills();
         const mergedToday = getClassesForParameters(ttState.day, ttState.sem, ttState.course, ttState.batch, ttState.sec);
         const filterQuery = (ttState.searchQuery || '').trim().toLowerCase();
@@ -6431,6 +6584,167 @@ window.SRCC_FACULTY_LEAVES = {
     }
 
     // ========================================================================
+    // 📶 CAMPUS WIFI DIRECTORY & QR CODE AUTO-CONNECT
+    // ========================================================================
+    function initWifiDirectory() {
+      const btnOpenHeader = document.getElementById('btnOpenWifiModal');
+      const wifiModal = document.getElementById('wifiModal');
+      const btnCloseModal = document.getElementById('btnWifiModalClose');
+
+      let currentViewBand = 'ALL';
+      let currentModalBand = 'ALL';
+
+      window._renderWifiDirectory = function(gridId = 'wifiViewGrid', searchVal = '', bandFilter = 'ALL') {
+        const grid = document.getElementById(gridId);
+        if (!grid) return;
+
+        const networks = window.SRCC_CAMPUS_WIFI || campusWifiList || (window.SRCC_WIFI_DATA && window.SRCC_WIFI_DATA.networks) || [];
+        const q = (searchVal || '').toLowerCase().trim();
+
+        const filtered = networks.filter(w => {
+          if (bandFilter !== 'ALL') {
+            if (bandFilter === '5G' && w.band !== '5G') return false;
+            if (bandFilter === '4G' && w.band !== '4G') return false;
+            if (bandFilter === 'PB' && !w.ssid.includes('PB') && !w.wing?.includes('Principal')) return false;
+            if (bandFilter === 'Main' && !w.wing?.includes('Main')) return false;
+          }
+          if (q) {
+            const matchSsid = (w.ssid || '').toLowerCase().includes(q);
+            const matchPwd = (w.password || '').toLowerCase().includes(q);
+            const matchLoc = (w.location || '').toLowerCase().includes(q);
+            const matchWing = (w.wing || '').toLowerCase().includes(q);
+            if (!matchSsid && !matchPwd && !matchLoc && !matchWing) return false;
+          }
+          return true;
+        });
+
+        if (filtered.length === 0) {
+          grid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 36px 16px; color: var(--text-secondary);">
+              <div style="font-size: 2.2rem; margin-bottom: 8px;">📶</div>
+              <h3 style="margin: 0 0 6px; font-size: 1.1rem; color: var(--text-primary);">No WiFi Networks Found</h3>
+              <p style="margin: 0; font-size: 0.85rem;">Try clearing your search query or switching filters.</p>
+            </div>
+          `;
+          return;
+        }
+
+        grid.innerHTML = filtered.map(w => {
+          const band = w.band || 'Dual';
+          const bandClass = band === '5G' ? 'wifi-band-5g' : (band === '4G' ? 'wifi-band-4g' : 'wifi-band-dual');
+          const wifiString = `WIFI:S:${w.ssid};T:WPA;P:${w.password};;`;
+          const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(wifiString)}`;
+
+          return `
+            <div class="wifi-card" id="card-${escapeHtml(w.id || w.ssid)}">
+              <div class="wifi-card-header">
+                <span class="wifi-ssid-title">📶 ${escapeHtml(w.ssid)}</span>
+                <span class="wifi-band-badge ${bandClass}">${escapeHtml(band)}</span>
+              </div>
+              <div class="wifi-location-text">
+                📍 <span>${escapeHtml(w.location || w.wing || 'Campus')}</span>
+              </div>
+              <div class="wifi-pwd-box">
+                <span style="user-select: all;">${escapeHtml(w.password)}</span>
+                <span style="font-size: 0.72rem; color: var(--text-secondary); font-family: sans-serif; font-weight: 600;">WPA2</span>
+              </div>
+              ${w.notes ? `<div style="font-size: 0.75rem; color: var(--text-muted); line-height: 1.3;">ℹ️ ${escapeHtml(w.notes)}</div>` : ''}
+              <div class="wifi-card-actions">
+                <button type="button" class="btn-copy-wifi-pwd" data-pwd="${escapeHtml(w.password)}">
+                  📋 Copy Password
+                </button>
+                <button type="button" class="btn-qr-wifi" data-target="qr-${escapeHtml(w.id || w.ssid)}">
+                  📷 Scan QR
+                </button>
+              </div>
+              <div class="wifi-qr-popup" id="qr-${escapeHtml(w.id || w.ssid)}" style="display: none;">
+                <img src="${qrUrl}" alt="WiFi QR for ${escapeHtml(w.ssid)}" loading="lazy" />
+                <p style="font-size: 0.75rem; color: #475569; margin: 6px 0 0; font-weight: 600;">Point phone camera or scanner to connect directly</p>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        // Wire copy and QR buttons
+        grid.querySelectorAll('.btn-copy-wifi-pwd').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const pwd = btn.dataset.pwd;
+            navigator.clipboard.writeText(pwd).then(() => {
+              showToast(`📋 Copied WiFi password: <code>${pwd}</code>`);
+            }).catch(() => {
+              showToast(`Password: ${pwd}`);
+            });
+          });
+        });
+
+        grid.querySelectorAll('.btn-qr-wifi').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const qrEl = document.getElementById(btn.dataset.target);
+            if (qrEl) {
+              const isOpen = qrEl.style.display === 'block';
+              qrEl.style.display = isOpen ? 'none' : 'block';
+              btn.textContent = isOpen ? '📷 Scan QR' : '✕ Hide QR';
+            }
+          });
+        });
+      };
+
+      // Header button
+      if (btnOpenHeader && wifiModal) {
+        btnOpenHeader.addEventListener('click', () => {
+          wifiModal.style.display = 'flex';
+          window._renderWifiDirectory('wifiModalGrid', '', currentModalBand);
+        });
+      }
+
+      if (btnCloseModal && wifiModal) {
+        btnCloseModal.addEventListener('click', () => {
+          wifiModal.style.display = 'none';
+        });
+      }
+
+      if (wifiModal) {
+        wifiModal.addEventListener('click', (e) => {
+          if (e.target === wifiModal) wifiModal.style.display = 'none';
+        });
+      }
+
+      // Modal filters & search
+      const modalSearch = document.getElementById('wifiModalSearchInput');
+      if (modalSearch) {
+        modalSearch.addEventListener('input', (e) => {
+          window._renderWifiDirectory('wifiModalGrid', e.target.value, currentModalBand);
+        });
+      }
+
+      const modalPills = document.querySelectorAll('#wifiModalPills .wifi-pill-btn');
+      modalPills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          modalPills.forEach(p => p.classList.toggle('active', p === pill));
+          currentModalBand = pill.dataset.band;
+          window._renderWifiDirectory('wifiModalGrid', modalSearch?.value || '', currentModalBand);
+        });
+      });
+
+      // View section filters & search
+      const viewSearch = document.getElementById('wifiViewSearchInput');
+      if (viewSearch) {
+        viewSearch.addEventListener('input', (e) => {
+          window._renderWifiDirectory('wifiViewGrid', e.target.value, currentViewBand);
+        });
+      }
+
+      const viewPills = document.querySelectorAll('#wifiViewPills .wifi-pill-btn');
+      viewPills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          viewPills.forEach(p => p.classList.toggle('active', p === pill));
+          currentViewBand = pill.dataset.band;
+          window._renderWifiDirectory('wifiViewGrid', viewSearch?.value || '', currentViewBand);
+        });
+      });
+    }
+
+    // ========================================================================
     // 🚀 INITIAL BOOTSTRAP
     // ========================================================================
     populateLeaveTeacherSelect();
@@ -6438,6 +6752,7 @@ window.SRCC_FACULTY_LEAVES = {
     render();
     renderFaculty();
     initTimetableFeature();
+    initWifiDirectory();
     trackStudentVisitor();
     initLeaveNotificationSystem();
     initDeviceWakeupListeners();

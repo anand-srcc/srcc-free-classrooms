@@ -722,6 +722,16 @@
         <span>Campus Notices</span>
         <span class="admin-tab-badge" id="tabNoticesBadge" style="display: none;">0</span>
       </button>
+      <button type="button" class="admin-tab-btn" data-tab="rooms">
+        <span>🏛️</span>
+        <span>Room Management</span>
+        <span class="admin-tab-badge" id="tabRoomsBadge" style="display: none;">0</span>
+      </button>
+      <button type="button" class="admin-tab-btn" data-tab="wifi">
+        <span>📶</span>
+        <span>Campus WiFi</span>
+        <span class="admin-tab-badge" id="tabWifiBadge">24</span>
+      </button>
       <button type="button" class="admin-tab-btn" data-tab="broadcast">
         <span>🔔</span>
         <span>Hourly Broadcast</span>
@@ -962,11 +972,12 @@
           <div class="leave-field-group">
             <label for="adminNoticeCategory">Category / Event:</label>
             <select id="adminNoticeCategory" style="font-weight: 700;">
+              <option value="timetable_change">⚠️ Timetable Change Notice (Shows in Timetable Explorer)</option>
+              <option value="circular">📢 Official Notice / Circular</option>
+              <option value="urgent">📌 Urgent Campus Alert</option>
               <option value="freshers">🎉 Freshers 2026</option>
               <option value="elections">🗳️ Student Elections</option>
-              <option value="circular">📢 Official Notice / Circular</option>
               <option value="societies">🏆 Societies & Auditions</option>
-              <option value="urgent">📌 Urgent Campus Alert</option>
             </select>
           </div>
 
@@ -983,7 +994,7 @@
 
         <div class="leave-field-group" style="margin-bottom: 12px;">
           <label for="adminNoticeTitle">Notice Title / Headline:</label>
-          <input type="text" id="adminNoticeTitle" placeholder="e.g. SRCC Students' Union Elections 2026 - Code of Conduct" required />
+          <input type="text" id="adminNoticeTitle" placeholder="e.g. SEC/VAC Room Shift or Economics Lecture Rescheduled" required />
         </div>
 
         <div class="leave-field-group" style="margin-bottom: 12px;">
@@ -1001,6 +1012,14 @@
           <div id="noticeFilePreviewText" style="display: none; margin-top: 6px; font-size: 0.78rem; font-weight: 600; color: #059669;">
             <!-- File info preview -->
           </div>
+        </div>
+
+        <!-- Instant Push Broadcast Checkbox -->
+        <div style="margin: 10px 0 14px; display: flex; align-items: center; gap: 8px; background: #fffbeb; padding: 10px 14px; border-radius: 8px; border: 1px solid #fde68a;">
+          <input type="checkbox" id="adminNoticePushBroadcast" checked style="width: 18px; height: 18px; cursor: pointer;" />
+          <label for="adminNoticePushBroadcast" style="font-size: 0.85rem; font-weight: 700; color: #92400e; cursor: pointer;">
+            🔔 Send instant push notification & alert to all student devices immediately
+          </label>
         </div>
 
         <div style="margin-top: 14px; display: flex; gap: 10px;">
@@ -1245,6 +1264,197 @@
       </section>
     </div>
 
+    <!-- ================================================================= -->
+    <!-- TAB: ROOM MANAGEMENT -->
+    <!-- ================================================================= -->
+    <div class="admin-tab-pane" id="tabContentRooms">
+      <!-- Add / Edit Room Details -->
+      <section class="admin-section-card">
+        <div class="admin-section-header">
+          <div class="admin-section-title">
+            <span>🏛️</span>
+            <span id="roomFormTitle">Add / Edit Classroom & Availability</span>
+          </div>
+          <span style="font-size: 0.74rem; font-weight: 700; color: var(--text-secondary); background: #f1f5f9; padding: 3px 8px; border-radius: 4px;">
+            Full Control: Add, Edit, Mark Unavailable, or Delete
+          </span>
+        </div>
+
+        <form id="adminRoomForm" onsubmit="return false;">
+          <input type="hidden" id="adminEditingRoomId" value="" />
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 12px;">
+            <div class="leave-field-group">
+              <label for="adminRoomCode">Room Code / Number *:</label>
+              <input type="text" id="adminRoomCode" placeholder="e.g. R37, C28, PB5, LAB4" required style="text-transform: uppercase;" />
+            </div>
+
+            <div class="leave-field-group">
+              <label for="adminRoomName">Room Name / Label:</label>
+              <input type="text" id="adminRoomName" placeholder="e.g. Classroom 37, Seminar Room" />
+            </div>
+
+            <div class="leave-field-group">
+              <label for="adminRoomWing">Wing / Location Category *:</label>
+              <select id="adminRoomWing" required>
+                <option value="Main Building">Main Building</option>
+                <option value="Tutorials">Tutorials</option>
+                <option value="Principal Bungalow">Principal Bungalow (PB)</option>
+                <option value="Computer Center">Computer Center</option>
+                <option value="Sports Complex">Sports Complex</option>
+                <option value="Library">Library Wing</option>
+              </select>
+            </div>
+
+            <div class="leave-field-group">
+              <label for="adminRoomCapacity">Seating Capacity:</label>
+              <input type="text" id="adminRoomCapacity" placeholder="e.g. 60 or 40/60" />
+            </div>
+          </div>
+
+          <!-- Availability & Maintenance Toggle -->
+          <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 12px 14px; margin-bottom: 14px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <input type="checkbox" id="adminRoomUnavailableToggle" style="width: 18px; height: 18px; cursor: pointer;" />
+              <label for="adminRoomUnavailableToggle" style="font-size: 0.88rem; font-weight: 800; color: #b91c1c; cursor: pointer;">
+                🛠️ Mark Temporarily Unavailable / Under Maintenance
+              </label>
+            </div>
+            <div id="adminRoomUnavailableFields" style="display: none; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div class="leave-field-group">
+                <label for="adminRoomUnavailableReason" style="color: #991b1b;">Reason for Unavailability:</label>
+                <input type="text" id="adminRoomUnavailableReason" placeholder="e.g. AC Maintenance, Ceiling repair, Exam center" />
+              </div>
+              <div class="leave-field-group">
+                <label for="adminRoomUnavailableDuration" style="color: #991b1b;">Expected Duration:</label>
+                <input type="text" id="adminRoomUnavailableDuration" placeholder="e.g. All Day Today, Till 15 Oct, 2 Hours" />
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 10px;">
+            <button type="button" class="btn-primary" id="btnAdminSaveRoom" style="flex: 1; justify-content: center; padding: 11px; font-weight: 800; font-size: 0.9rem;">
+              💾 Save Room Details
+            </button>
+            <button type="button" id="btnAdminCancelRoomEdit" style="display: none; padding: 11px 18px; background: #e2e8f0; color: #334155; border: 1px solid #cbd5e1; border-radius: var(--radius-md); font-weight: 700; cursor: pointer;">
+              ✕ Cancel
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Manage Classrooms Table -->
+      <section class="admin-section-card">
+        <div class="admin-section-header">
+          <div class="admin-section-title">
+            <span>📋</span>
+            <span>All Classrooms & Overrides (<span id="adminRoomsCount">0</span>)</span>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <input type="text" id="adminRoomSearchInput" placeholder="🔍 Search room..." style="padding: 6px 10px; border-radius: 6px; border: 1px solid var(--border-color); font-size: 0.8rem;" />
+            <select id="adminRoomFilterStatus" style="padding: 6px 10px; border-radius: 6px; border: 1px solid var(--border-color); font-size: 0.8rem;">
+              <option value="ALL">All Rooms</option>
+              <option value="UNAVAILABLE">🛠️ Under Maintenance Only</option>
+              <option value="AVAILABLE">✅ Available</option>
+              <option value="CUSTOM">✨ Custom Added</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="leaves-items-container" id="adminRoomsListContainer">
+          <!-- Populated via admin.js -->
+        </div>
+      </section>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TAB: CAMPUS WIFI -->
+    <!-- ================================================================= -->
+    <div class="admin-tab-pane" id="tabContentWifi">
+      <!-- Add / Edit WiFi Network -->
+      <section class="admin-section-card">
+        <div class="admin-section-header">
+          <div class="admin-section-title">
+            <span>📶</span>
+            <span id="wifiFormTitle">Add / Edit Campus WiFi Network</span>
+          </div>
+          <button type="button" id="btnResetOfficialWifi" style="font-size: 0.74rem; padding: 5px 10px; background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; border-radius: 6px; font-weight: 700; cursor: pointer;">
+            🔄 Reset to Official 24 Networks (PDF)
+          </button>
+        </div>
+
+        <form id="adminWifiForm" onsubmit="return false;">
+          <input type="hidden" id="adminEditingWifiId" value="" />
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 12px;">
+            <div class="leave-field-group">
+              <label for="adminWifiSsid">Network SSID / Name *:</label>
+              <input type="text" id="adminWifiSsid" placeholder="e.g. FAC_36_5G, PB-4G, CLASS 1-4G" required />
+            </div>
+
+            <div class="leave-field-group">
+              <label for="adminWifiPassword">WiFi Password *:</label>
+              <input type="text" id="adminWifiPassword" placeholder="e.g. 21AdSr@4631" required style="font-family: monospace;" />
+            </div>
+
+            <div class="leave-field-group">
+              <label for="adminWifiBand">Network Band *:</label>
+              <select id="adminWifiBand">
+                <option value="5G">5G High Speed</option>
+                <option value="4G">4G Standard</option>
+                <option value="Dual">Dual Band (2.4G & 5G)</option>
+              </select>
+            </div>
+
+            <div class="leave-field-group">
+              <label for="adminWifiWing">Wing / Building:</label>
+              <select id="adminWifiWing">
+                <option value="Main Building">Main Building</option>
+                <option value="Principal Bungalow">Principal Bungalow (PB)</option>
+                <option value="Tutorials">Tutorials</option>
+                <option value="Campus Wide">Campus Wide</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+            <div class="leave-field-group">
+              <label for="adminWifiLocation">Coverage Area / Room Details:</label>
+              <input type="text" id="adminWifiLocation" placeholder="e.g. Room 36 top floor, Corridor near R20" />
+            </div>
+            <div class="leave-field-group">
+              <label for="adminWifiNotes">Notes (Optional):</label>
+              <input type="text" id="adminWifiNotes" placeholder="e.g. Fast connection for students & faculty" />
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 10px;">
+            <button type="button" class="btn-primary" id="btnAdminSaveWifi" style="flex: 1; justify-content: center; padding: 11px; font-weight: 800; font-size: 0.9rem; background: #0891b2; color: #fff; border: none; border-radius: 6px; cursor: pointer;">
+              💾 Save WiFi Network
+            </button>
+            <button type="button" id="btnAdminCancelWifiEdit" style="display: none; padding: 11px 18px; background: #e2e8f0; color: #334155; border: 1px solid #cbd5e1; border-radius: var(--radius-md); font-weight: 700; cursor: pointer;">
+              ✕ Cancel
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Active WiFi Networks List -->
+      <section class="admin-section-card">
+        <div class="admin-section-header">
+          <div class="admin-section-title">
+            <span>📋</span>
+            <span>Campus WiFi Networks (<span id="adminWifiCount">0</span>)</span>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="adminWifiSearchInput" placeholder="🔍 Search network, password, room..." style="padding: 6px 10px; border-radius: 6px; border: 1px solid var(--border-color); font-size: 0.8rem;" />
+          </div>
+        </div>
+
+        <div class="leaves-items-container" id="adminWifiListContainer">
+          <!-- Populated via admin.js -->
+        </div>
+      </section>
+    </div>
+
   </main>
 
   <!-- Notice Attachment Modal Viewer (Image / PDF) -->
@@ -1268,6 +1478,7 @@
   <!-- Data Scripts -->
   <script src="cloud_config.js?v=43"></script>
   <script src="data.js?v=43"></script>
+  <script src="wifi_data.js?v=43"></script>
   <script src="faculty_leaves.js?v=43"></script>
   <script src="teachers_data.js?v=43"></script>
   <script src="admin.js?v=43"></script>

@@ -60,6 +60,10 @@
             <span class="toggle-status-text" id="toggleStatusText">OFF</span>
           </button>
         </div>
+        <!-- WiFi Directory Button (Header) -->
+        <button id="btnOpenWifiModal" class="btn-wifi-header" title="Campus WiFi Networks & Passwords Directory">
+          <span>📶 WiFi</span>
+        </button>
         <!-- Report Issue Button (Header) -->
         <button id="btnReportIssue" class="btn-report-header" title="Report wrong timetable data or present faculty marked absent">
           <span>⚠️ Report</span>
@@ -109,7 +113,7 @@
     <!-- 📌 "MERE BATCH KA AAJ KA SCHEDULE" & NEXT CLASS WIDGET -->
     <section id="myBatchScheduleWidget" class="my-batch-widget"></section>
 
-    <!-- Top Dual-Mode Switcher: Free Classrooms vs Faculty Locator -->
+    <!-- Top Dual-Mode Switcher: Free Classrooms vs Faculty Locator vs Timetable vs WiFi -->
     <div class="app-mode-switcher-container">
       <div class="app-mode-switcher" role="tablist">
         <button class="mode-tab active" id="tabModeRooms" role="tab" aria-selected="true" data-mode="rooms">
@@ -123,6 +127,10 @@
         <button class="mode-tab" id="tabModeTimetable" role="tab" aria-selected="false" data-mode="timetable">
           <span class="mode-tab-icon">📅</span>
           <span class="mode-tab-text">Timetable</span>
+        </button>
+        <button class="mode-tab" id="tabModeWifi" role="tab" aria-selected="false" data-mode="wifi">
+          <span class="mode-tab-icon">📶</span>
+          <span class="mode-tab-text">Campus WiFi</span>
         </button>
       </div>
     </div>
@@ -461,6 +469,9 @@
         </div>
       </div>
 
+      <!-- 📢 TIMETABLE CHANGE NOTICES BANNER CONTAINER -->
+      <div id="timetableNoticesContainer" style="display: none;"></div>
+
       <!-- Controls Panel (100% Native App UX/UI) -->
       <section class="controls-panel">
         <!-- 1. Day Picker -->
@@ -581,6 +592,43 @@
         <button class="btn-reset-filters" id="btnResetTtFilters">Reset Filters</button>
       </div>
     </div>
+
+    <!-- ====================================================================
+         VIEW SECTION 4: CAMPUS WIFI DIRECTORY
+         ==================================================================== -->
+    <div id="viewWifiSection" class="app-view-section" style="display: none;">
+      <div class="tt-action-bar" style="border-bottom: none; margin-bottom: 12px;">
+        <div class="tt-action-title">
+          <span>📶 SRCC Campus WiFi Password Directory</span>
+        </div>
+        <div class="faculty-action-leaves-wrap">
+          <span class="tt-live-pill" style="background: rgba(8, 145, 178, 0.12); color: #0891b2; border-color: rgba(8, 145, 178, 0.3);">Campus Atlas Verified</span>
+        </div>
+      </div>
+      <div class="wifi-search-bar">
+        <input type="text" id="wifiViewSearchInput" class="wifi-search-input" placeholder="🔍 Search network (e.g. FAC_36, PB, CLASS 1-4G, R22)..." />
+      </div>
+      <div class="wifi-pills-filter" id="wifiViewPills">
+        <button class="wifi-pill-btn active" data-band="ALL">All Networks (24)</button>
+        <button class="wifi-pill-btn" data-band="5G">⚡ 5G High Speed</button>
+        <button class="wifi-pill-btn" data-band="4G">📶 4G Standard</button>
+        <button class="wifi-pill-btn" data-band="PB">🏛️ Principal Bungalow (PB)</button>
+        <button class="wifi-pill-btn" data-band="Main">🏢 Main Building</button>
+      </div>
+      <div class="wifi-networks-grid" id="wifiViewGrid" style="max-height: none;"></div>
+      <div class="wifi-whatsapp-community-box">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.6rem;">💬</span>
+          <div>
+            <strong style="color: #15803d; font-size: 0.95rem;">Join Campus Atlas WhatsApp Community</strong>
+            <p style="margin: 2px 0 0; font-size: 0.8rem; color: #166534;">Get verified WiFi updates, room alerts, notes & study groups directly on WhatsApp.</p>
+          </div>
+        </div>
+        <a href="https://chat.whatsapp.com/DzGsKlDwZG6DgDTcRIlCRW?s=cl&p=a&ilr=1" target="_blank" rel="noopener noreferrer" style="background: #25D366; color: #ffffff; text-decoration: none; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 0.84rem; display: inline-flex; align-items: center; gap: 6px;">
+          Join WhatsApp Group ↗
+        </a>
+      </div>
+    </div>
   </main>
 
   <!-- Modal: Full Day Schedule View -->
@@ -604,6 +652,39 @@
       </div>
       <div class="modal-body" id="modalBody">
         <!-- Timetable schedule table inserted here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: WiFi Directory Popup (Triggered via header WiFi button) -->
+  <div class="modal-overlay" id="wifiModal" style="display: none;">
+    <div class="modal-card wifi-modal-dialog">
+      <div class="modal-header wifi-directory-header">
+        <div class="modal-titles">
+          <h2 style="font-size: 1.2rem; display: flex; align-items: center; gap: 8px;">📶 Campus WiFi Passwords</h2>
+          <p style="font-size: 0.8rem; color: var(--text-secondary);">Direct passwords & QR scan to connect instantly on campus</p>
+        </div>
+        <button class="modal-close" id="btnWifiModalClose">✕</button>
+      </div>
+      <div class="wifi-search-bar" style="margin-top: 10px;">
+        <input type="text" id="wifiModalSearchInput" class="wifi-search-input" placeholder="🔍 Search network, room, or wing..." />
+      </div>
+      <div class="wifi-pills-filter" id="wifiModalPills">
+        <button class="wifi-pill-btn active" data-band="ALL">All (24)</button>
+        <button class="wifi-pill-btn" data-band="5G">⚡ 5G</button>
+        <button class="wifi-pill-btn" data-band="4G">📶 4G</button>
+        <button class="wifi-pill-btn" data-band="PB">PB Wing</button>
+        <button class="wifi-pill-btn" data-band="Main">Main Building</button>
+      </div>
+      <div class="wifi-networks-grid" id="wifiModalGrid"></div>
+      <div class="wifi-whatsapp-community-box">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span>💬</span>
+          <span style="font-size: 0.82rem; font-weight: 600; color: #166534;">Campus Atlas WhatsApp Group</span>
+        </div>
+        <a href="https://chat.whatsapp.com/DzGsKlDwZG6DgDTcRIlCRW?s=cl&p=a&ilr=1" target="_blank" rel="noopener noreferrer" style="background: #25D366; color: #ffffff; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-weight: 700; font-size: 0.8rem;">
+          Join WhatsApp ↗
+        </a>
       </div>
     </div>
   </div>
@@ -934,6 +1015,7 @@
 
   <!-- Scripts -->
   <script src="data.js?v=43"></script>
+  <script src="wifi_data.js?v=43"></script>
   <script src="cloud_config.js?v=43"></script>
   <script src="faculty_leaves.js?v=43"></script>
   <script src="teachers_data.js?v=43"></script>

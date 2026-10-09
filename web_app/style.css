@@ -7363,5 +7363,322 @@ body.dark-mode .tt-room-btn:hover,
   color: #1e40af;
 }
 
+/* ==========================================================================
+   📶 CAMPUS WIFI PASSWORDS DIRECTORY & MODAL
+   ========================================================================== */
+.btn-wifi-header {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(6, 182, 212, 0.12);
+  color: #0891b2;
+  border: 1px solid rgba(6, 182, 212, 0.35);
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-display);
+}
+
+.btn-wifi-header:hover {
+  background: #0891b2;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(8, 145, 178, 0.25);
+}
+
+.wifi-modal-dialog {
+  max-width: 680px;
+  width: 95%;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.wifi-directory-header {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.wifi-search-bar {
+  display: flex;
+  gap: 10px;
+  margin: 14px 0 10px;
+}
+
+.wifi-search-input {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-input, #f8fafc);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.wifi-pills-filter {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+}
+
+.wifi-pill-btn {
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.wifi-pill-btn.active, .wifi-pill-btn:hover {
+  background: #0891b2;
+  color: #ffffff;
+  border-color: #0891b2;
+}
+
+.wifi-networks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+  overflow-y: auto;
+  padding-right: 4px;
+  max-height: 52vh;
+}
+
+.wifi-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.wifi-card:hover {
+  border-color: #0891b2;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(8, 145, 178, 0.08);
+}
+
+.wifi-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wifi-ssid-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-heading);
+}
+
+.wifi-band-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+.wifi-band-5g {
+  background: rgba(147, 51, 234, 0.12);
+  color: #7e22ce;
+  border: 1px solid rgba(147, 51, 234, 0.25);
+}
+
+.wifi-band-4g {
+  background: rgba(8, 145, 178, 0.12);
+  color: #0e7490;
+  border: 1px solid rgba(8, 145, 178, 0.25);
+}
+
+.wifi-band-dual {
+  background: rgba(16, 185, 129, 0.12);
+  color: #047857;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.wifi-location-text {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.wifi-pwd-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-hover, #f1f5f9);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 0.95rem;
+  color: var(--text-heading);
+}
+
+.wifi-card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-copy-wifi-pwd {
+  flex: 1;
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1px solid #0891b2;
+  background: #0891b2;
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+
+.btn-copy-wifi-pwd:hover {
+  background: #0e7490;
+}
+
+.btn-qr-wifi {
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-heading);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.wifi-qr-popup {
+  text-align: center;
+  padding: 12px;
+  background: #f8fafc;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  margin-top: 8px;
+}
+
+.wifi-qr-popup img {
+  width: 170px;
+  height: 170px;
+  margin: 0 auto;
+  display: block;
+}
+
+.wifi-whatsapp-community-box {
+  background: rgba(37, 211, 102, 0.08);
+  border: 1px solid rgba(37, 211, 102, 0.3);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* ==========================================================================
+   ⚠️ TIMETABLE CHANGE NOTICES IN TIMETABLE EXPLORER
+   ========================================================================== */
+.timetable-notice-alert-banner {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(234, 88, 12, 0.12));
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  border-left: 5px solid #d97706;
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.08);
+}
+
+.tt-notice-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.tt-notice-badge {
+  background: #d97706;
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.tt-notice-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #92400e;
+  margin: 0;
+}
+
+.tt-notice-body {
+  font-size: 0.88rem;
+  color: #78350f;
+  margin: 4px 0 0;
+  line-height: 1.45;
+}
+
+/* ==========================================================================
+   🏛️ ROOM MANAGEMENT (TEMPORARILY UNAVAILABLE / UNDER MAINTENANCE)
+   ========================================================================== */
+.badge-room-unavailable {
+  background: rgba(220, 38, 38, 0.12);
+  color: #dc2626;
+  border: 1px solid rgba(220, 38, 38, 0.35);
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.room-card.is-unavailable {
+  border-left: 4px solid #dc2626 !important;
+  opacity: 0.92;
+}
+
+.unavailable-callout {
+  background: rgba(220, 38, 38, 0.08);
+  border: 1px solid rgba(220, 38, 38, 0.25);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: #b91c1c;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
 
 

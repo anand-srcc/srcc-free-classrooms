@@ -8,6 +8,8 @@ const ASSETS = [
   './cloud_config.js?v=45',
   './faculty_leaves.js?v=45',
   './teachers_data.js?v=45',
+  './wifi_data.js?v=45',
+  './wifi_data.json',
   './srcc_data.json',
   './faculty_leaves.json',
   './directory_data.json',

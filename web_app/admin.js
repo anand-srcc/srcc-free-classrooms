@@ -1393,6 +1393,10 @@ document.addEventListener('DOMContentLoaded', () => {
             syncCampusNoticesToCloud(notices, true);
             resetCampusNoticeForm();
             showToast(`📢 <strong>Notice updated!</strong> "${title}" is live.`);
+
+            if (document.getElementById('adminNoticePushBroadcast')?.checked) {
+              dispatchNoticeBroadcast(title, body, category);
+            }
             return;
           }
         }
@@ -1416,6 +1420,10 @@ document.addEventListener('DOMContentLoaded', () => {
         resetCampusNoticeForm();
 
         showToast(`📢 <strong>Notice published!</strong> "${title}" is now live on student screens.`);
+
+        if (document.getElementById('adminNoticePushBroadcast')?.checked) {
+          dispatchNoticeBroadcast(title, body, category);
+        }
       });
     }
 
@@ -1432,6 +1440,46 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function dispatchNoticeBroadcast(title, body, category) {
+    const isTimetable = (category === 'timetable_change');
+    const notifTitle = isTimetable ? `⚠️ Timetable Notice: ${title}` : `📢 Campus Notice: ${title}`;
+    const notifBody = body ? (body.length > 120 ? body.substring(0, 117) + '...' : body) : 'New announcement published by College Admin.';
+
+    // 1. Dispatch to Firebase Cloud Realtime DB trigger for instant student sync
+    const baseUrl = getBaseCloudDbUrl();
+    if (baseUrl) {
+      const secret = getCloudDbSecret();
+      let trigUrl = `${baseUrl}/broadcast_triggers/latest.json`;
+      if (secret) trigUrl += `?auth=${encodeURIComponent(secret)}`;
+      fetch(trigUrl, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: notifTitle,
+          body: notifBody,
+          timestamp: Date.now(),
+          category: category,
+          sentBy: getActiveSessionUser().fullName || 'Admin'
+        })
+      }).catch(() => {});
+    }
+
+    // 2. Dispatch to Netlify Serverless Web Push
+    fetch('/.netlify/functions/push_dispatch', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        title: notifTitle,
+        body: notifBody,
+        url: isTimetable ? './?mode=timetable' : './'
+      })
+    }).then(res => res.json()).then(resData => {
+      if (resData && resData.count !== undefined) {
+        showToast(`🔔 <strong>Instant Push Dispatched!</strong> Reached ${resData.count} device(s).`);
+      }
+    }).catch(() => {});
+  }
+
   // ==========================================================================
   // 📑 TAB NAVIGATION & LIVE DATE DISPLAY
   // ==========================================================================
@@ -1441,6 +1489,8 @@ document.addEventListener('DOMContentLoaded', () => {
       leaves: document.getElementById('tabContentLeaves'),
       locks: document.getElementById('tabContentLocks'),
       notices: document.getElementById('tabContentNotices'),
+      rooms: document.getElementById('tabContentRooms'),
+      wifi: document.getElementById('tabContentWifi'),
       broadcast: document.getElementById('tabContentBroadcast'),
       reports: document.getElementById('tabContentReports'),
       settings: document.getElementById('tabContentSettings')
@@ -1473,14 +1523,20 @@ document.addEventListener('DOMContentLoaded', () => {
     renderLeavesTable();
     renderLocksTable();
     renderCampusNoticesTable();
+    renderRoomsTable();
+    renderWifiTable();
     updateKpis();
     updateCodePreview();
     setupAdminTabs();
     initRoomLocksListeners();
     initCampusNoticesListeners();
+    initRoomsListeners();
+    initWifiListeners();
     initAttachmentModal();
     fetchCloudRoomLocks();
     fetchCloudCampusNotices();
+    fetchCloudRoomOverrides();
+    fetchCloudCampusWifi();
 
     // Populate Cloud DB URL & Status
     if (cloudDbUrlInput) {
@@ -2867,6 +2923,682 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (btnTestAlert) {
       btnTestAlert.addEventListener('click', () => triggerBroadcast(true));
+    }
+  }
+
+  // ==========================================================================
+  // 🏛️ ROOM MANAGEMENT (ADD / EDIT / TEMPORARILY UNAVAILABLE / DELETE)
+  // ==========================================================================
+  const ROOM_OVERRIDES_KEY = 'srcc_room_overrides_v1';
+  let editingRoomId = null;
+
+  function getRoomOverridesMap() {
+    try {
+      const data = localStorage.getItem(ROOM_OVERRIDES_KEY);
+      return data ? JSON.parse(data) : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function saveRoomOverridesMap(map) {
+    try {
+      localStorage.setItem(ROOM_OVERRIDES_KEY, JSON.stringify(map));
+    } catch (e) {}
+  }
+
+  function syncRoomOverridesToCloud(map, showToastOnSuccess = true) {
+    const baseUrl = getBaseCloudDbUrl();
+    if (!baseUrl) return;
+    const secret = getCloudDbSecret();
+    let url = `${baseUrl}/room_overrides.json`;
+    if (secret) url += `?auth=${encodeURIComponent(secret)}`;
+
+    fetch(url, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(map)
+    })
+      .then(r => {
+        if (r.ok && showToastOnSuccess) {
+          showToast('☁️ Room management synced with live cloud.');
+        }
+      })
+      .catch(err => {
+        console.warn('Cloud room sync note:', err);
+      });
+  }
+
+  function fetchCloudRoomOverrides() {
+    const baseUrl = getBaseCloudDbUrl();
+    if (!baseUrl) return;
+    fetch(`${baseUrl}/room_overrides.json?t=${Date.now()}`)
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        if (d && typeof d === 'object') {
+          saveRoomOverridesMap(d);
+          renderRoomsTable();
+        }
+      })
+      .catch(() => {});
+  }
+
+  function getAllManagedRooms() {
+    const builtInRooms = [];
+    if (window.SRCC_DATA && Array.isArray(window.SRCC_DATA.rooms)) {
+      window.SRCC_DATA.rooms.forEach(r => {
+        builtInRooms.push({
+          code: r.code,
+          name: r.name || `Classroom ${r.code}`,
+          wing: r.category || 'Main Building',
+          capacity: r.capacity || '60',
+          is_custom: false
+        });
+      });
+    }
+
+    const overrides = getRoomOverridesMap();
+    const roomsMap = new Map();
+    builtInRooms.forEach(r => roomsMap.set(r.code, { ...r }));
+
+    Object.entries(overrides).forEach(([code, ov]) => {
+      if (roomsMap.has(code)) {
+        roomsMap.set(code, { ...roomsMap.get(code), ...ov });
+      } else {
+        roomsMap.set(code, {
+          code: code,
+          name: ov.name || `Classroom ${code}`,
+          wing: ov.wing || 'Main Building',
+          capacity: ov.capacity || '60',
+          is_custom: true,
+          ...ov
+        });
+      }
+    });
+
+    return Array.from(roomsMap.values());
+  }
+
+  function renderRoomsTable() {
+    const container = document.getElementById('adminRoomsListContainer');
+    const countBadge = document.getElementById('adminRoomsCount');
+    const tabBadge = document.getElementById('tabRoomsBadge');
+    if (!container) return;
+
+    const rooms = getAllManagedRooms();
+    const searchVal = (document.getElementById('adminRoomSearchInput')?.value || '').toLowerCase().trim();
+    const filterStatus = document.getElementById('adminRoomFilterStatus')?.value || 'ALL';
+
+    const unavailableCount = rooms.filter(r => r.status === 'UNAVAILABLE').length;
+    if (tabBadge) {
+      tabBadge.textContent = unavailableCount;
+      tabBadge.style.display = unavailableCount > 0 ? 'inline-block' : 'none';
+      if (unavailableCount > 0) tabBadge.classList.add('badge-danger');
+      else tabBadge.classList.remove('badge-danger');
+    }
+
+    const filtered = rooms.filter(r => {
+      if (r.status === 'DELETED' && filterStatus !== 'ALL') return false;
+      if (filterStatus === 'UNAVAILABLE' && r.status !== 'UNAVAILABLE') return false;
+      if (filterStatus === 'AVAILABLE' && (r.status === 'UNAVAILABLE' || r.status === 'DELETED')) return false;
+      if (filterStatus === 'CUSTOM' && !r.is_custom) return false;
+
+      if (searchVal) {
+        const q = searchVal;
+        const matchCode = (r.code || '').toLowerCase().includes(q);
+        const matchName = (r.name || '').toLowerCase().includes(q);
+        const matchWing = (r.wing || '').toLowerCase().includes(q);
+        const matchReason = (r.reason || '').toLowerCase().includes(q);
+        if (!matchCode && !matchName && !matchWing && !matchReason) return false;
+      }
+      return true;
+    });
+
+    if (countBadge) countBadge.textContent = `${filtered.length} of ${rooms.length}`;
+
+    if (filtered.length === 0) {
+      container.innerHTML = `
+        <div style="text-align: center; padding: 28px 16px; color: var(--text-secondary);">
+          <div style="font-size: 2rem; margin-bottom: 6px;">🏛️</div>
+          <p style="margin: 0; font-weight: 600;">No classrooms match the selected filter.</p>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = `
+      <div style="overflow-x: auto;">
+        <table class="admin-data-table" style="width: 100%; border-collapse: collapse; font-size: 0.84rem;">
+          <thead>
+            <tr style="background: #f8fafc; border-bottom: 2px solid var(--border-color); text-align: left;">
+              <th style="padding: 10px 12px;">Room Code</th>
+              <th style="padding: 10px 12px;">Wing / Category</th>
+              <th style="padding: 10px 12px;">Capacity</th>
+              <th style="padding: 10px 12px;">Availability Status</th>
+              <th style="padding: 10px 12px;">Maintenance Reason</th>
+              <th style="padding: 10px 12px; text-align: right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${filtered.map(r => {
+              const isUnavailable = (r.status === 'UNAVAILABLE');
+              const isDeleted = (r.status === 'DELETED');
+              let statusBadge = '<span style="background: #dcfce7; color: #15803d; padding: 3px 8px; border-radius: 9999px; font-weight: 700; font-size: 0.72rem;">✅ Available</span>';
+              if (isUnavailable) {
+                statusBadge = '<span style="background: #fee2e2; color: #dc2626; padding: 3px 8px; border-radius: 9999px; font-weight: 800; font-size: 0.72rem;">🛠️ Unavailable</span>';
+              } else if (isDeleted) {
+                statusBadge = '<span style="background: #f1f5f9; color: #64748b; padding: 3px 8px; border-radius: 9999px; font-weight: 700; font-size: 0.72rem;">🗑️ Deleted</span>';
+              }
+
+              return `
+                <tr style="border-bottom: 1px solid var(--border-subtle); ${isUnavailable ? 'background: #fff5f5;' : ''}">
+                  <td style="padding: 10px 12px; font-weight: 800; font-family: var(--font-display);">
+                    ${escapeHtml(r.code)}
+                    ${r.is_custom ? '<span style="font-size: 0.65rem; background: #e0f2fe; color: #0284c7; padding: 1px 5px; border-radius: 4px; margin-left: 4px;">Custom</span>' : ''}
+                    <div style="font-size: 0.75rem; color: var(--text-secondary); font-weight: 400;">${escapeHtml(r.name || '')}</div>
+                  </td>
+                  <td style="padding: 10px 12px; color: var(--text-secondary); font-weight: 500;">
+                    ${escapeHtml(r.wing || 'Main Building')}
+                  </td>
+                  <td style="padding: 10px 12px; color: var(--text-secondary);">
+                    ${escapeHtml(r.capacity || '60')}
+                  </td>
+                  <td style="padding: 10px 12px;">
+                    ${statusBadge}
+                  </td>
+                  <td style="padding: 10px 12px; font-size: 0.8rem; color: #991b1b;">
+                    ${isUnavailable ? escapeHtml((r.reason || 'Maintenance') + (r.duration ? ` (${r.duration})` : '')) : '<span style="color: #94a3b8;">—</span>'}
+                  </td>
+                  <td style="padding: 10px 12px; text-align: right; white-space: nowrap;">
+                    <button type="button" class="btn-room-toggle-unavail" data-code="${escapeHtml(r.code)}" style="padding: 4px 8px; font-size: 0.74rem; font-weight: 700; border-radius: 6px; border: 1px solid ${isUnavailable ? '#16a34a' : '#dc2626'}; background: ${isUnavailable ? '#dcfce7' : '#fee2e2'}; color: ${isUnavailable ? '#15803d' : '#dc2626'}; cursor: pointer; margin-right: 4px;">
+                      ${isUnavailable ? '✅ Mark Available' : '🛠️ Mark Unavailable'}
+                    </button>
+                    <button type="button" class="btn-room-edit" data-code="${escapeHtml(r.code)}" style="padding: 4px 8px; font-size: 0.74rem; font-weight: 700; border-radius: 6px; border: 1px solid var(--border-color); background: #f8fafc; color: var(--text-primary); cursor: pointer; margin-right: 4px;">
+                      ✏️ Edit
+                    </button>
+                    <button type="button" class="btn-room-delete" data-code="${escapeHtml(r.code)}" style="padding: 4px 8px; font-size: 0.74rem; font-weight: 700; border-radius: 6px; border: 1px solid #fecaca; background: #fff1f2; color: #e11d48; cursor: pointer;">
+                      🗑️
+                    </button>
+                  </td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+
+    container.querySelectorAll('.btn-room-toggle-unavail').forEach(btn => {
+      btn.addEventListener('click', () => {
+        toggleRoomAvailability(btn.dataset.code);
+      });
+    });
+
+    container.querySelectorAll('.btn-room-edit').forEach(btn => {
+      btn.addEventListener('click', () => {
+        startEditingRoom(btn.dataset.code);
+      });
+    });
+
+    container.querySelectorAll('.btn-room-delete').forEach(btn => {
+      btn.addEventListener('click', () => {
+        deleteRoom(btn.dataset.code);
+      });
+    });
+  }
+
+  function toggleRoomAvailability(code) {
+    const overrides = getRoomOverridesMap();
+    const current = overrides[code] || {};
+    const isCurrentlyUnavailable = (current.status === 'UNAVAILABLE');
+
+    if (isCurrentlyUnavailable) {
+      delete current.status;
+      delete current.reason;
+      delete current.duration;
+      overrides[code] = current;
+      saveRoomOverridesMap(overrides);
+      renderRoomsTable();
+      syncRoomOverridesToCloud(overrides);
+      showToast(`✅ Room <strong>${code}</strong> is now marked Available!`);
+    } else {
+      const reason = prompt(`Enter reason why Room ${code} is unavailable (e.g., AC Maintenance, Ceiling repair, Exam):`, 'Under Maintenance');
+      if (reason === null) return;
+      overrides[code] = {
+        ...current,
+        code: code,
+        status: 'UNAVAILABLE',
+        reason: reason.trim() || 'Temporarily Unavailable',
+        duration: 'All Day',
+        updated_at: new Date().toISOString(),
+        updated_by: getActiveSessionUser().fullName || 'Admin'
+      };
+      saveRoomOverridesMap(overrides);
+      renderRoomsTable();
+      syncRoomOverridesToCloud(overrides);
+      showToast(`🛠️ Room <strong>${code}</strong> marked Temporarily Unavailable.`);
+    }
+  }
+
+  function startEditingRoom(code) {
+    const rooms = getAllManagedRooms();
+    const room = rooms.find(r => r.code === code);
+    if (!room) return;
+
+    editingRoomId = code;
+    document.getElementById('adminEditingRoomId').value = code;
+    document.getElementById('adminRoomCode').value = room.code;
+    document.getElementById('adminRoomCode').readOnly = !room.is_custom;
+    document.getElementById('adminRoomName').value = room.name || '';
+    document.getElementById('adminRoomWing').value = room.wing || 'Main Building';
+    document.getElementById('adminRoomCapacity').value = room.capacity || '60';
+
+    const unavailToggle = document.getElementById('adminRoomUnavailableToggle');
+    const unavailFields = document.getElementById('adminRoomUnavailableFields');
+    const isUnavail = (room.status === 'UNAVAILABLE');
+    if (unavailToggle) unavailToggle.checked = isUnavail;
+    if (unavailFields) unavailFields.style.display = isUnavail ? 'grid' : 'none';
+
+    document.getElementById('adminRoomUnavailableReason').value = room.reason || '';
+    document.getElementById('adminRoomUnavailableDuration').value = room.duration || '';
+
+    document.getElementById('roomFormTitle').textContent = `Edit Room: ${room.code}`;
+    document.getElementById('btnAdminCancelRoomEdit').style.display = 'inline-block';
+    document.getElementById('btnAdminSaveRoom').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function resetRoomForm() {
+    editingRoomId = null;
+    document.getElementById('adminEditingRoomId').value = '';
+    const codeInput = document.getElementById('adminRoomCode');
+    codeInput.value = '';
+    codeInput.readOnly = false;
+    document.getElementById('adminRoomName').value = '';
+    document.getElementById('adminRoomWing').value = 'Main Building';
+    document.getElementById('adminRoomCapacity').value = '';
+    const unavailToggle = document.getElementById('adminRoomUnavailableToggle');
+    if (unavailToggle) unavailToggle.checked = false;
+    const unavailFields = document.getElementById('adminRoomUnavailableFields');
+    if (unavailFields) unavailFields.style.display = 'none';
+    document.getElementById('adminRoomUnavailableReason').value = '';
+    document.getElementById('adminRoomUnavailableDuration').value = '';
+    document.getElementById('roomFormTitle').textContent = 'Add / Edit Classroom & Availability';
+    document.getElementById('btnAdminCancelRoomEdit').style.display = 'none';
+  }
+
+  function deleteRoom(code) {
+    if (!confirm(`Are you sure you want to delete or de-activate Room "${code}"? Students will not see this room in the app.`)) return;
+    const overrides = getRoomOverridesMap();
+    overrides[code] = {
+      ...(overrides[code] || {}),
+      code: code,
+      status: 'DELETED',
+      updated_at: new Date().toISOString(),
+      updated_by: getActiveSessionUser().fullName || 'Admin'
+    };
+    saveRoomOverridesMap(overrides);
+    renderRoomsTable();
+    syncRoomOverridesToCloud(overrides);
+    showToast(`🗑️ Room <strong>${code}</strong> has been deactivated.`);
+  }
+
+  function initRoomsListeners() {
+    const unavailToggle = document.getElementById('adminRoomUnavailableToggle');
+    const unavailFields = document.getElementById('adminRoomUnavailableFields');
+    if (unavailToggle && unavailFields) {
+      unavailToggle.addEventListener('change', () => {
+        unavailFields.style.display = unavailToggle.checked ? 'grid' : 'none';
+      });
+    }
+
+    const btnSave = document.getElementById('btnAdminSaveRoom');
+    if (btnSave) {
+      btnSave.addEventListener('click', () => {
+        const codeInput = document.getElementById('adminRoomCode');
+        const code = (codeInput?.value || '').trim().toUpperCase();
+        if (!code) {
+          showToast('⚠️ Please enter a room code (e.g. R37, C28).', false);
+          codeInput?.focus();
+          return;
+        }
+
+        const name = (document.getElementById('adminRoomName')?.value || '').trim();
+        const wing = document.getElementById('adminRoomWing')?.value || 'Main Building';
+        const capacity = (document.getElementById('adminRoomCapacity')?.value || '').trim() || '60';
+        const isUnavailable = document.getElementById('adminRoomUnavailableToggle')?.checked;
+        const reason = (document.getElementById('adminRoomUnavailableReason')?.value || '').trim();
+        const duration = (document.getElementById('adminRoomUnavailableDuration')?.value || '').trim();
+
+        const overrides = getRoomOverridesMap();
+        const existing = overrides[code] || {};
+
+        overrides[code] = {
+          ...existing,
+          code: code,
+          name: name || `Classroom ${code}`,
+          wing: wing,
+          capacity: capacity,
+          status: isUnavailable ? 'UNAVAILABLE' : 'AVAILABLE',
+          reason: isUnavailable ? (reason || 'Under Maintenance') : '',
+          duration: isUnavailable ? duration : '',
+          is_custom: existing.is_custom || !window.SRCC_DATA?.rooms?.some(r => r.code === code),
+          updated_at: new Date().toISOString(),
+          updated_by: getActiveSessionUser().fullName || 'Admin'
+        };
+
+        saveRoomOverridesMap(overrides);
+        renderRoomsTable();
+        syncRoomOverridesToCloud(overrides);
+        resetRoomForm();
+        showToast(`💾 Room <strong>${code}</strong> details saved successfully!`);
+      });
+    }
+
+    const btnCancel = document.getElementById('btnAdminCancelRoomEdit');
+    if (btnCancel) {
+      btnCancel.addEventListener('click', resetRoomForm);
+    }
+
+    const searchInput = document.getElementById('adminRoomSearchInput');
+    if (searchInput) {
+      searchInput.addEventListener('input', renderRoomsTable);
+    }
+
+    const filterStatus = document.getElementById('adminRoomFilterStatus');
+    if (filterStatus) {
+      filterStatus.addEventListener('change', renderRoomsTable);
+    }
+  }
+
+  // ==========================================================================
+  // 📶 CAMPUS WIFI DIRECTORY MANAGEMENT
+  // ==========================================================================
+  const WIFI_STORAGE_KEY = 'srcc_campus_wifi_v1';
+  let editingWifiId = null;
+
+  function getWifiNetworksList() {
+    try {
+      const data = localStorage.getItem(WIFI_STORAGE_KEY);
+      if (data) {
+        const parsed = JSON.parse(data);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch (e) {}
+
+    if (window.SRCC_WIFI_DATA && Array.isArray(window.SRCC_WIFI_DATA.networks)) {
+      return [...window.SRCC_WIFI_DATA.networks];
+    }
+    return [];
+  }
+
+  function saveWifiNetworksList(list) {
+    try {
+      localStorage.setItem(WIFI_STORAGE_KEY, JSON.stringify(list));
+    } catch (e) {}
+  }
+
+  function syncWifiNetworksToCloud(list, showToastOnSuccess = true) {
+    const baseUrl = getBaseCloudDbUrl();
+    if (!baseUrl) return;
+    const secret = getCloudDbSecret();
+    let url = `${baseUrl}/campus_wifi.json`;
+    if (secret) url += `?auth=${encodeURIComponent(secret)}`;
+
+    fetch(url, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(list)
+    })
+      .then(r => {
+        if (r.ok && showToastOnSuccess) {
+          showToast('☁️ Campus WiFi directory synced to live cloud.');
+        }
+      })
+      .catch(err => {
+        console.warn('Cloud WiFi sync note:', err);
+      });
+  }
+
+  function fetchCloudCampusWifi() {
+    const baseUrl = getBaseCloudDbUrl();
+    if (!baseUrl) return;
+    fetch(`${baseUrl}/campus_wifi.json?t=${Date.now()}`)
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        if (Array.isArray(d) && d.length > 0) {
+          saveWifiNetworksList(d);
+          renderWifiTable();
+        } else if (d && typeof d === 'object') {
+          const arr = Object.values(d);
+          if (arr.length > 0) {
+            saveWifiNetworksList(arr);
+            renderWifiTable();
+          }
+        }
+      })
+      .catch(() => {});
+  }
+
+  function renderWifiTable() {
+    const container = document.getElementById('adminWifiListContainer');
+    const countBadge = document.getElementById('adminWifiCount');
+    const tabBadge = document.getElementById('tabWifiBadge');
+    if (!container) return;
+
+    const list = getWifiNetworksList();
+    const searchVal = (document.getElementById('adminWifiSearchInput')?.value || '').toLowerCase().trim();
+
+    if (countBadge) countBadge.textContent = list.length;
+    if (tabBadge) tabBadge.textContent = list.length;
+
+    const filtered = list.filter(w => {
+      if (!searchVal) return true;
+      const q = searchVal;
+      return (
+        (w.ssid || '').toLowerCase().includes(q) ||
+        (w.password || '').toLowerCase().includes(q) ||
+        (w.location || '').toLowerCase().includes(q) ||
+        (w.wing || '').toLowerCase().includes(q)
+      );
+    });
+
+    if (filtered.length === 0) {
+      container.innerHTML = `
+        <div style="text-align: center; padding: 28px 16px; color: var(--text-secondary);">
+          <div style="font-size: 2rem; margin-bottom: 6px;">📶</div>
+          <p style="margin: 0; font-weight: 600;">No WiFi networks match your search.</p>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = `
+      <div style="overflow-x: auto;">
+        <table class="admin-data-table" style="width: 100%; border-collapse: collapse; font-size: 0.84rem;">
+          <thead>
+            <tr style="background: #f8fafc; border-bottom: 2px solid var(--border-color); text-align: left;">
+              <th style="padding: 10px 12px;">SSID (Network)</th>
+              <th style="padding: 10px 12px;">Band</th>
+              <th style="padding: 10px 12px;">Password</th>
+              <th style="padding: 10px 12px;">Coverage / Location</th>
+              <th style="padding: 10px 12px; text-align: right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${filtered.map(w => {
+              const bandClass = w.band === '5G' ? 'wifi-band-5g' : (w.band === '4G' ? 'wifi-band-4g' : 'wifi-band-dual');
+              return `
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 10px 12px; font-weight: 800; font-family: var(--font-display); color: #0891b2;">
+                    📶 ${escapeHtml(w.ssid)}
+                  </td>
+                  <td style="padding: 10px 12px;">
+                    <span class="wifi-band-badge ${bandClass}">${escapeHtml(w.band || 'Dual')}</span>
+                  </td>
+                  <td style="padding: 10px 12px;">
+                    <code style="background: #f1f5f9; padding: 3px 6px; border-radius: 4px; font-weight: 700;">${escapeHtml(w.password)}</code>
+                  </td>
+                  <td style="padding: 10px 12px; color: var(--text-secondary);">
+                    ${escapeHtml(w.location || '')}
+                    <div style="font-size: 0.72rem; color: #94a3b8;">${escapeHtml(w.wing || '')}</div>
+                  </td>
+                  <td style="padding: 10px 12px; text-align: right; white-space: nowrap;">
+                    <button type="button" class="btn-copy-admin-wifi" data-pwd="${escapeHtml(w.password)}" style="padding: 4px 8px; font-size: 0.74rem; font-weight: 700; border-radius: 6px; border: 1px solid #0891b2; background: rgba(8, 145, 178, 0.1); color: #0891b2; cursor: pointer; margin-right: 4px;">
+                      📋 Copy
+                    </button>
+                    <button type="button" class="btn-edit-admin-wifi" data-id="${escapeHtml(w.id || w.ssid)}" style="padding: 4px 8px; font-size: 0.74rem; font-weight: 700; border-radius: 6px; border: 1px solid var(--border-color); background: #f8fafc; color: var(--text-primary); cursor: pointer; margin-right: 4px;">
+                      ✏️ Edit
+                    </button>
+                    <button type="button" class="btn-delete-admin-wifi" data-id="${escapeHtml(w.id || w.ssid)}" style="padding: 4px 8px; font-size: 0.74rem; font-weight: 700; border-radius: 6px; border: 1px solid #fecaca; background: #fff1f2; color: #e11d48; cursor: pointer;">
+                      🗑️
+                    </button>
+                  </td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+
+    container.querySelectorAll('.btn-copy-admin-wifi').forEach(btn => {
+      btn.addEventListener('click', () => {
+        navigator.clipboard.writeText(btn.dataset.pwd).then(() => {
+          showToast('📋 WiFi Password copied to clipboard!');
+        });
+      });
+    });
+
+    container.querySelectorAll('.btn-edit-admin-wifi').forEach(btn => {
+      btn.addEventListener('click', () => {
+        startEditingWifi(btn.dataset.id);
+      });
+    });
+
+    container.querySelectorAll('.btn-delete-admin-wifi').forEach(btn => {
+      btn.addEventListener('click', () => {
+        deleteWifi(btn.dataset.id);
+      });
+    });
+  }
+
+  function startEditingWifi(id) {
+    const list = getWifiNetworksList();
+    const item = list.find(w => (w.id || w.ssid) === id);
+    if (!item) return;
+
+    editingWifiId = id;
+    document.getElementById('adminEditingWifiId').value = id;
+    document.getElementById('adminWifiSsid').value = item.ssid;
+    document.getElementById('adminWifiPassword').value = item.password;
+    document.getElementById('adminWifiBand').value = item.band || '5G';
+    document.getElementById('adminWifiWing').value = item.wing || 'Main Building';
+    document.getElementById('adminWifiLocation').value = item.location || '';
+    document.getElementById('adminWifiNotes').value = item.notes || '';
+
+    document.getElementById('wifiFormTitle').textContent = `Edit WiFi Network: ${item.ssid}`;
+    document.getElementById('btnAdminCancelWifiEdit').style.display = 'inline-block';
+    document.getElementById('btnAdminSaveWifi').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function resetWifiForm() {
+    editingWifiId = null;
+    document.getElementById('adminEditingWifiId').value = '';
+    document.getElementById('adminWifiSsid').value = '';
+    document.getElementById('adminWifiPassword').value = '';
+    document.getElementById('adminWifiBand').value = '5G';
+    document.getElementById('adminWifiWing').value = 'Main Building';
+    document.getElementById('adminWifiLocation').value = '';
+    document.getElementById('adminWifiNotes').value = '';
+    document.getElementById('wifiFormTitle').textContent = 'Add / Edit Campus WiFi Network';
+    document.getElementById('btnAdminCancelWifiEdit').style.display = 'none';
+  }
+
+  function deleteWifi(id) {
+    let list = getWifiNetworksList();
+    const item = list.find(w => (w.id || w.ssid) === id);
+    if (!item) return;
+
+    if (!confirm(`Delete WiFi network "${item.ssid}"?`)) return;
+    list = list.filter(w => (w.id || w.ssid) !== id);
+    saveWifiNetworksList(list);
+    renderWifiTable();
+    syncWifiNetworksToCloud(list);
+    showToast(`🗑️ WiFi network <strong>${item.ssid}</strong> deleted.`);
+  }
+
+  function initWifiListeners() {
+    const btnSave = document.getElementById('btnAdminSaveWifi');
+    if (btnSave) {
+      btnSave.addEventListener('click', () => {
+        const ssid = (document.getElementById('adminWifiSsid')?.value || '').trim();
+        const pwd = (document.getElementById('adminWifiPassword')?.value || '').trim();
+        if (!ssid || !pwd) {
+          showToast('⚠️ Please enter both WiFi Network SSID and Password.', false);
+          return;
+        }
+
+        const band = document.getElementById('adminWifiBand')?.value || '5G';
+        const wing = document.getElementById('adminWifiWing')?.value || 'Main Building';
+        const location = (document.getElementById('adminWifiLocation')?.value || '').trim();
+        const notes = (document.getElementById('adminWifiNotes')?.value || '').trim();
+
+        let list = getWifiNetworksList();
+
+        if (editingWifiId) {
+          const idx = list.findIndex(w => (w.id || w.ssid) === editingWifiId);
+          if (idx !== -1) {
+            list[idx] = {
+              ...list[idx],
+              ssid: ssid,
+              password: pwd,
+              band: band,
+              wing: wing,
+              location: location,
+              notes: notes
+            };
+          }
+        } else {
+          list.unshift({
+            id: 'wifi_' + Date.now(),
+            ssid: ssid,
+            password: pwd,
+            band: band,
+            wing: wing,
+            location: location,
+            notes: notes
+          });
+        }
+
+        saveWifiNetworksList(list);
+        renderWifiTable();
+        syncWifiNetworksToCloud(list);
+        resetWifiForm();
+        showToast(`💾 WiFi network <strong>${ssid}</strong> saved!`);
+      });
+    }
+
+    const btnCancel = document.getElementById('btnAdminCancelWifiEdit');
+    if (btnCancel) {
+      btnCancel.addEventListener('click', resetWifiForm);
+    }
+
+    const btnReset = document.getElementById('btnResetOfficialWifi');
+    if (btnReset) {
+      btnReset.addEventListener('click', () => {
+        if (confirm('Reset to the 24 official campus networks extracted from the SRCC WiFi directory PDF?')) {
+          const defaults = (window.SRCC_WIFI_DATA && window.SRCC_WIFI_DATA.networks) ? [...window.SRCC_WIFI_DATA.networks] : [];
+          saveWifiNetworksList(defaults);
+          renderWifiTable();
+          syncWifiNetworksToCloud(defaults);
+          showToast('🔄 WiFi directory restored to official 24 campus networks.');
+        }
+      });
+    }
+
+    const searchInput = document.getElementById('adminWifiSearchInput');
+    if (searchInput) {
+      searchInput.addEventListener('input', renderWifiTable);
     }
   }
 
