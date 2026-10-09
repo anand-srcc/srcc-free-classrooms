@@ -1424,34 +1424,65 @@ document.addEventListener('DOMContentLoaded', () => {
       const name = room.name.toLowerCase();
       const cat = room.category.toLowerCase();
 
-      if (code.includes(q) || codeNoSpace.includes(qNoSpace) || name.includes(q) || cat.includes(q)) return true;
+      // 1. Exact match by code
+      if (qNoSpace === codeNoSpace) return true;
 
-      const isClassroom = /^r\d+$/i.test(room.code);
-      if (['r', 'room', 'rooms', 'classroom', 'classrooms', 'lecture'].includes(q) && isClassroom) return true;
-      const rNumMatch = qNoSpace.match(/^r(?:oom)?(\d+)$/);
-      if (rNumMatch && isClassroom) return codeNoSpace === `r${rNumMatch[1]}`;
+      // 2. Specific room code patterns:
+      // R (Classrooms): 'r3', 'room3', 'room 3', 'r 3'
+      const mR = qNoSpace.match(/^(?:r|room)(\d+)$/);
+      if (mR) return codeNoSpace === `r${mR[1]}`;
 
-      const isPB = /^pb\d*$/i.test(room.code);
-      if (['pb', 'bungalow', 'principal bungalow', 'principalbungalow'].includes(q) && isPB) return true;
-      const pbNumMatch = qNoSpace.match(/^pb(\d+)$/);
-      if (pbNumMatch && isPB) return codeNoSpace === `pb${pbNumMatch[1]}`;
+      // T (Tutorials): 't3', 'tut3', 'tutorial3', 't 3'
+      const mT = qNoSpace.match(/^(?:t|tut|tutorial)(\d+)$/);
+      if (mT) return codeNoSpace === `t${mT[1]}`;
 
-      const isTut = room.code.startsWith('T') && !room.code.startsWith('PB');
-      if (['t', 'tut', 'tutorial', 'tutorials'].includes(q) && isTut) return true;
-      const tNumMatch = qNoSpace.match(/^t(?:ut)?(?:orial)?(\d+)$/);
-      if (tNumMatch && isTut) return codeNoSpace === `t${tNumMatch[1]}`;
+      // PB (Principal Bungalow): 'pb3', 'pb 3'
+      const mPB = qNoSpace.match(/^(?:pb|bungalow)(\d+)$/);
+      if (mPB) return codeNoSpace === `pb${mPB[1]}`;
 
-      const isSCR = room.code.startsWith('SCR');
-      if (['scr', 'sport', 'sports', 'sports complex'].includes(q) && isSCR) return true;
-      const scrNumMatch = qNoSpace.match(/^scr(\d+)$/);
-      if (scrNumMatch && isSCR) return codeNoSpace === `scr${scrNumMatch[1]}`;
+      // SCR (Sports Complex): 'scr3', 'scr 3'
+      const mSCR = qNoSpace.match(/^(?:scr|sport|sports)(\d+)$/);
+      if (mSCR) return codeNoSpace === `scr${mSCR[1]}`;
 
-      const isCL = room.code.startsWith('CL');
-      if (['cl', 'lab', 'labs', 'computer', 'computer lab'].includes(q) && isCL) return true;
-      const clNumMatch = qNoSpace.match(/^cl(?:ab)?(\d+)$/);
-      if (clNumMatch && isCL) return codeNoSpace === `cl${clNumMatch[1]}`;
+      // CL (Computer Labs): 'cl1', 'cl 1', 'lab1'
+      const mCL = qNoSpace.match(/^(?:cl|lab)(\d+)$/);
+      if (mCL) return codeNoSpace === `cl${mCL[1]}`;
 
-      return false;
+      // Pure number, e.g. '3' -> match rooms whose number is exactly 3 (R3, T3, PB3, SCR3, CL3)
+      if (/^\d+$/.test(qNoSpace)) {
+        return codeNoSpace === `r${qNoSpace}` ||
+               codeNoSpace === `t${qNoSpace}` ||
+               codeNoSpace === `pb${qNoSpace}` ||
+               codeNoSpace === `scr${qNoSpace}` ||
+               codeNoSpace === `cl${qNoSpace}`;
+      }
+
+      // Category keywords:
+      if (['r', 'room', 'rooms', 'classroom', 'classrooms', 'lecture'].includes(q)) {
+        return /^r\d+$/i.test(room.code);
+      }
+      if (['t', 'tut', 'tutorial', 'tutorials'].includes(q)) {
+        return /^t\d+$/i.test(room.code) && !room.code.startsWith('PB');
+      }
+      if (['pb', 'bungalow', 'principal bungalow'].includes(q)) {
+        return room.code.startsWith('PB');
+      }
+      if (['scr', 'sport', 'sports', 'sports complex'].includes(q)) {
+        return room.code.startsWith('SCR');
+      }
+      if (['cl', 'lab', 'labs', 'computer lab', 'computer labs'].includes(q)) {
+        return room.code.startsWith('CL') || room.code === 'CLIB';
+      }
+      if (q.includes('library')) {
+        return code.includes('library') || code === 'clib';
+      }
+      if (q.includes('seminar')) return code.includes('seminar');
+      if (q.includes('playground')) return code.includes('playground');
+      if (q.includes('office')) return code.includes('office');
+
+      // Fallback: whole word match in name or code (avoiding substring leakage)
+      const words = (name + ' ' + code).toLowerCase().split(/[^a-z0-9]+/);
+      return words.includes(qNoSpace);
     }
 
     function copyToClipboard(text) {
@@ -2007,9 +2038,35 @@ ${freeSlotsList}
     function formatClassDetails(raw) {
       if (!raw || typeof raw !== 'string') return '<span class="class-batch-line">Scheduled Class</span>';
       let cleaned = raw.replace(/<[-=]+>/g, '').trim();
-      cleaned = cleaned.replace(/([A-Za-z0-9\.\)])(?=LAB[- ]\d+|TUTE[- ]\d+|BATCH[- ]\d+)/gi, '$1\\n');
 
-      const lines = cleaned.split('\\n').map(l => l.trim()).filter(Boolean);
+      // Check if this is a multi-part concatenated string of the SAME class (e.g. LAB-1...LAB-2...NP1...NP2...NP3)
+      const subParts = cleaned.split(/(?=(?:LAB|L|T)-(?:\d+\.\s*)?(?:BCH|BAH|M\.COM|MA-ECO|JOINT)-)/).map(p => p.trim()).filter(Boolean);
+      if (subParts.length > 1) {
+        const batches = [];
+        subParts.forEach(p => {
+          const bm = p.match(/-(NP\d+|VAC\d+|SEC\d+|[A-Z]P\d+|[A-Z]\d+)$/i);
+          if (bm && !batches.includes(bm[1])) batches.push(bm[1]);
+        });
+        const subjMatch = subParts[0].match(/-([A-Za-z0-9\.\(\)\/\s\+&]{2,15})-(?:R\d+|T\d+|PB\d+|SCR\d+|CL\d+|CLIB|Library FF|SEC\d+|VAC\d+|-)/i);
+        if (subjMatch && batches.length > 1) {
+          const firstPartClean = subParts[0]
+            .replace(/-(NP\d+|VAC\d+|SEC\d+|[A-Z]P\d+|[A-Z]\d+)$/i, '')
+            .replace(/^(?:LAB|L|T)-\d+\.\s*/i, '');
+          let text = firstPartClean;
+          if (/SEM(?:ESTER)?\s*(VIII|VII|VI|IV|V|III|II|I|\d+)(?=[A-Za-z])/i.test(text)) {
+            text = text.replace(/[- ]*SEM(?:ESTER)?\s*(VIII|VII|VI|IV|V|III|II|I|\d+)(?=[A-Za-z])/gi, ' • Sem $1 • ');
+          } else {
+            text = text.replace(/[- ]*SEM(?:ESTER)?\s*(VIII|VII|VI|IV|V|III|II|I|\d+)\b/gi, ' • Sem $1');
+          }
+          text = text.replace(/(?:\s*•\s*)+/g, ' • ').trim();
+          if (text.startsWith('• ')) text = text.slice(2).trim();
+          return `<div class="class-batch-line">${escapeHtml(text)} • <strong>Batches: ${escapeHtml(batches.join(', '))}</strong></div>`;
+        }
+      }
+
+      cleaned = cleaned.replace(/([A-Za-z0-9\.\)])(?=LAB[- ]\d+|TUTE[- ]\d+|BATCH[- ]\d+)/gi, '$1\n');
+
+      const lines = cleaned.split('\n').map(l => l.trim()).filter(Boolean);
       const formattedLines = lines.map(line => {
         let text = line;
         if (/SEM(?:ESTER)?\s*(VIII|VII|VI|IV|V|III|II|I|\d+)(?=[A-Za-z])/i.test(text)) {
@@ -3116,6 +3173,8 @@ ${freeSlotsList}
           state.searchQuery = targetRoom;
           state.activeCategory = 'ALL';
           state.activeSlot = 'ALL';
+          if (categoryPills) categoryPills.forEach(p => p.classList.toggle('active', p.dataset.cat === 'ALL'));
+          if (slotSelect) slotSelect.value = 'ALL';
           if (btnClearSearch) btnClearSearch.style.display = 'block';
           render();
           setTimeout(() => {
@@ -3593,11 +3652,15 @@ ${freeSlotsList}
           const rCode = btn.dataset.room;
           if (teacherModal) closeAppModal(teacherModal);
           setAppMode('rooms');
-          if (searchInput) searchInput.value = rCode;
-          state.searchQuery = rCode;
           state.activeCategory = 'ALL';
+          state.activeSlot = 'ALL';
+          if (categoryPills) categoryPills.forEach(p => p.classList.toggle('active', p.dataset.cat === 'ALL'));
+          if (slotSelect) slotSelect.value = 'ALL';
+          if (searchInput) searchInput.value = rCode;
+          state.searchQuery = (rCode || '').trim();
+          if (btnClearSearch) btnClearSearch.style.display = 'block';
           render();
-          setTimeout(() => openScheduleModal(rCode), 100);
+          setTimeout(() => openScheduleModal(rCode), 120);
         });
       });
     }
@@ -4117,27 +4180,50 @@ window.SRCC_FACULTY_LEAVES = {
           const tName = t.clean_name || t.label || 'Faculty';
           const daySched = t.schedule?.[ttState.day] || [];
           daySched.forEach(s => {
-            if (s.course === ttState.course && s.semester === ttState.sem && s.section === ttState.sec) {
-              const sBatch = (s.batch || '').trim().toUpperCase();
-              const sRawBatch = (s.raw_batch || '').trim().toUpperCase();
+            const courseMatches = s.course === ttState.course || 
+                                  (Array.isArray(s.courses_list) && s.courses_list.includes(ttState.course)) ||
+                                  (s.course && s.course.includes(ttState.course));
+            const semMatches = s.semester === ttState.sem || 
+                               (Array.isArray(s.semesters_list) && s.semesters_list.includes(ttState.sem)) ||
+                               (s.semester && s.semester.includes(ttState.sem));
+            const secMatches = s.section === ttState.sec || 
+                               (Array.isArray(s.sections_list) && s.sections_list.includes(ttState.sec)) ||
+                               (s.section && s.section.includes(ttState.sec));
+
+            if (courseMatches && semMatches && secMatches) {
               const selBatch = (ttState.batch || 'ALL').trim().toUpperCase();
 
               // Batch filtering:
               if (selBatch !== 'ALL') {
-                if (sBatch) {
-                  // Only match if sBatch equals selected batch, or raw practical batch matches (e.g. JP1 for J1)
-                  const matches = (sBatch === selBatch) || 
-                                  (sRawBatch === selBatch) ||
-                                  (sRawBatch.replace(/P(\d+)$/, '$1') === selBatch);
+                const allBatches = [
+                  s.batch,
+                  s.raw_batch,
+                  ...(s.batches_list || []),
+                  ...(s.raw_batches_list || [])
+                ].filter(Boolean).map(b => b.toUpperCase().trim());
+
+                if (allBatches.length > 0) {
+                  const matches = allBatches.some(b => {
+                    const normB = b.replace(/P(\d+)$/, '$1');
+                    const normSel = selBatch.replace(/P(\d+)$/, '$1');
+                    const subBatches = b.split(/[\s,\/]+/).map(x => x.trim().toUpperCase());
+                    return b === selBatch ||
+                           normB === normSel ||
+                           subBatches.includes(selBatch) ||
+                           subBatches.some(sb => sb.replace(/P(\d+)$/, '$1') === normSel);
+                  });
                   if (!matches) {
                     return;
                   }
                 }
-                // If class has no batch specified (e.g. general lectures), it is meant for all batches in this section
               }
 
               const slot = s.slot;
               if (classesBySlot[slot]) {
+                // Deduplicate if already added for this teacher and subject
+                const already = classesBySlot[slot].find(ex => ex.teacherId === t.id && ex.subject === s.subject && ex.room === s.room);
+                if (already) return;
+
                 const leaveRecord = (typeof isTeacherOnLeave === 'function' ? isTeacherOnLeave(t) : null) || activeLeaves.find(l => {
                   const nameMatch = l.teacher_name && (tName.toLowerCase().includes(l.teacher_name.toLowerCase()) || l.teacher_name.toLowerCase().includes(tName.toLowerCase()));
                   const dayMatch = l.day === ttState.day || !l.day;
@@ -4232,8 +4318,9 @@ window.SRCC_FACULTY_LEAVES = {
             matchCount += filteredClasses.length;
             // Scheduled Classes Card
             filteredClasses.forEach(c => {
-              const batchBadge = c.batch 
-                ? (c.rawBatch && c.rawBatch !== c.batch ? ` · Batch ${escapeHtml(c.batch)} (${escapeHtml(c.rawBatch)})` : ` · Batch ${escapeHtml(c.batch)}`)
+              const displayBatch = c.rawBatch || c.batch;
+              const batchBadge = displayBatch 
+                ? ` · Batch ${escapeHtml(displayBatch)}`
                 : '';
               const initials = c.teacher.split(' ').map(n => n[0]).filter(Boolean).slice(0, 2).join('').toUpperCase() || 'FC';
               const leaveHtml = c.isOnLeave 
@@ -4329,15 +4416,18 @@ window.SRCC_FACULTY_LEAVES = {
               const targetRoom = btn.dataset.room;
               if (targetRoom) {
                 setAppMode('rooms');
+                state.activeCategory = 'ALL';
+                state.activeSlot = 'ALL';
+                if (categoryPills) categoryPills.forEach(p => p.classList.toggle('active', p.dataset.cat === 'ALL'));
+                if (slotSelect) slotSelect.value = 'ALL';
                 if (searchInput) {
                   searchInput.value = targetRoom;
-                  state.searchQuery = targetRoom.toLowerCase();
+                  state.searchQuery = targetRoom.trim();
+                  if (btnClearSearch) btnClearSearch.style.display = 'block';
                   render();
                   setTimeout(() => {
-                    searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    searchInput.classList.add('search-highlight-pulse');
-                    setTimeout(() => searchInput.classList.remove('search-highlight-pulse'), 1200);
-                  }, 250);
+                    openScheduleModal(targetRoom);
+                  }, 150);
                 }
               }
             });

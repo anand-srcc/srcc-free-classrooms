@@ -351,19 +351,141 @@ def enrich():
         else:
             t['short_code'] = ''
 
-    # 2. Split concatenated classes, parse subjects, section, batch for every class
+    def merge_day_classes(classes_list):
+        by_slot = {}
+        for c in classes_list:
+            slot = c.get('slot', '')
+            if slot not in by_slot:
+                by_slot[slot] = []
+            by_slot[slot].append(c)
+
+        result = []
+        for slot, slot_classes in by_slot.items():
+            if len(slot_classes) == 1:
+                result.append(slot_classes[0])
+                continue
+
+            # Group classes in this slot that belong to the same session
+            merged_groups = []
+            for c in slot_classes:
+                matched_group = None
+                c_subj = (c.get('subject') or '').strip().upper()
+                c_type = (c.get('type') or '').strip()
+                c_room = (c.get('room') or '').strip().upper()
+
+                for g in merged_groups:
+                    g_subj = (g[0].get('subject') or '').strip().upper()
+                    g_type = (g[0].get('type') or '').strip()
+                    g_rooms = [(item.get('room') or '').strip().upper() for item in g if (item.get('room') or '').strip()]
+
+                    subj_match = (c_subj and g_subj and c_subj == g_subj)
+                    type_match = (c_type == g_type) or (not c_type) or (not g_type)
+                    room_compatible = (not c_room) or (not g_rooms) or (c_room in g_rooms)
+
+                    if subj_match and type_match and room_compatible:
+                        matched_group = g
+                        break
+
+                if matched_group is not None:
+                    matched_group.append(c)
+                else:
+                    merged_groups.append([c])
+
+            for g in merged_groups:
+                if len(g) == 1:
+                    result.append(g[0])
+                    continue
+
+                base = dict(g[0])
+
+                valid_rooms = [item.get('room') for item in g if item.get('room')]
+                if valid_rooms:
+                    base['room'] = valid_rooms[0]
+
+                courses = []
+                for item in g:
+                    crs = item.get('course')
+                    if crs and crs not in courses:
+                        courses.append(crs)
+                base['courses_list'] = courses
+                if len(courses) > 1:
+                    base['course'] = ' / '.join(courses)
+
+                semesters = []
+                for item in g:
+                    sem = item.get('semester')
+                    if sem and sem not in semesters:
+                        semesters.append(sem)
+                base['semesters_list'] = semesters
+                if len(semesters) > 1:
+                    base['semester'] = ' / '.join(semesters)
+
+                sections = []
+                for item in g:
+                    sec = item.get('section')
+                    if sec and sec not in sections:
+                        sections.append(sec)
+                base['sections_list'] = sections
+                if len(sections) > 1:
+                    clean_secs = [re.sub(r'^Sec\s*', '', s) for s in sections]
+                    base['section'] = f"Sec {', '.join(clean_secs)}"
+                elif sections:
+                    base['section'] = sections[0]
+
+                batches = []
+                raw_batches = []
+                for item in g:
+                    b = item.get('batch')
+                    rb = item.get('raw_batch')
+                    if b and b not in batches:
+                        batches.append(b)
+                    if rb and rb not in raw_batches:
+                        raw_batches.append(rb)
+
+                base['batches_list'] = batches
+                base['raw_batches_list'] = raw_batches
+
+                if raw_batches:
+                    base['raw_batch'] = ', '.join(raw_batches)
+                if batches:
+                    base['batch'] = ', '.join(batches)
+
+                subj_name = base.get('subject_name') or base.get('subject')
+                subj = base.get('subject')
+                parts = []
+                if subj_name and subj_name != subj:
+                    parts.append(f"{subj_name} ({subj})")
+                elif subj:
+                    parts.append(subj)
+                if base.get('course'):
+                    parts.append(base['course'])
+                if base.get('semester'):
+                    parts.append(base['semester'])
+                if base.get('section'):
+                    parts.append(base['section'])
+
+                if raw_batches:
+                    parts.append(f"({', '.join(raw_batches)})")
+                elif batches:
+                    parts.append(f"({', '.join(batches)})")
+
+                base['formatted_display'] = ' · '.join(parts)
+                result.append(base)
+
+        return result
+
+    # 2. Split concatenated classes, parse subjects, section, batch for every class, and merge same-session clusters
     total_classes = 0
     for t in teachers_data['teachers']:
         all_t_subjects = set()
         new_schedule = {}
 
         for day, classes in t['schedule'].items():
-            new_schedule[day] = []
+            parsed_day_classes = []
             for c in classes:
                 raw = c.get('raw', '')
                 slot = c.get('slot', '')
 
-                # Split concatenated classes (e.g. LAB-...LAB-... or T-...T-...)
                 parts = re.split(r'(?=(?:LAB|L|T)-(?:BCH|BAH|M\.COM|MA-ECO|JOINT)-)', raw)
                 parts = [p.strip() for p in parts if p.strip()]
                 if not parts:
@@ -372,12 +494,17 @@ def enrich():
                 for p in parts:
                     parsed = parse_single_class(p, slot)
                     if parsed:
-                        new_schedule[day].append(parsed)
-                        total_classes += 1
-                        if parsed['subject']:
-                            all_t_subjects.add(parsed['subject'])
-                        if parsed.get('subject_name') and parsed['subject_name'] != parsed['subject']:
-                            all_t_subjects.add(parsed['subject_name'])
+                        parsed_day_classes.append(parsed)
+
+            merged_classes = merge_day_classes(parsed_day_classes)
+            new_schedule[day] = merged_classes
+            total_classes += len(merged_classes)
+
+            for m in merged_classes:
+                if m['subject']:
+                    all_t_subjects.add(m['subject'])
+                if m.get('subject_name') and m['subject_name'] != m['subject']:
+                    all_t_subjects.add(m['subject_name'])
 
         t['schedule'] = new_schedule
         t['subjects'] = sorted(list(all_t_subjects))
