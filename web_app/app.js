@@ -3708,8 +3708,50 @@ ${freeSlotsList}
         return;
       }
 
+      // Merge consecutive classes for cleaner display (e.g. 2:00 PM to 6:00 PM practical blocks)
+      const mergedDaySched = [];
+      const periodOrder = {
+        '8:30 AM to 9:30 AM': 1, '9:30 AM to 10:30 AM': 2, '10:30 AM to 11:30 AM': 3,
+        '11:30 AM to 12:30 PM': 4, '1:00 PM to 2:00 PM': 5, '2:00 PM to 3:00 PM': 6,
+        '3:00 PM to 4:00 PM': 7, '4:00 PM to 5:00 PM': 8, '5:00 PM to 6:00 PM': 9
+      };
+      const slotTimes = {
+        1: { start: '8:30 AM', end: '9:30 AM' }, 2: { start: '9:30 AM', end: '10:30 AM' },
+        3: { start: '10:30 AM', end: '11:30 AM' }, 4: { start: '11:30 AM', end: '12:30 PM' },
+        5: { start: '1:00 PM', end: '2:00 PM' }, 6: { start: '2:00 PM', end: '3:00 PM' },
+        7: { start: '3:00 PM', end: '4:00 PM' }, 8: { start: '4:00 PM', end: '5:00 PM' },
+        9: { start: '5:00 PM', end: '6:00 PM' }
+      };
+
+      const sortedSched = [...daySched].sort((a, b) => (periodOrder[a.slot] || 0) - (periodOrder[b.slot] || 0));
+      sortedSched.forEach(cls => {
+        const pNum = periodOrder[cls.slot] || 0;
+        if (mergedDaySched.length > 0) {
+          const last = mergedDaySched[mergedDaySched.length - 1];
+          const isSameClass = last.subject === cls.subject &&
+                              last.batch === cls.batch &&
+                              last.room === cls.room &&
+                              last.course === cls.course &&
+                              last.section === cls.section;
+          if (isSameClass && pNum > 0 && last.endPeriodNum + 1 === pNum) {
+            last.endPeriodNum = pNum;
+            last.periodsCount = (last.periodsCount || 1) + 1;
+            last.endSlot = cls.slot;
+            return;
+          }
+        }
+        mergedDaySched.push({
+          ...cls,
+          startPeriodNum: pNum,
+          endPeriodNum: pNum,
+          periodsCount: 1,
+          startSlot: cls.slot,
+          endSlot: cls.slot
+        });
+      });
+
       // 1. Desktop Table Rows (> 640px)
-      const tableRows = daySched.map(cls => {
+      const tableRows = mergedDaySched.map(cls => {
         const roomCode = cls.room ? cls.room.trim() : 'TBD';
         const subjInfo = getSubjectDetails(cls.subject, cls.subject_name);
         const subjCode = subjInfo.code;
@@ -3720,10 +3762,19 @@ ${freeSlotsList}
         const batch = cls.batch || '';
         const rawBatch = cls.raw_batch || '';
 
+        let slotDisplay = cls.slot ? cls.slot.replace(' to ', ' – ') : 'Period';
+        if (cls.periodsCount > 1 && slotTimes[cls.startPeriodNum] && slotTimes[cls.endPeriodNum]) {
+          slotDisplay = `Period ${cls.startPeriodNum}–${cls.endPeriodNum} (${slotTimes[cls.startPeriodNum].start} – ${slotTimes[cls.endPeriodNum].end})`;
+        }
+        let typeDisplay = cls.type || 'Lecture';
+        if (cls.periodsCount > 1) {
+          typeDisplay = `${cls.type || 'Lecture'} (${cls.periodsCount} Periods)`;
+        }
+
         return `
           <tr>
-            <td style="white-space: nowrap;"><strong>${escapeHtml(cls.slot ? cls.slot.replace(' to ', ' – ') : 'Period')}</strong></td>
-            <td><span class="badge-slot-occupied">${escapeHtml(cls.type || 'Lecture')}</span></td>
+            <td style="white-space: nowrap;"><strong>${escapeHtml(slotDisplay)}</strong></td>
+            <td><span class="badge-slot-occupied">${escapeHtml(typeDisplay)}</span></td>
             <td>
               <div style="margin-bottom: 4px;">
                 <strong style="color: var(--text-primary); font-size: 0.88rem; line-height: 1.35; display: block;">${escapeHtml(subjFullName && subjFullName !== subjCode ? subjFullName : courseName)}</strong>
@@ -3747,7 +3798,7 @@ ${freeSlotsList}
       }).join('');
 
       // 2. Mobile Schedule Cards (<= 640px)
-      const mobileCards = daySched.map(cls => {
+      const mobileCards = mergedDaySched.map(cls => {
         const roomCode = cls.room ? cls.room.trim() : 'TBD';
         const subjInfo = getSubjectDetails(cls.subject, cls.subject_name);
         const subjCode = subjInfo.code;
@@ -3759,14 +3810,23 @@ ${freeSlotsList}
         const rawBatch = cls.raw_batch || '';
         const typeCls = (cls.type && cls.type.toLowerCase().includes('tut')) ? 'is-tut' : (cls.type && cls.type.toLowerCase().includes('prac')) ? 'is-prac' : 'is-lec';
 
+        let slotDisplay = cls.slot ? cls.slot.replace(' to ', ' – ') : 'Period';
+        if (cls.periodsCount > 1 && slotTimes[cls.startPeriodNum] && slotTimes[cls.endPeriodNum]) {
+          slotDisplay = `Period ${cls.startPeriodNum}–${cls.endPeriodNum} (${slotTimes[cls.startPeriodNum].start} – ${slotTimes[cls.endPeriodNum].end})`;
+        }
+        let typeDisplay = cls.type || 'Lecture';
+        if (cls.periodsCount > 1) {
+          typeDisplay = `${cls.type || 'Lecture'} (${cls.periodsCount} Periods)`;
+        }
+
         return `
           <div class="modal-timetable-card ${typeCls}">
             <div class="m-tt-header">
               <div class="m-tt-slot">
                 <span>🕒</span>
-                <span>${escapeHtml(cls.slot ? cls.slot.replace(' to ', ' – ') : 'Period')}</span>
+                <span>${escapeHtml(slotDisplay)}</span>
               </div>
-              <span class="m-tt-type">${escapeHtml(cls.type || 'Lecture')}</span>
+              <span class="m-tt-type">${escapeHtml(typeDisplay)}</span>
             </div>
             <div class="m-tt-course-row" style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px; margin-bottom: 6px;">
               <span class="m-tt-coursename" style="font-size: 0.88rem; font-weight: 700; color: var(--text-primary);">${escapeHtml(subjFullName && subjFullName !== subjCode ? subjFullName : courseName)}</span>
@@ -4180,6 +4240,8 @@ window.SRCC_FACULTY_LEAVES = {
         const subj = (s.subject || '').toUpperCase().trim();
         const subj_name = (s.subject_name || '').toUpperCase().trim();
         const raw = (s.raw || '').toUpperCase().trim();
+        const course = (s.course || '').trim();
+        const sec = (s.section || '').trim();
 
         // If explicitly VAC or Value Addition, NEVER classify as SEC
         if (batch.startsWith('VAC') || raw_batch.startsWith('VAC') || /\bVAC\d*|\bVAC-|_VAC|-VAC/.test(raw) || subj_name.includes('VALUE ADDITION')) {
@@ -4192,9 +4254,19 @@ window.SRCC_FACULTY_LEAVES = {
 
         if (batch.startsWith('SEC') || raw_batch.startsWith('SEC')) return true;
         if (/\bSEC\d*|\bSEC-|_SEC|-SEC/.test(raw)) return true;
-        if (subj_name.includes('SKILL ENHANCEMENT')) return true;
+        if (subj_name.includes('SKILL ENHANCEMENT') || course.toUpperCase() === 'SEC') return true;
 
-        const secCodes = ['ITSA I', 'ITSA II', 'AS', 'BIDV', 'SRG', 'EP', 'DM', 'IE', 'BIT', 'PFP', 'SMM', 'PSELL', 'PSEL', 'CW', 'CPL', 'SWR', 'SET', 'NL', 'PUP', 'CIEL'];
+        // If explicitly assigned to a regular degree and regular section without SEC in raw/batch, do NOT classify as SEC
+        if ((course === 'B.A. (Hons) Economics' || course === 'B.Com (Hons)' || course === 'M.Com') && sec && !(/\bSEC\d*|\bSEC-|_SEC|-SEC/.test(raw))) {
+          return false;
+        }
+
+        // SMM in M.Com or without SEC tag is not SEC
+        if (subj === 'SMM' && (course === 'M.Com' || sec || !(/\bSEC\d*|\bSEC-|_SEC|-SEC/.test(raw)))) {
+          return false;
+        }
+
+        const secCodes = ['ITSA I', 'ITSA II', 'AS', 'BIDV', 'SRG', 'EP', 'DM', 'IE', 'BIT', 'PFP', 'PSELL', 'PSEL', 'CW', 'CPL', 'SWR', 'SET', 'NL', 'PUP', 'CIEL'];
         return secCodes.includes(subj);
       }
 
@@ -4205,6 +4277,8 @@ window.SRCC_FACULTY_LEAVES = {
         const subj = (s.subject || '').toUpperCase().trim();
         const subj_name = (s.subject_name || '').toUpperCase().trim();
         const raw = (s.raw || '').toUpperCase().trim();
+        const course = (s.course || '').trim();
+        const sec = (s.section || '').trim();
 
         // If explicitly SEC or Skill Enhancement, NEVER classify as VAC
         if (batch.startsWith('SEC') || raw_batch.startsWith('SEC') || /\bSEC\d*|\bSEC-|_SEC|-SEC/.test(raw) || subj_name.includes('SKILL ENHANCEMENT')) {
@@ -4217,9 +4291,15 @@ window.SRCC_FACULTY_LEAVES = {
 
         if (batch.startsWith('VAC') || raw_batch.startsWith('VAC')) return true;
         if (/\bVAC\d*|\bVAC-|_VAC|-VAC/.test(raw)) return true;
-        if (subj_name.includes('VALUE ADDITION')) return true;
+        if (subj_name.includes('VALUE ADDITION') || course.toUpperCase() === 'VAC') return true;
 
-        const vacCodes = ['EC', 'EI', 'TGNLC', 'DE', 'VAC SEL', 'CVFD', 'ABH', 'VM I', 'VM II', 'VM III', 'RIFE'];
+        // If explicitly assigned to a regular degree and regular section without VAC in raw/batch, do NOT classify as VAC
+        if ((course === 'B.A. (Hons) Economics' || course === 'B.Com (Hons)' || course === 'M.Com') && sec && !(/\bVAC\d*|\bVAC-|_VAC|-VAC/.test(raw))) {
+          return false;
+        }
+
+        // NOTE: DE is Development Economics in BA(H) Economics, NOT VAC!
+        const vacCodes = ['EC', 'EI', 'TGNLC', 'VAC SEL', 'CVFD', 'ABH', 'VM I', 'VM II', 'VM III', 'RIFE'];
         return vacCodes.includes(subj);
       }
 
@@ -4233,6 +4313,8 @@ window.SRCC_FACULTY_LEAVES = {
       const secVacBatchesBySem = {}; // sem -> Set of batches
       const secBatchesBySem = {}; // sem -> Set of batches
       const vacBatchesBySem = {}; // sem -> Set of batches
+      const secBatchMeta = {}; // sem -> batch -> { code, name }
+      const vacBatchMeta = {}; // sem -> batch -> { code, name }
       const getTeachers = () => (teachersData && teachersData.teachers) ? teachersData.teachers : (window.SRCC_TEACHERS_DATA?.teachers || []);
 
       // Helper to cleanly extract and pair batches for a section (e.g., J1 / JP1, J2 / JP2, J3 / JP3)
@@ -4290,15 +4372,30 @@ window.SRCC_FACULTY_LEAVES = {
               const isEither = isSec || isVac || isSecVacSlot(s);
 
               if (isEither) {
-                if (!secVacBatchesBySem[sem]) secVacBatchesBySem[sem] = new Set();
-                if (batch) secVacBatchesBySem[sem].add(batch);
-                if (isSec) {
+                const isRealSec = /^SEC\d+$/i.test(batch);
+                const isRealVac = /^VAC\d+$/i.test(batch);
+
+                if (isSec && isRealSec) {
                   if (!secBatchesBySem[sem]) secBatchesBySem[sem] = new Set();
-                  if (batch) secBatchesBySem[sem].add(batch);
+                  secBatchesBySem[sem].add(batch);
+                  if (!secBatchMeta[sem]) secBatchMeta[sem] = {};
+                  if (!secBatchMeta[sem][batch]) {
+                    const details = getSubjectDetails(s.subject, s.subject_name);
+                    secBatchMeta[sem][batch] = { code: details.code || s.subject || '', name: details.fullName || s.subject_name || '' };
+                  }
                 }
-                if (isVac) {
+                if (isVac && isRealVac) {
                   if (!vacBatchesBySem[sem]) vacBatchesBySem[sem] = new Set();
-                  if (batch) vacBatchesBySem[sem].add(batch);
+                  vacBatchesBySem[sem].add(batch);
+                  if (!vacBatchMeta[sem]) vacBatchMeta[sem] = {};
+                  if (!vacBatchMeta[sem][batch]) {
+                    const details = getSubjectDetails(s.subject, s.subject_name);
+                    vacBatchMeta[sem][batch] = { code: details.code || s.subject || '', name: details.fullName || s.subject_name || '' };
+                  }
+                }
+                if (isRealSec || isRealVac) {
+                  if (!secVacBatchesBySem[sem]) secVacBatchesBySem[sem] = new Set();
+                  secVacBatchesBySem[sem].add(batch);
                 }
                 return;
               }
@@ -4398,6 +4495,21 @@ window.SRCC_FACULTY_LEAVES = {
         const isVac = (ttState.course === 'VAC');
         const isSecVacCourse = isSec || isVac || (ttState.course === 'SEC_VAC') || (ttState.course === 'SEC / VAC');
 
+        // Dynamic label and search placeholder
+        const batchSelectLabelEl = document.querySelector('label[for="ttMainBatchSelect"]');
+        if (batchSelectLabelEl) {
+          batchSelectLabelEl.textContent = isSec ? 'SEC Paper:' : (isVac ? 'VAC Paper:' : 'Batch:');
+        }
+        if (ttMainSearchInput) {
+          if (isSec) {
+            ttMainSearchInput.placeholder = 'Search SEC paper (e.g. SEC12, 12, ITSA), faculty, or room...';
+          } else if (isVac) {
+            ttMainSearchInput.placeholder = 'Search VAC paper (e.g. VAC5, 5, EC), faculty, or room...';
+          } else {
+            ttMainSearchInput.placeholder = 'Search subject (e.g. MME), teacher, batch, or room...';
+          }
+        }
+
         // Semesters adjustments for SEC / VAC (NEP curriculum offers in Sem I, III, V)
         if (isSecVacCourse) {
           if (ttState.sem === 'Sem VII') {
@@ -4432,23 +4544,41 @@ window.SRCC_FACULTY_LEAVES = {
           }
         }
 
+        // Natural numeric sorting helper
+        const sortBatchesNaturally = (arr) => {
+          return arr.sort((a, b) => {
+            const numA = parseInt(a.replace(/\D+/g, ''), 10) || 0;
+            const numB = parseInt(b.replace(/\D+/g, ''), 10) || 0;
+            if (numA !== numB) return numA - numB;
+            return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' });
+          });
+        };
+
         // Batch dropdown:
         let batchOptionsHtml = '<option value="ALL">All batches</option>';
         let batches = [];
 
         if (isSec) {
           const batchSet = secBatchesBySem[ttState.sem] || new Set();
-          batches = Array.from(batchSet).sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
-          batchOptionsHtml = '<option value="ALL">All SEC batches</option>' +
-            batches.map(b => `<option value="${escapeHtml(b)}">${escapeHtml(b)}</option>`).join('');
+          batches = sortBatchesNaturally(Array.from(batchSet));
+          batchOptionsHtml = '<option value="ALL">All SEC Papers / Batches</option>' +
+            batches.map(b => {
+              const meta = secBatchMeta[ttState.sem]?.[b];
+              const desc = meta ? ` — ${meta.code}${meta.name && meta.name !== meta.code ? ` (${meta.name})` : ''}` : '';
+              return `<option value="${escapeHtml(b)}">${escapeHtml(b)}${escapeHtml(desc)}</option>`;
+            }).join('');
         } else if (isVac) {
           const batchSet = vacBatchesBySem[ttState.sem] || new Set();
-          batches = Array.from(batchSet).sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
-          batchOptionsHtml = '<option value="ALL">All VAC batches</option>' +
-            batches.map(b => `<option value="${escapeHtml(b)}">${escapeHtml(b)}</option>`).join('');
+          batches = sortBatchesNaturally(Array.from(batchSet));
+          batchOptionsHtml = '<option value="ALL">All VAC Papers / Batches</option>' +
+            batches.map(b => {
+              const meta = vacBatchMeta[ttState.sem]?.[b];
+              const desc = meta ? ` — ${meta.code}${meta.name && meta.name !== meta.code ? ` (${meta.name})` : ''}` : '';
+              return `<option value="${escapeHtml(b)}">${escapeHtml(b)}${escapeHtml(desc)}</option>`;
+            }).join('');
         } else if (isSecVacCourse) {
           const batchSet = secVacBatchesBySem[ttState.sem] || new Set();
-          batches = Array.from(batchSet).sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
+          batches = sortBatchesNaturally(Array.from(batchSet));
           batchOptionsHtml = '<option value="ALL">All SEC & VAC batches</option>' +
             batches.map(b => `<option value="${escapeHtml(b)}">${escapeHtml(b)}</option>`).join('');
         } else {
@@ -4503,78 +4633,143 @@ window.SRCC_FACULTY_LEAVES = {
         if (ttMainSlotSelect) ttMainSlotSelect.value = ttState.slot;
       }
 
-      function getTimetableData() {
+      const academicPeriodsMap = {
+        '8:30 AM to 9:30 AM': { num: 1, start: '8:30 AM', end: '9:30 AM' },
+        '9:30 AM to 10:30 AM': { num: 2, start: '9:30 AM', end: '10:30 AM' },
+        '10:30 AM to 11:30 AM': { num: 3, start: '10:30 AM', end: '11:30 AM' },
+        '11:30 AM to 12:30 PM': { num: 4, start: '11:30 AM', end: '12:30 PM' },
+        '1:00 PM to 2:00 PM': { num: 5, start: '1:00 PM', end: '2:00 PM' },
+        '2:00 PM to 3:00 PM': { num: 6, start: '2:00 PM', end: '3:00 PM' },
+        '3:00 PM to 4:00 PM': { num: 7, start: '3:00 PM', end: '4:00 PM' },
+        '4:00 PM to 5:00 PM': { num: 8, start: '4:00 PM', end: '5:00 PM' },
+        '5:00 PM to 6:00 PM': { num: 9, start: '5:00 PM', end: '6:00 PM' }
+      };
+
+      function mergeConsecutiveSessions(rawList) {
+        if (!rawList || rawList.length === 0) return [];
+
+        const groups = {};
+        rawList.forEach(item => {
+          const key = `${item.teacherId || item.teacher}__${item.subject}__${item.batch}__${item.room}`;
+          if (!groups[key]) groups[key] = [];
+          groups[key].push(item);
+        });
+
+        const merged = [];
+
+        Object.values(groups).forEach(items => {
+          const byPeriod = {};
+          items.forEach(it => {
+            if (!byPeriod[it.periodNum]) {
+              byPeriod[it.periodNum] = it;
+            } else if (it.rawBatch && it.rawBatch !== byPeriod[it.periodNum].rawBatch) {
+              byPeriod[it.periodNum].rawBatch = 'Whole Section';
+            }
+          });
+
+          const uniquePeriods = Object.keys(byPeriod).map(n => parseInt(n, 10)).sort((a, b) => a - b);
+
+          let currentBlock = [];
+          uniquePeriods.forEach(pNum => {
+            if (currentBlock.length === 0) {
+              currentBlock.push(pNum);
+            } else {
+              const lastP = currentBlock[currentBlock.length - 1];
+              if (pNum === lastP + 1) {
+                currentBlock.push(pNum);
+              } else {
+                merged.push(createSessionBlock(currentBlock, byPeriod));
+                currentBlock = [pNum];
+              }
+            }
+          });
+          if (currentBlock.length > 0) {
+            merged.push(createSessionBlock(currentBlock, byPeriod));
+          }
+        });
+
+        merged.sort((a, b) => a.startPeriod - b.startPeriod || a.subject.localeCompare(b.subject));
+        return merged;
+      }
+
+      function createSessionBlock(periodNums, periodMap) {
+        const startP = periodNums[0];
+        const endP = periodNums[periodNums.length - 1];
+        const base = periodMap[startP];
+        const pCount = periodNums.length;
+
+        const startInfo = academicPeriodsMap[academicPeriods[startP - 1]?.slot] || { start: '8:30 AM' };
+        const endInfo = academicPeriodsMap[academicPeriods[endP - 1]?.slot] || { end: '9:30 AM' };
+        const slotsCovered = periodNums.map(n => academicPeriods[n - 1]?.slot).filter(Boolean);
+
+        return {
+          ...base,
+          startPeriod: startP,
+          endPeriod: endP,
+          periodsCount: pCount,
+          startTime: startInfo.start,
+          endTime: endInfo.end,
+          slotsCovered: slotsCovered,
+          isContinuous: pCount > 1
+        };
+      }
+
+      function getClassesForParameters(targetDay, targetSem, targetCourse, targetBatch, targetSec) {
         const teachers = getTeachers();
         const activeLeaves = (leavesData && Array.isArray(leavesData.leaves)) 
           ? leavesData.leaves 
           : (window.SRCC_FACULTY_LEAVES?.leaves || []);
 
-        const classesBySlot = {};
-        academicPeriods.forEach(p => { classesBySlot[p.slot] = []; });
-        const isSecCourse = (ttState.course === 'SEC');
-        const isVacCourse = (ttState.course === 'VAC');
-        const isSecVacMode = isSecCourse || isVacCourse || (ttState.course === 'SEC_VAC') || (ttState.course === 'SEC / VAC');
-        const queryLower = (ttState.searchQuery || '').trim().toLowerCase();
-        const queryHasSec = queryLower.includes('sec');
-        const queryHasVac = queryLower.includes('vac');
+        const isSecCourse = (targetCourse === 'SEC');
+        const isVacCourse = (targetCourse === 'VAC');
+
+        const rawList = [];
 
         teachers.forEach(t => {
           const tName = t.clean_name || t.label || 'Faculty';
-          const daySched = t.schedule?.[ttState.day] || [];
+          const daySched = t.schedule?.[targetDay] || [];
           daySched.forEach(s => {
             const isSec = isSecSlot(s);
             const isVac = isVacSlot(s);
-            const isEither = isSec || isVac || isSecVacSlot(s);
             let matchesFilter = false;
 
             if (isSecCourse) {
               if (isSec && !isVac) {
-                const semMatches = !s.semester || s.semester === ttState.sem || 
-                                   (Array.isArray(s.semesters_list) && s.semesters_list.includes(ttState.sem));
-                if (semMatches) {
-                  matchesFilter = true;
-                }
+                const semMatches = !s.semester || s.semester === targetSem || 
+                                   (Array.isArray(s.semesters_list) && s.semesters_list.includes(targetSem));
+                if (semMatches) matchesFilter = true;
               }
             } else if (isVacCourse) {
               if (isVac && !isSec) {
-                const semMatches = !s.semester || s.semester === ttState.sem || 
-                                   (Array.isArray(s.semesters_list) && s.semesters_list.includes(ttState.sem));
-                if (semMatches) {
-                  matchesFilter = true;
-                }
+                const semMatches = !s.semester || s.semester === targetSem || 
+                                   (Array.isArray(s.semesters_list) && s.semesters_list.includes(targetSem));
+                if (semMatches) matchesFilter = true;
               }
-            } else if (ttState.course === 'SEC_VAC' || ttState.course === 'SEC / VAC') {
+            } else if (targetCourse === 'SEC_VAC' || targetCourse === 'SEC / VAC') {
               if (isSec || isVac) {
-                const semMatches = !s.semester || s.semester === ttState.sem || 
-                                   (Array.isArray(s.semesters_list) && s.semesters_list.includes(ttState.sem));
-                if (semMatches) {
-                  matchesFilter = true;
-                }
+                const semMatches = !s.semester || s.semester === targetSem || 
+                                   (Array.isArray(s.semesters_list) && s.semesters_list.includes(targetSem));
+                if (semMatches) matchesFilter = true;
               }
             } else {
               if (!isSec && !isVac) {
-                const courseMatches = s.course === ttState.course || 
-                                      (Array.isArray(s.courses_list) && s.courses_list.includes(ttState.course)) ||
-                                      (s.course && s.course.includes(ttState.course));
-                const semMatches = s.semester === ttState.sem || 
-                                   (Array.isArray(s.semesters_list) && s.semesters_list.includes(ttState.sem));
-                const secMatches = s.section === ttState.sec || 
-                                   (Array.isArray(s.sections_list) && s.sections_list.includes(ttState.sec)) ||
-                                   (s.section && s.section.includes(ttState.sec));
+                const courseMatches = s.course === targetCourse || 
+                                      (Array.isArray(s.courses_list) && s.courses_list.includes(targetCourse)) ||
+                                      (s.course && s.course.includes(targetCourse));
+                const semMatches = s.semester === targetSem || 
+                                   (Array.isArray(s.semesters_list) && s.semesters_list.includes(targetSem));
+                const secMatches = s.section === targetSec || 
+                                   (Array.isArray(s.sections_list) && s.sections_list.includes(targetSec)) ||
+                                   (s.section && s.section.includes(targetSec));
 
-                if (courseMatches && semMatches && secMatches) {
-                  matchesFilter = true;
-                }
+                if (courseMatches && semMatches && secMatches) matchesFilter = true;
               }
             }
 
             if (matchesFilter) {
-              const selBatch = (ttState.batch || 'ALL').trim().toUpperCase();
-
-              // Batch filtering:
+              const selBatch = (targetBatch || 'ALL').trim().toUpperCase();
               if (selBatch !== 'ALL') {
                 const targetSubBatches = selBatch.split(/[\s,\/]+/).map(x => x.trim().toUpperCase()).filter(Boolean);
-
                 const allBatches = [
                   s.batch,
                   s.raw_batch,
@@ -4590,68 +4785,162 @@ window.SRCC_FACULTY_LEAVES = {
                              targetSubBatches.some(tb => tb.replace(/P(\d+)$/, '$1') === tok.replace(/P(\d+)$/, '$1'));
                     });
                   });
-                  if (!matches) {
-                    return;
-                  }
+                  if (!matches) return;
                 }
               }
 
-              const slot = s.slot;
-              if (classesBySlot[slot]) {
-                const subjInfo = getSubjectDetails(s.subject, s.subject_name);
+              const slotInfo = academicPeriodsMap[s.slot];
+              if (!slotInfo) return;
 
-                // Deduplicate if already added for this teacher and subject and room in this slot
-                const already = classesBySlot[slot].find(ex => ex.teacherId === t.id && ex.subject === subjInfo.code && ex.room === (s.room || ''));
-                if (already) {
-                  if (s.batch && already.batch && s.batch !== already.batch) {
-                    already.rawBatch = 'Whole Section';
-                  }
-                  return;
-                }
+              const subjInfo = getSubjectDetails(s.subject, s.subject_name);
+              const leaveRecord = (typeof isTeacherOnLeave === 'function' ? isTeacherOnLeave(t) : null) || activeLeaves.find(l => {
+                const nameMatch = l.teacher_name && (tName.toLowerCase().includes(l.teacher_name.toLowerCase()) || l.teacher_name.toLowerCase().includes(tName.toLowerCase()));
+                const dayMatch = l.day === targetDay || !l.day;
+                return nameMatch && dayMatch;
+              });
 
-                const leaveRecord = (typeof isTeacherOnLeave === 'function' ? isTeacherOnLeave(t) : null) || activeLeaves.find(l => {
-                  const nameMatch = l.teacher_name && (tName.toLowerCase().includes(l.teacher_name.toLowerCase()) || l.teacher_name.toLowerCase().includes(tName.toLowerCase()));
-                  const dayMatch = l.day === ttState.day || !l.day;
-                  return nameMatch && dayMatch;
-                });
-                const isOnLeave = Boolean(leaveRecord);
-
-                classesBySlot[slot].push({
-                  subject: subjInfo.code,
-                  subjectName: subjInfo.fullName,
-                  type: s.type || 'Lecture',
-                  batch: s.batch || '',
-                  rawBatch: s.raw_batch || '',
-                  teacher: tName,
-                  teacherId: t.id,
-                  room: s.room || '',
-                  isOnLeave: isOnLeave,
-                  isSec: isSec,
-                  isVac: isVac,
-                  sem: s.semester || ttState.sem
-                });
-              }
+              rawList.push({
+                slot: s.slot,
+                periodNum: slotInfo.num,
+                subject: subjInfo.code,
+                subjectName: subjInfo.fullName,
+                type: s.type || 'Lecture',
+                batch: s.batch || '',
+                rawBatch: s.raw_batch || '',
+                teacher: tName,
+                teacherId: t.id,
+                room: s.room || '',
+                isOnLeave: Boolean(leaveRecord),
+                isSec: isSec,
+                isVac: isVac,
+                sem: s.semester || targetSem,
+                day: targetDay
+              });
             }
           });
         });
 
-        // Compute free rooms for current day
-        const freeRoomsBySlot = {};
-        const roomsList = (appData && Array.isArray(appData.rooms)) ? appData.rooms : (window.SRCC_DATA?.rooms || []);
+        return mergeConsecutiveSessions(rawList);
+      }
 
-        academicPeriods.forEach(p => {
-          const slot = p.slot;
-          const freeCodes = [];
-          roomsList.forEach(r => {
-            const daySched = r.schedule?.[ttState.day];
-            if (daySched && Array.isArray(daySched.free_slots) && daySched.free_slots.includes(slot)) {
-              freeCodes.push(r.code);
-            }
-          });
-          freeRoomsBySlot[slot] = freeCodes;
-        });
+      function matchesSessionSearch(session, rawQuery) {
+        if (!rawQuery) return true;
+        const q = rawQuery.trim().toLowerCase();
+        if (!q) return true;
 
-        return { classesBySlot, freeRoomsBySlot };
+        const qNorm = q.replace(/[\s\-_]+/g, '');
+        const subjCode = (session.subject || '').toLowerCase();
+        const subjName = (session.subjectName || '').toLowerCase();
+        const type = (session.type || '').toLowerCase();
+        const batch = (session.batch || '').toLowerCase();
+        const rawBatch = (session.rawBatch || '').toLowerCase();
+        const teacher = (session.teacher || '').toLowerCase();
+        const room = (session.room || '').toLowerCase();
+        const sem = (session.sem || '').toLowerCase();
+        const day = (session.day || '').toLowerCase();
+
+        const combined = `${subjCode} ${subjName} ${type} ${batch} ${rawBatch} ${teacher} ${room} ${sem} ${day} ${session.isSec ? 'sec skill enhancement' : ''} ${session.isVac ? 'vac value addition' : ''}`.toLowerCase();
+        const combinedNorm = combined.replace(/[\s\-_]+/g, '');
+
+        if (combined.includes(q) || combinedNorm.includes(qNorm)) return true;
+
+        // If query is pure digits (e.g., "12"), check if batch number ends with or equals 12
+        if (/^\d+$/.test(q)) {
+          const batchDigits = batch.replace(/\D+/g, '');
+          if (batchDigits === q) return true;
+        }
+
+        // Multi-word matching: all words in query must match
+        const words = q.split(/\s+/).filter(Boolean);
+        if (words.length > 1 && words.every(w => combined.includes(w) || combinedNorm.includes(w.replace(/[\s\-_]+/g, '')))) {
+          return true;
+        }
+
+        return false;
+      }
+
+      function renderSessionCard(session, isCrossDay = false) {
+        const displayBatch = session.rawBatch || session.batch;
+        let batchBadge = '';
+        if (displayBatch) {
+          const bTrimmed = String(displayBatch).trim();
+          if (bTrimmed.includes(',') || bTrimmed.toLowerCase() === 'whole section') {
+            batchBadge = ' · Whole Section';
+          } else if (/^(sec|vac|batch)/i.test(bTrimmed)) {
+            batchBadge = ` · ${escapeHtml(bTrimmed)}`;
+          } else {
+            batchBadge = ` · Batch ${escapeHtml(bTrimmed)}`;
+          }
+        }
+
+        const secVacBadge = session.isSec 
+          ? `<span class="tt-secvac-badge">SEC</span>` 
+          : (session.isVac ? `<span class="tt-secvac-badge" style="background: rgba(16, 185, 129, 0.12); color: #059669; border-color: rgba(16, 185, 129, 0.28);">VAC</span>` : '');
+
+        const initials = session.teacher.split(' ').map(n => n[0]).filter(Boolean).slice(0, 2).join('').toUpperCase() || 'FC';
+        const leaveHtml = session.isOnLeave 
+          ? `<div class="tt-leave-badge">🏖️ Faculty on Leave Today · Class Suspended</div>` 
+          : '';
+
+        const targetRoom = getTargetRoomJumpCode(session.room);
+        const displayRoom = getDisplayRoomName(session.room);
+        const roomButtonHtml = session.room 
+          ? `<button type="button" class="room-badge-link tt-room-btn btn-jump-room" data-room="${escapeHtml(targetRoom)}" title="Click to view room in campus room finder">🏛️ ${escapeHtml(displayRoom)} <span class="tt-room-arrow">↗</span></button>` 
+          : `<span style="font-size: 0.8rem; color: var(--text-muted);">Room TBD</span>`;
+
+        const leaveCardCls = session.isOnLeave ? ' is-faculty-leave' : '';
+        const displaySubject = session.subjectName || session.subject || 'Subject';
+        const showCodeBadge = Boolean(session.subject && session.subject.toLowerCase() !== displaySubject.toLowerCase());
+
+        let courseMetaText = ttState.course;
+        let secMetaText = ttState.sec;
+        if (session.isSec || session.isVac) {
+          courseMetaText = session.isSec ? 'SEC' : 'VAC';
+          secMetaText = 'Joint';
+        }
+
+        const periodBadgeText = (session.periodsCount > 1)
+          ? `🕒 Period ${session.startPeriod}–${session.endPeriod} · ${session.startTime} – ${session.endTime}`
+          : `🕒 Period ${session.startPeriod} · ${session.startTime}`;
+
+        const durationPill = (session.periodsCount > 1)
+          ? `<span class="tt-block-duration-pill">${session.periodsCount} Periods (${session.periodsCount} Hrs)</span>`
+          : '';
+
+        const dayTagHtml = isCrossDay ? `<span class="tt-day-tag">📅 ${escapeHtml(session.day)}</span>` : '';
+
+        return `
+          <article class="tt-card${leaveCardCls}" data-slot="${escapeHtml(session.slot || '')}">
+            <div class="tt-card-header">
+              <span class="tt-period-badge">${dayTagHtml}${periodBadgeText}</span>
+              <div class="tt-card-badges">
+                ${secVacBadge}
+                ${durationPill}
+                <span class="tt-type-pill">${escapeHtml(session.type)}${batchBadge}</span>
+              </div>
+            </div>
+            <div class="tt-card-subject">
+              <span>${escapeHtml(displaySubject)}</span>
+              ${showCodeBadge ? `<span class="tt-subj-code-pill">${escapeHtml(session.subject)}</span>` : ''}
+            </div>
+            <div class="tt-card-meta">
+              <span>${escapeHtml(courseMetaText)}</span> •
+              <span>${escapeHtml(session.sem || ttState.sem)}</span> •
+              <span>${escapeHtml(secMetaText)}</span>
+            </div>
+            <div class="tt-card-faculty">
+              <div class="tt-faculty-info btn-view-teacher-today" data-teacher-id="${escapeHtml(session.teacherId || '')}" data-teacher-name="${escapeHtml(session.teacher)}" role="button" tabindex="0" title="Click to view full timetable for ${escapeHtml(session.teacher)}">
+                <div class="tt-faculty-avatar">${initials}</div>
+                <div class="tt-faculty-name-wrap">
+                  <span class="tt-faculty-name">${escapeHtml(session.teacher)}</span>
+                  <span class="tt-faculty-link-badge" title="Click to view faculty schedule">📅</span>
+                </div>
+              </div>
+              ${roomButtonHtml}
+            </div>
+            ${leaveHtml}
+          </article>
+        `;
       }
 
       // --- Render Native Full View Section (#viewTimetableSection) ---
@@ -4659,7 +4948,7 @@ window.SRCC_FACULTY_LEAVES = {
         if (!viewTimetableSection) return;
 
         syncControlPills();
-        const { classesBySlot, freeRoomsBySlot } = getTimetableData();
+        const mergedToday = getClassesForParameters(ttState.day, ttState.sem, ttState.course, ttState.batch, ttState.sec);
         const filterQuery = (ttState.searchQuery || '').trim().toLowerCase();
         const isSecCourse = (ttState.course === 'SEC');
         const isVacCourse = (ttState.course === 'VAC');
@@ -4669,113 +4958,60 @@ window.SRCC_FACULTY_LEAVES = {
           btnClearTtMainSearch.style.display = filterQuery ? 'block' : 'none';
         }
 
-        let totalClassesToday = 0;
-        let matchCount = 0;
+        let visibleSessions = mergedToday;
+
+        // Slot filter (ALL or specific period)
+        if (ttState.slot !== 'ALL') {
+          visibleSessions = visibleSessions.filter(s => s.slotsCovered && s.slotsCovered.includes(ttState.slot));
+        }
+
+        // Search query filtering
+        let matchedTodaySessions = visibleSessions;
+        if (filterQuery) {
+          matchedTodaySessions = visibleSessions.filter(s => matchesSessionSearch(s, filterQuery));
+        }
+
         let cardsHtml = '';
+        let matchCount = matchedTodaySessions.length;
+        let isCrossDaySearch = false;
+        let otherDayMatches = [];
+        let matchedOtherDayName = '';
 
-        academicPeriods.forEach(p => {
-          const slot = p.slot;
-          const timeLabel = p.time;
-          const slotClasses = classesBySlot[slot] || [];
-
-          if (slotClasses.length > 0) {
-            totalClassesToday += slotClasses.length;
-          }
-
-          // Slot filter (ALL or specific period)
-          if (ttState.slot !== 'ALL' && ttState.slot !== slot) {
-            return;
-          }
-
-          // Search text filtering
-          let filteredClasses = slotClasses;
-          if (filterQuery) {
-            filteredClasses = slotClasses.filter(c => {
-              const fullText = `${c.subject} ${c.subjectName || ''} ${c.type} ${c.batch} ${c.rawBatch || ''} ${c.teacher} ${c.room} ${c.isSec ? 'sec skill enhancement' : ''} ${c.isVac ? 'vac value addition' : ''}`.toLowerCase();
-              return fullText.includes(filterQuery);
-            });
-            if (filteredClasses.length === 0) {
-              return;
+        if (matchCount > 0) {
+          // Render today's matches
+          cardsHtml = matchedTodaySessions.map(s => renderSessionCard(s, false)).join('');
+        } else if (filterQuery) {
+          // If no matches found on current day, perform cross-day search across all other days
+          const allDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+          for (const d of allDays) {
+            if (d === ttState.day) continue;
+            const sessionsOnDay = getClassesForParameters(d, ttState.sem, ttState.course, ttState.batch, ttState.sec);
+            const matchesOnDay = sessionsOnDay.filter(s => matchesSessionSearch(s, filterQuery));
+            if (matchesOnDay.length > 0) {
+              otherDayMatches.push(...matchesOnDay);
+              if (!matchedOtherDayName) matchedOtherDayName = d;
             }
           }
 
-          if (filteredClasses.length > 0) {
-            matchCount += filteredClasses.length;
-            // Scheduled Classes Card
-            filteredClasses.forEach(c => {
-              const displayBatch = c.rawBatch || c.batch;
-              let batchBadge = '';
-              if (displayBatch) {
-                const bTrimmed = String(displayBatch).trim();
-                if (bTrimmed.includes(',') || bTrimmed.toLowerCase() === 'whole section') {
-                  batchBadge = ' · Whole Section';
-                } else if (/^(sec|vac|batch)/i.test(bTrimmed)) {
-                  batchBadge = ` · ${escapeHtml(bTrimmed)}`;
-                } else {
-                  batchBadge = ` · Batch ${escapeHtml(bTrimmed)}`;
-                }
-              }
-              const secVacBadge = c.isSec 
-                ? `<span class="tt-secvac-badge">SEC</span>` 
-                : (c.isVac ? `<span class="tt-secvac-badge" style="background: rgba(16, 185, 129, 0.12); color: #059669; border-color: rgba(16, 185, 129, 0.28);">VAC</span>` : '');
-              const initials = c.teacher.split(' ').map(n => n[0]).filter(Boolean).slice(0, 2).join('').toUpperCase() || 'FC';
-              const leaveHtml = c.isOnLeave 
-                ? `<div class="tt-leave-badge">🏖️ Faculty on Leave Today · Class Suspended</div>` 
-                : '';
-              const targetRoom = getTargetRoomJumpCode(c.room);
-              const displayRoom = getDisplayRoomName(c.room);
-              const roomButtonHtml = c.room 
-                ? `<button type="button" class="room-badge-link tt-room-btn btn-jump-room" data-room="${escapeHtml(targetRoom)}" title="Click to view room in campus room finder">🏛️ ${escapeHtml(displayRoom)} <span class="tt-room-arrow">↗</span></button>` 
-                : `<span style="font-size: 0.8rem; color: var(--text-muted);">Room TBD</span>`;
-
-              const leaveCardCls = c.isOnLeave ? ' is-faculty-leave' : '';
-              const displaySubject = c.subjectName || c.subject || 'Subject';
-              const showCodeBadge = Boolean(c.subject && c.subject.toLowerCase() !== displaySubject.toLowerCase());
-
-              let courseMetaText = ttState.course;
-              let secMetaText = ttState.sec;
-              if (isSecVacMode || c.isSec || c.isVac) {
-                courseMetaText = c.isSec ? 'SEC' : (c.isVac ? 'VAC' : 'SEC / VAC');
-                secMetaText = 'Joint';
-              }
-
-              cardsHtml += `
-                <article class="tt-card${leaveCardCls}" data-slot="${escapeHtml(slot)}">
-                  <div class="tt-card-header">
-                    <span class="tt-period-badge">🕒 Period ${p.num} · ${timeLabel}</span>
-                    <div class="tt-card-badges">
-                      ${secVacBadge}
-                      <span class="tt-type-pill">${escapeHtml(c.type)}${batchBadge}</span>
-                    </div>
+          if (otherDayMatches.length > 0) {
+            isCrossDaySearch = true;
+            matchCount = otherDayMatches.length;
+            cardsHtml = `
+              <div class="tt-search-other-days-banner" style="grid-column: 1 / -1;">
+                <div class="tt-srb-left">
+                  <span style="font-size: 1.3rem;">📅</span>
+                  <div class="tt-srb-text">
+                    Found <strong>${otherDayMatches.length}</strong> matching ${isSecVacMode ? (isSecCourse ? 'SEC' : 'VAC') : ''} classes on <strong>${escapeHtml(matchedOtherDayName)}</strong> for "<strong>${escapeHtml(filterQuery)}</strong>"
                   </div>
-                  <div class="tt-card-subject">
-                    <span>${escapeHtml(displaySubject)}</span>
-                    ${showCodeBadge ? `<span class="tt-subj-code-pill">${escapeHtml(c.subject)}</span>` : ''}
-                  </div>
-                  <div class="tt-card-meta">
-                    <span>${escapeHtml(courseMetaText)}</span> •
-                    <span>${escapeHtml(c.sem || ttState.sem)}</span> •
-                    <span>${escapeHtml(secMetaText)}</span>
-                  </div>
-                  <div class="tt-card-faculty">
-                    <div class="tt-faculty-info btn-view-teacher-today" data-teacher-id="${escapeHtml(c.teacherId || '')}" data-teacher-name="${escapeHtml(c.teacher)}" role="button" tabindex="0" title="Click to view full timetable for ${escapeHtml(c.teacher)}">
-                      <div class="tt-faculty-avatar">${initials}</div>
-                      <div class="tt-faculty-name-wrap">
-                        <span class="tt-faculty-name">${escapeHtml(c.teacher)}</span>
-                        <span class="tt-faculty-link-badge" title="Click to view faculty schedule">📅</span>
-                      </div>
-                    </div>
-                    ${roomButtonHtml}
-                  </div>
-                  ${leaveHtml}
-                </article>
-              `;
-            });
+                </div>
+                <button class="btn-jump-day-pill btn-switch-day-quick" data-day="${escapeHtml(matchedOtherDayName)}">Switch to ${escapeHtml(matchedOtherDayName)}</button>
+              </div>
+            ` + otherDayMatches.map(s => renderSessionCard(s, true)).join('');
           }
-        });
+        }
 
         // Update Stat tiles
-        if (ttCountClasses) ttCountClasses.textContent = totalClassesToday;
+        if (ttCountClasses) ttCountClasses.textContent = mergedToday.length;
         if (ttSelectedSummary) {
           if (ttState.course === 'SEC') {
             ttSelectedSummary.textContent = `SEC · ${ttState.sem}`;
@@ -4816,6 +5052,7 @@ window.SRCC_FACULTY_LEAVES = {
         if (ttMainScheduleGrid) {
           ttMainScheduleGrid.innerHTML = cardsHtml;
         }
+
         if (ttMainEmptyState) {
           if (matchCount === 0) {
             ttMainEmptyState.style.display = 'block';
@@ -4839,9 +5076,12 @@ window.SRCC_FACULTY_LEAVES = {
                   <p style="color: var(--text-muted); max-width: 500px; margin: 0 auto 14px;">Classes for this semester run on other days, or check today's other active semesters below:</p>
                   <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
                     <button class="btn-reset-filters btn-switch-day-quick" data-day="Monday">View Monday</button>
+                    <button class="btn-reset-filters btn-switch-day-quick" data-day="Tuesday">View Tuesday</button>
                     <button class="btn-reset-filters btn-switch-day-quick" data-day="Wednesday">View Wednesday</button>
-                    <button class="btn-reset-filters btn-switch-sem-quick" data-sem="Sem III">Sem III Today</button>
-                    <button class="btn-reset-filters btn-switch-sem-quick" data-sem="Sem V">Sem V Today</button>
+                    <button class="btn-reset-filters btn-switch-day-quick" data-day="Thursday">View Thursday</button>
+                    <button class="btn-reset-filters btn-switch-day-quick" data-day="Friday">View Friday</button>
+                    <button class="btn-reset-filters btn-switch-sem-quick" data-sem="Sem III">Sem III</button>
+                    <button class="btn-reset-filters btn-switch-sem-quick" data-sem="Sem V">Sem V</button>
                     <button class="btn-reset-filters" id="btnResetTtFiltersDynamic">Reset Filters</button>
                   </div>
                 `;
@@ -4895,6 +5135,14 @@ window.SRCC_FACULTY_LEAVES = {
             ttMainEmptyState.style.display = 'none';
           }
         }
+
+        // Attach listeners to any dynamic switch day buttons created in banners
+        document.querySelectorAll('.btn-switch-day-quick').forEach(b => {
+          b.addEventListener('click', () => {
+            ttState.day = b.dataset.day;
+            renderMainTimetableView();
+          });
+        });
 
         // Attach click listeners for 1-click teacher timetable inspection
         if (ttMainScheduleGrid) {

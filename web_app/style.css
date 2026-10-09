@@ -6122,14 +6122,14 @@ body.modal-open {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
-  padding: 18px 20px;
+  padding: 16px 18px;
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   transition: all var(--transition-normal);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .tt-card:hover {
@@ -6147,14 +6147,14 @@ body.modal-open {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 6px;
-  flex-wrap: nowrap;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .tt-period-badge {
-  font-size: 0.72rem;
+  font-size: 0.73rem;
   font-weight: 700;
-  padding: 2.5px 8px;
+  padding: 3px 9px;
   border-radius: var(--radius-full);
   background: var(--accent-blue-bg);
   color: var(--accent-blue);
@@ -6169,34 +6169,37 @@ body.modal-open {
 .tt-card-badges {
   display: flex;
   align-items: center;
-  gap: 5px;
-  flex-wrap: nowrap;
-  white-space: nowrap;
-  flex-shrink: 0;
+  gap: 6px;
+  flex-wrap: wrap;
+  max-width: 100%;
 }
 
 .tt-type-pill {
-  font-size: 0.7rem;
+  font-size: 0.71rem;
   font-weight: 600;
-  padding: 2px 7px;
+  padding: 2.5px 8px;
   border-radius: var(--radius-full);
   background: var(--bg-card-hover);
   color: var(--text-secondary);
   border: 1px solid var(--border-color);
-  white-space: nowrap;
-  flex-shrink: 0;
+  white-space: normal;
+  display: inline-flex;
+  align-items: center;
+  word-break: break-word;
 }
 
 .tt-secvac-badge {
-  font-size: 0.68rem;
+  font-size: 0.69rem;
   font-weight: 700;
-  padding: 2px 6px;
+  padding: 2.5px 7px;
   border-radius: var(--radius-full);
   background: rgba(147, 51, 234, 0.12);
   color: #7e22ce;
   border: 1px solid rgba(147, 51, 234, 0.28);
   letter-spacing: 0.02em;
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
   flex-shrink: 0;
 }
 
@@ -6206,22 +6209,105 @@ body.modal-open {
   border-color: rgba(168, 85, 247, 0.35);
 }
 
+.tt-block-duration-pill {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+  background: rgba(245, 158, 11, 0.12);
+  color: #d97706;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+[data-theme="dark"] .tt-block-duration-pill {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+.tt-day-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--accent-blue, #2563eb);
+  border: 1px solid rgba(37, 99, 235, 0.25);
+  display: inline-flex;
+  align-items: center;
+  margin-right: 4px;
+}
+
+.tt-search-other-days-banner {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.08) 0%, rgba(147, 51, 234, 0.08) 100%);
+  border: 1px solid rgba(37, 99, 235, 0.22);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.tt-srb-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tt-srb-text {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.tt-srb-text strong {
+  color: var(--accent-blue);
+}
+
+.btn-jump-day-pill {
+  padding: 6px 14px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  background: var(--accent-blue);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn-jump-day-pill:hover {
+  background: var(--accent-blue-hover, #1d4ed8);
+  transform: translateY(-1px);
+}
+
 @media (max-width: 480px) {
+  .tt-card {
+    padding: 14px;
+    gap: 9px;
+  }
   .tt-card-header {
-    gap: 4px;
+    gap: 6px;
   }
   .tt-period-badge {
-    font-size: 0.68rem;
-    padding: 2px 6px;
-    gap: 2px;
+    font-size: 0.69rem;
+    padding: 2.5px 7px;
+    gap: 3px;
   }
   .tt-type-pill,
   .tt-secvac-badge {
-    font-size: 0.68rem;
-    padding: 2px 5px;
+    font-size: 0.69rem;
+    padding: 2px 6px;
   }
   .tt-card-badges {
-    gap: 3px;
+    gap: 4px;
   }
 }
 
