@@ -190,7 +190,7 @@ def parse_class_entry(raw_text):
         course = 'B.Com (Hons)'
     elif 'BAH' in clean or 'ECO' in clean:
         course = 'B.A. (Hons) Economics'
-    elif 'M.COM' in clean:
+    elif 'MCOM' in clean or 'M.COM' in clean:
         course = 'M.Com'
     elif 'MA-ECO' in clean:
         course = 'M.A. Economics'

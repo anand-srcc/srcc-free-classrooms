@@ -169,7 +169,7 @@ def parse_single_class(raw_part, slot):
         course = 'B.Com (Hons)'
     elif 'BAH' in clean or 'ECO' in clean:
         course = 'B.A. (Hons) Economics'
-    elif 'M.COM' in clean:
+    elif 'MCOM' in clean or 'M.COM' in clean:
         course = 'M.Com'
     elif 'MA-ECO' in clean:
         course = 'M.A. Economics'
@@ -486,7 +486,7 @@ def enrich():
                 raw = c.get('raw', '')
                 slot = c.get('slot', '')
 
-                parts = re.split(r'(?=(?:LAB|L|T)-(?:BCH|BAH|M\.COM|MA-ECO|JOINT)-)', raw)
+                parts = re.split(r'(?=(?:LAB|L|T)-(?:BCH|BAH|MCOM|M\.COM|MA-ECO|JOINT)-)', raw)
                 parts = [p.strip() for p in parts if p.strip()]
                 if not parts:
                     parts = [raw]

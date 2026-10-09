@@ -136,31 +136,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec N",
-            "batch": "N1, N2, N3",
-            "raw_batch": "NP1, NP2, NP3",
+            "batch": "N1",
+            "raw_batch": "NP1",
             "subject": "ITLP",
             "subject_name": "Income Tax Law and Practice",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec N · (NP1, NP2, NP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec N"
-            ],
-            "batches_list": [
-              "N1",
-              "N2",
-              "N3"
-            ],
-            "raw_batches_list": [
-              "NP1",
-              "NP2",
-              "NP3"
-            ]
+            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec N · (N1 / NP1)"
           },
           {
             "raw": "LAB-BCH-N-SEM VCommerce-ITLP-T1-NP2",
@@ -2865,31 +2846,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "T23",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec N, L",
-            "batch": "N1, L1",
-            "raw_batch": "N1, L1",
+            "section": "Sec N",
+            "batch": "N1",
+            "raw_batch": "N1",
             "subject": "MB",
             "subject_name": "Money and Banking",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Money and Banking (MB) · B.Com (Hons) · Sem V · Sec N, L · (N1, L1)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec N",
-              "Sec L"
-            ],
-            "batches_list": [
-              "N1",
-              "L1"
-            ],
-            "raw_batches_list": [
-              "N1",
-              "L1"
-            ]
+            "formatted_display": "Money and Banking (MB) · B.Com (Hons) · Sem V · Sec N · (N1)"
           }
         ],
         "Friday": [
@@ -3115,31 +3078,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem I",
             "section": "Sec M",
-            "batch": "M1, M2, M3",
-            "raw_batch": "MP1, MP2, MP3",
+            "batch": "M1",
+            "raw_batch": "MP1",
             "subject": "FA",
             "subject_name": "Financial Accounting",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec M · (MP1, MP2, MP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem I"
-            ],
-            "sections_list": [
-              "Sec M"
-            ],
-            "batches_list": [
-              "M1",
-              "M2",
-              "M3"
-            ],
-            "raw_batches_list": [
-              "MP1",
-              "MP2",
-              "MP3"
-            ]
+            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec M · (M1 / MP1)"
           },
           {
             "raw": "L-BCH-B-SEM ICommerce-FA-R21",
@@ -3290,31 +3234,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem I",
             "section": "Sec B",
-            "batch": "B1, B2, B3",
-            "raw_batch": "BP1, BP2, BP3",
+            "batch": "B1",
+            "raw_batch": "BP1",
             "subject": "FA",
             "subject_name": "Financial Accounting",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec B · (BP1, BP2, BP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem I"
-            ],
-            "sections_list": [
-              "Sec B"
-            ],
-            "batches_list": [
-              "B1",
-              "B2",
-              "B3"
-            ],
-            "raw_batches_list": [
-              "BP1",
-              "BP2",
-              "BP3"
-            ]
+            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec B · (B1 / BP1)"
           }
         ],
         "Saturday": [
@@ -3752,31 +3677,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec M",
-            "batch": "M1, M2, M3",
-            "raw_batch": "MP1, MP2, MP3",
+            "batch": "M1",
+            "raw_batch": "MP1",
             "subject": "MA",
             "subject_name": "Management Accounting",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec M · (MP1, MP2, MP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec M"
-            ],
-            "batches_list": [
-              "M1",
-              "M2",
-              "M3"
-            ],
-            "raw_batches_list": [
-              "MP1",
-              "MP2",
-              "MP3"
-            ]
+            "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec M · (M1 / MP1)"
           }
         ],
         "Thursday": [],
@@ -3866,31 +3772,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec D",
-            "batch": "D1, D2, D3",
-            "raw_batch": "DP1, DP2, DP3",
+            "batch": "D1",
+            "raw_batch": "DP1",
             "subject": "MA",
             "subject_name": "Management Accounting",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec D · (DP1, DP2, DP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec D"
-            ],
-            "batches_list": [
-              "D1",
-              "D2",
-              "D3"
-            ],
-            "raw_batches_list": [
-              "DP1",
-              "DP2",
-              "DP3"
-            ]
+            "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec D · (D1 / DP1)"
           },
           {
             "raw": "L-BCH-M-SEM VCommerce-MA-R21",
@@ -4985,7 +4872,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "T-MCOM-A-SEM IIICommerce-BADS-T48-A1",
             "type": "Tutorial",
             "room": "T48",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem III",
             "section": "Sec A",
             "batch": "A1",
@@ -4993,7 +4880,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BADS",
             "subject_name": "Business Analytics & Data Science",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Analytics & Data Science (BADS) · Sem III · Sec A · (A1)"
+            "formatted_display": "Business Analytics & Data Science (BADS) · M.Com · Sem III · Sec A · (A1)"
           },
           {
             "raw": "L-BCH-F-SEM VCommerce-ITLP-R34",
@@ -5092,7 +4979,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "T-MCOM-A-SEM IIICommerce-BADS-T48-A2",
             "type": "Tutorial",
             "room": "T48",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem III",
             "section": "Sec A",
             "batch": "A2",
@@ -5100,7 +4987,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BADS",
             "subject_name": "Business Analytics & Data Science",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Analytics & Data Science (BADS) · Sem III · Sec A · (A2)"
+            "formatted_display": "Business Analytics & Data Science (BADS) · M.Com · Sem III · Sec A · (A2)"
           }
         ],
         "Thursday": [
@@ -5112,31 +4999,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec F",
-            "batch": "F1, F2, F3",
-            "raw_batch": "FP1, FP2, FP3",
+            "batch": "F1",
+            "raw_batch": "FP1",
             "subject": "ITLP",
             "subject_name": "Income Tax Law and Practice",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec F · (FP1, FP2, FP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec F"
-            ],
-            "batches_list": [
-              "F1",
-              "F2",
-              "F3"
-            ],
-            "raw_batches_list": [
-              "FP1",
-              "FP2",
-              "FP3"
-            ]
+            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec F · (F1 / FP1)"
           },
           {
             "raw": "LAB-BCH-F-SEM VCommerce-ITLP-T24-FP1",
@@ -5240,31 +5108,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec A",
-            "batch": "A1, A2, A3",
-            "raw_batch": "AP1, AP2, AP3",
+            "batch": "A1",
+            "raw_batch": "AP1",
             "subject": "ITLP",
             "subject_name": "Income Tax Law and Practice",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec A · (AP1, AP2, AP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec A"
-            ],
-            "batches_list": [
-              "A1",
-              "A2",
-              "A3"
-            ],
-            "raw_batches_list": [
-              "AP1",
-              "AP2",
-              "AP3"
-            ]
+            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec A · (A1 / AP1)"
           }
         ]
       },
@@ -5309,31 +5158,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec I",
-            "batch": "I1, I3, I2",
-            "raw_batch": "IP1, IP3, IP2",
+            "batch": "I1",
+            "raw_batch": "IP1",
             "subject": "BMATH",
             "subject_name": "Business Mathematics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec I · (IP1, IP3, IP2)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec I"
-            ],
-            "batches_list": [
-              "I1",
-              "I3",
-              "I2"
-            ],
-            "raw_batches_list": [
-              "IP1",
-              "IP3",
-              "IP2"
-            ]
+            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec I · (I1 / IP1)"
           }
         ],
         "Tuesday": [
@@ -5454,31 +5284,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec C",
-            "batch": "C1, C2, C3",
-            "raw_batch": "CP1, CP2, CP3",
+            "batch": "C1",
+            "raw_batch": "CP1",
             "subject": "BMATH",
             "subject_name": "Business Mathematics",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec C · (CP1, CP2, CP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec C"
-            ],
-            "batches_list": [
-              "C1",
-              "C2",
-              "C3"
-            ],
-            "raw_batches_list": [
-              "CP1",
-              "CP2",
-              "CP3"
-            ]
+            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec C · (C1 / CP1)"
           },
           {
             "raw": "L-BCH-I-SEM IIICommerce-BMATH-R15",
@@ -5930,64 +5741,30 @@ window.SRCC_TEACHERS_DATA = {
             "display": "LAB-BAHE-A-SEM VMaths-NM-R29-A1LAB-BAHE-A-SEM VMaths-NM-R29-A3LAB-BAHE-B-SEM VMaths-NM-R29-B1LAB-BAHE-B-SEM VMaths-NM-R29-B3",
             "type": "Practical/Lab",
             "room": "R29",
-            "course": "B.A. (Hons) Economics / B.Com (Hons)",
+            "course": "B.A. (Hons) Economics",
             "semester": "Sem V",
-            "section": "Sec A, N",
+            "section": "Sec A",
             "batch": "B3",
             "raw_batch": "B3",
             "subject": "NM",
             "subject_name": "Numerical Methods",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics / B.Com (Hons) · Sem V · Sec A, N · (B3)",
-            "courses_list": [
-              "B.A. (Hons) Economics",
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec A",
-              "Sec N"
-            ],
-            "batches_list": [
-              "B3"
-            ],
-            "raw_batches_list": [
-              "B3"
-            ]
+            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec A · (B3)"
           },
           {
             "raw": "LAB-BAHE-A-SEM VMaths-NM-R29-A1LAB-BAHE-A-SEM VMaths-NM-R29-A3LAB-BAHE-B-SEM VMaths-NM-R29-B1LAB-BAHE-B-SEM VMaths-NM-R29-B3",
             "display": "LAB-BAHE-A-SEM VMaths-NM-R29-A1LAB-BAHE-A-SEM VMaths-NM-R29-A3LAB-BAHE-B-SEM VMaths-NM-R29-B1LAB-BAHE-B-SEM VMaths-NM-R29-B3",
             "type": "Practical/Lab",
             "room": "R29",
-            "course": "B.A. (Hons) Economics / B.Com (Hons)",
+            "course": "B.A. (Hons) Economics",
             "semester": "Sem V",
-            "section": "Sec A, N",
+            "section": "Sec A",
             "batch": "B3",
             "raw_batch": "B3",
             "subject": "NM",
             "subject_name": "Numerical Methods",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics / B.Com (Hons) · Sem V · Sec A, N · (B3)",
-            "courses_list": [
-              "B.A. (Hons) Economics",
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec A",
-              "Sec N"
-            ],
-            "batches_list": [
-              "B3"
-            ],
-            "raw_batches_list": [
-              "B3"
-            ]
+            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec A · (B3)"
           }
         ],
         "Thursday": [
@@ -6254,31 +6031,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec M",
-            "batch": "M1, M2, M3",
-            "raw_batch": "MP1, MP2, MP3",
+            "batch": "M1",
+            "raw_batch": "MP1",
             "subject": "FM",
             "subject_name": "Financial Management",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec M · (MP1, MP2, MP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec M"
-            ],
-            "batches_list": [
-              "M1",
-              "M2",
-              "M3"
-            ],
-            "raw_batches_list": [
-              "MP1",
-              "MP2",
-              "MP3"
-            ]
+            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec M · (M1 / MP1)"
           },
           {
             "raw": "LAB-BCH-I-SEM IIICommerce-FM-T31-IP1",
@@ -6335,31 +6093,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec I",
-            "batch": "I1, I2, I3",
-            "raw_batch": "IP1, IP2, IP3",
+            "batch": "I1",
+            "raw_batch": "IP1",
             "subject": "FM",
             "subject_name": "Financial Management",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec I · (IP1, IP2, IP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec I"
-            ],
-            "batches_list": [
-              "I1",
-              "I2",
-              "I3"
-            ],
-            "raw_batches_list": [
-              "IP1",
-              "IP2",
-              "IP3"
-            ]
+            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec I · (I1 / IP1)"
           },
           {
             "raw": "L-BCH-M-SEM IIICommerce-FM-R33",
@@ -6482,38 +6221,19 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem I",
             "section": "Sec E",
-            "batch": "E1, E2, E3",
-            "raw_batch": "EP1, EP2, EP3",
+            "batch": "E1",
+            "raw_batch": "EP1",
             "subject": "FA",
             "subject_name": "Financial Accounting",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec E · (EP1, EP2, EP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem I"
-            ],
-            "sections_list": [
-              "Sec E"
-            ],
-            "batches_list": [
-              "E1",
-              "E2",
-              "E3"
-            ],
-            "raw_batches_list": [
-              "EP1",
-              "EP2",
-              "EP3"
-            ]
+            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec E · (E1 / EP1)"
           },
           {
             "raw": "T-MCOM-A-SEM IIICommerce-AIS-T50",
             "display": "T-MCOM-A-SEM IIICommerce-AIS-T50",
             "type": "Tutorial",
             "room": "T50",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem III",
             "section": "Sec A",
             "batch": "",
@@ -6521,14 +6241,14 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "AIS",
             "subject_name": "AIS",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "AIS · Sem III · Sec A"
+            "formatted_display": "AIS · M.Com · Sem III · Sec A"
           },
           {
             "raw": "T-MCOM-A-SEM IIICommerce-ACR-T50",
             "display": "T-MCOM-A-SEM IIICommerce-ACR-T50",
             "type": "Tutorial",
             "room": "T50",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem III",
             "section": "Sec A",
             "batch": "",
@@ -6536,7 +6256,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ACR",
             "subject_name": "Academic and Creative Research",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Academic and Creative Research (ACR) · Sem III · Sec A"
+            "formatted_display": "Academic and Creative Research (ACR) · M.Com · Sem III · Sec A"
           }
         ],
         "Wednesday": [
@@ -6627,31 +6347,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec C",
-            "batch": "C1, C2, C3",
-            "raw_batch": "CP1, CP2, CP3",
+            "batch": "C1",
+            "raw_batch": "CP1",
             "subject": "MA",
             "subject_name": "Management Accounting",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec C · (CP1, CP2, CP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec C"
-            ],
-            "batches_list": [
-              "C1",
-              "C2",
-              "C3"
-            ],
-            "raw_batches_list": [
-              "CP1",
-              "CP2",
-              "CP3"
-            ]
+            "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec C · (C1 / CP1)"
           },
           {
             "raw": "L-BCH-E-SEM ICommerce-FA-R34",
@@ -6793,31 +6494,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec F",
-            "batch": "F1, F2, F3",
-            "raw_batch": "FP1, FP2, FP3",
+            "batch": "F1",
+            "raw_batch": "FP1",
             "subject": "MA",
             "subject_name": "Management Accounting",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec F · (FP1, FP2, FP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec F"
-            ],
-            "batches_list": [
-              "F1",
-              "F2",
-              "F3"
-            ],
-            "raw_batches_list": [
-              "FP1",
-              "FP2",
-              "FP3"
-            ]
+            "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec F · (F1 / FP1)"
           },
           {
             "raw": "T-BCH-B-SEM IIICommerce-BRM-T31-B1",
@@ -7904,7 +7586,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "T-MCOM-A-SEM ICommerce-WM-T50",
             "type": "Tutorial",
             "room": "T50",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem I",
             "section": "Sec A",
             "batch": "",
@@ -7912,7 +7594,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "WM",
             "subject_name": "Wealth Management",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Wealth Management (WM) · Sem I · Sec A"
+            "formatted_display": "Wealth Management (WM) · M.Com · Sem I · Sec A"
           }
         ],
         "Saturday": [
@@ -8222,7 +7904,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "T-MCOM-A-SEM ICommerce-ITL-T44",
             "type": "Tutorial",
             "room": "T44",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem I",
             "section": "Sec A",
             "batch": "",
@@ -8230,7 +7912,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ITL",
             "subject_name": "Income Tax Law",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Income Tax Law (ITL) · Sem I · Sec A"
+            "formatted_display": "Income Tax Law (ITL) · M.Com · Sem I · Sec A"
           },
           {
             "raw": "L-BCH-G-SEM VCommerce-AUD-R1",
@@ -8490,7 +8172,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "L-BAHE-A-SEM VIIEnglish-RIDL-R16L-BAHE-B-SEM VEnglish-RIDL-R16",
             "type": "Lecture",
             "room": "R16",
-            "course": "B.A. (Hons) Economics / B.Com (Hons)",
+            "course": "B.A. (Hons) Economics",
             "semester": "Sem VII",
             "section": "Sec A",
             "batch": "",
@@ -8498,19 +8180,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "RIDL",
             "subject_name": "Readings in Indian Democratic Literature",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Readings in Indian Democratic Literature (RIDL) · B.A. (Hons) Economics / B.Com (Hons) · Sem VII · Sec A",
-            "courses_list": [
-              "B.A. (Hons) Economics",
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem VII"
-            ],
-            "sections_list": [
-              "Sec A"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Readings in Indian Democratic Literature (RIDL) · B.A. (Hons) Economics · Sem VII · Sec A"
           }
         ],
         "Saturday": []
@@ -8578,27 +8248,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R17",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec N, K, M, L",
+            "section": "Sec N",
             "batch": "",
             "raw_batch": "",
             "subject": "TPF",
             "subject_name": "Theory of Public Finance",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Theory of Public Finance (TPF) · B.Com (Hons) · Sem V · Sec N, K, M, L",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec N",
-              "Sec K",
-              "Sec M",
-              "Sec L"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Theory of Public Finance (TPF) · B.Com (Hons) · Sem V · Sec N"
           }
         ],
         "Wednesday": [
@@ -8654,31 +8310,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "T54",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec L, K",
-            "batch": "L3, K2",
-            "raw_batch": "L3, K2",
+            "section": "Sec L",
+            "batch": "L3",
+            "raw_batch": "L3",
             "subject": "TPF",
             "subject_name": "Theory of Public Finance",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Theory of Public Finance (TPF) · B.Com (Hons) · Sem V · Sec L, K · (L3, K2)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec L",
-              "Sec K"
-            ],
-            "batches_list": [
-              "L3",
-              "K2"
-            ],
-            "raw_batches_list": [
-              "L3",
-              "K2"
-            ]
+            "formatted_display": "Theory of Public Finance (TPF) · B.Com (Hons) · Sem V · Sec L · (L3)"
           },
           {
             "raw": "L-BCH-K-SEM VEconomics-TPF-R15",
@@ -8687,27 +8325,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R15",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec K, L, M, N",
+            "section": "Sec K",
             "batch": "",
             "raw_batch": "",
             "subject": "TPF",
             "subject_name": "Theory of Public Finance",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Theory of Public Finance (TPF) · B.Com (Hons) · Sem V · Sec K, L, M, N",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec K",
-              "Sec L",
-              "Sec M",
-              "Sec N"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Theory of Public Finance (TPF) · B.Com (Hons) · Sem V · Sec K"
           }
         ],
         "Thursday": [
@@ -8827,27 +8451,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R19",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec K, M, L, N",
+            "section": "Sec K",
             "batch": "",
             "raw_batch": "",
             "subject": "TPF",
             "subject_name": "Theory of Public Finance",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Theory of Public Finance (TPF) · B.Com (Hons) · Sem V · Sec K, M, L, N",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec K",
-              "Sec M",
-              "Sec L",
-              "Sec N"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Theory of Public Finance (TPF) · B.Com (Hons) · Sem V · Sec K"
           }
         ]
       },
@@ -9192,27 +8802,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "SCR1",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec M, K, L, N",
+            "section": "Sec M",
             "batch": "",
             "raw_batch": "",
             "subject": "HFPE",
             "subject_name": "Health, Fitness & Physical Education",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Health, Fitness & Physical Education (HFPE) · B.Com (Hons) · Sem V · Sec M, K, L, N",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec M",
-              "Sec K",
-              "Sec L",
-              "Sec N"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Health, Fitness & Physical Education (HFPE) · B.Com (Hons) · Sem V · Sec M"
           },
           {
             "raw": "L-BCH-A-SEM VIIPhy.Ed-IST-SCR1",
@@ -9268,27 +8864,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "SCR1",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec M, K, L, N",
+            "section": "Sec M",
             "batch": "",
             "raw_batch": "",
             "subject": "HFPE",
             "subject_name": "Health, Fitness & Physical Education",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Health, Fitness & Physical Education (HFPE) · B.Com (Hons) · Sem V · Sec M, K, L, N",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec M",
-              "Sec K",
-              "Sec L",
-              "Sec N"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Health, Fitness & Physical Education (HFPE) · B.Com (Hons) · Sem V · Sec M"
           },
           {
             "raw": "LAB-BCH-M-SEM VPhy.Ed-HFPE-PLAYGROUND",
@@ -9297,27 +8879,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "PLAYGROUND",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec M, K, L, N",
+            "section": "Sec M",
             "batch": "",
             "raw_batch": "",
             "subject": "HFPE",
             "subject_name": "Health, Fitness & Physical Education",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Health, Fitness & Physical Education (HFPE) · B.Com (Hons) · Sem V · Sec M, K, L, N",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec M",
-              "Sec K",
-              "Sec L",
-              "Sec N"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Health, Fitness & Physical Education (HFPE) · B.Com (Hons) · Sem V · Sec M"
           },
           {
             "raw": "L-BCH-A-SEM VIIPhy.Ed-IST-SCR1",
@@ -9356,28 +8924,15 @@ window.SRCC_TEACHERS_DATA = {
             "display": "L-BAHE-D-SEM IIIPhy.Ed-OE-SCR1",
             "type": "Lecture",
             "room": "SCR1",
-            "course": "B.A. (Hons) Economics / B.Com (Hons)",
+            "course": "B.A. (Hons) Economics",
             "semester": "Sem III",
-            "section": "Sec D, L",
+            "section": "Sec D",
             "batch": "",
             "raw_batch": "",
             "subject": "OE",
             "subject_name": "Open Elective",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Open Elective (OE) · B.A. (Hons) Economics / B.Com (Hons) · Sem III · Sec D, L",
-            "courses_list": [
-              "B.A. (Hons) Economics",
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec D",
-              "Sec L"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Open Elective (OE) · B.A. (Hons) Economics · Sem III · Sec D"
           },
           {
             "raw": "L-BCH-M-SEM VPhy.Ed-HFPE-SCR1",
@@ -9386,27 +8941,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "SCR1",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec M, K, L, N",
+            "section": "Sec M",
             "batch": "",
             "raw_batch": "",
             "subject": "HFPE",
             "subject_name": "Health, Fitness & Physical Education",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Health, Fitness & Physical Education (HFPE) · B.Com (Hons) · Sem V · Sec M, K, L, N",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec M",
-              "Sec K",
-              "Sec L",
-              "Sec N"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Health, Fitness & Physical Education (HFPE) · B.Com (Hons) · Sem V · Sec M"
           },
           {
             "raw": "LAB-BCH-M-SEM VPhy.Ed-HFPE-PLAYGROUND",
@@ -9415,27 +8956,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "PLAYGROUND",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec M, K, L, N",
+            "section": "Sec M",
             "batch": "",
             "raw_batch": "",
             "subject": "HFPE",
             "subject_name": "Health, Fitness & Physical Education",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Health, Fitness & Physical Education (HFPE) · B.Com (Hons) · Sem V · Sec M, K, L, N",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec M",
-              "Sec K",
-              "Sec L",
-              "Sec N"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Health, Fitness & Physical Education (HFPE) · B.Com (Hons) · Sem V · Sec M"
           }
         ],
         "Friday": [
@@ -10151,31 +9678,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "T2",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec M, L",
-            "batch": "M3, L2",
-            "raw_batch": "M3, L2",
+            "section": "Sec M",
+            "batch": "M3",
+            "raw_batch": "M3",
             "subject": "DnD",
             "subject_name": "Negotiation and Deal Making",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec M, L · (M3, L2)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec M",
-              "Sec L"
-            ],
-            "batches_list": [
-              "M3",
-              "L2"
-            ],
-            "raw_batches_list": [
-              "M3",
-              "L2"
-            ]
+            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec M · (M3)"
           },
           {
             "raw": "L-BCH-A-SEM VEconomics-DnD-R13",
@@ -10184,26 +9693,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R13",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec A, B, K",
+            "section": "Sec A",
             "batch": "",
             "raw_batch": "",
             "subject": "DnD",
             "subject_name": "Negotiation and Deal Making",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec A, B, K",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec A",
-              "Sec B",
-              "Sec K"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec A"
           }
         ],
         "Wednesday": [
@@ -10244,26 +9740,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R13",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec A, B, K",
+            "section": "Sec A",
             "batch": "",
             "raw_batch": "",
             "subject": "DnD",
             "subject_name": "Negotiation and Deal Making",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec A, B, K",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec A",
-              "Sec B",
-              "Sec K"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec A"
           },
           {
             "raw": "T-BCH-C-SEM VEconomics-DnD-T54-C3",
@@ -10304,26 +9787,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R13",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec A, B, K",
+            "section": "Sec A",
             "batch": "",
             "raw_batch": "",
             "subject": "DnD",
             "subject_name": "Negotiation and Deal Making",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec A, B, K",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec A",
-              "Sec B",
-              "Sec K"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec A"
           },
           {
             "raw": "T-BCH-C-SEM VEconomics-DnD-T3-C2",
@@ -10447,31 +9917,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem I",
             "section": "Sec F",
-            "batch": "F1, F2, F3",
-            "raw_batch": "FP1, FP2, FP3",
+            "batch": "F1",
+            "raw_batch": "FP1",
             "subject": "FA",
             "subject_name": "Financial Accounting",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec F · (FP1, FP2, FP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem I"
-            ],
-            "sections_list": [
-              "Sec F"
-            ],
-            "batches_list": [
-              "F1",
-              "F2",
-              "F3"
-            ],
-            "raw_batches_list": [
-              "FP1",
-              "FP2",
-              "FP3"
-            ]
+            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec F · (F1 / FP1)"
           },
           {
             "raw": "LAB-BCH-A-SEM ICommerce-FA-T4-AP3",
@@ -10654,31 +10105,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem I",
             "section": "Sec A",
-            "batch": "A1, A2, A3",
-            "raw_batch": "AP1, AP2, AP3",
+            "batch": "A1",
+            "raw_batch": "AP1",
             "subject": "FA",
             "subject_name": "Financial Accounting",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec A · (AP1, AP2, AP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem I"
-            ],
-            "sections_list": [
-              "Sec A"
-            ],
-            "batches_list": [
-              "A1",
-              "A2",
-              "A3"
-            ],
-            "raw_batches_list": [
-              "AP1",
-              "AP2",
-              "AP3"
-            ]
+            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec A · (A1 / AP1)"
           }
         ]
       },
@@ -10846,31 +10278,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec L",
-            "batch": "L1, L2, L3",
-            "raw_batch": "LP1, LP2, LP3",
+            "batch": "L1",
+            "raw_batch": "LP1",
             "subject": "BMATH",
             "subject_name": "Business Mathematics",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec L · (LP1, LP2, LP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec L"
-            ],
-            "batches_list": [
-              "L1",
-              "L2",
-              "L3"
-            ],
-            "raw_batches_list": [
-              "LP1",
-              "LP2",
-              "LP3"
-            ]
+            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec L · (L1 / LP1)"
           },
           {
             "raw": "LAB-BCH-L-SEM IIICommerce-BMATH-T14-LP3",
@@ -10959,31 +10372,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec M",
-            "batch": "M1, M2, M3",
-            "raw_batch": "MP1, MP2, MP3",
+            "batch": "M1",
+            "raw_batch": "MP1",
             "subject": "BMATH",
             "subject_name": "Business Mathematics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec M · (MP1, MP2, MP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec M"
-            ],
-            "batches_list": [
-              "M1",
-              "M2",
-              "M3"
-            ],
-            "raw_batches_list": [
-              "MP1",
-              "MP2",
-              "MP3"
-            ]
+            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec M · (M1 / MP1)"
           }
         ]
       },
@@ -11612,27 +11006,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R30",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec K, L, M, N",
+            "section": "Sec K",
             "batch": "",
             "raw_batch": "",
             "subject": "OS",
             "subject_name": "Operating Systems",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Operating Systems (OS) · B.Com (Hons) · Sem V · Sec K, L, M, N",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec K",
-              "Sec L",
-              "Sec M",
-              "Sec N"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Operating Systems (OS) · B.Com (Hons) · Sem V · Sec K"
           },
           {
             "raw": "LAB-BCH-L-SEM VComp.Sc.-OS-R30",
@@ -11641,26 +11021,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R30",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec L, M, N",
+            "section": "Sec L",
             "batch": "",
             "raw_batch": "",
             "subject": "OS",
             "subject_name": "Operating Systems",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Operating Systems (OS) · B.Com (Hons) · Sem V · Sec L, M, N",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec L",
-              "Sec M",
-              "Sec N"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Operating Systems (OS) · B.Com (Hons) · Sem V · Sec L"
           }
         ],
         "Wednesday": [
@@ -11701,27 +11068,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R30",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec K, L, M, N",
+            "section": "Sec K",
             "batch": "",
             "raw_batch": "",
             "subject": "OS",
             "subject_name": "Operating Systems",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Operating Systems (OS) · B.Com (Hons) · Sem V · Sec K, L, M, N",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec K",
-              "Sec L",
-              "Sec M",
-              "Sec N"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Operating Systems (OS) · B.Com (Hons) · Sem V · Sec K"
           }
         ],
         "Thursday": [
@@ -11762,27 +11115,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R30",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec M, N, L, K",
+            "section": "Sec M",
             "batch": "",
             "raw_batch": "",
             "subject": "OS",
             "subject_name": "Operating Systems",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Operating Systems (OS) · B.Com (Hons) · Sem V · Sec M, N, L, K",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec M",
-              "Sec N",
-              "Sec L",
-              "Sec K"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Operating Systems (OS) · B.Com (Hons) · Sem V · Sec M"
           },
           {
             "raw": "L-BCH-N-SEM IIIComp.Sc.-DMS-CL2L-BAHE-D-SEM IIIComp.Sc.-DMS-CL2",
@@ -11940,31 +11279,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec K",
-            "batch": "K1, K2, K3",
-            "raw_batch": "KP1, KP2, KP3",
+            "batch": "K1",
+            "raw_batch": "KP1",
             "subject": "MA",
             "subject_name": "Management Accounting",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec K · (KP1, KP2, KP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec K"
-            ],
-            "batches_list": [
-              "K1",
-              "K2",
-              "K3"
-            ],
-            "raw_batches_list": [
-              "KP1",
-              "KP2",
-              "KP3"
-            ]
+            "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec K · (K1 / KP1)"
           },
           {
             "raw": "LAB-BCH-I-SEM VCommerce-MA-T26-IP3",
@@ -12068,31 +11388,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec I",
-            "batch": "I1, I2, I3",
-            "raw_batch": "IP1, IP2, IP3",
+            "batch": "I1",
+            "raw_batch": "IP1",
             "subject": "MA",
             "subject_name": "Management Accounting",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec I · (IP1, IP2, IP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec I"
-            ],
-            "batches_list": [
-              "I1",
-              "I2",
-              "I3"
-            ],
-            "raw_batches_list": [
-              "IP1",
-              "IP2",
-              "IP3"
-            ]
+            "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec I · (I1 / IP1)"
           },
           {
             "raw": "L-BCH-K-SEM VCommerce-MA-R28",
@@ -12215,7 +11516,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "LAB-MCOM-A-SEM ICommerce-DA-T42",
             "type": "Practical/Lab",
             "room": "T42",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem I",
             "section": "Sec A",
             "batch": "",
@@ -12223,7 +11524,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "DA",
             "subject_name": "Data Analysis",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Data Analysis (DA) · Sem I · Sec A"
+            "formatted_display": "Data Analysis (DA) · M.Com · Sem I · Sec A"
           },
           {
             "raw": "LAB-BCH-N-SEM ICommerce-FA-CLIB-NP1",
@@ -12233,31 +11534,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem I",
             "section": "Sec N",
-            "batch": "N1, N2, N3",
-            "raw_batch": "NP1, NP2, NP3",
+            "batch": "N1",
+            "raw_batch": "NP1",
             "subject": "FA",
             "subject_name": "Financial Accounting",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec N · (NP1, NP2, NP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem I"
-            ],
-            "sections_list": [
-              "Sec N"
-            ],
-            "batches_list": [
-              "N1",
-              "N2",
-              "N3"
-            ],
-            "raw_batches_list": [
-              "NP1",
-              "NP2",
-              "NP3"
-            ]
+            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec N · (N1 / NP1)"
           },
           {
             "raw": "L-BCH-N-SEM ICommerce-FA-CL1",
@@ -12294,7 +11576,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "LAB-MCOM-A-SEM ICommerce-DA-T27",
             "type": "Practical/Lab",
             "room": "T27",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem I",
             "section": "Sec A",
             "batch": "",
@@ -12302,7 +11584,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "DA",
             "subject_name": "Data Analysis",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Data Analysis (DA) · Sem I · Sec A"
+            "formatted_display": "Data Analysis (DA) · M.Com · Sem I · Sec A"
           }
         ],
         "Thursday": [
@@ -12376,31 +11658,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem I",
             "section": "Sec I",
-            "batch": "I1, I2, I3",
-            "raw_batch": "IP1, IP2, IP3",
+            "batch": "I1",
+            "raw_batch": "IP1",
             "subject": "FA",
             "subject_name": "Financial Accounting",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec I · (IP1, IP2, IP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem I"
-            ],
-            "sections_list": [
-              "Sec I"
-            ],
-            "batches_list": [
-              "I1",
-              "I2",
-              "I3"
-            ],
-            "raw_batches_list": [
-              "IP1",
-              "IP2",
-              "IP3"
-            ]
+            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec I · (I1 / IP1)"
           },
           {
             "raw": "LAB-BCH-N-SEM ICommerce-FA-T41-NP3",
@@ -12648,31 +11911,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem I",
             "section": "Sec D",
-            "batch": "D1, D2, D3",
-            "raw_batch": "DP1, DP2, DP3",
+            "batch": "D1",
+            "raw_batch": "DP1",
             "subject": "FA",
             "subject_name": "Financial Accounting",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec D · (DP1, DP2, DP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem I"
-            ],
-            "sections_list": [
-              "Sec D"
-            ],
-            "batches_list": [
-              "D1",
-              "D2",
-              "D3"
-            ],
-            "raw_batches_list": [
-              "DP1",
-              "DP2",
-              "DP3"
-            ]
+            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec D · (D1 / DP1)"
           },
           {
             "raw": "LAB-BCH-K-SEM ICommerce-FA-T8-KP2",
@@ -12729,31 +11973,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem I",
             "section": "Sec K",
-            "batch": "K2, K1, K3",
-            "raw_batch": "KP2, KP1, KP3",
+            "batch": "K2",
+            "raw_batch": "KP2",
             "subject": "FA",
             "subject_name": "Financial Accounting",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec K · (KP2, KP1, KP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem I"
-            ],
-            "sections_list": [
-              "Sec K"
-            ],
-            "batches_list": [
-              "K2",
-              "K1",
-              "K3"
-            ],
-            "raw_batches_list": [
-              "KP2",
-              "KP1",
-              "KP3"
-            ]
+            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec K · (K2 / KP2)"
           },
           {
             "raw": "T-BCH-G-SEM ICommerce-MPA-T8-G3",
@@ -12814,31 +12039,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem I",
             "section": "Sec H",
-            "batch": "H1, H2, H3",
-            "raw_batch": "HP1, HP2, HP3",
+            "batch": "H1",
+            "raw_batch": "HP1",
             "subject": "FA",
             "subject_name": "Financial Accounting",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec H · (HP1, HP2, HP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem I"
-            ],
-            "sections_list": [
-              "Sec H"
-            ],
-            "batches_list": [
-              "H1",
-              "H2",
-              "H3"
-            ],
-            "raw_batches_list": [
-              "HP1",
-              "HP2",
-              "HP3"
-            ]
+            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec H · (H1 / HP1)"
           },
           {
             "raw": "LAB-BCH-C-SEM ICommerce-FA-T27-CP2",
@@ -12880,31 +12086,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem I",
             "section": "Sec C",
-            "batch": "C1, C2, C3",
-            "raw_batch": "CP1, CP2, CP3",
+            "batch": "C1",
+            "raw_batch": "CP1",
             "subject": "FA",
             "subject_name": "Financial Accounting",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec C · (CP1, CP2, CP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem I"
-            ],
-            "sections_list": [
-              "Sec C"
-            ],
-            "batches_list": [
-              "C1",
-              "C2",
-              "C3"
-            ],
-            "raw_batches_list": [
-              "CP1",
-              "CP2",
-              "CP3"
-            ]
+            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec C · (C1 / CP1)"
           }
         ],
         "Wednesday": [
@@ -13378,26 +12565,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R16",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec J, L, M",
+            "section": "Sec J",
             "batch": "",
             "raw_batch": "",
             "subject": "ED",
             "subject_name": "Entrepreneurship Development",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Entrepreneurship Development (ED) · B.Com (Hons) · Sem V · Sec J, L, M",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec J",
-              "Sec L",
-              "Sec M"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Entrepreneurship Development (ED) · B.Com (Hons) · Sem V · Sec J"
           }
         ],
         "Wednesday": [
@@ -13408,26 +12582,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R22",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec J, L, M",
+            "section": "Sec J",
             "batch": "",
             "raw_batch": "",
             "subject": "ED",
             "subject_name": "Entrepreneurship Development",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Entrepreneurship Development (ED) · B.Com (Hons) · Sem V · Sec J, L, M",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec J",
-              "Sec L",
-              "Sec M"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Entrepreneurship Development (ED) · B.Com (Hons) · Sem V · Sec J"
           },
           {
             "raw": "L-BCH-E-SEM VEconomics-ED-R22",
@@ -13435,27 +12596,14 @@ window.SRCC_TEACHERS_DATA = {
             "type": "Lecture",
             "room": "R22",
             "course": "B.Com (Hons)",
-            "semester": "Sem V / Sem VII",
-            "section": "Sec E, A",
+            "semester": "Sem V",
+            "section": "Sec E",
             "batch": "",
             "raw_batch": "",
             "subject": "ED",
             "subject_name": "Entrepreneurship Development",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Entrepreneurship Development (ED) · B.Com (Hons) · Sem V / Sem VII · Sec E, A",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V",
-              "Sem VII"
-            ],
-            "sections_list": [
-              "Sec E",
-              "Sec A"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Entrepreneurship Development (ED) · B.Com (Hons) · Sem V · Sec E"
           }
         ],
         "Thursday": [
@@ -13480,27 +12628,14 @@ window.SRCC_TEACHERS_DATA = {
             "type": "Lecture",
             "room": "R18",
             "course": "B.Com (Hons)",
-            "semester": "Sem V / Sem VII",
-            "section": "Sec E, A",
+            "semester": "Sem V",
+            "section": "Sec E",
             "batch": "",
             "raw_batch": "",
             "subject": "ED",
             "subject_name": "Entrepreneurship Development",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Entrepreneurship Development (ED) · B.Com (Hons) · Sem V / Sem VII · Sec E, A",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V",
-              "Sem VII"
-            ],
-            "sections_list": [
-              "Sec E",
-              "Sec A"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Entrepreneurship Development (ED) · B.Com (Hons) · Sem V · Sec E"
           },
           {
             "raw": "L-BCH-J-SEM VEconomics-ED-R20",
@@ -13509,26 +12644,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R20",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec J, L, M",
+            "section": "Sec J",
             "batch": "",
             "raw_batch": "",
             "subject": "ED",
             "subject_name": "Entrepreneurship Development",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Entrepreneurship Development (ED) · B.Com (Hons) · Sem V · Sec J, L, M",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec J",
-              "Sec L",
-              "Sec M"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Entrepreneurship Development (ED) · B.Com (Hons) · Sem V · Sec J"
           },
           {
             "raw": "T-BCH-M-SEM VEconomics-ED-T51-M3",
@@ -13537,34 +12659,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "T51",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec M, L, J",
-            "batch": "M3, L2, J2",
-            "raw_batch": "M3, L2, J2",
+            "section": "Sec M",
+            "batch": "M3",
+            "raw_batch": "M3",
             "subject": "ED",
             "subject_name": "Entrepreneurship Development",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Entrepreneurship Development (ED) · B.Com (Hons) · Sem V · Sec M, L, J · (M3, L2, J2)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec M",
-              "Sec L",
-              "Sec J"
-            ],
-            "batches_list": [
-              "M3",
-              "L2",
-              "J2"
-            ],
-            "raw_batches_list": [
-              "M3",
-              "L2",
-              "J2"
-            ]
+            "formatted_display": "Entrepreneurship Development (ED) · B.Com (Hons) · Sem V · Sec M · (M3)"
           }
         ],
         "Friday": [
@@ -13619,27 +12720,14 @@ window.SRCC_TEACHERS_DATA = {
             "type": "Lecture",
             "room": "R22",
             "course": "B.Com (Hons)",
-            "semester": "Sem V / Sem VII",
-            "section": "Sec E, A",
+            "semester": "Sem V",
+            "section": "Sec E",
             "batch": "",
             "raw_batch": "",
             "subject": "ED",
             "subject_name": "Entrepreneurship Development",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Entrepreneurship Development (ED) · B.Com (Hons) · Sem V / Sem VII · Sec E, A",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V",
-              "Sem VII"
-            ],
-            "sections_list": [
-              "Sec E",
-              "Sec A"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Entrepreneurship Development (ED) · B.Com (Hons) · Sem V · Sec E"
           }
         ],
         "Saturday": []
@@ -13995,7 +13083,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "T-MCOM-A-SEM IIICommerce-SMM-T50-A2",
             "type": "Tutorial",
             "room": "T50",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem III",
             "section": "Sec A",
             "batch": "A2",
@@ -14003,7 +13091,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "SMM",
             "subject_name": "Social Media Marketing",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Social Media Marketing (SMM) · Sem III · Sec A · (A2)"
+            "formatted_display": "Social Media Marketing (SMM) · M.Com · Sem III · Sec A · (A2)"
           },
           {
             "raw": "L-BCH-I-SEM IIICommerce-BRM-R16",
@@ -14694,7 +13782,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "T-MCOM-A-SEM ICommerce-DTHRS-T40",
             "type": "Tutorial",
             "room": "T40",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem I",
             "section": "Sec A",
             "batch": "",
@@ -14702,7 +13790,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "DTHRS",
             "subject_name": "Design Thinking & HR Systems",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Design Thinking & HR Systems (DTHRS) · Sem I · Sec A"
+            "formatted_display": "Design Thinking & HR Systems (DTHRS) · M.Com · Sem I · Sec A"
           },
           {
             "raw": "L-BCH-L-SEM VCommerce-PAB-R33",
@@ -14759,29 +13847,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem VII",
             "section": "Sec A",
-            "batch": "A1, A2",
-            "raw_batch": "AP1, AP2",
+            "batch": "A1",
+            "raw_batch": "AP1",
             "subject": "EoE1",
             "subject_name": "Principles of Microeconomics I",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Principles of Microeconomics I (EoE1) · B.Com (Hons) · Sem VII · Sec A · (AP1, AP2)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem VII"
-            ],
-            "sections_list": [
-              "Sec A"
-            ],
-            "batches_list": [
-              "A1",
-              "A2"
-            ],
-            "raw_batches_list": [
-              "AP1",
-              "AP2"
-            ]
+            "formatted_display": "Principles of Microeconomics I (EoE1) · B.Com (Hons) · Sem VII · Sec A · (A1 / AP1)"
           },
           {
             "raw": "LAB-BCH-A-SEM VIICommerce-EoE1-R4-AP2",
@@ -14882,7 +13953,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "T-MCOM-A-SEM IIICommerce-ITPD-T35",
             "type": "Tutorial",
             "room": "T35",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem III",
             "section": "Sec A",
             "batch": "",
@@ -14890,7 +13961,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ITPD",
             "subject_name": "IT for Professional Development",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "IT for Professional Development (ITPD) · Sem III · Sec A"
+            "formatted_display": "IT for Professional Development (ITPD) · M.Com · Sem III · Sec A"
           }
         ],
         "Saturday": [
@@ -14917,29 +13988,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem VII",
             "section": "Sec A",
-            "batch": "A1, A2",
-            "raw_batch": "AP1, AP2",
+            "batch": "A1",
+            "raw_batch": "AP1",
             "subject": "EoE1",
             "subject_name": "Principles of Microeconomics I",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Principles of Microeconomics I (EoE1) · B.Com (Hons) · Sem VII · Sec A · (AP1, AP2)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem VII"
-            ],
-            "sections_list": [
-              "Sec A"
-            ],
-            "batches_list": [
-              "A1",
-              "A2"
-            ],
-            "raw_batches_list": [
-              "AP1",
-              "AP2"
-            ]
+            "formatted_display": "Principles of Microeconomics I (EoE1) · B.Com (Hons) · Sem VII · Sec A · (A1 / AP1)"
           },
           {
             "raw": "L-BCH-L-SEM VCommerce-PAB-R18",
@@ -15033,31 +14087,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem I",
             "section": "Sec L",
-            "batch": "L1, L2, L3",
-            "raw_batch": "LP1, LP2, LP3",
+            "batch": "L1",
+            "raw_batch": "LP1",
             "subject": "FA",
             "subject_name": "Financial Accounting",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec L · (LP1, LP2, LP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem I"
-            ],
-            "sections_list": [
-              "Sec L"
-            ],
-            "batches_list": [
-              "L1",
-              "L2",
-              "L3"
-            ],
-            "raw_batches_list": [
-              "LP1",
-              "LP2",
-              "LP3"
-            ]
+            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec L · (L1 / LP1)"
           }
         ],
         "Tuesday": [
@@ -15099,31 +14134,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem I",
             "section": "Sec J",
-            "batch": "J1, J2, J3",
-            "raw_batch": "JP1, JP2, JP3",
+            "batch": "J1",
+            "raw_batch": "JP1",
             "subject": "FA",
             "subject_name": "Financial Accounting",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec J · (JP1, JP2, JP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem I"
-            ],
-            "sections_list": [
-              "Sec J"
-            ],
-            "batches_list": [
-              "J1",
-              "J2",
-              "J3"
-            ],
-            "raw_batches_list": [
-              "JP1",
-              "JP2",
-              "JP3"
-            ]
+            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec J · (J1 / JP1)"
           },
           {
             "raw": "T-BCH-D-SEM VCommerce-CAS-T24-D2",
@@ -15341,31 +14357,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec H",
-            "batch": "H1, H2, H3",
-            "raw_batch": "HP1, HP2, HP3",
+            "batch": "H1",
+            "raw_batch": "HP1",
             "subject": "ITLP",
             "subject_name": "Income Tax Law and Practice",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec H · (HP1, HP2, HP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec H"
-            ],
-            "batches_list": [
-              "H1",
-              "H2",
-              "H3"
-            ],
-            "raw_batches_list": [
-              "HP1",
-              "HP2",
-              "HP3"
-            ]
+            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec H · (H1 / HP1)"
           }
         ],
         "Wednesday": [
@@ -15548,31 +14545,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec E",
-            "batch": "E1, E2, E3",
-            "raw_batch": "EP1, EP2, EP3",
+            "batch": "E1",
+            "raw_batch": "EP1",
             "subject": "ITLP",
             "subject_name": "Income Tax Law and Practice",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec E · (EP1, EP2, EP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec E"
-            ],
-            "batches_list": [
-              "E1",
-              "E2",
-              "E3"
-            ],
-            "raw_batches_list": [
-              "EP1",
-              "EP2",
-              "EP3"
-            ]
+            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec E · (E1 / EP1)"
           },
           {
             "raw": "L-BCH-E-SEM VCommerce-ITLP-R27",
@@ -16042,31 +15020,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec A",
-            "batch": "A1, A2, A3",
-            "raw_batch": "AP1, AP2, AP3",
+            "batch": "A1",
+            "raw_batch": "AP1",
             "subject": "MA",
             "subject_name": "Management Accounting",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec A · (AP1, AP2, AP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec A"
-            ],
-            "batches_list": [
-              "A1",
-              "A2",
-              "A3"
-            ],
-            "raw_batches_list": [
-              "AP1",
-              "AP2",
-              "AP3"
-            ]
+            "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec A · (A1 / AP1)"
           },
           {
             "raw": "LAB-BCH-H-SEM VCommerce-MA-T25-HP3",
@@ -16093,31 +15052,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec H",
-            "batch": "H1, H2, H3",
-            "raw_batch": "HP1, HP2, HP3",
+            "batch": "H1",
+            "raw_batch": "HP1",
             "subject": "MA",
             "subject_name": "Management Accounting",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec H · (HP1, HP2, HP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec H"
-            ],
-            "batches_list": [
-              "H1",
-              "H2",
-              "H3"
-            ],
-            "raw_batches_list": [
-              "HP1",
-              "HP2",
-              "HP3"
-            ]
+            "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec H · (H1 / HP1)"
           },
           {
             "raw": "L-BCH-A-SEM VCommerce-MA-R15",
@@ -16793,31 +15733,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec N",
-            "batch": "N1, N2, N3",
-            "raw_batch": "NP1, NP2, NP3",
+            "batch": "N1",
+            "raw_batch": "NP1",
             "subject": "BMATH",
             "subject_name": "Business Mathematics",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec N · (NP1, NP2, NP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec N"
-            ],
-            "batches_list": [
-              "N1",
-              "N2",
-              "N3"
-            ],
-            "raw_batches_list": [
-              "NP1",
-              "NP2",
-              "NP3"
-            ]
+            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec N · (N1 / NP1)"
           }
         ],
         "Wednesday": [
@@ -16888,7 +15809,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "LAB-MCOM-A-SEM ICommerce-BRM-T48-A1",
             "type": "Practical/Lab",
             "room": "T48",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem I",
             "section": "Sec A",
             "batch": "A1",
@@ -16896,14 +15817,14 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BRM",
             "subject_name": "Business Research Methods",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · Sem I · Sec A · (A1)"
+            "formatted_display": "Business Research Methods (BRM) · M.Com · Sem I · Sec A · (A1)"
           },
           {
             "raw": "LAB-MCOM-A-SEM ICommerce-BRM-T48-A1",
             "display": "LAB-MCOM-A-SEM ICommerce-BRM-T48-A1",
             "type": "Practical/Lab",
             "room": "T48",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem I",
             "section": "Sec A",
             "batch": "A1",
@@ -16911,7 +15832,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BRM",
             "subject_name": "Business Research Methods",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · Sem I · Sec A · (A1)"
+            "formatted_display": "Business Research Methods (BRM) · M.Com · Sem I · Sec A · (A1)"
           },
           {
             "raw": "LAB-BCH-F-SEM IIICommerce-BMATH-T48-FP2",
@@ -16936,31 +15857,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec F",
-            "batch": "F1, F2, F3",
-            "raw_batch": "FP1, FP2, FP3",
+            "batch": "F1",
+            "raw_batch": "FP1",
             "subject": "BMATH",
             "subject_name": "Business Mathematics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec F · (FP1, FP2, FP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec F"
-            ],
-            "batches_list": [
-              "F1",
-              "F2",
-              "F3"
-            ],
-            "raw_batches_list": [
-              "FP1",
-              "FP2",
-              "FP3"
-            ]
+            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec F · (F1 / FP1)"
           }
         ],
         "Friday": [
@@ -17242,38 +16144,19 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec L",
-            "batch": "L1, L2, L3",
-            "raw_batch": "LP1, LP2, LP3",
+            "batch": "L1",
+            "raw_batch": "LP1",
             "subject": "MA",
             "subject_name": "Management Accounting",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec L · (LP1, LP2, LP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec L"
-            ],
-            "batches_list": [
-              "L1",
-              "L2",
-              "L3"
-            ],
-            "raw_batches_list": [
-              "LP1",
-              "LP2",
-              "LP3"
-            ]
+            "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec L · (L1 / LP1)"
           },
           {
             "raw": "T-MCOM-A-SEM ICommerce-ACPA-T43-A1",
             "display": "T-MCOM-A-SEM ICommerce-ACPA-T43-A1",
             "type": "Tutorial",
             "room": "T43",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem I",
             "section": "Sec A",
             "batch": "A1",
@@ -17281,14 +16164,14 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ACPA",
             "subject_name": "Accounting & Auditing",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Accounting & Auditing (ACPA) · Sem I · Sec A · (A1)"
+            "formatted_display": "Accounting & Auditing (ACPA) · M.Com · Sem I · Sec A · (A1)"
           },
           {
             "raw": "T-MCOM-A-SEM ICommerce-ACPA-T43-A2",
             "display": "T-MCOM-A-SEM ICommerce-ACPA-T43-A2",
             "type": "Tutorial",
             "room": "T43",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem I",
             "section": "Sec A",
             "batch": "A2",
@@ -17296,7 +16179,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ACPA",
             "subject_name": "Accounting & Auditing",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Accounting & Auditing (ACPA) · Sem I · Sec A · (A2)"
+            "formatted_display": "Accounting & Auditing (ACPA) · M.Com · Sem I · Sec A · (A2)"
           }
         ]
       },
@@ -17600,31 +16483,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec N",
-            "batch": "N1, N2, N3",
-            "raw_batch": "NP1, NP2, NP3",
+            "batch": "N1",
+            "raw_batch": "NP1",
             "subject": "FM",
             "subject_name": "Financial Management",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec N · (NP1, NP2, NP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec N"
-            ],
-            "batches_list": [
-              "N1",
-              "N2",
-              "N3"
-            ],
-            "raw_batches_list": [
-              "NP1",
-              "NP2",
-              "NP3"
-            ]
+            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec N · (N1 / NP1)"
           },
           {
             "raw": "L-BCH-D-SEM IIICommerce-FM-R34",
@@ -17790,31 +16654,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec D",
-            "batch": "D1, D3, D2",
-            "raw_batch": "DP1, DP3, DP2",
+            "batch": "D1",
+            "raw_batch": "DP1",
             "subject": "FM",
             "subject_name": "Financial Management",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec D · (DP1, DP3, DP2)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec D"
-            ],
-            "batches_list": [
-              "D1",
-              "D3",
-              "D2"
-            ],
-            "raw_batches_list": [
-              "DP1",
-              "DP3",
-              "DP2"
-            ]
+            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec D · (D1 / DP1)"
           },
           {
             "raw": "LAB-BCH-D-SEM IIICommerce-FM-T39-DP2",
@@ -17983,31 +16828,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec G",
-            "batch": "G3, G2, G1",
-            "raw_batch": "GP3, GP2, GP1",
+            "batch": "G3",
+            "raw_batch": "GP3",
             "subject": "MA",
             "subject_name": "Management Accounting",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec G · (GP3, GP2, GP1)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec G"
-            ],
-            "batches_list": [
-              "G3",
-              "G2",
-              "G1"
-            ],
-            "raw_batches_list": [
-              "GP3",
-              "GP2",
-              "GP1"
-            ]
+            "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec G · (G3 / GP3)"
           },
           {
             "raw": "LAB-BCH-G-SEM VCommerce-MA-T8-GP1",
@@ -18032,31 +16858,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec E",
-            "batch": "E1, E2, E3",
-            "raw_batch": "EP1, EP2, EP3",
+            "batch": "E1",
+            "raw_batch": "EP1",
             "subject": "MA",
             "subject_name": "Management Accounting",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec E · (EP1, EP2, EP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec E"
-            ],
-            "batches_list": [
-              "E1",
-              "E2",
-              "E3"
-            ],
-            "raw_batches_list": [
-              "EP1",
-              "EP2",
-              "EP3"
-            ]
+            "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec E · (E1 / EP1)"
           }
         ],
         "Thursday": [
@@ -18539,26 +17346,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R23",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec N, K, M",
+            "section": "Sec N",
             "batch": "",
             "raw_batch": "",
             "subject": "NM",
             "subject_name": "Numerical Methods",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Numerical Methods (NM) · B.Com (Hons) · Sem V · Sec N, K, M",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec N",
-              "Sec K",
-              "Sec M"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Numerical Methods (NM) · B.Com (Hons) · Sem V · Sec N"
           }
         ],
         "Wednesday": [
@@ -18614,26 +17408,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R23",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec N, K, M",
+            "section": "Sec N",
             "batch": "",
             "raw_batch": "",
             "subject": "NM",
             "subject_name": "Numerical Methods",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Numerical Methods (NM) · B.Com (Hons) · Sem V · Sec N, K, M",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec N",
-              "Sec K",
-              "Sec M"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Numerical Methods (NM) · B.Com (Hons) · Sem V · Sec N"
           }
         ],
         "Thursday": [
@@ -18657,33 +17438,15 @@ window.SRCC_TEACHERS_DATA = {
             "display": "LAB-BAHE-B-SEM VMaths-NM-R31-B2",
             "type": "Practical/Lab",
             "room": "R31",
-            "course": "B.A. (Hons) Economics / B.Com (Hons)",
+            "course": "B.A. (Hons) Economics",
             "semester": "Sem V",
-            "section": "Sec B, K, M",
+            "section": "Sec B",
             "batch": "B2",
             "raw_batch": "B2",
             "subject": "NM",
             "subject_name": "Numerical Methods",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics / B.Com (Hons) · Sem V · Sec B, K, M · (B2)",
-            "courses_list": [
-              "B.A. (Hons) Economics",
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec B",
-              "Sec K",
-              "Sec M"
-            ],
-            "batches_list": [
-              "B2"
-            ],
-            "raw_batches_list": [
-              "B2"
-            ]
+            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec B · (B2)"
           },
           {
             "raw": "L-BCH-N-SEM VMaths-NM-R23",
@@ -18692,26 +17455,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R23",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec N, K, M",
+            "section": "Sec N",
             "batch": "",
             "raw_batch": "",
             "subject": "NM",
             "subject_name": "Numerical Methods",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Numerical Methods (NM) · B.Com (Hons) · Sem V · Sec N, K, M",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec N",
-              "Sec K",
-              "Sec M"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Numerical Methods (NM) · B.Com (Hons) · Sem V · Sec N"
           }
         ],
         "Friday": [
@@ -18735,33 +17485,15 @@ window.SRCC_TEACHERS_DATA = {
             "display": "LAB-BAHE-B-SEM VMaths-NM-R29-B2",
             "type": "Practical/Lab",
             "room": "R29",
-            "course": "B.A. (Hons) Economics / B.Com (Hons)",
+            "course": "B.A. (Hons) Economics",
             "semester": "Sem V",
-            "section": "Sec B, K, M",
+            "section": "Sec B",
             "batch": "B2",
             "raw_batch": "B2",
             "subject": "NM",
             "subject_name": "Numerical Methods",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics / B.Com (Hons) · Sem V · Sec B, K, M · (B2)",
-            "courses_list": [
-              "B.A. (Hons) Economics",
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec B",
-              "Sec K",
-              "Sec M"
-            ],
-            "batches_list": [
-              "B2"
-            ],
-            "raw_batches_list": [
-              "B2"
-            ]
+            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec B · (B2)"
           }
         ],
         "Saturday": []
@@ -18932,31 +17664,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec D",
-            "batch": "D1, D2, D3",
-            "raw_batch": "DP1, DP2, DP3",
+            "batch": "D1",
+            "raw_batch": "DP1",
             "subject": "BMATH",
             "subject_name": "Business Mathematics",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec D · (DP1, DP2, DP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec D"
-            ],
-            "batches_list": [
-              "D1",
-              "D2",
-              "D3"
-            ],
-            "raw_batches_list": [
-              "DP1",
-              "DP2",
-              "DP3"
-            ]
+            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec D · (D1 / DP1)"
           },
           {
             "raw": "L-BCH-G-SEM IIICommerce-BMATH-R35",
@@ -19028,31 +17741,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec G",
-            "batch": "G1, G2, G3",
-            "raw_batch": "GP1, GP2, GP3",
+            "batch": "G1",
+            "raw_batch": "GP1",
             "subject": "BMATH",
             "subject_name": "Business Mathematics",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec G · (GP1, GP2, GP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec G"
-            ],
-            "batches_list": [
-              "G1",
-              "G2",
-              "G3"
-            ],
-            "raw_batches_list": [
-              "GP1",
-              "GP2",
-              "GP3"
-            ]
+            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec G · (G1 / GP1)"
           },
           {
             "raw": "LAB-BCH-G-SEM IIICommerce-BMATH-T14-GP3",
@@ -20108,31 +18802,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec H",
-            "batch": "H1, H2, H3",
-            "raw_batch": "HP1, HP2, HP3",
+            "batch": "H1",
+            "raw_batch": "HP1",
             "subject": "BMATH",
             "subject_name": "Business Mathematics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec H · (HP1, HP2, HP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec H"
-            ],
-            "batches_list": [
-              "H1",
-              "H2",
-              "H3"
-            ],
-            "raw_batches_list": [
-              "HP1",
-              "HP2",
-              "HP3"
-            ]
+            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec H · (H1 / HP1)"
           }
         ],
         "Wednesday": [
@@ -20389,31 +19064,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec B",
-            "batch": "B1, B2, B3",
-            "raw_batch": "BP1, BP2, BP3",
+            "batch": "B1",
+            "raw_batch": "BP1",
             "subject": "ITLP",
             "subject_name": "Income Tax Law and Practice",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec B · (BP1, BP2, BP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec B"
-            ],
-            "batches_list": [
-              "B1",
-              "B2",
-              "B3"
-            ],
-            "raw_batches_list": [
-              "BP1",
-              "BP2",
-              "BP3"
-            ]
+            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec B · (B1 / BP1)"
           },
           {
             "raw": "LAB-BCH-B-SEM VCommerce-ITLP-T25-BP3",
@@ -21004,26 +19660,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "PB3",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec L, N, M",
+            "section": "Sec L",
             "batch": "",
             "raw_batch": "",
             "subject": "MB",
             "subject_name": "Money and Banking",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Money and Banking (MB) · B.Com (Hons) · Sem V · Sec L, N, M",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec L",
-              "Sec N",
-              "Sec M"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Money and Banking (MB) · B.Com (Hons) · Sem V · Sec L"
           }
         ],
         "Wednesday": [
@@ -21064,26 +19707,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R28",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec L, N, M",
+            "section": "Sec L",
             "batch": "",
             "raw_batch": "",
             "subject": "MB",
             "subject_name": "Money and Banking",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Money and Banking (MB) · B.Com (Hons) · Sem V · Sec L, N, M",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec L",
-              "Sec N",
-              "Sec M"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Money and Banking (MB) · B.Com (Hons) · Sem V · Sec L"
           }
         ],
         "Thursday": [
@@ -21094,31 +19724,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "T50",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec N, M",
-            "batch": "N3, M3",
-            "raw_batch": "N3, M3",
+            "section": "Sec N",
+            "batch": "N3",
+            "raw_batch": "N3",
             "subject": "TPF",
             "subject_name": "Theory of Public Finance",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Theory of Public Finance (TPF) · B.Com (Hons) · Sem V · Sec N, M · (N3, M3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec N",
-              "Sec M"
-            ],
-            "batches_list": [
-              "N3",
-              "M3"
-            ],
-            "raw_batches_list": [
-              "N3",
-              "M3"
-            ]
+            "formatted_display": "Theory of Public Finance (TPF) · B.Com (Hons) · Sem V · Sec N · (N3)"
           },
           {
             "raw": "L-BCH-N-SEM VEconomics-MB-CLIB",
@@ -21127,26 +19739,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "CLIB",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec N, L, M",
+            "section": "Sec N",
             "batch": "",
             "raw_batch": "",
             "subject": "MB",
             "subject_name": "Money and Banking",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Money and Banking (MB) · B.Com (Hons) · Sem V · Sec N, L, M",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec N",
-              "Sec L",
-              "Sec M"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Money and Banking (MB) · B.Com (Hons) · Sem V · Sec N"
           },
           {
             "raw": "L-BCH-J-SEM VEconomics-MB-R14",
@@ -21337,31 +19936,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "T51",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec N, M",
-            "batch": "N2, M2",
-            "raw_batch": "N2, M2",
+            "section": "Sec N",
+            "batch": "N2",
+            "raw_batch": "N2",
             "subject": "BDE",
             "subject_name": "Business Data Ecosystem",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Business Data Ecosystem (BDE) · B.Com (Hons) · Sem V · Sec N, M · (N2, M2)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec N",
-              "Sec M"
-            ],
-            "batches_list": [
-              "N2",
-              "M2"
-            ],
-            "raw_batches_list": [
-              "N2",
-              "M2"
-            ]
+            "formatted_display": "Business Data Ecosystem (BDE) · B.Com (Hons) · Sem V · Sec N · (N2)"
           }
         ],
         "Thursday": [
@@ -21412,31 +19993,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "T53",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec K, A",
-            "batch": "K3, A3",
-            "raw_batch": "K3, A3",
+            "section": "Sec K",
+            "batch": "K3",
+            "raw_batch": "K3",
             "subject": "DnD",
             "subject_name": "Negotiation and Deal Making",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec K, A · (K3, A3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec K",
-              "Sec A"
-            ],
-            "batches_list": [
-              "K3",
-              "A3"
-            ],
-            "raw_batches_list": [
-              "K3",
-              "A3"
-            ]
+            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec K · (K3)"
           },
           {
             "raw": "L-BCH-D-SEM VEconomics-DnD-R28",
@@ -21478,26 +20041,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R19",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec E, L, M",
+            "section": "Sec E",
             "batch": "",
             "raw_batch": "",
             "subject": "DnD",
             "subject_name": "Negotiation and Deal Making",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec E, L, M",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec E",
-              "Sec L",
-              "Sec M"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec E"
           }
         ],
         "Thursday": [
@@ -21508,26 +20058,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R6",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec E, L, M",
+            "section": "Sec E",
             "batch": "",
             "raw_batch": "",
             "subject": "DnD",
             "subject_name": "Negotiation and Deal Making",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec E, L, M",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec E",
-              "Sec L",
-              "Sec M"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec E"
           },
           {
             "raw": "L-BCH-D-SEM VEconomics-DnD-R19",
@@ -21598,26 +20135,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R20",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec E, L, M",
+            "section": "Sec E",
             "batch": "",
             "raw_batch": "",
             "subject": "DnD",
             "subject_name": "Negotiation and Deal Making",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec E, L, M",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec E",
-              "Sec L",
-              "Sec M"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec E"
           }
         ],
         "Saturday": []
@@ -23406,7 +21930,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "T-MCOM-A-SEM IIICommerce-CFCR-T5",
             "type": "Tutorial",
             "room": "T5",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem III",
             "section": "Sec A",
             "batch": "",
@@ -23414,7 +21938,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "CFCR",
             "subject_name": "Corporate Finance & Restructuring",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Corporate Finance & Restructuring (CFCR) · Sem III · Sec A"
+            "formatted_display": "Corporate Finance & Restructuring (CFCR) · M.Com · Sem III · Sec A"
           }
         ],
         "Tuesday": [
@@ -23473,31 +21997,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec I",
-            "batch": "I1, I2, I3",
-            "raw_batch": "IP1, IP2, IP3",
+            "batch": "I1",
+            "raw_batch": "IP1",
             "subject": "ITLP",
             "subject_name": "Income Tax Law and Practice",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec I · (IP1, IP2, IP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec I"
-            ],
-            "batches_list": [
-              "I1",
-              "I2",
-              "I3"
-            ],
-            "raw_batches_list": [
-              "IP1",
-              "IP2",
-              "IP3"
-            ]
+            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec I · (I1 / IP1)"
           }
         ],
         "Thursday": [
@@ -23506,7 +22011,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "LAB-MCOM-A-SEM IIICommerce-TR-T25",
             "type": "Practical/Lab",
             "room": "T25",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem III",
             "section": "Sec A",
             "batch": "",
@@ -23514,14 +22019,14 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "TR",
             "subject_name": "Tax Research",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Tax Research (TR) · Sem III · Sec A"
+            "formatted_display": "Tax Research (TR) · M.Com · Sem III · Sec A"
           },
           {
             "raw": "LAB-MCOM-A-SEM IIICommerce-TR-T25",
             "display": "LAB-MCOM-A-SEM IIICommerce-TR-T25",
             "type": "Practical/Lab",
             "room": "T25",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem III",
             "section": "Sec A",
             "batch": "",
@@ -23529,7 +22034,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "TR",
             "subject_name": "Tax Research",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Tax Research (TR) · Sem III · Sec A"
+            "formatted_display": "Tax Research (TR) · M.Com · Sem III · Sec A"
           },
           {
             "raw": "L-BCH-I-SEM VCommerce-ITLP-R33",
@@ -23963,7 +22468,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "LAB-MCOM-A-SEM ICommerce-FP-T12-A1",
             "type": "Practical/Lab",
             "room": "T12",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem I",
             "section": "Sec A",
             "batch": "A1",
@@ -23971,14 +22476,14 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "FP",
             "subject_name": "Financial Planning",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Financial Planning (FP) · Sem I · Sec A · (A1)"
+            "formatted_display": "Financial Planning (FP) · M.Com · Sem I · Sec A · (A1)"
           },
           {
             "raw": "LAB-MCOM-A-SEM ICommerce-FP-T17-A1",
             "display": "LAB-MCOM-A-SEM ICommerce-FP-T17-A1",
             "type": "Practical/Lab",
             "room": "T17",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem I",
             "section": "Sec A",
             "batch": "A1",
@@ -23986,7 +22491,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "FP",
             "subject_name": "Financial Planning",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Financial Planning (FP) · Sem I · Sec A · (A1)"
+            "formatted_display": "Financial Planning (FP) · M.Com · Sem I · Sec A · (A1)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-DE-R17-VAC8",
@@ -24250,31 +22755,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec H",
-            "batch": "H1, H2, H3",
-            "raw_batch": "HP1, HP2, HP3",
+            "batch": "H1",
+            "raw_batch": "HP1",
             "subject": "FM",
             "subject_name": "Financial Management",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec H · (HP1, HP2, HP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec H"
-            ],
-            "batches_list": [
-              "H1",
-              "H2",
-              "H3"
-            ],
-            "raw_batches_list": [
-              "HP1",
-              "HP2",
-              "HP3"
-            ]
+            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec H · (H1 / HP1)"
           }
         ],
         "Wednesday": [],
@@ -24329,7 +22815,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "LAB-MCOM-A-SEM IIICommerce-TA-T43",
             "type": "Practical/Lab",
             "room": "T43",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem III",
             "section": "Sec A",
             "batch": "",
@@ -24337,7 +22823,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "TA",
             "subject_name": "Taxation & Accounting",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Taxation & Accounting (TA) · Sem III · Sec A"
+            "formatted_display": "Taxation & Accounting (TA) · M.Com · Sem III · Sec A"
           }
         ],
         "Friday": [
@@ -24391,7 +22877,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "LAB-MCOM-A-SEM IIICommerce-TA-T47",
             "type": "Practical/Lab",
             "room": "T47",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem III",
             "section": "Sec A",
             "batch": "",
@@ -24399,7 +22885,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "TA",
             "subject_name": "Taxation & Accounting",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Taxation & Accounting (TA) · Sem III · Sec A"
+            "formatted_display": "Taxation & Accounting (TA) · M.Com · Sem III · Sec A"
           }
         ],
         "Saturday": [
@@ -24426,31 +22912,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec J",
-            "batch": "J1, J2, J3",
-            "raw_batch": "JP1, JP2, JP3",
+            "batch": "J1",
+            "raw_batch": "JP1",
             "subject": "FM",
             "subject_name": "Financial Management",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec J · (JP1, JP2, JP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec J"
-            ],
-            "batches_list": [
-              "J1",
-              "J2",
-              "J3"
-            ],
-            "raw_batches_list": [
-              "JP1",
-              "JP2",
-              "JP3"
-            ]
+            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec J · (J1 / JP1)"
           }
         ]
       },
@@ -24698,31 +23165,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec L",
-            "batch": "L3, L1, L2",
-            "raw_batch": "LP3, LP1, LP2",
+            "batch": "L3",
+            "raw_batch": "LP3",
             "subject": "FM",
             "subject_name": "Financial Management",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec L · (LP3, LP1, LP2)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec L"
-            ],
-            "batches_list": [
-              "L3",
-              "L1",
-              "L2"
-            ],
-            "raw_batches_list": [
-              "LP3",
-              "LP1",
-              "LP2"
-            ]
+            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec L · (L3 / LP3)"
           },
           {
             "raw": "T-BCH-K-SEM VCommerce-AUD-T37-K1",
@@ -25427,7 +23875,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "T-MCOM-A-SEM IIICommerce-BFIM-T39",
             "type": "Tutorial",
             "room": "T39",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem III",
             "section": "Sec A",
             "batch": "",
@@ -25435,7 +23883,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BFIM",
             "subject_name": "Banking & Financial Institutions Management",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Banking & Financial Institutions Management (BFIM) · Sem III · Sec A"
+            "formatted_display": "Banking & Financial Institutions Management (BFIM) · M.Com · Sem III · Sec A"
           }
         ],
         "Thursday": [
@@ -25752,31 +24200,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec J",
-            "batch": "J1, J2, J3",
-            "raw_batch": "JP1, JP2, JP3",
+            "batch": "J1",
+            "raw_batch": "JP1",
             "subject": "ITLP",
             "subject_name": "Income Tax Law and Practice",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec J · (JP1, JP2, JP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec J"
-            ],
-            "batches_list": [
-              "J1",
-              "J2",
-              "J3"
-            ],
-            "raw_batches_list": [
-              "JP1",
-              "JP2",
-              "JP3"
-            ]
+            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec J · (J1 / JP1)"
           },
           {
             "raw": "L-BCH-L-SEM VCommerce-ITLP-R35",
@@ -25818,31 +24247,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec L",
-            "batch": "L1, L2, L3",
-            "raw_batch": "LP1, LP2, LP3",
+            "batch": "L1",
+            "raw_batch": "LP1",
             "subject": "ITLP",
             "subject_name": "Income Tax Law and Practice",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec L · (LP1, LP2, LP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec L"
-            ],
-            "batches_list": [
-              "L1",
-              "L2",
-              "L3"
-            ],
-            "raw_batches_list": [
-              "LP1",
-              "LP2",
-              "LP3"
-            ]
+            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec L · (L1 / LP1)"
           },
           {
             "raw": "T-BCH-I-SEM ICommerce-MPA-T46-I3",
@@ -25978,7 +24388,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "T-MCOM-A-SEM IIICommerce-IBS-T25",
             "type": "Tutorial",
             "room": "T25",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem III",
             "section": "Sec A",
             "batch": "",
@@ -25986,7 +24396,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IBS",
             "subject_name": "International Business Strategy",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "International Business Strategy (IBS) · Sem III · Sec A"
+            "formatted_display": "International Business Strategy (IBS) · M.Com · Sem III · Sec A"
           },
           {
             "raw": "L-BCH-N-SEM IIICommerce-POM-R10",
@@ -26042,7 +24452,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "T-MCOM-A-SEM IIICommerce-SM-T35",
             "type": "Tutorial",
             "room": "T35",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem III",
             "section": "Sec A",
             "batch": "",
@@ -26050,14 +24460,14 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "SM",
             "subject_name": "Strategic Management",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Strategic Management (SM) · Sem III · Sec A"
+            "formatted_display": "Strategic Management (SM) · M.Com · Sem III · Sec A"
           },
           {
             "raw": "T-MCOM-A-SEM IIICommerce-PMEE-T25",
             "display": "T-MCOM-A-SEM IIICommerce-PMEE-T25",
             "type": "Tutorial",
             "room": "T25",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem III",
             "section": "Sec A",
             "batch": "",
@@ -26065,7 +24475,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PMEE",
             "subject_name": "Principles of Microeconomics",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Principles of Microeconomics (PMEE) · Sem III · Sec A"
+            "formatted_display": "Principles of Microeconomics (PMEE) · M.Com · Sem III · Sec A"
           },
           {
             "raw": "L-BCH-I-SEM IIICommerce-POM-PB3",
@@ -26284,27 +24694,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "CLIB",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec M, L, K, N",
+            "section": "Sec M",
             "batch": "",
             "raw_batch": "",
             "subject": "IIPT",
             "subject_name": "Indian Political Thought",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Indian Political Thought (IIPT) · B.Com (Hons) · Sem V · Sec M, L, K, N",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec M",
-              "Sec L",
-              "Sec K",
-              "Sec N"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Indian Political Thought (IIPT) · B.Com (Hons) · Sem V · Sec M"
           },
           {
             "raw": "T-BCH-K-SEM VPol.Sc.-IIPT-T4-K1",
@@ -26313,37 +24709,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "T4",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec K, L, M, N",
-            "batch": "K1, L3, M1, N3",
-            "raw_batch": "K1, L3, M1, N3",
+            "section": "Sec K",
+            "batch": "K1",
+            "raw_batch": "K1",
             "subject": "IIPT",
             "subject_name": "Indian Political Thought",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Indian Political Thought (IIPT) · B.Com (Hons) · Sem V · Sec K, L, M, N · (K1, L3, M1, N3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec K",
-              "Sec L",
-              "Sec M",
-              "Sec N"
-            ],
-            "batches_list": [
-              "K1",
-              "L3",
-              "M1",
-              "N3"
-            ],
-            "raw_batches_list": [
-              "K1",
-              "L3",
-              "M1",
-              "N3"
-            ]
+            "formatted_display": "Indian Political Thought (IIPT) · B.Com (Hons) · Sem V · Sec K · (K1)"
           },
           {
             "raw": "T-BAHE-A-SEM VPol.Sc.-IIPT-R25T-BAHE-D-SEM VPol.Sc.-IIPT-R25T-BAHE-B-SEM VPol.Sc.-IIPT-R25",
@@ -26399,27 +24771,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R28",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec M, L, K, N",
+            "section": "Sec M",
             "batch": "",
             "raw_batch": "",
             "subject": "IIPT",
             "subject_name": "Indian Political Thought",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Indian Political Thought (IIPT) · B.Com (Hons) · Sem V · Sec M, L, K, N",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec M",
-              "Sec L",
-              "Sec K",
-              "Sec N"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Indian Political Thought (IIPT) · B.Com (Hons) · Sem V · Sec M"
           }
         ],
         "Friday": [
@@ -26430,27 +24788,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "CL1",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec M, L, K, N",
+            "section": "Sec M",
             "batch": "",
             "raw_batch": "",
             "subject": "IIPT",
             "subject_name": "Indian Political Thought",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Indian Political Thought (IIPT) · B.Com (Hons) · Sem V · Sec M, L, K, N",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec M",
-              "Sec L",
-              "Sec K",
-              "Sec N"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Indian Political Thought (IIPT) · B.Com (Hons) · Sem V · Sec M"
           }
         ],
         "Saturday": []
@@ -26584,25 +24928,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "T3",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec N, M",
+            "section": "Sec N",
             "batch": "",
             "raw_batch": "",
             "subject": "GF",
             "subject_name": "Global Finance",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Global Finance (GF) · B.Com (Hons) · Sem V · Sec N, M",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec N",
-              "Sec M"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Global Finance (GF) · B.Com (Hons) · Sem V · Sec N"
           }
         ],
         "Thursday": [
@@ -26613,25 +24945,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R7",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec N, M",
+            "section": "Sec N",
             "batch": "",
             "raw_batch": "",
             "subject": "GF",
             "subject_name": "Global Finance",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Global Finance (GF) · B.Com (Hons) · Sem V · Sec N, M",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec N",
-              "Sec M"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Global Finance (GF) · B.Com (Hons) · Sem V · Sec N"
           },
           {
             "raw": "L-BCH-L-SEM IIIEnglish-GF-R14L-BAHE-D-SEM IIIEnglish-GF-R14",
@@ -26655,29 +24975,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "T2",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec M, N",
+            "section": "Sec M",
             "batch": "M1",
             "raw_batch": "M1",
             "subject": "GF",
             "subject_name": "Global Finance",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Global Finance (GF) · B.Com (Hons) · Sem V · Sec M, N · (M1)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec M",
-              "Sec N"
-            ],
-            "batches_list": [
-              "M1"
-            ],
-            "raw_batches_list": [
-              "M1"
-            ]
+            "formatted_display": "Global Finance (GF) · B.Com (Hons) · Sem V · Sec M · (M1)"
           }
         ],
         "Friday": [
@@ -26688,25 +24992,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "T3",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec M, N",
+            "section": "Sec M",
             "batch": "",
             "raw_batch": "",
             "subject": "GF",
             "subject_name": "Global Finance",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Global Finance (GF) · B.Com (Hons) · Sem V · Sec M, N",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec M",
-              "Sec N"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Global Finance (GF) · B.Com (Hons) · Sem V · Sec M"
           },
           {
             "raw": "LAB-JOINT-SEM IIIEnglish-RIFE-R6-VAC30",
@@ -26874,7 +25166,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "T-BAHE-A-SEM VIIEnglish-RIDL-T1T-BAHE-B-SEM VEnglish-RIDL-T1",
             "type": "Tutorial",
             "room": "T1",
-            "course": "B.A. (Hons) Economics / B.Com (Hons)",
+            "course": "B.A. (Hons) Economics",
             "semester": "Sem VII",
             "section": "Sec A",
             "batch": "",
@@ -26882,19 +25174,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "RIDL",
             "subject_name": "Readings in Indian Democratic Literature",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Readings in Indian Democratic Literature (RIDL) · B.A. (Hons) Economics / B.Com (Hons) · Sem VII · Sec A",
-            "courses_list": [
-              "B.A. (Hons) Economics",
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem VII"
-            ],
-            "sections_list": [
-              "Sec A"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Readings in Indian Democratic Literature (RIDL) · B.A. (Hons) Economics · Sem VII · Sec A"
           }
         ],
         "Friday": [
@@ -27054,7 +25334,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "T-MCOM-A-SEM IIICommerce-SMM-T7-A1",
             "type": "Tutorial",
             "room": "T7",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem III",
             "section": "Sec A",
             "batch": "A1",
@@ -27062,7 +25342,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "SMM",
             "subject_name": "Social Media Marketing",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Social Media Marketing (SMM) · Sem III · Sec A · (A1)"
+            "formatted_display": "Social Media Marketing (SMM) · M.Com · Sem III · Sec A · (A1)"
           },
           {
             "raw": "L-BCH-M-SEM ICommerce-BLAW-R28",
@@ -28114,7 +26394,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "T-MCOM-A-SEM IIICommerce-SHRM-T31",
             "type": "Tutorial",
             "room": "T31",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem III",
             "section": "Sec A",
             "batch": "",
@@ -28122,7 +26402,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "SHRM",
             "subject_name": "Strategic Human Resource Management",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Strategic Human Resource Management (SHRM) · Sem III · Sec A"
+            "formatted_display": "Strategic Human Resource Management (SHRM) · M.Com · Sem III · Sec A"
           }
         ],
         "Wednesday": [
@@ -28196,31 +26476,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec K",
-            "batch": "K1, K2, K3",
-            "raw_batch": "KP1, KP2, KP3",
+            "batch": "K1",
+            "raw_batch": "KP1",
             "subject": "BMATH",
             "subject_name": "Business Mathematics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec K · (KP1, KP2, KP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec K"
-            ],
-            "batches_list": [
-              "K1",
-              "K2",
-              "K3"
-            ],
-            "raw_batches_list": [
-              "KP1",
-              "KP2",
-              "KP3"
-            ]
+            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec K · (K1 / KP1)"
           }
         ],
         "Friday": [
@@ -28324,31 +26585,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec E",
-            "batch": "E1, E2, E3",
-            "raw_batch": "EP1, EP2, EP3",
+            "batch": "E1",
+            "raw_batch": "EP1",
             "subject": "BMATH",
             "subject_name": "Business Mathematics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec E · (EP1, EP2, EP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec E"
-            ],
-            "batches_list": [
-              "E1",
-              "E2",
-              "E3"
-            ],
-            "raw_batches_list": [
-              "EP1",
-              "EP2",
-              "EP3"
-            ]
+            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec E · (E1 / EP1)"
           }
         ]
       },
@@ -28457,7 +26699,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "T-MCOM-A-SEM IIICommerce-BM-T1",
             "type": "Tutorial",
             "room": "T1",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem III",
             "section": "Sec A",
             "batch": "",
@@ -28465,7 +26707,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BM",
             "subject_name": "Business Management",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Business Management (BM) · Sem III · Sec A"
+            "formatted_display": "Business Management (BM) · M.Com · Sem III · Sec A"
           }
         ],
         "Wednesday": [
@@ -29488,31 +27730,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec F",
-            "batch": "F1, F2, F3",
-            "raw_batch": "FP1, FP2, FP3",
+            "batch": "F1",
+            "raw_batch": "FP1",
             "subject": "FM",
             "subject_name": "Financial Management",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec F · (FP1, FP2, FP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec F"
-            ],
-            "batches_list": [
-              "F1",
-              "F2",
-              "F3"
-            ],
-            "raw_batches_list": [
-              "FP1",
-              "FP2",
-              "FP3"
-            ]
+            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec F · (F1 / FP1)"
           }
         ],
         "Tuesday": [
@@ -29539,31 +27762,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec K",
-            "batch": "K1, K2, K3",
-            "raw_batch": "KP1, KP2, KP3",
+            "batch": "K1",
+            "raw_batch": "KP1",
             "subject": "FM",
             "subject_name": "Financial Management",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec K · (KP1, KP2, KP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec K"
-            ],
-            "batches_list": [
-              "K1",
-              "K2",
-              "K3"
-            ],
-            "raw_batches_list": [
-              "KP1",
-              "KP2",
-              "KP3"
-            ]
+            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec K · (K1 / KP1)"
           },
           {
             "raw": "LAB-BCH-K-SEM IIICommerce-FM-T32-KP1",
@@ -29811,25 +28015,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R19",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec M, B",
+            "section": "Sec M",
             "batch": "",
             "raw_batch": "",
             "subject": "ODI",
             "subject_name": "Organizational Dynamics & Intervention",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Organizational Dynamics & Intervention (ODI) · B.Com (Hons) · Sem V · Sec M, B",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec M",
-              "Sec B"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Organizational Dynamics & Intervention (ODI) · B.Com (Hons) · Sem V · Sec M"
           }
         ],
         "Thursday": [
@@ -29841,29 +28033,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec M",
-            "batch": "M1, M2",
-            "raw_batch": "M1, M2",
+            "batch": "M1",
+            "raw_batch": "M1",
             "subject": "ODI",
             "subject_name": "Organizational Dynamics & Intervention",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Organizational Dynamics & Intervention (ODI) · B.Com (Hons) · Sem V · Sec M · (M1, M2)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec M"
-            ],
-            "batches_list": [
-              "M1",
-              "M2"
-            ],
-            "raw_batches_list": [
-              "M1",
-              "M2"
-            ]
+            "formatted_display": "Organizational Dynamics & Intervention (ODI) · B.Com (Hons) · Sem V · Sec M · (M1)"
           },
           {
             "raw": "L-BCH-M-SEM VCommerce-ODI-R29",
@@ -29872,25 +28047,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R29",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec M, B",
+            "section": "Sec M",
             "batch": "",
             "raw_batch": "",
             "subject": "ODI",
             "subject_name": "Organizational Dynamics & Intervention",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Organizational Dynamics & Intervention (ODI) · B.Com (Hons) · Sem V · Sec M, B",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec M",
-              "Sec B"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Organizational Dynamics & Intervention (ODI) · B.Com (Hons) · Sem V · Sec M"
           },
           {
             "raw": "T-BCH-L-SEM ICommerce-MPA-T46-L2",
@@ -29946,25 +28109,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R19",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec M, B",
+            "section": "Sec M",
             "batch": "",
             "raw_batch": "",
             "subject": "ODI",
             "subject_name": "Organizational Dynamics & Intervention",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Organizational Dynamics & Intervention (ODI) · B.Com (Hons) · Sem V · Sec M, B",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec M",
-              "Sec B"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Organizational Dynamics & Intervention (ODI) · B.Com (Hons) · Sem V · Sec M"
           },
           {
             "raw": "T-BCH-A-SEM ICommerce-MPA-T42-A3",
@@ -30134,31 +28285,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec A",
-            "batch": "A1, A2, A3",
-            "raw_batch": "AP1, AP2, AP3",
+            "batch": "A1",
+            "raw_batch": "AP1",
             "subject": "BMATH",
             "subject_name": "Business Mathematics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec A · (AP1, AP2, AP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec A"
-            ],
-            "batches_list": [
-              "A1",
-              "A2",
-              "A3"
-            ],
-            "raw_batches_list": [
-              "AP1",
-              "AP2",
-              "AP3"
-            ]
+            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec A · (A1 / AP1)"
           },
           {
             "raw": "LAB-BCH-A-SEM IIICommerce-BMATH-T33-AP3",
@@ -30200,31 +28332,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec J",
-            "batch": "J2, J3, J1",
-            "raw_batch": "JP2, JP3, JP1",
+            "batch": "J2",
+            "raw_batch": "JP2",
             "subject": "BMATH",
             "subject_name": "Business Mathematics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec J · (JP2, JP3, JP1)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec J"
-            ],
-            "batches_list": [
-              "J2",
-              "J3",
-              "J1"
-            ],
-            "raw_batches_list": [
-              "JP2",
-              "JP3",
-              "JP1"
-            ]
+            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec J · (J2 / JP2)"
           },
           {
             "raw": "LAB-BCH-A-SEM IIICommerce-BMATH-T33-AP1",
@@ -31091,7 +29204,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "LAB-MCOM-A-SEM ICommerce-FP-T41-A2",
             "type": "Practical/Lab",
             "room": "T41",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem I",
             "section": "Sec A",
             "batch": "A2",
@@ -31099,7 +29212,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "FP",
             "subject_name": "Financial Planning",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Financial Planning (FP) · Sem I · Sec A · (A2)"
+            "formatted_display": "Financial Planning (FP) · M.Com · Sem I · Sec A · (A2)"
           },
           {
             "raw": "L-BCH-N-SEM VCommerce-MA-R26",
@@ -31136,7 +29249,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "LAB-MCOM-A-SEM ICommerce-FP-T41-A2",
             "type": "Practical/Lab",
             "room": "T41",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem I",
             "section": "Sec A",
             "batch": "A2",
@@ -31144,7 +29257,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "FP",
             "subject_name": "Financial Planning",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Financial Planning (FP) · Sem I · Sec A · (A2)"
+            "formatted_display": "Financial Planning (FP) · M.Com · Sem I · Sec A · (A2)"
           }
         ],
         "Wednesday": [
@@ -31233,31 +29346,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec B",
-            "batch": "B1, B2, B3",
-            "raw_batch": "BP1, BP2, BP3",
+            "batch": "B1",
+            "raw_batch": "BP1",
             "subject": "MA",
             "subject_name": "Management Accounting",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec B · (BP1, BP2, BP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec B"
-            ],
-            "batches_list": [
-              "B1",
-              "B2",
-              "B3"
-            ],
-            "raw_batches_list": [
-              "BP1",
-              "BP2",
-              "BP3"
-            ]
+            "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec B · (B1 / BP1)"
           }
         ],
         "Friday": [
@@ -31284,31 +29378,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec N",
-            "batch": "N1, N2, N3",
-            "raw_batch": "NP1, NP2, NP3",
+            "batch": "N1",
+            "raw_batch": "NP1",
             "subject": "MA",
             "subject_name": "Management Accounting",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec N · (NP1, NP2, NP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec N"
-            ],
-            "batches_list": [
-              "N1",
-              "N2",
-              "N3"
-            ],
-            "raw_batches_list": [
-              "NP1",
-              "NP2",
-              "NP3"
-            ]
+            "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec N · (N1 / NP1)"
           },
           {
             "raw": "LAB-BCH-N-SEM VCommerce-MA-T42-NP3",
@@ -31392,27 +29467,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R19",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec N, M, L, I",
+            "section": "Sec N",
             "batch": "",
             "raw_batch": "",
             "subject": "BDE",
             "subject_name": "Business Data Ecosystem",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Data Ecosystem (BDE) · B.Com (Hons) · Sem V · Sec N, M, L, I",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec N",
-              "Sec M",
-              "Sec L",
-              "Sec I"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Business Data Ecosystem (BDE) · B.Com (Hons) · Sem V · Sec N"
           }
         ],
         "Wednesday": [
@@ -31453,27 +29514,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "PB3",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec N, M, L, I",
+            "section": "Sec N",
             "batch": "",
             "raw_batch": "",
             "subject": "BDE",
             "subject_name": "Business Data Ecosystem",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Data Ecosystem (BDE) · B.Com (Hons) · Sem V · Sec N, M, L, I",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec N",
-              "Sec M",
-              "Sec L",
-              "Sec I"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Business Data Ecosystem (BDE) · B.Com (Hons) · Sem V · Sec N"
           },
           {
             "raw": "L-BCH-F-SEM VEconomics-BDE-R3",
@@ -31514,27 +29561,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "PB3",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec N, M, L, I",
+            "section": "Sec N",
             "batch": "",
             "raw_batch": "",
             "subject": "BDE",
             "subject_name": "Business Data Ecosystem",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Data Ecosystem (BDE) · B.Com (Hons) · Sem V · Sec N, M, L, I",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec N",
-              "Sec M",
-              "Sec L",
-              "Sec I"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Business Data Ecosystem (BDE) · B.Com (Hons) · Sem V · Sec N"
           },
           {
             "raw": "L-BCH-F-SEM VEconomics-BDE-R10",
@@ -31794,31 +29827,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec B",
-            "batch": "B3, B2, B1",
-            "raw_batch": "BP3, BP2, BP1",
+            "batch": "B3",
+            "raw_batch": "BP3",
             "subject": "BMATH",
             "subject_name": "Business Mathematics",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec B · (BP3, BP2, BP1)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec B"
-            ],
-            "batches_list": [
-              "B3",
-              "B2",
-              "B1"
-            ],
-            "raw_batches_list": [
-              "BP3",
-              "BP2",
-              "BP1"
-            ]
+            "formatted_display": "Business Mathematics (BMATH) · B.Com (Hons) · Sem III · Sec B · (B3 / BP3)"
           },
           {
             "raw": "T-BCH-F-SEM ICommerce-MPA-T32-F1",
@@ -32542,7 +30556,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "L-BAHE-A-SEM VIIPol.Sc.-GIC-T3",
             "type": "Lecture",
             "room": "T3",
-            "course": "B.A. (Hons) Economics / B.Com (Hons)",
+            "course": "B.A. (Hons) Economics",
             "semester": "Sem VII",
             "section": "Sec A",
             "batch": "",
@@ -32550,19 +30564,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GIC",
             "subject_name": "Global Institutions and Commerce",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Global Institutions and Commerce (GIC) · B.A. (Hons) Economics / B.Com (Hons) · Sem VII · Sec A",
-            "courses_list": [
-              "B.A. (Hons) Economics",
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem VII"
-            ],
-            "sections_list": [
-              "Sec A"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Global Institutions and Commerce (GIC) · B.A. (Hons) Economics · Sem VII · Sec A"
           }
         ],
         "Wednesday": [
@@ -32571,7 +30573,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "L-BAHE-A-SEM VIIPol.Sc.-GIC-T3",
             "type": "Lecture",
             "room": "T3",
-            "course": "B.A. (Hons) Economics / B.Com (Hons)",
+            "course": "B.A. (Hons) Economics",
             "semester": "Sem VII",
             "section": "Sec A",
             "batch": "",
@@ -32579,19 +30581,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GIC",
             "subject_name": "Global Institutions and Commerce",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Global Institutions and Commerce (GIC) · B.A. (Hons) Economics / B.Com (Hons) · Sem VII · Sec A",
-            "courses_list": [
-              "B.A. (Hons) Economics",
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem VII"
-            ],
-            "sections_list": [
-              "Sec A"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Global Institutions and Commerce (GIC) · B.A. (Hons) Economics · Sem VII · Sec A"
           }
         ],
         "Thursday": [
@@ -32600,7 +30590,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "T-BAHE-A-SEM VIIPol.Sc.-GIC-T3-A1",
             "type": "Tutorial",
             "room": "T3",
-            "course": "B.A. (Hons) Economics / B.Com (Hons)",
+            "course": "B.A. (Hons) Economics",
             "semester": "Sem VII",
             "section": "Sec A",
             "batch": "A1",
@@ -32608,23 +30598,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GIC",
             "subject_name": "Global Institutions and Commerce",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Global Institutions and Commerce (GIC) · B.A. (Hons) Economics / B.Com (Hons) · Sem VII · Sec A · (A1)",
-            "courses_list": [
-              "B.A. (Hons) Economics",
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem VII"
-            ],
-            "sections_list": [
-              "Sec A"
-            ],
-            "batches_list": [
-              "A1"
-            ],
-            "raw_batches_list": [
-              "A1"
-            ]
+            "formatted_display": "Global Institutions and Commerce (GIC) · B.A. (Hons) Economics · Sem VII · Sec A · (A1)"
           },
           {
             "raw": "LAB-JOINT-SEM IIIPol.Sc.-NL-R20-SEC18",
@@ -32693,7 +30667,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "L-BAHE-A-SEM VIIPol.Sc.-GIC-T51",
             "type": "Lecture",
             "room": "T51",
-            "course": "B.A. (Hons) Economics / B.Com (Hons)",
+            "course": "B.A. (Hons) Economics",
             "semester": "Sem VII",
             "section": "Sec A",
             "batch": "",
@@ -32701,19 +30675,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GIC",
             "subject_name": "Global Institutions and Commerce",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Global Institutions and Commerce (GIC) · B.A. (Hons) Economics / B.Com (Hons) · Sem VII · Sec A",
-            "courses_list": [
-              "B.A. (Hons) Economics",
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem VII"
-            ],
-            "sections_list": [
-              "Sec A"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Global Institutions and Commerce (GIC) · B.A. (Hons) Economics · Sem VII · Sec A"
           }
         ],
         "Saturday": []
@@ -32819,27 +30781,13 @@ window.SRCC_TEACHERS_DATA = {
             "room": "R30",
             "course": "B.Com (Hons)",
             "semester": "Sem V",
-            "section": "Sec K, L, N, M",
+            "section": "Sec K",
             "batch": "",
             "raw_batch": "",
             "subject": "OS",
             "subject_name": "Operating Systems",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Operating Systems (OS) · B.Com (Hons) · Sem V · Sec K, L, N, M",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec K",
-              "Sec L",
-              "Sec N",
-              "Sec M"
-            ],
-            "batches_list": [],
-            "raw_batches_list": []
+            "formatted_display": "Operating Systems (OS) · B.Com (Hons) · Sem V · Sec K"
           },
           {
             "raw": "LAB-BCH-N-SEM IIIComp.Sc.-DMS-R29LAB-BAHE-D-SEM IIIComp.Sc.-DMS-R29",
@@ -33046,31 +30994,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec K",
-            "batch": "K1, K2, K3",
-            "raw_batch": "KP1, KP2, KP3",
+            "batch": "K1",
+            "raw_batch": "KP1",
             "subject": "ITLP",
             "subject_name": "Income Tax Law and Practice",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec K · (KP1, KP2, KP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec K"
-            ],
-            "batches_list": [
-              "K1",
-              "K2",
-              "K3"
-            ],
-            "raw_batches_list": [
-              "KP1",
-              "KP2",
-              "KP3"
-            ]
+            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec K · (K1 / KP1)"
           },
           {
             "raw": "LAB-BCH-K-SEM VCommerce-ITLP-R19-KP3",
@@ -33370,7 +31299,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "T-MCOM-A-SEM IIICommerce-BF-T11",
             "type": "Tutorial",
             "room": "T11",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem III",
             "section": "Sec A",
             "batch": "",
@@ -33378,7 +31307,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BF",
             "subject_name": "Banking and Finance",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Banking and Finance (BF) · Sem III · Sec A"
+            "formatted_display": "Banking and Finance (BF) · M.Com · Sem III · Sec A"
           }
         ],
         "Thursday": [
@@ -33535,31 +31464,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec E",
-            "batch": "E1, E2, E3",
-            "raw_batch": "EP1, EP2, EP3",
+            "batch": "E1",
+            "raw_batch": "EP1",
             "subject": "FM",
             "subject_name": "Financial Management",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec E · (EP1, EP2, EP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec E"
-            ],
-            "batches_list": [
-              "E1",
-              "E2",
-              "E3"
-            ],
-            "raw_batches_list": [
-              "EP1",
-              "EP2",
-              "EP3"
-            ]
+            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec E · (E1 / EP1)"
           },
           {
             "raw": "L-BCH-F-SEM VCommerce-AUD-R1",
@@ -34000,31 +31910,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem I",
             "section": "Sec G",
-            "batch": "G1, G2, G3",
-            "raw_batch": "GP1, GP2, GP3",
+            "batch": "G1",
+            "raw_batch": "GP1",
             "subject": "FA",
             "subject_name": "Financial Accounting",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec G · (GP1, GP2, GP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem I"
-            ],
-            "sections_list": [
-              "Sec G"
-            ],
-            "batches_list": [
-              "G1",
-              "G2",
-              "G3"
-            ],
-            "raw_batches_list": [
-              "GP1",
-              "GP2",
-              "GP3"
-            ]
+            "formatted_display": "Financial Accounting (FA) · B.Com (Hons) · Sem I · Sec G · (G1 / GP1)"
           }
         ],
         "Tuesday": [
@@ -34036,31 +31927,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec A",
-            "batch": "A1, A3, A2",
-            "raw_batch": "AP1, AP3, AP2",
+            "batch": "A1",
+            "raw_batch": "AP1",
             "subject": "FM",
             "subject_name": "Financial Management",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec A · (AP1, AP3, AP2)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec A"
-            ],
-            "batches_list": [
-              "A1",
-              "A3",
-              "A2"
-            ],
-            "raw_batches_list": [
-              "AP1",
-              "AP3",
-              "AP2"
-            ]
+            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec A · (A1 / AP1)"
           }
         ],
         "Wednesday": [
@@ -34385,7 +32257,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "T-MCOM-A-SEM ICommerce-BSC-T27",
             "type": "Tutorial",
             "room": "T27",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem I",
             "section": "Sec A",
             "batch": "",
@@ -34393,7 +32265,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BSC",
             "subject_name": "Business Communication",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Communication (BSC) · Sem I · Sec A"
+            "formatted_display": "Business Communication (BSC) · M.Com · Sem I · Sec A"
           }
         ],
         "Friday": [
@@ -34837,31 +32709,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec D",
-            "batch": "D1, D2, D3",
-            "raw_batch": "DP1, DP2, DP3",
+            "batch": "D1",
+            "raw_batch": "DP1",
             "subject": "ITLP",
             "subject_name": "Income Tax Law and Practice",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec D · (DP1, DP2, DP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec D"
-            ],
-            "batches_list": [
-              "D1",
-              "D2",
-              "D3"
-            ],
-            "raw_batches_list": [
-              "DP1",
-              "DP2",
-              "DP3"
-            ]
+            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec D · (D1 / DP1)"
           },
           {
             "raw": "LAB-BCH-G-SEM VCommerce-ITLP-T35-GP2",
@@ -34918,31 +32771,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec G",
-            "batch": "G1, G2, G3",
-            "raw_batch": "GP1, GP2, GP3",
+            "batch": "G1",
+            "raw_batch": "GP1",
             "subject": "ITLP",
             "subject_name": "Income Tax Law and Practice",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec G · (GP1, GP2, GP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec G"
-            ],
-            "batches_list": [
-              "G1",
-              "G2",
-              "G3"
-            ],
-            "raw_batches_list": [
-              "GP1",
-              "GP2",
-              "GP3"
-            ]
+            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec G · (G1 / GP1)"
           }
         ]
       },
@@ -35031,7 +32865,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "T-MCOM-A-SEM ICommerce-ME-T24-A1",
             "type": "Tutorial",
             "room": "T24",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem I",
             "section": "Sec A",
             "batch": "A1",
@@ -35039,7 +32873,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ME",
             "subject_name": "Managerial Economics",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Managerial Economics (ME) · Sem I · Sec A · (A1)"
+            "formatted_display": "Managerial Economics (ME) · M.Com · Sem I · Sec A · (A1)"
           },
           {
             "raw": "L-BCH-C-SEM VCommerce-BECON-R15",
@@ -35256,31 +33090,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec B",
-            "batch": "B1, B2, B3",
-            "raw_batch": "BP1, BP2, BP3",
+            "batch": "B1",
+            "raw_batch": "BP1",
             "subject": "FM",
             "subject_name": "Financial Management",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec B · (BP1, BP2, BP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec B"
-            ],
-            "batches_list": [
-              "B1",
-              "B2",
-              "B3"
-            ],
-            "raw_batches_list": [
-              "BP1",
-              "BP2",
-              "BP3"
-            ]
+            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec B · (B1 / BP1)"
           },
           {
             "raw": "LAB-BCH-B-SEM IIICommerce-FM-T7-BP2",
@@ -35322,31 +33137,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec G",
-            "batch": "G1, G2, G3",
-            "raw_batch": "GP1, GP2, GP3",
+            "batch": "G1",
+            "raw_batch": "GP1",
             "subject": "FM",
             "subject_name": "Financial Management",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec G · (GP1, GP2, GP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec G"
-            ],
-            "batches_list": [
-              "G1",
-              "G2",
-              "G3"
-            ],
-            "raw_batches_list": [
-              "GP1",
-              "GP2",
-              "GP3"
-            ]
+            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec G · (G1 / GP1)"
           },
           {
             "raw": "LAB-BCH-G-SEM IIICommerce-FM-T7-GP3",
@@ -36571,31 +34367,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem VII",
             "section": "Sec A",
-            "batch": "A1, A2, A3",
-            "raw_batch": "AP1, AP2, AP3",
+            "batch": "A1",
+            "raw_batch": "AP1",
             "subject": "BRM",
             "subject_name": "Business Research Methods",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem VII · Sec A · (AP1, AP2, AP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem VII"
-            ],
-            "sections_list": [
-              "Sec A"
-            ],
-            "batches_list": [
-              "A1",
-              "A2",
-              "A3"
-            ],
-            "raw_batches_list": [
-              "AP1",
-              "AP2",
-              "AP3"
-            ]
+            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem VII · Sec A · (A1 / AP1)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-DM-R4-SEC2",
@@ -36786,7 +34563,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "T-MCOM-A-SEM ICommerce-DM-T13",
             "type": "Tutorial",
             "room": "T13",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem I",
             "section": "Sec A",
             "batch": "",
@@ -36794,7 +34571,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "DM",
             "subject_name": "Digital Marketing",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Digital Marketing (DM) · Sem I · Sec A"
+            "formatted_display": "Digital Marketing (DM) · M.Com · Sem I · Sec A"
           },
           {
             "raw": "L-BCH-G-SEM IIICommerce-POM-R20",
@@ -36977,7 +34754,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "T-MCOM-A-SEM ICommerce-ME-T13-A2",
             "type": "Tutorial",
             "room": "T13",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem I",
             "section": "Sec A",
             "batch": "A2",
@@ -36985,7 +34762,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ME",
             "subject_name": "Managerial Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Managerial Economics (ME) · Sem I · Sec A · (A2)"
+            "formatted_display": "Managerial Economics (ME) · M.Com · Sem I · Sec A · (A2)"
           }
         ],
         "Thursday": [
@@ -37158,29 +34935,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec M",
-            "batch": "M1, M3",
-            "raw_batch": "M1, M3",
+            "batch": "M1",
+            "raw_batch": "M1",
             "subject": "IF",
             "subject_name": "International Finance",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "International Finance (IF) · B.Com (Hons) · Sem V · Sec M · (M1, M3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec M"
-            ],
-            "batches_list": [
-              "M1",
-              "M3"
-            ],
-            "raw_batches_list": [
-              "M1",
-              "M3"
-            ]
+            "formatted_display": "International Finance (IF) · B.Com (Hons) · Sem V · Sec M · (M1)"
           },
           {
             "raw": "LAB-BCH-C-SEM IIICommerce-FM-CL2-CP1",
@@ -37190,31 +34950,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec C",
-            "batch": "C1, C2, C3",
-            "raw_batch": "CP1, CP2, CP3",
+            "batch": "C1",
+            "raw_batch": "CP1",
             "subject": "FM",
             "subject_name": "Financial Management",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec C · (CP1, CP2, CP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem III"
-            ],
-            "sections_list": [
-              "Sec C"
-            ],
-            "batches_list": [
-              "C1",
-              "C2",
-              "C3"
-            ],
-            "raw_batches_list": [
-              "CP1",
-              "CP2",
-              "CP3"
-            ]
+            "formatted_display": "Financial Management (FM) · B.Com (Hons) · Sem III · Sec C · (C1 / CP1)"
           },
           {
             "raw": "LAB-BCH-C-SEM IIICommerce-FM-T31-CP2",
@@ -37624,7 +35365,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "LAB-MCOM-A-SEM IIICommerce-MFD-T47",
             "type": "Practical/Lab",
             "room": "T47",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem III",
             "section": "Sec A",
             "batch": "",
@@ -37632,7 +35373,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MFD",
             "subject_name": "Macro Financial Dynamics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Macro Financial Dynamics (MFD) · Sem III · Sec A"
+            "formatted_display": "Macro Financial Dynamics (MFD) · M.Com · Sem III · Sec A"
           },
           {
             "raw": "L-BCH-B-SEM ICommerce-BLAW-R28",
@@ -37656,7 +35397,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "LAB-MCOM-A-SEM IIICommerce-MFD-T35",
             "type": "Practical/Lab",
             "room": "T35",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem III",
             "section": "Sec A",
             "batch": "",
@@ -37664,7 +35405,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MFD",
             "subject_name": "Macro Financial Dynamics",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Macro Financial Dynamics (MFD) · Sem III · Sec A"
+            "formatted_display": "Macro Financial Dynamics (MFD) · M.Com · Sem III · Sec A"
           }
         ],
         "Thursday": [],
@@ -38219,7 +35960,7 @@ window.SRCC_TEACHERS_DATA = {
             "display": "LAB-MCOM-A-SEM ICommerce-BRM-T1",
             "type": "Practical/Lab",
             "room": "T1",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem I",
             "section": "Sec A",
             "batch": "",
@@ -38227,14 +35968,14 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BRM",
             "subject_name": "Business Research Methods",
             "slot": "4:00 PM to 5:00 PM",
-            "formatted_display": "Business Research Methods (BRM) · Sem I · Sec A"
+            "formatted_display": "Business Research Methods (BRM) · M.Com · Sem I · Sec A"
           },
           {
             "raw": "LAB-MCOM-A-SEM ICommerce-BRM-T1",
             "display": "LAB-MCOM-A-SEM ICommerce-BRM-T1",
             "type": "Practical/Lab",
             "room": "T1",
-            "course": "",
+            "course": "M.Com",
             "semester": "Sem I",
             "section": "Sec A",
             "batch": "",
@@ -38242,7 +35983,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BRM",
             "subject_name": "Business Research Methods",
             "slot": "5:00 PM to 6:00 PM",
-            "formatted_display": "Business Research Methods (BRM) · Sem I · Sec A"
+            "formatted_display": "Business Research Methods (BRM) · M.Com · Sem I · Sec A"
           }
         ],
         "Friday": [],
@@ -39663,31 +37404,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec M",
-            "batch": "M1, M2, M3",
-            "raw_batch": "MP1, MP2, MP3",
+            "batch": "M1",
+            "raw_batch": "MP1",
             "subject": "ITLP",
             "subject_name": "Income Tax Law and Practice",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec M · (MP1, MP2, MP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec M"
-            ],
-            "batches_list": [
-              "M1",
-              "M2",
-              "M3"
-            ],
-            "raw_batches_list": [
-              "MP1",
-              "MP2",
-              "MP3"
-            ]
+            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec M · (M1 / MP1)"
           }
         ],
         "Wednesday": [
@@ -40039,31 +37761,12 @@ window.SRCC_TEACHERS_DATA = {
             "course": "B.Com (Hons)",
             "semester": "Sem V",
             "section": "Sec C",
-            "batch": "C1, C2, C3",
-            "raw_batch": "CP1, CP2, CP3",
+            "batch": "C1",
+            "raw_batch": "CP1",
             "subject": "ITLP",
             "subject_name": "Income Tax Law and Practice",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec C · (CP1, CP2, CP3)",
-            "courses_list": [
-              "B.Com (Hons)"
-            ],
-            "semesters_list": [
-              "Sem V"
-            ],
-            "sections_list": [
-              "Sec C"
-            ],
-            "batches_list": [
-              "C1",
-              "C2",
-              "C3"
-            ],
-            "raw_batches_list": [
-              "CP1",
-              "CP2",
-              "CP3"
-            ]
+            "formatted_display": "Income Tax Law and Practice (ITLP) · B.Com (Hons) · Sem V · Sec C · (C1 / CP1)"
           },
           {
             "raw": "L-BCH-C-SEM VCommerce-ITLP-R3",

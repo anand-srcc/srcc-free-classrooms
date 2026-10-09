@@ -4657,8 +4657,12 @@ window.SRCC_FACULTY_LEAVES = {
                 return;
               }
 
-              const c = (s.course || '').trim();
+              let c = (s.course || '').trim();
               const sec = (s.section || '').trim();
+              const rawUpper = (s.raw || '').toUpperCase();
+              if (!c && (rawUpper.includes('MCOM') || rawUpper.includes('M.COM'))) {
+                c = 'M.Com';
+              }
 
               if (c && sem && sec) {
                 if (!courseMap[c]) courseMap[c] = {};
@@ -4673,7 +4677,7 @@ window.SRCC_FACULTY_LEAVES = {
 
       buildHierarchy();
 
-      const validCourses = ['B.A. (Hons) Economics', 'B.Com (Hons)', 'SEC', 'VAC'];
+      const validCourses = ['B.A. (Hons) Economics', 'B.Com (Hons)', 'M.Com', 'SEC', 'VAC'];
       let savedCourse = localStorage.getItem('srcc_my_tt_course');
       if (savedCourse === 'SEC_VAC' || savedCourse === 'SEC / VAC') {
         savedCourse = 'SEC';
@@ -4762,14 +4766,20 @@ window.SRCC_FACULTY_LEAVES = {
             ttMainSearchInput.placeholder = 'Search SEC paper (e.g. SEC12, 12, ITSA), faculty, or room...';
           } else if (isVac) {
             ttMainSearchInput.placeholder = 'Search VAC paper (e.g. VAC5, 5, EC), faculty, or room...';
+          } else if (ttState.course === 'M.Com') {
+            ttMainSearchInput.placeholder = 'Search M.Com paper (e.g. BRM, BADS), professor, batch, or room...';
           } else {
             ttMainSearchInput.placeholder = 'Search subject (e.g. MME), teacher, batch, or room...';
           }
         }
 
-        // Semesters adjustments for SEC / VAC (NEP curriculum offers in Sem I, III, V)
+        // Semesters adjustments for SEC / VAC or M.Com
         if (isSecVacCourse) {
           if (ttState.sem === 'Sem VII') {
+            ttState.sem = 'Sem I';
+          }
+        } else if (ttState.course === 'M.Com') {
+          if (ttState.sem === 'Sem V' || ttState.sem === 'Sem VII') {
             ttState.sem = 'Sem I';
           }
         }
@@ -4881,6 +4891,8 @@ window.SRCC_FACULTY_LEAVES = {
           pill.classList.toggle('active', sem === ttState.sem);
           if (isSecVacCourse) {
             pill.style.display = (sem === 'Sem VII') ? 'none' : '';
+          } else if (ttState.course === 'M.Com') {
+            pill.style.display = (sem === 'Sem V' || sem === 'Sem VII') ? 'none' : '';
           } else {
             pill.style.display = '';
           }
@@ -5010,12 +5022,18 @@ window.SRCC_FACULTY_LEAVES = {
               }
             } else {
               if (!isSec && !isVac) {
-                const courseMatches = s.course === targetCourse || 
+                const sCourse = (s.course || '').trim();
+                const rawUpper = (s.raw || '').toUpperCase();
+                const isMcom = (targetCourse === 'M.Com') && (sCourse === 'M.Com' || rawUpper.includes('MCOM') || rawUpper.includes('M.COM'));
+
+                const courseMatches = isMcom ||
+                                      s.course === targetCourse || 
                                       (Array.isArray(s.courses_list) && s.courses_list.includes(targetCourse)) ||
                                       (s.course && s.course.includes(targetCourse));
                 const semMatches = s.semester === targetSem || 
                                    (Array.isArray(s.semesters_list) && s.semesters_list.includes(targetSem));
-                const secMatches = s.section === targetSec || 
+                const secMatches = (!targetSec || targetSec === 'ALL') ||
+                                   s.section === targetSec || 
                                    (Array.isArray(s.sections_list) && s.sections_list.includes(targetSec)) ||
                                    (s.section && s.section.includes(targetSec));
 
@@ -5094,9 +5112,9 @@ window.SRCC_FACULTY_LEAVES = {
         const teacher = (session.teacher || '').toLowerCase();
         const room = (session.room || '').toLowerCase();
         const sem = (session.sem || '').toLowerCase();
-        const day = (session.day || '').toLowerCase();
-
-        const combined = `${subjCode} ${subjName} ${type} ${batch} ${rawBatch} ${teacher} ${room} ${sem} ${day} ${session.isSec ? 'sec skill enhancement' : ''} ${session.isVac ? 'vac value addition' : ''}`.toLowerCase();
+        const course = (session.course || '').toLowerCase();
+        const mcomKeywords = (course.includes('m.com') || (session.raw && session.raw.toUpperCase().includes('MCOM'))) ? 'mcom m.com commerce' : '';
+        const combined = `${subjCode} ${subjName} ${type} ${batch} ${rawBatch} ${teacher} ${room} ${sem} ${day} ${course} ${mcomKeywords} ${session.isSec ? 'sec skill enhancement' : ''} ${session.isVac ? 'vac value addition' : ''}`.toLowerCase();
         const combinedNorm = combined.replace(/[\s\-_]+/g, '');
 
         if (combined.includes(q) || combinedNorm.includes(qNorm)) return true;
@@ -5277,7 +5295,7 @@ window.SRCC_FACULTY_LEAVES = {
           } else if (isSecVacMode) {
             ttSelectedSummary.textContent = `SEC / VAC · ${ttState.sem}`;
           } else {
-            const shortCourse = ttState.course.includes('Economics') ? 'Economics' : 'B.Com (Hons)';
+            const shortCourse = ttState.course === 'M.Com' ? 'M.Com' : (ttState.course.includes('Economics') ? 'Economics' : 'B.Com (Hons)');
             ttSelectedSummary.textContent = `${shortCourse} · ${ttState.sem}`;
           }
         }
@@ -5295,6 +5313,8 @@ window.SRCC_FACULTY_LEAVES = {
             ttRibbonCourseSec.textContent = `SEC (Skill Enhancement Course), ${ttState.sem} (${batchText})`;
           } else if (ttState.course === 'VAC') {
             ttRibbonCourseSec.textContent = `VAC (Value Addition Course), ${ttState.sem} (${batchText})`;
+          } else if (ttState.course === 'M.Com') {
+            ttRibbonCourseSec.textContent = `M.Com (Master of Commerce), ${ttState.sem}, ${ttState.sec} (${batchText})`;
           } else if (isSecVacMode) {
             ttRibbonCourseSec.textContent = `SEC & VAC (Joint Courses), ${ttState.sem} (${batchText})`;
           } else {
@@ -5444,6 +5464,9 @@ window.SRCC_FACULTY_LEAVES = {
       ttMainCoursePills.forEach(pill => {
         pill.addEventListener('click', () => {
           ttState.course = pill.dataset.course;
+          if (ttState.course === 'M.Com' && (ttState.sem === 'Sem V' || ttState.sem === 'Sem VII')) {
+            ttState.sem = 'Sem I';
+          }
           updateSectionsAndBatches(true);
           renderMainTimetableView();
         });
