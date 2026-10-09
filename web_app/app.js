@@ -1262,16 +1262,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Support clicking the "Free Periods Today" timetable metric tile to jump to free classrooms
-    const ttCountFreeTile = document.getElementById('ttCountFreePeriodsTile');
-    if (ttCountFreeTile) {
-      ttCountFreeTile.style.cursor = 'pointer';
-      ttCountFreeTile.title = 'Click to view classrooms free right now';
-      ttCountFreeTile.addEventListener('click', () => {
-        setAppMode('rooms');
-        setFreeNowState(true);
-      });
-    }
+
 
     // View Mode Toggle (Rooms - Grid vs Compact)
     if (btnViewGrid && btnViewCompact) {
@@ -4501,7 +4492,6 @@ window.SRCC_FACULTY_LEAVES = {
         }
 
         let totalClassesToday = 0;
-        let totalFreePeriodsToday = 0;
         let matchCount = 0;
         let cardsHtml = '';
 
@@ -4509,12 +4499,9 @@ window.SRCC_FACULTY_LEAVES = {
           const slot = p.slot;
           const timeLabel = p.time;
           const slotClasses = classesBySlot[slot] || [];
-          const freeRooms = freeRoomsBySlot[slot] || [];
 
           if (slotClasses.length > 0) {
             totalClassesToday += slotClasses.length;
-          } else {
-            totalFreePeriodsToday++;
           }
 
           // Slot filter (ALL or specific period)
@@ -4604,34 +4591,11 @@ window.SRCC_FACULTY_LEAVES = {
                 </article>
               `;
             });
-          } else if (slotClasses.length === 0 && !filterQuery) {
-            // Render Free Period Card with 1-click jump to free classrooms
-            matchCount++;
-            cardsHtml += `
-              <article class="tt-card tt-free-period-card" data-slot="${escapeHtml(slot)}">
-                <div class="tt-card-header">
-                  <span class="tt-period-badge">🕒 Period ${p.num} · ${timeLabel}</span>
-                  <span class="tt-free-badge">⚡ Free Period</span>
-                </div>
-                <div class="tt-card-subject">
-                  <span>No Scheduled Class for this Section</span>
-                </div>
-                <div class="tt-card-meta">
-                  <span>${freeRooms.length} Classrooms Free on Campus for Self-Study & GD</span>
-                </div>
-                <div style="margin-top: 10px;">
-                  <button type="button" class="btn-view-free-rooms-slot" data-slot="${escapeHtml(slot)}" data-day="${escapeHtml(ttState.day)}">
-                    🏛️ View ${freeRooms.length} Free Rooms ↗
-                  </button>
-                </div>
-              </article>
-            `;
           }
         });
 
         // Update Stat tiles
         if (ttCountClasses) ttCountClasses.textContent = totalClassesToday;
-        if (ttCountFreePeriods) ttCountFreePeriods.textContent = totalFreePeriodsToday;
         if (ttSelectedSummary) {
           if (ttState.course === 'SEC') {
             ttSelectedSummary.textContent = `SEC · ${ttState.sem}`;
@@ -4794,25 +4758,6 @@ window.SRCC_FACULTY_LEAVES = {
             });
           });
 
-          // Attach free rooms jump listeners on free period cards
-          ttMainScheduleGrid.querySelectorAll('.btn-view-free-rooms-slot').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-              e.stopPropagation();
-              const targetSlot = btn.dataset.slot;
-              const targetDay = btn.dataset.day;
-              setAppMode('rooms');
-              if (targetDay) setActiveDay(targetDay);
-              if (targetSlot) {
-                state.activeSlot = targetSlot;
-                if (slotSelect) slotSelect.value = targetSlot;
-              }
-              state.activeCategory = 'ALL';
-              state.searchQuery = '';
-              if (searchInput) searchInput.value = '';
-              render();
-              showToast(`🏛️ Showing free classrooms for ${escapeHtml(targetSlot)}`);
-            });
-          });
         }
       }
 
