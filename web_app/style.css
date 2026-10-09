@@ -6159,6 +6159,23 @@ body.modal-open {
   border: 1px solid var(--border-color);
 }
 
+.tt-secvac-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: rgba(147, 51, 234, 0.12);
+  color: #7e22ce;
+  border: 1px solid rgba(147, 51, 234, 0.28);
+  letter-spacing: 0.02em;
+}
+
+[data-theme="dark"] .tt-secvac-badge {
+  background: rgba(168, 85, 247, 0.2);
+  color: #c084fc;
+  border-color: rgba(168, 85, 247, 0.35);
+}
+
 .tt-free-pill {
   font-size: 0.72rem;
   font-weight: 700;

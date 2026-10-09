@@ -4014,8 +4014,44 @@ window.SRCC_FACULTY_LEAVES = {
         { slot: "5:00 PM to 6:00 PM", time: "5:00 PM", num: 9 }
       ];
 
+      // Helpers to detect SEC (Skill Enhancement) and VAC (Value Addition) slots
+      function isSecSlot(s) {
+        if (!s) return false;
+        const batch = (s.batch || '').toUpperCase().trim();
+        const raw_batch = (s.raw_batch || '').toUpperCase().trim();
+        const subj = (s.subject || '').toUpperCase().trim();
+        const subj_name = (s.subject_name || '').toUpperCase().trim();
+        const raw = (s.raw || '').toUpperCase().trim();
+
+        let isSec = (batch.includes('SEC') || raw_batch.includes('SEC') || 
+                     subj_name.includes('SKILL ENHANCEMENT') || 
+                     raw.includes('-SEC') || raw.includes('_SEC') || raw.includes(' SEC') ||
+                     batch.startsWith('SEC') || raw_batch.startsWith('SEC'));
+
+        if (isSec && !(subj_name.includes('SKILL ENHANCEMENT') || raw.includes('-SEC') || raw.includes('_SEC') || raw.includes(' SEC') || batch.startsWith('SEC') || raw_batch.startsWith('SEC'))) {
+          isSec = false;
+        }
+        return isSec;
+      }
+
+      function isVacSlot(s) {
+        if (!s) return false;
+        const batch = (s.batch || '').toUpperCase().trim();
+        const raw_batch = (s.raw_batch || '').toUpperCase().trim();
+        const subj = (s.subject || '').toUpperCase().trim();
+        const subj_name = (s.subject_name || '').toUpperCase().trim();
+        const raw = (s.raw || '').toUpperCase().trim();
+
+        return (batch.includes('VAC') || raw_batch.includes('VAC') || 
+                subj_name.includes('VALUE ADDITION') || 
+                raw.includes('-VAC') || raw.includes('_VAC') || raw.includes(' VAC') ||
+                subj === 'VAC SEL' || batch.startsWith('VAC') || raw_batch.startsWith('VAC'));
+      }
+
       // Extract Course -> Sem -> Sec -> Batches hierarchy from teachersData
       const courseMap = {};
+      const secBatchesBySem = {}; // sem -> Set of batches
+      const vacBatchesBySem = {}; // sem -> Set of batches
       const getTeachers = () => (teachersData && teachersData.teachers) ? teachersData.teachers : (window.SRCC_TEACHERS_DATA?.teachers || []);
 
       function buildHierarchy() {
@@ -4024,10 +4060,22 @@ window.SRCC_FACULTY_LEAVES = {
           if (!t.schedule) return;
           Object.keys(t.schedule).forEach(day => {
             (t.schedule[day] || []).forEach(s => {
+              const sem = (s.semester || 'Sem I').trim();
+              const batch = (s.batch || s.raw_batch || '').trim();
+
+              if (isSecSlot(s)) {
+                if (!secBatchesBySem[sem]) secBatchesBySem[sem] = new Set();
+                if (batch) secBatchesBySem[sem].add(batch);
+                return;
+              }
+              if (isVacSlot(s)) {
+                if (!vacBatchesBySem[sem]) vacBatchesBySem[sem] = new Set();
+                if (batch) vacBatchesBySem[sem].add(batch);
+                return;
+              }
+
               const c = (s.course || '').trim();
-              const sem = (s.semester || '').trim();
               const sec = (s.section || '').trim();
-              const batch = (s.batch || '').trim();
 
               if (c && sem && sec) {
                 if (!courseMap[c]) courseMap[c] = {};
@@ -4042,20 +4090,20 @@ window.SRCC_FACULTY_LEAVES = {
 
       buildHierarchy();
 
-      const availableCourses = Object.keys(courseMap).sort();
+      const validCourses = ['B.A. (Hons) Economics', 'B.Com (Hons)', 'SEC', 'VAC'];
       let savedCourse = localStorage.getItem('srcc_my_tt_course');
       let savedSem = localStorage.getItem('srcc_my_tt_sem');
       let savedSec = localStorage.getItem('srcc_my_tt_sec');
       let savedBatch = localStorage.getItem('srcc_my_tt_batch') || 'ALL';
 
-      if (!savedCourse || !courseMap[savedCourse]) {
-        savedCourse = availableCourses.find(c => c.includes('B.Com')) || availableCourses[0] || 'B.Com (Hons)';
+      if (!savedCourse || !validCourses.includes(savedCourse)) {
+        savedCourse = 'B.A. (Hons) Economics';
       }
-      if (!savedSem || !courseMap[savedCourse]?.[savedSem]) {
-        savedSem = Object.keys(courseMap[savedCourse] || {})[0] || 'Sem I';
+      if (!savedSem) {
+        savedSem = 'Sem I';
       }
-      if (!savedSec || !courseMap[savedCourse]?.[savedSem]?.[savedSec]) {
-        savedSec = Object.keys(courseMap[savedCourse]?.[savedSem] || {})[0] || 'Sec A';
+      if (!savedSec) {
+        savedSec = 'Sec A';
       }
 
       // Live day-wise auto-capture helper based on IST timezone
@@ -4114,28 +4162,69 @@ window.SRCC_FACULTY_LEAVES = {
       }
 
       function updateSectionsAndBatches(triggerSave = true) {
-        const secs = Object.keys(courseMap[ttState.course]?.[ttState.sem] || {}).sort();
+        const isSecCourse = (ttState.course === 'SEC');
+        const isVacCourse = (ttState.course === 'VAC');
+
+        // Semesters adjustments for SEC / VAC
+        if (isSecCourse) {
+          if (ttState.sem === 'Sem VII') ttState.sem = 'Sem I';
+        } else if (isVacCourse) {
+          if (ttState.sem === 'Sem V' || ttState.sem === 'Sem VII') ttState.sem = 'Sem I';
+        }
+
+        // Section dropdown:
         if (ttMainSecSelect) {
           ttMainSecSelect.innerHTML = '';
-          secs.forEach(s => {
+          if (isSecCourse) {
             const opt = document.createElement('option');
-            opt.value = s;
-            opt.textContent = s;
-            if (s === ttState.sec) opt.selected = true;
+            opt.value = 'Joint';
+            opt.textContent = 'All Sections (Joint SEC)';
+            opt.selected = true;
             ttMainSecSelect.appendChild(opt);
-          });
-          if (!secs.includes(ttState.sec) && secs.length > 0) {
-            ttState.sec = secs[0];
-            ttMainSecSelect.value = secs[0];
+            ttState.sec = 'Joint';
+          } else if (isVacCourse) {
+            const opt = document.createElement('option');
+            opt.value = 'Joint';
+            opt.textContent = 'All Sections (Joint VAC)';
+            opt.selected = true;
+            ttMainSecSelect.appendChild(opt);
+            ttState.sec = 'Joint';
+          } else {
+            // Normal course: B.Com or Economics
+            const secs = Object.keys(courseMap[ttState.course]?.[ttState.sem] || {}).sort();
+            secs.forEach(s => {
+              const opt = document.createElement('option');
+              opt.value = s;
+              opt.textContent = s;
+              if (s === ttState.sec) opt.selected = true;
+              ttMainSecSelect.appendChild(opt);
+            });
+            if (!secs.includes(ttState.sec) && secs.length > 0) {
+              ttState.sec = secs[0];
+              ttMainSecSelect.value = secs[0];
+            }
           }
         }
 
-        // Batches for current sec
-        const batchSet = courseMap[ttState.course]?.[ttState.sem]?.[ttState.sec] || new Set();
-        const batches = Array.from(batchSet).sort();
+        // Batch dropdown:
+        let batchOptionsHtml = '<option value="ALL">All batches</option>';
+        let batches = [];
 
-        const batchOptionsHtml = '<option value="ALL">All batches</option>' + 
-          batches.map(b => `<option value="${escapeHtml(b)}">${escapeHtml(b)}</option>`).join('');
+        if (isSecCourse) {
+          const batchSet = secBatchesBySem[ttState.sem] || new Set();
+          batches = Array.from(batchSet).sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
+          batchOptionsHtml = '<option value="ALL">All SEC batches</option>' +
+            batches.map(b => `<option value="${escapeHtml(b)}">${escapeHtml(b)}</option>`).join('');
+        } else if (isVacCourse) {
+          const batchSet = vacBatchesBySem[ttState.sem] || new Set();
+          batches = Array.from(batchSet).sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
+          batchOptionsHtml = '<option value="ALL">All VAC batches</option>' +
+            batches.map(b => `<option value="${escapeHtml(b)}">${escapeHtml(b)}</option>`).join('');
+        } else {
+          const batchSet = courseMap[ttState.course]?.[ttState.sem]?.[ttState.sec] || new Set();
+          batches = Array.from(batchSet).sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
+          batchOptionsHtml += batches.map(b => `<option value="${escapeHtml(b)}">${escapeHtml(b)}</option>`).join('');
+        }
 
         if (ttMainBatchSelect) {
           ttMainBatchSelect.innerHTML = batchOptionsHtml;
@@ -4160,11 +4249,23 @@ window.SRCC_FACULTY_LEAVES = {
           pill.classList.toggle('active', pill.dataset.course === ttState.course);
         });
         ttMainSemPills.forEach(pill => {
-          pill.classList.toggle('active', pill.dataset.sem === ttState.sem);
+          const sem = pill.dataset.sem;
+          pill.classList.toggle('active', sem === ttState.sem);
+          if (ttState.course === 'SEC') {
+            pill.style.display = (sem === 'Sem VII') ? 'none' : '';
+          } else if (ttState.course === 'VAC') {
+            pill.style.display = (sem === 'Sem V' || sem === 'Sem VII') ? 'none' : '';
+          } else {
+            pill.style.display = '';
+          }
         });
         if (ttMainSecSelect) ttMainSecSelect.value = ttState.sec;
         if (ttMainBatchSelect) ttMainBatchSelect.value = ttState.batch;
         if (ttMainSlotSelect) ttMainSlotSelect.value = ttState.slot;
+      }
+
+      function isSecVacSlot(s) {
+        return isSecSlot(s) || isVacSlot(s);
       }
 
       function getTimetableData() {
@@ -4175,22 +4276,61 @@ window.SRCC_FACULTY_LEAVES = {
 
         const classesBySlot = {};
         academicPeriods.forEach(p => { classesBySlot[p.slot] = []; });
+        const isSecMode = (ttState.course === 'SEC');
+        const isVacMode = (ttState.course === 'VAC');
+        const queryLower = (ttState.searchQuery || '').trim().toLowerCase();
+        const queryHasSec = queryLower.includes('sec');
+        const queryHasVac = queryLower.includes('vac');
 
         teachers.forEach(t => {
           const tName = t.clean_name || t.label || 'Faculty';
           const daySched = t.schedule?.[ttState.day] || [];
           daySched.forEach(s => {
-            const courseMatches = s.course === ttState.course || 
-                                  (Array.isArray(s.courses_list) && s.courses_list.includes(ttState.course)) ||
-                                  (s.course && s.course.includes(ttState.course));
-            const semMatches = s.semester === ttState.sem || 
-                               (Array.isArray(s.semesters_list) && s.semesters_list.includes(ttState.sem)) ||
-                               (s.semester && s.semester.includes(ttState.sem));
-            const secMatches = s.section === ttState.sec || 
-                               (Array.isArray(s.sections_list) && s.sections_list.includes(ttState.sec)) ||
-                               (s.section && s.section.includes(ttState.sec));
+            const isSec = isSecSlot(s);
+            const isVac = isVacSlot(s);
+            let matchesFilter = false;
 
-            if (courseMatches && semMatches && secMatches) {
+            if (isSecMode) {
+              if (isSec) {
+                const semMatches = !s.semester || s.semester === ttState.sem || 
+                                   (Array.isArray(s.semesters_list) && s.semesters_list.includes(ttState.sem));
+                if (semMatches) {
+                  matchesFilter = true;
+                }
+              }
+            } else if (isVacMode) {
+              if (isVac) {
+                const semMatches = !s.semester || s.semester === ttState.sem || 
+                                   (Array.isArray(s.semesters_list) && s.semesters_list.includes(ttState.sem));
+                if (semMatches) {
+                  matchesFilter = true;
+                }
+              }
+            } else {
+              if (!isSec && !isVac) {
+                const courseMatches = s.course === ttState.course || 
+                                      (Array.isArray(s.courses_list) && s.courses_list.includes(ttState.course)) ||
+                                      (s.course && s.course.includes(ttState.course));
+                const semMatches = s.semester === ttState.sem || 
+                                   (Array.isArray(s.semesters_list) && s.semesters_list.includes(ttState.sem));
+                const secMatches = s.section === ttState.sec || 
+                                   (Array.isArray(s.sections_list) && s.sections_list.includes(ttState.sec)) ||
+                                   (s.section && s.section.includes(ttState.sec));
+
+                if (courseMatches && semMatches && secMatches) {
+                  matchesFilter = true;
+                }
+              } else if ((isSec && queryHasSec) || (isVac && queryHasVac)) {
+                // When search query specifically targets SEC or VAC, include this semester's SEC/VAC classes
+                const semMatches = !s.semester || s.semester === ttState.sem || 
+                                   (Array.isArray(s.semesters_list) && s.semesters_list.includes(ttState.sem));
+                if (semMatches) {
+                  matchesFilter = true;
+                }
+              }
+            }
+
+            if (matchesFilter) {
               const selBatch = (ttState.batch || 'ALL').trim().toUpperCase();
 
               // Batch filtering:
@@ -4220,8 +4360,8 @@ window.SRCC_FACULTY_LEAVES = {
 
               const slot = s.slot;
               if (classesBySlot[slot]) {
-                // Deduplicate if already added for this teacher and subject
-                const already = classesBySlot[slot].find(ex => ex.teacherId === t.id && ex.subject === s.subject && ex.room === s.room);
+                // Deduplicate if already added for this teacher and subject and room and batch
+                const already = classesBySlot[slot].find(ex => ex.teacherId === t.id && ex.subject === s.subject && ex.room === s.room && ex.batch === (s.batch || ''));
                 if (already) return;
 
                 const leaveRecord = (typeof isTeacherOnLeave === 'function' ? isTeacherOnLeave(t) : null) || activeLeaves.find(l => {
@@ -4242,7 +4382,10 @@ window.SRCC_FACULTY_LEAVES = {
                   teacher: tName,
                   teacherId: t.id,
                   room: s.room || '',
-                  isOnLeave: isOnLeave
+                  isOnLeave: isOnLeave,
+                  isSec: isSec,
+                  isVac: isVac,
+                  sem: s.semester || ttState.sem
                 });
               }
             }
@@ -4306,7 +4449,7 @@ window.SRCC_FACULTY_LEAVES = {
           let filteredClasses = slotClasses;
           if (filterQuery) {
             filteredClasses = slotClasses.filter(c => {
-              const fullText = `${c.subject} ${c.subjectName || ''} ${c.type} ${c.batch} ${c.rawBatch || ''} ${c.teacher} ${c.room}`.toLowerCase();
+              const fullText = `${c.subject} ${c.subjectName || ''} ${c.type} ${c.batch} ${c.rawBatch || ''} ${c.teacher} ${c.room} ${c.isSec ? 'sec skill enhancement' : ''} ${c.isVac ? 'vac value addition' : ''}`.toLowerCase();
               return fullText.includes(filterQuery);
             });
             if (filteredClasses.length === 0) {
@@ -4322,6 +4465,9 @@ window.SRCC_FACULTY_LEAVES = {
               const batchBadge = displayBatch 
                 ? ` · Batch ${escapeHtml(displayBatch)}`
                 : '';
+              const secVacBadge = c.isSec 
+                ? `<span class="tt-secvac-badge">SEC Course</span>` 
+                : (c.isVac ? `<span class="tt-secvac-badge">VAC Course</span>` : '');
               const initials = c.teacher.split(' ').map(n => n[0]).filter(Boolean).slice(0, 2).join('').toUpperCase() || 'FC';
               const leaveHtml = c.isOnLeave 
                 ? `<div class="tt-leave-badge">🏖️ Faculty on Leave Today · Class Suspended</div>` 
@@ -4336,20 +4482,33 @@ window.SRCC_FACULTY_LEAVES = {
               const displaySubject = c.subjectName || c.subject || 'Subject';
               const showCodeBadge = Boolean(c.subject && c.subject.toLowerCase() !== displaySubject.toLowerCase());
 
+              let courseMetaText = ttState.course;
+              let secMetaText = ttState.sec;
+              if (ttState.course === 'SEC' || c.isSec) {
+                courseMetaText = 'SEC (Skill Enhancement)';
+                secMetaText = 'Joint';
+              } else if (ttState.course === 'VAC' || c.isVac) {
+                courseMetaText = 'VAC (Value Addition)';
+                secMetaText = 'Joint';
+              }
+
               cardsHtml += `
                 <article class="tt-card${leaveCardCls}" data-slot="${escapeHtml(slot)}">
                   <div class="tt-card-header">
                     <span class="tt-period-badge">🕒 Period ${p.num} · ${timeLabel}</span>
-                    <span class="tt-type-pill">${escapeHtml(c.type)}${batchBadge}</span>
+                    <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                      ${secVacBadge}
+                      <span class="tt-type-pill">${escapeHtml(c.type)}${batchBadge}</span>
+                    </div>
                   </div>
                   <div class="tt-card-subject">
                     <span>${escapeHtml(displaySubject)}</span>
                     ${showCodeBadge ? `<span class="tt-subj-code-pill">${escapeHtml(c.subject)}</span>` : ''}
                   </div>
                   <div class="tt-card-meta">
-                    <span>${escapeHtml(ttState.course)}</span> •
-                    <span>${escapeHtml(ttState.sem)}</span> •
-                    <span>${escapeHtml(ttState.sec)}</span>
+                    <span>${escapeHtml(courseMetaText)}</span> •
+                    <span>${escapeHtml(c.sem || ttState.sem)}</span> •
+                    <span>${escapeHtml(secMetaText)}</span>
                   </div>
                   <div class="tt-card-faculty">
                     <div class="tt-faculty-info btn-view-teacher-today" data-teacher-id="${escapeHtml(c.teacherId || '')}" data-teacher-name="${escapeHtml(c.teacher)}" role="button" tabindex="0" title="View ${escapeHtml(c.teacher)}'s timetable">
@@ -4369,15 +4528,32 @@ window.SRCC_FACULTY_LEAVES = {
         if (ttCountClasses) ttCountClasses.textContent = totalClassesToday;
         if (ttCountFreePeriods) ttCountFreePeriods.textContent = totalFreePeriodsToday;
         if (ttSelectedSummary) {
-          const shortCourse = ttState.course.includes('Economics') ? 'Economics' : 'B.Com (Hons)';
-          ttSelectedSummary.textContent = `${shortCourse} · ${ttState.sem}`;
+          if (ttState.course === 'SEC') {
+            ttSelectedSummary.textContent = `SEC · ${ttState.sem}`;
+          } else if (ttState.course === 'VAC') {
+            ttSelectedSummary.textContent = `VAC · ${ttState.sem}`;
+          } else {
+            const shortCourse = ttState.course.includes('Economics') ? 'Economics' : 'B.Com (Hons)';
+            ttSelectedSummary.textContent = `${shortCourse} · ${ttState.sem}`;
+          }
         }
         if (ttSelectedBatchSummary) {
           const batchLabel = ttState.batch === 'ALL' ? 'All batches' : `Batch ${ttState.batch}`;
-          ttSelectedBatchSummary.textContent = `${ttState.sec} · ${batchLabel}`;
+          if (ttState.course === 'SEC' || ttState.course === 'VAC') {
+            ttSelectedBatchSummary.textContent = `Joint · ${batchLabel}`;
+          } else {
+            ttSelectedBatchSummary.textContent = `${ttState.sec} · ${batchLabel}`;
+          }
         }
         if (ttRibbonCourseSec) {
-          ttRibbonCourseSec.textContent = `${ttState.course}, ${ttState.sem}, ${ttState.sec} (${ttState.batch === 'ALL' ? 'All batches' : 'Batch ' + ttState.batch})`;
+          const batchText = ttState.batch === 'ALL' ? 'All batches' : 'Batch ' + ttState.batch;
+          if (ttState.course === 'SEC') {
+            ttRibbonCourseSec.textContent = `SEC (Skill Enhancement Course), ${ttState.sem} (${batchText})`;
+          } else if (ttState.course === 'VAC') {
+            ttRibbonCourseSec.textContent = `VAC (Value Addition Course), ${ttState.sem} (${batchText})`;
+          } else {
+            ttRibbonCourseSec.textContent = `${ttState.course}, ${ttState.sem}, ${ttState.sec} (${batchText})`;
+          }
         }
         if (ttRibbonDay) {
           ttRibbonDay.textContent = ttState.day;
