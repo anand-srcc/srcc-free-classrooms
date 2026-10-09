@@ -312,6 +312,68 @@ document.addEventListener('DOMContentLoaded', () => {
       return trimmed;
     }
 
+    // Ultra-reliable room lookup: matches room by code, number, prefix, or name
+    function findRoomByCodeOrName(input) {
+      if (!input || !appData || !Array.isArray(appData.rooms)) return null;
+      const raw = String(input).trim();
+      if (!raw || raw.toUpperCase() === 'TBD') return null;
+      const q = raw.toLowerCase();
+
+      // 1. Exact match on code (case-insensitive)
+      let found = appData.rooms.find(r => r.code && r.code.toLowerCase() === q);
+      if (found) return found;
+
+      // 2. Exact match on name or label
+      found = appData.rooms.find(r => (r.name && r.name.toLowerCase() === q) || (r.label && r.label.toLowerCase() === q));
+      if (found) return found;
+
+      // 3. Normalized room numbers: e.g. "14", "Room 14", "R 14", "R-14" -> match "R14" or "14"
+      const numMatch = q.match(/^(?:room\s*|r\s*|lecture\s*(?:classroom\s*)?)?(\d+)$/i);
+      if (numMatch) {
+        const num = numMatch[1];
+        found = appData.rooms.find(r => r.code.toLowerCase() === `r${num}` || r.code.toLowerCase() === num);
+        if (found) return found;
+      }
+
+      // 4. Tutorial rooms: "T1", "T-1", "Tutorial 1", "Tutorial Room 1"
+      const tutMatch = q.match(/^(?:tut(?:orial)?(?:\s*room)?\s*|t\s*-?\s*)(\d+)$/i);
+      if (tutMatch) {
+        const num = tutMatch[1];
+        found = appData.rooms.find(r => r.code.toLowerCase() === `t${num}`);
+        if (found) return found;
+      }
+
+      // 5. PB wing: "PB1", "PB-1", "Principal Bungalow 1"
+      const pbMatch = q.match(/^(?:pb\s*-?\s*|principal\s*bungalow\s*)(\d+)$/i);
+      if (pbMatch) {
+        const num = pbMatch[1];
+        found = appData.rooms.find(r => r.code.toLowerCase() === `pb${num}`);
+        if (found) return found;
+      }
+
+      // 6. Computer lab: "CL1", "CL-1", "Computer Lab 1", "Lab 1"
+      const clMatch = q.match(/^(?:cl\s*-?\s*|comp(?:uter)?\s*lab\s*|lab\s*)(\d+)$/i);
+      if (clMatch) {
+        const num = clMatch[1];
+        found = appData.rooms.find(r => r.code.toLowerCase() === `cl${num}` || (r.name && r.name.toLowerCase().includes(`computer lab ${num}`)));
+        if (found) return found;
+      }
+
+      // 7. Sports Complex: "SCR1", "SCR-1"
+      const scrMatch = q.match(/^(?:scr\s*-?\s*|sports\s*complex\s*)(\d+)$/i);
+      if (scrMatch) {
+        const num = scrMatch[1];
+        found = appData.rooms.find(r => r.code.toLowerCase() === `scr${num}`);
+        if (found) return found;
+      }
+
+      // 8. Partial / substring match
+      found = appData.rooms.find(r => (r.code && r.code.toLowerCase().includes(q)) || (r.name && r.name.toLowerCase().includes(q)));
+      if (found) return found;
+
+      return null;
+    }
+
     // ========================================================================
     // 🏖️ FACULTY LEAVE MANAGEMENT STORAGE & HELPERS
     // ========================================================================
@@ -2117,14 +2179,33 @@ ${freeSlotsList}
         : (formattedLines[0] || '<span class="class-batch-line">Scheduled Class</span>');
     }
 
-    function openScheduleModal(roomCode) {
-      const room = appData.rooms.find(r => r.code === roomCode);
-      if (!room) return;
+    let currentModalRoomCode = null;
 
-      const sched = room.schedule[state.activeDay] || { free_slots: [], occupied_slots: [], lunch_recess_free: true };
+    function openScheduleModal(roomCode, targetDay = null) {
+      const room = findRoomByCodeOrName(roomCode);
+      if (!room) {
+        showToast(`⚠️ Schedule not found for Room: ${escapeHtml(roomCode)}`);
+        return;
+      }
+      currentModalRoomCode = room.code;
+
+      const dayToUse = targetDay || (currentAppMode === 'timetable' ? ttState.day : (facultyState.modalActiveDay || facultyState.activeDay || state.activeDay));
+      state.activeDay = dayToUse;
+
+      const sched = room.schedule[dayToUse] || { free_slots: [], occupied_slots: [], lunch_recess_free: true };
 
       if (modalRoomTitle) modalRoomTitle.textContent = `${room.code} - ${room.name}`;
-      if (modalRoomMeta) modalRoomMeta.textContent = `${room.category} · Capacity: ${room.capacity} · Selected Day: ${state.activeDay}`;
+      if (modalRoomMeta) modalRoomMeta.textContent = `${room.category} · Capacity: ${room.capacity} · Selected Day: ${dayToUse}`;
+
+      // Synchronize modal day tabs
+      const modalRoomDayTabs = document.getElementById('modalRoomDayTabs');
+      if (modalRoomDayTabs) {
+        modalRoomDayTabs.querySelectorAll('.modal-day-tab-btn').forEach(btn => {
+          const isActive = (btn.dataset.day === dayToUse);
+          btn.classList.toggle('active', isActive);
+          btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+      }
 
       const allSlots = [
         '8:30 AM to 9:30 AM',
@@ -2452,6 +2533,18 @@ ${freeSlotsList}
 
     // Expose globally for quick modal inspection across views
     window.openScheduleModal = openScheduleModal;
+
+    // Day selector tabs inside Room Schedule Modal
+    const modalRoomDayTabs = document.getElementById('modalRoomDayTabs');
+    if (modalRoomDayTabs) {
+      modalRoomDayTabs.querySelectorAll('.modal-day-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (currentModalRoomCode) {
+            openScheduleModal(currentModalRoomCode, btn.dataset.day);
+          }
+        });
+      });
+    }
 
     // ========================================================================
     // 👨‍🏫 FACULTY LOCATOR - CORE IMPLEMENTATION
@@ -3207,23 +3300,14 @@ ${freeSlotsList}
         });
       });
 
-      // Clicking room badges jumps straight to Classroom Finder
-      document.querySelectorAll('.room-badge-link').forEach(btn => {
+      // Clicking room badges on faculty cards directly opens Room Schedule Modal
+      document.querySelectorAll('.faculty-card .room-badge-link').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
           const targetRoom = btn.dataset.room;
-          setAppMode('rooms');
-          if (searchInput) searchInput.value = targetRoom;
-          state.searchQuery = targetRoom;
-          state.activeCategory = 'ALL';
-          state.activeSlot = 'ALL';
-          if (categoryPills) categoryPills.forEach(p => p.classList.toggle('active', p.dataset.cat === 'ALL'));
-          if (slotSelect) slotSelect.value = 'ALL';
-          if (btnClearSearch) btnClearSearch.style.display = 'block';
-          render();
-          setTimeout(() => {
-            openScheduleModal(targetRoom);
-          }, 150);
+          if (targetRoom) {
+            openScheduleModal(targetRoom, facultyState.activeDay);
+          }
         });
       });
     }
@@ -3689,19 +3773,13 @@ ${freeSlotsList}
       `;
 
       modalTeacherBody.querySelectorAll('.modal-room-jump').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
           const rCode = btn.dataset.room;
-          if (teacherModal) closeAppModal(teacherModal);
-          setAppMode('rooms');
-          state.activeCategory = 'ALL';
-          state.activeSlot = 'ALL';
-          if (categoryPills) categoryPills.forEach(p => p.classList.toggle('active', p.dataset.cat === 'ALL'));
-          if (slotSelect) slotSelect.value = 'ALL';
-          if (searchInput) searchInput.value = rCode;
-          state.searchQuery = (rCode || '').trim();
-          if (btnClearSearch) btnClearSearch.style.display = 'block';
-          render();
-          setTimeout(() => openScheduleModal(rCode), 120);
+          if (rCode) {
+            if (teacherModal) closeAppModal(teacherModal);
+            openScheduleModal(rCode, facultyState.modalActiveDay || facultyState.activeDay);
+          }
         });
       });
     }
@@ -4734,26 +4812,13 @@ window.SRCC_FACULTY_LEAVES = {
             });
           });
 
-          // Attach 1-click room jumping
-          ttMainScheduleGrid.querySelectorAll('.btn-jump-room').forEach(btn => {
+          // Clicking room buttons in Timetable directly opens Room Schedule Modal
+          ttMainScheduleGrid.querySelectorAll('.btn-jump-room, .room-badge-link').forEach(btn => {
             btn.addEventListener('click', (e) => {
               e.stopPropagation();
               const targetRoom = btn.dataset.room;
               if (targetRoom) {
-                setAppMode('rooms');
-                state.activeCategory = 'ALL';
-                state.activeSlot = 'ALL';
-                if (categoryPills) categoryPills.forEach(p => p.classList.toggle('active', p.dataset.cat === 'ALL'));
-                if (slotSelect) slotSelect.value = 'ALL';
-                if (searchInput) {
-                  searchInput.value = targetRoom;
-                  state.searchQuery = targetRoom.trim();
-                  if (btnClearSearch) btnClearSearch.style.display = 'block';
-                  render();
-                  setTimeout(() => {
-                    openScheduleModal(targetRoom);
-                  }, 150);
-                }
+                openScheduleModal(targetRoom, ttState.day);
               }
             });
           });

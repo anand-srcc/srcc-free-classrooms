@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   
-  <link rel="stylesheet" href="style.css?v=40" />
+  <link rel="stylesheet" href="style.css?v=41" />
 </head>
 <body>
   <!-- Header / Navigation (Slim Single-Line Strip) -->
@@ -580,6 +580,15 @@
         </div>
         <button class="modal-close" id="btnModalClose">✕</button>
       </div>
+      <!-- Day Selector Tabs inside Room Modal -->
+      <div class="modal-day-tabs" id="modalRoomDayTabs" role="tablist" aria-label="Room schedule days">
+        <button class="day-btn modal-day-tab-btn active" data-day="Monday" role="tab" aria-selected="true">Monday</button>
+        <button class="day-btn modal-day-tab-btn" data-day="Tuesday" role="tab" aria-selected="false">Tuesday</button>
+        <button class="day-btn modal-day-tab-btn" data-day="Wednesday" role="tab" aria-selected="false">Wednesday</button>
+        <button class="day-btn modal-day-tab-btn" data-day="Thursday" role="tab" aria-selected="false">Thursday</button>
+        <button class="day-btn modal-day-tab-btn" data-day="Friday" role="tab" aria-selected="false">Friday</button>
+        <button class="day-btn modal-day-tab-btn" data-day="Saturday" role="tab" aria-selected="false">Saturday</button>
+      </div>
       <div class="modal-body" id="modalBody">
         <!-- Timetable schedule table inserted here -->
       </div>
@@ -899,10 +908,10 @@
   </div>
 
   <!-- Scripts -->
-  <script src="data.js?v=40"></script>
-  <script src="cloud_config.js?v=40"></script>
-  <script src="faculty_leaves.js?v=40"></script>
-  <script src="teachers_data.js?v=40"></script>
-  <script src="app.js?v=40"></script>
+  <script src="data.js?v=41"></script>
+  <script src="cloud_config.js?v=41"></script>
+  <script src="faculty_leaves.js?v=41"></script>
+  <script src="teachers_data.js?v=41"></script>
+  <script src="app.js?v=41"></script>
 </body>
 </html>
