@@ -559,26 +559,64 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!modal || !bodyEl) return;
       if (titleEl) titleEl.textContent = title || 'Campus Notice Attachment';
 
+      function getSafeAttachmentUrl(url) {
+        if (!url || typeof url !== 'string') return '';
+        const trimmed = url.trim();
+        if (/^data:(application\/pdf|image\/(png|jpe?g|webp|gif));base64,[A-Za-z0-9+/=\s]+$/i.test(trimmed)) {
+          return trimmed;
+        }
+        if (/^https:\/\/[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=]+$/i.test(trimmed)) {
+          return trimmed;
+        }
+        return '';
+      }
+
+      const safeUrl = getSafeAttachmentUrl(attachment.dataUrl);
+      if (!safeUrl) {
+        showToast('⚠️ Unable to display attachment (invalid or untrusted file URL).');
+        return;
+      }
+
+      bodyEl.innerHTML = '';
       if (attachment.type === 'pdf') {
-        bodyEl.innerHTML = `
-          <iframe src="${attachment.dataUrl}" style="width: 100%; height: 70vh; border: none; border-radius: 6px;"></iframe>
-          <div style="margin-top: 10px; display: flex; justify-content: flex-end;">
-            <a href="${attachment.dataUrl}" download="${escapeHtml(attachment.name || 'SRCC_Notice.pdf')}" class="btn-primary" style="text-decoration: none; font-size: 0.8rem; padding: 6px 14px; background: #1e293b; color: #fff; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px;">
-              ⬇️ Download PDF
-            </a>
-          </div>
-        `;
+        const iframe = document.createElement('iframe');
+        iframe.src = safeUrl;
+        iframe.style.cssText = 'width: 100%; height: 70vh; border: none; border-radius: 6px;';
+
+        const dlWrap = document.createElement('div');
+        dlWrap.style.cssText = 'margin-top: 10px; display: flex; justify-content: flex-end;';
+        const dlLink = document.createElement('a');
+        dlLink.href = safeUrl;
+        dlLink.download = attachment.name || 'SRCC_Notice.pdf';
+        dlLink.className = 'btn-primary';
+        dlLink.style.cssText = 'text-decoration: none; font-size: 0.8rem; padding: 6px 14px; background: #1e293b; color: #fff; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px;';
+        dlLink.textContent = '⬇️ Download PDF';
+        dlWrap.appendChild(dlLink);
+
+        bodyEl.appendChild(iframe);
+        bodyEl.appendChild(dlWrap);
       } else {
-        bodyEl.innerHTML = `
-          <div style="text-align: center;">
-            <img src="${attachment.dataUrl}" alt="Notice Poster" style="max-width: 100%; max-height: 70vh; object-fit: contain; border-radius: 6px; box-shadow: 0 4px 14px rgba(0,0,0,0.1);" />
-            <div style="margin-top: 10px; display: flex; justify-content: flex-end;">
-              <a href="${attachment.dataUrl}" download="${escapeHtml(attachment.name || 'SRCC_Poster.png')}" class="btn-primary" style="text-decoration: none; font-size: 0.8rem; padding: 6px 14px; background: #1e293b; color: #fff; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px;">
-                ⬇️ Download Image
-              </a>
-            </div>
-          </div>
-        `;
+        const imgWrap = document.createElement('div');
+        imgWrap.style.textAlign = 'center';
+
+        const img = document.createElement('img');
+        img.src = safeUrl;
+        img.alt = 'Notice Poster';
+        img.style.cssText = 'max-width: 100%; max-height: 70vh; object-fit: contain; border-radius: 6px; box-shadow: 0 4px 14px rgba(0,0,0,0.1);';
+
+        const dlWrap = document.createElement('div');
+        dlWrap.style.cssText = 'margin-top: 10px; display: flex; justify-content: flex-end;';
+        const dlLink = document.createElement('a');
+        dlLink.href = safeUrl;
+        dlLink.download = attachment.name || 'SRCC_Poster.png';
+        dlLink.className = 'btn-primary';
+        dlLink.style.cssText = 'text-decoration: none; font-size: 0.8rem; padding: 6px 14px; background: #1e293b; color: #fff; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px;';
+        dlLink.textContent = '⬇️ Download Image';
+        dlWrap.appendChild(dlLink);
+
+        imgWrap.appendChild(img);
+        imgWrap.appendChild(dlWrap);
+        bodyEl.appendChild(imgWrap);
       }
 
       modal.style.display = 'flex';
@@ -4143,11 +4181,21 @@ window.SRCC_FACULTY_LEAVES = {
         const subj_name = (s.subject_name || '').toUpperCase().trim();
         const raw = (s.raw || '').toUpperCase().trim();
 
+        // If explicitly VAC or Value Addition, NEVER classify as SEC
+        if (batch.startsWith('VAC') || raw_batch.startsWith('VAC') || /\bVAC\d*|\bVAC-|_VAC|-VAC/.test(raw) || subj_name.includes('VALUE ADDITION')) {
+          return false;
+        }
+        // If AEC (Ability Enhancement - e.g. Hindi), not SEC
+        if (/\bAEC\b|-AEC-|\bAEC-/.test(raw) || subj_name.includes('ABILITY ENHANCEMENT')) {
+          return false;
+        }
+
         if (batch.startsWith('SEC') || raw_batch.startsWith('SEC')) return true;
-        if (/\bSEC\d*|\bSEC-|_SEC|-SEC/.test(raw) || /\bSEC\d*|\bSEC-|_SEC|-SEC/.test(batch) || /\bSEC\d*|\bSEC-|_SEC|-SEC/.test(raw_batch)) return true;
+        if (/\bSEC\d*|\bSEC-|_SEC|-SEC/.test(raw)) return true;
         if (subj_name.includes('SKILL ENHANCEMENT')) return true;
-        if (['ITSA I', 'ITSA II', 'ABH', 'BIDV', 'CW', 'DM', 'PSEL', 'PSELL', 'PUP'].includes(subj)) return true;
-        return false;
+
+        const secCodes = ['ITSA I', 'ITSA II', 'AS', 'BIDV', 'SRG', 'EP', 'DM', 'IE', 'BIT', 'PFP', 'SMM', 'PSELL', 'PSEL', 'CW', 'CPL', 'SWR', 'SET', 'NL', 'PUP', 'CIEL'];
+        return secCodes.includes(subj);
       }
 
       function isVacSlot(s) {
@@ -4158,21 +4206,26 @@ window.SRCC_FACULTY_LEAVES = {
         const subj_name = (s.subject_name || '').toUpperCase().trim();
         const raw = (s.raw || '').toUpperCase().trim();
 
+        // If explicitly SEC or Skill Enhancement, NEVER classify as VAC
+        if (batch.startsWith('SEC') || raw_batch.startsWith('SEC') || /\bSEC\d*|\bSEC-|_SEC|-SEC/.test(raw) || subj_name.includes('SKILL ENHANCEMENT')) {
+          return false;
+        }
+        // If AEC (Ability Enhancement - e.g. Hindi), not VAC
+        if (/\bAEC\b|-AEC-|\bAEC-/.test(raw) || subj_name.includes('ABILITY ENHANCEMENT')) {
+          return false;
+        }
+
         if (batch.startsWith('VAC') || raw_batch.startsWith('VAC')) return true;
-        if (/\bVAC\d*|\bVAC-|_VAC|-VAC/.test(raw) || /\bVAC\d*|\bVAC-|_VAC|-VAC/.test(batch) || /\bVAC\d*|\bVAC-|_VAC|-VAC/.test(raw_batch)) return true;
+        if (/\bVAC\d*|\bVAC-|_VAC|-VAC/.test(raw)) return true;
         if (subj_name.includes('VALUE ADDITION')) return true;
-        if (['EC', 'EI', 'VM I', 'VM II', 'VM III', 'NL', 'VAC SEL'].includes(subj)) return true;
-        return false;
+
+        const vacCodes = ['EC', 'EI', 'TGNLC', 'DE', 'VAC SEL', 'CVFD', 'ABH', 'VM I', 'VM II', 'VM III', 'RIFE'];
+        return vacCodes.includes(subj);
       }
 
       function isSecVacSlot(s) {
         if (!s) return false;
-        if (isSecSlot(s) || isVacSlot(s)) return true;
-        const sec = (s.section || '').toUpperCase().trim();
-        const raw = (s.raw || '').toUpperCase().trim();
-        const course = (s.course || '').trim();
-        if ((sec === 'JOINT' || raw.includes('JOINT')) && !course) return true;
-        return false;
+        return isSecSlot(s) || isVacSlot(s);
       }
 
       // Extract Course -> Sem -> Sec -> Batches hierarchy from teachersData
@@ -4475,7 +4528,7 @@ window.SRCC_FACULTY_LEAVES = {
             let matchesFilter = false;
 
             if (isSecCourse) {
-              if (isSec || (isEither && !isVac)) {
+              if (isSec && !isVac) {
                 const semMatches = !s.semester || s.semester === ttState.sem || 
                                    (Array.isArray(s.semesters_list) && s.semesters_list.includes(ttState.sem));
                 if (semMatches) {
@@ -4483,7 +4536,7 @@ window.SRCC_FACULTY_LEAVES = {
                 }
               }
             } else if (isVacCourse) {
-              if (isVac || (isEither && !isSec)) {
+              if (isVac && !isSec) {
                 const semMatches = !s.semester || s.semester === ttState.sem || 
                                    (Array.isArray(s.semesters_list) && s.semesters_list.includes(ttState.sem));
                 if (semMatches) {
@@ -4491,7 +4544,7 @@ window.SRCC_FACULTY_LEAVES = {
                 }
               }
             } else if (ttState.course === 'SEC_VAC' || ttState.course === 'SEC / VAC') {
-              if (isEither) {
+              if (isSec || isVac) {
                 const semMatches = !s.semester || s.semester === ttState.sem || 
                                    (Array.isArray(s.semesters_list) && s.semesters_list.includes(ttState.sem));
                 if (semMatches) {
@@ -4499,7 +4552,7 @@ window.SRCC_FACULTY_LEAVES = {
                 }
               }
             } else {
-              if (!isEither) {
+              if (!isSec && !isVac) {
                 const courseMatches = s.course === ttState.course || 
                                       (Array.isArray(s.courses_list) && s.courses_list.includes(ttState.course)) ||
                                       (s.course && s.course.includes(ttState.course));
@@ -4510,13 +4563,6 @@ window.SRCC_FACULTY_LEAVES = {
                                    (s.section && s.section.includes(ttState.sec));
 
                 if (courseMatches && semMatches && secMatches) {
-                  matchesFilter = true;
-                }
-              } else if ((isSec && queryHasSec) || (isVac && queryHasVac)) {
-                // When search query specifically targets SEC or VAC, include this semester's SEC/VAC classes
-                const semMatches = !s.semester || s.semester === ttState.sem || 
-                                   (Array.isArray(s.semesters_list) && s.semesters_list.includes(ttState.sem));
-                if (semMatches) {
                   matchesFilter = true;
                 }
               }

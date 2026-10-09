@@ -22,8 +22,8 @@ async def run():
         try:
             await page.wait_for_selector("input[placeholder*='Roll']", timeout=10000)
             print("Logging in...")
-            await page.fill("input[placeholder*='Roll']", "25BC070")
-            await page.fill("input[placeholder*='Password']", "RFSCH250900681809")
+            await page.fill("input[placeholder*='Roll']", os.environ.get("SRCC_ROLL", ""))
+            await page.fill("input[placeholder*='Password']", os.environ.get("SRCC_PASS", ""))
             
             # Click the login button
             await page.click("button:has-text('Log In'), button:has-text('Login')")

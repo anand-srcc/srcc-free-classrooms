@@ -29,8 +29,8 @@ LEAVES_JSON = os.path.join(WEB_APP_DIR, "faculty_leaves.json")
 LEAVES_JS = os.path.join(WEB_APP_DIR, "faculty_leaves.js")
 TEACHERS_JSON = os.path.join(WEB_APP_DIR, "teachers_data.json")
 
-STUDENT_ROLL = os.environ.get("SRCC_ROLL", "25BC070")
-STUDENT_PASS = os.environ.get("SRCC_PASS", "RFSCH250900681809")
+STUDENT_ROLL = os.environ.get("SRCC_ROLL", "")
+STUDENT_PASS = os.environ.get("SRCC_PASS", "")
 FIREBASE_LEAVES_URL = "https://srcc-leaves-default-rtdb.firebaseio.com/leaves.json"
 
 

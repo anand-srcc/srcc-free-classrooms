@@ -37,8 +37,8 @@ jobs:
 
       - name: Run Live Faculty Leave Synchronizer
         env:
-          SRCC_ROLL: ${{ secrets.SRCC_ROLL || '25BC070' }}
-          SRCC_PASS: ${{ secrets.SRCC_PASS || 'RFSCH250900681809' }}
+          SRCC_ROLL: ${{ secrets.SRCC_ROLL }}
+          SRCC_PASS: ${{ secrets.SRCC_PASS }}
           PLAYWRIGHT_STATE: ${{ secrets.PLAYWRIGHT_STATE }}
         run: |
           xvfb-run --auto-servernum python sync_leaves.py --headed

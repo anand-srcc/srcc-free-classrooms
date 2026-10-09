@@ -1,10 +1,12 @@
 const webpush = require('web-push');
 
-const VAPID_PUBLIC_KEY = 'BJfmbvYuaQnKot04ZeKfaQrZBHgQVMubvYF02BZwLbT2TWqVEbRIJ8_A_vFsuGMNMMDQWYoObRw1gNfhA4_P-3w';
-const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY || 'qrlpGNpCe_mRfk7xlfB3IlUSVUSFdP9Kasqpp0L_uZM';
-const VAPID_EMAIL = 'mailto:anand.kumar.student@srcc.du.ac.in';
+const VAPID_PUBLIC_KEY = process.env.VAPID_PUBLIC_KEY || 'BJfmbvYuaQnKot04ZeKfaQrZBHgQVMubvYF02BZwLbT2TWqVEbRIJ8_A_vFsuGMNMMDQWYoObRw1gNfhA4_P-3w';
+const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY || '';
+const VAPID_EMAIL = process.env.VAPID_EMAIL || 'mailto:anand.kumar.student@srcc.du.ac.in';
 
-webpush.setVapidDetails(VAPID_EMAIL, VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY);
+if (VAPID_PRIVATE_KEY) {
+  webpush.setVapidDetails(VAPID_EMAIL, VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY);
+}
 
 const FIREBASE_BASE = 'https://srcc-leaves-default-rtdb.firebaseio.com';
 

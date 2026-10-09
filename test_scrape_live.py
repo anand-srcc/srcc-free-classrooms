@@ -27,10 +27,10 @@ async def main():
         roll = page.locator("input[placeholder*='Roll' i], input[type='text']")
         if await roll.count() > 0:
             print("[*] Typing credentials...", flush=True)
-            await roll.first.fill("25BC070")
+            await roll.first.fill(os.environ.get("SRCC_ROLL", ""))
             pwd = page.locator("input[type='password']")
             if await pwd.count() > 0:
-                await pwd.first.fill("RFSCH250900681809")
+                await pwd.first.fill(os.environ.get("SRCC_PASS", ""))
             
             # Wait for turnstile
             print("[*] Waiting for turnstile...", flush=True)

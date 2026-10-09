@@ -30,10 +30,13 @@ async def main():
         roll = page.locator("input[placeholder*='Roll' i], input[type='text']")
         if await roll.count() > 0 and await roll.first.is_visible():
             print("[*] Filling student login credentials...", flush=True)
-            await roll.first.fill("25BC070")
+            student_roll = os.environ.get("SRCC_ROLL", "")
+            student_pass = os.environ.get("SRCC_PASS", "")
+            if student_roll:
+                await roll.first.fill(student_roll)
             pwd = page.locator("input[type='password']")
-            if await pwd.count() > 0:
-                await pwd.first.fill("RFSCH250900681809")
+            if await pwd.count() > 0 and student_pass:
+                await pwd.first.fill(student_pass)
 
             print("[*] Looking for Cloudflare Turnstile widget...", flush=True)
             # Try to click Turnstile checkbox if visible in iframe

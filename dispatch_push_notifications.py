@@ -16,9 +16,9 @@ if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8')
 
 FIREBASE_DB_BASE = "https://srcc-leaves-default-rtdb.firebaseio.com"
-VAPID_PRIVATE_KEY = "qrlpGNpCe_mRfk7xlfB3IlUSVUSFdP9Kasqpp0L_uZM"
+VAPID_PRIVATE_KEY = os.environ.get("VAPID_PRIVATE_KEY", "")
 VAPID_CLAIMS = {
-    "sub": "mailto:anand.kumar.student@srcc.du.ac.in"
+    "sub": os.environ.get("VAPID_EMAIL", "mailto:anand.kumar.student@srcc.du.ac.in")
 }
 
 PERIOD_INTERVALS = [
@@ -177,6 +177,10 @@ def calculate_campus_update():
 
 def dispatch_all():
     title, body = calculate_campus_update()
+    if not VAPID_PRIVATE_KEY:
+        print("[Info] VAPID_PRIVATE_KEY environment variable not configured. Skipping Web Push broadcast.")
+        return
+
     print("=" * 60)
     print(f"DISPATCHING WEB PUSH (Closed-Chrome Background Alert)")
     print(f"Title: {title}")

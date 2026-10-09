@@ -24,8 +24,8 @@ async def run():
             await page.wait_for_selector("input[type='text']", timeout=15000)
             
             print("Login form detected. Filling credentials...")
-            await page.fill("input[type='text']", "25BC070")
-            await page.fill("input[type='password']", "RFSCH250900681809")
+            await page.fill("input[type='text']", os.environ.get("SRCC_ROLL", ""))
+            await page.fill("input[type='password']", os.environ.get("SRCC_PASS", ""))
             
             print("Credentials filled! Waiting 5 seconds for Turnstile to auto-verify...")
             await asyncio.sleep(5)

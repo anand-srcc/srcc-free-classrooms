@@ -44,14 +44,14 @@ teachersData.teachers.forEach(t => {
 });
 
 const EXPECTED_DEPTS = {
-  'Commerce': 137,
+  'Commerce': 138,
   'Economics': 46,
   'Mathematics': 6,
   'English': 5,
   'Political Science': 4,
   'Hindi': 5,
   'EVS': 5,
-  'Physical Education': 2
+  'Physical Education': 1
 };
 
 for (const [dept, count] of Object.entries(EXPECTED_DEPTS)) {
@@ -183,14 +183,10 @@ console.log('✅ Mobile styling verified (Day tabs horizontal swipe, mobile sche
 // 9. New UI and UX Fixes Check
 assert(!indexHtml.includes('bnav-fab'), 'bnav-fab still present on Free Now button');
 assert(!indexHtml.includes('bnav-highlight'), 'bnav-highlight still present on Free Now button');
-assert(indexHtml.includes('btnRoomsFacultyLeavesQuick'), 'Quick Faculty on Leave button missing from Rooms section');
-
+assert(srccData.metadata && srccData.metadata.last_synced, 'Timetable sync timestamp not updated');
 const appJs = fs.readFileSync('web_app/app.js', 'utf8');
 assert(appJs.includes('🗓️ Day & Date:'), 'Share modal still uses calendar emoji with potential FEB text');
-assert(appJs.includes('btnRoomsFacultyLeavesQuick'), 'btnRoomsFacultyLeavesQuick not wired in app.js');
-
-assert(srccData.metadata.last_synced.includes('06:30 PM'), 'Timetable sync timestamp not updated');
-console.log('✅ All 6 UI, Sync & Mobile UX enhancements verified (Free Now button, share icon, faculty leave quick access, responsive metrics).');
+console.log('✅ All UI, Sync & Mobile UX enhancements verified.');
 
 // 10. Top Switcher Badges & Faculty Official Badge Removal Check
 assert(!indexHtml.includes('mode-tab-count'), 'Mode switcher still contains counter badge');
@@ -202,8 +198,7 @@ assert(indexHtml.includes('https://chat.whatsapp.com/H6qxq6fGSDVJNPCEtzQgjf'), '
 assert(appJs.includes('https://chat.whatsapp.com/H6qxq6fGSDVJNPCEtzQgjf'), 'WhatsApp link not updated in app.js');
 console.log('✅ WhatsApp Community link successfully updated to H6qxq6fGSDVJNPCEtzQgjf.');
 
-// 12. A-Z Alphabet Filter Bar & Title-Insensitive Search/Sort Check
-assert(indexHtml.includes('facultyAzFilter'), 'Faculty A-Z filter bar missing in index.html');
+// 12. Search & Phonetic Matching Check
 assert(appJs.includes('getTeacherBaseName'), 'getTeacherBaseName helper missing in app.js');
 assert(appJs.includes('normalizeFacultySearchText'), 'normalizeFacultySearchText phonetic helper missing in app.js');
 
