@@ -1644,6 +1644,7 @@ body {
   border-radius: var(--radius-full);
   transition: all var(--transition-normal);
   user-select: none;
+  cursor: pointer;
 }
 
 .toggle-freenow-wrapper:hover {
@@ -3649,10 +3650,11 @@ body {
 }
 
 /* Clickable Room Badge link */
-.room-badge-link {
+.room-badge-link,
+.tt-room-btn {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
+  gap: 4px;
   background: rgba(252, 235, 10, 0.12);
   color: var(--srcc-gold);
   border: 1px solid rgba(252, 235, 10, 0.35);
@@ -3666,11 +3668,23 @@ body {
   white-space: nowrap;
 }
 
-.room-badge-link:hover {
+.room-badge-link:hover,
+.tt-room-btn:hover {
   background: rgba(252, 235, 10, 0.25);
   border-color: var(--srcc-gold);
   transform: scale(1.05);
   box-shadow: 0 0 10px rgba(252, 235, 10, 0.3);
+}
+
+.tt-room-arrow {
+  display: inline-block;
+  font-size: 0.8rem;
+  transition: transform var(--transition-fast);
+}
+
+.room-badge-link:hover .tt-room-arrow,
+.tt-room-btn:hover .tt-room-arrow {
+  transform: translate(1px, -1px);
 }
 
 /* Faculty Card Actions */
@@ -6133,13 +6147,14 @@ body.modal-open {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 6px;
+  flex-wrap: nowrap;
 }
 
 .tt-period-badge {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  padding: 3px 10px;
+  padding: 2.5px 8px;
   border-radius: var(--radius-full);
   background: var(--accent-blue-bg);
   color: var(--accent-blue);
@@ -6147,33 +6162,67 @@ body.modal-open {
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.tt-card-badges {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .tt-type-pill {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 600;
-  padding: 2px 8px;
+  padding: 2px 7px;
   border-radius: var(--radius-full);
   background: var(--bg-card-hover);
   color: var(--text-secondary);
   border: 1px solid var(--border-color);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .tt-secvac-badge {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  padding: 2px 8px;
+  padding: 2px 6px;
   border-radius: var(--radius-full);
   background: rgba(147, 51, 234, 0.12);
   color: #7e22ce;
   border: 1px solid rgba(147, 51, 234, 0.28);
   letter-spacing: 0.02em;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 [data-theme="dark"] .tt-secvac-badge {
   background: rgba(168, 85, 247, 0.2);
   color: #c084fc;
   border-color: rgba(168, 85, 247, 0.35);
+}
+
+@media (max-width: 480px) {
+  .tt-card-header {
+    gap: 4px;
+  }
+  .tt-period-badge {
+    font-size: 0.68rem;
+    padding: 2px 6px;
+    gap: 2px;
+  }
+  .tt-type-pill,
+  .tt-secvac-badge {
+    font-size: 0.68rem;
+    padding: 2px 5px;
+  }
+  .tt-card-badges {
+    gap: 3px;
+  }
 }
 
 .tt-free-pill {
@@ -6305,34 +6354,139 @@ body.modal-open {
   flex-shrink: 0;
 }
 
+.tt-faculty-name-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
 .tt-faculty-name {
   font-size: 0.86rem;
   font-weight: 700;
   color: var(--text-primary);
-  transition: color 0.15s ease;
+  text-decoration: underline;
+  text-decoration-color: rgba(37, 99, 235, 0.55);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  transition: all 0.15s ease;
 }
 
+.tt-faculty-link-badge {
+  font-size: 0.72rem;
+  opacity: 0.8;
+  display: inline-block;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.tt-faculty-info:hover .tt-faculty-name {
+  color: var(--accent-blue);
+  text-decoration-color: var(--accent-blue);
+  text-decoration-thickness: 2px;
+}
+
+.tt-faculty-info:hover .tt-faculty-link-badge {
+  opacity: 1;
+  transform: scale(1.18);
+}
+
+/* Golden Room Button with Arrow (matches Faculty Locator room badge) */
 .tt-room-btn {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  background: var(--accent-blue-bg);
-  color: var(--accent-blue);
-  border: 1px solid rgba(37, 99, 235, 0.3);
-  border-radius: 6px;
-  padding: 5px 11px;
-  font-size: 0.8rem;
+  background: rgba(252, 235, 10, 0.14);
+  color: #b45309;
+  border: 1px solid rgba(252, 235, 10, 0.5);
+  border-radius: var(--radius-full, 9999px);
+  padding: 4px 10px;
+  font-family: var(--font-display);
+  font-size: 0.76rem;
   font-weight: 700;
   cursor: pointer;
   transition: all var(--transition-fast);
   text-decoration: none;
+  white-space: nowrap;
+}
+
+.tt-room-btn .tt-room-arrow {
+  color: #d97706;
+  font-weight: 800;
+  font-size: 0.82rem;
+  transition: transform var(--transition-fast);
 }
 
 .tt-room-btn:hover {
-  background: #2563eb;
+  background: rgba(252, 235, 10, 0.28);
+  border-color: #eab308;
+  color: #92400e;
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(252, 235, 10, 0.35);
+}
+
+.tt-room-btn:hover .tt-room-arrow {
+  transform: translate(2px, -2px);
+}
+
+/* Dark theme support for golden room button */
+body.dark-mode .tt-room-btn,
+[data-theme="dark"] .tt-room-btn {
+  background: rgba(252, 235, 10, 0.15);
+  color: var(--srcc-gold, #fceb0a);
+  border-color: rgba(252, 235, 10, 0.4);
+}
+body.dark-mode .tt-room-btn .tt-room-arrow,
+[data-theme="dark"] .tt-room-btn .tt-room-arrow {
+  color: var(--srcc-gold, #fceb0a);
+}
+body.dark-mode .tt-room-btn:hover,
+[data-theme="dark"] .tt-room-btn:hover {
+  background: rgba(252, 235, 10, 0.3);
+  border-color: var(--srcc-gold, #fceb0a);
   color: #ffffff;
-  border-color: #2563eb;
+}
+
+/* Free Period Card in Timetable */
+.tt-free-period-card {
+  border-style: dashed !important;
+  border-color: rgba(16, 185, 129, 0.45) !important;
+  background: rgba(16, 185, 129, 0.04) !important;
+}
+
+.tt-free-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: rgba(16, 185, 129, 0.15);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.btn-view-free-rooms-slot {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(16, 185, 129, 0.12);
+  color: #047857;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  padding: 6px 13px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-view-free-rooms-slot:hover {
+  background: #10b981;
+  color: #ffffff;
+  border-color: #10b981;
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
 .tt-vacant-rooms-wrap {

@@ -1204,9 +1204,9 @@ document.addEventListener('DOMContentLoaded', () => {
           if (slotSelect) slotSelect.value = state.currentLiveSlot;
           showToast(`⚡ Showing classrooms vacant right now (${escapeHtml(state.currentLiveSlot)})!`);
         } else {
-          state.activeSlot = 'ALL';
-          if (slotSelect) slotSelect.value = 'ALL';
-          showToast('🌙 <strong>College Off-Hours right now.</strong> Classes run 8:30 AM – 6:00 PM (Showing all rooms).');
+          state.activeSlot = '8:30 AM to 9:30 AM';
+          if (slotSelect) slotSelect.value = '8:30 AM to 9:30 AM';
+          showToast('🌙 <strong>College Off-Hours right now.</strong> Showing classrooms free for Period 1 (8:30–9:30 AM).');
         }
         setTimeout(() => {
           if (roomsGrid) {
@@ -1223,30 +1223,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function toggleFreeNow() {
       if (state.activeMode !== 'rooms') {
-        setAppMode('rooms', true);
+        setAppMode('rooms');
         setFreeNowState(true);
         return;
       }
       setFreeNowState(!state.freeNowActive);
     }
 
-    if (btnFreeNow) {
-      btnFreeNow.addEventListener('click', (e) => {
-        e.stopPropagation();
+    if (toggleFreeNowWrapper) {
+      toggleFreeNowWrapper.addEventListener('click', (e) => {
         toggleFreeNow();
       });
     }
-    if (toggleFreeNowWrapper) {
-      toggleFreeNowWrapper.addEventListener('click', (e) => {
-        if (e.target !== btnFreeNow && !btnFreeNow.contains(e.target)) {
-          toggleFreeNow();
-        }
+    if (btnFreeNow) {
+      btnFreeNow.addEventListener('click', (e) => {
+        e.stopPropagation();
       });
     }
     if (bnavFreeNow) {
       bnavFreeNow.addEventListener('click', () => {
         if (state.activeMode !== 'rooms') {
-          setAppMode('rooms', true);
+          setAppMode('rooms');
           setFreeNowState(true);
         } else {
           toggleFreeNow();
@@ -1254,13 +1251,24 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Also support clicking the "Free Now" faculty metric tile to jump to free classrooms
+    // Support clicking the "Free Now" faculty metric tile to jump to free classrooms
     const metricFacultyFreeTile = document.getElementById('metricFacultyFreeNow')?.closest('.metric-tile');
     if (metricFacultyFreeTile) {
       metricFacultyFreeTile.style.cursor = 'pointer';
       metricFacultyFreeTile.title = 'Click to view classrooms free right now';
       metricFacultyFreeTile.addEventListener('click', () => {
-        setAppMode('rooms', true);
+        setAppMode('rooms');
+        setFreeNowState(true);
+      });
+    }
+
+    // Support clicking the "Free Periods Today" timetable metric tile to jump to free classrooms
+    const ttCountFreeTile = document.getElementById('ttCountFreePeriodsTile');
+    if (ttCountFreeTile) {
+      ttCountFreeTile.style.cursor = 'pointer';
+      ttCountFreeTile.title = 'Click to view classrooms free right now';
+      ttCountFreeTile.addEventListener('click', () => {
+        setAppMode('rooms');
         setFreeNowState(true);
       });
     }
@@ -3197,6 +3205,17 @@ ${freeSlotsList}
         });
       });
 
+      // Clicking "Free" status strips on faculty cards jumps straight to free classrooms
+      document.querySelectorAll('.faculty-live-status-strip.status-free, .faculty-live-status-strip.status-recess').forEach(strip => {
+        strip.style.cursor = 'pointer';
+        strip.title = 'Click to view classrooms free right now';
+        strip.addEventListener('click', (e) => {
+          e.stopPropagation();
+          setAppMode('rooms');
+          setFreeNowState(true);
+        });
+      });
+
       // Clicking room badges jumps straight to Classroom Finder
       document.querySelectorAll('.room-badge-link').forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -3592,17 +3611,15 @@ ${freeSlotsList}
             <td style="white-space: nowrap;"><strong>${escapeHtml(cls.slot ? cls.slot.replace(' to ', ' – ') : 'Period')}</strong></td>
             <td><span class="badge-slot-occupied">${escapeHtml(cls.type || 'Lecture')}</span></td>
             <td>
-              <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 2px;">
-                ${subjCode ? `<span class="subject-pill" title="${escapeHtml(subjFullName)}" style="font-size: 0.76rem; padding: 2px 7px;">${escapeHtml(subjCode)}</span>` : ''}
-                <strong style="color: var(--text-primary); font-size: 0.88rem;">${escapeHtml(subjFullName && subjFullName !== subjCode ? subjFullName : courseName)}</strong>
-                ${sem ? `<span class="class-batch-badge" style="color: #0369a1; border-color: rgba(56, 189, 248, 0.3);">${escapeHtml(sem)}</span>` : ''}
+              <div style="margin-bottom: 4px;">
+                <strong style="color: var(--text-primary); font-size: 0.88rem; line-height: 1.35; display: block;">${escapeHtml(subjFullName && subjFullName !== subjCode ? subjFullName : courseName)}</strong>
               </div>
-              ${(sec || batch) ? `
-                <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 3px;">
-                  ${sec ? `<span class="class-batch-badge">${escapeHtml(sec)}</span>` : ''}
-                  ${batch ? `<span class="class-batch-badge" style="color: var(--srcc-gold); border-color: rgba(252, 235, 10, 0.3);">Batch ${escapeHtml(batch)}${rawBatch && rawBatch !== batch ? ` (${escapeHtml(rawBatch)})` : ''}</span>` : ''}
-                </div>
-              ` : ''}
+              <div style="display: flex; align-items: center; gap: 5px; flex-wrap: nowrap; overflow-x: auto; white-space: nowrap;">
+                ${subjCode ? `<span class="subject-pill" title="${escapeHtml(subjFullName)}" style="font-size: 0.72rem; padding: 1.5px 6px; font-weight: 700; flex-shrink: 0;">${escapeHtml(subjCode)}</span>` : ''}
+                ${sem ? `<span class="class-batch-badge" style="color: #0284c7; background: rgba(2, 132, 199, 0.08); border-color: rgba(2, 132, 199, 0.25); font-size: 0.72rem; padding: 1.5px 6px; flex-shrink: 0;">${escapeHtml(sem)}</span>` : ''}
+                ${sec ? `<span class="class-batch-badge" style="font-size: 0.72rem; padding: 1.5px 6px; flex-shrink: 0;">${escapeHtml(sec)}</span>` : ''}
+                ${batch ? `<span class="class-batch-badge" style="color: var(--srcc-gold); border-color: rgba(252, 235, 10, 0.3); font-size: 0.72rem; padding: 1.5px 6px; flex-shrink: 0;">Batch ${escapeHtml(batch)}${rawBatch && rawBatch !== batch ? ` (${escapeHtml(rawBatch)})` : ''}</span>` : ''}
+              </div>
             </td>
             <td>
               ${roomCode !== 'TBD' ? `
@@ -3637,17 +3654,16 @@ ${freeSlotsList}
               </div>
               <span class="m-tt-type">${escapeHtml(cls.type || 'Lecture')}</span>
             </div>
-            <div class="m-tt-course-row">
-              ${subjCode ? `<span class="m-tt-subject" title="${escapeHtml(subjFullName)}">${escapeHtml(subjCode)}</span>` : ''}
-              <span class="m-tt-coursename">${escapeHtml(subjFullName && subjFullName !== subjCode ? subjFullName : courseName)}</span>
-              ${sem ? `<span class="class-sem-badge">${escapeHtml(sem)}</span>` : ''}
-            </div>
-            <div class="m-tt-meta-row">
-              <div class="m-tt-section-batch">
-                ${sec ? `<span class="sec-chip">Sec: <strong>${escapeHtml(sec)}</strong></span>` : ''}
-                ${batch ? `<span class="batch-chip">Batch ${escapeHtml(batch)}${rawBatch && rawBatch !== batch ? ` (${escapeHtml(rawBatch)})` : ''}</span>` : ''}
-                ${(!sec && !batch) ? `<span class="sec-chip">Whole Class</span>` : ''}
+            <div class="m-tt-course-row" style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px; margin-bottom: 6px;">
+              <span class="m-tt-coursename" style="font-size: 0.88rem; font-weight: 700; color: var(--text-primary);">${escapeHtml(subjFullName && subjFullName !== subjCode ? subjFullName : courseName)}</span>
+              <div style="display: flex; align-items: center; gap: 5px; flex-wrap: nowrap; overflow-x: auto; white-space: nowrap; max-width: 100%;">
+                ${subjCode ? `<span class="subject-pill" style="font-size: 0.72rem; padding: 1.5px 6px; font-weight: 700; flex-shrink: 0;" title="${escapeHtml(subjFullName)}">${escapeHtml(subjCode)}</span>` : ''}
+                ${sem ? `<span class="class-sem-badge" style="font-size: 0.72rem; padding: 1.5px 6px; flex-shrink: 0;">${escapeHtml(sem)}</span>` : ''}
+                ${sec ? `<span class="sec-chip" style="font-size: 0.72rem; padding: 1.5px 6px; flex-shrink: 0;">Sec: <strong>${escapeHtml(sec)}</strong></span>` : ''}
+                ${batch ? `<span class="batch-chip" style="font-size: 0.72rem; padding: 1.5px 6px; flex-shrink: 0;">Batch ${escapeHtml(batch)}</span>` : ''}
               </div>
+            </div>
+            <div class="m-tt-meta-row" style="display: flex; justify-content: flex-end; align-items: center;">
               <div>
                 ${roomCode !== 'TBD' ? `
                   <button class="m-tt-room-btn modal-room-jump" data-room="${escapeHtml(getTargetRoomJumpCode(roomCode))}" title="View room in Free Classroom Finder">
@@ -4139,10 +4155,10 @@ window.SRCC_FACULTY_LEAVES = {
 
       buildHierarchy();
 
-      const validCourses = ['B.A. (Hons) Economics', 'B.Com (Hons)', 'SEC_VAC'];
+      const validCourses = ['B.A. (Hons) Economics', 'B.Com (Hons)', 'SEC', 'VAC'];
       let savedCourse = localStorage.getItem('srcc_my_tt_course');
-      if (savedCourse === 'SEC' || savedCourse === 'VAC' || savedCourse === 'SEC / VAC') {
-        savedCourse = 'SEC_VAC';
+      if (savedCourse === 'SEC_VAC' || savedCourse === 'SEC / VAC') {
+        savedCourse = 'SEC';
       }
       let savedSem = localStorage.getItem('srcc_my_tt_sem');
       let savedSec = localStorage.getItem('srcc_my_tt_sec');
@@ -4214,7 +4230,9 @@ window.SRCC_FACULTY_LEAVES = {
       }
 
       function updateSectionsAndBatches(triggerSave = true) {
-        const isSecVacCourse = (ttState.course === 'SEC_VAC' || ttState.course === 'SEC / VAC' || ttState.course === 'SEC' || ttState.course === 'VAC');
+        const isSec = (ttState.course === 'SEC');
+        const isVac = (ttState.course === 'VAC');
+        const isSecVacCourse = isSec || isVac || (ttState.course === 'SEC_VAC') || (ttState.course === 'SEC / VAC');
 
         // Semesters adjustments for SEC / VAC (NEP curriculum offers in Sem I, III, V)
         if (isSecVacCourse) {
@@ -4229,7 +4247,7 @@ window.SRCC_FACULTY_LEAVES = {
           if (isSecVacCourse) {
             const opt = document.createElement('option');
             opt.value = 'Joint';
-            opt.textContent = 'All Sections (Joint)';
+            opt.textContent = isSec ? 'All SEC Sections (Joint)' : (isVac ? 'All VAC Sections (Joint)' : 'All Sections (Joint)');
             opt.selected = true;
             ttMainSecSelect.appendChild(opt);
             ttState.sec = 'Joint';
@@ -4254,7 +4272,17 @@ window.SRCC_FACULTY_LEAVES = {
         let batchOptionsHtml = '<option value="ALL">All batches</option>';
         let batches = [];
 
-        if (isSecVacCourse) {
+        if (isSec) {
+          const batchSet = secBatchesBySem[ttState.sem] || new Set();
+          batches = Array.from(batchSet).sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
+          batchOptionsHtml = '<option value="ALL">All SEC batches</option>' +
+            batches.map(b => `<option value="${escapeHtml(b)}">${escapeHtml(b)}</option>`).join('');
+        } else if (isVac) {
+          const batchSet = vacBatchesBySem[ttState.sem] || new Set();
+          batches = Array.from(batchSet).sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
+          batchOptionsHtml = '<option value="ALL">All VAC batches</option>' +
+            batches.map(b => `<option value="${escapeHtml(b)}">${escapeHtml(b)}</option>`).join('');
+        } else if (isSecVacCourse) {
           const batchSet = secVacBatchesBySem[ttState.sem] || new Set();
           batches = Array.from(batchSet).sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
           batchOptionsHtml = '<option value="ALL">All SEC & VAC batches</option>' +
@@ -4281,19 +4309,19 @@ window.SRCC_FACULTY_LEAVES = {
       }
 
       function syncControlPills() {
+        const isSecVacCourse = (ttState.course === 'SEC' || ttState.course === 'VAC' || ttState.course === 'SEC_VAC' || ttState.course === 'SEC / VAC');
         ttMainDayButtons.forEach(btn => {
           btn.classList.toggle('active', btn.dataset.day === ttState.day);
         });
         ttMainCoursePills.forEach(pill => {
           const courseVal = pill.dataset.course;
-          const isActive = (courseVal === ttState.course) || 
-                           (courseVal === 'SEC_VAC' && (ttState.course === 'SEC / VAC' || ttState.course === 'SEC' || ttState.course === 'VAC'));
+          const isActive = (courseVal === ttState.course);
           pill.classList.toggle('active', isActive);
         });
         ttMainSemPills.forEach(pill => {
           const sem = pill.dataset.sem;
           pill.classList.toggle('active', sem === ttState.sem);
-          if (ttState.course === 'SEC_VAC' || ttState.course === 'SEC / VAC' || ttState.course === 'SEC' || ttState.course === 'VAC') {
+          if (isSecVacCourse) {
             pill.style.display = (sem === 'Sem VII') ? 'none' : '';
           } else {
             pill.style.display = '';
@@ -4312,7 +4340,9 @@ window.SRCC_FACULTY_LEAVES = {
 
         const classesBySlot = {};
         academicPeriods.forEach(p => { classesBySlot[p.slot] = []; });
-        const isSecVacMode = (ttState.course === 'SEC_VAC' || ttState.course === 'SEC / VAC' || ttState.course === 'SEC' || ttState.course === 'VAC');
+        const isSecCourse = (ttState.course === 'SEC');
+        const isVacCourse = (ttState.course === 'VAC');
+        const isSecVacMode = isSecCourse || isVacCourse || (ttState.course === 'SEC_VAC') || (ttState.course === 'SEC / VAC');
         const queryLower = (ttState.searchQuery || '').trim().toLowerCase();
         const queryHasSec = queryLower.includes('sec');
         const queryHasVac = queryLower.includes('vac');
@@ -4326,7 +4356,23 @@ window.SRCC_FACULTY_LEAVES = {
             const isEither = isSec || isVac || isSecVacSlot(s);
             let matchesFilter = false;
 
-            if (isSecVacMode) {
+            if (isSecCourse) {
+              if (isSec || (isEither && !isVac)) {
+                const semMatches = !s.semester || s.semester === ttState.sem || 
+                                   (Array.isArray(s.semesters_list) && s.semesters_list.includes(ttState.sem));
+                if (semMatches) {
+                  matchesFilter = true;
+                }
+              }
+            } else if (isVacCourse) {
+              if (isVac || (isEither && !isSec)) {
+                const semMatches = !s.semester || s.semester === ttState.sem || 
+                                   (Array.isArray(s.semesters_list) && s.semesters_list.includes(ttState.sem));
+                if (semMatches) {
+                  matchesFilter = true;
+                }
+              }
+            } else if (ttState.course === 'SEC_VAC' || ttState.course === 'SEC / VAC') {
               if (isEither) {
                 const semMatches = !s.semester || s.semester === ttState.sem || 
                                    (Array.isArray(s.semesters_list) && s.semesters_list.includes(ttState.sem));
@@ -4446,7 +4492,9 @@ window.SRCC_FACULTY_LEAVES = {
         syncControlPills();
         const { classesBySlot, freeRoomsBySlot } = getTimetableData();
         const filterQuery = (ttState.searchQuery || '').trim().toLowerCase();
-        const isSecVacMode = (ttState.course === 'SEC_VAC' || ttState.course === 'SEC / VAC' || ttState.course === 'SEC' || ttState.course === 'VAC');
+        const isSecCourse = (ttState.course === 'SEC');
+        const isVacCourse = (ttState.course === 'VAC');
+        const isSecVacMode = isSecCourse || isVacCourse || (ttState.course === 'SEC_VAC') || (ttState.course === 'SEC / VAC');
 
         if (btnClearTtMainSearch) {
           btnClearTtMainSearch.style.display = filterQuery ? 'block' : 'none';
@@ -4491,9 +4539,15 @@ window.SRCC_FACULTY_LEAVES = {
             // Scheduled Classes Card
             filteredClasses.forEach(c => {
               const displayBatch = c.rawBatch || c.batch;
-              const batchBadge = displayBatch 
-                ? ` · Batch ${escapeHtml(displayBatch)}`
-                : '';
+              let batchBadge = '';
+              if (displayBatch) {
+                const bTrimmed = String(displayBatch).trim();
+                if (/^(sec|vac|batch)/i.test(bTrimmed)) {
+                  batchBadge = ` · ${escapeHtml(bTrimmed)}`;
+                } else {
+                  batchBadge = ` · Batch ${escapeHtml(bTrimmed)}`;
+                }
+              }
               const secVacBadge = c.isSec 
                 ? `<span class="tt-secvac-badge">SEC</span>` 
                 : (c.isVac ? `<span class="tt-secvac-badge" style="background: rgba(16, 185, 129, 0.12); color: #059669; border-color: rgba(16, 185, 129, 0.28);">VAC</span>` : '');
@@ -4504,7 +4558,7 @@ window.SRCC_FACULTY_LEAVES = {
               const targetRoom = getTargetRoomJumpCode(c.room);
               const displayRoom = getDisplayRoomName(c.room);
               const roomButtonHtml = c.room 
-                ? `<button type="button" class="tt-room-btn btn-jump-room" data-room="${escapeHtml(targetRoom)}" title="Click to view room in campus room finder">🏛️ ${escapeHtml(displayRoom)}</button>` 
+                ? `<button type="button" class="room-badge-link tt-room-btn btn-jump-room" data-room="${escapeHtml(targetRoom)}" title="Click to view room in campus room finder">🏛️ ${escapeHtml(displayRoom)} <span class="tt-room-arrow">↗</span></button>` 
                 : `<span style="font-size: 0.8rem; color: var(--text-muted);">Room TBD</span>`;
 
               const leaveCardCls = c.isOnLeave ? ' is-faculty-leave' : '';
@@ -4522,7 +4576,7 @@ window.SRCC_FACULTY_LEAVES = {
                 <article class="tt-card${leaveCardCls}" data-slot="${escapeHtml(slot)}">
                   <div class="tt-card-header">
                     <span class="tt-period-badge">🕒 Period ${p.num} · ${timeLabel}</span>
-                    <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                    <div class="tt-card-badges">
                       ${secVacBadge}
                       <span class="tt-type-pill">${escapeHtml(c.type)}${batchBadge}</span>
                     </div>
@@ -4537,9 +4591,12 @@ window.SRCC_FACULTY_LEAVES = {
                     <span>${escapeHtml(secMetaText)}</span>
                   </div>
                   <div class="tt-card-faculty">
-                    <div class="tt-faculty-info btn-view-teacher-today" data-teacher-id="${escapeHtml(c.teacherId || '')}" data-teacher-name="${escapeHtml(c.teacher)}" role="button" tabindex="0" title="View ${escapeHtml(c.teacher)}'s timetable">
+                    <div class="tt-faculty-info btn-view-teacher-today" data-teacher-id="${escapeHtml(c.teacherId || '')}" data-teacher-name="${escapeHtml(c.teacher)}" role="button" tabindex="0" title="Click to view full timetable for ${escapeHtml(c.teacher)}">
                       <div class="tt-faculty-avatar">${initials}</div>
-                      <div class="tt-faculty-name">${escapeHtml(c.teacher)}</div>
+                      <div class="tt-faculty-name-wrap">
+                        <span class="tt-faculty-name">${escapeHtml(c.teacher)}</span>
+                        <span class="tt-faculty-link-badge" title="Click to view faculty schedule">📅</span>
+                      </div>
                     </div>
                     ${roomButtonHtml}
                   </div>
@@ -4547,6 +4604,28 @@ window.SRCC_FACULTY_LEAVES = {
                 </article>
               `;
             });
+          } else if (slotClasses.length === 0 && !filterQuery) {
+            // Render Free Period Card with 1-click jump to free classrooms
+            matchCount++;
+            cardsHtml += `
+              <article class="tt-card tt-free-period-card" data-slot="${escapeHtml(slot)}">
+                <div class="tt-card-header">
+                  <span class="tt-period-badge">🕒 Period ${p.num} · ${timeLabel}</span>
+                  <span class="tt-free-badge">⚡ Free Period</span>
+                </div>
+                <div class="tt-card-subject">
+                  <span>No Scheduled Class for this Section</span>
+                </div>
+                <div class="tt-card-meta">
+                  <span>${freeRooms.length} Classrooms Free on Campus for Self-Study & GD</span>
+                </div>
+                <div style="margin-top: 10px;">
+                  <button type="button" class="btn-view-free-rooms-slot" data-slot="${escapeHtml(slot)}" data-day="${escapeHtml(ttState.day)}">
+                    🏛️ View ${freeRooms.length} Free Rooms ↗
+                  </button>
+                </div>
+              </article>
+            `;
           }
         });
 
@@ -4554,7 +4633,11 @@ window.SRCC_FACULTY_LEAVES = {
         if (ttCountClasses) ttCountClasses.textContent = totalClassesToday;
         if (ttCountFreePeriods) ttCountFreePeriods.textContent = totalFreePeriodsToday;
         if (ttSelectedSummary) {
-          if (isSecVacMode) {
+          if (ttState.course === 'SEC') {
+            ttSelectedSummary.textContent = `SEC · ${ttState.sem}`;
+          } else if (ttState.course === 'VAC') {
+            ttSelectedSummary.textContent = `VAC · ${ttState.sem}`;
+          } else if (isSecVacMode) {
             ttSelectedSummary.textContent = `SEC / VAC · ${ttState.sem}`;
           } else {
             const shortCourse = ttState.course.includes('Economics') ? 'Economics' : 'B.Com (Hons)';
@@ -4571,7 +4654,11 @@ window.SRCC_FACULTY_LEAVES = {
         }
         if (ttRibbonCourseSec) {
           const batchText = ttState.batch === 'ALL' ? 'All batches' : 'Batch ' + ttState.batch;
-          if (isSecVacMode) {
+          if (ttState.course === 'SEC') {
+            ttRibbonCourseSec.textContent = `SEC (Skill Enhancement Course), ${ttState.sem} (${batchText})`;
+          } else if (ttState.course === 'VAC') {
+            ttRibbonCourseSec.textContent = `VAC (Value Addition Course), ${ttState.sem} (${batchText})`;
+          } else if (isSecVacMode) {
             ttRibbonCourseSec.textContent = `SEC & VAC (Joint Courses), ${ttState.sem} (${batchText})`;
           } else {
             ttRibbonCourseSec.textContent = `${ttState.course}, ${ttState.sem}, ${ttState.sec} (${batchText})`;
@@ -4589,11 +4676,12 @@ window.SRCC_FACULTY_LEAVES = {
           if (matchCount === 0) {
             ttMainEmptyState.style.display = 'block';
             if (isSecVacMode) {
+              const courseLabel = ttState.course === 'SEC' ? 'SEC' : (ttState.course === 'VAC' ? 'VAC' : 'SEC / VAC');
               if (ttState.sem === 'Sem VII') {
                 ttMainEmptyState.innerHTML = `
                   <div class="empty-icon">ℹ️</div>
-                  <h3 style="margin-bottom: 6px;">No SEC / VAC in Semester VII</h3>
-                  <p style="color: var(--text-muted); max-width: 480px; margin: 0 auto 16px;">Under the NEP curriculum, SEC & VAC courses are offered in Semesters I, III, and V.</p>
+                  <h3 style="margin-bottom: 6px;">No ${courseLabel} in Semester VII</h3>
+                  <p style="color: var(--text-muted); max-width: 480px; margin: 0 auto 16px;">Under the NEP curriculum, ${courseLabel} courses are offered in Semesters I, III, and V.</p>
                   <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
                     <button class="btn-reset-filters btn-switch-sem-quick" data-sem="Sem I">Switch to Sem I</button>
                     <button class="btn-reset-filters btn-switch-sem-quick" data-sem="Sem III">Switch to Sem III</button>
@@ -4603,7 +4691,7 @@ window.SRCC_FACULTY_LEAVES = {
               } else {
                 ttMainEmptyState.innerHTML = `
                   <div class="empty-icon">📅</div>
-                  <h3 style="margin-bottom: 6px;">No SEC / VAC classes for ${escapeHtml(ttState.sem)} on ${escapeHtml(ttState.day)}</h3>
+                  <h3 style="margin-bottom: 6px;">No ${courseLabel} classes for ${escapeHtml(ttState.sem)} on ${escapeHtml(ttState.day)}</h3>
                   <p style="color: var(--text-muted); max-width: 500px; margin: 0 auto 14px;">Classes for this semester run on other days, or check today's other active semesters below:</p>
                   <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
                     <button class="btn-reset-filters btn-switch-day-quick" data-day="Monday">View Monday</button>
@@ -4703,6 +4791,26 @@ window.SRCC_FACULTY_LEAVES = {
                   }, 150);
                 }
               }
+            });
+          });
+
+          // Attach free rooms jump listeners on free period cards
+          ttMainScheduleGrid.querySelectorAll('.btn-view-free-rooms-slot').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              const targetSlot = btn.dataset.slot;
+              const targetDay = btn.dataset.day;
+              setAppMode('rooms');
+              if (targetDay) setActiveDay(targetDay);
+              if (targetSlot) {
+                state.activeSlot = targetSlot;
+                if (slotSelect) slotSelect.value = targetSlot;
+              }
+              state.activeCategory = 'ALL';
+              state.searchQuery = '';
+              if (searchInput) searchInput.value = '';
+              render();
+              showToast(`🏛️ Showing free classrooms for ${escapeHtml(targetSlot)}`);
             });
           });
         }
