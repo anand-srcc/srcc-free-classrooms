@@ -1285,7 +1285,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function toggleFreeNow() {
       if (state.activeMode !== 'rooms') {
-        setAppMode('rooms');
+        setAppMode('rooms', true);
         setFreeNowState(true);
         return;
       }
@@ -1293,19 +1293,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (toggleFreeNowWrapper) {
-      toggleFreeNowWrapper.addEventListener('click', (e) => {
+      toggleFreeNowWrapper.addEventListener('click', () => {
         toggleFreeNow();
       });
     }
     if (btnFreeNow) {
       btnFreeNow.addEventListener('click', (e) => {
         e.stopPropagation();
+        toggleFreeNow();
       });
     }
     if (bnavFreeNow) {
       bnavFreeNow.addEventListener('click', () => {
         if (state.activeMode !== 'rooms') {
-          setAppMode('rooms');
+          setAppMode('rooms', true);
           setFreeNowState(true);
         } else {
           toggleFreeNow();
@@ -1319,7 +1320,7 @@ document.addEventListener('DOMContentLoaded', () => {
       metricFacultyFreeTile.style.cursor = 'pointer';
       metricFacultyFreeTile.title = 'Click to view classrooms free right now';
       metricFacultyFreeTile.addEventListener('click', () => {
-        setAppMode('rooms');
+        setAppMode('rooms', true);
         setFreeNowState(true);
       });
     }
@@ -4181,6 +4182,47 @@ window.SRCC_FACULTY_LEAVES = {
       const vacBatchesBySem = {}; // sem -> Set of batches
       const getTeachers = () => (teachersData && teachersData.teachers) ? teachersData.teachers : (window.SRCC_TEACHERS_DATA?.teachers || []);
 
+      // Helper to cleanly extract and pair batches for a section (e.g., J1 / JP1, J2 / JP2, J3 / JP3)
+      function getCleanBatchesForSection(rawBatchesSet, secName = '') {
+        if (!rawBatchesSet || rawBatchesSet.size === 0) return [];
+        const letter = (secName || '').replace(/^Sec\s*/i, '').trim().toUpperCase();
+
+        const atomicTokens = new Set();
+        rawBatchesSet.forEach(raw => {
+          if (!raw) return;
+          String(raw).split(/[\s,]+/).forEach(tok => {
+            const t = tok.trim().toUpperCase();
+            if (t) atomicTokens.add(t);
+          });
+        });
+
+        const numSet = new Set();
+        const nonNumTokens = [];
+        atomicTokens.forEach(tok => {
+          const numMatch = tok.match(/\d+/);
+          if (numMatch) {
+            numSet.add(parseInt(numMatch[0], 10));
+          } else {
+            nonNumTokens.push(tok);
+          }
+        });
+
+        const sortedNums = Array.from(numSet).sort((a, b) => a - b);
+        const result = [];
+        if (sortedNums.length > 0 && letter && letter.length === 1) {
+          sortedNums.forEach(num => {
+            result.push(`${letter}${num} / ${letter}P${num}`);
+          });
+        } else if (sortedNums.length > 0) {
+          sortedNums.forEach(num => {
+            result.push(`Batch ${num}`);
+          });
+        } else {
+          nonNumTokens.sort().forEach(t => result.push(t));
+        }
+        return result;
+      }
+
       function buildHierarchy() {
         const teachers = getTeachers();
         teachers.forEach(t => {
@@ -4358,14 +4400,21 @@ window.SRCC_FACULTY_LEAVES = {
             batches.map(b => `<option value="${escapeHtml(b)}">${escapeHtml(b)}</option>`).join('');
         } else {
           const batchSet = courseMap[ttState.course]?.[ttState.sem]?.[ttState.sec] || new Set();
-          batches = Array.from(batchSet).sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
+          batches = getCleanBatchesForSection(batchSet, ttState.sec);
           batchOptionsHtml += batches.map(b => `<option value="${escapeHtml(b)}">${escapeHtml(b)}</option>`).join('');
         }
 
         if (ttMainBatchSelect) {
           ttMainBatchSelect.innerHTML = batchOptionsHtml;
-          if (ttState.batch !== 'ALL' && batches.includes(ttState.batch)) {
-            ttMainBatchSelect.value = ttState.batch;
+          if (ttState.batch !== 'ALL') {
+            const matchingOpt = batches.find(b => b === ttState.batch || b.startsWith(ttState.batch) || b.split(/[\s,\/]+/).includes(ttState.batch));
+            if (matchingOpt) {
+              ttMainBatchSelect.value = matchingOpt;
+              ttState.batch = matchingOpt;
+            } else {
+              ttMainBatchSelect.value = 'ALL';
+              ttState.batch = 'ALL';
+            }
           } else {
             ttMainBatchSelect.value = 'ALL';
             ttState.batch = 'ALL';
@@ -4478,6 +4527,8 @@ window.SRCC_FACULTY_LEAVES = {
 
               // Batch filtering:
               if (selBatch !== 'ALL') {
+                const targetSubBatches = selBatch.split(/[\s,\/]+/).map(x => x.trim().toUpperCase()).filter(Boolean);
+
                 const allBatches = [
                   s.batch,
                   s.raw_batch,
@@ -4487,13 +4538,11 @@ window.SRCC_FACULTY_LEAVES = {
 
                 if (allBatches.length > 0) {
                   const matches = allBatches.some(b => {
-                    const normB = b.replace(/P(\d+)$/, '$1');
-                    const normSel = selBatch.replace(/P(\d+)$/, '$1');
-                    const subBatches = b.split(/[\s,\/]+/).map(x => x.trim().toUpperCase());
-                    return b === selBatch ||
-                           normB === normSel ||
-                           subBatches.includes(selBatch) ||
-                           subBatches.some(sb => sb.replace(/P(\d+)$/, '$1') === normSel);
+                    const subBatches = b.split(/[\s,\/]+/).map(x => x.trim().toUpperCase()).filter(Boolean);
+                    return subBatches.some(tok => {
+                      return targetSubBatches.includes(tok) || 
+                             targetSubBatches.some(tb => tb.replace(/P(\d+)$/, '$1') === tok.replace(/P(\d+)$/, '$1'));
+                    });
                   });
                   if (!matches) {
                     return;
@@ -4503,9 +4552,16 @@ window.SRCC_FACULTY_LEAVES = {
 
               const slot = s.slot;
               if (classesBySlot[slot]) {
-                // Deduplicate if already added for this teacher and subject and room and batch
-                const already = classesBySlot[slot].find(ex => ex.teacherId === t.id && ex.subject === s.subject && ex.room === s.room && ex.batch === (s.batch || ''));
-                if (already) return;
+                const subjInfo = getSubjectDetails(s.subject, s.subject_name);
+
+                // Deduplicate if already added for this teacher and subject and room in this slot
+                const already = classesBySlot[slot].find(ex => ex.teacherId === t.id && ex.subject === subjInfo.code && ex.room === (s.room || ''));
+                if (already) {
+                  if (s.batch && already.batch && s.batch !== already.batch) {
+                    already.rawBatch = 'Whole Section';
+                  }
+                  return;
+                }
 
                 const leaveRecord = (typeof isTeacherOnLeave === 'function' ? isTeacherOnLeave(t) : null) || activeLeaves.find(l => {
                   const nameMatch = l.teacher_name && (tName.toLowerCase().includes(l.teacher_name.toLowerCase()) || l.teacher_name.toLowerCase().includes(tName.toLowerCase()));
@@ -4513,8 +4569,6 @@ window.SRCC_FACULTY_LEAVES = {
                   return nameMatch && dayMatch;
                 });
                 const isOnLeave = Boolean(leaveRecord);
-
-                const subjInfo = getSubjectDetails(s.subject, s.subject_name);
 
                 classesBySlot[slot].push({
                   subject: subjInfo.code,
@@ -4607,7 +4661,9 @@ window.SRCC_FACULTY_LEAVES = {
               let batchBadge = '';
               if (displayBatch) {
                 const bTrimmed = String(displayBatch).trim();
-                if (/^(sec|vac|batch)/i.test(bTrimmed)) {
+                if (bTrimmed.includes(',') || bTrimmed.toLowerCase() === 'whole section') {
+                  batchBadge = ' · Whole Section';
+                } else if (/^(sec|vac|batch)/i.test(bTrimmed)) {
                   batchBadge = ` · ${escapeHtml(bTrimmed)}`;
                 } else {
                   batchBadge = ` · Batch ${escapeHtml(bTrimmed)}`;
