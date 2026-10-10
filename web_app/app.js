@@ -1942,7 +1942,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return targetDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
     }
 
-    function openShareModal(roomCode) {
+    function openShareModal(roomCode, showQrDirectly = false) {
       const room = appData.rooms.find(r => r.code === roomCode);
       if (!room) return;
 
@@ -1957,7 +1957,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const dayAndDateDisplay = `${state.activeDay}, ${activeDateStr}`;
 
       const freeUntilStatus = getRoomFreeUntilStatus(room, state.activeDay);
-      const freeUntilNote = freeUntilStatus.text ? `\n⏳ Status: ${freeUntilStatus.text}` : '';
+      const freeUntilNote = (freeUntilStatus && freeUntilStatus.calloutText) ? `\n⏳ Status: ${freeUntilStatus.calloutText}` : '';
 
       const cleanMessage = `🎓 SRCC Classroom Vacancy Alert
 
@@ -1968,7 +1968,10 @@ document.addEventListener('DOMContentLoaded', () => {
 ☕ Lunch Recess: 1:30 PM – 2:00 PM (Vacant)
 
 🕒 Free Academic Slots:
-${freeSlotsList}`;
+${freeSlotsList}
+
+🔗 Live Schedule & Vacancy:
+${directRoomUrl}`;
 
       const whatsappMessage = `🎓 *SRCC Classroom Vacancy Alert*
 
@@ -1979,16 +1982,15 @@ ${freeSlotsList}`;
 ☕ *Lunch Recess:* 1:30 PM – 2:00 PM (Vacant)
 
 🕒 *Free Academic Slots:*
-${freeSlotsList}`;
+${freeSlotsList}
 
-      const tweetText = `🎓 SRCC Vacancy: Room ${room.code} is FREE on ${dayAndDateDisplay}! Check room schedule:`;
+🔗 *Live Schedule & Vacancy:*
+${directRoomUrl}`;
+
+      const tweetText = `🎓 SRCC Vacancy: Room ${room.code} is FREE on ${dayAndDateDisplay}! Check live schedule:`;
       const emailSubject = `SRCC Room Vacancy: ${room.code} (${dayAndDateDisplay})`;
 
       currentShareMessage = cleanMessage;
-
-      copyToClipboard(cleanMessage)
-        .then(() => showToast(`📋 Room details for <strong>${escapeHtml(room.code)}</strong> copied!`, true, 3500))
-        .catch(() => showToast(`📤 Share Room <strong>${escapeHtml(room.code)}</strong>`, false, 2500));
 
       if (shareModalTitle) shareModalTitle.textContent = `📤 Share ${room.code} (${room.name})`;
       if (sharePreviewText) sharePreviewText.textContent = cleanMessage;
@@ -2004,17 +2006,17 @@ ${freeSlotsList}`;
         shareBtnGmail.href = `https://mail.google.com/mail/?view=cm&fs=1&su=${encodeURIComponent(emailSubject)}&body=${encodedCleanMsg}`;
       }
       if (shareBtnX) {
-        shareBtnX.href = `https://x.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
+        shareBtnX.href = `https://x.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodedUrl}`;
       }
       if (shareBtnTelegram) {
-        shareBtnTelegram.href = `https://t.me/share/url?text=${encodedCleanMsg}`;
+        shareBtnTelegram.href = `https://t.me/share/url?text=${encodedCleanMsg}&url=${encodedUrl}`;
       }
 
       if (shareBtnLinkedin) {
         shareBtnLinkedin.onclick = (e) => {
           e.preventDefault();
           if (navigator.share) {
-            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage }).catch(() => {});
+            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage, url: directRoomUrl }).catch(() => {});
           } else {
             copyToClipboard(cleanMessage);
             window.open(`https://www.linkedin.com/feed/`, '_blank', 'noopener,noreferrer');
@@ -2026,7 +2028,7 @@ ${freeSlotsList}`;
         shareBtnInstagram.onclick = (e) => {
           e.preventDefault();
           if (navigator.share) {
-            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage }).catch(() => {});
+            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage, url: directRoomUrl }).catch(() => {});
           } else {
             copyToClipboard(cleanMessage).then(() => showToast('📸 Copied! Opening Instagram...', true));
             window.open('https://www.instagram.com/direct/inbox/', '_blank', 'noopener,noreferrer');
@@ -2038,7 +2040,7 @@ ${freeSlotsList}`;
         shareBtnFacebook.onclick = (e) => {
           e.preventDefault();
           if (navigator.share) {
-            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage }).catch(() => {});
+            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage, url: directRoomUrl }).catch(() => {});
           } else {
             copyToClipboard(cleanMessage);
             window.open(`https://www.facebook.com/`, '_blank', 'noopener,noreferrer');
@@ -2049,7 +2051,7 @@ ${freeSlotsList}`;
       if (navigator.share && btnPrimaryShare) {
         btnPrimaryShare.style.display = 'flex';
         btnPrimaryShare.onclick = () => {
-          navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage }).catch(() => {});
+          navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage, url: directRoomUrl }).catch(() => {});
         };
       } else if (btnPrimaryShare) {
         btnPrimaryShare.style.display = 'none';
@@ -2216,18 +2218,31 @@ ${freeSlotsList}`;
         ctx.fillText('Scan with phone camera or WhatsApp to open schedule', W / 2, 465);
       }
 
-      if (btnShareRoomQr && roomQrContainer) {
+      function showQrCardView() {
+        if (!roomQrContainer) return;
+        roomQrContainer.style.display = 'block';
+        if (btnShareRoomQr) btnShareRoomQr.innerHTML = '<span>✕ Close Room QR</span>';
+        drawCustomQrCard();
+      }
+
+      function hideQrCardView() {
+        if (!roomQrContainer) return;
         roomQrContainer.style.display = 'none';
-        btnShareRoomQr.innerHTML = '<span>📷 Share Room QR</span>';
+        if (btnShareRoomQr) btnShareRoomQr.innerHTML = '<span>📷 View / Share Room QR</span>';
+      }
+
+      if (btnShareRoomQr && roomQrContainer) {
+        if (showQrDirectly) {
+          showQrCardView();
+        } else {
+          hideQrCardView();
+        }
         btnShareRoomQr.onclick = () => {
           const isHidden = (roomQrContainer.style.display === 'none');
           if (isHidden) {
-            roomQrContainer.style.display = 'block';
-            btnShareRoomQr.innerHTML = '<span>✕ Close Room QR</span>';
-            drawCustomQrCard();
+            showQrCardView();
           } else {
-            roomQrContainer.style.display = 'none';
-            btnShareRoomQr.innerHTML = '<span>📷 Share Room QR</span>';
+            hideQrCardView();
           }
         };
       }
@@ -2261,10 +2276,62 @@ ${freeSlotsList}`;
         };
       }
 
+      async function shareQrImage() {
+        if (!roomCustomQrCanvas) return;
+        try {
+          const blob = await new Promise(resolve => roomCustomQrCanvas.toBlob(resolve, 'image/png'));
+          if (!blob) throw new Error('Failed to generate QR blob');
+
+          const fileName = `SRCC_Room_${room.code}_Schedule_QR.png`;
+          const file = new File([blob], fileName, { type: 'image/png' });
+
+          // 1. Mobile Web Share API: Shares the actual QR image file into WhatsApp, Instagram, Telegram, etc.
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({
+              files: [file],
+              title: `SRCC Room ${room.code} QR Schedule`,
+              text: `🎓 SRCC Room ${room.code} Vacancy & QR Schedule\n🔗 ${directRoomUrl}`
+            });
+            return;
+          }
+
+          // 2. Desktop Clipboard Image: User can paste the image directly into WhatsApp Web (Ctrl+V)
+          if (navigator.clipboard && window.ClipboardItem) {
+            try {
+              await navigator.clipboard.write([
+                new ClipboardItem({ 'image/png': blob })
+              ]);
+              showToast(`📸 <strong>Room ${room.code} QR Image copied!</strong> Paste directly (Ctrl+V) into WhatsApp.`, true, 5000);
+              const waText = encodeURIComponent(`🎓 SRCC Room ${room.code} Vacancy & Schedule QR:\n${directRoomUrl}`);
+              window.open(`https://api.whatsapp.com/send?text=${waText}`, '_blank', 'noopener,noreferrer');
+              return;
+            } catch (clipErr) {
+              // proceed to download fallback
+            }
+          }
+
+          // 3. Fallback: Download QR PNG and open WhatsApp
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = fileName;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          showToast(`📥 <strong>Room ${room.code} QR Card downloaded!</strong> Attach image in WhatsApp.`, true, 5000);
+          const waText = encodeURIComponent(`🎓 SRCC Room ${room.code} Vacancy & Schedule QR:\n${directRoomUrl}`);
+          window.open(`https://api.whatsapp.com/send?text=${waText}`, '_blank', 'noopener,noreferrer');
+        } catch (err) {
+          if (err.name !== 'AbortError') {
+            console.error('Error sharing QR image:', err);
+            showToast(`⚠️ Could not share image directly. Use "Download QR" instead.`, false, 4000);
+          }
+        }
+      }
+
       if (btnShareWaQr) {
-        btnShareWaQr.onclick = () => {
-          const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(whatsappMessage + '\n\n🔗 ' + directRoomUrl)}`;
-          window.open(waUrl, '_blank', 'noopener,noreferrer');
+        btnShareWaQr.onclick = (e) => {
+          e.preventDefault();
+          shareQrImage();
         };
       }
 
@@ -2750,7 +2817,10 @@ ${freeSlotsList}`;
       }
       currentModalRoomCode = room.code;
 
-      const dayToUse = targetDay || (currentAppMode === 'timetable' ? ttState.day : (facultyState.modalActiveDay || facultyState.activeDay || state.activeDay));
+      const activeTimetableDay = window._srccTtState?.day;
+      const dayToUse = targetDay || 
+        (state.activeMode === 'timetable' ? (activeTimetableDay || state.activeDay) : 
+        (facultyState?.modalActiveDay || facultyState?.activeDay || state.activeDay || 'Monday'));
       state.activeDay = dayToUse;
 
       const sched = room.schedule[dayToUse] || { free_slots: [], occupied_slots: [], lunch_recess_free: true };
@@ -2760,7 +2830,7 @@ ${freeSlotsList}`;
         modalRoomTitle.innerHTML = `
           <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
             <span>${escapeHtml(room.code)} - ${escapeHtml(room.name)}</span>
-            <button type="button" class="btn-share-modal-shortcut" onclick="openShareModal('${escapeHtml(room.code)}')" style="font-size: 0.82rem; padding: 6px 12px; border-radius: 8px; background: rgba(37,99,235,0.12); color: var(--primary-accent, #2563eb); border: 1px solid rgba(37,99,235,0.25); cursor: pointer; display: inline-flex; align-items: center; gap: 5px; font-weight: 600;">
+            <button type="button" class="btn-share-modal-shortcut" onclick="openShareModal('${escapeHtml(room.code)}', true)" style="font-size: 0.82rem; padding: 6px 12px; border-radius: 8px; background: rgba(37,99,235,0.12); color: var(--primary-accent, #2563eb); border: 1px solid rgba(37,99,235,0.25); cursor: pointer; display: inline-flex; align-items: center; gap: 5px; font-weight: 600;">
               📤 Share Room & QR
             </button>
           </div>
@@ -3081,8 +3151,12 @@ ${freeSlotsList}`;
       }).join('');
 
       if (modalBody) {
+        const freeUntilCallout = (freeUntil && freeUntil.calloutText)
+          ? `<div class="free-until-callout" style="margin-bottom: 12px; font-size: 0.88rem; padding: 10px 14px; background: rgba(37,99,235,0.08); border-radius: 8px; border-left: 4px solid #2563eb; color: var(--text-primary);">⚡ <strong>${escapeHtml(freeUntil.calloutText)}</strong></div>`
+          : '';
+
         modalBody.innerHTML = `
-          ${freeUntil.calloutHtml}
+          ${freeUntilCallout}
           ${modalUnavailableBanner}
           ${modalLocksBanner}
           <!-- Desktop Table (visible > 640px) -->
@@ -5019,6 +5093,7 @@ window.SRCC_FACULTY_LEAVES = {
         slot: 'ALL',
         searchQuery: ''
       };
+      window._srccTtState = ttState;
 
       // --- Main View Elements (#viewTimetableSection) ---
       const ttMainDayButtons = document.querySelectorAll('#ttMainDayPicker .day-btn');
@@ -5710,7 +5785,46 @@ window.SRCC_FACULTY_LEAVES = {
         if (ttMainEmptyState) {
           if (matchCount === 0) {
             ttMainEmptyState.style.display = 'block';
-            if (isSecVacMode) {
+            if (ttState.course === 'GBO') {
+              ttMainEmptyState.innerHTML = `
+                <div class="empty-icon">🏢</div>
+                <h3 style="margin-bottom: 6px;">GBO Schedule for ${escapeHtml(ttState.day)}</h3>
+                <p style="color: var(--text-muted); max-width: 520px; margin: 0 auto 16px; line-height: 1.5;">
+                  On the official SRCC Timetable portal, <strong>GBO (Global Business Operations)</strong> sessions are published on <strong>Wednesday &amp; Friday (4:00 PM – 6:00 PM in Room R14)</strong>. Additional GBO guest lectures/seminars are coordinated directly by the GBO department office.
+                </p>
+                <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+                  <button class="btn-reset-filters btn-switch-day-quick" data-day="Wednesday">📅 View Wednesday (4–6 PM)</button>
+                  <button class="btn-reset-filters btn-switch-day-quick" data-day="Friday">📅 View Friday (4–6 PM)</button>
+                </div>
+              `;
+              ttMainEmptyState.querySelectorAll('.btn-switch-day-quick').forEach(b => {
+                b.addEventListener('click', () => {
+                  ttState.day = b.dataset.day;
+                  renderMainTimetableView();
+                });
+              });
+            } else if (ttState.course === 'M.Com') {
+              const mcomActiveDays = (ttState.sem === 'Sem I')
+                ? ['Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+                : ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+              const activeDaysBtns = mcomActiveDays.map(d => `<button class="btn-reset-filters btn-switch-day-quick" data-day="${d}">View ${d}</button>`).join(' ');
+              ttMainEmptyState.innerHTML = `
+                <div class="empty-icon">🎓</div>
+                <h3 style="margin-bottom: 6px;">No M.Com classes on ${escapeHtml(ttState.day)}</h3>
+                <p style="color: var(--text-muted); max-width: 520px; margin: 0 auto 16px; line-height: 1.5;">
+                  According to the official SRCC Timetable, <strong>M.Com (${escapeHtml(ttState.sem)})</strong> has lectures &amp; tutorials scheduled on <strong>${mcomActiveDays.join(', ')}</strong>. No lectures are scheduled on ${escapeHtml(ttState.day)}.
+                </p>
+                <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+                  ${activeDaysBtns}
+                </div>
+              `;
+              ttMainEmptyState.querySelectorAll('.btn-switch-day-quick').forEach(b => {
+                b.addEventListener('click', () => {
+                  ttState.day = b.dataset.day;
+                  renderMainTimetableView();
+                });
+              });
+            } else if (isSecVacMode) {
               const courseLabel = ttState.course === 'SEC' ? 'SEC' : (ttState.course === 'VAC' ? 'VAC' : 'SEC / VAC');
               if (ttState.sem === 'Sem VII') {
                 ttMainEmptyState.innerHTML = `
