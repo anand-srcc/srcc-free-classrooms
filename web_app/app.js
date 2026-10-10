@@ -922,6 +922,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalTeacherMeta = document.getElementById('modalTeacherMeta');
     const modalTeacherDayTabs = document.querySelectorAll('#modalTeacherDayTabs .day-btn, #modalTeacherDayTabs .modal-day-tab-btn');
     const modalTeacherBody = document.getElementById('modalTeacherBody');
+    const btnShareTeacherProfile = document.getElementById('btnShareTeacherProfile');
+    const btnPrintTeacherTimetable = document.getElementById('btnPrintTeacherTimetable');
 
     // Faculty Leave Manager Modal Elements
     const btnOpenLeaveManager = document.getElementById('btnOpenLeaveManager');
@@ -2818,6 +2820,7 @@ ${directRoomUrl}`;
     }
 
     let currentModalRoomCode = null;
+    let currentModalDay = 'Monday';
 
     function openScheduleModal(roomCode, targetDay = null) {
       const room = findRoomByCodeOrName(roomCode);
@@ -2832,6 +2835,7 @@ ${directRoomUrl}`;
         (state.activeMode === 'timetable' ? (activeTimetableDay || state.activeDay) : 
         (facultyState?.modalActiveDay || facultyState?.activeDay || state.activeDay || 'Monday'));
       state.activeDay = dayToUse;
+      currentModalDay = dayToUse;
 
       const sched = room.schedule[dayToUse] || { free_slots: [], occupied_slots: [], lunch_recess_free: true };
       const freeUntil = getRoomFreeUntilStatus(room, dayToUse);
@@ -2916,7 +2920,14 @@ ${directRoomUrl}`;
             <tr>
               <td style="white-space: nowrap;"><strong>1:30 PM – 2:00 PM</strong></td>
               <td style="white-space: nowrap;"><span class="badge-slot-recess">☕ LUNCH RECESS</span></td>
-              <td>College-wide recess. Room is vacant & open for peer discussions.</td>
+              <td style="color: #047857;">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                  <span>College-wide recess. Room is 100% vacant for GD & lunch discussions.</span>
+                  <button type="button" class="btn-slot-cal-reminder" data-room="${escapeHtml(room.code)}" data-day="${escapeHtml(dayToUse)}" data-slot="1:30 PM to 2:00 PM" title="Add reminder to Google Calendar / Apple Calendar">
+                    📅 Add to Calendar
+                  </button>
+                </div>
+              </td>
             </tr>
           `;
         }
@@ -2952,8 +2963,13 @@ ${directRoomUrl}`;
               <td style="white-space: nowrap;"><span class="badge-slot-leave">✨ BONUS FREE (LEAVE)</span></td>
               <td>
                 <div class="room-sched-details-wrap">
-                  <div>
-                    <strong style="color: #6d28d9;">Class Cancelled:</strong> Prof. <strong>${escapeHtml(teach.clean_name)}</strong> (${escapeHtml(teach.short_code || '')}) is on leave. Classroom is vacant for self-study!
+                  <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                    <div>
+                      <strong style="color: #6d28d9;">Class Cancelled:</strong> Prof. <strong>${escapeHtml(teach.clean_name)}</strong> (${escapeHtml(teach.short_code || '')}) is on leave. Classroom is vacant for self-study!
+                    </div>
+                    <button type="button" class="btn-slot-cal-reminder" data-room="${escapeHtml(room.code)}" data-day="${escapeHtml(dayToUse)}" data-slot="${escapeHtml(timeSlot)}" title="Add reminder to Google Calendar / Apple Calendar">
+                      📅 Add to Calendar
+                    </button>
                   </div>
                   <div class="room-sched-teacher-row">
                     <div class="rs-teacher-chip">
@@ -2974,7 +2990,14 @@ ${directRoomUrl}`;
             <tr>
               <td style="white-space: nowrap;"><strong>${slotFormatted}</strong></td>
               <td style="white-space: nowrap;"><span class="badge-slot-free">FREE FOR GD</span></td>
-              <td style="color: #15803d; font-weight: 600;">Vacant Classroom (Available for Study/GD)</td>
+              <td style="color: #15803d; font-weight: 600;">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                  <span>Vacant Classroom (Available for Study/GD)</span>
+                  <button type="button" class="btn-slot-cal-reminder" data-room="${escapeHtml(room.code)}" data-day="${escapeHtml(dayToUse)}" data-slot="${escapeHtml(timeSlot)}" title="Add reminder to Google Calendar / Apple Calendar">
+                    📅 Add to Calendar
+                  </button>
+                </div>
+              </td>
             </tr>
           `;
         } else {
@@ -3006,9 +3029,14 @@ ${directRoomUrl}`;
                       <span class="rs-teacher-name">Prof. <strong>${escapeHtml(teach.clean_name)}</strong> ${teach.short_code ? `(${escapeHtml(teach.short_code)})` : ''}</span>
                       <span class="rs-dept-badge">${escapeHtml(teach.department || 'Faculty')}</span>
                     </div>
-                    <button type="button" class="btn-room-view-teacher-tt" data-teacher-id="${escapeHtml(teach.id)}">
-                      🗓️ View Teacher Timetable ↗
-                    </button>
+                    <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+                      <button type="button" class="btn-room-view-teacher-tt" data-teacher-id="${escapeHtml(teach.id)}">
+                        🗓️ View Teacher Timetable ↗
+                      </button>
+                      <button type="button" class="btn-slot-cal-reminder btn-teacher-cal" data-teacher-id="${escapeHtml(teach.id)}" data-day="${escapeHtml(dayToUse)}" data-slot="${escapeHtml(timeSlot)}" data-subject="${escapeHtml(m.subjectFullName || m.subjectCode)}" data-course="${escapeHtml(courseStr)}" data-room="${escapeHtml(room.code)}" title="Add this class to Google Calendar / Apple Calendar">
+                        📅 Add to Calendar
+                      </button>
+                    </div>
                   </div>
                 </div>
               `;
@@ -3038,6 +3066,11 @@ ${directRoomUrl}`;
                 <span class="badge-slot-recess">☕ LUNCH RECESS</span>
               </div>
               <div class="rsm-body-text">College-wide recess. Room is vacant & open for peer discussions.</div>
+              <div style="margin-top: 8px; text-align: right;">
+                <button type="button" class="btn-slot-cal-reminder" data-room="${escapeHtml(room.code)}" data-day="${escapeHtml(dayToUse)}" data-slot="${escapeHtml(timeSlot)}">
+                  📅 Add to Calendar
+                </button>
+              </div>
             </div>
           `;
         }
@@ -3088,6 +3121,11 @@ ${directRoomUrl}`;
                   </button>
                 </div>
               </div>
+              <div style="margin-top: 8px; text-align: right;">
+                <button type="button" class="btn-slot-cal-reminder" data-room="${escapeHtml(room.code)}" data-day="${escapeHtml(dayToUse)}" data-slot="${escapeHtml(timeSlot)}">
+                  📅 Add to Calendar
+                </button>
+              </div>
             </div>
           `;
         } else if (isFree) {
@@ -3103,6 +3141,11 @@ ${directRoomUrl}`;
                   <strong style="color: #047857; font-size: 0.88rem;">Vacant Classroom</strong>
                   <div style="font-size: 0.76rem; color: var(--text-muted); margin-top: 1px;">Available for Group Discussions (GD), self-study & peer work.</div>
                 </div>
+              </div>
+              <div style="margin-top: 8px; text-align: right;">
+                <button type="button" class="btn-slot-cal-reminder" data-room="${escapeHtml(room.code)}" data-day="${escapeHtml(dayToUse)}" data-slot="${escapeHtml(timeSlot)}">
+                  📅 Add to Calendar
+                </button>
               </div>
             </div>
           `;
@@ -3135,9 +3178,14 @@ ${directRoomUrl}`;
                       <span class="rs-teacher-name">Prof. <strong>${escapeHtml(teach.clean_name)}</strong> ${teach.short_code ? `(${escapeHtml(teach.short_code)})` : ''}</span>
                       <span class="rs-dept-badge">${escapeHtml(teach.department || 'Faculty')}</span>
                     </div>
-                    <button type="button" class="btn-room-view-teacher-tt" data-teacher-id="${escapeHtml(teach.id)}">
-                      🗓️ View Teacher Timetable ↗
-                    </button>
+                    <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+                      <button type="button" class="btn-room-view-teacher-tt" data-teacher-id="${escapeHtml(teach.id)}">
+                        🗓️ View Teacher Timetable ↗
+                      </button>
+                      <button type="button" class="btn-slot-cal-reminder btn-teacher-cal" data-teacher-id="${escapeHtml(teach.id)}" data-day="${escapeHtml(dayToUse)}" data-slot="${escapeHtml(timeSlot)}" data-subject="${escapeHtml(m.subjectFullName || m.subjectCode)}" data-course="${escapeHtml(courseStr)}" data-room="${escapeHtml(room.code)}" title="Add this class to Google Calendar / Apple Calendar">
+                        📅 Add to Calendar
+                      </button>
+                    </div>
                   </div>
                 </div>
               `;
@@ -3198,6 +3246,30 @@ ${directRoomUrl}`;
             openTeacherModal(btn.dataset.teacherId, state.activeDay);
           });
         });
+
+        // Attach listeners for setting calendar reminders for vacant slots or scheduled classes
+        modalBody.querySelectorAll('.btn-slot-cal-reminder').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (btn.dataset.teacherId) {
+              const tId = btn.dataset.teacherId;
+              const tObj = teachersData?.teachers?.find(t => t.id === tId);
+              const dummyCls = {
+                subject: btn.dataset.subject,
+                subject_name: btn.dataset.subject,
+                course: btn.dataset.course,
+                slot: btn.dataset.slot,
+                room: btn.dataset.room,
+                type: 'Lecture'
+              };
+              if (tObj) {
+                openTeacherCalendarReminderModal(tObj, dummyCls, btn.dataset.day || state.activeDay);
+                return;
+              }
+            }
+            openCalendarReminderModal(btn.dataset.room, btn.dataset.day, btn.dataset.slot);
+          });
+        });
       }
 
       if (scheduleModal) openAppModal(scheduleModal);
@@ -3217,6 +3289,548 @@ ${directRoomUrl}`;
         });
       });
     }
+
+    // Toolbar buttons inside Room Schedule Modal
+    const btnExportScheduleImg = document.getElementById('btnModalExportScheduleImg');
+    if (btnExportScheduleImg) {
+      btnExportScheduleImg.addEventListener('click', () => {
+        if (currentModalRoomCode) {
+          exportScheduleAsImage(currentModalRoomCode, currentModalDay);
+        }
+      });
+    }
+
+    const btnPrintSchedule = document.getElementById('btnModalPrintSchedule');
+    if (btnPrintSchedule) {
+      btnPrintSchedule.addEventListener('click', () => {
+        window.print();
+      });
+    }
+
+    const btnModalShareDirect = document.getElementById('btnModalShareDirect');
+    if (btnModalShareDirect) {
+      btnModalShareDirect.addEventListener('click', () => {
+        if (currentModalRoomCode) {
+          openShareModal(currentModalRoomCode);
+        }
+      });
+    }
+
+    // Helper: Parse Slot Time Range e.g. "12:30 PM to 1:30 PM"
+    function parseSlotTimeRange(slotStr) {
+      const parts = (slotStr || '').split(/\s*(?:to|–|-)\s*/i);
+      function parsePart(p) {
+        if (!p) return { h: 9, min: 0 };
+        const m = p.trim().match(/(\d+):(\d+)\s*(AM|PM)?/i);
+        if (!m) return { h: 9, min: 0 };
+        let h = parseInt(m[1], 10);
+        const min = parseInt(m[2], 10);
+        const meridiem = (m[3] || '').toUpperCase();
+        if (meridiem === 'PM' && h < 12) h += 12;
+        if (meridiem === 'AM' && h === 12) h = 0;
+        return { h, min };
+      }
+      const start = parsePart(parts[0]);
+      const end = parsePart(parts[1] || parts[0]);
+      return { start, end };
+    }
+
+    // Helper: Find next upcoming date for given day of week
+    function getNextDateForDayName(dayName) {
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const targetIdx = days.indexOf(dayName);
+      const now = getIstDate();
+      const currentIdx = now.getDay();
+      let diff = (targetIdx === -1) ? 0 : targetIdx - currentIdx;
+      if (diff < 0) diff += 7;
+      return new Date(now.getTime() + diff * 86400000);
+    }
+
+    // 📅 Calendar & Slot Reminder Modal Implementation
+    function openCalendarReminderModal(roomCode, dayName, slotStr) {
+      const room = findRoomByCodeOrName(roomCode);
+      if (!room) return;
+      const calModal = document.getElementById('calendarReminderModal');
+      const calRoomName = document.getElementById('calReminderRoomName');
+      const calSlotTime = document.getElementById('calReminderSlotTime');
+      const btnGoogle = document.getElementById('btnCalOpenGoogle');
+      const btnIcs = document.getElementById('btnCalDownloadIcs');
+      const btnCopy = document.getElementById('btnCalCopyGdInvite');
+      const btnClose = document.getElementById('btnCalReminderClose');
+
+      if (calRoomName) calRoomName.textContent = `Room ${room.code} (${room.name})`;
+      if (calSlotTime) calSlotTime.textContent = `${dayName} · ${slotStr.replace(' to ', ' – ')}`;
+
+      const timeInfo = parseSlotTimeRange(slotStr);
+      const targetDate = getNextDateForDayName(dayName);
+      const y = targetDate.getFullYear();
+      const m = targetDate.getMonth();
+      const d = targetDate.getDate();
+
+      const pad = n => String(n).padStart(2, '0');
+      const dateStr = `${y}${pad(m + 1)}${pad(d)}`;
+      const startStamp = `${dateStr}T${pad(timeInfo.start.h)}${pad(timeInfo.start.min)}00`;
+      const endStamp = `${dateStr}T${pad(timeInfo.end.h)}${pad(timeInfo.end.min)}00`;
+
+      const directUrl = `${window.location.origin}${window.location.pathname}?room=${encodeURIComponent(room.code)}`;
+      const eventTitle = `SRCC GD: Room ${room.code}`;
+      const eventDesc = `Classroom ${room.code} (${room.name}) is officially vacant at SRCC for Group Discussion & Peer Study.\nCapacity: ${room.capacity}\nWing: ${room.category}\nDirect Room Link: ${directUrl}`;
+      const eventLoc = `Room ${room.code}, Shri Ram College of Commerce, University of Delhi, Maurice Nagar, Delhi 110007`;
+
+      const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventTitle)}&dates=${startStamp}/${endStamp}&ctz=Asia/Kolkata&details=${encodeURIComponent(eventDesc)}&location=${encodeURIComponent(eventLoc)}`;
+
+      if (btnGoogle) {
+        btnGoogle.href = gcalUrl;
+        btnGoogle.onclick = () => {
+          showToast(`🗓️ Opening Google Calendar for Room ${room.code}!`);
+        };
+      }
+
+      if (btnIcs) {
+        btnIcs.onclick = () => {
+          downloadIcsCalendarFile(room.code, dayName, slotStr, targetDate, timeInfo.start.h, timeInfo.start.min, timeInfo.end.h, timeInfo.end.min, directUrl);
+        };
+      }
+
+      if (btnCopy) {
+        btnCopy.onclick = () => {
+          const inviteMsg = `📢 *SRCC GD / Peer Study Session*\n\n📍 *Room:* ${room.code} (${room.name})\n🏛️ *Wing:* ${room.category}\n🗓️ *Day:* ${dayName}\n🕒 *Slot:* ${slotStr.replace(' to ', ' – ')}\n👥 *Capacity:* ${room.capacity}\n\n🔗 Join / Verify Vacancy: ${directUrl}`;
+          navigator.clipboard.writeText(inviteMsg).then(() => {
+            showToast('📋 Copied GD invite message to clipboard!');
+          }).catch(() => {
+            showToast(`Invite ready for Room ${room.code}`);
+          });
+        };
+      }
+
+      if (btnClose) {
+        btnClose.onclick = () => {
+          if (calModal) closeAppModal(calModal);
+        };
+      }
+
+      if (calModal) {
+        calModal.onclick = (e) => {
+          if (e.target === calModal) closeAppModal(calModal);
+        };
+        openAppModal(calModal);
+      }
+    }
+
+    // 🍏 Generate and Download .ics Calendar File with 15-Minute Prior Alarm
+    function downloadIcsCalendarFile(roomCode, dayName, slotStr, targetDate, startH, startMin, endH, endMin, directUrl) {
+      const pad = n => String(n).padStart(2, '0');
+      const y = targetDate.getFullYear();
+      const m = targetDate.getMonth() + 1;
+      const d = targetDate.getDate();
+      const dateStr = `${y}${pad(m)}${pad(d)}`;
+      const dtStart = `${dateStr}T${pad(startH)}${pad(startMin)}00`;
+      const dtEnd = `${dateStr}T${pad(endH)}${pad(endMin)}00`;
+      const nowIso = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+
+      const icsContent = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//SRCC Free Classrooms//GD Reminder//EN',
+        'CALSCALE:GREGORIAN',
+        'BEGIN:VTIMEZONE',
+        'TZID:Asia/Kolkata',
+        'BEGIN:STANDARD',
+        'DTSTART:19700101T000000',
+        'TZOFFSETFROM:+0530',
+        'TZOFFSETTO:+0530',
+        'TZNAME:IST',
+        'END:STANDARD',
+        'END:VTIMEZONE',
+        'BEGIN:VEVENT',
+        `UID:${Date.now()}-${roomCode}@srcc-classrooms`,
+        `DTSTAMP:${nowIso}`,
+        `DTSTART;TZID=Asia/Kolkata:${dtStart}`,
+        `DTEND;TZID=Asia/Kolkata:${dtEnd}`,
+        `SUMMARY:SRCC GD: Room ${roomCode}`,
+        `DESCRIPTION:Vacant classroom at SRCC for Group Discussion & Peer Study.\\nDirect Link: ${directUrl}`,
+        `LOCATION:Room ${roomCode}\\, Shri Ram College of Commerce\\, Maurice Nagar\\, Delhi 110007`,
+        'STATUS:CONFIRMED',
+        'BEGIN:VALARM',
+        'TRIGGER:-PT15M',
+        'ACTION:DISPLAY',
+        `DESCRIPTION:Reminder: SRCC Room ${roomCode} is vacant for GD in 15 minutes!`,
+        'END:VALARM',
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ].join('\r\n');
+
+      const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `SRCC_GD_Room_${roomCode}_${dayName}.ics`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 2000);
+      showToast(`🍏 Downloaded Apple / Outlook reminder with 15m alarm!`);
+    }
+
+    // 📅 Faculty Class / Lecture Calendar Reminder Modal
+    function openTeacherCalendarReminderModal(teacher, cls, dayName) {
+      if (!teacher || !cls) return;
+      const calModal = document.getElementById('calendarReminderModal');
+      const calTitle = document.getElementById('calReminderTitle');
+      const calMeta = document.getElementById('calReminderMeta');
+      const calRoomName = document.getElementById('calReminderRoomName');
+      const calSlotTime = document.getElementById('calReminderSlotTime');
+      const btnGoogle = document.getElementById('btnCalOpenGoogle');
+      const btnIcs = document.getElementById('btnCalDownloadIcs');
+      const btnCopy = document.getElementById('btnCalCopyGdInvite');
+      const btnClose = document.getElementById('btnCalReminderClose');
+
+      const subjInfo = (typeof getSubjectDetails === 'function') ? getSubjectDetails(cls.subject, cls.subject_name) : { code: cls.subject, fullName: cls.subject };
+      const subjTitle = subjInfo.fullName || cls.course || 'Scheduled Class';
+      const slotDisplay = cls.slot ? cls.slot.replace(' to ', ' – ') : 'Period';
+      const roomDisplay = cls.room ? `Room ${cls.room.trim()}` : 'Room TBD';
+
+      if (calTitle) calTitle.textContent = `📅 Add Lecture to Calendar`;
+      if (calMeta) calMeta.textContent = `Prof. ${teacher.clean_name} · ${cls.type || 'Lecture'}`;
+      if (calRoomName) calRoomName.textContent = `${subjTitle} (${subjInfo.code || cls.course || ''})`;
+      if (calSlotTime) calSlotTime.textContent = `${dayName} · ${slotDisplay} · ${roomDisplay}`;
+
+      const timeInfo = parseSlotTimeRange(cls.slot);
+      const targetDate = getNextDateForDayName(dayName);
+      const y = targetDate.getFullYear();
+      const m = targetDate.getMonth();
+      const d = targetDate.getDate();
+
+      const pad = n => String(n).padStart(2, '0');
+      const dateStr = `${y}${pad(m + 1)}${pad(d)}`;
+      const startStamp = `${dateStr}T${pad(timeInfo.start.h)}${pad(timeInfo.start.min)}00`;
+      const endStamp = `${dateStr}T${pad(timeInfo.end.h)}${pad(timeInfo.end.min)}00`;
+
+      const directUrl = `${window.location.origin}${window.location.pathname}?faculty=${encodeURIComponent(teacher.clean_name)}`;
+      const eventTitle = `SRCC Class: ${subjInfo.code || subjTitle} (${roomDisplay})`;
+      const eventDesc = `Lecture with Prof. ${teacher.clean_name} (${teacher.department || 'SRCC'})\nSubject: ${subjTitle} [${subjInfo.code}]\nCourse: ${cls.course || 'B.Com (Hons)'} ${cls.semester ? `(${cls.semester})` : ''} ${cls.section ? `Sec ${cls.section}` : ''}\nLocation: ${roomDisplay}\nFaculty Timetable Link: ${directUrl}`;
+      const eventLoc = `${roomDisplay}, Shri Ram College of Commerce, Maurice Nagar, Delhi 110007`;
+
+      const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventTitle)}&dates=${startStamp}/${endStamp}&ctz=Asia/Kolkata&details=${encodeURIComponent(eventDesc)}&location=${encodeURIComponent(eventLoc)}`;
+
+      if (btnGoogle) {
+        btnGoogle.href = gcalUrl;
+        btnGoogle.onclick = () => {
+          showToast(`🗓️ Opening Google Calendar for ${subjTitle}!`);
+        };
+      }
+
+      if (btnIcs) {
+        btnIcs.onclick = () => {
+          downloadTeacherIcsCalendarFile(teacher, cls, dayName, targetDate, timeInfo.start.h, timeInfo.start.min, timeInfo.end.h, timeInfo.end.min, directUrl);
+        };
+      }
+
+      if (btnCopy) {
+        btnCopy.onclick = () => {
+          const inviteMsg = `📢 *SRCC Class Alert*\n\n📚 *Subject:* ${subjTitle} (${subjInfo.code})\n👨‍🏫 *Faculty:* Prof. ${teacher.clean_name}\n🏛️ *Location:* ${roomDisplay}\n🗓️ *Day:* ${dayName}\n🕒 *Slot:* ${slotDisplay}\n\n🔗 Timetable: ${directUrl}`;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(inviteMsg).then(() => {
+              showToast('📋 Copied class alert to clipboard!');
+            }).catch(() => {
+              showToast(`Class alert ready for Prof. ${teacher.clean_name}`);
+            });
+          }
+        };
+      }
+
+      if (btnClose) {
+        btnClose.onclick = () => {
+          if (calModal) closeAppModal(calModal);
+        };
+      }
+
+      if (calModal) {
+        calModal.onclick = (e) => {
+          if (e.target === calModal) closeAppModal(calModal);
+        };
+        openAppModal(calModal);
+      }
+    }
+
+    function downloadTeacherIcsCalendarFile(teacher, cls, dayName, targetDate, startH, startMin, endH, endMin, directUrl) {
+      const pad = n => String(n).padStart(2, '0');
+      const y = targetDate.getFullYear();
+      const m = targetDate.getMonth() + 1;
+      const d = targetDate.getDate();
+      const dateStr = `${y}${pad(m)}${pad(d)}`;
+      const dtStart = `${dateStr}T${pad(startH)}${pad(startMin)}00`;
+      const dtEnd = `${dateStr}T${pad(endH)}${pad(endMin)}00`;
+      const nowIso = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+      const subjInfo = (typeof getSubjectDetails === 'function') ? getSubjectDetails(cls.subject, cls.subject_name) : { code: cls.subject, fullName: cls.subject };
+      const subjTitle = subjInfo.fullName || cls.course || 'Lecture';
+      const roomDisplay = cls.room ? `Room ${cls.room.trim()}` : 'Room TBD';
+
+      const icsContent = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//SRCC Free Classrooms//Class Reminder//EN',
+        'CALSCALE:GREGORIAN',
+        'BEGIN:VTIMEZONE',
+        'TZID:Asia/Kolkata',
+        'BEGIN:STANDARD',
+        'DTSTART:19700101T000000',
+        'TZOFFSETFROM:+0530',
+        'TZOFFSETTO:+0530',
+        'TZNAME:IST',
+        'END:STANDARD',
+        'END:VTIMEZONE',
+        'BEGIN:VEVENT',
+        `UID:srcc-cls-${Date.now()}-${Math.floor(Math.random()*10000)}@srcc-classrooms`,
+        `DTSTAMP:${nowIso}`,
+        `DTSTART;TZID=Asia/Kolkata:${dtStart}`,
+        `DTEND;TZID=Asia/Kolkata:${dtEnd}`,
+        `SUMMARY:SRCC Class: ${subjInfo.code || subjTitle} (${roomDisplay})`,
+        `DESCRIPTION:Lecture with Prof. ${teacher.clean_name}\\nSubject: ${subjTitle} (${subjInfo.code})\\nCourse: ${cls.course || ''}\\nLocation: ${roomDisplay}\\nLink: ${directUrl}`,
+        `LOCATION:${roomDisplay}\\, Shri Ram College of Commerce\\, Maurice Nagar\\, Delhi 110007`,
+        'STATUS:CONFIRMED',
+        'BEGIN:VALARM',
+        'TRIGGER:-PT15M',
+        'ACTION:DISPLAY',
+        `DESCRIPTION:Reminder: SRCC Class with Prof. ${teacher.clean_name} starts in 15 minutes!`,
+        'END:VALARM',
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ].join('\r\n');
+
+      const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `SRCC_Class_${(subjInfo.code || 'Lecture').replace(/[^a-zA-Z0-9]/g, '_')}_${dayName}.ics`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 2000);
+      showToast(`🍏 Downloaded Apple / Outlook reminder with 15m alarm!`);
+    }
+
+    // 📸 Export Complete Daily Room Schedule as Ultra Crisp PNG Image
+    function exportScheduleAsImage(roomCode, targetDay = null) {
+      const room = findRoomByCodeOrName(roomCode);
+      if (!room) return;
+      const dayName = targetDay || currentModalDay || state.activeDay || 'Monday';
+      const sched = room.schedule[dayName] || { free_slots: [], occupied_slots: [] };
+      const effectiveFreeHours = (sched.free_slots || []).length;
+
+      const canvas = document.createElement('canvas');
+      canvas.width = 840;
+      canvas.height = 1120;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      // Background
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Navy Header Banner
+      const grad = ctx.createLinearGradient(0, 0, canvas.width, 150);
+      grad.addColorStop(0, '#0a1128');
+      grad.addColorStop(1, '#1e293b');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, canvas.width, 150);
+
+      // Gold accent bar
+      ctx.fillStyle = '#f59e0b';
+      ctx.fillRect(0, 146, canvas.width, 4);
+
+      // Header Title
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      ctx.fillText('SHRI RAM COLLEGE OF COMMERCE · UNIVERSITY OF DELHI', 36, 38);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 28px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      ctx.fillText(`Room ${room.code} (${room.name})`, 36, 76);
+
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = '600 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      ctx.fillText(`🏛️ ${room.category}   •   👥 Capacity: ${room.capacity}   •   🟢 ${effectiveFreeHours} Academic Hours Free`, 36, 110);
+
+      // Day Info Sub-header
+      ctx.fillStyle = '#f8fafc';
+      ctx.fillRect(0, 150, canvas.width, 46);
+      ctx.fillStyle = '#0f172a';
+      ctx.font = 'bold 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      ctx.fillText(`🗓️ ${dayName} Class Schedule & Vacancy`, 36, 180);
+
+      const istNow = getIstDate();
+      const dateStr = istNow.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+      ctx.fillStyle = '#64748b';
+      ctx.font = '12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillText(`Verified Timetable · ${dateStr}`, canvas.width - 36, 180);
+      ctx.textAlign = 'left';
+
+      // Table Header
+      const headerY = 196;
+      ctx.fillStyle = '#e2e8f0';
+      ctx.fillRect(0, headerY, canvas.width, 36);
+
+      ctx.fillStyle = '#334155';
+      ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      ctx.fillText('PERIOD / TIME', 36, headerY + 23);
+      ctx.fillText('STATUS', 240, headerY + 23);
+      ctx.fillText('CLASS SCHEDULE / AVAILABILITY', 440, headerY + 23);
+
+      const allSlots = [
+        '8:30 AM to 9:30 AM',
+        '9:30 AM to 10:30 AM',
+        '10:30 AM to 11:30 AM',
+        '11:30 AM to 12:30 PM',
+        '12:30 PM to 1:30 PM',
+        '1:30 PM to 2:00 PM',
+        '2:00 PM to 3:00 PM',
+        '3:00 PM to 4:00 PM',
+        '4:00 PM to 5:00 PM',
+        '5:00 PM to 6:00 PM'
+      ];
+
+      let currentY = 232;
+      const rowHeight = 78;
+
+      allSlots.forEach((slot, idx) => {
+        // Row background
+        ctx.fillStyle = (idx % 2 === 0) ? '#ffffff' : '#f8fafc';
+        ctx.fillRect(0, currentY, canvas.width, rowHeight);
+
+        // Row divider
+        ctx.strokeStyle = '#e2e8f0';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(0, currentY + rowHeight);
+        ctx.lineTo(canvas.width, currentY + rowHeight);
+        ctx.stroke();
+
+        const slotLabel = slot.replace(' to ', ' – ');
+        ctx.fillStyle = '#0f172a';
+        ctx.font = 'bold 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.fillText(slotLabel, 36, currentY + 36);
+
+        // Check status
+        const isRecess = (slot === '1:30 PM to 2:00 PM');
+        const isFree = isRecess || sched.free_slots.includes(slot);
+        const leaveInfo = getRoomScheduledTeacherLeave(room.code, dayName, slot);
+        const occupiedObj = sched.occupied_slots.find(o => o.slot === slot);
+        const matchedTeachers = getRoomScheduledClassDetails(room.code, dayName, slot);
+
+        if (isRecess) {
+          drawBadge(ctx, 240, currentY + 18, '☕ LUNCH RECESS', '#fef3c7', '#b45309', '#fde68a');
+          ctx.fillStyle = '#047857';
+          ctx.font = '600 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+          ctx.fillText('Campus-wide recess · 100% free for GD & lunch', 440, currentY + 44);
+        } else if (leaveInfo) {
+          drawBadge(ctx, 240, currentY + 18, '✨ BONUS FREE (LEAVE)', '#f3e8ff', '#7e22ce', '#d8b4fe');
+          ctx.fillStyle = '#6d28d9';
+          ctx.font = 'bold 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+          ctx.fillText(`Prof. ${leaveInfo.teacher.clean_name} is on leave`, 440, currentY + 34);
+          ctx.fillStyle = '#64748b';
+          ctx.font = '12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+          ctx.fillText('Class cancelled · Room vacant for self-study', 440, currentY + 54);
+        } else if (isFree) {
+          drawBadge(ctx, 240, currentY + 18, '🟢 VACANT FOR GD', '#dcfce7', '#15803d', '#86efac');
+          ctx.fillStyle = '#15803d';
+          ctx.font = '600 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+          ctx.fillText('Vacant Classroom (Available for GD & study)', 440, currentY + 44);
+        } else {
+          drawBadge(ctx, 240, currentY + 18, '🔴 CLASS IN SESSION', '#fee2e2', '#b91c1c', '#fecaca');
+          ctx.fillStyle = '#0f172a';
+          ctx.font = '600 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+          if (matchedTeachers.length > 0) {
+            const m = matchedTeachers[0];
+            const teacherStr = `Prof. ${m.teacher.clean_name}`;
+            const subjStr = m.subjectCode || 'Scheduled Class';
+            ctx.fillText(`${subjStr} · ${teacherStr}`, 440, currentY + 34);
+            ctx.fillStyle = '#64748b';
+            ctx.font = '12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+            const clsInfo = `${m.classInfo.course || 'B.Com (H)'} ${m.classInfo.semester ? `(${m.classInfo.semester})` : ''} ${m.classInfo.section || ''}`;
+            ctx.fillText(clsInfo, 440, currentY + 54);
+          } else {
+            const desc = occupiedObj ? occupiedObj.class : 'Scheduled Class';
+            ctx.fillText(desc.slice(0, 42), 440, currentY + 44);
+          }
+        }
+
+        currentY += rowHeight;
+      });
+
+      // Footer bar
+      ctx.fillStyle = '#0a1128';
+      ctx.fillRect(0, canvas.height - 64, canvas.width, 64);
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '600 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      ctx.fillText('🎓 SRCC Free Classroom Finder · Built by Anand Kumar (25BC070)', 36, canvas.height - 28);
+      ctx.fillStyle = '#38bdf8';
+      ctx.textAlign = 'right';
+      ctx.fillText('anand-srcc.github.io/srcc-free-classrooms', canvas.width - 36, canvas.height - 28);
+      ctx.textAlign = 'left';
+
+      function drawBadge(c, x, y, text, bg, fg, border) {
+        c.save();
+        c.font = 'bold 11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        const textWidth = c.measureText(text).width;
+        const padX = 10;
+        const badgeW = textWidth + padX * 2;
+        const badgeH = 26;
+        const r = 6;
+
+        c.fillStyle = bg;
+        c.strokeStyle = border;
+        c.lineWidth = 1;
+        c.beginPath();
+        if (typeof c.roundRect === 'function') {
+          c.roundRect(x, y, badgeW, badgeH, r);
+        } else {
+          c.rect(x, y, badgeW, badgeH);
+        }
+        c.fill();
+        c.stroke();
+
+        c.fillStyle = fg;
+        c.fillText(text, x + padX, y + 17);
+        c.restore();
+      }
+
+      function triggerFileDownload(blob, filename) {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 2000);
+        showToast(`📸 Saved schedule image for Room ${room.code} (${dayName})!`);
+      }
+
+      canvas.toBlob(blob => {
+        if (!blob) return;
+        const filename = `SRCC_Schedule_${room.code}_${dayName}.png`;
+        const file = new File([blob], filename, { type: 'image/png' });
+
+        if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+          navigator.share({
+            title: `SRCC Room ${room.code} Schedule (${dayName})`,
+            text: `Room ${room.code} schedule on ${dayName} at SRCC.`,
+            files: [file]
+          }).then(() => {
+            showToast(`📤 Shared Room ${room.code} schedule image!`);
+          }).catch(err => {
+            if (err.name !== 'AbortError') {
+              triggerFileDownload(blob, filename);
+            }
+          });
+        } else {
+          triggerFileDownload(blob, filename);
+        }
+      }, 'image/png');
+    }
+
 
     // ========================================================================
     // 👨‍🏫 FACULTY LOCATOR - CORE IMPLEMENTATION
@@ -3835,9 +4449,12 @@ ${directRoomUrl}`;
                 </div>
               </div>
 
-              <div class="faculty-compact-actions">
+              <div class="faculty-compact-actions" style="display: flex; gap: 6px;">
                 <button class="btn-teacher-timetable" data-teacher-id="${teacher.id}" title="Full Weekly Schedule">
                   🗓️ Timetable
+                </button>
+                <button type="button" class="btn-share-faculty-card" data-teacher-id="${teacher.id}" title="Share faculty profile link">
+                  📤 Share
                 </button>
               </div>
             </article>
@@ -3920,9 +4537,12 @@ ${directRoomUrl}`;
               </div>
             </div>
 
-            <div class="faculty-card-actions">
-              <button class="btn-teacher-timetable" data-teacher-id="${teacher.id}">
+            <div class="faculty-card-actions" style="display: flex; gap: 8px;">
+              <button class="btn-teacher-timetable" data-teacher-id="${teacher.id}" style="flex: 1;">
                 🗓️ Full Weekly Timetable
+              </button>
+              <button type="button" class="btn-share-faculty-card" data-teacher-id="${teacher.id}" title="Share faculty profile link">
+                📤 Share
               </button>
             </div>
           </article>
@@ -3932,6 +4552,15 @@ ${directRoomUrl}`;
       // Attach Click Handlers
       document.querySelectorAll('.btn-teacher-timetable').forEach(btn => {
         btn.addEventListener('click', () => openTeacherModal(btn.dataset.teacherId));
+      });
+
+      document.querySelectorAll('.btn-share-faculty-card').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const tId = btn.dataset.teacherId;
+          const tObj = teachersData?.teachers?.find(t => t.id === tId);
+          if (tObj) shareTeacherProfile(tObj);
+        });
       });
 
       // Clicking subject pill filters teacher search (with 1-tap toggle to clear)
@@ -4217,6 +4846,47 @@ ${directRoomUrl}`;
     }
 
     // ========================================================================
+    // 📤 SHARE FACULTY PROFILE / WEEKLY TIMETABLE
+    // ========================================================================
+    function shareTeacherProfile(teacher) {
+      if (!teacher) return;
+      const url = `${window.location.origin}${window.location.pathname}?faculty=${encodeURIComponent(teacher.clean_name)}`;
+      const periods = teacher.total_teaching_periods || 0;
+      const displayCode = (typeof getDisplayShortCode === 'function') ? getDisplayShortCode(teacher) : (teacher.short_code || '');
+      const shareTitle = `SRCC Faculty Timetable: Prof. ${teacher.clean_name}`;
+      const shareText = `👨‍🏫 *SRCC Faculty Schedule & Timetable*\n\n` +
+        `👤 *Prof. ${teacher.clean_name}* ${displayCode ? `(${displayCode})` : ''}\n` +
+        `🏛️ *Department:* ${teacher.department || 'Faculty'}\n` +
+        `📅 *Weekly Teaching Load:* ${periods} classes\n\n` +
+        `🔗 *View Complete Timetable & Classroom Locations:*\n${url}`;
+
+      if (navigator.share && navigator.canShare && navigator.canShare({ title: shareTitle, text: shareText, url: url })) {
+        navigator.share({
+          title: shareTitle,
+          text: shareText,
+          url: url
+        }).then(() => {
+          showToast(`📤 Shared profile for Prof. ${teacher.clean_name}!`);
+        }).catch(err => {
+          if (err.name !== 'AbortError') {
+            copyToClipboard(url).then(() => {
+              showToast(`📋 Copied timetable link for Prof. ${teacher.clean_name}!`);
+            });
+          }
+        });
+      } else {
+        const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
+        copyToClipboard(shareText).then(() => {
+          showToast(`📋 Copied timetable link for Prof. ${teacher.clean_name}! Opening WhatsApp...`);
+          setTimeout(() => window.open(waUrl, '_blank'), 600);
+        }).catch(() => {
+          window.open(waUrl, '_blank');
+        });
+      }
+    }
+    window.shareTeacherProfile = shareTeacherProfile;
+
+    // ========================================================================
     // 📅 TEACHER WEEKLY TIMETABLE MODAL (RESPONSIVE DESKTOP TABLE & MOBILE CARDS)
     // ========================================================================
     function openTeacherModal(teacherIdOrName, targetDay = null) {
@@ -4384,7 +5054,7 @@ ${directRoomUrl}`;
       });
 
       // 1. Desktop Table Rows (> 640px)
-      const tableRows = mergedDaySched.map(cls => {
+      const tableRows = mergedDaySched.map((cls, idx) => {
         const roomCode = cls.room ? cls.room.trim() : 'TBD';
         const subjInfo = getSubjectDetails(cls.subject, cls.subject_name);
         const subjCode = subjInfo.code;
@@ -4420,18 +5090,23 @@ ${directRoomUrl}`;
               </div>
             </td>
             <td>
-              ${roomCode !== 'TBD' ? `
-                <button class="room-badge-link modal-room-jump" data-room="${escapeHtml(getTargetRoomJumpCode(roomCode))}" title="View room vacancy in Free Classroom Finder">
-                  🏛️ ${escapeHtml(getDisplayRoomName(roomCode))} ↗
+              <div style="display: flex; flex-direction: column; gap: 6px; align-items: flex-start;">
+                ${roomCode !== 'TBD' ? `
+                  <button class="room-badge-link modal-room-jump" data-room="${escapeHtml(getTargetRoomJumpCode(roomCode))}" title="View room vacancy in Free Classroom Finder">
+                    🏛️ ${escapeHtml(getDisplayRoomName(roomCode))} ↗
+                  </button>
+                ` : `<span style="color: var(--text-muted); font-size: 0.78rem;">TBD</span>`}
+                <button type="button" class="btn-slot-cal-reminder btn-teacher-cal" data-cls-idx="${idx}" title="Add this class to Google Calendar / Apple Calendar">
+                  📅 Add to Calendar
                 </button>
-              ` : `<span style="color: var(--text-muted); font-size: 0.78rem;">TBD</span>`}
+              </div>
             </td>
           </tr>
         `;
       }).join('');
 
       // 2. Mobile Schedule Cards (<= 640px)
-      const mobileCards = mergedDaySched.map(cls => {
+      const mobileCards = mergedDaySched.map((cls, idx) => {
         const roomCode = cls.room ? cls.room.trim() : 'TBD';
         const subjInfo = getSubjectDetails(cls.subject, cls.subject_name);
         const subjCode = subjInfo.code;
@@ -4470,7 +5145,10 @@ ${directRoomUrl}`;
                 ${batch ? `<span class="batch-chip" style="font-size: 0.72rem; padding: 1.5px 6px; flex-shrink: 0;">Batch ${escapeHtml(batch)}</span>` : ''}
               </div>
             </div>
-            <div class="m-tt-meta-row" style="display: flex; justify-content: flex-end; align-items: center;">
+            <div class="m-tt-meta-row" style="display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;">
+              <button type="button" class="btn-slot-cal-reminder btn-teacher-cal" data-cls-idx="${idx}" title="Add this class to Google Calendar / Apple Calendar">
+                📅 Add to Calendar
+              </button>
               <div>
                 ${roomCode !== 'TBD' ? `
                   <button class="m-tt-room-btn modal-room-jump" data-room="${escapeHtml(getTargetRoomJumpCode(roomCode))}" title="View room in Free Classroom Finder">
@@ -4514,6 +5192,17 @@ ${directRoomUrl}`;
           }
         });
       });
+
+      modalTeacherBody.querySelectorAll('.btn-teacher-cal').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const idx = parseInt(btn.dataset.clsIdx, 10);
+          const targetCls = mergedDaySched[idx];
+          if (targetCls) {
+            openTeacherCalendarReminderModal(teacher, targetCls, facultyState.modalActiveDay);
+          }
+        });
+      });
     }
 
     modalTeacherDayTabs.forEach(tab => {
@@ -4522,6 +5211,20 @@ ${directRoomUrl}`;
         renderTeacherModalDaySchedule();
       });
     });
+
+    if (btnShareTeacherProfile) {
+      btnShareTeacherProfile.addEventListener('click', () => {
+        if (facultyState.modalActiveTeacher) {
+          shareTeacherProfile(facultyState.modalActiveTeacher);
+        }
+      });
+    }
+
+    if (btnPrintTeacherTimetable) {
+      btnPrintTeacherTimetable.addEventListener('click', () => {
+        window.print();
+      });
+    }
 
     // ========================================================================
     // 🏖️ FACULTY LEAVE MANAGER MODAL
@@ -7060,15 +7763,32 @@ window.SRCC_FACULTY_LEAVES = {
     }
 
     // ========================================================================
-    // 🔗 DIRECT ROOM LINK PARAMETER (?room=R36)
+    // 🔗 URL DEEP-LINKING & HASH NAVIGATION HANDLER
+    // Supports: ?room=R2, #room=R2, #R2, ?faculty=Name, #faculty=..., ?tab=..., #timetable, #wifi
     // ========================================================================
-    function handleInitialRoomFromUrl() {
+    function handleUrlDeepLinks() {
       try {
-        const urlParams = new URLSearchParams(window.location.search);
-        const roomParam = urlParams.get('room');
+        const searchParams = new URLSearchParams(window.location.search);
+        const hash = window.location.hash || '';
+
+        // 1. Room deep link: ?room=R2, ?r=R2, #room=R2, #room-R2, #R2
+        let roomParam = searchParams.get('room') || searchParams.get('r');
+        if (!roomParam && hash) {
+          const matchHash = hash.match(/(?:room[=-]?|#)([a-zA-Z0-9]+)/i);
+          if (matchHash && matchHash[1]) {
+            const candidate = matchHash[1].toUpperCase();
+            if (appData && appData.rooms && appData.rooms.some(r => {
+              const c = r.code.toUpperCase();
+              return c === candidate || c === `R${candidate}` || candidate === `R${c}`;
+            })) {
+              roomParam = candidate;
+            }
+          }
+        }
+
         if (roomParam) {
           const rawCode = roomParam.trim().toUpperCase();
-          const found = appData.rooms.find(r => {
+          const found = appData?.rooms?.find(r => {
             const c = r.code.toUpperCase();
             return c === rawCode || c === `R${rawCode}` || rawCode === `R${c}`;
           });
@@ -7081,10 +7801,53 @@ window.SRCC_FACULTY_LEAVES = {
             render();
             setTimeout(() => {
               openScheduleModal(found.code);
+              showToast(`📍 Loaded Room ${found.code} Schedule`);
             }, 300);
+            return;
           }
         }
-      } catch (e) {}
+
+        // 2. Faculty deep link: ?faculty=Name, ?teacher=Code, #faculty=..., #teacher=...
+        let facultyParam = searchParams.get('faculty') || searchParams.get('teacher');
+        if (!facultyParam && hash) {
+          const matchFac = hash.match(/(?:faculty|teacher)[=-]?([^&]+)/i);
+          if (matchFac && matchFac[1]) facultyParam = decodeURIComponent(matchFac[1]);
+        }
+
+        if (facultyParam && window.SRCC_TEACHERS_DATA && window.SRCC_TEACHERS_DATA.teachers) {
+          const query = facultyParam.trim().toLowerCase();
+          const matchedTeacher = window.SRCC_TEACHERS_DATA.teachers.find(t => 
+            (t.id && t.id.toLowerCase() === query) ||
+            (t.short_code && t.short_code.toLowerCase() === query) ||
+            (t.clean_name && t.clean_name.toLowerCase().includes(query))
+          );
+          if (matchedTeacher) {
+            setAppMode('faculty', true);
+            if (facultySearchInput) facultySearchInput.value = matchedTeacher.clean_name;
+            renderFaculty();
+            setTimeout(() => {
+              openTeacherModal(matchedTeacher.id);
+              showToast(`👨‍🏫 Loaded Faculty Profile for Prof. ${matchedTeacher.clean_name}`);
+            }, 300);
+            return;
+          }
+        }
+
+        // 3. Tab deep link: ?tab=timetable | ?tab=wifi | ?tab=rooms | ?tab=faculty or #timetable etc.
+        const tabParam = searchParams.get('tab') || '';
+        if (tabParam === 'timetable' || hash.includes('#timetable')) {
+          setAppMode('timetable');
+        } else if (tabParam === 'wifi' || hash.includes('#wifi')) {
+          setAppMode('wifi');
+        } else if (tabParam === 'faculty' || hash.includes('#faculty')) {
+          setAppMode('faculty');
+        } else if (searchParams.get('free') === '1' || searchParams.get('freenow') === '1' || hash.includes('#freenow')) {
+          setAppMode('rooms', true);
+          setFreeNowState(true);
+        }
+      } catch (e) {
+        console.warn('URL deep link handler note:', e);
+      }
     }
 
     // ========================================================================
@@ -7261,7 +8024,8 @@ window.SRCC_FACULTY_LEAVES = {
     initLeaveNotificationSystem();
     initDeviceWakeupListeners();
     initOfflineDetection();
-    handleInitialRoomFromUrl();
+    handleUrlDeepLinks();
+    window.addEventListener('hashchange', () => handleUrlDeepLinks());
     syncLeavesFromCloud(false);
     setInterval(() => syncLeavesFromCloud(false), 45000);
     // Periodically refresh active notices

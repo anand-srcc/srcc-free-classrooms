@@ -7447,7 +7447,8 @@ body.dark-mode .tt-room-btn:hover,
 .wifi-search-bar {
   display: flex;
   gap: 10px;
-  margin: 14px 0 10px;
+  margin: 0;
+  flex-shrink: 0;
 }
 
 .wifi-search-input {
@@ -7464,21 +7465,24 @@ body.dark-mode .tt-room-btn:hover,
   display: flex;
   gap: 6px;
   overflow-x: auto;
-  padding-bottom: 6px;
-  margin-bottom: 12px;
+  padding: 2px 0 6px;
+  margin: 0;
+  flex-shrink: 0;
+  scrollbar-width: thin;
 }
 
 .wifi-pill-btn {
-  padding: 5px 12px;
+  padding: 6px 14px;
   border-radius: var(--radius-full);
   border: 1px solid var(--border-color);
   background: var(--bg-card);
   color: var(--text-secondary);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.15s ease;
+  flex-shrink: 0;
 }
 
 .wifi-pill-btn.active, .wifi-pill-btn:hover {
@@ -7493,6 +7497,8 @@ body.dark-mode .tt-room-btn:hover,
   gap: 12px;
   overflow-y: auto;
   padding-right: 4px;
+  flex: 1;
+  min-height: 200px;
   max-height: 52vh;
 }
 
@@ -7722,5 +7728,317 @@ body.dark-mode .tt-room-btn:hover,
   gap: 6px;
 }
 
+/* ==========================================================================
+   📸 🖨️ ROOM SCHEDULE TOOLBAR & ACTIONS
+   ========================================================================== */
+.modal-schedule-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  flex-wrap: wrap;
+}
 
+.btn-sched-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 7px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+
+.btn-sched-action:hover {
+  background: var(--bg-card-hover);
+  border-color: #cbd5e1;
+}
+
+.btn-sched-action.btn-sched-img {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #1d4ed8;
+}
+
+.btn-sched-action.btn-sched-img:hover {
+  background: #dbeafe;
+}
+
+.btn-sched-action.btn-sched-share {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #047857;
+}
+
+.btn-sched-action.btn-sched-share:hover {
+  background: #d1fae5;
+}
+
+/* 📅 Slot Calendar Reminder Button (Prominent & Eye-Catching) */
+.btn-slot-cal-reminder {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #15803d, #16a34a);
+  color: #ffffff !important;
+  border: 1px solid #16a34a;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(22, 163, 74, 0.25);
+}
+
+.btn-slot-cal-reminder:hover {
+  background: linear-gradient(135deg, #166534, #15803d);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(22, 163, 74, 0.35);
+}
+
+.btn-slot-cal-reminder.btn-teacher-cal {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  border-color: #2563eb;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+}
+
+.btn-slot-cal-reminder.btn-teacher-cal:hover {
+  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
+}
+
+/* 📤 Faculty Card Quick Share Button */
+.btn-share-faculty-card {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s ease;
+}
+
+.btn-share-faculty-card:hover {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  color: #1d4ed8;
+}
+
+/* ==========================================================================
+   🖨️ CLEAN PRINT STYLESHEET (PRINT / SAVE AS PDF)
+   Fixes: Hides all background pages, eliminates scrollbars & cutoffs
+   ========================================================================== */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm 14mm 12mm 14mm;
+  }
+
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    font-size: 10pt !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* 1. Completely hide the main background app UI, headers, and navigation */
+  main,
+  .main-content,
+  .app-header,
+  .app-mode-switcher-container,
+  .app-view-section,
+  .controls-panel,
+  .control-row,
+  .mobile-bottom-nav,
+  .floating-theme-toggle,
+  .app-footer,
+  footer,
+  .stats-ribbon,
+  .metric-tiles-row,
+  .controls-section,
+  .toast-container,
+  #offlineIndicatorBanner,
+  #leaveNotificationPromptBanner,
+  #recessBanner,
+  .modal-overlay:not(#scheduleModal):not(#teacherModal),
+  .modal-close,
+  .modal-schedule-toolbar,
+  .modal-day-tabs,
+  .btn-share-modal-shortcut,
+  .btn-room-view-teacher-tt,
+  .btn-slot-cal-reminder,
+  .free-until-callout,
+  ::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  /* 2. Position the active modal as a standard print document */
+  .modal-overlay#scheduleModal,
+  .modal-overlay#teacherModal {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    background: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+  }
+
+  .modal-card {
+    display: block !important;
+    position: static !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    max-height: none !important;
+    height: auto !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: #ffffff !important;
+    overflow: visible !important;
+  }
+
+  .modal-header {
+    border-bottom: 2px solid #0f172a !important;
+    padding: 0 0 10px 0 !important;
+    margin-bottom: 12px !important;
+    background: transparent !important;
+    display: block !important;
+  }
+
+  .modal-header::before {
+    content: "SHRI RAM COLLEGE OF COMMERCE • UNIVERSITY OF DELHI";
+    display: block;
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #475569;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+
+  .modal-titles h2 {
+    font-size: 18pt !important;
+    color: #0f172a !important;
+    margin: 0 0 4px 0 !important;
+    font-weight: 800 !important;
+  }
+
+  .modal-titles p {
+    font-size: 9.5pt !important;
+    color: #334155 !important;
+    margin: 0 !important;
+  }
+
+  .modal-body {
+    overflow: visible !important;
+    max-height: none !important;
+    height: auto !important;
+    padding: 0 !important;
+  }
+
+  /* 3. Render clean, border-aligned table without scrollbars */
+  .room-schedule-desktop-table,
+  .teacher-schedule-desktop-table,
+  .modal-timetable-desktop-table {
+    display: table !important;
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin-top: 6px !important;
+    page-break-inside: auto !important;
+  }
+
+  .room-schedule-desktop-table tr,
+  .teacher-schedule-desktop-table tr,
+  .modal-timetable-desktop-table tr {
+    page-break-inside: avoid !important;
+    page-break-after: auto !important;
+  }
+
+  .room-schedule-desktop-table th,
+  .room-schedule-desktop-table td,
+  .teacher-schedule-desktop-table th,
+  .teacher-schedule-desktop-table td,
+  .modal-timetable-desktop-table th,
+  .modal-timetable-desktop-table td {
+    border: 1px solid #64748b !important;
+    padding: 7px 9px !important;
+    color: #000000 !important;
+    font-size: 9pt !important;
+    background: #ffffff !important;
+  }
+
+  .room-schedule-desktop-table th,
+  .teacher-schedule-desktop-table th,
+  .modal-timetable-desktop-table th {
+    background: #f1f5f9 !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    color: #0f172a !important;
+  }
+
+  .badge-slot-free {
+    background: #f0fdf4 !important;
+    color: #166534 !important;
+    border: 1px solid #16a34a !important;
+    font-weight: 700 !important;
+    padding: 2px 6px !important;
+    border-radius: 4px !important;
+  }
+
+  .badge-slot-occupied {
+    background: #fef2f2 !important;
+    color: #991b1b !important;
+    border: 1px solid #dc2626 !important;
+    font-weight: 700 !important;
+    padding: 2px 6px !important;
+    border-radius: 4px !important;
+  }
+
+  .badge-slot-recess {
+    background: #fffbeb !important;
+    color: #92400e !important;
+    border: 1px solid #d97706 !important;
+    font-weight: 700 !important;
+    padding: 2px 6px !important;
+    border-radius: 4px !important;
+  }
+
+  .room-schedule-mobile-cards,
+  .teacher-schedule-mobile-cards,
+  .modal-timetable-mobile-cards {
+    display: none !important;
+  }
+
+  .modal-disclaimer-note {
+    font-size: 8pt !important;
+    color: #64748b !important;
+    margin-top: 12px !important;
+    border-top: 1px dashed #94a3b8 !important;
+    padding-top: 6px !important;
+  }
+}
 

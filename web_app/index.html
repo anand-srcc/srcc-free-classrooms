@@ -640,41 +640,97 @@
         <button class="day-btn modal-day-tab-btn" data-day="Friday" role="tab" aria-selected="false">Friday</button>
         <button class="day-btn modal-day-tab-btn" data-day="Saturday" role="tab" aria-selected="false">Saturday</button>
       </div>
+
+      <!-- Room Schedule Actions Toolbar: Export Image, Print/PDF, Direct Share -->
+      <div class="modal-schedule-toolbar" id="modalScheduleToolbar">
+        <button type="button" class="btn-sched-action btn-sched-img" id="btnModalExportScheduleImg" title="Export clean daily schedule as high-res PNG image for WhatsApp">
+          📸 Save as Image
+        </button>
+        <button type="button" class="btn-sched-action btn-sched-print" id="btnModalPrintSchedule" title="Print schedule or save as clean PDF">
+          🖨️ Print / PDF
+        </button>
+        <button type="button" class="btn-sched-action btn-sched-share" id="btnModalShareDirect" title="Share room vacancy with direct link">
+          📤 Share Room
+        </button>
+      </div>
+
       <div class="modal-body" id="modalBody">
         <!-- Timetable schedule table inserted here -->
       </div>
     </div>
   </div>
 
+  <!-- Modal: Calendar / GD Slot Reminder Choice -->
+  <div class="modal-overlay" id="calendarReminderModal" style="display: none;">
+    <div class="modal-card" style="max-width: 440px;">
+      <div class="modal-header">
+        <div class="modal-titles">
+          <h2 id="calReminderTitle" style="font-size: 1.15rem;">📅 Set Group Study Reminder</h2>
+          <p id="calReminderMeta" style="font-size: 0.8rem; color: var(--text-secondary);">Room Vacancy Calendar Alert</p>
+        </div>
+        <button class="modal-close" id="btnCalReminderClose">✕</button>
+      </div>
+      <div class="modal-body" style="padding: 16px 20px;">
+        <div id="calReminderDetailsBox" style="background: rgba(37,99,235,0.06); border: 1px solid rgba(37,99,235,0.15); border-radius: 10px; padding: 12px 14px; margin-bottom: 16px;">
+          <div style="font-size: 0.95rem; font-weight: 700; color: #1e3a8a;" id="calReminderRoomName">Room R2</div>
+          <div style="font-size: 0.84rem; color: #3b82f6; font-weight: 600; margin-top: 2px;" id="calReminderSlotTime">Saturday · 12:30 PM – 1:30 PM</div>
+          <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">Classroom is officially vacant. Add a 15-minute prior alarm so your group can secure the room on time.</div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <a href="#" id="btnCalOpenGoogle" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 16px; border-radius: 8px; background: #2563eb; color: #fff; text-decoration: none; font-weight: 700; font-size: 0.9rem; box-shadow: 0 2px 8px rgba(37,99,235,0.25);">
+            <span>🗓️ Add to Google Calendar</span>
+            <span style="font-size: 0.8rem; opacity: 0.85;">↗</span>
+          </a>
+          <button type="button" id="btnCalDownloadIcs" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 16px; border-radius: 8px; border: 1px solid #cbd5e1; background: var(--bg-card); color: var(--text-primary); font-weight: 600; font-size: 0.88rem; cursor: pointer;">
+            <span>🍏 Apple / Outlook (.ics with 15m Alarm)</span>
+          </button>
+          <button type="button" id="btnCalCopyGdInvite" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 16px; border-radius: 8px; border: 1px solid #e2e8f0; background: #f8fafc; color: #475569; font-weight: 600; font-size: 0.85rem; cursor: pointer;">
+            <span>💬 Copy WhatsApp GD Invite</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <!-- Modal: WiFi Directory Popup (Triggered via header WiFi button) -->
   <div class="modal-overlay" id="wifiModal" style="display: none;">
     <div class="modal-card wifi-modal-dialog">
-      <div class="modal-header wifi-directory-header">
-        <div class="modal-titles">
-          <h2 style="font-size: 1.2rem; display: flex; align-items: center; gap: 8px;">📶 Campus WiFi Passwords</h2>
-          <p style="font-size: 0.8rem; color: var(--text-secondary);">Direct passwords & QR scan to connect instantly on campus</p>
+      <div class="modal-header wifi-directory-header" style="padding: 20px 24px 16px; border-bottom: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: flex-start;">
+        <div style="display: flex; align-items: flex-start; gap: 12px;">
+          <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(8, 145, 178, 0.12); color: #0891b2; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; flex-shrink: 0; margin-top: 2px;">
+            📶
+          </div>
+          <div>
+            <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary); margin: 0 0 4px 0; font-family: var(--font-display); line-height: 1.2;">Campus WiFi Passwords</h2>
+            <p style="font-size: 0.82rem; color: var(--text-secondary); margin: 0; line-height: 1.35;">Direct passwords &amp; QR scan to connect instantly on campus</p>
+          </div>
         </div>
-        <button class="modal-close" id="btnWifiModalClose">✕</button>
+        <button class="modal-close" id="btnWifiModalClose" aria-label="Close WiFi Modal">✕</button>
       </div>
-      <div class="wifi-search-bar" style="margin-top: 10px;">
-        <input type="text" id="wifiModalSearchInput" class="wifi-search-input" placeholder="🔍 Search network, room, or wing..." />
-      </div>
-      <div class="wifi-pills-filter" id="wifiModalPills">
-        <button class="wifi-pill-btn active" data-band="ALL">All (24)</button>
-        <button class="wifi-pill-btn" data-band="5G">⚡ 5G</button>
-        <button class="wifi-pill-btn" data-band="4G">📶 4G</button>
-        <button class="wifi-pill-btn" data-band="PB">PB Wing</button>
-        <button class="wifi-pill-btn" data-band="Main">Main Building</button>
-      </div>
-      <div class="wifi-networks-grid" id="wifiModalGrid"></div>
-      <div class="wifi-whatsapp-community-box">
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <span>💬</span>
-          <span style="font-size: 0.82rem; font-weight: 600; color: #166534;">Campus Atlas WhatsApp Group</span>
+
+      <div class="modal-body wifi-modal-body" style="padding: 16px 24px 20px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto;">
+        <div class="wifi-search-bar" style="margin: 0;">
+          <input type="text" id="wifiModalSearchInput" class="wifi-search-input" placeholder="🔍 Search network, room, or wing..." />
         </div>
-        <a href="https://chat.whatsapp.com/DzGsKlDwZG6DgDTcRIlCRW?s=cl&p=a&ilr=1" target="_blank" rel="noopener noreferrer" style="background: #25D366; color: #ffffff; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-weight: 700; font-size: 0.8rem;">
-          Join WhatsApp ↗
-        </a>
+        <div class="wifi-pills-filter" id="wifiModalPills" style="margin: 0;">
+          <button class="wifi-pill-btn active" data-band="ALL">All (24)</button>
+          <button class="wifi-pill-btn" data-band="5G">⚡ 5G</button>
+          <button class="wifi-pill-btn" data-band="4G">📶 4G</button>
+          <button class="wifi-pill-btn" data-band="PB">PB Wing</button>
+          <button class="wifi-pill-btn" data-band="Main">Main Building</button>
+        </div>
+        <div class="wifi-networks-grid" id="wifiModalGrid"></div>
+        <div class="wifi-whatsapp-community-box">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span>💬</span>
+            <span style="font-size: 0.82rem; font-weight: 600; color: #166534;">Campus Atlas WhatsApp Group</span>
+          </div>
+          <a href="https://chat.whatsapp.com/DzGsKlDwZG6DgDTcRIlCRW?s=cl&p=a&ilr=1" target="_blank" rel="noopener noreferrer" style="background: #25D366; color: #ffffff; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-weight: 700; font-size: 0.8rem;">
+            Join WhatsApp ↗
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -694,6 +750,17 @@
         </div>
         <button class="modal-close" id="btnTeacherModalClose">✕</button>
       </div>
+
+      <!-- Teacher Schedule Toolbar: Share Profile & Print -->
+      <div class="modal-schedule-toolbar" id="modalTeacherScheduleToolbar">
+        <button type="button" class="btn-sched-action btn-sched-share" id="btnShareTeacherProfile" title="Share faculty timetable & profile link on WhatsApp">
+          📤 Share Faculty Profile
+        </button>
+        <button type="button" class="btn-sched-action btn-sched-print" id="btnPrintTeacherTimetable" title="Print teacher timetable or save as clean PDF">
+          🖨️ Print Timetable
+        </button>
+      </div>
+
       <!-- Day Selector Tabs inside Teacher Modal (Touch scrollable, no overlap) -->
       <div class="modal-day-tabs" id="modalTeacherDayTabs" role="tablist" aria-label="Faculty schedule days">
         <button class="day-btn modal-day-tab-btn active" data-day="Monday" role="tab" aria-selected="true">Monday</button>
@@ -1025,11 +1092,11 @@
 
 
   <!-- Scripts -->
-  <script src="data.js?v=46"></script>
-  <script src="wifi_data.js?v=46"></script>
-  <script src="cloud_config.js?v=46"></script>
-  <script src="faculty_leaves.js?v=46"></script>
-  <script src="teachers_data.js?v=46"></script>
-  <script src="app.js?v=46"></script>
+  <script src="data.js?v=47"></script>
+  <script src="wifi_data.js?v=47"></script>
+  <script src="cloud_config.js?v=47"></script>
+  <script src="faculty_leaves.js?v=47"></script>
+  <script src="teachers_data.js?v=47"></script>
+  <script src="app.js?v=47"></script>
 </body>
 </html>
