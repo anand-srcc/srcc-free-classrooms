@@ -1,32 +1,12 @@
 // SRCC Official Faculty Leaves Data
 // Auto-synced from studentassistsrcc.app & Firebase Cloud DB
-// Last Updated: 09 Oct 2026, 10:39 AM
+// Last Updated: 10 Oct 2026, 09:55 AM
 window.SRCC_FACULTY_LEAVES = {
-  "last_updated": "09 Oct 2026, 10:39 AM",
-  "last_synced_iso": "2026-10-09T10:39:40.774107",
-  "total_on_leave": 8,
+  "last_updated": "10 Oct 2026, 09:55 AM",
+  "last_synced_iso": "2026-10-10T09:55:32.569178",
+  "total_on_leave": 5,
   "source": "https://studentassistsrcc.app / Firebase Cloud DB",
   "leaves": [
-    {
-      "teacher_id": "538",
-      "teacher_name": "Ms. Anju Verma",
-      "teacher_code": "AUV",
-      "department": "Commerce",
-      "start_date": "2026-10-09",
-      "end_date": "2026-10-09",
-      "reason": "Faculty Leave",
-      "status": "On Leave"
-    },
-    {
-      "teacher_id": "593",
-      "teacher_name": "Prof. Ruchi Kaushik",
-      "teacher_code": "RUK",
-      "department": "English",
-      "start_date": "2026-10-09",
-      "end_date": "2026-10-09",
-      "reason": "Faculty Leave",
-      "status": "On Leave"
-    },
     {
       "teacher_id": "501",
       "teacher_name": "Dr. Sapna Bansal",
@@ -54,16 +34,6 @@ window.SRCC_FACULTY_LEAVES = {
       "department": "Commerce",
       "start_date": "2026-10-09",
       "end_date": "2026-10-15",
-      "reason": "Faculty Leave",
-      "status": "On Leave"
-    },
-    {
-      "teacher_id": "587",
-      "teacher_name": "Prof. Abhay Jain",
-      "teacher_code": "AYJ",
-      "department": "Commerce",
-      "start_date": "2026-10-08",
-      "end_date": "2026-10-09",
       "reason": "Faculty Leave",
       "status": "On Leave"
     },
