@@ -1733,6 +1733,15 @@
             </select>
           </div>
 
+          <div class="leave-field-group">
+            <label for="adminPrintVenueFilter" style="font-weight: 700; font-size: 0.78rem;">Venue Categories:</label>
+            <select id="adminPrintVenueFilter" style="font-weight: 700;">
+              <option value="all">Classrooms, Labs &amp; Other (TUT, PB, SCR)</option>
+              <option value="rooms_labs">Classrooms &amp; Computer Labs (CL, CLIB)</option>
+              <option value="rooms_only">Lecture Classrooms (R) Only</option>
+            </select>
+          </div>
+
           <div style="display: flex; align-items: flex-end;">
             <button type="button" id="btnAdminRefreshPrintSheets" style="width: 100%; padding: 9px 12px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-weight: 700; font-size: 0.82rem; cursor: pointer; color: var(--text-primary);">
               🔄 Refresh Preview
@@ -1762,13 +1771,12 @@
             <div class="print-sheet-sub" id="printMatrixMeta">Date: 10 October 2026 | Day: Saturday</div>
 
             <table class="print-table" id="printMatrixTable">
-              <thead>
+              <thead id="printMatrixThead">
                 <tr>
-                  <th style="width: 17%;">TIME</th>
-                  <th style="width: 35%;">ROOM (R*, PB*)</th>
-                  <th style="width: 24%;">TUT (T*)</th>
-                  <th style="width: 12%;">PC (CL*)</th>
-                  <th style="width: 12%;">SCR (SCR*)</th>
+                  <th style="width: 15%;">TIME</th>
+                  <th style="width: 32%;">ROOM</th>
+                  <th style="width: 18%;">COMP LAB (CL, CLIB)</th>
+                  <th style="width: 35%;">OTHER (TUT, PB, SCR)</th>
                 </tr>
               </thead>
               <tbody id="printMatrixTbody">

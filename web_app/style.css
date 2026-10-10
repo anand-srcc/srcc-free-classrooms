@@ -7879,7 +7879,7 @@ body.dark-mode .tt-room-btn:hover,
   #offlineIndicatorBanner,
   #leaveNotificationPromptBanner,
   #recessBanner,
-  .modal-overlay:not(#scheduleModal):not(#teacherModal),
+  .modal-overlay,
   .modal-close,
   .modal-schedule-toolbar,
   .modal-day-tabs,
@@ -7891,9 +7891,9 @@ body.dark-mode .tt-room-btn:hover,
     display: none !important;
   }
 
-  /* 2. Position the active modal as a standard print document */
-  .modal-overlay#scheduleModal,
-  .modal-overlay#teacherModal {
+  /* 2. Position ONLY the active modal as a standard print document */
+  body.print-room-modal-active .modal-overlay#scheduleModal,
+  body.print-teacher-modal-active .modal-overlay#teacherModal {
     display: block !important;
     position: static !important;
     width: 100% !important;

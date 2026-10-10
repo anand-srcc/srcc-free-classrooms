@@ -278,15 +278,29 @@ document.addEventListener('DOMContentLoaded', () => {
     return { username: 'admin', fullName: 'Master Administrator (Anand)', role: 'Super Admin', isSuper: true };
   }
 
-  function checkAuth() {
-    const sessionVal = sessionStorage.getItem(AUTH_STORAGE_KEY) || localStorage.getItem(AUTH_STORAGE_KEY);
-    const isAuth = sessionVal && sessionVal.startsWith('srcc_auth_');
+  const AUTH_TIMEOUT_MS = 20 * 60 * 1000; // 20 minutes active session limit
+
+  function checkAuth(isManualLogin = false) {
+    // Strictly session-based to guarantee password prompt when opening admin
+    try {
+      localStorage.removeItem(AUTH_STORAGE_KEY);
+      localStorage.removeItem(ACTIVE_USER_SESSION_KEY);
+    } catch (e) {}
+
+    const sessionVal = sessionStorage.getItem(AUTH_STORAGE_KEY);
+    const loginTime = parseInt(sessionStorage.getItem('srcc_login_time') || '0', 10);
+    const isSessionActive = loginTime > 0 && (Date.now() - loginTime < AUTH_TIMEOUT_MS);
+    const isAuth = isManualLogin || (sessionVal && sessionVal.startsWith('srcc_auth_') && isSessionActive);
+
     if (isAuth) {
       if (adminAuthView) adminAuthView.style.display = 'none';
       if (adminDashboardView) adminDashboardView.style.display = 'block';
       if (adminNavActions) adminNavActions.style.display = 'flex';
       initDashboard();
     } else {
+      sessionStorage.removeItem(AUTH_STORAGE_KEY);
+      sessionStorage.removeItem(ACTIVE_USER_SESSION_KEY);
+      sessionStorage.removeItem('srcc_login_time');
       if (adminAuthView) adminAuthView.style.display = 'flex';
       if (adminDashboardView) adminDashboardView.style.display = 'none';
       if (adminNavActions) adminNavActions.style.display = 'none';
@@ -350,10 +364,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (matchedUser) {
         resetLoginLockout();
-        // Obfuscate the token slightly to deter casual localStorage modification
+        // Store auth token in sessionStorage only so new sessions require password
         const tokenStr = 'srcc_auth_' + btoa(Date.now().toString());
         sessionStorage.setItem(AUTH_STORAGE_KEY, tokenStr);
-        localStorage.setItem(AUTH_STORAGE_KEY, tokenStr);
+        sessionStorage.setItem('srcc_login_time', Date.now().toString());
         const sessionPayload = JSON.stringify({
           username: matchedUser.username,
           fullName: matchedUser.fullName,
@@ -361,9 +375,12 @@ document.addEventListener('DOMContentLoaded', () => {
           isSuper: !!matchedUser.isSuper
         });
         sessionStorage.setItem(ACTIVE_USER_SESSION_KEY, sessionPayload);
-        localStorage.setItem(ACTIVE_USER_SESSION_KEY, sessionPayload);
+        try {
+          localStorage.removeItem(AUTH_STORAGE_KEY);
+          localStorage.removeItem(ACTIVE_USER_SESSION_KEY);
+        } catch (e) {}
         showToast(`🔓 <strong>Welcome, ${escapeHtml(matchedUser.fullName)}!</strong> Logged in successfully.`);
-        checkAuth();
+        checkAuth(true);
       } else {
         const isNowLocked = recordFailedLogin();
         if (isNowLocked) {
@@ -392,8 +409,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnAdminLogout) {
     btnAdminLogout.addEventListener('click', () => {
       sessionStorage.removeItem(AUTH_STORAGE_KEY);
-      localStorage.removeItem(AUTH_STORAGE_KEY);
       sessionStorage.removeItem(ACTIVE_USER_SESSION_KEY);
+      sessionStorage.removeItem('srcc_login_time');
+      localStorage.removeItem(AUTH_STORAGE_KEY);
       localStorage.removeItem(ACTIVE_USER_SESSION_KEY);
       showToast('🔒 Logged out of Admin Portal.');
       checkAuth();
@@ -3687,6 +3705,11 @@ document.addEventListener('DOMContentLoaded', () => {
       slotRangeSelect.addEventListener('change', renderPrintSheets);
     }
 
+    const venueFilterSelect = document.getElementById('adminPrintVenueFilter');
+    if (venueFilterSelect) {
+      venueFilterSelect.addEventListener('change', renderPrintSheets);
+    }
+
     if (dateInput) {
       dateInput.addEventListener('change', renderPrintSheets);
     }
@@ -3709,12 +3732,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const slotRangeSelect = document.getElementById('adminPrintSlotRange');
     const slotRange = slotRangeSelect ? slotRangeSelect.value : 'all';
 
+    const venueFilterSelect = document.getElementById('adminPrintVenueFilter');
+    const venueFilter = venueFilterSelect ? venueFilterSelect.value : 'all';
+
     const now = new Date();
     const generatedTimeStr = `Printed on: ${formatShortDate(getTodayIsoDate())}, ${now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })} IST`;
 
     // 1. SHEET 1: EMPTY ROOMS MATRIX
     const matrixTitle = document.getElementById('printMatrixTitle');
     const matrixMeta = document.getElementById('printMatrixMeta');
+    const matrixThead = document.getElementById('printMatrixThead');
     const matrixTbody = document.getElementById('printMatrixTbody');
     const matrixGenTime = document.getElementById('printMatrixGeneratedTime');
 
@@ -3725,6 +3752,36 @@ document.addEventListener('DOMContentLoaded', () => {
     if (matrixTitle) matrixTitle.textContent = `EMPTY ROOMS MATRIX (${slotTitleText})`;
     if (matrixMeta) matrixMeta.textContent = `Date: ${formattedDate} | Day: ${dayName}`;
     if (matrixGenTime) matrixGenTime.textContent = generatedTimeStr;
+
+    // Dynamically adjust table headers based on Venue Filter choice
+    const numCols = venueFilter === 'rooms_only' ? 2 : (venueFilter === 'rooms_labs' ? 3 : 4);
+    if (matrixThead) {
+      if (venueFilter === 'rooms_labs') {
+        matrixThead.innerHTML = `
+          <tr>
+            <th style="width: 20%;">TIME</th>
+            <th style="width: 50%;">ROOM</th>
+            <th style="width: 30%;">COMP LAB (CL, CLIB)</th>
+          </tr>
+        `;
+      } else if (venueFilter === 'rooms_only') {
+        matrixThead.innerHTML = `
+          <tr>
+            <th style="width: 25%;">TIME</th>
+            <th style="width: 75%;">ROOM</th>
+          </tr>
+        `;
+      } else {
+        matrixThead.innerHTML = `
+          <tr>
+            <th style="width: 15%;">TIME</th>
+            <th style="width: 32%;">ROOM</th>
+            <th style="width: 18%;">COMP LAB (CL, CLIB)</th>
+            <th style="width: 35%;">OTHER (TUT, PB, SCR)</th>
+          </tr>
+        `;
+      }
+    }
 
     const allSlots = [
       '8:30 AM to 9:30 AM',
@@ -3747,7 +3804,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (matrixTbody) {
       if (dayName === 'Sunday') {
-        matrixTbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 24px; font-weight:700;">College is closed on Sunday. All classrooms are non-academic.</td></tr>`;
+        matrixTbody.innerHTML = `<tr><td colspan="${numCols}" style="text-align:center; padding: 24px; font-weight:700;">College is closed on Sunday. All classrooms are non-academic.</td></tr>`;
       } else {
         const roomsMap = (window.SRCC_DATA && window.SRCC_DATA.rooms) ? window.SRCC_DATA.rooms : {};
         const roomKeys = Object.keys(roomsMap);
@@ -3762,7 +3819,7 @@ document.addEventListener('DOMContentLoaded', () => {
             rowsHtml += `
               <tr style="background: #f8fafc; font-weight: 700;">
                 <td class="cell-time" style="background:#f1f5f9;">1:30 PM to 2:00 PM</td>
-                <td colspan="4" style="text-align: center; letter-spacing: 2px; font-size: 8pt; color: #475569;">
+                <td colspan="${numCols - 1}" style="text-align: center; letter-spacing: 2px; font-size: 8pt; color: #475569;">
                   — LUNCH RECESS —
                 </td>
               </tr>
@@ -3770,9 +3827,8 @@ document.addEventListener('DOMContentLoaded', () => {
           }
 
           const freeRooms = [];
-          const freeTuts = [];
           const freePcs = [];
-          const freeScrs = [];
+          const freeOther = [];
 
           roomKeys.forEach(rKey => {
             const roomObj = roomsMap[rKey];
@@ -3816,32 +3872,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (isFree) {
               const codeUp = rCode.toUpperCase();
-              if (codeUp.startsWith('T') && !codeUp.startsWith('TOTAL')) {
-                freeTuts.push(rCode);
-              } else if (codeUp.startsWith('CL') || codeUp.includes('LAB') || codeUp.includes('PC')) {
-                freePcs.push(rCode);
-              } else if (codeUp.startsWith('SCR')) {
-                freeScrs.push(rCode);
-              } else {
+              if (/^R\d+$/.test(codeUp)) {
+                // Pure lecture classrooms e.g. R1, R2, R4, R14, R36
                 freeRooms.push(rCode);
+              } else if (codeUp.startsWith('CL') || codeUp.includes('LAB') || codeUp.includes('COMP') || codeUp.includes('PC')) {
+                // Computer labs e.g. CL1, CL2, CL3, CLIB
+                freePcs.push(rCode);
+              } else {
+                // Other: TUT (T1..), PB (PB1..), SCR (SCR1..), Seminar Room, Library, Principal Office, Playground
+                freeOther.push(rCode);
               }
             }
           });
 
           const sortedRooms = naturalSortRooms(freeRooms);
-          const sortedTuts = naturalSortRooms(freeTuts);
           const sortedPcs = naturalSortRooms(freePcs);
-          const sortedScrs = naturalSortRooms(freeScrs);
+          const sortedOther = naturalSortRooms(freeOther);
 
-          rowsHtml += `
-            <tr>
-              <td class="cell-time">${slot}</td>
-              <td>${sortedRooms.join(', ') || '—'}</td>
-              <td>${sortedTuts.join(', ') || '—'}</td>
-              <td>${sortedPcs.join(', ') || '—'}</td>
-              <td>${sortedScrs.join(', ') || '—'}</td>
-            </tr>
-          `;
+          if (venueFilter === 'rooms_labs') {
+            rowsHtml += `
+              <tr>
+                <td class="cell-time">${slot}</td>
+                <td>${sortedRooms.join(', ') || '—'}</td>
+                <td>${sortedPcs.join(', ') || '—'}</td>
+              </tr>
+            `;
+          } else if (venueFilter === 'rooms_only') {
+            rowsHtml += `
+              <tr>
+                <td class="cell-time">${slot}</td>
+                <td>${sortedRooms.join(', ') || '—'}</td>
+              </tr>
+            `;
+          } else {
+            rowsHtml += `
+              <tr>
+                <td class="cell-time">${slot}</td>
+                <td>${sortedRooms.join(', ') || '—'}</td>
+                <td>${sortedPcs.join(', ') || '—'}</td>
+                <td>${sortedOther.join(', ') || '—'}</td>
+              </tr>
+            `;
+          }
         });
 
         matrixTbody.innerHTML = rowsHtml;
@@ -3890,7 +3962,24 @@ document.addEventListener('DOMContentLoaded', () => {
           const dept = leave.department ? ` (${leave.department})` : '';
           const fromDate = formatShortDate(leave.start_date || leave.startDate);
           const toDate = formatShortDate(leave.end_date || leave.endDate || leave.start_date || leave.startDate);
-          const daysVal = leave.half_day ? '½' : (leave.days_count || leave.days || '1');
+
+          // Calculate actual number of leave calendar days
+          let daysVal = '1';
+          if (leave.half_day) {
+            daysVal = '½';
+          } else if (leave.days_count || leave.days) {
+            daysVal = String(leave.days_count || leave.days);
+          } else {
+            const sStr = leave.start_date || leave.startDate;
+            const eStr = leave.end_date || leave.endDate || sStr;
+            if (sStr && eStr) {
+              const sDate = new Date(sStr + 'T00:00:00');
+              const eDate = new Date(eStr + 'T00:00:00');
+              const diffMs = eDate.getTime() - sDate.getTime();
+              const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24)) + 1;
+              daysVal = diffDays > 0 ? String(diffDays) : '1';
+            }
+          }
 
           leavesHtml += `
             <tr>

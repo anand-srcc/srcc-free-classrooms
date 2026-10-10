@@ -1722,19 +1722,33 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Modal Helpers with Mobile Scroll Lock (body.modal-open)
+    // Modal Helpers with Mobile Scroll Lock (body.modal-open) & Print Context Tracker
     function openAppModal(modalEl) {
       if (!modalEl) return;
       modalEl.style.display = 'flex';
       document.body.classList.add('modal-open');
+      if (modalEl === scheduleModal) {
+        document.body.classList.add('print-room-modal-active');
+        document.body.classList.remove('print-teacher-modal-active');
+      } else if (modalEl === teacherModal) {
+        document.body.classList.add('print-teacher-modal-active');
+        document.body.classList.remove('print-room-modal-active');
+      }
     }
 
     function closeAppModal(modalEl) {
       if (!modalEl) return;
       modalEl.style.display = 'none';
+      if (modalEl === scheduleModal) {
+        document.body.classList.remove('print-room-modal-active');
+      } else if (modalEl === teacherModal) {
+        document.body.classList.remove('print-teacher-modal-active');
+      }
       const anyOpen = [scheduleModal, shareModal, teacherModal, leaveManagerModal, reportIssueModal].some(m => m && m.style.display === 'flex');
       if (!anyOpen) {
         document.body.classList.remove('modal-open');
+        document.body.classList.remove('print-room-modal-active');
+        document.body.classList.remove('print-teacher-modal-active');
       }
     }
 
@@ -2655,9 +2669,6 @@ ${directRoomUrl}`;
         const freeUntilBadgeHtml = freeUntilStatus
           ? `<span class="badge-free-until ${freeUntilStatus.isFreeNow ? 'is-free-now' : 'is-busy-now'}" title="${escapeHtml(freeUntilStatus.calloutText)}"><span class="live-dot"></span>${escapeHtml(freeUntilStatus.badgeText)}</span>`
           : '';
-        const freeUntilCalloutHtml = freeUntilStatus
-          ? `<div class="free-until-callout">⏱️ <strong>${escapeHtml(freeUntilStatus.calloutText)}</strong></div>`
-          : '';
 
         const unavailableBadgeHtml = isUnavailable
           ? `<span class="badge-room-unavailable">🛠️ Unavailable</span>`
@@ -2706,7 +2717,6 @@ ${directRoomUrl}`;
                 <span>${effectiveFreeHours > 0 ? `🟢 ${effectiveFreeHours} Academic Hours Free` : `🔴 Fully Booked Day`}</span>
                 <span>${sched.occupied_slots.length} Classes Scheduled</span>
               </div>
-              ${freeUntilCalloutHtml}
 
               ${consecutiveChipsHtml ? `
                 <div class="consecutive-windows-section" style="margin: 8px 0 6px 0;">
@@ -3029,14 +3039,9 @@ ${directRoomUrl}`;
                       <span class="rs-teacher-name">Prof. <strong>${escapeHtml(teach.clean_name)}</strong> ${teach.short_code ? `(${escapeHtml(teach.short_code)})` : ''}</span>
                       <span class="rs-dept-badge">${escapeHtml(teach.department || 'Faculty')}</span>
                     </div>
-                    <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
-                      <button type="button" class="btn-room-view-teacher-tt" data-teacher-id="${escapeHtml(teach.id)}">
-                        🗓️ View Teacher Timetable ↗
-                      </button>
-                      <button type="button" class="btn-slot-cal-reminder btn-teacher-cal" data-teacher-id="${escapeHtml(teach.id)}" data-day="${escapeHtml(dayToUse)}" data-slot="${escapeHtml(timeSlot)}" data-subject="${escapeHtml(m.subjectFullName || m.subjectCode)}" data-course="${escapeHtml(courseStr)}" data-room="${escapeHtml(room.code)}" title="Add this class to Google Calendar / Apple Calendar">
-                        📅 Add to Calendar
-                      </button>
-                    </div>
+                    <button type="button" class="btn-room-view-teacher-tt" data-teacher-id="${escapeHtml(teach.id)}">
+                      🗓️ View Teacher Timetable ↗
+                    </button>
                   </div>
                 </div>
               `;
@@ -3178,14 +3183,9 @@ ${directRoomUrl}`;
                       <span class="rs-teacher-name">Prof. <strong>${escapeHtml(teach.clean_name)}</strong> ${teach.short_code ? `(${escapeHtml(teach.short_code)})` : ''}</span>
                       <span class="rs-dept-badge">${escapeHtml(teach.department || 'Faculty')}</span>
                     </div>
-                    <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
-                      <button type="button" class="btn-room-view-teacher-tt" data-teacher-id="${escapeHtml(teach.id)}">
-                        🗓️ View Teacher Timetable ↗
-                      </button>
-                      <button type="button" class="btn-slot-cal-reminder btn-teacher-cal" data-teacher-id="${escapeHtml(teach.id)}" data-day="${escapeHtml(dayToUse)}" data-slot="${escapeHtml(timeSlot)}" data-subject="${escapeHtml(m.subjectFullName || m.subjectCode)}" data-course="${escapeHtml(courseStr)}" data-room="${escapeHtml(room.code)}" title="Add this class to Google Calendar / Apple Calendar">
-                        📅 Add to Calendar
-                      </button>
-                    </div>
+                    <button type="button" class="btn-room-view-teacher-tt" data-teacher-id="${escapeHtml(teach.id)}">
+                      🗓️ View Teacher Timetable ↗
+                    </button>
                   </div>
                 </div>
               `;
@@ -3209,12 +3209,7 @@ ${directRoomUrl}`;
       }).join('');
 
       if (modalBody) {
-        const freeUntilCallout = (freeUntil && freeUntil.calloutText)
-          ? `<div class="free-until-callout" style="margin-bottom: 12px; font-size: 0.88rem; padding: 10px 14px; background: rgba(37,99,235,0.08); border-radius: 8px; border-left: 4px solid #2563eb; color: var(--text-primary);">⚡ <strong>${escapeHtml(freeUntil.calloutText)}</strong></div>`
-          : '';
-
         modalBody.innerHTML = `
-          ${freeUntilCallout}
           ${modalUnavailableBanner}
           ${modalLocksBanner}
           <!-- Desktop Table (visible > 640px) -->
@@ -3303,6 +3298,8 @@ ${directRoomUrl}`;
     const btnPrintSchedule = document.getElementById('btnModalPrintSchedule');
     if (btnPrintSchedule) {
       btnPrintSchedule.addEventListener('click', () => {
+        document.body.classList.add('print-room-modal-active');
+        document.body.classList.remove('print-teacher-modal-active');
         window.print();
       });
     }
@@ -5090,16 +5087,11 @@ ${directRoomUrl}`;
               </div>
             </td>
             <td>
-              <div style="display: flex; flex-direction: column; gap: 6px; align-items: flex-start;">
-                ${roomCode !== 'TBD' ? `
-                  <button class="room-badge-link modal-room-jump" data-room="${escapeHtml(getTargetRoomJumpCode(roomCode))}" title="View room vacancy in Free Classroom Finder">
-                    🏛️ ${escapeHtml(getDisplayRoomName(roomCode))} ↗
-                  </button>
-                ` : `<span style="color: var(--text-muted); font-size: 0.78rem;">TBD</span>`}
-                <button type="button" class="btn-slot-cal-reminder btn-teacher-cal" data-cls-idx="${idx}" title="Add this class to Google Calendar / Apple Calendar">
-                  📅 Add to Calendar
+              ${roomCode !== 'TBD' ? `
+                <button class="room-badge-link modal-room-jump" data-room="${escapeHtml(getTargetRoomJumpCode(roomCode))}" title="View room vacancy in Free Classroom Finder">
+                  🏛️ ${escapeHtml(getDisplayRoomName(roomCode))} ↗
                 </button>
-              </div>
+              ` : `<span style="color: var(--text-muted); font-size: 0.78rem;">TBD</span>`}
             </td>
           </tr>
         `;
@@ -5145,10 +5137,7 @@ ${directRoomUrl}`;
                 ${batch ? `<span class="batch-chip" style="font-size: 0.72rem; padding: 1.5px 6px; flex-shrink: 0;">Batch ${escapeHtml(batch)}</span>` : ''}
               </div>
             </div>
-            <div class="m-tt-meta-row" style="display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;">
-              <button type="button" class="btn-slot-cal-reminder btn-teacher-cal" data-cls-idx="${idx}" title="Add this class to Google Calendar / Apple Calendar">
-                📅 Add to Calendar
-              </button>
+            <div class="m-tt-meta-row" style="display: flex; justify-content: flex-end; align-items: center;">
               <div>
                 ${roomCode !== 'TBD' ? `
                   <button class="m-tt-room-btn modal-room-jump" data-room="${escapeHtml(getTargetRoomJumpCode(roomCode))}" title="View room in Free Classroom Finder">
@@ -5192,17 +5181,6 @@ ${directRoomUrl}`;
           }
         });
       });
-
-      modalTeacherBody.querySelectorAll('.btn-teacher-cal').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const idx = parseInt(btn.dataset.clsIdx, 10);
-          const targetCls = mergedDaySched[idx];
-          if (targetCls) {
-            openTeacherCalendarReminderModal(teacher, targetCls, facultyState.modalActiveDay);
-          }
-        });
-      });
     }
 
     modalTeacherDayTabs.forEach(tab => {
@@ -5222,6 +5200,8 @@ ${directRoomUrl}`;
 
     if (btnPrintTeacherTimetable) {
       btnPrintTeacherTimetable.addEventListener('click', () => {
+        document.body.classList.add('print-teacher-modal-active');
+        document.body.classList.remove('print-room-modal-active');
         window.print();
       });
     }
@@ -6338,7 +6318,6 @@ window.SRCC_FACULTY_LEAVES = {
                 <div class="tt-faculty-avatar">${initials}</div>
                 <div class="tt-faculty-name-wrap">
                   <span class="tt-faculty-name">${escapeHtml(session.teacher)}</span>
-                  <span class="tt-faculty-link-badge" title="Click to view faculty schedule">📅</span>
                 </div>
               </div>
               ${roomButtonHtml}
