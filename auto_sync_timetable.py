@@ -210,8 +210,10 @@ def main():
         scrape_teachers.main()
         import enrich_teachers
         enrich_teachers.enrich()
+        from generate_widget_feed import generate_feed
+        generate_feed()
     except Exception as e:
-        print(f"[Warning] Failed to scrape teacher timetables: {e}")
+        print(f"[Warning] Failed to scrape teacher timetables or generate widget feed: {e}")
 
     # 5. Copy to Downloads & create deployment package (if on Windows)
     print("\n[5/5] Updating local deployment package & Downloads folder...")
