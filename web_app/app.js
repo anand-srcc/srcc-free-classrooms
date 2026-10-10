@@ -1122,7 +1122,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return {
               isFreeNow: true,
               badgeText: `Free until ${timeStr}`,
-              calloutText: `🟢 Free until ${timeStr} (${countdownStr})`
+              calloutText: `🟢 Free until ${timeStr}`
             };
           } else {
             return {
