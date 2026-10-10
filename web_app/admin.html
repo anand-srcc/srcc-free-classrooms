@@ -1736,8 +1736,8 @@
           <div class="leave-field-group">
             <label for="adminPrintVenueFilter" style="font-weight: 700; font-size: 0.78rem;">Venue Categories:</label>
             <select id="adminPrintVenueFilter" style="font-weight: 700;">
-              <option value="all">Classrooms, Labs &amp; Other (TUT, PB, SCR)</option>
-              <option value="rooms_labs">Classrooms &amp; Computer Labs (CL, CLIB)</option>
+              <option value="all">Full Campus Matrix (Room, PB, Tut, Lab, SCR, Other)</option>
+              <option value="rooms_labs_pb">Classrooms, PB &amp; Labs (Hide Tut/Other)</option>
               <option value="rooms_only">Lecture Classrooms (R) Only</option>
             </select>
           </div>
@@ -1773,10 +1773,13 @@
             <table class="print-table" id="printMatrixTable">
               <thead id="printMatrixThead">
                 <tr>
-                  <th style="width: 15%;">TIME</th>
-                  <th style="width: 32%;">ROOM</th>
-                  <th style="width: 18%;">COMP LAB (CL, CLIB)</th>
-                  <th style="width: 35%;">OTHER (TUT, PB, SCR)</th>
+                  <th style="width: 13%;">TIME</th>
+                  <th style="width: 22%;">ROOM</th>
+                  <th style="width: 8%;">PB</th>
+                  <th style="width: 21%;">TUT</th>
+                  <th style="width: 12%;">COMP LAB (CL, CLIB)</th>
+                  <th style="width: 10%;">SCR</th>
+                  <th style="width: 14%;">OTHER</th>
                 </tr>
               </thead>
               <tbody id="printMatrixTbody">

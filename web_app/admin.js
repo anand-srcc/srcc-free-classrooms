@@ -3754,17 +3754,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (matrixGenTime) matrixGenTime.textContent = generatedTimeStr;
 
     // Dynamically adjust table headers based on Venue Filter choice
-    const numCols = venueFilter === 'rooms_only' ? 2 : (venueFilter === 'rooms_labs' ? 3 : 4);
+    let numCols = 7;
     if (matrixThead) {
-      if (venueFilter === 'rooms_labs') {
+      if (venueFilter === 'rooms_labs_pb') {
+        numCols = 4;
         matrixThead.innerHTML = `
           <tr>
-            <th style="width: 20%;">TIME</th>
-            <th style="width: 50%;">ROOM</th>
-            <th style="width: 30%;">COMP LAB (CL, CLIB)</th>
+            <th style="width: 16%;">TIME</th>
+            <th style="width: 44%;">ROOM</th>
+            <th style="width: 16%;">PB</th>
+            <th style="width: 24%;">COMP LAB (CL, CLIB)</th>
           </tr>
         `;
       } else if (venueFilter === 'rooms_only') {
+        numCols = 2;
         matrixThead.innerHTML = `
           <tr>
             <th style="width: 25%;">TIME</th>
@@ -3772,12 +3775,16 @@ document.addEventListener('DOMContentLoaded', () => {
           </tr>
         `;
       } else {
+        numCols = 7;
         matrixThead.innerHTML = `
           <tr>
-            <th style="width: 15%;">TIME</th>
-            <th style="width: 32%;">ROOM</th>
-            <th style="width: 18%;">COMP LAB (CL, CLIB)</th>
-            <th style="width: 35%;">OTHER (TUT, PB, SCR)</th>
+            <th style="width: 13%;">TIME</th>
+            <th style="width: 22%;">ROOM</th>
+            <th style="width: 8%;">PB</th>
+            <th style="width: 21%;">TUT</th>
+            <th style="width: 12%;">COMP LAB (CL, CLIB)</th>
+            <th style="width: 10%;">SCR</th>
+            <th style="width: 14%;">OTHER</th>
           </tr>
         `;
       }
@@ -3827,8 +3834,11 @@ document.addEventListener('DOMContentLoaded', () => {
           }
 
           const freeRooms = [];
+          const freePbs = [];
+          const freeTuts = [];
           const freePcs = [];
-          const freeOther = [];
+          const freeScrs = [];
+          const freeOthers = [];
 
           roomKeys.forEach(rKey => {
             const roomObj = roomsMap[rKey];
@@ -3875,25 +3885,38 @@ document.addEventListener('DOMContentLoaded', () => {
               if (/^R\d+$/.test(codeUp)) {
                 // Pure lecture classrooms e.g. R1, R2, R4, R14, R36
                 freeRooms.push(rCode);
+              } else if (codeUp.startsWith('PB')) {
+                // PB Wing classrooms e.g. PB1, PB2, PB3, PB4
+                freePbs.push(rCode);
+              } else if (codeUp.startsWith('T') && !codeUp.startsWith('TOTAL')) {
+                // Tutorial rooms e.g. T1, T2, ... T54
+                freeTuts.push(rCode);
               } else if (codeUp.startsWith('CL') || codeUp.includes('LAB') || codeUp.includes('COMP') || codeUp.includes('PC')) {
                 // Computer labs e.g. CL1, CL2, CL3, CLIB
                 freePcs.push(rCode);
+              } else if (codeUp.startsWith('SCR')) {
+                // Staff Common Rooms e.g. SCR1, SCR2, SCR3, SCR4
+                freeScrs.push(rCode);
               } else {
-                // Other: TUT (T1..), PB (PB1..), SCR (SCR1..), Seminar Room, Library, Principal Office, Playground
-                freeOther.push(rCode);
+                // Inke alawa jo bache: Library FF, Seminar Room, Principal Office, PLAYGROUND
+                freeOthers.push(rCode);
               }
             }
           });
 
           const sortedRooms = naturalSortRooms(freeRooms);
+          const sortedPbs = naturalSortRooms(freePbs);
+          const sortedTuts = naturalSortRooms(freeTuts);
           const sortedPcs = naturalSortRooms(freePcs);
-          const sortedOther = naturalSortRooms(freeOther);
+          const sortedScrs = naturalSortRooms(freeScrs);
+          const sortedOthers = naturalSortRooms(freeOthers);
 
-          if (venueFilter === 'rooms_labs') {
+          if (venueFilter === 'rooms_labs_pb') {
             rowsHtml += `
               <tr>
                 <td class="cell-time">${slot}</td>
                 <td>${sortedRooms.join(', ') || '—'}</td>
+                <td>${sortedPbs.join(', ') || '—'}</td>
                 <td>${sortedPcs.join(', ') || '—'}</td>
               </tr>
             `;
@@ -3909,8 +3932,11 @@ document.addEventListener('DOMContentLoaded', () => {
               <tr>
                 <td class="cell-time">${slot}</td>
                 <td>${sortedRooms.join(', ') || '—'}</td>
+                <td>${sortedPbs.join(', ') || '—'}</td>
+                <td>${sortedTuts.join(', ') || '—'}</td>
                 <td>${sortedPcs.join(', ') || '—'}</td>
-                <td>${sortedOther.join(', ') || '—'}</td>
+                <td>${sortedScrs.join(', ') || '—'}</td>
+                <td>${sortedOthers.join(', ') || '—'}</td>
               </tr>
             `;
           }
