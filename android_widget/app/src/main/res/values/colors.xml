@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="srcc_navy">#000066</color>
+    <color name="srcc_navy_light">#1E3A8A</color>
+    <color name="srcc_gold">#F59E0B</color>
+    <color name="srcc_gold_dark">#D97706</color>
+    <color name="srcc_green">#10B981</color>
+    <color name="srcc_red">#EF4444</color>
+    
+    <color name="widget_bg_light">#FFFFFF</color>
+    <color name="widget_text_primary">#0F172A</color>
+    <color name="widget_text_secondary">#64748B</color>
+    <color name="widget_border">#E2E8F0</color>
+    <color name="widget_pill_bg">#EFF6FF</color>
+    <color name="widget_pill_text">#1D4ED8</color>
+    <color name="widget_leave_bg">#FEF3C7</color>
+    <color name="widget_leave_text">#B45309</color>
+</resources>

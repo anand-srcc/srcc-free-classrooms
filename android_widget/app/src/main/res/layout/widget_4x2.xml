@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_4x2_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/widget_bg_card"
+    android:padding="12dp">
+
+    <!-- Header Strip -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="8dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_4x2_header_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SRCC · Today\'s Schedule"
+                android:textColor="@color/srcc_navy"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_4x2_header_sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="B.Com (Hons) · Sem I · Sec A"
+                android:textColor="@color/widget_text_secondary"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btn_4x2_refresh"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_refresh"
+            android:contentDescription="Refresh Timetable" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/widget_border"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Class 1 Row -->
+    <LinearLayout
+        android:id="@+id/row_4x2_class1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingVertical="4dp">
+
+        <TextView
+            android:id="@+id/tv_4x2_c1_time"
+            android:layout_width="74dp"
+            android:layout_height="wrap_content"
+            android:text="8:30 AM"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textColor="@color/widget_pill_text" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_4x2_c1_sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Business Law"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/widget_text_primary"
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+            <TextView
+                android:id="@+id/tv_4x2_c1_prof"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Prof. R. Sharma"
+                android:textSize="10sp"
+                android:textColor="@color/widget_text_secondary"
+                android:maxLines="1"
+                android:ellipsize="end" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_4x2_c1_room"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="R12"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textColor="@color/srcc_navy"
+            android:layout_marginEnd="6dp" />
+
+        <TextView
+            android:id="@+id/tv_4x2_c1_leave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🏖️"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <!-- Class 2 Row -->
+    <LinearLayout
+        android:id="@+id/row_4x2_class2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingVertical="4dp">
+
+        <TextView
+            android:id="@+id/tv_4x2_c2_time"
+            android:layout_width="74dp"
+            android:layout_height="wrap_content"
+            android:text="9:30 AM"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textColor="@color/widget_pill_text" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_4x2_c2_sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Management Principles"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/widget_text_primary"
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+            <TextView
+                android:id="@+id/tv_4x2_c2_prof"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Prof. A. Kumar"
+                android:textSize="10sp"
+                android:textColor="@color/widget_text_secondary"
+                android:maxLines="1"
+                android:ellipsize="end" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_4x2_c2_room"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="R14"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textColor="@color/srcc_navy"
+            android:layout_marginEnd="6dp" />
+
+        <TextView
+            android:id="@+id/tv_4x2_c2_leave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🏖️"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <!-- Empty Message View -->
+    <TextView
+        android:id="@+id/tv_4x2_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_classes_today"
+        android:gravity="center"
+        android:paddingVertical="12dp"
+        android:textColor="@color/widget_text_secondary"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+</LinearLayout>

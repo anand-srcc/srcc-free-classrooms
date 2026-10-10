@@ -1493,7 +1493,8 @@ document.addEventListener('DOMContentLoaded', () => {
       wifi: document.getElementById('tabContentWifi'),
       broadcast: document.getElementById('tabContentBroadcast'),
       reports: document.getElementById('tabContentReports'),
-      settings: document.getElementById('tabContentSettings')
+      settings: document.getElementById('tabContentSettings'),
+      print: document.getElementById('tabContentPrint')
     };
 
     adminTabBtns.forEach(btn => {
@@ -1503,6 +1504,9 @@ document.addEventListener('DOMContentLoaded', () => {
         Object.entries(tabPanes).forEach(([tabName, el]) => {
           if (el) el.classList.toggle('active', tabName === target);
         });
+        if (target === 'print') {
+          renderPrintSheets();
+        }
       });
     });
 
@@ -1532,6 +1536,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initCampusNoticesListeners();
     initRoomsListeners();
     initWifiListeners();
+    initPrintSheets();
     initAttachmentModal();
     fetchCloudRoomLocks();
     fetchCloudCampusNotices();
@@ -3599,6 +3604,321 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('adminWifiSearchInput');
     if (searchInput) {
       searchInput.addEventListener('input', renderWifiTable);
+    }
+  }
+
+  // ==========================================================================
+  // 🖨️ PRINT NOTICE SHEETS (SRCC PHYSICAL NOTICE BOARD SHEETS)
+  // ==========================================================================
+  function naturalSortRooms(arr) {
+    return [...arr].sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
+  }
+
+  function formatPrintDate(isoDateStr) {
+    if (!isoDateStr) return '';
+    try {
+      const parts = isoDateStr.split('-');
+      if (parts.length === 3) {
+        const d = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+        const day = d.getDate();
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        return `${day} ${monthNames[d.getMonth()]} ${d.getFullYear()}`;
+      }
+    } catch (e) {}
+    return isoDateStr;
+  }
+
+  function formatShortDate(isoDateStr) {
+    if (!isoDateStr) return '';
+    try {
+      const parts = isoDateStr.split('-');
+      if (parts.length === 3) {
+        const d = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+        const day = String(d.getDate()).padStart(2, '0');
+        const shortMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        return `${day} ${shortMonths[d.getMonth()]} ${d.getFullYear()}`;
+      }
+    } catch (e) {}
+    return isoDateStr;
+  }
+
+  function getDayOfWeekFromIso(isoDateStr) {
+    if (!isoDateStr) return getTodayDayName();
+    const parts = isoDateStr.split('-');
+    if (parts.length === 3) {
+      const d = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      return days[d.getDay()];
+    }
+    return getTodayDayName();
+  }
+
+  function initPrintSheets() {
+    const dateInput = document.getElementById('adminPrintDateSelect');
+    if (dateInput && !dateInput.value) {
+      dateInput.value = getTodayIsoDate();
+    }
+
+    const triggerBtn = document.getElementById('btnAdminTriggerPrint');
+    if (triggerBtn) {
+      triggerBtn.addEventListener('click', () => {
+        window.print();
+      });
+    }
+
+    const refreshBtn = document.getElementById('btnAdminRefreshPrintSheets');
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', renderPrintSheets);
+    }
+
+    const sheetsSelect = document.getElementById('adminPrintSheetsSelect');
+    if (sheetsSelect) {
+      sheetsSelect.addEventListener('change', () => {
+        const sheetMatrix = document.getElementById('printSheetMatrix');
+        const sheetLeaves = document.getElementById('printSheetLeaves');
+        const val = sheetsSelect.value;
+        if (sheetMatrix) sheetMatrix.style.display = (val === 'both' || val === 'matrix') ? 'flex' : 'none';
+        if (sheetLeaves) sheetLeaves.style.display = (val === 'both' || val === 'leaves') ? 'flex' : 'none';
+      });
+    }
+
+    const slotRangeSelect = document.getElementById('adminPrintSlotRange');
+    if (slotRangeSelect) {
+      slotRangeSelect.addEventListener('change', renderPrintSheets);
+    }
+
+    if (dateInput) {
+      dateInput.addEventListener('change', renderPrintSheets);
+    }
+  }
+
+  function renderPrintSheets() {
+    const dateInput = document.getElementById('adminPrintDateSelect');
+    const selectedDate = (dateInput && dateInput.value) ? dateInput.value : getTodayIsoDate();
+    const dayName = getDayOfWeekFromIso(selectedDate);
+    const formattedDate = formatPrintDate(selectedDate);
+
+    const sheetsSelect = document.getElementById('adminPrintSheetsSelect');
+    const sheetMode = sheetsSelect ? sheetsSelect.value : 'both';
+    const sheetMatrix = document.getElementById('printSheetMatrix');
+    const sheetLeaves = document.getElementById('printSheetLeaves');
+
+    if (sheetMatrix) sheetMatrix.style.display = (sheetMode === 'both' || sheetMode === 'matrix') ? 'flex' : 'none';
+    if (sheetLeaves) sheetLeaves.style.display = (sheetMode === 'both' || sheetMode === 'leaves') ? 'flex' : 'none';
+
+    const slotRangeSelect = document.getElementById('adminPrintSlotRange');
+    const slotRange = slotRangeSelect ? slotRangeSelect.value : 'all';
+
+    const now = new Date();
+    const generatedTimeStr = `Printed on: ${formatShortDate(getTodayIsoDate())}, ${now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })} IST`;
+
+    // 1. SHEET 1: EMPTY ROOMS MATRIX
+    const matrixTitle = document.getElementById('printMatrixTitle');
+    const matrixMeta = document.getElementById('printMatrixMeta');
+    const matrixTbody = document.getElementById('printMatrixTbody');
+    const matrixGenTime = document.getElementById('printMatrixGeneratedTime');
+
+    let slotTitleText = '8:30 AM - 6:00 PM';
+    if (slotRange === 'morning') slotTitleText = '8:30 AM - 1:30 PM';
+    else if (slotRange === 'afternoon') slotTitleText = '2:00 PM - 6:00 PM';
+
+    if (matrixTitle) matrixTitle.textContent = `EMPTY ROOMS MATRIX (${slotTitleText})`;
+    if (matrixMeta) matrixMeta.textContent = `Date: ${formattedDate} | Day: ${dayName}`;
+    if (matrixGenTime) matrixGenTime.textContent = generatedTimeStr;
+
+    const allSlots = [
+      '8:30 AM to 9:30 AM',
+      '9:30 AM to 10:30 AM',
+      '10:30 AM to 11:30 AM',
+      '11:30 AM to 12:30 PM',
+      '12:30 PM to 1:30 PM',
+      '2:00 PM to 3:00 PM',
+      '3:00 PM to 4:00 PM',
+      '4:00 PM to 5:00 PM',
+      '5:00 PM to 6:00 PM'
+    ];
+
+    let targetSlots = allSlots;
+    if (slotRange === 'morning') {
+      targetSlots = allSlots.slice(0, 5);
+    } else if (slotRange === 'afternoon') {
+      targetSlots = allSlots.slice(5);
+    }
+
+    if (matrixTbody) {
+      if (dayName === 'Sunday') {
+        matrixTbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 24px; font-weight:700;">College is closed on Sunday. All classrooms are non-academic.</td></tr>`;
+      } else {
+        const roomsMap = (window.SRCC_DATA && window.SRCC_DATA.rooms) ? window.SRCC_DATA.rooms : {};
+        const roomKeys = Object.keys(roomsMap);
+
+        // Get active locks for this date & day
+        const currentLocks = getRoomLocksList();
+
+        let rowsHtml = '';
+        targetSlots.forEach((slot) => {
+          // If in 'all' mode and we reach 2:00 PM, insert Lunch Recess divider
+          if (slotRange === 'all' && slot === '2:00 PM to 3:00 PM') {
+            rowsHtml += `
+              <tr style="background: #f8fafc; font-weight: 700;">
+                <td class="cell-time" style="background:#f1f5f9;">1:30 PM to 2:00 PM</td>
+                <td colspan="4" style="text-align: center; letter-spacing: 2px; font-size: 8pt; color: #475569;">
+                  — LUNCH RECESS —
+                </td>
+              </tr>
+            `;
+          }
+
+          const freeRooms = [];
+          const freeTuts = [];
+          const freePcs = [];
+          const freeScrs = [];
+
+          roomKeys.forEach(rKey => {
+            const roomObj = roomsMap[rKey];
+            if (!roomObj) return;
+            const rCode = roomObj.code || '';
+            const scheduleForDay = roomObj.schedule ? roomObj.schedule[dayName] : null;
+
+            let isFree = false;
+            if (scheduleForDay) {
+              if (Array.isArray(scheduleForDay.free_slots) && scheduleForDay.free_slots.includes(slot)) {
+                isFree = true;
+              } else if (Array.isArray(scheduleForDay.occupied_slots)) {
+                const isOccupied = scheduleForDay.occupied_slots.some(occ => occ.slot === slot);
+                if (!isOccupied) isFree = true;
+              }
+            } else {
+              isFree = true;
+            }
+
+            // Check if locked in admin locks
+            if (isFree) {
+              const isLocked = currentLocks.some(lock => {
+                if (String(lock.room_code || lock.roomCode || '').toUpperCase() !== rCode.toUpperCase()) return false;
+                if (lock.recurrence === 'daily') return true;
+                if (lock.recurrence === 'once' && lock.date === selectedDate) {
+                  return (lock.slot === 'ALL_DAY' || lock.slot === slot);
+                }
+                if (lock.recurrence === 'weekly' && Array.isArray(lock.days) && lock.days.includes(dayName)) {
+                  return (lock.slot === 'ALL_DAY' || lock.slot === slot);
+                }
+                if (lock.recurrence === 'weekend' && (dayName === 'Saturday' || dayName === 'Sunday')) {
+                  return (lock.slot === 'ALL_DAY' || lock.slot === slot);
+                }
+                return false;
+              });
+
+              if (isLocked) {
+                isFree = false;
+              }
+            }
+
+            if (isFree) {
+              const codeUp = rCode.toUpperCase();
+              if (codeUp.startsWith('T') && !codeUp.startsWith('TOTAL')) {
+                freeTuts.push(rCode);
+              } else if (codeUp.startsWith('CL') || codeUp.includes('LAB') || codeUp.includes('PC')) {
+                freePcs.push(rCode);
+              } else if (codeUp.startsWith('SCR')) {
+                freeScrs.push(rCode);
+              } else {
+                freeRooms.push(rCode);
+              }
+            }
+          });
+
+          const sortedRooms = naturalSortRooms(freeRooms);
+          const sortedTuts = naturalSortRooms(freeTuts);
+          const sortedPcs = naturalSortRooms(freePcs);
+          const sortedScrs = naturalSortRooms(freeScrs);
+
+          rowsHtml += `
+            <tr>
+              <td class="cell-time">${slot}</td>
+              <td>${sortedRooms.join(', ') || '—'}</td>
+              <td>${sortedTuts.join(', ') || '—'}</td>
+              <td>${sortedPcs.join(', ') || '—'}</td>
+              <td>${sortedScrs.join(', ') || '—'}</td>
+            </tr>
+          `;
+        });
+
+        matrixTbody.innerHTML = rowsHtml;
+      }
+    }
+
+    // 2. SHEET 2: FACULTY ON LEAVE
+    const leavesMeta = document.getElementById('printLeavesMeta');
+    const leavesTbody = document.getElementById('printLeavesTbody');
+    const leavesGenTime = document.getElementById('printLeavesGeneratedTime');
+
+    if (leavesMeta) leavesMeta.textContent = `Date: ${formattedDate} | Day: ${dayName}`;
+    if (leavesGenTime) leavesGenTime.textContent = generatedTimeStr;
+
+    if (leavesTbody) {
+      let allLeaves = [];
+      try {
+        allLeaves = getLeavesList();
+      } catch (e) {
+        if (window.SRCC_FACULTY_LEAVES && window.SRCC_FACULTY_LEAVES.leaves) {
+          allLeaves = window.SRCC_FACULTY_LEAVES.leaves;
+        }
+      }
+
+      // Filter leaves covering selectedDate, fallback to all recorded leaves
+      let activeLeaves = allLeaves.filter(l => {
+        const s = l.start_date || l.startDate;
+        const e = l.end_date || l.endDate || s;
+        if (!s) return false;
+        return (selectedDate >= s && selectedDate <= e);
+      });
+
+      if (activeLeaves.length === 0) {
+        activeLeaves = allLeaves;
+      }
+
+      let leavesHtml = '';
+      if (activeLeaves.length === 0) {
+        leavesHtml += `<tr><td colspan="5" style="text-align: center; padding: 20px; font-weight: 700;">No faculty reported on leave for this date.</td></tr>`;
+      } else {
+        activeLeaves.forEach((leave, idx) => {
+          let name = (leave.teacher_name || leave.teacherName || 'Faculty Member').toUpperCase().trim();
+          if (!name.startsWith('DR.') && !name.startsWith('PROF.') && !name.startsWith('MR.') && !name.startsWith('MS.')) {
+            name = 'DR. ' + name;
+          }
+          const dept = leave.department ? ` (${leave.department})` : '';
+          const fromDate = formatShortDate(leave.start_date || leave.startDate);
+          const toDate = formatShortDate(leave.end_date || leave.endDate || leave.start_date || leave.startDate);
+          const daysVal = leave.half_day ? '½' : (leave.days_count || leave.days || '1');
+
+          leavesHtml += `
+            <tr>
+              <td class="cell-sno">${idx + 1}</td>
+              <td class="cell-faculty-name">${name}${dept}</td>
+              <td class="cell-date">${fromDate}</td>
+              <td class="cell-date">${toDate}</td>
+              <td class="cell-days">${daysVal}</td>
+            </tr>
+          `;
+        });
+      }
+
+      const targetRowCount = Math.max(10, activeLeaves.length + 3);
+      const remainingRows = targetRowCount - (activeLeaves.length || 1);
+      for (let r = 0; r < remainingRows; r++) {
+        leavesHtml += `
+          <tr class="blank-ruled-row">
+            <td class="cell-sno">&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        `;
+      }
+
+      leavesTbody.innerHTML = leavesHtml;
     }
   }
 

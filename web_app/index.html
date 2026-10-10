@@ -12,7 +12,7 @@
   
   <!-- PWA Manifest & Theme Color -->
   <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#111827" />
+  <meta name="theme-color" content="#ffffff" />
 
   <!-- Website URL Logo / Favicon (Transparent 100 Years Centenary Logo) -->
   <link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=3" />
@@ -110,10 +110,7 @@
     <!-- Campus Notice & Banner Container (Shows ONLY when Admin pushes a notice, e.g. Freshers / Elections / Circulars) -->
     <div id="campusNoticeBannerContainer" style="display: none;"></div>
 
-    <!-- 📌 "MERE BATCH KA AAJ KA SCHEDULE" & NEXT CLASS WIDGET -->
-    <section id="myBatchScheduleWidget" class="my-batch-widget"></section>
-
-    <!-- Top Dual-Mode Switcher: Free Classrooms vs Faculty Locator vs Timetable vs WiFi -->
+    <!-- Top Dual-Mode Switcher: Free Classrooms vs Faculty Locator vs Timetable -->
     <div class="app-mode-switcher-container">
       <div class="app-mode-switcher" role="tablist">
         <button class="mode-tab active" id="tabModeRooms" role="tab" aria-selected="true" data-mode="rooms">
@@ -127,10 +124,6 @@
         <button class="mode-tab" id="tabModeTimetable" role="tab" aria-selected="false" data-mode="timetable">
           <span class="mode-tab-icon">📅</span>
           <span class="mode-tab-text">Timetable</span>
-        </button>
-        <button class="mode-tab" id="tabModeWifi" role="tab" aria-selected="false" data-mode="wifi">
-          <span class="mode-tab-icon">📶</span>
-          <span class="mode-tab-text">Campus WiFi</span>
         </button>
       </div>
     </div>
@@ -464,7 +457,13 @@
         <div class="tt-action-title">
           <span>📅 SRCC Student Timetable & Vacant Rooms</span>
         </div>
-        <div class="faculty-action-leaves-wrap">
+        <div class="faculty-action-leaves-wrap" style="display: flex; gap: 8px; align-items: center;">
+          <button type="button" class="tt-widget-shortcut-btn" id="btnOpenWidgetSetupModal" title="Set up Phone Widget or Export QR Profile">
+            <span>📱 Set up Widget</span>
+          </button>
+          <a href="widget.html" class="tt-widget-shortcut-btn" title="Open or Pin Daily Batch Schedule Widget (Snack-sized daily view)">
+            <span>👁️ Open Widget PWA</span>
+          </a>
           <span class="tt-live-pill">Live Daily Sync</span>
         </div>
       </div>
@@ -490,10 +489,11 @@
         <!-- 2. Course Selection Pills -->
         <div class="control-row">
           <span class="row-label">Course:</span>
-          <div class="category-pills" id="ttMainCoursePills">
-            <button class="cat-pill active" data-course="B.A. (Hons) Economics">B.A. (Hons) Economics</button>
+          <div class="category-pills tt-course-pills" id="ttMainCoursePills">
+            <button class="cat-pill active" data-course="B.A. (Hons) Economics">B.A. (Hons) Eco</button>
             <button class="cat-pill" data-course="B.Com (Hons)">B.Com (Hons)</button>
             <button class="cat-pill" data-course="M.Com">M.Com</button>
+            <button class="cat-pill" data-course="GBO">GBO</button>
             <button class="cat-pill" data-course="SEC">SEC</button>
             <button class="cat-pill" data-course="VAC">VAC</button>
           </div>
@@ -770,9 +770,9 @@
       <span class="bnav-icon">📅</span>
       <span class="bnav-label">Timetable</span>
     </button>
-    <button class="bottom-nav-item" id="bnavFreeNow" data-bnav="freenow" title="Rooms Free Right Now">
-      <span class="bnav-icon">⚡</span>
-      <span class="bnav-label">Free Now</span>
+    <button class="bottom-nav-item" id="bnavWifi" data-bnav="wifi" title="Campus WiFi Networks & Passwords">
+      <span class="bnav-icon">📶</span>
+      <span class="bnav-label">WiFi</span>
     </button>
   </nav>
 
@@ -895,16 +895,31 @@
           </button>
         </div>
 
-        <!-- 🔗 Direct Room Link & QR Code Box -->
-        <button type="button" class="btn-copy-direct-link" id="btnCopyDirectRoomLink">
-          🔗 Copy Direct Room Link (?room=...)
-        </button>
-        <button type="button" class="btn-toggle-qr" id="btnToggleRoomQr">
-          📷 Show Room QR Code for Group Study
-        </button>
-        <div id="roomQrContainer" class="room-qr-box" style="display: none;">
-          <img id="roomQrImg" class="room-qr-img" src="" alt="Room Schedule QR Code" />
-          <p class="room-qr-caption">Scan with any phone camera or WhatsApp scanner to open this room directly!</p>
+        <!-- 📷 Customized SRCC Room QR Code Card Section -->
+        <div class="room-qr-action-wrapper" style="margin-top: 14px;">
+          <button type="button" class="btn-share-room-qr" id="btnShareRoomQr" style="width: 100%; padding: 11px 16px; border-radius: 10px; border: none; background: linear-gradient(135deg, #1d4ed8, #2563eb); color: #fff; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25); font-size: 0.95rem;">
+            <span>📷 Share Room QR</span>
+          </button>
+          
+          <div id="roomQrContainer" class="room-custom-qr-card" style="display: none; margin-top: 14px;">
+            <div class="custom-qr-preview-box" id="customQrPreviewBox" style="text-align: center;">
+              <canvas id="roomCustomQrCanvas" width="380" height="490" style="width: 100%; max-width: 300px; border-radius: 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.12); margin: 0 auto; display: block; background: #ffffff;"></canvas>
+            </div>
+            <div class="room-qr-btn-group" style="display: flex; gap: 8px; margin-top: 12px; justify-content: center; flex-wrap: wrap;">
+              <button type="button" id="btnDownloadRoomQr" style="padding: 8px 14px; border-radius: 8px; border: 1px solid #1d4ed8; background: #eff6ff; color: #1d4ed8; font-weight: 600; font-size: 0.85rem; cursor: pointer;">
+                📥 Download QR (PNG)
+              </button>
+              <button type="button" id="btnCopyCleanRoomLink" style="padding: 8px 14px; border-radius: 8px; border: 1px solid var(--border-color, #e2e8f0); background: var(--bg-card); color: var(--text-primary); font-size: 0.85rem; cursor: pointer;">
+                📋 Copy Link
+              </button>
+              <button type="button" id="btnShareWaQr" style="padding: 8px 14px; border-radius: 8px; border: none; background: #25D366; color: #fff; font-weight: 600; font-size: 0.85rem; cursor: pointer;">
+                💬 WhatsApp QR
+              </button>
+            </div>
+            <p class="room-qr-caption" style="text-align: center; margin: 8px 0 0; font-size: 0.78rem; color: var(--text-muted);">
+              Scan with phone camera or WhatsApp scanner to open this room directly!
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -1010,6 +1025,100 @@
         <button type="button" id="btnCloseStudentAttachmentModal" style="background: transparent; border: none; font-size: 1.25rem; cursor: pointer; color: #64748b; padding: 4px;">✕</button>
       </div>
       <div class="attachment-modal-body" id="studentAttachmentModalBody"></div>
+    </div>
+  </div>
+
+  <!-- Home-Screen Timetable Widget Setup Modal -->
+  <div id="widgetSetupModal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 2100; align-items: center; justify-content: center; backdrop-filter: blur(4px);">
+    <div class="modal-card" style="background: var(--bg-card); width: 92%; max-width: 480px; max-height: 90vh; overflow-y: auto; border-radius: var(--radius-lg); padding: 22px; box-shadow: var(--shadow-xl); border: 1px solid var(--border-color);">
+      <div class="modal-header" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px;">
+        <div>
+          <h2 class="modal-title" style="margin: 0; font-size: 1.18rem; font-family: var(--font-display); font-weight: 800; color: var(--text-primary); display: flex; align-items: center; gap: 6px;">
+            <span>📱</span> <span>Set up Home-Screen Widget</span>
+          </h2>
+          <p style="margin: 4px 0 0; font-size: 0.78rem; color: var(--text-secondary);">
+            Set your course, semester &amp; batch once to get live daily schedule cards on your Android or Web home screen.
+          </p>
+        </div>
+        <button id="btnCloseWidgetSetupModal" class="btn-icon" style="background:none; border:none; font-size:1.4rem; cursor:pointer; color: var(--text-secondary);">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div style="background: #f8fafc; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 14px; margin-bottom: 14px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+            <div>
+              <label style="display: block; font-size: 0.76rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 4px;">Course:</label>
+              <select id="wSetupCourse" style="width: 100%; padding: 7px 10px; border: 1px solid var(--border-color); border-radius: 6px; font-weight: 700; font-size: 0.82rem; background: var(--bg-input); color: var(--text-primary);">
+                <option value="B.Com (Hons)">B.Com (Hons)</option>
+                <option value="B.A. (Hons) Economics">B.A. (Hons) Economics</option>
+                <option value="M.Com">M.Com</option>
+                <option value="GBO">GBO</option>
+                <option value="SEC">SEC</option>
+                <option value="VAC">VAC</option>
+              </select>
+            </div>
+            <div>
+              <label style="display: block; font-size: 0.76rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 4px;">Semester:</label>
+              <select id="wSetupSem" style="width: 100%; padding: 7px 10px; border: 1px solid var(--border-color); border-radius: 6px; font-weight: 700; font-size: 0.82rem; background: var(--bg-input); color: var(--text-primary);">
+                <option value="Sem I">Sem I</option>
+                <option value="Sem III">Sem III</option>
+                <option value="Sem V">Sem V</option>
+                <option value="Sem VII">Sem VII</option>
+              </select>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div id="wSetupSecField">
+              <label style="display: block; font-size: 0.76rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 4px;">Section:</label>
+              <select id="wSetupSec" style="width: 100%; padding: 7px 10px; border: 1px solid var(--border-color); border-radius: 6px; font-weight: 700; font-size: 0.82rem; background: var(--bg-input); color: var(--text-primary);">
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+            <div>
+              <label style="display: block; font-size: 0.76rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 4px;">Batch / Group:</label>
+              <select id="wSetupBatch" style="width: 100%; padding: 7px 10px; border: 1px solid var(--border-color); border-radius: 6px; font-weight: 700; font-size: 0.82rem; background: var(--bg-input); color: var(--text-primary);">
+                <option value="ALL">All Batches (Whole Section)</option>
+                <option value="Batch 1">Batch 1</option>
+                <option value="Batch 2">Batch 2</option>
+                <option value="Batch 3">Batch 3</option>
+                <option value="Batch 4">Batch 4</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Generated QR Code Display -->
+        <div style="text-align: center; margin-bottom: 14px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 14px;">
+          <div style="font-size: 0.76rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 8px;">
+            📷 SCAN WITH SRCC WIDGET APP
+          </div>
+          <div id="wSetupQrContainer" style="display: flex; justify-content: center; min-height: 160px; align-items: center;">
+            <canvas id="wSetupQrCanvas" width="180" height="180" style="max-width: 180px; height: auto; border-radius: 8px;"></canvas>
+          </div>
+          <div id="wSetupProfileSummary" style="font-size: 0.8rem; font-weight: 800; color: #000066; margin-top: 6px;">
+            B.Com (Hons) · Sem I · Sec A
+          </div>
+        </div>
+
+        <!-- Share & Export Buttons -->
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <button type="button" id="btnCopyWidgetShareLink" style="padding: 9px 12px; background: #0284c7; color: #fff; border: none; border-radius: 6px; font-weight: 700; font-size: 0.78rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span>🔗</span> <span>Copy Share Link</span>
+            </button>
+            <button type="button" id="btnCopyWidgetJson" style="padding: 9px 12px; background: #334155; color: #fff; border: none; border-radius: 6px; font-weight: 700; font-size: 0.78rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span>📄</span> <span>Copy Profile JSON</span>
+            </button>
+          </div>
+          <a id="btnLaunchWidgetPwaLink" href="widget.html" target="_blank" style="padding: 9px 12px; background: linear-gradient(135deg, #000066, #1e3a8a); color: #fff; border: none; border-radius: 6px; font-weight: 800; font-size: 0.82rem; text-decoration: none; text-align: center; display: block; box-shadow: 0 4px 10px rgba(0,0,102,0.2);">
+            🌐 Open Standalone Widget Page (PWA) ↗
+          </a>
+        </div>
+
+        <div style="margin-top: 12px; font-size: 0.74rem; color: var(--text-secondary); line-height: 1.4; border-top: 1px dashed var(--border-color); padding-top: 10px;">
+          💡 <strong>Tip for Android users:</strong> Install the SRCC Widget companion APK, tap <em>"Import Profile"</em>, scan this QR code or paste your link. Then pick the 4x1, 4x2, or 4x4 widget on your phone home screen!
+        </div>
+      </div>
     </div>
   </div>
 

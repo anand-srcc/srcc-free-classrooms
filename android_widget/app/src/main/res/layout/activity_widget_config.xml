@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8FAFC"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SRCC Timetable Widget Setup"
+            android:textColor="@color/srcc_navy"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose your course, semester and section once to populate your home-screen widget every morning."
+            android:textColor="@color/widget_text_secondary"
+            android:textSize="13sp"
+            android:layout_marginTop="6dp" />
+
+        <!-- Course Picker -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Course"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:layout_marginTop="18dp" />
+
+        <Spinner
+            android:id="@+id/spn_config_course"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/widget_bg_card"
+            android:layout_marginTop="4dp" />
+
+        <!-- Semester Picker -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Semester"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:layout_marginTop="12dp" />
+
+        <Spinner
+            android:id="@+id/spn_config_sem"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/widget_bg_card"
+            android:layout_marginTop="4dp" />
+
+        <!-- Section Picker -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Section"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:layout_marginTop="12dp" />
+
+        <Spinner
+            android:id="@+id/spn_config_sec"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/widget_bg_card"
+            android:layout_marginTop="4dp" />
+
+        <!-- Batch Picker -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Batch / Group"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:layout_marginTop="12dp" />
+
+        <Spinner
+            android:id="@+id/spn_config_batch"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/widget_bg_card"
+            android:layout_marginTop="4dp" />
+
+        <!-- Paste Code Alternative -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Or Paste Profile Code / Link"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:layout_marginTop="18dp" />
+
+        <EditText
+            android:id="@+id/et_config_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Paste base64 code or URL from Web Timetable"
+            android:background="@drawable/widget_bg_card"
+            android:padding="12dp"
+            android:textSize="12sp"
+            android:layout_marginTop="4dp" />
+
+        <Button
+            android:id="@+id/btn_save_config"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Save &amp; Add Widget"
+            android:backgroundTint="@color/srcc_navy"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp" />
+
+    </LinearLayout>
+
+</ScrollView>

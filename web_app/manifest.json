@@ -6,8 +6,23 @@
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#070b19",
-  "theme_color": "#000066",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "shortcuts": [
+    {
+      "name": "Today's Schedule Widget",
+      "short_name": "Schedule Widget",
+      "description": "Quick daily schedule and next class for your batch",
+      "url": "./widget.html",
+      "icons": [
+        {
+          "src": "favicon.png",
+          "sizes": "64x64",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
   "icons": [
     {
       "src": "favicon.png",

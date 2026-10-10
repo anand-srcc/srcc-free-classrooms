@@ -404,6 +404,11 @@ window.SRCC_FACULTY_LEAVES = {json.dumps(payload, indent=2, ensure_ascii=False)}
         f.write(js_content)
 
     print(f"\n[SUCCESS] Saved {len(processed_leaves)} active leaves to web_app/faculty_leaves.json and faculty_leaves.js!")
+    try:
+        from generate_widget_feed import generate_feed
+        generate_feed()
+    except Exception as e:
+        print(f"[WARN] Failed to regenerate widget_feed.json: {e}")
     return payload
 
 

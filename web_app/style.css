@@ -478,6 +478,48 @@ body {
   font-weight: 600;
 }
 
+/* Timetable Course Pills - Strictly Single-Line Horizontal Row */
+.tt-course-pills {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  gap: 6px !important;
+  scrollbar-width: none !important;
+  padding: 4px 2px !important;
+}
+.tt-course-pills::-webkit-scrollbar {
+  display: none !important;
+}
+.tt-course-pills .cat-pill {
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  padding: 6px 13px !important;
+  font-size: 0.83rem !important;
+}
+
+/* My Daily Widget Shortcut Button */
+.tt-widget-shortcut-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1d4ed8;
+  font-weight: 600;
+  font-size: 0.8rem;
+  padding: 4px 11px;
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.1);
+}
+.tt-widget-shortcut-btn:hover {
+  background: #dbeafe;
+  color: #1e40af;
+  transform: translateY(-1px);
+}
+
 /* Search and Slot Filter Bar */
 
 /* Category Pills Distinct Active Colors */

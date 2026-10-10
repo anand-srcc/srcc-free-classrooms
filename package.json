@@ -4,6 +4,7 @@
   "description": "SRCC Free Classrooms & Faculty Locator - Shri Ram College of Commerce",
   "main": "dev-server.js",
   "scripts": {
+    "test": "node test/run_all_tests.js",
     "dev": "node dev-server.js",
     "start": "node dev-server.js",
     "package:netlify": "node package_netlify.js",

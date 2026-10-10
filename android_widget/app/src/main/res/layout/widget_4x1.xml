@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_4x1_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@drawable/widget_bg_card"
+    android:padding="10dp"
+    android:gravity="center_vertical">
+
+    <!-- Left: Time / Period Tag -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/badge_room"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="4dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_4x1_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10:30 AM"
+            android:textColor="@color/widget_pill_text"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_4x1_period"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Period 3"
+            android:textColor="@color/widget_text_secondary"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <!-- Center: Subject & Professor -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_4x1_subject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Financial Management"
+            android:textColor="@color/widget_text_primary"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <TextView
+            android:id="@+id/tv_4x1_teacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Prof. R. Sharma"
+            android:textColor="@color/widget_text_secondary"
+            android:textSize="11sp"
+            android:maxLines="1"
+            android:ellipsize="end" />
+    </LinearLayout>
+
+    <!-- Right: Room & Leave Alert -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="end">
+
+        <TextView
+            android:id="@+id/tv_4x1_room"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Room 12"
+            android:textColor="@color/srcc_navy"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_4x1_leave_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🏖️ Leave"
+            android:background="@drawable/badge_leave"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="2dp"
+            android:textColor="@color/widget_leave_text"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</LinearLayout>

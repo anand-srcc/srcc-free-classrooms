@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">SRCC Timetable</string>
+    <string name="widget_4x1_name">SRCC Next Class (4x1)</string>
+    <string name="widget_4x2_name">SRCC Today\'s Schedule (4x2)</string>
+    <string name="widget_4x4_name">SRCC Daily Dashboard (4x4)</string>
+    <string name="college_full_name">Shri Ram College of Commerce</string>
+    <string name="no_classes_today">No classes scheduled for today 🎉</string>
+    <string name="college_closed_sunday">College is closed today (Sunday)</string>
+    <string name="all_classes_done">All classes for today are over ✨</string>
+    <string name="leave_alert_badge">🏖️ Faculty Leave</string>
+</resources>

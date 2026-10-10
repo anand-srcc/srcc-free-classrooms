@@ -874,6 +874,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const bnavRooms = document.getElementById('bnavRooms');
     const bnavFaculty = document.getElementById('bnavFaculty');
     const bnavFreeNow = document.getElementById('bnavFreeNow');
+    const bnavWifi = document.getElementById('bnavWifi');
     const bnavSearch = document.getElementById('bnavSearch');
     const bnavCommunity = document.getElementById('bnavCommunity');
 
@@ -1381,6 +1382,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (bnavRooms) bnavRooms.classList.toggle('active', isRooms);
       if (bnavFaculty) bnavFaculty.classList.toggle('active', isFaculty);
       if (bnavTimetable) bnavTimetable.classList.toggle('active', isTimetable);
+      if (bnavWifi) bnavWifi.classList.toggle('active', isWifi);
 
       // Clean filter reset when switching tabs so users never get stuck with leftover filters
       if (!preserveFilters) {
@@ -1442,6 +1444,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (bnavRooms) bnavRooms.addEventListener('click', () => setAppMode('rooms'));
     if (bnavFaculty) bnavFaculty.addEventListener('click', () => setAppMode('faculty'));
     if (bnavTimetable) bnavTimetable.addEventListener('click', () => setAppMode('timetable'));
+    if (bnavWifi) {
+      bnavWifi.addEventListener('click', () => {
+        const btnOpenHeader = document.getElementById('btnOpenWifiModal');
+        if (btnOpenHeader) {
+          btnOpenHeader.click();
+        } else {
+          const wifiModal = document.getElementById('wifiModal');
+          if (wifiModal) {
+            wifiModal.style.display = 'flex';
+            if (typeof window._renderWifiDirectory === 'function') window._renderWifiDirectory('wifiModalGrid');
+          }
+        }
+      });
+    }
     const btnHeaderTimetable = document.getElementById('btnHeaderTimetable');
     if (btnHeaderTimetable) btnHeaderTimetable.addEventListener('click', () => setAppMode('timetable'));
 
@@ -1935,8 +1951,8 @@ document.addEventListener('DOMContentLoaded', () => {
         ? sched.free_slots.map(s => `  • ${s.replace(' to ', ' – ')}`).join('\n')
         : '  • Only Lunch Recess (1:30 PM – 2:00 PM)';
 
-      const siteUrl = window.location.origin + window.location.pathname;
-      const directRoomUrl = `${siteUrl}?room=${encodeURIComponent(room.code)}`;
+      const siteUrl = window.location.origin + window.location.pathname.replace(/\/index\.html$/i, '');
+      const directRoomUrl = `${siteUrl}${siteUrl.endsWith('/') ? '' : '/'}?room=${encodeURIComponent(room.code)}`;
       const activeDateStr = getDateForDay(state.activeDay);
       const dayAndDateDisplay = `${state.activeDay}, ${activeDateStr}`;
 
@@ -1945,45 +1961,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const cleanMessage = `🎓 SRCC Classroom Vacancy Alert
 
-` +
-        `📍 Room: ${room.code} (${room.name})
-` +
-        `🏛️ Wing: ${room.category.split(' (')[0]}
-` +
-        `🗓️ Day & Date: ${dayAndDateDisplay}${freeUntilNote}
-` +
-        `👥 Capacity: ${room.capacity} seats
-` +
-        `☕ Lunch Recess: 1:30 PM – 2:00 PM (Vacant)
+📍 Room: ${room.code} (${room.name})
+🏛️ Wing: ${room.category.split(' (')[0]}
+🗓️ Day & Date: ${dayAndDateDisplay}${freeUntilNote}
+👥 Capacity: ${room.capacity} seats
+☕ Lunch Recess: 1:30 PM – 2:00 PM (Vacant)
 
-` +
-        `🕒 Free Academic Slots:
-${freeSlotsList}
-
-` +
-        `🔗 Direct Room Schedule & QR: ${directRoomUrl}
-` +
-        `🔍 SRCC Live Timetable Tracker: ${siteUrl}`;
+🕒 Free Academic Slots:
+${freeSlotsList}`;
 
       const whatsappMessage = `🎓 *SRCC Classroom Vacancy Alert*
 
-` +
-        `📍 *Room:* ${room.code} (${room.name})
-` +
-        `🏛️ *Wing:* ${room.category.split(' (')[0]}
-` +
-        `🗓️ *Day & Date:* ${dayAndDateDisplay}${freeUntilNote}
-` +
-        `👥 *Capacity:* ${room.capacity} seats
-` +
-        `☕ *Lunch Recess:* 1:30 PM – 2:00 PM (Vacant)
+📍 *Room:* ${room.code} (${room.name})
+🏛️ *Wing:* ${room.category.split(' (')[0]}
+🗓️ *Day & Date:* ${dayAndDateDisplay}${freeUntilNote}
+👥 *Capacity:* ${room.capacity} seats
+☕ *Lunch Recess:* 1:30 PM – 2:00 PM (Vacant)
 
-` +
-        `🕒 *Free Academic Slots:*
-${freeSlotsList}
-
-` +
-        `🔗 *Open Room Schedule Directly:* ${directRoomUrl}`;
+🕒 *Free Academic Slots:*
+${freeSlotsList}`;
 
       const tweetText = `🎓 SRCC Vacancy: Room ${room.code} is FREE on ${dayAndDateDisplay}! Check room schedule:`;
       const emailSubject = `SRCC Room Vacancy: ${room.code} (${dayAndDateDisplay})`;
@@ -1991,7 +1987,7 @@ ${freeSlotsList}
       currentShareMessage = cleanMessage;
 
       copyToClipboard(cleanMessage)
-        .then(() => showToast(`📋 Room details & direct link for <strong>${escapeHtml(room.code)}</strong> copied!`, true, 3500))
+        .then(() => showToast(`📋 Room details for <strong>${escapeHtml(room.code)}</strong> copied!`, true, 3500))
         .catch(() => showToast(`📤 Share Room <strong>${escapeHtml(room.code)}</strong>`, false, 2500));
 
       if (shareModalTitle) shareModalTitle.textContent = `📤 Share ${room.code} (${room.name})`;
@@ -2008,20 +2004,20 @@ ${freeSlotsList}
         shareBtnGmail.href = `https://mail.google.com/mail/?view=cm&fs=1&su=${encodeURIComponent(emailSubject)}&body=${encodedCleanMsg}`;
       }
       if (shareBtnX) {
-        shareBtnX.href = `https://x.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodedUrl}`;
+        shareBtnX.href = `https://x.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
       }
       if (shareBtnTelegram) {
-        shareBtnTelegram.href = `https://t.me/share/url?url=${encodedUrl}&text=${encodedCleanMsg}`;
+        shareBtnTelegram.href = `https://t.me/share/url?text=${encodedCleanMsg}`;
       }
 
       if (shareBtnLinkedin) {
         shareBtnLinkedin.onclick = (e) => {
           e.preventDefault();
           if (navigator.share) {
-            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage, url: directRoomUrl }).catch(() => {});
+            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage }).catch(() => {});
           } else {
             copyToClipboard(cleanMessage);
-            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`, '_blank', 'noopener,noreferrer');
+            window.open(`https://www.linkedin.com/feed/`, '_blank', 'noopener,noreferrer');
           }
         };
       }
@@ -2030,7 +2026,7 @@ ${freeSlotsList}
         shareBtnInstagram.onclick = (e) => {
           e.preventDefault();
           if (navigator.share) {
-            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage, url: directRoomUrl }).catch(() => {});
+            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage }).catch(() => {});
           } else {
             copyToClipboard(cleanMessage).then(() => showToast('📸 Copied! Opening Instagram...', true));
             window.open('https://www.instagram.com/direct/inbox/', '_blank', 'noopener,noreferrer');
@@ -2042,10 +2038,10 @@ ${freeSlotsList}
         shareBtnFacebook.onclick = (e) => {
           e.preventDefault();
           if (navigator.share) {
-            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage, url: directRoomUrl }).catch(() => {});
+            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage }).catch(() => {});
           } else {
             copyToClipboard(cleanMessage);
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`, '_blank', 'noopener,noreferrer');
+            window.open(`https://www.facebook.com/`, '_blank', 'noopener,noreferrer');
           }
         };
       }
@@ -2053,44 +2049,222 @@ ${freeSlotsList}
       if (navigator.share && btnPrimaryShare) {
         btnPrimaryShare.style.display = 'flex';
         btnPrimaryShare.onclick = () => {
-          navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage, url: directRoomUrl }).catch(() => {});
+          navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage }).catch(() => {});
         };
       } else if (btnPrimaryShare) {
         btnPrimaryShare.style.display = 'none';
       }
 
-      // Direct Room Link button
-      const btnCopyDirectRoomLink = document.getElementById('btnCopyDirectRoomLink');
-      if (btnCopyDirectRoomLink) {
-        btnCopyDirectRoomLink.textContent = `🔗 Copy Direct Room Link (?room=${room.code})`;
-        btnCopyDirectRoomLink.onclick = () => {
+      // 📷 Customized Room QR Code Generator
+      const btnShareRoomQr = document.getElementById('btnShareRoomQr');
+      const roomQrContainer = document.getElementById('roomQrContainer');
+      const roomCustomQrCanvas = document.getElementById('roomCustomQrCanvas');
+      const btnDownloadRoomQr = document.getElementById('btnDownloadRoomQr');
+      const btnCopyCleanRoomLink = document.getElementById('btnCopyCleanRoomLink');
+      const btnShareWaQr = document.getElementById('btnShareWaQr');
+
+      function drawCustomQrCard() {
+        if (!roomCustomQrCanvas) return;
+        const ctx = roomCustomQrCanvas.getContext('2d');
+        const W = roomCustomQrCanvas.width;
+        const H = roomCustomQrCanvas.height;
+
+        // Reset
+        ctx.clearRect(0, 0, W, H);
+
+        // Helper rounded rect
+        function drawRRect(x, y, w, h, r) {
+          ctx.beginPath();
+          ctx.moveTo(x + r, y);
+          ctx.lineTo(x + w - r, y);
+          ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+          ctx.lineTo(x + w, y + h - r);
+          ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+          ctx.lineTo(x + r, y + h);
+          ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+          ctx.lineTo(x, y + r);
+          ctx.quadraticCurveTo(x, y, x + r, y);
+          ctx.closePath();
+        }
+
+        // White Card Background
+        ctx.fillStyle = '#ffffff';
+        drawRRect(0, 0, W, H, 20);
+        ctx.fill();
+
+        // Card Border
+        ctx.strokeStyle = '#e2e8f0';
+        ctx.lineWidth = 2;
+        drawRRect(1, 1, W - 2, H - 2, 19);
+        ctx.stroke();
+
+        // Top Header Banner (Deep SRCC Navy Gradient)
+        const headerH = 75;
+        const grad = ctx.createLinearGradient(0, 0, W, 0);
+        grad.addColorStop(0, '#000066');
+        grad.addColorStop(1, '#1e3a8a');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.moveTo(0, 20);
+        ctx.quadraticCurveTo(0, 0, 20, 0);
+        ctx.lineTo(W - 20, 0);
+        ctx.quadraticCurveTo(W, 0, W, 20);
+        ctx.lineTo(W, headerH);
+        ctx.lineTo(0, headerH);
+        ctx.closePath();
+        ctx.fill();
+
+        // Gold bottom accent line on header
+        ctx.fillStyle = '#f59e0b';
+        ctx.fillRect(0, headerH - 3, W, 3);
+
+        // Header text
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('SHRI RAM COLLEGE OF COMMERCE', W / 2, 33);
+
+        ctx.fillStyle = '#bfdbfe';
+        ctx.font = '500 11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.fillText('Official Classroom Schedule & Direct QR', W / 2, 53);
+
+        // Loading QR Placeholder
+        ctx.fillStyle = '#f8fafc';
+        drawRRect(60, 95, 260, 240, 12);
+        ctx.fill();
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '500 12px sans-serif';
+        ctx.fillText('Generating customized QR...', W / 2, 215);
+
+        // Load QR Code
+        const qrImg = new Image();
+        qrImg.crossOrigin = 'anonymous';
+        qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(directRoomUrl)}`;
+
+        qrImg.onload = () => {
+          ctx.drawImage(qrImg, 70, 95, 240, 240);
+
+          // Center College Logo Badge
+          const logoX = W / 2;
+          const logoY = 95 + 120;
+          const logoR = 26;
+
+          // White Circular Shield with Shadow
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(logoX, logoY, logoR + 4, 0, Math.PI * 2);
+          ctx.fillStyle = '#ffffff';
+          ctx.shadowColor = 'rgba(0,0,0,0.25)';
+          ctx.shadowBlur = 8;
+          ctx.fill();
+          ctx.restore();
+
+          // Border around center badge
+          ctx.beginPath();
+          ctx.arc(logoX, logoY, logoR + 3, 0, Math.PI * 2);
+          ctx.strokeStyle = '#000066';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          // Draw Crest in center
+          const crestImg = new Image();
+          crestImg.crossOrigin = 'anonymous';
+          crestImg.src = 'srcc_crest.png';
+          crestImg.onload = () => {
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(logoX, logoY, logoR, 0, Math.PI * 2);
+            ctx.clip();
+            ctx.drawImage(crestImg, logoX - logoR, logoY - logoR, logoR * 2, logoR * 2);
+            ctx.restore();
+          };
+          crestImg.onerror = () => {
+            ctx.fillStyle = '#000066';
+            ctx.font = 'bold 12px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('SRCC', logoX, logoY);
+          };
+        };
+
+        // Room Name and Details Below QR
+        ctx.textBaseline = 'alphabetic';
+        const cleanRoomTitle = room.code.startsWith('R') ? `Room ${room.code.slice(1)}` : room.code;
+        ctx.fillStyle = '#0f172a';
+        ctx.font = 'bold 24px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(cleanRoomTitle, W / 2, 375);
+
+        ctx.fillStyle = '#64748b';
+        ctx.font = '500 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        const wingText = `${room.category.split(' (')[0]} · Capacity: ${room.capacity} seats`;
+        ctx.fillText(wingText, W / 2, 396);
+
+        // Vacancy Status Tag
+        const freeCount = sched.free_slots ? sched.free_slots.length : 0;
+        const pillText = freeCount > 0 ? `⚡ ${freeCount} Academic Slots Free Today` : `☕ Recess Free · Classes Scheduled`;
+        ctx.fillStyle = freeCount > 0 ? '#ecfdf5' : '#eff6ff';
+        drawRRect(50, 412, 280, 28, 14);
+        ctx.fill();
+
+        ctx.fillStyle = freeCount > 0 ? '#059669' : '#2563eb';
+        ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.fillText(pillText, W / 2, 430);
+
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '500 11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.fillText('Scan with phone camera or WhatsApp to open schedule', W / 2, 465);
+      }
+
+      if (btnShareRoomQr && roomQrContainer) {
+        roomQrContainer.style.display = 'none';
+        btnShareRoomQr.innerHTML = '<span>📷 Share Room QR</span>';
+        btnShareRoomQr.onclick = () => {
+          const isHidden = (roomQrContainer.style.display === 'none');
+          if (isHidden) {
+            roomQrContainer.style.display = 'block';
+            btnShareRoomQr.innerHTML = '<span>✕ Close Room QR</span>';
+            drawCustomQrCard();
+          } else {
+            roomQrContainer.style.display = 'none';
+            btnShareRoomQr.innerHTML = '<span>📷 Share Room QR</span>';
+          }
+        };
+      }
+
+      if (btnDownloadRoomQr && roomCustomQrCanvas) {
+        btnDownloadRoomQr.onclick = () => {
+          try {
+            const dataUrl = roomCustomQrCanvas.toDataURL('image/png');
+            const a = document.createElement('a');
+            a.href = dataUrl;
+            a.download = `SRCC_Room_${room.code}_Schedule_QR.png`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            showToast(`📥 <strong>Room ${room.code} QR Card</strong> downloaded!`, true);
+          } catch (e) {
+            showToast(`Unable to export image directly. Point phone to scan.`, false);
+          }
+        };
+      }
+
+      if (btnCopyCleanRoomLink) {
+        btnCopyCleanRoomLink.onclick = () => {
           copyToClipboard(directRoomUrl).then(() => {
-            btnCopyDirectRoomLink.textContent = `✅ Direct Link Copied! (?room=${room.code})`;
-            showToast(`🔗 Direct room link copied: <strong>${escapeHtml(room.code)}</strong>`, true, 3000);
+            btnCopyCleanRoomLink.textContent = '✅ Link Copied!';
+            showToast(`🔗 Clean room link copied: <strong>${escapeHtml(room.code)}</strong>`, true, 3000);
             setTimeout(() => {
-              btnCopyDirectRoomLink.textContent = `🔗 Copy Direct Room Link (?room=${room.code})`;
+              btnCopyCleanRoomLink.textContent = '📋 Copy Link';
             }, 2500);
           });
         };
       }
 
-      // Room QR Code toggle
-      const btnToggleRoomQr = document.getElementById('btnToggleRoomQr');
-      const roomQrContainer = document.getElementById('roomQrContainer');
-      const roomQrImg = document.getElementById('roomQrImg');
-      if (btnToggleRoomQr && roomQrContainer && roomQrImg) {
-        roomQrContainer.style.display = 'none';
-        btnToggleRoomQr.textContent = '📷 Show Room QR Code for Group Study';
-        btnToggleRoomQr.onclick = () => {
-          const isHidden = (roomQrContainer.style.display === 'none');
-          if (isHidden) {
-            roomQrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(directRoomUrl)}`;
-            roomQrContainer.style.display = 'block';
-            btnToggleRoomQr.textContent = '✕ Hide QR Code';
-          } else {
-            roomQrContainer.style.display = 'none';
-            btnToggleRoomQr.textContent = '📷 Show Room QR Code for Group Study';
-          }
+      if (btnShareWaQr) {
+        btnShareWaQr.onclick = () => {
+          const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(whatsappMessage + '\n\n🔗 ' + directRoomUrl)}`;
+          window.open(waUrl, '_blank', 'noopener,noreferrer');
         };
       }
 
@@ -4781,6 +4955,9 @@ window.SRCC_FACULTY_LEAVES = {
               if (!c && (rawUpper.includes('MCOM') || rawUpper.includes('M.COM'))) {
                 c = 'M.Com';
               }
+              if (!c && (rawUpper.includes('GBO') || (s.subject && s.subject.toUpperCase().includes('GBO')) || (s.subject_name && s.subject_name.toUpperCase().includes('GBO')))) {
+                c = 'GBO';
+              }
 
               if (c && sem && sec) {
                 if (!courseMap[c]) courseMap[c] = {};
@@ -4791,11 +4968,19 @@ window.SRCC_FACULTY_LEAVES = {
             });
           });
         });
+
+        // Ensure GBO semesters and default sections exist in courseMap
+        if (!courseMap['GBO']) courseMap['GBO'] = {};
+        ['Sem I', 'Sem II', 'Sem III', 'Sem IV'].forEach(sem => {
+          if (!courseMap['GBO'][sem]) courseMap['GBO'][sem] = {};
+          if (!courseMap['GBO'][sem]['Whole Batch']) courseMap['GBO'][sem]['Whole Batch'] = new Set(['ALL']);
+          if (!courseMap['GBO'][sem]['Sec A']) courseMap['GBO'][sem]['Sec A'] = new Set(['ALL', 'Batch 1', 'Batch 2']);
+        });
       }
 
       buildHierarchy();
 
-      const validCourses = ['B.A. (Hons) Economics', 'B.Com (Hons)', 'M.Com', 'SEC', 'VAC'];
+      const validCourses = ['B.A. (Hons) Economics', 'B.Com (Hons)', 'M.Com', 'GBO', 'SEC', 'VAC'];
       let savedCourse = localStorage.getItem('srcc_my_tt_course');
       if (savedCourse === 'SEC_VAC' || savedCourse === 'SEC / VAC') {
         savedCourse = 'SEC';
@@ -4886,17 +5071,19 @@ window.SRCC_FACULTY_LEAVES = {
             ttMainSearchInput.placeholder = 'Search VAC paper (e.g. VAC5, 5, EC), faculty, or room...';
           } else if (ttState.course === 'M.Com') {
             ttMainSearchInput.placeholder = 'Search M.Com paper (e.g. BRM, BADS), professor, batch, or room...';
+          } else if (ttState.course === 'GBO') {
+            ttMainSearchInput.placeholder = 'Search GBO paper, professor, batch, or room...';
           } else {
             ttMainSearchInput.placeholder = 'Search subject (e.g. MME), teacher, batch, or room...';
           }
         }
 
-        // Semesters adjustments for SEC / VAC or M.Com
+        // Semesters adjustments for SEC / VAC or M.Com or GBO
         if (isSecVacCourse) {
           if (ttState.sem === 'Sem VII') {
             ttState.sem = 'Sem I';
           }
-        } else if (ttState.course === 'M.Com') {
+        } else if (ttState.course === 'M.Com' || ttState.course === 'GBO') {
           if (ttState.sem === 'Sem V' || ttState.sem === 'Sem VII') {
             ttState.sem = 'Sem I';
           }
@@ -5009,7 +5196,7 @@ window.SRCC_FACULTY_LEAVES = {
           pill.classList.toggle('active', sem === ttState.sem);
           if (isSecVacCourse) {
             pill.style.display = (sem === 'Sem VII') ? 'none' : '';
-          } else if (ttState.course === 'M.Com') {
+          } else if (ttState.course === 'M.Com' || ttState.course === 'GBO') {
             pill.style.display = (sem === 'Sem V' || sem === 'Sem VII') ? 'none' : '';
           } else {
             pill.style.display = '';
@@ -5143,8 +5330,9 @@ window.SRCC_FACULTY_LEAVES = {
                 const sCourse = (s.course || '').trim();
                 const rawUpper = (s.raw || '').toUpperCase();
                 const isMcom = (targetCourse === 'M.Com') && (sCourse === 'M.Com' || rawUpper.includes('MCOM') || rawUpper.includes('M.COM'));
+                const isGbo = (targetCourse === 'GBO') && (sCourse === 'GBO' || rawUpper.includes('GBO') || (s.subject && s.subject.toUpperCase().includes('GBO')) || (s.subject_name && s.subject_name.toUpperCase().includes('GBO')));
 
-                const courseMatches = isMcom ||
+                const courseMatches = isMcom || isGbo ||
                                       s.course === targetCourse || 
                                       (Array.isArray(s.courses_list) && s.courses_list.includes(targetCourse)) ||
                                       (s.course && s.course.includes(targetCourse));
@@ -5212,6 +5400,42 @@ window.SRCC_FACULTY_LEAVES = {
             }
           });
         });
+
+        // If GBO is selected, also ingest any GBO occupied slots found in room data
+        if (targetCourse === 'GBO' && appData && appData.rooms) {
+          appData.rooms.forEach(r => {
+            const occSlots = r.schedule?.[targetDay]?.occupied_slots || [];
+            occSlots.forEach(occ => {
+              const cls = (occ.class || '').toUpperCase();
+              if (cls.includes('GBO')) {
+                const slotStr = occ.slot || '';
+                const pInfo = academicPeriodsMap[slotStr];
+                if (pInfo) {
+                  const alreadyPresent = rawList.some(item => item.slot === slotStr && item.room === r.code);
+                  if (!alreadyPresent) {
+                    rawList.push({
+                      slot: slotStr,
+                      periodNum: pInfo.num,
+                      subject: 'GBO Session',
+                      subjectName: occ.class || 'Global Business Operations',
+                      type: 'Lecture',
+                      batch: 'ALL',
+                      rawBatch: 'Whole Section',
+                      teacher: 'GBO Faculty',
+                      teacherId: 'gbo_faculty',
+                      room: r.code,
+                      isOnLeave: false,
+                      isSec: false,
+                      isVac: false,
+                      sem: targetSem,
+                      day: targetDay
+                    });
+                  }
+                }
+              }
+            });
+          });
+        }
 
         return mergeConsecutiveSessions(rawList);
       }
@@ -6098,6 +6322,153 @@ window.SRCC_FACULTY_LEAVES = {
       updateSectionsAndBatches(false);
       syncControlPills();
       renderMyBatchDailyWidget();
+      initWidgetSetupModal();
+    }
+
+    function initWidgetSetupModal() {
+      const modal = document.getElementById('widgetSetupModal');
+      const btnOpen = document.getElementById('btnOpenWidgetSetupModal');
+      const btnClose = document.getElementById('btnCloseWidgetSetupModal');
+      const wCourse = document.getElementById('wSetupCourse');
+      const wSem = document.getElementById('wSetupSem');
+      const wSec = document.getElementById('wSetupSec');
+      const wBatch = document.getElementById('wSetupBatch');
+      const wSecField = document.getElementById('wSetupSecField');
+      const canvas = document.getElementById('wSetupQrCanvas');
+      const summary = document.getElementById('wSetupProfileSummary');
+      const btnShareLink = document.getElementById('btnCopyWidgetShareLink');
+      const btnCopyJson = document.getElementById('btnCopyWidgetJson');
+      const linkPwa = document.getElementById('btnLaunchWidgetPwaLink');
+
+      if (!modal || !btnOpen) return;
+
+      function updateModalSections() {
+        const selectedCourse = wCourse.value;
+        const isSecOrVac = (selectedCourse === 'SEC' || selectedCourse === 'VAC');
+        if (isSecOrVac) {
+          if (wSecField) wSecField.style.display = 'none';
+        } else {
+          if (wSecField) wSecField.style.display = 'block';
+          const curSem = wSem.value;
+          const secs = Object.keys(courseMap[selectedCourse]?.[curSem] || {}).sort();
+          if (wSec) {
+            const curVal = secs.includes(wSec.value) ? wSec.value : (secs[0] || 'Sec A');
+            wSec.innerHTML = secs.map(s => `<option value="${s}" ${s === curVal ? 'selected' : ''}>${s}</option>`).join('');
+          }
+        }
+        updateProfileAndQr();
+      }
+
+      function getSelectedProfile() {
+        const selectedCourse = wCourse ? wCourse.value : (ttState.course || 'B.Com (Hons)');
+        const selectedSem = wSem ? wSem.value : (ttState.sem || 'Sem I');
+        const selectedSec = (selectedCourse === 'SEC' || selectedCourse === 'VAC') ? '' : (wSec ? wSec.value : (ttState.sec || 'Sec A'));
+        const selectedBatch = (wBatch ? wBatch.value : (ttState.batch || 'ALL')) || 'ALL';
+
+        return {
+          course: selectedCourse,
+          sem: selectedSem,
+          sec: selectedSec,
+          batch: selectedBatch,
+          college: 'SRCC',
+          v: 1,
+          ts: Date.now()
+        };
+      }
+
+      function updateProfileAndQr() {
+        const prof = getSelectedProfile();
+        const jsonStr = JSON.stringify(prof);
+        const b64 = btoa(unescape(encodeURIComponent(jsonStr)));
+        const origin = window.location.origin || '';
+        const path = window.location.pathname ? window.location.pathname.replace(/index\.html$/, '') : '/';
+        const shareUrl = `${origin}${path}widget.html?profile=${encodeURIComponent(b64)}`;
+
+        if (summary) {
+          summary.textContent = `${prof.course} · ${prof.sem}${prof.sec ? ' · ' + prof.sec : ''}${prof.batch !== 'ALL' ? ' (' + prof.batch + ')' : ''}`;
+        }
+        if (linkPwa) {
+          linkPwa.href = `widget.html?profile=${encodeURIComponent(b64)}`;
+        }
+
+        if (canvas) {
+          const ctx = canvas.getContext('2d');
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.font = '12px sans-serif';
+          ctx.fillStyle = '#000066';
+          ctx.textAlign = 'center';
+          ctx.fillText('Generating QR...', canvas.width / 2, canvas.height / 2);
+
+          const qrImg = new Image();
+          qrImg.crossOrigin = 'Anonymous';
+          qrImg.onload = function() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(qrImg, 0, 0, canvas.width, canvas.height);
+          };
+          qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(shareUrl)}`;
+        }
+      }
+
+      btnOpen.addEventListener('click', () => {
+        if (wCourse && ttState.course) wCourse.value = ttState.course;
+        if (wSem && ttState.sem) wSem.value = ttState.sem;
+        updateModalSections();
+        if (wSec && ttState.sec) wSec.value = ttState.sec;
+        if (wBatch && ttState.batch) wBatch.value = ttState.batch;
+        updateProfileAndQr();
+        modal.style.display = 'flex';
+      });
+
+      if (btnClose) {
+        btnClose.addEventListener('click', () => {
+          modal.style.display = 'none';
+        });
+      }
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.style.display = 'none';
+      });
+
+      if (wCourse) wCourse.addEventListener('change', updateModalSections);
+      if (wSem) wSem.addEventListener('change', updateModalSections);
+      if (wSec) wSec.addEventListener('change', updateProfileAndQr);
+      if (wBatch) wBatch.addEventListener('change', updateProfileAndQr);
+
+      if (btnShareLink) {
+        btnShareLink.addEventListener('click', () => {
+          const prof = getSelectedProfile();
+          const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(prof))));
+          const origin = window.location.origin || '';
+          const path = window.location.pathname ? window.location.pathname.replace(/index\.html$/, '') : '/';
+          const shareUrl = `${origin}${path}widget.html?profile=${encodeURIComponent(b64)}`;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(shareUrl).then(() => {
+              showToast('📋 Widget profile link copied to clipboard!');
+            }).catch(() => {
+              prompt('Copy widget link:', shareUrl);
+            });
+          } else {
+            prompt('Copy widget link:', shareUrl);
+          }
+        });
+      }
+
+      if (btnCopyJson) {
+        btnCopyJson.addEventListener('click', () => {
+          const prof = getSelectedProfile();
+          const jsonStr = JSON.stringify(prof, null, 2);
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(jsonStr).then(() => {
+              showToast('📄 Widget profile JSON copied to clipboard!');
+            }).catch(() => {
+              prompt('Copy profile JSON:', jsonStr);
+            });
+          } else {
+            prompt('Copy profile JSON:', jsonStr);
+          }
+        });
+      }
     }
 
     // ========================================================================
@@ -6572,12 +6943,21 @@ window.SRCC_FACULTY_LEAVES = {
         const urlParams = new URLSearchParams(window.location.search);
         const roomParam = urlParams.get('room');
         if (roomParam) {
-          const cleanCode = roomParam.trim().toUpperCase();
-          const found = appData.rooms.find(r => r.code.toUpperCase() === cleanCode);
+          const rawCode = roomParam.trim().toUpperCase();
+          const found = appData.rooms.find(r => {
+            const c = r.code.toUpperCase();
+            return c === rawCode || c === `R${rawCode}` || rawCode === `R${c}`;
+          });
           if (found) {
+            setAppMode('rooms', true);
+            state.activeCategory = 'ALL';
+            state.searchQuery = found.code;
+            if (searchInput) searchInput.value = found.code;
+            if (btnClearSearch) btnClearSearch.style.display = 'block';
+            render();
             setTimeout(() => {
               openScheduleModal(found.code);
-            }, 450);
+            }, 300);
           }
         }
       } catch (e) {}

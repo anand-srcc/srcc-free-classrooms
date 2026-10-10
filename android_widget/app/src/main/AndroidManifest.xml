@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.SRCCTimetableWidget">
+
+        <!-- Setup & Configuration Activity -->
+        <activity
+            android:name=".ui.WidgetConfigActivity"
+            android:exported="true"
+            android:theme="@style/Theme.SRCCTimetableWidget">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <!-- 4x1 Quick Next Class Pill Widget -->
+        <receiver
+            android:name=".widget.TimetableWidget4x1Provider"
+            android:exported="true"
+            android:label="@string/widget_4x1_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="edu.srcc.timetablewidget.ACTION_MANUAL_REFRESH" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info_4x1" />
+        </receiver>
+
+        <!-- 4x2 Today's Class Schedule List Widget -->
+        <receiver
+            android:name=".widget.TimetableWidget4x2Provider"
+            android:exported="true"
+            android:label="@string/widget_4x2_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="edu.srcc.timetablewidget.ACTION_MANUAL_REFRESH" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info_4x2" />
+        </receiver>
+
+        <!-- 4x4 Full Daily Dashboard Widget (Classes + Faculty on Leave) -->
+        <receiver
+            android:name=".widget.TimetableWidget4x4Provider"
+            android:exported="true"
+            android:label="@string/widget_4x4_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="edu.srcc.timetablewidget.ACTION_MANUAL_REFRESH" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info_4x4" />
+        </receiver>
+
+    </application>
+
+</manifest>
