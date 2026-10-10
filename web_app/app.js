@@ -1379,10 +1379,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // Update mobile bottom nav
-      if (bnavRooms) bnavRooms.classList.toggle('active', isRooms);
+      const isRoomsStandard = isRooms && !state.freeNowActive;
+      if (bnavRooms) bnavRooms.classList.toggle('active', isRoomsStandard);
       if (bnavFaculty) bnavFaculty.classList.toggle('active', isFaculty);
       if (bnavTimetable) bnavTimetable.classList.toggle('active', isTimetable);
       if (bnavWifi) bnavWifi.classList.toggle('active', isWifi);
+      if (bnavFreeNow) bnavFreeNow.classList.toggle('active', isRooms && state.freeNowActive);
 
       // Clean filter reset when switching tabs so users never get stuck with leftover filters
       if (!preserveFilters) {
@@ -1441,7 +1443,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (tabModeTimetable) tabModeTimetable.addEventListener('click', () => setAppMode('timetable'));
     const tabModeWifiBtn = document.getElementById('tabModeWifi');
     if (tabModeWifiBtn) tabModeWifiBtn.addEventListener('click', () => setAppMode('wifi'));
-    if (bnavRooms) bnavRooms.addEventListener('click', () => setAppMode('rooms'));
+    if (bnavRooms) {
+      bnavRooms.addEventListener('click', () => {
+        if (state.freeNowActive) {
+          setFreeNowState(false);
+        }
+        setAppMode('rooms');
+      });
+    }
     if (bnavFaculty) bnavFaculty.addEventListener('click', () => setAppMode('faculty'));
     if (bnavTimetable) bnavTimetable.addEventListener('click', () => setAppMode('timetable'));
     if (bnavWifi) {
@@ -1568,6 +1577,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (toggleStatusText) toggleStatusText.textContent = isActive ? 'ON' : 'OFF';
       if (bnavFreeNow) bnavFreeNow.classList.toggle('active', isActive);
+      if (bnavRooms) bnavRooms.classList.toggle('active', state.activeMode === 'rooms' && !isActive);
 
       if (isActive) {
         // Automatically switch day to Today (Monday to Saturday)
