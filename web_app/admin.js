@@ -474,13 +474,57 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function getDisplayShortCode(teacher) {
+  function getAdminFacultyDisplayCode(teacher) {
     if (!teacher) return '';
-    const code = (teacher.short_code || '').trim();
-    if (!code) return '';
-    if (/^(cg|eg|mg|hg|hgc)\d*$/i.test(code)) return '';
-    return code;
+    let primary = (teacher.short_code || '').trim().toUpperCase();
+    primary = primary.replace(/^([A-Z]+)\s+(\d+)$/, '$1$2');
+
+    let alias = '';
+    const label = (teacher.label || '').trim();
+    const labelMatch = label.match(/\(([^)]+)\)/);
+    if (labelMatch) {
+      let cand = labelMatch[1].trim().toUpperCase();
+      cand = cand.replace(/^([A-Z]+)\s+(\d+)$/, '$1$2');
+      if (cand && cand !== primary) {
+        alias = cand;
+      }
+    }
+
+    if (!alias && teacher.ref_code) {
+      const tokens = teacher.ref_code.trim().toUpperCase().split(/[\s,/]+/);
+      for (let tok of tokens) {
+        tok = tok.replace(/^([A-Z]+)\s+(\d+)$/, '$1$2');
+        if (tok && tok !== primary) {
+          alias = tok;
+          if (/^(CG|HG|CSG|EG|MG)\d*$/i.test(tok) || /^\d+$/.test(tok)) {
+            break;
+          }
+        }
+      }
+    }
+
+    if (primary && alias && primary !== alias) {
+      return `${primary} / ${alias}`;
+    }
+    return primary || alias || '';
   }
+
+  function getDisplayShortCode(teacher) {
+    return getAdminFacultyDisplayCode(teacher);
+  }
+
+  function getLeaveDisplayCode(leave) {
+    if (!leave) return '';
+    if (teachersData && teachersData.teachers) {
+      const t = teachersData.teachers.find(tch => 
+        (leave.teacher_id && String(tch.id) === String(leave.teacher_id)) ||
+        (leave.teacher_name && tch.clean_name && tch.clean_name.toLowerCase().trim() === leave.teacher_name.toLowerCase().trim())
+      );
+      if (t) return getAdminFacultyDisplayCode(t);
+    }
+    return (leave.teacher_code || leave.teacherCode || '').trim();
+  }
+
 
   // ==========================================================================
   // ☁️ CLOUD SYNC HELPERS (100% FREE FIREBASE REALTIME DB)
@@ -1677,9 +1721,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (q) {
       filtered = filtered.filter(t => {
         const name = (t.clean_name || '').toLowerCase();
-        const code = (t.short_code || '').toLowerCase();
+        const code = (getDisplayShortCode(t) || t.short_code || '').toLowerCase();
+        const ref = (t.ref_code || '').toLowerCase();
+        const label = (t.label || '').toLowerCase();
         const dept = (t.department || '').toLowerCase();
-        return name.includes(q) || code.includes(q) || dept.includes(q);
+        return name.includes(q) || code.includes(q) || ref.includes(q) || label.includes(q) || dept.includes(q);
       });
     }
 
@@ -1870,7 +1916,8 @@ document.addEventListener('DOMContentLoaded', () => {
       return '*SRCC Faculty Leave Update*\nNo professors are currently marked on leave.';
     }
     const lines = leavesList.map((l, idx) => {
-      const code = l.teacher_code && !/^(cg|eg|mg|hg|hgc)\d*$/i.test(l.teacher_code) ? ` [${l.teacher_code}]` : '';
+      const dispCode = getLeaveDisplayCode(l);
+      const code = dispCode ? ` [${dispCode}]` : '';
       const dates = formatLeaveDates(l.start_date, l.end_date);
       return `${idx + 1}. ${l.teacher_name}${code} (${dates})`;
     });
@@ -1889,12 +1936,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('adminLeavesSearch');
     if (searchInput && searchInput.value.trim()) {
       const q = searchInput.value.trim().toLowerCase();
-      leaves = leaves.filter(l => 
-        (l.teacher_name && l.teacher_name.toLowerCase().includes(q)) ||
-        (l.teacher_code && l.teacher_code.toLowerCase().includes(q)) ||
-        (l.addedBy && l.addedBy.toLowerCase().includes(q)) ||
-        (l.reason && l.reason.toLowerCase().includes(q))
-      );
+      leaves = leaves.filter(l => {
+        const dCode = getLeaveDisplayCode(l).toLowerCase();
+        return (l.teacher_name && l.teacher_name.toLowerCase().includes(q)) ||
+          (l.teacher_code && l.teacher_code.toLowerCase().includes(q)) ||
+          dCode.includes(q) ||
+          (l.addedBy && l.addedBy.toLowerCase().includes(q)) ||
+          (l.reason && l.reason.toLowerCase().includes(q));
+      });
     }
 
     if (leaves.length === 0) {
@@ -1910,7 +1959,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const s = leave.start_date || today;
       const e = leave.end_date || today;
       const isActiveToday = (today >= s && today <= e);
-      const code = leave.teacher_code && !/^(cg|eg|mg|hg|hgc)\d*$/i.test(leave.teacher_code) ? ` [${leave.teacher_code}]` : '';
+      const dispCode = getLeaveDisplayCode(leave);
+      const code = dispCode ? ` [${escapeHtml(dispCode)}]` : '';
       const dateRangeDisplay = formatLeaveDates(s, e);
       const halfDayBadge = leave.isHalfDay ? `<span style="background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; font-size: 0.68rem; font-weight: 800; padding: 2px 7px; border-radius: 9999px;">½ DAY</span>` : '';
       const addedByBadge = leave.addedBy ? `<span style="font-size: 0.72rem; color: #64748B; margin-left: 6px;">(By: ${escapeHtml(leave.addedBy)})</span>` : '';
@@ -3827,12 +3877,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     activeLeaves.forEach(l => {
       const tId = String(l.teacher_id || l.teacherId || '');
-      const tCode = String(l.teacher_code || l.teacherCode || '').toUpperCase().trim();
+      const rawCode = String(l.teacher_code || l.teacherCode || '').toUpperCase().trim();
       const tNameClean = cleanTeacherName(l.teacher_name || l.teacherName);
+      const tCodes = rawCode ? rawCode.split(/\s*[\/,]\s*/).filter(Boolean) : [];
 
       const matchedTeacher = teachersList.find(t => {
         if (tId && String(t.id) === tId) return true;
-        if (tCode && t.short_code && String(t.short_code).toUpperCase().trim() === tCode) return true;
+        if (t.short_code && tCodes.includes(String(t.short_code).toUpperCase().trim())) return true;
+        if (t.ref_code) {
+          const rTokens = String(t.ref_code).toUpperCase().trim().split(/\s+/);
+          if (tCodes.some(c => rTokens.includes(c))) return true;
+        }
         if (tNameClean && cleanTeacherName(t.name) === tNameClean) return true;
         if (tNameClean && cleanTeacherName(t.clean_name) === tNameClean) return true;
         return false;
@@ -3853,13 +3908,23 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // B. Cross-check room schedules for occupied classes matching this teacher's code
-      if (tCode) {
+      const allMatchingCodes = new Set(tCodes);
+      if (matchedTeacher) {
+        if (matchedTeacher.short_code) allMatchingCodes.add(matchedTeacher.short_code.toUpperCase().trim());
+        if (matchedTeacher.ref_code) {
+          matchedTeacher.ref_code.toUpperCase().trim().split(/\s+/).forEach(c => allMatchingCodes.add(c));
+        }
+      }
+
+      allMatchingCodes.forEach(codeTok => {
+        if (!codeTok || codeTok.length < 2) return;
+        const safeToken = codeTok.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(^|[-_\\s/,])${safeToken}([-_\\s/,]|$)`, 'i');
         roomsList.forEach(r => {
           const sched = r.schedule ? r.schedule[dayName] : null;
           if (sched && Array.isArray(sched.occupied_slots)) {
             sched.occupied_slots.forEach(occ => {
               const cls = occ.class || '';
-              const regex = new RegExp(`(^|[-_\\s/,])${tCode}([-_\\s/,]|$)`, 'i');
               if (regex.test(cls)) {
                 const rNorm = r.code.toUpperCase();
                 if (!leaveFreedRoomsBySlot[occ.slot]) leaveFreedRoomsBySlot[occ.slot] = new Set();
@@ -3871,7 +3936,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
           }
         });
-      }
+      });
 
       teacherVacatedMap.set(l, vacatedList);
     });
@@ -4107,8 +4172,8 @@ document.addEventListener('DOMContentLoaded', () => {
           } else {
             name = name.toUpperCase();
           }
-          const tCode = leave.teacher_code || leave.teacherCode;
-          const codeBadge = (tCode && !/^(cg|eg|mg|hg|hgc)\d*$/i.test(tCode)) ? ` [${tCode}]` : '';
+          const dispCode = getLeaveDisplayCode(leave);
+          const codeBadge = dispCode ? ` [${escapeHtml(dispCode)}]` : '';
           const dept = leave.department ? ` (${leave.department})` : '';
 
           const sStr = leave.start_date || leave.startDate || selectedDate;

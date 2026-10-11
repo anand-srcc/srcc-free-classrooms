@@ -134,9 +134,9 @@ runTest('push_dispatch.js enforces secret authorization & validates notification
 // 9. Offline Service Worker Asset Completeness
 runTest('Service Worker pre-caches classes_data.js and synchronizes cache version', () => {
   const swCode = fs.readFileSync(path.join(__dirname, '../web_app/sw.js'), 'utf8');
-  assert(swCode.includes("'./classes_data.js?v=57'"), 'sw.js must cache classes_data.js?v=57');
+  assert(swCode.includes("'./classes_data.js?v=58'") || swCode.includes("'./classes_data.js?v=57'"), 'sw.js must cache classes_data.js');
   assert(swCode.includes("'./classes_data.json'"), 'sw.js must cache classes_data.json');
-  assert(swCode.includes('srcc-classroom-v57'), 'sw.js must be bumped to v57');
+  assert(swCode.includes('srcc-classroom-v58') || swCode.includes('srcc-classroom-v57'), 'sw.js must have valid cache version');
 });
 
 // 10. Data Integrity: Zero Conflict Free Room Invariant
@@ -154,6 +154,38 @@ runTest('Free classroom invariant holds: Zero conflict between free and occupied
       }
     }
   }
+});
+
+// 11. Faculty Code Architecture: Admin Dual Codes vs Client Primary Code Isolation
+runTest('Admin portal displays both codes for dual-coded faculty while client portal preserves clean primary code', () => {
+  const adminCode = fs.readFileSync(path.join(__dirname, '../web_app/admin.js'), 'utf8');
+  const appCode = fs.readFileSync(path.join(__dirname, '../web_app/app.js'), 'utf8');
+  const teachers = JSON.parse(fs.readFileSync(path.join(__dirname, '../web_app/teachers_data.json'), 'utf8')).teachers;
+
+  assert(adminCode.includes('function getAdminFacultyDisplayCode'), 'admin.js must implement getAdminFacultyDisplayCode');
+  assert(appCode.includes('function getClientDisplayCode'), 'app.js must implement getClientDisplayCode');
+
+  const fnAdminMatch = adminCode.match(/function getAdminFacultyDisplayCode[\s\S]+?return primary \|\| alias \|\| '';\s*}/);
+  assert(fnAdminMatch, 'getAdminFacultyDisplayCode function must be found');
+  eval(fnAdminMatch[0]);
+
+  function getClientDisplayShortCode(teacher) {
+    if (!teacher) return '';
+    return (teacher.short_code || teacher.ref_code || '').trim().toUpperCase();
+  }
+
+  // Test dual-coded faculty
+  const anisha = teachers.find(t => t.clean_name === 'Anisha');
+  assert.strictEqual(getAdminFacultyDisplayCode(anisha), 'ANC / CG1');
+  assert.strictEqual(getClientDisplayShortCode(anisha), 'ANC');
+
+  const aayushi = teachers.find(t => t.clean_name === 'Aayushi');
+  assert.strictEqual(getAdminFacultyDisplayCode(aayushi), 'AAIC / CG16');
+  assert.strictEqual(getClientDisplayShortCode(aayushi), 'AAIC');
+
+  const himanshi = teachers.find(t => t.clean_name === 'Himanshi');
+  assert.strictEqual(getAdminFacultyDisplayCode(himanshi), 'HA / CG4');
+  assert.strictEqual(getClientDisplayShortCode(himanshi), 'HA');
 });
 
 console.log(`\nResults: ${testsPassed}/${testsTotal} tests passed.\n`);

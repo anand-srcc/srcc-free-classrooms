@@ -702,7 +702,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       return allLeaves.find(leave => {
         const matchId = String(leave.teacher_id) === String(teacher.id);
-        const matchCode = (leave.teacher_code && teacher.short_code && leave.teacher_code.toLowerCase() === teacher.short_code.toLowerCase());
+        const matchCode = (leave.teacher_code && teacher.short_code && (
+          leave.teacher_code.toLowerCase().trim() === teacher.short_code.toLowerCase().trim() ||
+          leave.teacher_code.toLowerCase().split(/\s*[\/,]\s*/).includes(teacher.short_code.toLowerCase().trim())
+        ));
         const matchName = (leave.teacher_name && teacher.clean_name && leave.teacher_name.toLowerCase().trim() === teacher.clean_name.toLowerCase().trim());
 
         if (matchId || matchCode || matchName) {
@@ -5312,6 +5315,22 @@ ${directRoomUrl}`;
       return 'https://anand-srcc.github.io/srcc-free-classrooms/';
     }
 
+    function getClientDisplayCode(leave) {
+      if (!leave) return '';
+      if (teachersData && teachersData.teachers) {
+        const t = teachersData.teachers.find(tch => 
+          (leave.teacher_id && String(tch.id) === String(leave.teacher_id)) ||
+          (leave.teacher_name && tch.clean_name && tch.clean_name.toLowerCase().trim() === leave.teacher_name.toLowerCase().trim())
+        );
+        if (t && t.short_code) return t.short_code.toUpperCase().trim();
+      }
+      const raw = (leave.teacher_code || leave.teacherCode || '').trim();
+      if (raw.includes('/')) {
+        return raw.split('/')[0].trim().toUpperCase();
+      }
+      return raw.toUpperCase();
+    }
+
     function buildLeavesWhatsAppMessage(leavesList) {
       const today = getTodayIsoDate();
       const activeList = getActiveTodayLeaves(today);
@@ -5320,7 +5339,8 @@ ${directRoomUrl}`;
         return `*SRCC Faculty Leave Update*\nNo professors are currently marked on leave today.\n\n_Check free classrooms:_ ${getAppPublicUrl()}`;
       }
       const lines = activeList.map((l, idx) => {
-        const code = l.teacher_code && !/^(cg|eg|mg|hg|hgc)\d*$/i.test(l.teacher_code) ? ` [${l.teacher_code}]` : '';
+        const pCode = getClientDisplayCode(l);
+        const code = (pCode && !/^(cg|eg|mg|hg|hgc)\d*$/i.test(pCode)) ? ` [${pCode}]` : '';
         const dates = formatLeaveDates(l.start_date, l.end_date);
         return `${idx + 1}. ${l.teacher_name}${code} (${dates})`;
       });
@@ -5356,7 +5376,8 @@ ${directRoomUrl}`;
         const s = leave.start_date || today;
         const e = leave.end_date || today;
         const isActiveToday = (today >= s && today <= e);
-        const code = leave.teacher_code && !/^(cg|eg|mg|hg|hgc)\d*$/i.test(leave.teacher_code) ? ` [${leave.teacher_code}]` : '';
+        const pCode = getClientDisplayCode(leave);
+        const code = (pCode && !/^(cg|eg|mg|hg|hgc)\d*$/i.test(pCode)) ? ` [${escapeHtml(pCode)}]` : '';
         const dateRangeDisplay = formatLeaveDates(s, e);
         const halfDayBadge = leave.isHalfDay ? `<span style="background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; font-size: 0.68rem; font-weight: 800; padding: 2px 7px; border-radius: 9999px;">½ DAY</span>` : '';
 
