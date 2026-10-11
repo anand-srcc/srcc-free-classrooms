@@ -1,8 +1,7 @@
 // Official SRCC WiFi Password Directory (Loaded as fallback/offline)
 window.SRCC_WIFI_DATA = {
-  "last_updated": "2026-10-10",
-  "whatsapp_group": "https://chat.whatsapp.com/DzGsKlDwZG6DgDTcRIlCRW?s=cl&p=a&ilr=1",
-  "source": "Campus Atlas - SRCC WiFi Password Directory",
+  "last_updated": "2026-10-11",
+  "source": "SRCC Official WiFi Directory",
   "networks": [
     { "id": "wifi-1", "ssid": "CLASS 1-4G", "password": "wlan@12340#", "location": "Classrooms 1 to 4", "wing": "Main Building", "band": "4G", "notes": "General classroom corridor" },
     { "id": "wifi-2", "ssid": "FAC-T9_5G", "password": "21AdSr@4631", "location": "Tutorial 9 / Faculty Wing", "wing": "Tutorials", "band": "5G", "notes": "High speed 5G faculty connection" },
