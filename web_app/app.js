@@ -4068,14 +4068,11 @@ ${directRoomUrl}`;
       };
     }
 
-    // Helper to safely get official display short code (hiding internal cg16, eg22, mg1, etc.)
+    // Helper to get official faculty short code (e.g. HG4, CG16, AOK, AK24)
     function getDisplayShortCode(teacher) {
       if (!teacher) return '';
-      const code = (teacher.short_code || '').trim();
-      if (!code) return '';
-      // Hide internal placeholder codes like cg16, eg22, mg1, hg4, etc.
-      if (/^(cg|eg|mg|hg|hgc)\d*$/i.test(code)) return '';
-      return code;
+      const code = (teacher.short_code || teacher.ref_code || '').trim();
+      return code.toUpperCase();
     }
 
     // Active Leaves Callout Banner Renderer (Syncs across Rooms and Faculty Locator)

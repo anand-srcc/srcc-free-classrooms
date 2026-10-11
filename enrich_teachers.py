@@ -321,6 +321,32 @@ def enrich():
                      'G3', 'H1', 'H2', 'H3', 'I1', 'I2', 'I3', 'K1', 'K2', 'K3', 'L1', 'L2', 'L3', 'M1',
                      'M2', 'M3', 'N1', 'N2', 'N3', 'O1', 'O2', 'O3', 'SEM', 'SEC', 'LAB', 'TUT', 'HE', 'HB', 'HD'}
 
+    ECO_NUM_MAP = {
+        'Aditi': 'A21',
+        'Aditi Khanna': 'AK24',
+        'Akanksha Gupta': 'AG11',
+        'Chandrabhushan': 'CB29',
+        'David A Longkumer': 'DA',
+        'Harshita Chechani': 'HC',
+        'Himanshu Takia': 'HT5',
+        'Hritika Chauhan': 'HC26',
+        'Ishika Tiwar': 'IT3',
+        'Jasmine Kaur': 'JK12',
+        'Kashish Gupta': 'KG1',
+        'Katyayani': 'KA25',
+        'Kopal Gupta': 'KG7',
+        'Kritika Gambhir': 'KG',
+        'Mamoon Rasheed': 'MR',
+        'Manasvi Chowdhury': 'MG15',
+        'Mugdha Khandelwal': 'MK4',
+        'Mukti Sri Narain': 'MSN28',
+        'Palak Baghla': 'PB27',
+        'Samiksha Kapoor': 'SK2',
+        'Seema Kumari': 'SK20',
+        'Shiuli Saha': 'SS6',
+        'Shruti Kashyap': 'SK19',
+    }
+
     def is_valid_teacher_code(code):
         if not code:
             return False
@@ -329,9 +355,7 @@ def enrich():
             return False
         if re.match(r'^(SEC|VAC|NP|BATCH|LAB|TUT)\d*$', c, re.I):
             return False
-        if re.match(r'^[A-Z]\d+$', c):
-            return False
-        if re.match(r'^(CG|HG)\d+$', c, re.I):
+        if re.match(r'^[A-Z]\d+$', c) and not re.match(r'^(CG|HG|CSG|EG|[A-Z]{2,})\d+$', c):
             return False
         if re.match(r'^\d+$', c):
             return False
@@ -341,34 +365,54 @@ def enrich():
 
     # 1. Map teacher short codes
     for t in teachers_data['teachers']:
-        ref_id = t.get('short_code', '')
-        t['ref_code'] = ref_id
+        name = t.get('clean_name', '')
+        label = t.get('label', '')
+        dept = t.get('department', '')
 
-        existing_code = ref_id if is_valid_teacher_code(ref_id) else ''
-        candidate_codes = {}
-
-        for day, classes in t['schedule'].items():
-            for c in classes:
-                r = c.get('room', '').strip().upper()
-                slot = c.get('slot', '')
-                k = (r, day, slot)
-                if k in room_slots:
-                    for r_cls in room_slots[k]:
-                        m = re.search(r'-([A-Za-z0-9]+)$', r_cls)
-                        if m and is_valid_teacher_code(m.group(1)):
-                            code = m.group(1).upper()
-                            candidate_codes[code] = candidate_codes.get(code, 0) + 1
-                        m2 = re.search(r'-([A-Za-z0-9]+)-[A-Za-z0-9]+$', r_cls)
-                        if m2 and is_valid_teacher_code(m2.group(1)):
-                            code2 = m2.group(1).upper()
-                            candidate_codes[code2] = candidate_codes.get(code2, 0) + 1
-
-        if existing_code:
-            t['short_code'] = existing_code
-        elif candidate_codes:
-            t['short_code'] = max(candidate_codes.items(), key=lambda x: x[1])[0]
+        assigned_code = ''
+        if name in ECO_NUM_MAP:
+            assigned_code = ECO_NUM_MAP[name]
         else:
-            t['short_code'] = ''
+            # Check parenthesized code in label: e.g. "Abhilash (hg4)" -> "HG4", "Aayushi (cg16)" -> "CG16"
+            m = re.search(r'\((.*?)\)', label)
+            if m:
+                c = m.group(1).strip().upper()
+                if re.match(r'^(CG|HG|CSG|EG)\d+$', c, re.I):
+                    assigned_code = c
+                elif re.match(r'^\d+$', c) and dept == 'Economics':
+                    assigned_code = f"EG{c}"
+
+            if not assigned_code:
+                m2 = re.match(r'^(Commerce|Eco|Hindi|Cs)\s*Guest\s*(\d+)$', name, re.I)
+                if m2:
+                    prefix = {'COMMERCE': 'CG', 'ECO': 'EG', 'HINDI': 'HG', 'CS': 'CSG'}.get(m2.group(1).upper(), 'G')
+                    assigned_code = f"{prefix}{m2.group(2)}"
+
+        if not assigned_code:
+            # Check candidate codes from room slots
+            candidate_codes = {}
+            for day, classes in t['schedule'].items():
+                for c in classes:
+                    r = c.get('room', '').strip().upper()
+                    slot = c.get('slot', '')
+                    k = (r, day, slot)
+                    if k in room_slots:
+                        for r_cls in room_slots[k]:
+                            m_end = re.search(r'-([A-Za-z0-9]+)$', r_cls)
+                            if m_end and is_valid_teacher_code(m_end.group(1)):
+                                code = m_end.group(1).upper()
+                                candidate_codes[code] = candidate_codes.get(code, 0) + 1
+                            m2_mid = re.search(r'-([A-Za-z0-9]+)-[A-Za-z0-9]+$', r_cls)
+                            if m2_mid and is_valid_teacher_code(m2_mid.group(1)):
+                                code2 = m2_mid.group(1).upper()
+                                candidate_codes[code2] = candidate_codes.get(code2, 0) + 1
+            if candidate_codes:
+                assigned_code = max(candidate_codes.items(), key=lambda x: x[1])[0]
+            elif is_valid_teacher_code(t.get('short_code', '')):
+                assigned_code = t.get('short_code', '')
+
+        t['short_code'] = assigned_code
+        t['ref_code'] = assigned_code
 
     def merge_day_classes(classes_list):
         by_slot = {}

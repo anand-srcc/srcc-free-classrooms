@@ -1,4 +1,4 @@
-const CACHE_NAME = 'srcc-classroom-v51';
+const CACHE_NAME = 'srcc-classroom-v52';
 const ASSETS = [
   './',
   './index.html',

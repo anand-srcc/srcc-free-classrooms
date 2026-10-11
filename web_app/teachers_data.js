@@ -39,7 +39,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "643",
       "label": "Aayushi (cg16)",
       "clean_name": "Aayushi",
-      "short_code": "AAIC",
+      "short_code": "CG16",
       "initials": "AA",
       "department": "Commerce",
       "total_teaching_periods": 7,
@@ -160,7 +160,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "AAIC",
+      "ref_code": "CG16",
       "subjects": [
         "ITLP",
         "Income Tax Law and Practice"
@@ -170,7 +170,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "711",
       "label": "Abhilash (hg4)",
       "clean_name": "Abhilash",
-      "short_code": "AB",
+      "short_code": "HG4",
       "initials": "AB",
       "department": "Hindi",
       "total_teaching_periods": 10,
@@ -337,7 +337,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "AB",
+      "ref_code": "HG4",
       "subjects": [
         "HB",
         "HD",
@@ -351,7 +351,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "696",
       "label": "Aditi (21)",
       "clean_name": "Aditi",
-      "short_code": "",
+      "short_code": "A21",
       "initials": "AD",
       "department": "Economics",
       "total_teaching_periods": 10,
@@ -517,7 +517,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "A21",
       "subjects": [
         "ITSA I",
         "Introduction to Statistics and Analysis I"
@@ -702,7 +702,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "640",
       "label": "Aishwerya (cg11)",
       "clean_name": "Aishwerya",
-      "short_code": "AC",
+      "short_code": "CG11",
       "initials": "AI",
       "department": "Commerce",
       "total_teaching_periods": 8,
@@ -836,7 +836,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "AC",
+      "ref_code": "CG11",
       "subjects": [
         "BIDV",
         "Business Intelligence & Data Visualization"
@@ -1021,7 +1021,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "660",
       "label": "Akanksha Sehgal (cg28)",
       "clean_name": "Akanksha Sehgal",
-      "short_code": "ASC",
+      "short_code": "CG28",
       "initials": "AS",
       "department": "Commerce",
       "total_teaching_periods": 9,
@@ -1172,7 +1172,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "ASC",
+      "ref_code": "CG28",
       "subjects": [
         "EP",
         "Economic Policy",
@@ -1186,7 +1186,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "636",
       "label": "Anisha (cg1)",
       "clean_name": "Anisha",
-      "short_code": "ANC",
+      "short_code": "CG1",
       "initials": "AN",
       "department": "Commerce",
       "total_teaching_periods": 9,
@@ -1337,7 +1337,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "ANC",
+      "ref_code": "CG1",
       "subjects": [
         "BIDV",
         "Business Intelligence & Data Visualization",
@@ -1349,7 +1349,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "618",
       "label": "Anjali (cg10)",
       "clean_name": "Anjali",
-      "short_code": "ANIC",
+      "short_code": "CG10",
       "initials": "AN",
       "department": "Commerce",
       "total_teaching_periods": 9,
@@ -1500,7 +1500,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "ANIC",
+      "ref_code": "CG10",
       "subjects": [
         "CAS",
         "Computerized Accounting System",
@@ -1514,7 +1514,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "644",
       "label": "Anju (cg17)",
       "clean_name": "Anju",
-      "short_code": "AJC",
+      "short_code": "CG17",
       "initials": "AN",
       "department": "Commerce",
       "total_teaching_periods": 10,
@@ -1681,7 +1681,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AJC",
+      "ref_code": "CG17",
       "subjects": [
         "EI",
         "Emotional Intelligence",
@@ -1693,7 +1693,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "651",
       "label": "Ankita Garg (cg23)",
       "clean_name": "Ankita Garg",
-      "short_code": "AGC",
+      "short_code": "CG23",
       "initials": "AG",
       "department": "Commerce",
       "total_teaching_periods": 10,
@@ -1860,7 +1860,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AGC",
+      "ref_code": "CG23",
       "subjects": [
         "BLAW",
         "Business Law",
@@ -1872,7 +1872,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "693",
       "label": "Anshika (cg32)",
       "clean_name": "Anshika",
-      "short_code": "AIC",
+      "short_code": "CG32",
       "initials": "AN",
       "department": "Economics",
       "total_teaching_periods": 8,
@@ -2007,7 +2007,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "AIC",
+      "ref_code": "CG32",
       "subjects": [
         "BIT",
         "Business Information Technologies",
@@ -2019,7 +2019,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "650",
       "label": "Aparna (cg22)",
       "clean_name": "Aparna",
-      "short_code": "APC",
+      "short_code": "CG22",
       "initials": "AP",
       "department": "Commerce",
       "total_teaching_periods": 9,
@@ -2171,7 +2171,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "APC",
+      "ref_code": "CG22",
       "subjects": [
         "PFP",
         "Personal Financial Planning",
@@ -2183,7 +2183,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "658",
       "label": "Ashima (cg25)",
       "clean_name": "Ashima",
-      "short_code": "AHC",
+      "short_code": "CG25",
       "initials": "AS",
       "department": "Commerce",
       "total_teaching_periods": 8,
@@ -2318,7 +2318,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "AHC",
+      "ref_code": "CG25",
       "subjects": [
         "BLAW",
         "BRM",
@@ -2330,7 +2330,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "664",
       "label": "Chanchal (cg30)",
       "clean_name": "Chanchal",
-      "short_code": "",
+      "short_code": "CG30",
       "initials": "CH",
       "department": "Commerce",
       "total_teaching_periods": 8,
@@ -2464,7 +2464,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "CG30",
       "subjects": [
         "BIT",
         "Business Information Technologies"
@@ -2640,7 +2640,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "689",
       "label": "Commerce Guest 36",
       "clean_name": "Commerce Guest 36",
-      "short_code": "",
+      "short_code": "CG36",
       "initials": "CG",
       "department": "Commerce",
       "total_teaching_periods": 0,
@@ -2652,14 +2652,14 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "CG36",
       "subjects": []
     },
     {
       "id": "690",
       "label": "Commerce Guest 37",
       "clean_name": "Commerce Guest 37",
-      "short_code": "",
+      "short_code": "CG37",
       "initials": "CG",
       "department": "Commerce",
       "total_teaching_periods": 0,
@@ -2671,14 +2671,14 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "CG37",
       "subjects": []
     },
     {
       "id": "704",
       "label": "Cs Guest 2",
       "clean_name": "Cs Guest 2",
-      "short_code": "",
+      "short_code": "CSG2",
       "initials": "CG",
       "department": "Commerce",
       "total_teaching_periods": 0,
@@ -2690,14 +2690,14 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "CSG2",
       "subjects": []
     },
     {
       "id": "707",
       "label": "Cs Guest 3",
       "clean_name": "Cs Guest 3",
-      "short_code": "",
+      "short_code": "CSG3",
       "initials": "CG",
       "department": "Commerce",
       "total_teaching_periods": 0,
@@ -2709,14 +2709,14 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "CSG3",
       "subjects": []
     },
     {
       "id": "708",
       "label": "Cs Guest 4",
       "clean_name": "Cs Guest 4",
-      "short_code": "",
+      "short_code": "CSG4",
       "initials": "CG",
       "department": "Commerce",
       "total_teaching_periods": 0,
@@ -2728,14 +2728,14 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "CSG4",
       "subjects": []
     },
     {
       "id": "709",
       "label": "Cs Guest 5",
       "clean_name": "Cs Guest 5",
-      "short_code": "",
+      "short_code": "CSG5",
       "initials": "CG",
       "department": "Commerce",
       "total_teaching_periods": 0,
@@ -2747,7 +2747,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "CSG5",
       "subjects": []
     },
     {
@@ -2931,7 +2931,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "661",
       "label": "Deepaish (cg13)",
       "clean_name": "Deepaish",
-      "short_code": "",
+      "short_code": "CG13",
       "initials": "DE",
       "department": "Commerce",
       "total_teaching_periods": 7,
@@ -3051,7 +3051,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "CG13",
       "subjects": [
         "DE",
         "Digital Empowerment",
@@ -17823,7 +17823,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "667",
       "label": "Eco Guest 17",
       "clean_name": "Eco Guest 17",
-      "short_code": "",
+      "short_code": "EG17",
       "initials": "EG",
       "department": "Commerce",
       "total_teaching_periods": 0,
@@ -17835,14 +17835,14 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "EG17",
       "subjects": []
     },
     {
       "id": "682",
       "label": "Eco Guest 18",
       "clean_name": "Eco Guest 18",
-      "short_code": "",
+      "short_code": "EG18",
       "initials": "EG",
       "department": "Commerce",
       "total_teaching_periods": 0,
@@ -17854,7 +17854,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "EG18",
       "subjects": []
     },
     {
@@ -18268,7 +18268,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "657",
       "label": "Eco Guest 8",
       "clean_name": "Eco Guest 8",
-      "short_code": "",
+      "short_code": "EG8",
       "initials": "EG",
       "department": "Commerce",
       "total_teaching_periods": 0,
@@ -18280,14 +18280,14 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "EG8",
       "subjects": []
     },
     {
       "id": "669",
       "label": "Eco Guest 9",
       "clean_name": "Eco Guest 9",
-      "short_code": "",
+      "short_code": "EG9",
       "initials": "EG",
       "department": "Commerce",
       "total_teaching_periods": 0,
@@ -18299,7 +18299,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "EG9",
       "subjects": []
     },
     {
@@ -18940,7 +18940,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "623",
       "label": "Hardik Negi (cg7)",
       "clean_name": "Hardik Negi",
-      "short_code": "HNC",
+      "short_code": "CG7",
       "initials": "HN",
       "department": "Commerce",
       "total_teaching_periods": 9,
@@ -19091,7 +19091,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "HNC",
+      "ref_code": "CG7",
       "subjects": [
         "EC",
         "Ethics and Culture"
@@ -19101,7 +19101,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "641",
       "label": "Harsh Goel (cg12)",
       "clean_name": "Harsh Goel",
-      "short_code": "HGC",
+      "short_code": "CG12",
       "initials": "HG",
       "department": "Commerce",
       "total_teaching_periods": 7,
@@ -19221,7 +19221,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "HGC",
+      "ref_code": "CG12",
       "subjects": [
         "ITLP",
         "Income Tax Law and Practice"
@@ -19406,7 +19406,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "652",
       "label": "Harshita Gupta (cg24)",
       "clean_name": "Harshita Gupta",
-      "short_code": "HGC",
+      "short_code": "CG24",
       "initials": "HG",
       "department": "Commerce",
       "total_teaching_periods": 6,
@@ -19511,7 +19511,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "HGC",
+      "ref_code": "CG24",
       "subjects": [
         "BLAW",
         "Business Law"
@@ -19521,7 +19521,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "626",
       "label": "Himanshi (cg4)",
       "clean_name": "Himanshi",
-      "short_code": "HC",
+      "short_code": "CG4",
       "initials": "HI",
       "department": "Commerce",
       "total_teaching_periods": 9,
@@ -19671,7 +19671,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "HC",
+      "ref_code": "CG4",
       "subjects": [
         "PFP",
         "Personal Financial Planning",
@@ -20519,7 +20519,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "714",
       "label": "Katyayani(25)",
       "clean_name": "Katyayani",
-      "short_code": "",
+      "short_code": "KA25",
       "initials": "KA",
       "department": "Economics",
       "total_teaching_periods": 10,
@@ -20685,7 +20685,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "KA25",
       "subjects": [
         "Adv MME",
         "Advanced Mathematical Methods for Economics",
@@ -21050,7 +21050,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "627",
       "label": "Madhu (cg5)",
       "clean_name": "Madhu",
-      "short_code": "MAC",
+      "short_code": "CG5",
       "initials": "MA",
       "department": "Commerce",
       "total_teaching_periods": 9,
@@ -21201,7 +21201,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "MAC",
+      "ref_code": "CG5",
       "subjects": [
         "EI",
         "Emotional Intelligence"
@@ -21386,7 +21386,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "683",
       "label": "Manasvi Chowdhury (15)",
       "clean_name": "Manasvi Chowdhury",
-      "short_code": "",
+      "short_code": "MG15",
       "initials": "MC",
       "department": "Economics",
       "total_teaching_periods": 10,
@@ -21551,7 +21551,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "",
+      "ref_code": "MG15",
       "subjects": [
         "Adv MME",
         "Advanced Mathematical Methods for Economics"
@@ -21941,7 +21941,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "687",
       "label": "Mayank Goel (cg34)",
       "clean_name": "Mayank Goel",
-      "short_code": "MKG",
+      "short_code": "CG34",
       "initials": "MG",
       "department": "Commerce",
       "total_teaching_periods": 10,
@@ -22107,7 +22107,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "MKG",
+      "ref_code": "CG34",
       "subjects": [
         "CFCR",
         "Corporate Finance & Restructuring",
@@ -22121,7 +22121,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "624",
       "label": "Mayank Kumar (cg2)",
       "clean_name": "Mayank Kumar",
-      "short_code": "",
+      "short_code": "CG2",
       "initials": "MK",
       "department": "Commerce",
       "total_teaching_periods": 8,
@@ -22255,7 +22255,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "CG2",
       "subjects": [
         "SET",
         "Statistical Economics & Techniques"
@@ -22265,7 +22265,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "637",
       "label": "Mehak (cg8)",
       "clean_name": "Mehak",
-      "short_code": "NSC",
+      "short_code": "CG8",
       "initials": "ME",
       "department": "Commerce",
       "total_teaching_periods": 9,
@@ -22416,7 +22416,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "NSC",
+      "ref_code": "CG8",
       "subjects": [
         "BIDV",
         "Business Intelligence & Data Visualization",
@@ -29766,7 +29766,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "691",
       "label": "Nikita Kuhar",
       "clean_name": "Nikita Kuhar",
-      "short_code": "BMATH",
+      "short_code": "CG38",
       "initials": "NK",
       "department": "Commerce",
       "total_teaching_periods": 8,
@@ -29903,7 +29903,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "BMATH",
+      "ref_code": "CG38",
       "subjects": [
         "BMATH",
         "Business Mathematics",
@@ -29915,7 +29915,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "686",
       "label": "Nisha (cg33)",
       "clean_name": "Nisha",
-      "short_code": "NC",
+      "short_code": "CG33",
       "initials": "NI",
       "department": "Commerce",
       "total_teaching_periods": 9,
@@ -30067,7 +30067,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "NC",
+      "ref_code": "CG33",
       "subjects": [
         "DE",
         "Digital Empowerment",
@@ -30081,7 +30081,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "638",
       "label": "Nisha Bajaj (cg9)",
       "clean_name": "Nisha Bajaj",
-      "short_code": "NBC",
+      "short_code": "CG9",
       "initials": "NB",
       "department": "Commerce",
       "total_teaching_periods": 8,
@@ -30216,7 +30216,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "NBC",
+      "ref_code": "CG9",
       "subjects": [
         "BIT",
         "Business Information Technologies",
@@ -30391,7 +30391,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "670",
       "label": "Ph. Dalethro (cg31)",
       "clean_name": "Ph. Dalethro",
-      "short_code": "",
+      "short_code": "CG31",
       "initials": "PD",
       "department": "Commerce",
       "total_teaching_periods": 0,
@@ -30403,7 +30403,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "CG31",
       "subjects": []
     },
     {
@@ -30820,7 +30820,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "698",
       "label": "Prachi Goel(csg1)",
       "clean_name": "Prachi Goel",
-      "short_code": "csg1",
+      "short_code": "CSG1",
       "initials": "PG",
       "department": "Commerce",
       "total_teaching_periods": 10,
@@ -30985,7 +30985,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "csg1",
+      "ref_code": "CSG1",
       "subjects": [
         "DMS",
         "Database Management Systems",
@@ -30999,7 +30999,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "662",
       "label": "Pratiksha (cg14)",
       "clean_name": "Pratiksha",
-      "short_code": "PC",
+      "short_code": "CG14",
       "initials": "PR",
       "department": "Commerce",
       "total_teaching_periods": 9,
@@ -31150,7 +31150,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "PC",
+      "ref_code": "CG14",
       "subjects": [
         "IE",
         "ITLP",
@@ -31162,7 +31162,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "663",
       "label": "Priyanka Aggarwal (cg26)",
       "clean_name": "Priyanka Aggarwal",
-      "short_code": "PKC",
+      "short_code": "CG26",
       "initials": "PA",
       "department": "Commerce",
       "total_teaching_periods": 3,
@@ -31221,7 +31221,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "PKC",
+      "ref_code": "CG26",
       "subjects": [
         "PM",
         "Project Management"
@@ -35180,7 +35180,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "639",
       "label": "Rajkumari Sharma (hg1)",
       "clean_name": "Rajkumari Sharma",
-      "short_code": "RKS",
+      "short_code": "HG1",
       "initials": "RS",
       "department": "Hindi",
       "total_teaching_periods": 10,
@@ -35347,7 +35347,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "RKS",
+      "ref_code": "HG1",
       "subjects": [
         "HA",
         "HB",
@@ -35359,7 +35359,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "635",
       "label": "Ram Prakash (cg6)",
       "clean_name": "Ram Prakash",
-      "short_code": "RPC",
+      "short_code": "CG6",
       "initials": "RP",
       "department": "Commerce",
       "total_teaching_periods": 9,
@@ -35510,7 +35510,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "RPC",
+      "ref_code": "CG6",
       "subjects": [
         "BLAW",
         "Business Law",
@@ -35524,7 +35524,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "710",
       "label": "Sakshi Sharma (hg3)",
       "clean_name": "Sakshi Sharma",
-      "short_code": "SS",
+      "short_code": "HG3",
       "initials": "SS",
       "department": "Hindi",
       "total_teaching_periods": 10,
@@ -35690,7 +35690,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "SS",
+      "ref_code": "HG3",
       "subjects": [
         "H B",
         "Hindi B"
@@ -35876,7 +35876,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "645",
       "label": "Santosh Kumar (cg18)",
       "clean_name": "Santosh Kumar",
-      "short_code": "",
+      "short_code": "CG18",
       "initials": "SK",
       "department": "Commerce",
       "total_teaching_periods": 10,
@@ -36041,7 +36041,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "CG18",
       "subjects": [
         "BIT",
         "BRM",
@@ -36055,7 +36055,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "625",
       "label": "Saurav Meena (cg3)",
       "clean_name": "Saurav Meena",
-      "short_code": "SVM",
+      "short_code": "CG3",
       "initials": "SM",
       "department": "Commerce",
       "total_teaching_periods": 8,
@@ -36190,7 +36190,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SVM",
+      "ref_code": "CG3",
       "subjects": [
         "IE",
         "International Economics"
@@ -36377,7 +36377,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "659",
       "label": "Shailendra (cg27)",
       "clean_name": "Shailendra",
-      "short_code": "SHC",
+      "short_code": "CG27",
       "initials": "SH",
       "department": "Commerce",
       "total_teaching_periods": 8,
@@ -36512,7 +36512,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "SHC",
+      "ref_code": "CG27",
       "subjects": [
         "ABH",
         "DM",
@@ -36878,7 +36878,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "648",
       "label": "Simrah (cg20)",
       "clean_name": "Simrah",
-      "short_code": "SMRC",
+      "short_code": "CG20",
       "initials": "SI",
       "department": "Commerce",
       "total_teaching_periods": 9,
@@ -37029,7 +37029,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "SMRC",
+      "ref_code": "CG20",
       "subjects": [
         "AFE",
         "Accounting for Everyone"
@@ -37039,7 +37039,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "647",
       "label": "Sonam (cg19)",
       "clean_name": "Sonam",
-      "short_code": "SOC",
+      "short_code": "CG19",
       "initials": "SO",
       "department": "Commerce",
       "total_teaching_periods": 10,
@@ -37205,7 +37205,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "SOC",
+      "ref_code": "CG19",
       "subjects": [
         "BIDV",
         "Business Intelligence & Data Visualization",
@@ -37217,7 +37217,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "681",
       "label": "Suneet Kumar (hg2)",
       "clean_name": "Suneet Kumar",
-      "short_code": "STK",
+      "short_code": "HG2",
       "initials": "SK",
       "department": "Hindi",
       "total_teaching_periods": 10,
@@ -37383,7 +37383,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "STK",
+      "ref_code": "HG2",
       "subjects": [
         "HB",
         "HC",
@@ -37395,7 +37395,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "642",
       "label": "Tamanna (cg15)",
       "clean_name": "Tamanna",
-      "short_code": "TAMC",
+      "short_code": "CG15",
       "initials": "TA",
       "department": "Commerce",
       "total_teaching_periods": 10,
@@ -37562,7 +37562,7 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "ref_code": "TAMC",
+      "ref_code": "CG15",
       "subjects": [
         "AUD",
         "Auditing and Corporate Governance",
@@ -37574,7 +37574,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "629",
       "label": "Tanisha (cg29)",
       "clean_name": "Tanisha",
-      "short_code": "",
+      "short_code": "CG29",
       "initials": "TA",
       "department": "Economics",
       "total_teaching_periods": 8,
@@ -37708,7 +37708,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "",
+      "ref_code": "CG29",
       "subjects": [
         "BIT",
         "Business Information Technologies"
@@ -37718,7 +37718,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "688",
       "label": "Tarra Tirupathi Rao (cg35)",
       "clean_name": "Tarra Tirupathi Rao",
-      "short_code": "TTR",
+      "short_code": "CG35",
       "initials": "TT",
       "department": "Commerce",
       "total_teaching_periods": 7,
@@ -37839,7 +37839,7 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "ref_code": "TTR",
+      "ref_code": "CG35",
       "subjects": [
         "ITLP",
         "Income Tax Law and Practice"
@@ -37849,7 +37849,7 @@ window.SRCC_TEACHERS_DATA = {
       "id": "649",
       "label": "Yash (cg21)",
       "clean_name": "Yash",
-      "short_code": "YC",
+      "short_code": "CG21",
       "initials": "YA",
       "department": "Commerce",
       "total_teaching_periods": 8,
@@ -37984,7 +37984,7 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "ref_code": "YC",
+      "ref_code": "CG21",
       "subjects": [
         "BIT",
         "Business Information Technologies",
