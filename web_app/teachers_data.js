@@ -895,7 +895,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "Intro MME",
             "subject_name": "Introductory Mathematical Methods for Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Introductory Mathematical Methods for Economics (Intro MME) · B.A. (Hons) Economics · Sem I · Sec C · (C1)"
+            "formatted_display": "Introductory Mathematical Methods for Economics (Intro MME) · B.A. (Hons) Economics · Sem I · Sec C · (C1 / CP1)"
           },
           {
             "raw": "T-BAHE-A-SEM IEconomics-Intro MME-T16-A1",
@@ -910,7 +910,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "Intro MME",
             "subject_name": "Introductory Mathematical Methods for Economics",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Introductory Mathematical Methods for Economics (Intro MME) · B.A. (Hons) Economics · Sem I · Sec A · (A1)"
+            "formatted_display": "Introductory Mathematical Methods for Economics (Intro MME) · B.A. (Hons) Economics · Sem I · Sec A · (A1 / AP1)"
           }
         ],
         "Tuesday": [],
@@ -958,7 +958,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "Intro MME",
             "subject_name": "Introductory Mathematical Methods for Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Introductory Mathematical Methods for Economics (Intro MME) · B.A. (Hons) Economics · Sem I · Sec A · (A3)"
+            "formatted_display": "Introductory Mathematical Methods for Economics (Intro MME) · B.A. (Hons) Economics · Sem I · Sec A · (A3 / AP3)"
           }
         ],
         "Thursday": [],
@@ -1007,7 +1007,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "Intro MME",
             "subject_name": "Introductory Mathematical Methods for Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Introductory Mathematical Methods for Economics (Intro MME) · B.A. (Hons) Economics · Sem I · Sec C · (C3)"
+            "formatted_display": "Introductory Mathematical Methods for Economics (Intro MME) · B.A. (Hons) Economics · Sem I · Sec C · (C3 / CP3)"
           }
         ]
       },
@@ -1233,9 +1233,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC13",
             "raw_batch": "VAC13",
             "subject": "EC",
-            "subject_name": "E-Commerce",
+            "subject_name": "Ethics and Culture",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "E-Commerce (EC) · Sem III · Joint · (VAC13)"
+            "formatted_display": "Ethics and Culture (EC) · Sem III · Joint · (VAC13)"
           }
         ],
         "Tuesday": [
@@ -1282,9 +1282,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC13",
             "raw_batch": "VAC13",
             "subject": "EC",
-            "subject_name": "E-Commerce",
+            "subject_name": "Ethics and Culture",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "E-Commerce (EC) · Sem III · Joint · (VAC13)"
+            "formatted_display": "Ethics and Culture (EC) · Sem III · Joint · (VAC13)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-EC-PB3-VAC13",
@@ -1297,9 +1297,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC13",
             "raw_batch": "VAC13",
             "subject": "EC",
-            "subject_name": "E-Commerce",
+            "subject_name": "Ethics and Culture",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "E-Commerce (EC) · Sem III · Joint · (VAC13)"
+            "formatted_display": "Ethics and Culture (EC) · Sem III · Joint · (VAC13)"
           }
         ],
         "Thursday": [],
@@ -1341,8 +1341,8 @@ window.SRCC_TEACHERS_DATA = {
       "subjects": [
         "BIDV",
         "Business Intelligence & Data Visualization",
-        "E-Commerce",
-        "EC"
+        "EC",
+        "Ethics and Culture"
       ]
     },
     {
@@ -1366,9 +1366,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "CAS",
-            "subject_name": "Cost Accounting System",
+            "subject_name": "Computerized Accounting System",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Cost Accounting System (CAS) · B.Com (Hons) · Sem V · Sec N"
+            "formatted_display": "Computerized Accounting System (CAS) · B.Com (Hons) · Sem V · Sec N"
           }
         ],
         "Tuesday": [],
@@ -1479,9 +1479,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "CAS",
-            "subject_name": "Cost Accounting System",
+            "subject_name": "Computerized Accounting System",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Cost Accounting System (CAS) · B.Com (Hons) · Sem V · Sec N"
+            "formatted_display": "Computerized Accounting System (CAS) · B.Com (Hons) · Sem V · Sec N"
           },
           {
             "raw": "L-BCH-N-SEM VCommerce-CAS-CLIB",
@@ -1494,16 +1494,16 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "CAS",
-            "subject_name": "Cost Accounting System",
+            "subject_name": "Computerized Accounting System",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Cost Accounting System (CAS) · B.Com (Hons) · Sem V · Sec N"
+            "formatted_display": "Computerized Accounting System (CAS) · B.Com (Hons) · Sem V · Sec N"
           }
         ]
       },
       "ref_code": "ANIC",
       "subjects": [
         "CAS",
-        "Cost Accounting System",
+        "Computerized Accounting System",
         "DM",
         "Digital Marketing",
         "IE",
@@ -1531,9 +1531,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC16",
             "raw_batch": "VAC16",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem I · Joint · (VAC16)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem I · Joint · (VAC16)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-EI-R15-VAC16",
@@ -1546,9 +1546,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC16",
             "raw_batch": "VAC16",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem I · Joint · (VAC16)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem I · Joint · (VAC16)"
           }
         ],
         "Tuesday": [
@@ -1563,9 +1563,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC20",
             "raw_batch": "VAC20",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem I · Joint · (VAC20)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem I · Joint · (VAC20)"
           }
         ],
         "Wednesday": [
@@ -1642,9 +1642,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC20",
             "raw_batch": "VAC20",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem I · Joint · (VAC20)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem I · Joint · (VAC20)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-EI-R23-VAC20",
@@ -1657,9 +1657,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC20",
             "raw_batch": "VAC20",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem I · Joint · (VAC20)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem I · Joint · (VAC20)"
           }
         ],
         "Friday": [
@@ -1674,9 +1674,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC16",
             "raw_batch": "VAC16",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem I · Joint · (VAC16)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem I · Joint · (VAC16)"
           }
         ],
         "Saturday": []
@@ -1684,7 +1684,7 @@ window.SRCC_TEACHERS_DATA = {
       "ref_code": "AJC",
       "subjects": [
         "EI",
-        "Economics of Industry",
+        "Emotional Intelligence",
         "IE",
         "International Economics"
       ]
@@ -1727,7 +1727,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec K · (K1)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec K · (K1 / KP1)"
           }
         ],
         "Tuesday": [
@@ -1791,7 +1791,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec F · (F3)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec F · (F3 / FP3)"
           }
         ],
         "Thursday": [
@@ -1808,7 +1808,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IF",
             "subject_name": "International Finance",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "International Finance (IF) · B.Com (Hons) · Sem V · Sec M · (M2)"
+            "formatted_display": "International Finance (IF) · B.Com (Hons) · Sem V · Sec M · (M2 / MP2)"
           },
           {
             "raw": "L-BCH-M-SEM VCommerce-IF-R20",
@@ -1855,7 +1855,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec E · (E1)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec E · (E1 / EP1)"
           }
         ],
         "Saturday": []
@@ -2066,9 +2066,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC19",
             "raw_batch": "VAC19",
             "subject": "TGNLC",
-            "subject_name": "The Good, Nature & Local Community",
+            "subject_name": "The Gita for Navigating Life Challenges",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "The Good, Nature & Local Community (TGNLC) · Sem I · Joint · (VAC19)"
+            "formatted_display": "The Gita for Navigating Life Challenges (TGNLC) · Sem I · Joint · (VAC19)"
           }
         ],
         "Tuesday": [
@@ -2083,9 +2083,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC19",
             "raw_batch": "VAC19",
             "subject": "TGNLC",
-            "subject_name": "The Good, Nature & Local Community",
+            "subject_name": "The Gita for Navigating Life Challenges",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "The Good, Nature & Local Community (TGNLC) · Sem I · Joint · (VAC19)"
+            "formatted_display": "The Gita for Navigating Life Challenges (TGNLC) · Sem I · Joint · (VAC19)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-TGNLC-R37-VAC19",
@@ -2098,9 +2098,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC19",
             "raw_batch": "VAC19",
             "subject": "TGNLC",
-            "subject_name": "The Good, Nature & Local Community",
+            "subject_name": "The Gita for Navigating Life Challenges",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "The Good, Nature & Local Community (TGNLC) · Sem I · Joint · (VAC19)"
+            "formatted_display": "The Gita for Navigating Life Challenges (TGNLC) · Sem I · Joint · (VAC19)"
           }
         ],
         "Wednesday": [
@@ -2115,9 +2115,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC29",
             "raw_batch": "VAC29",
             "subject": "TGNLC",
-            "subject_name": "The Good, Nature & Local Community",
+            "subject_name": "The Gita for Navigating Life Challenges",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "The Good, Nature & Local Community (TGNLC) · Sem III · Joint · (VAC29)"
+            "formatted_display": "The Gita for Navigating Life Challenges (TGNLC) · Sem III · Joint · (VAC29)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-TGNLC-Library FF-VAC29",
@@ -2130,9 +2130,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC29",
             "raw_batch": "VAC29",
             "subject": "TGNLC",
-            "subject_name": "The Good, Nature & Local Community",
+            "subject_name": "The Gita for Navigating Life Challenges",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "The Good, Nature & Local Community (TGNLC) · Sem III · Joint · (VAC29)"
+            "formatted_display": "The Gita for Navigating Life Challenges (TGNLC) · Sem III · Joint · (VAC29)"
           }
         ],
         "Thursday": [],
@@ -2148,9 +2148,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC29",
             "raw_batch": "VAC29",
             "subject": "TGNLC",
-            "subject_name": "The Good, Nature & Local Community",
+            "subject_name": "The Gita for Navigating Life Challenges",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "The Good, Nature & Local Community (TGNLC) · Sem III · Joint · (VAC29)"
+            "formatted_display": "The Gita for Navigating Life Challenges (TGNLC) · Sem III · Joint · (VAC29)"
           }
         ],
         "Saturday": [
@@ -2176,7 +2176,7 @@ window.SRCC_TEACHERS_DATA = {
         "PFP",
         "Personal Financial Planning",
         "TGNLC",
-        "The Good, Nature & Local Community"
+        "The Gita for Navigating Life Challenges"
       ]
     },
     {
@@ -2219,7 +2219,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec L · (L2)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec L · (L2 / LP2)"
           },
           {
             "raw": "T-BCH-H-SEM IIICommerce-BRM-T17-H2",
@@ -2232,9 +2232,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "H2",
             "raw_batch": "H2",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec H · (H2)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec H · (H2 / HP2)"
           },
           {
             "raw": "T-BCH-C-SEM IIICommerce-BRM-T17-C1",
@@ -2247,9 +2247,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "C1",
             "raw_batch": "C1",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec C · (C1)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec C · (C1 / CP1)"
           }
         ],
         "Thursday": [
@@ -2281,7 +2281,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec C · (C2)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec C · (C2 / CP2)"
           }
         ],
         "Friday": [
@@ -2313,7 +2313,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec K · (K2)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec K · (K2 / KP2)"
           }
         ],
         "Saturday": []
@@ -2322,8 +2322,8 @@ window.SRCC_TEACHERS_DATA = {
       "subjects": [
         "BLAW",
         "BRM",
-        "Business Law",
-        "Business Research Methods"
+        "Brand Management",
+        "Business Law"
       ]
     },
     {
@@ -2763,23 +2763,23 @@ window.SRCC_TEACHERS_DATA = {
         "Tuesday": [],
         "Wednesday": [
           {
-            "raw": "T-BAHE-D-SEM IIIEconomics-EHI-T53-D1T-BAHE-A-SEM VIIEconomics-EHI-T53-A1",
-            "display": "T-BAHE-D-SEM IIIEconomics-EHI-T53-D1T-BAHE-A-SEM VIIEconomics-EHI-T53-A1",
+            "raw": "T-BAHE-D-SEM IIIEconomics-EHI-T53-D1",
+            "display": "T-BAHE-D-SEM IIIEconomics-EHI-T53-D1",
             "type": "Tutorial",
             "room": "T53",
             "course": "B.A. (Hons) Economics",
             "semester": "Sem III",
             "section": "Sec D",
-            "batch": "A1",
-            "raw_batch": "A1",
+            "batch": "D1",
+            "raw_batch": "D1",
             "subject": "EHI",
             "subject_name": "Economic History of India",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Economic History of India (EHI) · B.A. (Hons) Economics · Sem III · Sec D · (A1)"
+            "formatted_display": "Economic History of India (EHI) · B.A. (Hons) Economics · Sem III · Sec D · (D1 / DP1)"
           },
           {
-            "raw": "L-BAHE-A-SEM VIIEconomics-EHI-R29L-BAHE-B-SEM VEconomics-EHI-R29L-BAHE-D-SEM IIIEconomics-EHI-R29",
-            "display": "L-BAHE-A-SEM VIIEconomics-EHI-R29L-BAHE-B-SEM VEconomics-EHI-R29L-BAHE-D-SEM IIIEconomics-EHI-R29",
+            "raw": "L-BAHE-A-SEM VIIEconomics-EHI-R29",
+            "display": "L-BAHE-A-SEM VIIEconomics-EHI-R29",
             "type": "Lecture",
             "room": "R29",
             "course": "B.A. (Hons) Economics",
@@ -2805,13 +2805,13 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MB",
             "subject_name": "Money and Banking",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Money and Banking (MB) · B.Com (Hons) · Sem III · Sec M · (M1)"
+            "formatted_display": "Money and Banking (MB) · B.Com (Hons) · Sem III · Sec M · (M1 / MP1)"
           }
         ],
         "Thursday": [
           {
-            "raw": "L-BAHE-B-SEM VEconomics-EHI-R24L-BAHE-A-SEM VIIEconomics-EHI-R24L-BAHE-D-SEM IIIEconomics-EHI-R24",
-            "display": "L-BAHE-B-SEM VEconomics-EHI-R24L-BAHE-A-SEM VIIEconomics-EHI-R24L-BAHE-D-SEM IIIEconomics-EHI-R24",
+            "raw": "L-BAHE-B-SEM VEconomics-EHI-R24",
+            "display": "L-BAHE-B-SEM VEconomics-EHI-R24",
             "type": "Lecture",
             "room": "R24",
             "course": "B.A. (Hons) Economics",
@@ -2837,7 +2837,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "EHI",
             "subject_name": "Economic History of India",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Economic History of India (EHI) · B.A. (Hons) Economics · Sem V · Sec B · (B3)"
+            "formatted_display": "Economic History of India (EHI) · B.A. (Hons) Economics · Sem V · Sec B · (B3 / BP3)"
           },
           {
             "raw": "T-BCH-N-SEM VEconomics-MB-T23-N1",
@@ -2852,7 +2852,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MB",
             "subject_name": "Money and Banking",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Money and Banking (MB) · B.Com (Hons) · Sem V · Sec N · (N1)"
+            "formatted_display": "Money and Banking (MB) · B.Com (Hons) · Sem V · Sec N · (N1 / NP1)"
           }
         ],
         "Friday": [
@@ -2869,7 +2869,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MB",
             "subject_name": "Money and Banking",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Money and Banking (MB) · B.Com (Hons) · Sem III · Sec M · (M2)"
+            "formatted_display": "Money and Banking (MB) · B.Com (Hons) · Sem III · Sec M · (M2 / MP2)"
           },
           {
             "raw": "T-BCH-M-SEM VEconomics-MB-T50-M2",
@@ -2884,11 +2884,11 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MB",
             "subject_name": "Money and Banking",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Money and Banking (MB) · B.Com (Hons) · Sem V · Sec M · (M2)"
+            "formatted_display": "Money and Banking (MB) · B.Com (Hons) · Sem V · Sec M · (M2 / MP2)"
           },
           {
-            "raw": "L-BAHE-B-SEM VEconomics-EHI-R37L-BAHE-A-SEM VIIEconomics-EHI-R37L-BAHE-D-SEM IIIEconomics-EHI-R37",
-            "display": "L-BAHE-B-SEM VEconomics-EHI-R37L-BAHE-A-SEM VIIEconomics-EHI-R37L-BAHE-D-SEM IIIEconomics-EHI-R37",
+            "raw": "L-BAHE-B-SEM VEconomics-EHI-R37",
+            "display": "L-BAHE-B-SEM VEconomics-EHI-R37",
             "type": "Lecture",
             "room": "R37",
             "course": "B.A. (Hons) Economics",
@@ -2914,7 +2914,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MB",
             "subject_name": "Money and Banking",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Money and Banking (MB) · B.Com (Hons) · Sem III · Sec M · (M3)"
+            "formatted_display": "Money and Banking (MB) · B.Com (Hons) · Sem III · Sec M · (M3 / MP3)"
           }
         ],
         "Saturday": []
@@ -2996,9 +2996,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC10",
             "raw_batch": "VAC10",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem III · Joint · (VAC10)"
+            "formatted_display": "Digital Empowerment (DE) · Sem III · Joint · (VAC10)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-DE-R23-VAC10",
@@ -3011,9 +3011,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC10",
             "raw_batch": "VAC10",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem III · Joint · (VAC10)"
+            "formatted_display": "Digital Empowerment (DE) · Sem III · Joint · (VAC10)"
           }
         ],
         "Thursday": [
@@ -3028,9 +3028,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC22",
             "raw_batch": "VAC22",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem I · Joint · (VAC22)"
+            "formatted_display": "Digital Empowerment (DE) · Sem I · Joint · (VAC22)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-DE-R32-VAC22",
@@ -3043,9 +3043,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC22",
             "raw_batch": "VAC22",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem I · Joint · (VAC22)"
+            "formatted_display": "Digital Empowerment (DE) · Sem I · Joint · (VAC22)"
           }
         ],
         "Friday": [],
@@ -3054,7 +3054,7 @@ window.SRCC_TEACHERS_DATA = {
       "ref_code": "",
       "subjects": [
         "DE",
-        "Development Economics",
+        "Digital Empowerment",
         "SMM",
         "Social Media Marketing"
       ]
@@ -3334,7 +3334,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec E · (E3)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec E · (E3 / EP3)"
           }
         ],
         "Tuesday": [
@@ -3366,7 +3366,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec B · (B2)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec B · (B2 / BP2)"
           },
           {
             "raw": "T-BCH-G-SEM ICommerce-MPA-T5-G1",
@@ -3381,7 +3381,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec G · (G1)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec G · (G1 / GP1)"
           }
         ],
         "Wednesday": [
@@ -3413,7 +3413,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec E · (E2)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec E · (E2 / EP2)"
           },
           {
             "raw": "L-BCH-H-SEM ICommerce-MPA-R2",
@@ -3460,7 +3460,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec E · (E1)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec E · (E1 / EP1)"
           },
           {
             "raw": "T-BCH-G-SEM ICommerce-MPA-T32-G2",
@@ -3475,7 +3475,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec G · (G2)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec G · (G2 / GP2)"
           }
         ],
         "Friday": [
@@ -3507,7 +3507,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec J · (J2)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec J · (J2 / JP2)"
           },
           {
             "raw": "T-BCH-I-SEM ICommerce-MPA-T32-I2",
@@ -3522,7 +3522,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec I · (I2)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec I · (I2 / IP2)"
           }
         ],
         "Saturday": []
@@ -3633,9 +3633,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "C2",
             "raw_batch": "C2",
             "subject": "CAS",
-            "subject_name": "Cost Accounting System",
+            "subject_name": "Computerized Accounting System",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Cost Accounting System (CAS) · B.Com (Hons) · Sem V · Sec C · (C2)"
+            "formatted_display": "Computerized Accounting System (CAS) · B.Com (Hons) · Sem V · Sec C · (C2 / CP2)"
           }
         ],
         "Wednesday": [
@@ -3728,9 +3728,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "N2",
             "raw_batch": "N2",
             "subject": "CAS",
-            "subject_name": "Cost Accounting System",
+            "subject_name": "Computerized Accounting System",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Cost Accounting System (CAS) · B.Com (Hons) · Sem V · Sec N · (N2)"
+            "formatted_display": "Computerized Accounting System (CAS) · B.Com (Hons) · Sem V · Sec N · (N2 / NP2)"
           }
         ],
         "Saturday": [
@@ -3799,7 +3799,7 @@ window.SRCC_TEACHERS_DATA = {
       "ref_code": "ATS",
       "subjects": [
         "CAS",
-        "Cost Accounting System",
+        "Computerized Accounting System",
         "MA",
         "Management Accounting"
       ]
@@ -3843,26 +3843,26 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IM",
             "subject_name": "International Marketing",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "International Marketing (IM) · B.A. (Hons) Economics · Sem I · Sec B · (B1)"
+            "formatted_display": "International Marketing (IM) · B.A. (Hons) Economics · Sem I · Sec B · (B1 / BP1)"
           },
           {
-            "raw": "T-BAHE-B-SEM VEconomics-OEM-T53-B1T-BAHE-A-SEM VIIEconomics-OEM-T53-A1",
-            "display": "T-BAHE-B-SEM VEconomics-OEM-T53-B1T-BAHE-A-SEM VIIEconomics-OEM-T53-A1",
+            "raw": "T-BAHE-B-SEM VEconomics-OEM-T53-B1",
+            "display": "T-BAHE-B-SEM VEconomics-OEM-T53-B1",
             "type": "Tutorial",
             "room": "T53",
             "course": "B.A. (Hons) Economics",
             "semester": "Sem V",
             "section": "Sec B",
-            "batch": "A1",
-            "raw_batch": "A1",
+            "batch": "B1",
+            "raw_batch": "B1",
             "subject": "OEM",
             "subject_name": "Open Elective Management",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Open Elective Management (OEM) · B.A. (Hons) Economics · Sem V · Sec B · (A1)"
+            "formatted_display": "Open Elective Management (OEM) · B.A. (Hons) Economics · Sem V · Sec B · (B1 / BP1)"
           },
           {
-            "raw": "L-BAHE-B-SEM VEconomics-OEM-PB4L-BAHE-A-SEM VIIEconomics-OEM-PB4",
-            "display": "L-BAHE-B-SEM VEconomics-OEM-PB4L-BAHE-A-SEM VIIEconomics-OEM-PB4",
+            "raw": "L-BAHE-B-SEM VEconomics-OEM-PB4",
+            "display": "L-BAHE-B-SEM VEconomics-OEM-PB4",
             "type": "Lecture",
             "room": "PB4",
             "course": "B.A. (Hons) Economics",
@@ -3878,8 +3878,8 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Wednesday": [
           {
-            "raw": "L-BAHE-B-SEM VEconomics-OEM-R23L-BAHE-A-SEM VIIEconomics-OEM-R23",
-            "display": "L-BAHE-B-SEM VEconomics-OEM-R23L-BAHE-A-SEM VIIEconomics-OEM-R23",
+            "raw": "L-BAHE-B-SEM VEconomics-OEM-R23",
+            "display": "L-BAHE-B-SEM VEconomics-OEM-R23",
             "type": "Lecture",
             "room": "R23",
             "course": "B.A. (Hons) Economics",
@@ -3905,7 +3905,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "OEM",
             "subject_name": "Open Elective Management",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Open Elective Management (OEM) · B.A. (Hons) Economics · Sem V · Sec B · (B2)"
+            "formatted_display": "Open Elective Management (OEM) · B.A. (Hons) Economics · Sem V · Sec B · (B2 / BP2)"
           },
           {
             "raw": "T-BCH-I-SEM IEconomics-PME-I-T37-I2",
@@ -3920,7 +3920,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec I · (I2)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec I · (I2 / IP2)"
           }
         ],
         "Thursday": [
@@ -3952,7 +3952,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IM",
             "subject_name": "International Marketing",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "International Marketing (IM) · B.A. (Hons) Economics · Sem I · Sec B · (B3)"
+            "formatted_display": "International Marketing (IM) · B.A. (Hons) Economics · Sem I · Sec B · (B3 / BP3)"
           },
           {
             "raw": "T-BAHE-A-SEM IEconomics-IM-T54-A2",
@@ -3967,7 +3967,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IM",
             "subject_name": "International Marketing",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "International Marketing (IM) · B.A. (Hons) Economics · Sem I · Sec A · (A2)"
+            "formatted_display": "International Marketing (IM) · B.A. (Hons) Economics · Sem I · Sec A · (A2 / AP2)"
           },
           {
             "raw": "T-BCH-F-SEM IEconomics-PME-I-T46-F1",
@@ -3982,7 +3982,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec F · (F1)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec F · (F1 / FP1)"
           }
         ],
         "Friday": [
@@ -3999,11 +3999,11 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IM",
             "subject_name": "International Marketing",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "International Marketing (IM) · B.A. (Hons) Economics · Sem I · Sec B · (B2)"
+            "formatted_display": "International Marketing (IM) · B.A. (Hons) Economics · Sem I · Sec B · (B2 / BP2)"
           },
           {
-            "raw": "L-BAHE-B-SEM VEconomics-OEM-R29L-BAHE-A-SEM VIIEconomics-OEM-R29",
-            "display": "L-BAHE-B-SEM VEconomics-OEM-R29L-BAHE-A-SEM VIIEconomics-OEM-R29",
+            "raw": "L-BAHE-B-SEM VEconomics-OEM-R29",
+            "display": "L-BAHE-B-SEM VEconomics-OEM-R29",
             "type": "Lecture",
             "room": "R29",
             "course": "B.A. (Hons) Economics",
@@ -4046,7 +4046,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IM",
             "subject_name": "International Marketing",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "International Marketing (IM) · B.A. (Hons) Economics · Sem I · Sec A · (A1)"
+            "formatted_display": "International Marketing (IM) · B.A. (Hons) Economics · Sem I · Sec A · (A1 / AP1)"
           },
           {
             "raw": "T-BCH-I-SEM IEconomics-PME-I-T30-I1",
@@ -4061,7 +4061,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec I · (I1)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec I · (I1 / IP1)"
           }
         ]
       },
@@ -4131,7 +4131,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec L · (L1)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec L · (L1 / LP1)"
           },
           {
             "raw": "L-BCH-D-SEM IIICommerce-POM-R3",
@@ -4193,7 +4193,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec M · (M2)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec M · (M2 / MP2)"
           },
           {
             "raw": "T-BCH-I-SEM IIICommerce-POM-T49-I3",
@@ -4208,7 +4208,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec I · (I3)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec I · (I3 / IP3)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-DM-R15-SEC2",
@@ -4255,7 +4255,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec I · (I1)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec I · (I1 / IP1)"
           },
           {
             "raw": "L-BCH-D-SEM IIICommerce-POM-R18",
@@ -4287,7 +4287,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec C · (C2)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec C · (C2 / CP2)"
           },
           {
             "raw": "L-BCH-D-SEM IIICommerce-POM-R21",
@@ -4384,7 +4384,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec K · (K1)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec K · (K1 / KP1)"
           },
           {
             "raw": "L-BCH-G-SEM VCommerce-BECON-R34",
@@ -4414,7 +4414,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec C · (C1)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec C · (C1 / CP1)"
           }
         ],
         "Wednesday": [
@@ -4431,7 +4431,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec A · (A3)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec A · (A3 / AP3)"
           },
           {
             "raw": "L-BCH-G-SEM VCommerce-BECON-R21",
@@ -4461,7 +4461,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec C · (C2)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec C · (C2 / CP2)"
           },
           {
             "raw": "L-BCH-A-SEM VCommerce-BECON-R2",
@@ -4493,7 +4493,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec H · (H1)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec H · (H1 / HP1)"
           },
           {
             "raw": "L-BCH-A-SEM VCommerce-BECON-R21",
@@ -4523,7 +4523,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec A · (A1)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec A · (A1 / AP1)"
           },
           {
             "raw": "T-BCH-C-SEM VCommerce-BECON-T11-C3",
@@ -4538,7 +4538,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec C · (C3)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec C · (C3 / CP3)"
           }
         ],
         "Friday": [
@@ -4570,7 +4570,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec A · (A2)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec A · (A2 / AP2)"
           }
         ],
         "Saturday": []
@@ -4673,7 +4673,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec D · (D3)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec D · (D3 / DP3)"
           },
           {
             "raw": "L-BCH-N-SEM VCommerce-BECON-R31",
@@ -4703,7 +4703,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec I · (I3)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec I · (I3 / IP3)"
           }
         ],
         "Thursday": [
@@ -4720,7 +4720,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec M · (M3)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec M · (M3 / MP3)"
           },
           {
             "raw": "L-BCH-L-SEM VCommerce-BECON-R6",
@@ -4750,7 +4750,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec F · (F2)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec F · (F2 / FP2)"
           }
         ],
         "Friday": [
@@ -4797,7 +4797,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec J · (J3)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec J · (J3 / JP3)"
           }
         ],
         "Saturday": [
@@ -4844,7 +4844,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec J · (J3)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec J · (J3 / JP3)"
           }
         ]
       },
@@ -4880,7 +4880,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BADS",
             "subject_name": "Business Analytics & Data Science",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Analytics & Data Science (BADS) · M.Com · Sem III · Sec A · (A1)"
+            "formatted_display": "Business Analytics & Data Science (BADS) · M.Com · Sem III · Sec A · (A1 / AP1)"
           },
           {
             "raw": "L-BCH-F-SEM VCommerce-ITLP-R34",
@@ -4987,7 +4987,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BADS",
             "subject_name": "Business Analytics & Data Science",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Analytics & Data Science (BADS) · M.Com · Sem III · Sec A · (A2)"
+            "formatted_display": "Business Analytics & Data Science (BADS) · M.Com · Sem III · Sec A · (A2 / AP2)"
           }
         ],
         "Thursday": [
@@ -5225,7 +5225,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec G · (G3)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec G · (G3 / GP3)"
           }
         ],
         "Wednesday": [
@@ -5272,7 +5272,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec H · (H2)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec H · (H2 / HP2)"
           }
         ],
         "Thursday": [
@@ -5432,7 +5432,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GT",
             "subject_name": "Game Theory",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Game Theory (GT) · B.A. (Hons) Economics · Sem V · Sec B · (B2)"
+            "formatted_display": "Game Theory (GT) · B.A. (Hons) Economics · Sem V · Sec B · (B2 / BP2)"
           },
           {
             "raw": "L-BAHE-B-SEM VEconomics-GT-R25",
@@ -5479,7 +5479,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GT",
             "subject_name": "Game Theory",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Game Theory (GT) · B.A. (Hons) Economics · Sem V · Sec D · (D3)"
+            "formatted_display": "Game Theory (GT) · B.A. (Hons) Economics · Sem V · Sec D · (D3 / DP3)"
           },
           {
             "raw": "T-BAHE-B-SEM VEconomics-GT-T30-B3",
@@ -5494,7 +5494,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GT",
             "subject_name": "Game Theory",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Game Theory (GT) · B.A. (Hons) Economics · Sem V · Sec B · (B3)"
+            "formatted_display": "Game Theory (GT) · B.A. (Hons) Economics · Sem V · Sec B · (B3 / BP3)"
           }
         ],
         "Wednesday": [
@@ -5526,7 +5526,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IMIC1",
             "subject_name": "Intermediate Microeconomics I",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Intermediate Microeconomics I (IMIC1) · B.A. (Hons) Economics · Sem III · Sec C · (C3)"
+            "formatted_display": "Intermediate Microeconomics I (IMIC1) · B.A. (Hons) Economics · Sem III · Sec C · (C3 / CP3)"
           },
           {
             "raw": "T-BAHE-B-SEM VEconomics-GT-T2-B1",
@@ -5541,7 +5541,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GT",
             "subject_name": "Game Theory",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Game Theory (GT) · B.A. (Hons) Economics · Sem V · Sec B · (B1)"
+            "formatted_display": "Game Theory (GT) · B.A. (Hons) Economics · Sem V · Sec B · (B1 / BP1)"
           }
         ],
         "Thursday": [
@@ -5573,7 +5573,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GT",
             "subject_name": "Game Theory",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Game Theory (GT) · B.A. (Hons) Economics · Sem V · Sec D · (D1)"
+            "formatted_display": "Game Theory (GT) · B.A. (Hons) Economics · Sem V · Sec D · (D1 / DP1)"
           },
           {
             "raw": "T-BAHE-D-SEM VEconomics-GT-T3-D2",
@@ -5588,7 +5588,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GT",
             "subject_name": "Game Theory",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Game Theory (GT) · B.A. (Hons) Economics · Sem V · Sec D · (D2)"
+            "formatted_display": "Game Theory (GT) · B.A. (Hons) Economics · Sem V · Sec D · (D2 / DP2)"
           }
         ],
         "Friday": [
@@ -5620,7 +5620,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IMIC1",
             "subject_name": "Intermediate Microeconomics I",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Intermediate Microeconomics I (IMIC1) · B.A. (Hons) Economics · Sem III · Sec D · (D1)"
+            "formatted_display": "Intermediate Microeconomics I (IMIC1) · B.A. (Hons) Economics · Sem III · Sec D · (D1 / DP1)"
           }
         ],
         "Saturday": []
@@ -5657,7 +5657,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "DE",
             "subject_name": "Development Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Development Economics (DE) · B.A. (Hons) Economics · Sem III · Sec A · (A2)"
+            "formatted_display": "Development Economics (DE) · B.A. (Hons) Economics · Sem III · Sec A · (A2 / AP2)"
           },
           {
             "raw": "T-BCH-M-SEM IIIMaths-DE-T41-M3",
@@ -5672,11 +5672,11 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "DE",
             "subject_name": "Development Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Development Economics (DE) · B.Com (Hons) · Sem III · Sec M · (M3)"
+            "formatted_display": "Development Economics (DE) · B.Com (Hons) · Sem III · Sec M · (M3 / MP3)"
           },
           {
-            "raw": "L-BCH-M-SEM IIIMaths-DE-R26L-BAHE-B-SEM IIIMaths-DE-R26",
-            "display": "L-BCH-M-SEM IIIMaths-DE-R26L-BAHE-B-SEM IIIMaths-DE-R26",
+            "raw": "L-BCH-M-SEM IIIMaths-DE-R26",
+            "display": "L-BCH-M-SEM IIIMaths-DE-R26",
             "type": "Lecture",
             "room": "R26",
             "course": "B.Com (Hons)",
@@ -5704,7 +5704,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "DE",
             "subject_name": "Development Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Development Economics (DE) · B.A. (Hons) Economics · Sem III · Sec B · (B3)"
+            "formatted_display": "Development Economics (DE) · B.A. (Hons) Economics · Sem III · Sec B · (B3 / BP3)"
           },
           {
             "raw": "L-BAHE-A-SEM IIIMaths-DE-R29",
@@ -5722,8 +5722,8 @@ window.SRCC_TEACHERS_DATA = {
             "formatted_display": "Development Economics (DE) · B.A. (Hons) Economics · Sem III · Sec A"
           },
           {
-            "raw": "L-BCH-M-SEM IIIMaths-DE-R26L-BAHE-B-SEM IIIMaths-DE-R26",
-            "display": "L-BCH-M-SEM IIIMaths-DE-R26L-BAHE-B-SEM IIIMaths-DE-R26",
+            "raw": "L-BCH-M-SEM IIIMaths-DE-R26",
+            "display": "L-BCH-M-SEM IIIMaths-DE-R26",
             "type": "Lecture",
             "room": "R26",
             "course": "B.Com (Hons)",
@@ -5737,34 +5737,34 @@ window.SRCC_TEACHERS_DATA = {
             "formatted_display": "Development Economics (DE) · B.Com (Hons) · Sem III · Sec M"
           },
           {
-            "raw": "LAB-BAHE-A-SEM VMaths-NM-R29-A1LAB-BAHE-A-SEM VMaths-NM-R29-A3LAB-BAHE-B-SEM VMaths-NM-R29-B1LAB-BAHE-B-SEM VMaths-NM-R29-B3",
-            "display": "LAB-BAHE-A-SEM VMaths-NM-R29-A1LAB-BAHE-A-SEM VMaths-NM-R29-A3LAB-BAHE-B-SEM VMaths-NM-R29-B1LAB-BAHE-B-SEM VMaths-NM-R29-B3",
+            "raw": "LAB-BAHE-A-SEM VMaths-NM-R29-A1",
+            "display": "LAB-BAHE-A-SEM VMaths-NM-R29-A1",
             "type": "Practical/Lab",
             "room": "R29",
             "course": "B.A. (Hons) Economics",
             "semester": "Sem V",
             "section": "Sec A",
-            "batch": "B3",
-            "raw_batch": "B3",
+            "batch": "A1",
+            "raw_batch": "A1",
             "subject": "NM",
             "subject_name": "Numerical Methods",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec A · (B3)"
+            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec A · (A1 / AP1)"
           },
           {
-            "raw": "LAB-BAHE-A-SEM VMaths-NM-R29-A1LAB-BAHE-A-SEM VMaths-NM-R29-A3LAB-BAHE-B-SEM VMaths-NM-R29-B1LAB-BAHE-B-SEM VMaths-NM-R29-B3",
-            "display": "LAB-BAHE-A-SEM VMaths-NM-R29-A1LAB-BAHE-A-SEM VMaths-NM-R29-A3LAB-BAHE-B-SEM VMaths-NM-R29-B1LAB-BAHE-B-SEM VMaths-NM-R29-B3",
+            "raw": "LAB-BAHE-A-SEM VMaths-NM-R29-A1",
+            "display": "LAB-BAHE-A-SEM VMaths-NM-R29-A1",
             "type": "Practical/Lab",
             "room": "R29",
             "course": "B.A. (Hons) Economics",
             "semester": "Sem V",
             "section": "Sec A",
-            "batch": "B3",
-            "raw_batch": "B3",
+            "batch": "A1",
+            "raw_batch": "A1",
             "subject": "NM",
             "subject_name": "Numerical Methods",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec A · (B3)"
+            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec A · (A1 / AP1)"
           }
         ],
         "Thursday": [
@@ -5781,7 +5781,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "DE",
             "subject_name": "Development Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Development Economics (DE) · B.A. (Hons) Economics · Sem III · Sec A · (A1)"
+            "formatted_display": "Development Economics (DE) · B.A. (Hons) Economics · Sem III · Sec A · (A1 / AP1)"
           },
           {
             "raw": "T-BAHE-A-SEM IIIMaths-DE-T45-A3",
@@ -5796,11 +5796,11 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "DE",
             "subject_name": "Development Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Development Economics (DE) · B.A. (Hons) Economics · Sem III · Sec A · (A3)"
+            "formatted_display": "Development Economics (DE) · B.A. (Hons) Economics · Sem III · Sec A · (A3 / AP3)"
           },
           {
-            "raw": "L-BCH-M-SEM IIIMaths-DE-R25L-BAHE-B-SEM IIIMaths-DE-R25",
-            "display": "L-BCH-M-SEM IIIMaths-DE-R25L-BAHE-B-SEM IIIMaths-DE-R25",
+            "raw": "L-BCH-M-SEM IIIMaths-DE-R25",
+            "display": "L-BCH-M-SEM IIIMaths-DE-R25",
             "type": "Lecture",
             "room": "R25",
             "course": "B.Com (Hons)",
@@ -5828,7 +5828,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "DE",
             "subject_name": "Development Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Development Economics (DE) · B.A. (Hons) Economics · Sem III · Sec B · (B2)"
+            "formatted_display": "Development Economics (DE) · B.A. (Hons) Economics · Sem III · Sec B · (B2 / BP2)"
           },
           {
             "raw": "L-BAHE-A-SEM IIIMaths-DE-PB4",
@@ -5910,7 +5910,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec J · (J1)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec J · (J1 / JP1)"
           }
         ],
         "Tuesday": [
@@ -5959,7 +5959,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec D · (D3)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec D · (D3 / DP3)"
           },
           {
             "raw": "LAB-BCH-M-SEM IIICommerce-FM-T1-MP1",
@@ -6239,9 +6239,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "AIS",
-            "subject_name": "AIS",
+            "subject_name": "Accounting Information Systems",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "AIS · M.Com · Sem III · Sec A"
+            "formatted_display": "Accounting Information Systems (AIS) · M.Com · Sem III · Sec A"
           },
           {
             "raw": "T-MCOM-A-SEM IIICommerce-ACR-T50",
@@ -6254,9 +6254,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "ACR",
-            "subject_name": "Academic and Creative Research",
+            "subject_name": "Accounting for Corporate Restructuring",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Academic and Creative Research (ACR) · M.Com · Sem III · Sec A"
+            "formatted_display": "Accounting for Corporate Restructuring (ACR) · M.Com · Sem III · Sec A"
           }
         ],
         "Wednesday": [
@@ -6406,7 +6406,8 @@ window.SRCC_TEACHERS_DATA = {
       "subjects": [
         "ACR",
         "AIS",
-        "Academic and Creative Research",
+        "Accounting Information Systems",
+        "Accounting for Corporate Restructuring",
         "FA",
         "Financial Accounting",
         "MA",
@@ -6512,9 +6513,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "B1",
             "raw_batch": "B1",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec B · (B1)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec B · (B1 / BP1)"
           }
         ],
         "Thursday": [
@@ -6677,7 +6678,7 @@ window.SRCC_TEACHERS_DATA = {
       "ref_code": "DTY",
       "subjects": [
         "BRM",
-        "Business Research Methods",
+        "Brand Management",
         "MA",
         "Management Accounting",
         "PM",
@@ -6722,7 +6723,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IDE",
             "subject_name": "Issues in Development Economics",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Issues in Development Economics (IDE) · B.A. (Hons) Economics · Sem V · Sec B · (B3)"
+            "formatted_display": "Issues in Development Economics (IDE) · B.A. (Hons) Economics · Sem V · Sec B · (B3 / BP3)"
           },
           {
             "raw": "T-BAHE-A-SEM VEconomics-IDE -T23-A1",
@@ -6737,7 +6738,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IDE",
             "subject_name": "Issues in Development Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Issues in Development Economics (IDE) · B.A. (Hons) Economics · Sem V · Sec A · (A1)"
+            "formatted_display": "Issues in Development Economics (IDE) · B.A. (Hons) Economics · Sem V · Sec A · (A1 / AP1)"
           }
         ],
         "Tuesday": [
@@ -6769,7 +6770,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IDE",
             "subject_name": "Issues in Development Economics",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Issues in Development Economics (IDE) · B.A. (Hons) Economics · Sem V · Sec A · (A3)"
+            "formatted_display": "Issues in Development Economics (IDE) · B.A. (Hons) Economics · Sem V · Sec A · (A3 / AP3)"
           },
           {
             "raw": "T-BAHE-B-SEM VEconomics-IDE -T23-B2",
@@ -6784,7 +6785,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IDE",
             "subject_name": "Issues in Development Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Issues in Development Economics (IDE) · B.A. (Hons) Economics · Sem V · Sec B · (B2)"
+            "formatted_display": "Issues in Development Economics (IDE) · B.A. (Hons) Economics · Sem V · Sec B · (B2 / BP2)"
           }
         ],
         "Wednesday": [
@@ -6848,7 +6849,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IDE",
             "subject_name": "Issues in Development Economics",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Issues in Development Economics (IDE) · B.A. (Hons) Economics · Sem V · Sec A · (A2)"
+            "formatted_display": "Issues in Development Economics (IDE) · B.A. (Hons) Economics · Sem V · Sec A · (A2 / AP2)"
           },
           {
             "raw": "T-BAHE-B-SEM VEconomics-IDE -T23-B1",
@@ -6863,7 +6864,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IDE",
             "subject_name": "Issues in Development Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Issues in Development Economics (IDE) · B.A. (Hons) Economics · Sem V · Sec B · (B1)"
+            "formatted_display": "Issues in Development Economics (IDE) · B.A. (Hons) Economics · Sem V · Sec B · (B1 / BP1)"
           }
         ],
         "Friday": [
@@ -6911,10 +6912,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec K",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec K"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec K"
           },
           {
             "raw": "LAB-BCH-K-SEM III-EVS-II-R20",
@@ -6926,10 +6927,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec K",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec K"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec K"
           }
         ],
         "Tuesday": [
@@ -6943,10 +6944,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec F",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec F"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec F"
           },
           {
             "raw": "L-BCH-N-SEM III-EVS-II-R16",
@@ -6958,10 +6959,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec N",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec N"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec N"
           },
           {
             "raw": "L-BCH-J-SEM III-EVS-II-CLIB",
@@ -6973,10 +6974,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec J",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec J"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec J"
           }
         ],
         "Wednesday": [
@@ -6990,10 +6991,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec H",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec H"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec H"
           },
           {
             "raw": "LAB-BCH-N-SEM III-EVS-II-SCR1",
@@ -7005,10 +7006,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec N",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec N"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec N"
           },
           {
             "raw": "LAB-BCH-J-SEM III-EVS-II-R33",
@@ -7020,10 +7021,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec J",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec J"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec J"
           },
           {
             "raw": "LAB-BCH-J-SEM III-EVS-II-R33",
@@ -7035,10 +7036,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec J",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec J"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec J"
           }
         ],
         "Thursday": [
@@ -7052,10 +7053,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec N",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec N"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec N"
           },
           {
             "raw": "LAB-BCH-H-SEM III-EVS-II-R32",
@@ -7067,10 +7068,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec H",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec H"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec H"
           }
         ],
         "Friday": [
@@ -7084,10 +7085,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec L",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec L"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec L"
           },
           {
             "raw": "LAB-BCH-F-SEM III-EVS-II-CLIB",
@@ -7099,10 +7100,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec F",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec F"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec F"
           },
           {
             "raw": "LAB-BCH-F-SEM III-EVS-II-CLIB",
@@ -7114,18 +7115,18 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec F",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec F"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec F"
           }
         ],
         "Saturday": []
       },
       "ref_code": "FYV",
       "subjects": [
-        "EVS-I",
-        "Environmental Studies I (Theory into Practice)"
+        "EVS-II",
+        "Environmental Studies II (Theory into Practice)"
       ]
     },
     {
@@ -7166,7 +7167,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec J · (J3)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec J · (J3 / JP3)"
           },
           {
             "raw": "L-BCH-M-SEM IIICommerce-POM-CL2",
@@ -7213,7 +7214,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ECom",
             "subject_name": "E-Commerce",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "E-Commerce (ECom) · B.A. (Hons) Economics · Sem VII · Sec A · (A1)"
+            "formatted_display": "E-Commerce (ECom) · B.A. (Hons) Economics · Sem VII · Sec A · (A1 / AP1)"
           },
           {
             "raw": "T-BCH-L-SEM IIICommerce-POM-T35-L3",
@@ -7228,7 +7229,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec L · (L3)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec L · (L3 / LP3)"
           },
           {
             "raw": "L-BCH-E-SEM IIICommerce-POM-R33",
@@ -7275,7 +7276,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec N · (N2)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec N · (N2 / NP2)"
           },
           {
             "raw": "L-BCH-L-SEM IIICommerce-POM-R27",
@@ -7305,7 +7306,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec G · (G2)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec G · (G2 / GP2)"
           }
         ],
         "Thursday": [
@@ -7335,9 +7336,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "C2",
             "raw_batch": "C2",
             "subject": "MFB",
-            "subject_name": "Management of Financial Banks",
+            "subject_name": "Marketing for Beginners",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Management of Financial Banks (MFB) · B.A. (Hons) Economics · Sem I · Sec C · (C2)"
+            "formatted_display": "Marketing for Beginners (MFB) · B.A. (Hons) Economics · Sem I · Sec C · (C2 / CP2)"
           },
           {
             "raw": "L-BCH-M-SEM IIICommerce-POM-R27",
@@ -7384,7 +7385,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec M · (M1)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec M · (M1 / MP1)"
           }
         ],
         "Saturday": []
@@ -7394,7 +7395,7 @@ window.SRCC_TEACHERS_DATA = {
         "E-Commerce",
         "ECom",
         "MFB",
-        "Management of Financial Banks",
+        "Marketing for Beginners",
         "POM",
         "Principles of Marketing"
       ]
@@ -7453,7 +7454,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec D · (D3)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec D · (D3 / DP3)"
           }
         ],
         "Wednesday": [
@@ -7485,7 +7486,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec K · (K2)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec K · (K2 / KP2)"
           },
           {
             "raw": "L-BCH-J-SEM VCommerce-BECON-R14",
@@ -7515,7 +7516,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec E · (E1)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec E · (E1 / EP1)"
           }
         ],
         "Thursday": [
@@ -7549,7 +7550,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec H · (H3)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec H · (H3 / HP3)"
           },
           {
             "raw": "L-BCH-E-SEM VCommerce-BECON-R28",
@@ -7641,7 +7642,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec J · (J2)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec J · (J2 / JP2)"
           },
           {
             "raw": "T-BCH-M-SEM VCommerce-BECON-T50-M1",
@@ -7656,7 +7657,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec M · (M1)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec M · (M1 / MP1)"
           }
         ]
       },
@@ -7710,7 +7711,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "AUD",
             "subject_name": "Auditing and Corporate Governance",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec K · (K2)"
+            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec K · (K2 / KP2)"
           },
           {
             "raw": "L-BCH-H-SEM VCommerce-AUD-R14",
@@ -7740,7 +7741,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "AUD",
             "subject_name": "Auditing and Corporate Governance",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec F · (F1)"
+            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec F · (F1 / FP1)"
           }
         ],
         "Wednesday": [
@@ -7757,7 +7758,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "AUD",
             "subject_name": "Auditing and Corporate Governance",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec I · (I2)"
+            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec I · (I2 / IP2)"
           },
           {
             "raw": "L-BCH-J-SEM VCommerce-AUD-R35",
@@ -7787,7 +7788,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "AUD",
             "subject_name": "Auditing and Corporate Governance",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec H · (H1)"
+            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec H · (H1 / HP1)"
           },
           {
             "raw": "T-BCH-I-SEM VCommerce-AUD-T44-I3",
@@ -7802,7 +7803,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "AUD",
             "subject_name": "Auditing and Corporate Governance",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec I · (I3)"
+            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec I · (I3 / IP3)"
           },
           {
             "raw": "L-BCH-G-SEM VCommerce-AUD-R28",
@@ -7882,7 +7883,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "AUD",
             "subject_name": "Auditing and Corporate Governance",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec G · (G2)"
+            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec G · (G2 / GP2)"
           },
           {
             "raw": "L-BCH-H-SEM VCommerce-AUD-R27",
@@ -8074,8 +8075,8 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Wednesday": [
           {
-            "raw": "L-BCH-L-SEM IEnglish-DEC-R4L-BAHE-D-SEM IEnglish-DEC-R4",
-            "display": "L-BCH-L-SEM IEnglish-DEC-R4L-BAHE-D-SEM IEnglish-DEC-R4",
+            "raw": "L-BCH-L-SEM IEnglish-DEC-R4",
+            "display": "L-BCH-L-SEM IEnglish-DEC-R4",
             "type": "Lecture",
             "room": "R4",
             "course": "B.Com (Hons)",
@@ -8101,7 +8102,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "DEC",
             "subject_name": "Digital Economy & E-Commerce",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Digital Economy & E-Commerce (DEC) · B.Com (Hons) · Sem I · Sec L · (L2)"
+            "formatted_display": "Digital Economy & E-Commerce (DEC) · B.Com (Hons) · Sem I · Sec L · (L2 / LP2)"
           },
           {
             "raw": "LAB-JOINT-SEM IIIEnglish-VAC SEL-R24-VAC19",
@@ -8168,8 +8169,8 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Friday": [
           {
-            "raw": "L-BAHE-A-SEM VIIEnglish-RIDL-R16L-BAHE-B-SEM VEnglish-RIDL-R16",
-            "display": "L-BAHE-A-SEM VIIEnglish-RIDL-R16L-BAHE-B-SEM VEnglish-RIDL-R16",
+            "raw": "L-BAHE-A-SEM VIIEnglish-RIDL-R16",
+            "display": "L-BAHE-A-SEM VIIEnglish-RIDL-R16",
             "type": "Lecture",
             "room": "R16",
             "course": "B.A. (Hons) Economics",
@@ -8224,7 +8225,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PE",
             "subject_name": "Political Economy",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Political Economy (PE) · B.A. (Hons) Economics · Sem V · Sec D · (D3)"
+            "formatted_display": "Political Economy (PE) · B.A. (Hons) Economics · Sem V · Sec D · (D3 / DP3)"
           },
           {
             "raw": "L-BAHE-D-SEM VEconomics-PE-R7",
@@ -8286,7 +8287,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PE",
             "subject_name": "Political Economy",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Political Economy (PE) · B.A. (Hons) Economics · Sem V · Sec C · (C2)"
+            "formatted_display": "Political Economy (PE) · B.A. (Hons) Economics · Sem V · Sec C · (C2 / CP2)"
           },
           {
             "raw": "T-BAHE-C-SEM VEconomics-PE-T30-C3",
@@ -8301,7 +8302,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PE",
             "subject_name": "Political Economy",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Political Economy (PE) · B.A. (Hons) Economics · Sem V · Sec C · (C3)"
+            "formatted_display": "Political Economy (PE) · B.A. (Hons) Economics · Sem V · Sec C · (C3 / CP3)"
           },
           {
             "raw": "T-BCH-L-SEM VEconomics-TPF-T54-L3",
@@ -8316,7 +8317,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "TPF",
             "subject_name": "Theory of Public Finance",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Theory of Public Finance (TPF) · B.Com (Hons) · Sem V · Sec L · (L3)"
+            "formatted_display": "Theory of Public Finance (TPF) · B.Com (Hons) · Sem V · Sec L · (L3 / LP3)"
           },
           {
             "raw": "L-BCH-K-SEM VEconomics-TPF-R15",
@@ -8363,7 +8364,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PE",
             "subject_name": "Political Economy",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Political Economy (PE) · B.A. (Hons) Economics · Sem V · Sec D · (D2)"
+            "formatted_display": "Political Economy (PE) · B.A. (Hons) Economics · Sem V · Sec D · (D2 / DP2)"
           },
           {
             "raw": "T-BAHE-D-SEM VEconomics-PE-T30-D1",
@@ -8378,7 +8379,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PE",
             "subject_name": "Political Economy",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Political Economy (PE) · B.A. (Hons) Economics · Sem V · Sec D · (D1)"
+            "formatted_display": "Political Economy (PE) · B.A. (Hons) Economics · Sem V · Sec D · (D1 / DP1)"
           },
           {
             "raw": "L-BAHE-C-SEM VEconomics-PE-R26",
@@ -8440,7 +8441,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PE",
             "subject_name": "Political Economy",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Political Economy (PE) · B.A. (Hons) Economics · Sem V · Sec C · (C1)"
+            "formatted_display": "Political Economy (PE) · B.A. (Hons) Economics · Sem V · Sec C · (C1 / CP1)"
           }
         ],
         "Saturday": [
@@ -8508,7 +8509,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GBS",
             "subject_name": "Global Business Strategy",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Global Business Strategy (GBS) · B.A. (Hons) Economics · Sem V · Sec D · (D1)"
+            "formatted_display": "Global Business Strategy (GBS) · B.A. (Hons) Economics · Sem V · Sec D · (D1 / DP1)"
           },
           {
             "raw": "T-BAHE-D-SEM VEconomics-GBS-T54-D2",
@@ -8523,7 +8524,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GBS",
             "subject_name": "Global Business Strategy",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Global Business Strategy (GBS) · B.A. (Hons) Economics · Sem V · Sec D · (D2)"
+            "formatted_display": "Global Business Strategy (GBS) · B.A. (Hons) Economics · Sem V · Sec D · (D2 / DP2)"
           }
         ],
         "Wednesday": [
@@ -8555,7 +8556,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GBS",
             "subject_name": "Global Business Strategy",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Global Business Strategy (GBS) · B.A. (Hons) Economics · Sem V · Sec D · (D3)"
+            "formatted_display": "Global Business Strategy (GBS) · B.A. (Hons) Economics · Sem V · Sec D · (D3 / DP3)"
           },
           {
             "raw": "T-BAHE-B-SEM IIIEconomics-IMA I-T54-B1",
@@ -8570,7 +8571,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IMA I",
             "subject_name": "Intermediate Macroeconomics I",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Intermediate Macroeconomics I (IMA I) · B.A. (Hons) Economics · Sem III · Sec B · (B1)"
+            "formatted_display": "Intermediate Macroeconomics I (IMA I) · B.A. (Hons) Economics · Sem III · Sec B · (B1 / BP1)"
           }
         ],
         "Thursday": [
@@ -8617,7 +8618,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IMA I",
             "subject_name": "Intermediate Macroeconomics I",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Intermediate Macroeconomics I (IMA I) · B.A. (Hons) Economics · Sem III · Sec B · (B2)"
+            "formatted_display": "Intermediate Macroeconomics I (IMA I) · B.A. (Hons) Economics · Sem III · Sec B · (B2 / BP2)"
           },
           {
             "raw": "T-BAHE-D-SEM IIIEconomics-IMA I-T53-D1",
@@ -8632,7 +8633,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IMA I",
             "subject_name": "Intermediate Macroeconomics I",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Intermediate Macroeconomics I (IMA I) · B.A. (Hons) Economics · Sem III · Sec D · (D1)"
+            "formatted_display": "Intermediate Macroeconomics I (IMA I) · B.A. (Hons) Economics · Sem III · Sec D · (D1 / DP1)"
           }
         ],
         "Friday": [
@@ -8664,7 +8665,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GBS",
             "subject_name": "Global Business Strategy",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Global Business Strategy (GBS) · B.A. (Hons) Economics · Sem V · Sec C · (C2)"
+            "formatted_display": "Global Business Strategy (GBS) · B.A. (Hons) Economics · Sem V · Sec C · (C2 / CP2)"
           },
           {
             "raw": "T-BAHE-B-SEM IIIEconomics-IMA I-T53-B3",
@@ -8679,7 +8680,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IMA I",
             "subject_name": "Intermediate Macroeconomics I",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Intermediate Macroeconomics I (IMA I) · B.A. (Hons) Economics · Sem III · Sec B · (B3)"
+            "formatted_display": "Intermediate Macroeconomics I (IMA I) · B.A. (Hons) Economics · Sem III · Sec B · (B3 / BP3)"
           }
         ],
         "Saturday": [
@@ -8711,7 +8712,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IMA I",
             "subject_name": "Intermediate Macroeconomics I",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Intermediate Macroeconomics I (IMA I) · B.A. (Hons) Economics · Sem III · Sec D · (D2)"
+            "formatted_display": "Intermediate Macroeconomics I (IMA I) · B.A. (Hons) Economics · Sem III · Sec D · (D2 / DP2)"
           },
           {
             "raw": "T-BAHE-D-SEM IIIEconomics-IMA I-T23-D3",
@@ -8726,7 +8727,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IMA I",
             "subject_name": "Intermediate Macroeconomics I",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Intermediate Macroeconomics I (IMA I) · B.A. (Hons) Economics · Sem III · Sec D · (D3)"
+            "formatted_display": "Intermediate Macroeconomics I (IMA I) · B.A. (Hons) Economics · Sem III · Sec D · (D3 / DP3)"
           }
         ]
       },
@@ -8749,8 +8750,8 @@ window.SRCC_TEACHERS_DATA = {
       "schedule": {
         "Monday": [
           {
-            "raw": "L-BCH-K-SEM IPhy.Ed-OE-SCR1L-BAHE-D-SEM IPhy.Ed-OE-SCR1",
-            "display": "L-BCH-K-SEM IPhy.Ed-OE-SCR1L-BAHE-D-SEM IPhy.Ed-OE-SCR1",
+            "raw": "L-BCH-K-SEM IPhy.Ed-OE-SCR1",
+            "display": "L-BCH-K-SEM IPhy.Ed-OE-SCR1",
             "type": "Lecture",
             "room": "SCR1",
             "course": "B.Com (Hons)",
@@ -8764,8 +8765,8 @@ window.SRCC_TEACHERS_DATA = {
             "formatted_display": "Open Elective (OE) · B.Com (Hons) · Sem I · Sec K"
           },
           {
-            "raw": "L-BCH-K-SEM IPhy.Ed-OE-SCR1L-BAHE-D-SEM IPhy.Ed-OE-SCR1",
-            "display": "L-BCH-K-SEM IPhy.Ed-OE-SCR1L-BAHE-D-SEM IPhy.Ed-OE-SCR1",
+            "raw": "L-BCH-K-SEM IPhy.Ed-OE-SCR1",
+            "display": "L-BCH-K-SEM IPhy.Ed-OE-SCR1",
             "type": "Lecture",
             "room": "SCR1",
             "course": "B.Com (Hons)",
@@ -8781,8 +8782,8 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Tuesday": [
           {
-            "raw": "L-BCH-L-SEM IIIPhy.Ed-OE-SCR1L-BAHE-D-SEM IIIPhy.Ed-OE-SCR1",
-            "display": "L-BCH-L-SEM IIIPhy.Ed-OE-SCR1L-BAHE-D-SEM IIIPhy.Ed-OE-SCR1",
+            "raw": "L-BCH-L-SEM IIIPhy.Ed-OE-SCR1",
+            "display": "L-BCH-L-SEM IIIPhy.Ed-OE-SCR1",
             "type": "Lecture",
             "room": "SCR1",
             "course": "B.Com (Hons)",
@@ -8843,8 +8844,8 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Wednesday": [
           {
-            "raw": "L-BCH-K-SEM IPhy.Ed-OE-SCR1L-BAHE-D-SEM IPhy.Ed-OE-SCR1",
-            "display": "L-BCH-K-SEM IPhy.Ed-OE-SCR1L-BAHE-D-SEM IPhy.Ed-OE-SCR1",
+            "raw": "L-BCH-K-SEM IPhy.Ed-OE-SCR1",
+            "display": "L-BCH-K-SEM IPhy.Ed-OE-SCR1",
             "type": "Lecture",
             "room": "SCR1",
             "course": "B.Com (Hons)",
@@ -8905,8 +8906,8 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Thursday": [
           {
-            "raw": "L-BCH-L-SEM IIIPhy.Ed-OE-SCR1L-BAHE-D-SEM IIIPhy.Ed-OE-SCR1",
-            "display": "L-BCH-L-SEM IIIPhy.Ed-OE-SCR1L-BAHE-D-SEM IIIPhy.Ed-OE-SCR1",
+            "raw": "L-BCH-L-SEM IIIPhy.Ed-OE-SCR1",
+            "display": "L-BCH-L-SEM IIIPhy.Ed-OE-SCR1",
             "type": "Lecture",
             "room": "SCR1",
             "course": "B.Com (Hons)",
@@ -8967,8 +8968,8 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Friday": [
           {
-            "raw": "LAB-BCH-L-SEM IIIPhy.Ed-OE-PLAYGROUNDLAB-BAHE-D-SEM IIIPhy.Ed-OE-PLAYGROUND",
-            "display": "LAB-BCH-L-SEM IIIPhy.Ed-OE-PLAYGROUNDLAB-BAHE-D-SEM IIIPhy.Ed-OE-PLAYGROUND",
+            "raw": "LAB-BCH-L-SEM IIIPhy.Ed-OE-PLAYGROUND",
+            "display": "LAB-BCH-L-SEM IIIPhy.Ed-OE-PLAYGROUND",
             "type": "Practical/Lab",
             "room": "PLAYGROUND",
             "course": "B.Com (Hons)",
@@ -8982,8 +8983,8 @@ window.SRCC_TEACHERS_DATA = {
             "formatted_display": "Open Elective (OE) · B.Com (Hons) · Sem III · Sec L"
           },
           {
-            "raw": "LAB-BCH-L-SEM IIIPhy.Ed-OE-PLAYGROUNDLAB-BAHE-D-SEM IIIPhy.Ed-OE-PLAYGROUND",
-            "display": "LAB-BCH-L-SEM IIIPhy.Ed-OE-PLAYGROUNDLAB-BAHE-D-SEM IIIPhy.Ed-OE-PLAYGROUND",
+            "raw": "LAB-BCH-L-SEM IIIPhy.Ed-OE-PLAYGROUND",
+            "display": "LAB-BCH-L-SEM IIIPhy.Ed-OE-PLAYGROUND",
             "type": "Practical/Lab",
             "room": "PLAYGROUND",
             "course": "B.Com (Hons)",
@@ -8997,8 +8998,8 @@ window.SRCC_TEACHERS_DATA = {
             "formatted_display": "Open Elective (OE) · B.Com (Hons) · Sem III · Sec L"
           },
           {
-            "raw": "LAB-BCH-K-SEM IPhy.Ed-OE-PLAYGROUNDLAB-BAHE-D-SEM IPhy.Ed-OE-PLAYGROUND",
-            "display": "LAB-BCH-K-SEM IPhy.Ed-OE-PLAYGROUNDLAB-BAHE-D-SEM IPhy.Ed-OE-PLAYGROUND",
+            "raw": "LAB-BCH-K-SEM IPhy.Ed-OE-PLAYGROUND",
+            "display": "LAB-BCH-K-SEM IPhy.Ed-OE-PLAYGROUND",
             "type": "Practical/Lab",
             "room": "PLAYGROUND",
             "course": "B.Com (Hons)",
@@ -9012,8 +9013,8 @@ window.SRCC_TEACHERS_DATA = {
             "formatted_display": "Open Elective (OE) · B.Com (Hons) · Sem I · Sec K"
           },
           {
-            "raw": "LAB-BCH-K-SEM IPhy.Ed-OE-PLAYGROUNDLAB-BAHE-D-SEM IPhy.Ed-OE-PLAYGROUND",
-            "display": "LAB-BCH-K-SEM IPhy.Ed-OE-PLAYGROUNDLAB-BAHE-D-SEM IPhy.Ed-OE-PLAYGROUND",
+            "raw": "LAB-BCH-K-SEM IPhy.Ed-OE-PLAYGROUND",
+            "display": "LAB-BCH-K-SEM IPhy.Ed-OE-PLAYGROUND",
             "type": "Practical/Lab",
             "room": "PLAYGROUND",
             "course": "B.Com (Hons)",
@@ -9082,8 +9083,8 @@ window.SRCC_TEACHERS_DATA = {
         "Monday": [],
         "Tuesday": [
           {
-            "raw": "L-BCH-M-SEM IPol.Sc.-NII-R6L-BAHE-A-SEM IPol.Sc.-NII-R6",
-            "display": "L-BCH-M-SEM IPol.Sc.-NII-R6L-BAHE-A-SEM IPol.Sc.-NII-R6",
+            "raw": "L-BCH-M-SEM IPol.Sc.-NII-R6",
+            "display": "L-BCH-M-SEM IPol.Sc.-NII-R6",
             "type": "Lecture",
             "room": "R6",
             "course": "B.Com (Hons)",
@@ -9107,9 +9108,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC9",
             "raw_batch": "VAC9",
             "subject": "CVFD",
-            "subject_name": "Corporate Valuation & Financial Decisions",
+            "subject_name": "Constitutional Values and Fundamental Duties",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Corporate Valuation & Financial Decisions (CVFD) · Sem I · Joint · (VAC9)"
+            "formatted_display": "Constitutional Values and Fundamental Duties (CVFD) · Sem I · Joint · (VAC9)"
           },
           {
             "raw": "LAB-JOINT-SEM IPol.Sc.-CVFD-R8-VAC9",
@@ -9122,15 +9123,15 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC9",
             "raw_batch": "VAC9",
             "subject": "CVFD",
-            "subject_name": "Corporate Valuation & Financial Decisions",
+            "subject_name": "Constitutional Values and Fundamental Duties",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Corporate Valuation & Financial Decisions (CVFD) · Sem I · Joint · (VAC9)"
+            "formatted_display": "Constitutional Values and Fundamental Duties (CVFD) · Sem I · Joint · (VAC9)"
           }
         ],
         "Wednesday": [
           {
-            "raw": "L-BCH-M-SEM IPol.Sc.-NII-R6L-BAHE-A-SEM IPol.Sc.-NII-R6",
-            "display": "L-BCH-M-SEM IPol.Sc.-NII-R6L-BAHE-A-SEM IPol.Sc.-NII-R6",
+            "raw": "L-BCH-M-SEM IPol.Sc.-NII-R6",
+            "display": "L-BCH-M-SEM IPol.Sc.-NII-R6",
             "type": "Lecture",
             "room": "R6",
             "course": "B.Com (Hons)",
@@ -9154,15 +9155,15 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC28",
             "raw_batch": "VAC28",
             "subject": "CVFD",
-            "subject_name": "Corporate Valuation & Financial Decisions",
+            "subject_name": "Constitutional Values and Fundamental Duties",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Corporate Valuation & Financial Decisions (CVFD) · Sem III · Joint · (VAC28)"
+            "formatted_display": "Constitutional Values and Fundamental Duties (CVFD) · Sem III · Joint · (VAC28)"
           }
         ],
         "Thursday": [
           {
-            "raw": "L-BCH-M-SEM IPol.Sc.-NII-R6L-BAHE-A-SEM IPol.Sc.-NII-R6",
-            "display": "L-BCH-M-SEM IPol.Sc.-NII-R6L-BAHE-A-SEM IPol.Sc.-NII-R6",
+            "raw": "L-BCH-M-SEM IPol.Sc.-NII-R6",
+            "display": "L-BCH-M-SEM IPol.Sc.-NII-R6",
             "type": "Lecture",
             "room": "R6",
             "course": "B.Com (Hons)",
@@ -9186,9 +9187,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC10",
             "raw_batch": "VAC10",
             "subject": "CVFD",
-            "subject_name": "Corporate Valuation & Financial Decisions",
+            "subject_name": "Constitutional Values and Fundamental Duties",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Corporate Valuation & Financial Decisions (CVFD) · Sem I · Joint · (VAC10)"
+            "formatted_display": "Constitutional Values and Fundamental Duties (CVFD) · Sem I · Joint · (VAC10)"
           },
           {
             "raw": "L-JOINT-SEM IPol.Sc.-CVFD-R8-VAC9",
@@ -9201,9 +9202,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC9",
             "raw_batch": "VAC9",
             "subject": "CVFD",
-            "subject_name": "Corporate Valuation & Financial Decisions",
+            "subject_name": "Constitutional Values and Fundamental Duties",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Corporate Valuation & Financial Decisions (CVFD) · Sem I · Joint · (VAC9)"
+            "formatted_display": "Constitutional Values and Fundamental Duties (CVFD) · Sem I · Joint · (VAC9)"
           }
         ],
         "Friday": [
@@ -9220,7 +9221,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "NII",
             "subject_name": "Nationalism and Indian Identity",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Nationalism and Indian Identity (NII) · B.A. (Hons) Economics · Sem I · Sec A · (A3)"
+            "formatted_display": "Nationalism and Indian Identity (NII) · B.A. (Hons) Economics · Sem I · Sec A · (A3 / AP3)"
           },
           {
             "raw": "T-BCH-M-SEM IPol.Sc.-NII-T4-M3",
@@ -9235,7 +9236,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "NII",
             "subject_name": "Nationalism and Indian Identity",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Nationalism and Indian Identity (NII) · B.Com (Hons) · Sem I · Sec M · (M3)"
+            "formatted_display": "Nationalism and Indian Identity (NII) · B.Com (Hons) · Sem I · Sec M · (M3 / MP3)"
           },
           {
             "raw": "LAB-JOINT-SEM IIIPol.Sc.-CVFD-R8-VAC28",
@@ -9248,9 +9249,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC28",
             "raw_batch": "VAC28",
             "subject": "CVFD",
-            "subject_name": "Corporate Valuation & Financial Decisions",
+            "subject_name": "Constitutional Values and Fundamental Duties",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Corporate Valuation & Financial Decisions (CVFD) · Sem III · Joint · (VAC28)"
+            "formatted_display": "Constitutional Values and Fundamental Duties (CVFD) · Sem III · Joint · (VAC28)"
           },
           {
             "raw": "LAB-JOINT-SEM IIIPol.Sc.-CVFD-R8-VAC28",
@@ -9263,9 +9264,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC28",
             "raw_batch": "VAC28",
             "subject": "CVFD",
-            "subject_name": "Corporate Valuation & Financial Decisions",
+            "subject_name": "Constitutional Values and Fundamental Duties",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Corporate Valuation & Financial Decisions (CVFD) · Sem III · Joint · (VAC28)"
+            "formatted_display": "Constitutional Values and Fundamental Duties (CVFD) · Sem III · Joint · (VAC28)"
           }
         ],
         "Saturday": [
@@ -9280,9 +9281,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC10",
             "raw_batch": "VAC10",
             "subject": "CVFD",
-            "subject_name": "Corporate Valuation & Financial Decisions",
+            "subject_name": "Constitutional Values and Fundamental Duties",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Corporate Valuation & Financial Decisions (CVFD) · Sem I · Joint · (VAC10)"
+            "formatted_display": "Constitutional Values and Fundamental Duties (CVFD) · Sem I · Joint · (VAC10)"
           },
           {
             "raw": "LAB-JOINT-SEM IPol.Sc.-CVFD-R8-VAC10",
@@ -9295,16 +9296,16 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC10",
             "raw_batch": "VAC10",
             "subject": "CVFD",
-            "subject_name": "Corporate Valuation & Financial Decisions",
+            "subject_name": "Constitutional Values and Fundamental Duties",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Corporate Valuation & Financial Decisions (CVFD) · Sem I · Joint · (VAC10)"
+            "formatted_display": "Constitutional Values and Fundamental Duties (CVFD) · Sem I · Joint · (VAC10)"
           }
         ]
       },
       "ref_code": "LVV",
       "subjects": [
         "CVFD",
-        "Corporate Valuation & Financial Decisions",
+        "Constitutional Values and Fundamental Duties",
         "NII",
         "Nationalism and Indian Identity"
       ]
@@ -9362,7 +9363,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "FOC",
             "subject_name": "Fundamentals of Computing",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Fundamentals of Computing (FOC) · B.A. (Hons) Economics · Sem I · Sec A · (A1)"
+            "formatted_display": "Fundamentals of Computing (FOC) · B.A. (Hons) Economics · Sem I · Sec A · (A1 / AP1)"
           }
         ],
         "Tuesday": [
@@ -9394,7 +9395,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "FOC",
             "subject_name": "Fundamentals of Computing",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Fundamentals of Computing (FOC) · B.A. (Hons) Economics · Sem I · Sec B · (B2)"
+            "formatted_display": "Fundamentals of Computing (FOC) · B.A. (Hons) Economics · Sem I · Sec B · (B2 / BP2)"
           },
           {
             "raw": "T-BAHE-B-SEM IIIMaths-DE-T18-B1",
@@ -9409,7 +9410,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "DE",
             "subject_name": "Development Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Development Economics (DE) · B.A. (Hons) Economics · Sem III · Sec B · (B1)"
+            "formatted_display": "Development Economics (DE) · B.A. (Hons) Economics · Sem III · Sec B · (B1 / BP1)"
           }
         ],
         "Wednesday": [
@@ -9456,7 +9457,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "FOC",
             "subject_name": "Fundamentals of Computing",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Fundamentals of Computing (FOC) · B.A. (Hons) Economics · Sem I · Sec A · (A2)"
+            "formatted_display": "Fundamentals of Computing (FOC) · B.A. (Hons) Economics · Sem I · Sec A · (A2 / AP2)"
           },
           {
             "raw": "T-BCH-M-SEM IMaths-FC-T18-M3",
@@ -9471,7 +9472,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "FC",
             "subject_name": "Finance for Everyone",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Finance for Everyone (FC) · B.Com (Hons) · Sem I · Sec M · (M3)"
+            "formatted_display": "Finance for Everyone (FC) · B.Com (Hons) · Sem I · Sec M · (M3 / MP3)"
           }
         ],
         "Thursday": [
@@ -9533,7 +9534,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "FOC",
             "subject_name": "Fundamentals of Computing",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Fundamentals of Computing (FOC) · B.A. (Hons) Economics · Sem I · Sec B · (B3)"
+            "formatted_display": "Fundamentals of Computing (FOC) · B.A. (Hons) Economics · Sem I · Sec B · (B3 / BP3)"
           },
           {
             "raw": "T-BAHE-A-SEM IIIMaths-DE-T18-A2",
@@ -9548,7 +9549,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "DE",
             "subject_name": "Development Economics",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Development Economics (DE) · B.A. (Hons) Economics · Sem III · Sec A · (A2)"
+            "formatted_display": "Development Economics (DE) · B.A. (Hons) Economics · Sem III · Sec A · (A2 / AP2)"
           }
         ],
         "Friday": [
@@ -9565,7 +9566,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "FOC",
             "subject_name": "Fundamentals of Computing",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Fundamentals of Computing (FOC) · B.A. (Hons) Economics · Sem I · Sec B · (B1)"
+            "formatted_display": "Fundamentals of Computing (FOC) · B.A. (Hons) Economics · Sem I · Sec B · (B1 / BP1)"
           },
           {
             "raw": "L-BAHE-A-SEM IMaths-GE - FOC-R25",
@@ -9635,9 +9636,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "E1",
             "raw_batch": "E1",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec E · (E1)"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec E · (E1 / EP1)"
           },
           {
             "raw": "T-BCH-J-SEM IEconomics-EOE-T54-J2",
@@ -9652,7 +9653,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "EOE",
             "subject_name": "Principles of Microeconomics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Principles of Microeconomics (EOE) · B.Com (Hons) · Sem I · Sec J · (J2)"
+            "formatted_display": "Principles of Microeconomics (EOE) · B.Com (Hons) · Sem I · Sec J · (J2 / JP2)"
           }
         ],
         "Tuesday": [
@@ -9667,9 +9668,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec C"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec C"
           },
           {
             "raw": "T-BCH-M-SEM VEconomics-DnD-T2-M3",
@@ -9682,9 +9683,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "M3",
             "raw_batch": "M3",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec M · (M3)"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec M · (M3 / MP3)"
           },
           {
             "raw": "L-BCH-A-SEM VEconomics-DnD-R13",
@@ -9697,9 +9698,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec A"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec A"
           }
         ],
         "Wednesday": [
@@ -9716,7 +9717,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "EOE",
             "subject_name": "Principles of Microeconomics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Principles of Microeconomics (EOE) · B.Com (Hons) · Sem I · Sec J · (J3)"
+            "formatted_display": "Principles of Microeconomics (EOE) · B.Com (Hons) · Sem I · Sec J · (J3 / JP3)"
           },
           {
             "raw": "T-BCH-B-SEM VEconomics-DnD-T47-B3",
@@ -9729,9 +9730,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "B3",
             "raw_batch": "B3",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec B · (B3)"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec B · (B3 / BP3)"
           },
           {
             "raw": "L-BCH-A-SEM VEconomics-DnD-R13",
@@ -9744,9 +9745,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec A"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec A"
           },
           {
             "raw": "T-BCH-C-SEM VEconomics-DnD-T54-C3",
@@ -9759,9 +9760,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "C3",
             "raw_batch": "C3",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec C · (C3)"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec C · (C3 / CP3)"
           }
         ],
         "Thursday": [
@@ -9776,9 +9777,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec C"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec C"
           },
           {
             "raw": "L-BCH-A-SEM VEconomics-DnD-R13",
@@ -9791,9 +9792,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec A"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec A"
           },
           {
             "raw": "T-BCH-C-SEM VEconomics-DnD-T3-C2",
@@ -9806,9 +9807,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "C2",
             "raw_batch": "C2",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec C · (C2)"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec C · (C2 / CP2)"
           }
         ],
         "Friday": [
@@ -9825,7 +9826,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "EOE",
             "subject_name": "Principles of Microeconomics",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Principles of Microeconomics (EOE) · B.Com (Hons) · Sem I · Sec K · (K3)"
+            "formatted_display": "Principles of Microeconomics (EOE) · B.Com (Hons) · Sem I · Sec K · (K3 / KP3)"
           },
           {
             "raw": "T-BCH-I-SEM VEconomics-DnD-T54-I3",
@@ -9838,9 +9839,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "I3",
             "raw_batch": "I3",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec I · (I3)"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec I · (I3 / IP3)"
           },
           {
             "raw": "T-BCH-C-SEM VEconomics-DnD-T54-C1",
@@ -9853,9 +9854,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "C1",
             "raw_batch": "C1",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec C · (C1)"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec C · (C1 / CP1)"
           },
           {
             "raw": "L-BCH-C-SEM VEconomics-DnD-R13",
@@ -9868,18 +9869,18 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec C"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec C"
           }
         ],
         "Saturday": []
       },
       "ref_code": "MG",
       "subjects": [
+        "Digitalization and Development",
         "DnD",
         "EOE",
-        "Negotiation and Deal Making",
         "Principles of Microeconomics"
       ]
     },
@@ -10142,9 +10143,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "D2",
             "raw_batch": "D2",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec D · (D2)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec D · (D2 / DP2)"
           },
           {
             "raw": "L-BCH-M-SEM IIICommerce-BMATH-R8",
@@ -10266,9 +10267,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "I2",
             "raw_batch": "I2",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec I · (I2)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec I · (I2 / IP2)"
           },
           {
             "raw": "LAB-BCH-L-SEM IIICommerce-BMATH-CL1-LP1",
@@ -10385,8 +10386,8 @@ window.SRCC_TEACHERS_DATA = {
       "subjects": [
         "BMATH",
         "BRM",
-        "Business Mathematics",
-        "Business Research Methods"
+        "Brand Management",
+        "Business Mathematics"
       ]
     },
     {
@@ -10442,7 +10443,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec J · (J3)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec J · (J3 / JP3)"
           }
         ],
         "Tuesday": [
@@ -10474,7 +10475,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec K · (K2)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec K · (K2 / KP2)"
           }
         ],
         "Wednesday": [
@@ -10506,7 +10507,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec H · (H1)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec H · (H1 / HP1)"
           },
           {
             "raw": "L-BCH-D-SEM ICommerce-MPA-R32",
@@ -10536,7 +10537,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec K · (K1)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec K · (K1 / KP1)"
           }
         ],
         "Thursday": [
@@ -10568,7 +10569,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec I · (I1)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec I · (I1 / IP1)"
           },
           {
             "raw": "L-BCH-D-SEM ICommerce-MPA-R3",
@@ -10615,7 +10616,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "AUD",
             "subject_name": "Auditing and Corporate Governance",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec I · (I1)"
+            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec I · (I1 / IP1)"
           },
           {
             "raw": "L-BCH-D-SEM ICommerce-MPA-R10",
@@ -10645,7 +10646,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec K · (K3)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec K · (K3 / KP3)"
           }
         ],
         "Saturday": []
@@ -10680,9 +10681,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "B2",
             "raw_batch": "B2",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec B · (B2)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec B · (B2 / BP2)"
           },
           {
             "raw": "L-BCH-D-SEM IIICommerce-BRM-R28",
@@ -10695,9 +10696,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec D"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec D"
           },
           {
             "raw": "L-BCH-G-SEM IIICommerce-BRM-R35",
@@ -10710,9 +10711,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec G"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec G"
           },
           {
             "raw": "T-BCH-A-SEM VIICommerce-IMC-T37",
@@ -10742,9 +10743,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec D"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec D"
           },
           {
             "raw": "L-BCH-G-SEM IIICommerce-BRM-R34",
@@ -10757,9 +10758,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec G"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec G"
           },
           {
             "raw": "T-BCH-A-SEM IIICommerce-BRM-T48-A1",
@@ -10772,9 +10773,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "A1",
             "raw_batch": "A1",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec A · (A1)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec A · (A1 / AP1)"
           },
           {
             "raw": "T-BCH-C-SEM IIICommerce-BRM-T41-C3",
@@ -10787,9 +10788,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "C3",
             "raw_batch": "C3",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec C · (C3)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec C · (C3 / CP3)"
           }
         ],
         "Thursday": [
@@ -10804,9 +10805,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec D"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec D"
           },
           {
             "raw": "L-BCH-C-SEM IIICommerce-BRM-R14",
@@ -10819,9 +10820,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec C"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec C"
           },
           {
             "raw": "T-BCH-D-SEM IIICommerce-BRM-T37-D3",
@@ -10834,9 +10835,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "D3",
             "raw_batch": "D3",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec D · (D3)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec D · (D3 / DP3)"
           }
         ],
         "Friday": [
@@ -10851,9 +10852,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec G"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec G"
           },
           {
             "raw": "L-BCH-C-SEM IIICommerce-BRM-R17",
@@ -10866,9 +10867,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec C"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec C"
           },
           {
             "raw": "T-BCH-G-SEM IIICommerce-BRM-T43-G2",
@@ -10881,9 +10882,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "G2",
             "raw_batch": "G2",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec G · (G2)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec G · (G2 / GP2)"
           }
         ],
         "Saturday": [
@@ -10898,9 +10899,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "E3",
             "raw_batch": "E3",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec E · (E3)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec E · (E3 / EP3)"
           },
           {
             "raw": "L-BCH-C-SEM IIICommerce-BRM-R3",
@@ -10913,16 +10914,16 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec C"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec C"
           }
         ]
       },
       "ref_code": "PKK",
       "subjects": [
         "BRM",
-        "Business Research Methods",
+        "Brand Management",
         "IMC",
         "Integrated Marketing Communication"
       ]
@@ -10965,7 +10966,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "OOPUP",
             "subject_name": "Programming Using Python",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Programming Using Python (OOPUP) · B.A. (Hons) Economics · Sem I · Sec D · (D1)"
+            "formatted_display": "Programming Using Python (OOPUP) · B.A. (Hons) Economics · Sem I · Sec D · (D1 / DP1)"
           },
           {
             "raw": "LAB-BAHE-D-SEM IComp.Sc.-OOPUP-CL1-D1",
@@ -10980,13 +10981,13 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "OOPUP",
             "subject_name": "Programming Using Python",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Programming Using Python (OOPUP) · B.A. (Hons) Economics · Sem I · Sec D · (D1)"
+            "formatted_display": "Programming Using Python (OOPUP) · B.A. (Hons) Economics · Sem I · Sec D · (D1 / DP1)"
           }
         ],
         "Tuesday": [
           {
-            "raw": "L-BCH-L-SEM IComp.Sc.-OPUP-R31L-BAHE-D-SEM IComp.Sc.-OOPUP-R31",
-            "display": "L-BCH-L-SEM IComp.Sc.-OPUP-R31L-BAHE-D-SEM IComp.Sc.-OOPUP-R31",
+            "raw": "L-BCH-L-SEM IComp.Sc.-OPUP-R31",
+            "display": "L-BCH-L-SEM IComp.Sc.-OPUP-R31",
             "type": "Lecture",
             "room": "R31",
             "course": "B.Com (Hons)",
@@ -10998,6 +10999,21 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Programming Using Python",
             "slot": "10:30 AM to 11:30 AM",
             "formatted_display": "Programming Using Python (OPUP) · B.Com (Hons) · Sem I · Sec L"
+          },
+          {
+            "raw": "L-BAHE-D-SEM IComp.Sc.-OOPUP-R31",
+            "display": "L-BAHE-D-SEM IComp.Sc.-OOPUP-R31",
+            "type": "Lecture",
+            "room": "R31",
+            "course": "B.A. (Hons) Economics",
+            "semester": "Sem I",
+            "section": "Sec D",
+            "batch": "",
+            "raw_batch": "",
+            "subject": "OOPUP",
+            "subject_name": "Programming Using Python",
+            "slot": "10:30 AM to 11:30 AM",
+            "formatted_display": "Programming Using Python (OOPUP) · B.A. (Hons) Economics · Sem I · Sec D"
           },
           {
             "raw": "LAB-BCH-K-SEM VComp.Sc.-OS-R30",
@@ -11032,8 +11048,8 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Wednesday": [
           {
-            "raw": "L-BCH-L-SEM IComp.Sc.-OPUP-R31L-BAHE-D-SEM IComp.Sc.-OOPUP-R31",
-            "display": "L-BCH-L-SEM IComp.Sc.-OPUP-R31L-BAHE-D-SEM IComp.Sc.-OOPUP-R31",
+            "raw": "L-BCH-L-SEM IComp.Sc.-OPUP-R31",
+            "display": "L-BCH-L-SEM IComp.Sc.-OPUP-R31",
             "type": "Lecture",
             "room": "R31",
             "course": "B.Com (Hons)",
@@ -11047,8 +11063,23 @@ window.SRCC_TEACHERS_DATA = {
             "formatted_display": "Programming Using Python (OPUP) · B.Com (Hons) · Sem I · Sec L"
           },
           {
-            "raw": "L-BCH-N-SEM IIIComp.Sc.-DMS-CL1L-BAHE-D-SEM IIIComp.Sc.-DMS-CL1",
-            "display": "L-BCH-N-SEM IIIComp.Sc.-DMS-CL1L-BAHE-D-SEM IIIComp.Sc.-DMS-CL1",
+            "raw": "L-BAHE-D-SEM IComp.Sc.-OOPUP-R31",
+            "display": "L-BAHE-D-SEM IComp.Sc.-OOPUP-R31",
+            "type": "Lecture",
+            "room": "R31",
+            "course": "B.A. (Hons) Economics",
+            "semester": "Sem I",
+            "section": "Sec D",
+            "batch": "",
+            "raw_batch": "",
+            "subject": "OOPUP",
+            "subject_name": "Programming Using Python",
+            "slot": "11:30 AM to 12:30 PM",
+            "formatted_display": "Programming Using Python (OOPUP) · B.A. (Hons) Economics · Sem I · Sec D"
+          },
+          {
+            "raw": "L-BCH-N-SEM IIIComp.Sc.-DMS-CL1",
+            "display": "L-BCH-N-SEM IIIComp.Sc.-DMS-CL1",
             "type": "Lecture",
             "room": "CL1",
             "course": "B.Com (Hons)",
@@ -11079,8 +11110,8 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Thursday": [
           {
-            "raw": "L-BCH-L-SEM IComp.Sc.-OPUP-R31L-BAHE-D-SEM IComp.Sc.-OOPUP-R31",
-            "display": "L-BCH-L-SEM IComp.Sc.-OPUP-R31L-BAHE-D-SEM IComp.Sc.-OOPUP-R31",
+            "raw": "L-BCH-L-SEM IComp.Sc.-OPUP-R31",
+            "display": "L-BCH-L-SEM IComp.Sc.-OPUP-R31",
             "type": "Lecture",
             "room": "R31",
             "course": "B.Com (Hons)",
@@ -11092,6 +11123,21 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Programming Using Python",
             "slot": "8:30 AM to 9:30 AM",
             "formatted_display": "Programming Using Python (OPUP) · B.Com (Hons) · Sem I · Sec L"
+          },
+          {
+            "raw": "L-BAHE-D-SEM IComp.Sc.-OOPUP-R31",
+            "display": "L-BAHE-D-SEM IComp.Sc.-OOPUP-R31",
+            "type": "Lecture",
+            "room": "R31",
+            "course": "B.A. (Hons) Economics",
+            "semester": "Sem I",
+            "section": "Sec D",
+            "batch": "",
+            "raw_batch": "",
+            "subject": "OOPUP",
+            "subject_name": "Programming Using Python",
+            "slot": "8:30 AM to 9:30 AM",
+            "formatted_display": "Programming Using Python (OOPUP) · B.A. (Hons) Economics · Sem I · Sec D"
           },
           {
             "raw": "LAB-BAHE-D-SEM IIIComp.Sc.-DMS-R29-D2",
@@ -11106,7 +11152,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "DMS",
             "subject_name": "Database Management Systems",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Database Management Systems (DMS) · B.A. (Hons) Economics · Sem III · Sec D · (D2)"
+            "formatted_display": "Database Management Systems (DMS) · B.A. (Hons) Economics · Sem III · Sec D · (D2 / DP2)"
           },
           {
             "raw": "L-BCH-M-SEM VComp.Sc.-OS-R30",
@@ -11124,8 +11170,8 @@ window.SRCC_TEACHERS_DATA = {
             "formatted_display": "Operating Systems (OS) · B.Com (Hons) · Sem V · Sec M"
           },
           {
-            "raw": "L-BCH-N-SEM IIIComp.Sc.-DMS-CL2L-BAHE-D-SEM IIIComp.Sc.-DMS-CL2",
-            "display": "L-BCH-N-SEM IIIComp.Sc.-DMS-CL2L-BAHE-D-SEM IIIComp.Sc.-DMS-CL2",
+            "raw": "L-BCH-N-SEM IIIComp.Sc.-DMS-CL2",
+            "display": "L-BCH-N-SEM IIIComp.Sc.-DMS-CL2",
             "type": "Lecture",
             "room": "CL2",
             "course": "B.Com (Hons)",
@@ -11171,8 +11217,8 @@ window.SRCC_TEACHERS_DATA = {
             "formatted_display": "Programming Using Python (OPUP) · B.Com (Hons) · Sem I · Sec L"
           },
           {
-            "raw": "L-BCH-N-SEM IIIComp.Sc.-DMS-CL2L-BAHE-D-SEM IIIComp.Sc.-DMS-CL2",
-            "display": "L-BCH-N-SEM IIIComp.Sc.-DMS-CL2L-BAHE-D-SEM IIIComp.Sc.-DMS-CL2",
+            "raw": "L-BCH-N-SEM IIIComp.Sc.-DMS-CL2",
+            "display": "L-BCH-N-SEM IIIComp.Sc.-DMS-CL2",
             "type": "Lecture",
             "room": "CL2",
             "course": "B.Com (Hons)",
@@ -11376,7 +11422,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "AUD",
             "subject_name": "Auditing and Corporate Governance",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec F · (F3)"
+            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec F · (F3 / FP3)"
           }
         ],
         "Thursday": [
@@ -11455,7 +11501,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "AUD",
             "subject_name": "Auditing and Corporate Governance",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec F · (F2)"
+            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec F · (F2 / FP2)"
           }
         ],
         "Saturday": []
@@ -11884,7 +11930,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec F · (F3)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec F · (F3 / FP3)"
           }
         ],
         "Thursday": [
@@ -11993,7 +12039,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec G · (G3)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec G · (G3 / GP3)"
           }
         ],
         "Saturday": []
@@ -12300,7 +12346,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IMA I",
             "subject_name": "Intermediate Macroeconomics I",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Intermediate Macroeconomics I (IMA I) · B.A. (Hons) Economics · Sem III · Sec A · (A1)"
+            "formatted_display": "Intermediate Macroeconomics I (IMA I) · B.A. (Hons) Economics · Sem III · Sec A · (A1 / AP1)"
           }
         ],
         "Tuesday": [
@@ -12332,7 +12378,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IMA I",
             "subject_name": "Intermediate Macroeconomics I",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Intermediate Macroeconomics I (IMA I) · B.A. (Hons) Economics · Sem III · Sec A · (A3)"
+            "formatted_display": "Intermediate Macroeconomics I (IMA I) · B.A. (Hons) Economics · Sem III · Sec A · (A3 / AP3)"
           },
           {
             "raw": "T-BAHE-C-SEM IIIEconomics-IMA I-T51-C1",
@@ -12347,7 +12393,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IMA I",
             "subject_name": "Intermediate Macroeconomics I",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Intermediate Macroeconomics I (IMA I) · B.A. (Hons) Economics · Sem III · Sec C · (C1)"
+            "formatted_display": "Intermediate Macroeconomics I (IMA I) · B.A. (Hons) Economics · Sem III · Sec C · (C1 / CP1)"
           }
         ],
         "Wednesday": [
@@ -12394,7 +12440,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IMA I",
             "subject_name": "Intermediate Macroeconomics I",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Intermediate Macroeconomics I (IMA I) · B.A. (Hons) Economics · Sem III · Sec C · (C2)"
+            "formatted_display": "Intermediate Macroeconomics I (IMA I) · B.A. (Hons) Economics · Sem III · Sec C · (C2 / CP2)"
           },
           {
             "raw": "T-BAHE-A-SEM IIIEconomics-IMIC1-T51-A2",
@@ -12409,7 +12455,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IMIC1",
             "subject_name": "Intermediate Microeconomics I",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Intermediate Microeconomics I (IMIC1) · B.A. (Hons) Economics · Sem III · Sec A · (A2)"
+            "formatted_display": "Intermediate Microeconomics I (IMIC1) · B.A. (Hons) Economics · Sem III · Sec A · (A2 / AP2)"
           }
         ],
         "Thursday": [
@@ -12441,7 +12487,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IMA I",
             "subject_name": "Intermediate Macroeconomics I",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Intermediate Macroeconomics I (IMA I) · B.A. (Hons) Economics · Sem III · Sec A · (A2)"
+            "formatted_display": "Intermediate Macroeconomics I (IMA I) · B.A. (Hons) Economics · Sem III · Sec A · (A2 / AP2)"
           },
           {
             "raw": "T-BAHE-C-SEM IIIEconomics-IMA I-T51-C3",
@@ -12456,7 +12502,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IMA I",
             "subject_name": "Intermediate Macroeconomics I",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Intermediate Macroeconomics I (IMA I) · B.A. (Hons) Economics · Sem III · Sec C · (C3)"
+            "formatted_display": "Intermediate Macroeconomics I (IMA I) · B.A. (Hons) Economics · Sem III · Sec C · (C3 / CP3)"
           }
         ],
         "Friday": [
@@ -12488,7 +12534,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IMIC1",
             "subject_name": "Intermediate Microeconomics I",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Intermediate Microeconomics I (IMIC1) · B.A. (Hons) Economics · Sem III · Sec B · (B2)"
+            "formatted_display": "Intermediate Microeconomics I (IMIC1) · B.A. (Hons) Economics · Sem III · Sec B · (B2 / BP2)"
           }
         ],
         "Saturday": []
@@ -12524,7 +12570,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ED",
             "subject_name": "Entrepreneurship Development",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Entrepreneurship Development (ED) · B.Com (Hons) · Sem V · Sec E · (E2)"
+            "formatted_display": "Entrepreneurship Development (ED) · B.Com (Hons) · Sem V · Sec E · (E2 / EP2)"
           }
         ],
         "Tuesday": [
@@ -12539,9 +12585,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "B1",
             "raw_batch": "B1",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec B · (B1)"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec B · (B1 / BP1)"
           },
           {
             "raw": "T-BCH-E-SEM VEconomics-ED-T53-E3",
@@ -12556,7 +12602,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ED",
             "subject_name": "Entrepreneurship Development",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Entrepreneurship Development (ED) · B.Com (Hons) · Sem V · Sec E · (E3)"
+            "formatted_display": "Entrepreneurship Development (ED) · B.Com (Hons) · Sem V · Sec E · (E3 / EP3)"
           },
           {
             "raw": "L-BCH-J-SEM VEconomics-ED-R16",
@@ -12620,7 +12666,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ED",
             "subject_name": "Entrepreneurship Development",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Entrepreneurship Development (ED) · B.Com (Hons) · Sem V · Sec J · (J3)"
+            "formatted_display": "Entrepreneurship Development (ED) · B.Com (Hons) · Sem V · Sec J · (J3 / JP3)"
           },
           {
             "raw": "L-BCH-E-SEM VEconomics-ED-R18",
@@ -12665,7 +12711,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ED",
             "subject_name": "Entrepreneurship Development",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Entrepreneurship Development (ED) · B.Com (Hons) · Sem V · Sec M · (M3)"
+            "formatted_display": "Entrepreneurship Development (ED) · B.Com (Hons) · Sem V · Sec M · (M3 / MP3)"
           }
         ],
         "Friday": [
@@ -12682,7 +12728,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MB",
             "subject_name": "Money and Banking",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Money and Banking (MB) · B.Com (Hons) · Sem V · Sec J · (J2)"
+            "formatted_display": "Money and Banking (MB) · B.Com (Hons) · Sem V · Sec J · (J2 / JP2)"
           },
           {
             "raw": "T-BCH-A-SEM VIIEconomics-ED-T27",
@@ -12712,7 +12758,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "EOE",
             "subject_name": "Principles of Microeconomics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Principles of Microeconomics (EOE) · B.Com (Hons) · Sem I · Sec J · (J1)"
+            "formatted_display": "Principles of Microeconomics (EOE) · B.Com (Hons) · Sem I · Sec J · (J1 / JP1)"
           },
           {
             "raw": "L-BCH-E-SEM VEconomics-ED-R22",
@@ -12734,13 +12780,13 @@ window.SRCC_TEACHERS_DATA = {
       },
       "ref_code": "RK",
       "subjects": [
+        "Digitalization and Development",
         "DnD",
         "ED",
         "EOE",
         "Entrepreneurship Development",
         "MB",
         "Money and Banking",
-        "Negotiation and Deal Making",
         "Principles of Microeconomics"
       ]
     },
@@ -12786,7 +12832,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec N · (N2)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec N · (N2 / NP2)"
           },
           {
             "raw": "L-BCH-A-SEM IEconomics-PME-I-R15",
@@ -12816,9 +12862,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "A1",
             "raw_batch": "A1",
             "subject": "AdTrix",
-            "subject_name": "Advertising and Media Management",
+            "subject_name": "Advanced Econometrics",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Advertising and Media Management (AdTrix) · B.A. (Hons) Economics · Sem V · Sec A · (A1)"
+            "formatted_display": "Advanced Econometrics (AdTrix) · B.A. (Hons) Economics · Sem V · Sec A · (A1 / AP1)"
           },
           {
             "raw": "T-BCH-B-SEM IEconomics-PME-I-T45-B2",
@@ -12833,7 +12879,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec B · (B2)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec B · (B2 / BP2)"
           },
           {
             "raw": "L-BAHE-A-SEM VEconomics-AdTrix-R20",
@@ -12846,9 +12892,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "AdTrix",
-            "subject_name": "Advertising and Media Management",
+            "subject_name": "Advanced Econometrics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Advertising and Media Management (AdTrix) · B.A. (Hons) Economics · Sem V · Sec A"
+            "formatted_display": "Advanced Econometrics (AdTrix) · B.A. (Hons) Economics · Sem V · Sec A"
           },
           {
             "raw": "L-BCH-A-SEM IEconomics-PME-I-R18",
@@ -12878,9 +12924,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "A2",
             "raw_batch": "A2",
             "subject": "AdTrix",
-            "subject_name": "Advertising and Media Management",
+            "subject_name": "Advanced Econometrics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Advertising and Media Management (AdTrix) · B.A. (Hons) Economics · Sem V · Sec A · (A2)"
+            "formatted_display": "Advanced Econometrics (AdTrix) · B.A. (Hons) Economics · Sem V · Sec A · (A2 / AP2)"
           },
           {
             "raw": "L-BAHE-A-SEM VEconomics-AdTrix-R23",
@@ -12893,9 +12939,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "AdTrix",
-            "subject_name": "Advertising and Media Management",
+            "subject_name": "Advanced Econometrics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Advertising and Media Management (AdTrix) · B.A. (Hons) Economics · Sem V · Sec A"
+            "formatted_display": "Advanced Econometrics (AdTrix) · B.A. (Hons) Economics · Sem V · Sec A"
           },
           {
             "raw": "T-BCH-C-SEM IEconomics-PME-I-T2-C3",
@@ -12910,7 +12956,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec C · (C3)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec C · (C3 / CP3)"
           }
         ],
         "Thursday": [
@@ -12927,7 +12973,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec B · (B1)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec B · (B1 / BP1)"
           },
           {
             "raw": "L-BAHE-A-SEM VEconomics-AdTrix-R34",
@@ -12940,9 +12986,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "AdTrix",
-            "subject_name": "Advertising and Media Management",
+            "subject_name": "Advanced Econometrics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Advertising and Media Management (AdTrix) · B.A. (Hons) Economics · Sem V · Sec A"
+            "formatted_display": "Advanced Econometrics (AdTrix) · B.A. (Hons) Economics · Sem V · Sec A"
           }
         ],
         "Friday": [
@@ -12959,7 +13005,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec E · (E2)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec E · (E2 / EP2)"
           },
           {
             "raw": "T-BCH-C-SEM IEconomics-PME-I-T23-C2",
@@ -12974,7 +13020,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec C · (C2)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec C · (C2 / CP2)"
           },
           {
             "raw": "L-BCH-A-SEM IEconomics-PME-I-R10",
@@ -12997,7 +13043,7 @@ window.SRCC_TEACHERS_DATA = {
       "ref_code": "RB",
       "subjects": [
         "AdTrix",
-        "Advertising and Media Management",
+        "Advanced Econometrics",
         "PME-I",
         "Principles of Microeconomics I"
       ]
@@ -13042,9 +13088,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec A"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec A"
           },
           {
             "raw": "L-BCH-E-SEM IIICommerce-BRM-PB3",
@@ -13057,9 +13103,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec E"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec E"
           },
           {
             "raw": "T-BCH-D-SEM IIICommerce-BRM-T45-D1",
@@ -13072,9 +13118,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "D1",
             "raw_batch": "D1",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec D · (D1)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec D · (D1 / DP1)"
           }
         ],
         "Tuesday": [
@@ -13091,7 +13137,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "SMM",
             "subject_name": "Social Media Marketing",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Social Media Marketing (SMM) · M.Com · Sem III · Sec A · (A2)"
+            "formatted_display": "Social Media Marketing (SMM) · M.Com · Sem III · Sec A · (A2 / AP2)"
           },
           {
             "raw": "L-BCH-I-SEM IIICommerce-BRM-R16",
@@ -13104,9 +13150,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec I"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec I"
           },
           {
             "raw": "L-BCH-E-SEM IIICommerce-BRM-R3",
@@ -13119,9 +13165,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec E"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec E"
           }
         ],
         "Wednesday": [
@@ -13136,9 +13182,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "C2",
             "raw_batch": "C2",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec C · (C2)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec C · (C2 / CP2)"
           },
           {
             "raw": "L-BCH-E-SEM IIICommerce-BRM-CL2",
@@ -13151,9 +13197,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec E"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec E"
           }
         ],
         "Thursday": [
@@ -13168,9 +13214,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec A"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec A"
           },
           {
             "raw": "T-BCH-F-SEM IIICommerce-BRM-T43-F2",
@@ -13183,9 +13229,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "F2",
             "raw_batch": "F2",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec F · (F2)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec F · (F2 / FP2)"
           },
           {
             "raw": "T-BCH-F-SEM IIICommerce-BRM-T44-F3",
@@ -13198,9 +13244,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "F3",
             "raw_batch": "F3",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec F · (F3)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec F · (F3 / FP3)"
           },
           {
             "raw": "L-BCH-I-SEM IIICommerce-BRM-R19",
@@ -13213,9 +13259,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec I"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec I"
           },
           {
             "raw": "T-BCH-G-SEM IIICommerce-BRM-T41-G1",
@@ -13228,9 +13274,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "G1",
             "raw_batch": "G1",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec G · (G1)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec G · (G1 / GP1)"
           }
         ],
         "Friday": [
@@ -13245,9 +13291,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec A"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec A"
           },
           {
             "raw": "T-BCH-E-SEM IIICommerce-BRM-T44-E2",
@@ -13260,9 +13306,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "E2",
             "raw_batch": "E2",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec E · (E2)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec E · (E2 / EP2)"
           },
           {
             "raw": "L-BCH-I-SEM IIICommerce-BRM-R3",
@@ -13275,9 +13321,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec I"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec I"
           }
         ],
         "Saturday": []
@@ -13285,7 +13331,7 @@ window.SRCC_TEACHERS_DATA = {
       "ref_code": "RAS",
       "subjects": [
         "BRM",
-        "Business Research Methods",
+        "Brand Management",
         "SMM",
         "Social Media Marketing"
       ]
@@ -13345,7 +13391,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec E · (E2)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec E · (E2 / EP2)"
           },
           {
             "raw": "T-BCH-G-SEM VCommerce-BECON-T36-G3",
@@ -13360,7 +13406,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec G · (G3)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec G · (G3 / GP3)"
           }
         ],
         "Wednesday": [
@@ -13392,7 +13438,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec L · (L1)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec L · (L1 / LP1)"
           },
           {
             "raw": "T-BCH-G-SEM VCommerce-BECON-T36-G2",
@@ -13407,7 +13453,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec G · (G2)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec G · (G2 / GP2)"
           }
         ],
         "Thursday": [],
@@ -13440,7 +13486,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec F · (F1)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec F · (F1 / FP1)"
           },
           {
             "raw": "T-BCH-H-SEM VCommerce-BECON-T36-H3",
@@ -13455,7 +13501,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec H · (H3)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec H · (H3 / HP3)"
           }
         ],
         "Saturday": [
@@ -13472,7 +13518,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec K · (K3)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec K · (K3 / KP3)"
           },
           {
             "raw": "L-BCH-B-SEM VCommerce-BECON-R17",
@@ -13517,7 +13563,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec F · (F3)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec F · (F3 / FP3)"
           }
         ]
       },
@@ -13549,9 +13595,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC5",
             "raw_batch": "VAC5",
             "subject": "ABH",
-            "subject_name": "Anuvad: Vyavahar aur Siddhant",
+            "subject_name": "The Art of Being Happy",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Anuvad: Vyavahar aur Siddhant (ABH) · Sem I · Joint · (VAC5)"
+            "formatted_display": "The Art of Being Happy (ABH) · Sem I · Joint · (VAC5)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-ABH-R5-VAC5",
@@ -13564,9 +13610,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC5",
             "raw_batch": "VAC5",
             "subject": "ABH",
-            "subject_name": "Anuvad: Vyavahar aur Siddhant",
+            "subject_name": "The Art of Being Happy",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Anuvad: Vyavahar aur Siddhant (ABH) · Sem I · Joint · (VAC5)"
+            "formatted_display": "The Art of Being Happy (ABH) · Sem I · Joint · (VAC5)"
           }
         ],
         "Wednesday": [
@@ -13581,9 +13627,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC18",
             "raw_batch": "VAC18",
             "subject": "ABH",
-            "subject_name": "Anuvad: Vyavahar aur Siddhant",
+            "subject_name": "The Art of Being Happy",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Anuvad: Vyavahar aur Siddhant (ABH) · Sem III · Joint · (VAC18)"
+            "formatted_display": "The Art of Being Happy (ABH) · Sem III · Joint · (VAC18)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-ABH-R5-VAC18",
@@ -13596,9 +13642,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC18",
             "raw_batch": "VAC18",
             "subject": "ABH",
-            "subject_name": "Anuvad: Vyavahar aur Siddhant",
+            "subject_name": "The Art of Being Happy",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Anuvad: Vyavahar aur Siddhant (ABH) · Sem III · Joint · (VAC18)"
+            "formatted_display": "The Art of Being Happy (ABH) · Sem III · Joint · (VAC18)"
           }
         ],
         "Thursday": [
@@ -13613,9 +13659,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC6",
             "raw_batch": "VAC6",
             "subject": "ABH",
-            "subject_name": "Anuvad: Vyavahar aur Siddhant",
+            "subject_name": "The Art of Being Happy",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Anuvad: Vyavahar aur Siddhant (ABH) · Sem I · Joint · (VAC6)"
+            "formatted_display": "The Art of Being Happy (ABH) · Sem I · Joint · (VAC6)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-ABH-R5-VAC6",
@@ -13628,9 +13674,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC6",
             "raw_batch": "VAC6",
             "subject": "ABH",
-            "subject_name": "Anuvad: Vyavahar aur Siddhant",
+            "subject_name": "The Art of Being Happy",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Anuvad: Vyavahar aur Siddhant (ABH) · Sem I · Joint · (VAC6)"
+            "formatted_display": "The Art of Being Happy (ABH) · Sem I · Joint · (VAC6)"
           }
         ],
         "Friday": [
@@ -13647,7 +13693,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "OB",
             "subject_name": "Organizational Behavior",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Organizational Behavior (OB) · B.Com (Hons) · Sem III · Sec K · (K3)"
+            "formatted_display": "Organizational Behavior (OB) · B.Com (Hons) · Sem III · Sec K · (K3 / KP3)"
           },
           {
             "raw": "T-BCH-K-SEM IIICommerce-OB-T31-K2",
@@ -13662,7 +13708,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "OB",
             "subject_name": "Organizational Behavior",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Organizational Behavior (OB) · B.Com (Hons) · Sem III · Sec K · (K2)"
+            "formatted_display": "Organizational Behavior (OB) · B.Com (Hons) · Sem III · Sec K · (K2 / KP2)"
           },
           {
             "raw": "L-JOINT-SEM IIICommerce-ABH-R5-VAC17",
@@ -13675,9 +13721,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC17",
             "raw_batch": "VAC17",
             "subject": "ABH",
-            "subject_name": "Anuvad: Vyavahar aur Siddhant",
+            "subject_name": "The Art of Being Happy",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Anuvad: Vyavahar aur Siddhant (ABH) · Sem III · Joint · (VAC17)"
+            "formatted_display": "The Art of Being Happy (ABH) · Sem III · Joint · (VAC17)"
           },
           {
             "raw": "L-JOINT-SEM IIICommerce-ABH-R5-VAC18",
@@ -13690,9 +13736,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC18",
             "raw_batch": "VAC18",
             "subject": "ABH",
-            "subject_name": "Anuvad: Vyavahar aur Siddhant",
+            "subject_name": "The Art of Being Happy",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Anuvad: Vyavahar aur Siddhant (ABH) · Sem III · Joint · (VAC18)"
+            "formatted_display": "The Art of Being Happy (ABH) · Sem III · Joint · (VAC18)"
           }
         ],
         "Saturday": [
@@ -13707,9 +13753,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC17",
             "raw_batch": "VAC17",
             "subject": "ABH",
-            "subject_name": "Anuvad: Vyavahar aur Siddhant",
+            "subject_name": "The Art of Being Happy",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Anuvad: Vyavahar aur Siddhant (ABH) · Sem III · Joint · (VAC17)"
+            "formatted_display": "The Art of Being Happy (ABH) · Sem III · Joint · (VAC17)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-ABH-R3-VAC17",
@@ -13722,9 +13768,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC17",
             "raw_batch": "VAC17",
             "subject": "ABH",
-            "subject_name": "Anuvad: Vyavahar aur Siddhant",
+            "subject_name": "The Art of Being Happy",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Anuvad: Vyavahar aur Siddhant (ABH) · Sem III · Joint · (VAC17)"
+            "formatted_display": "The Art of Being Happy (ABH) · Sem III · Joint · (VAC17)"
           },
           {
             "raw": "L-JOINT-SEM ICommerce-ABH-R5-VAC5",
@@ -13737,9 +13783,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC5",
             "raw_batch": "VAC5",
             "subject": "ABH",
-            "subject_name": "Anuvad: Vyavahar aur Siddhant",
+            "subject_name": "The Art of Being Happy",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Anuvad: Vyavahar aur Siddhant (ABH) · Sem I · Joint · (VAC5)"
+            "formatted_display": "The Art of Being Happy (ABH) · Sem I · Joint · (VAC5)"
           },
           {
             "raw": "L-JOINT-SEM ICommerce-ABH-R5-VAC6",
@@ -13752,18 +13798,18 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC6",
             "raw_batch": "VAC6",
             "subject": "ABH",
-            "subject_name": "Anuvad: Vyavahar aur Siddhant",
+            "subject_name": "The Art of Being Happy",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Anuvad: Vyavahar aur Siddhant (ABH) · Sem I · Joint · (VAC6)"
+            "formatted_display": "The Art of Being Happy (ABH) · Sem I · Joint · (VAC6)"
           }
         ]
       },
       "ref_code": "SSS",
       "subjects": [
         "ABH",
-        "Anuvad: Vyavahar aur Siddhant",
         "OB",
-        "Organizational Behavior"
+        "Organizational Behavior",
+        "The Art of Being Happy"
       ]
     },
     {
@@ -13820,7 +13866,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PAB",
             "subject_name": "Public Administration and Business",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Public Administration and Business (PAB) · B.Com (Hons) · Sem V · Sec L · (L1)"
+            "formatted_display": "Public Administration and Business (PAB) · B.Com (Hons) · Sem V · Sec L · (L1 / LP1)"
           }
         ],
         "Wednesday": [
@@ -13946,7 +13992,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PAB",
             "subject_name": "Public Administration and Business",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Public Administration and Business (PAB) · B.Com (Hons) · Sem V · Sec L · (L2)"
+            "formatted_display": "Public Administration and Business (PAB) · B.Com (Hons) · Sem V · Sec L · (L2 / LP2)"
           },
           {
             "raw": "T-MCOM-A-SEM IIICommerce-ITPD-T35",
@@ -14023,7 +14069,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PAB",
             "subject_name": "Public Administration and Business",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Public Administration and Business (PAB) · B.Com (Hons) · Sem V · Sec L · (L3)"
+            "formatted_display": "Public Administration and Business (PAB) · B.Com (Hons) · Sem V · Sec L · (L3 / LP3)"
           }
         ]
       },
@@ -14060,9 +14106,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "N3",
             "raw_batch": "N3",
             "subject": "CAS",
-            "subject_name": "Cost Accounting System",
+            "subject_name": "Computerized Accounting System",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Cost Accounting System (CAS) · B.Com (Hons) · Sem V · Sec N · (N3)"
+            "formatted_display": "Computerized Accounting System (CAS) · B.Com (Hons) · Sem V · Sec N · (N3 / NP3)"
           },
           {
             "raw": "L-BCH-J-SEM ICommerce-FA-R34",
@@ -14152,9 +14198,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "D2",
             "raw_batch": "D2",
             "subject": "CAS",
-            "subject_name": "Cost Accounting System",
+            "subject_name": "Computerized Accounting System",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Cost Accounting System (CAS) · B.Com (Hons) · Sem V · Sec D · (D2)"
+            "formatted_display": "Computerized Accounting System (CAS) · B.Com (Hons) · Sem V · Sec D · (D2 / DP2)"
           }
         ],
         "Wednesday": [
@@ -14303,7 +14349,7 @@ window.SRCC_TEACHERS_DATA = {
       "ref_code": "SJJ",
       "subjects": [
         "CAS",
-        "Cost Accounting System",
+        "Computerized Accounting System",
         "FA",
         "Financial Accounting"
       ]
@@ -14330,9 +14376,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "C3",
             "raw_batch": "C3",
             "subject": "CAS",
-            "subject_name": "Cost Accounting System",
+            "subject_name": "Computerized Accounting System",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Cost Accounting System (CAS) · B.Com (Hons) · Sem V · Sec C · (C3)"
+            "formatted_display": "Computerized Accounting System (CAS) · B.Com (Hons) · Sem V · Sec C · (C3 / CP3)"
           },
           {
             "raw": "L-BCH-H-SEM VCommerce-ITLP-Library FF",
@@ -14392,9 +14438,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "D1",
             "raw_batch": "D1",
             "subject": "CAS",
-            "subject_name": "Cost Accounting System",
+            "subject_name": "Computerized Accounting System",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Cost Accounting System (CAS) · B.Com (Hons) · Sem V · Sec D · (D1)"
+            "formatted_display": "Computerized Accounting System (CAS) · B.Com (Hons) · Sem V · Sec D · (D1 / DP1)"
           },
           {
             "raw": "L-BCH-E-SEM VCommerce-ITLP-R30",
@@ -14572,7 +14618,7 @@ window.SRCC_TEACHERS_DATA = {
       "ref_code": "SAA",
       "subjects": [
         "CAS",
-        "Cost Accounting System",
+        "Computerized Accounting System",
         "ITLP",
         "Income Tax Law and Practice"
       ]
@@ -14598,9 +14644,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "CAS",
-            "subject_name": "Cost Accounting System",
+            "subject_name": "Computerized Accounting System",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Cost Accounting System (CAS) · B.Com (Hons) · Sem V · Sec E"
+            "formatted_display": "Computerized Accounting System (CAS) · B.Com (Hons) · Sem V · Sec E"
           },
           {
             "raw": "T-BCH-E-SEM VCommerce-CAS-T27-E3",
@@ -14613,9 +14659,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "E3",
             "raw_batch": "E3",
             "subject": "CAS",
-            "subject_name": "Cost Accounting System",
+            "subject_name": "Computerized Accounting System",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Cost Accounting System (CAS) · B.Com (Hons) · Sem V · Sec E · (E3)"
+            "formatted_display": "Computerized Accounting System (CAS) · B.Com (Hons) · Sem V · Sec E · (E3 / EP3)"
           },
           {
             "raw": "L-BCH-C-SEM VCommerce-CAS-R8",
@@ -14628,9 +14674,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "CAS",
-            "subject_name": "Cost Accounting System",
+            "subject_name": "Computerized Accounting System",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Cost Accounting System (CAS) · B.Com (Hons) · Sem V · Sec C"
+            "formatted_display": "Computerized Accounting System (CAS) · B.Com (Hons) · Sem V · Sec C"
           }
         ],
         "Tuesday": [
@@ -14645,9 +14691,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "CAS",
-            "subject_name": "Cost Accounting System",
+            "subject_name": "Computerized Accounting System",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Cost Accounting System (CAS) · B.Com (Hons) · Sem V · Sec D"
+            "formatted_display": "Computerized Accounting System (CAS) · B.Com (Hons) · Sem V · Sec D"
           },
           {
             "raw": "L-BCH-E-SEM VCommerce-CAS-R35",
@@ -14660,9 +14706,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "CAS",
-            "subject_name": "Cost Accounting System",
+            "subject_name": "Computerized Accounting System",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Cost Accounting System (CAS) · B.Com (Hons) · Sem V · Sec E"
+            "formatted_display": "Computerized Accounting System (CAS) · B.Com (Hons) · Sem V · Sec E"
           },
           {
             "raw": "T-BCH-N-SEM VCommerce-CAS-T27-N1",
@@ -14675,9 +14721,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "N1",
             "raw_batch": "N1",
             "subject": "CAS",
-            "subject_name": "Cost Accounting System",
+            "subject_name": "Computerized Accounting System",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Cost Accounting System (CAS) · B.Com (Hons) · Sem V · Sec N · (N1)"
+            "formatted_display": "Computerized Accounting System (CAS) · B.Com (Hons) · Sem V · Sec N · (N1 / NP1)"
           },
           {
             "raw": "T-BCH-E-SEM VCommerce-CAS-T25-E1",
@@ -14690,9 +14736,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "E1",
             "raw_batch": "E1",
             "subject": "CAS",
-            "subject_name": "Cost Accounting System",
+            "subject_name": "Computerized Accounting System",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Cost Accounting System (CAS) · B.Com (Hons) · Sem V · Sec E · (E1)"
+            "formatted_display": "Computerized Accounting System (CAS) · B.Com (Hons) · Sem V · Sec E · (E1 / EP1)"
           }
         ],
         "Wednesday": [
@@ -14707,9 +14753,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "CAS",
-            "subject_name": "Cost Accounting System",
+            "subject_name": "Computerized Accounting System",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Cost Accounting System (CAS) · B.Com (Hons) · Sem V · Sec C"
+            "formatted_display": "Computerized Accounting System (CAS) · B.Com (Hons) · Sem V · Sec C"
           },
           {
             "raw": "L-BCH-D-SEM VCommerce-CAS-R34",
@@ -14722,9 +14768,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "CAS",
-            "subject_name": "Cost Accounting System",
+            "subject_name": "Computerized Accounting System",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Cost Accounting System (CAS) · B.Com (Hons) · Sem V · Sec D"
+            "formatted_display": "Computerized Accounting System (CAS) · B.Com (Hons) · Sem V · Sec D"
           },
           {
             "raw": "T-BCH-C-SEM VCommerce-CAS-T32-C1",
@@ -14737,9 +14783,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "C1",
             "raw_batch": "C1",
             "subject": "CAS",
-            "subject_name": "Cost Accounting System",
+            "subject_name": "Computerized Accounting System",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Cost Accounting System (CAS) · B.Com (Hons) · Sem V · Sec C · (C1)"
+            "formatted_display": "Computerized Accounting System (CAS) · B.Com (Hons) · Sem V · Sec C · (C1 / CP1)"
           }
         ],
         "Thursday": [
@@ -14756,7 +14802,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "AUD",
             "subject_name": "Auditing and Corporate Governance",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec J · (J2)"
+            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec J · (J2 / JP2)"
           },
           {
             "raw": "T-BCH-D-SEM VCommerce-CAS-T27-D3",
@@ -14769,9 +14815,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "D3",
             "raw_batch": "D3",
             "subject": "CAS",
-            "subject_name": "Cost Accounting System",
+            "subject_name": "Computerized Accounting System",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Cost Accounting System (CAS) · B.Com (Hons) · Sem V · Sec D · (D3)"
+            "formatted_display": "Computerized Accounting System (CAS) · B.Com (Hons) · Sem V · Sec D · (D3 / DP3)"
           },
           {
             "raw": "L-BCH-D-SEM VCommerce-CAS-R18",
@@ -14784,9 +14830,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "CAS",
-            "subject_name": "Cost Accounting System",
+            "subject_name": "Computerized Accounting System",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Cost Accounting System (CAS) · B.Com (Hons) · Sem V · Sec D"
+            "formatted_display": "Computerized Accounting System (CAS) · B.Com (Hons) · Sem V · Sec D"
           },
           {
             "raw": "T-BCH-E-SEM VCommerce-CAS-T35-E2",
@@ -14799,9 +14845,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "E2",
             "raw_batch": "E2",
             "subject": "CAS",
-            "subject_name": "Cost Accounting System",
+            "subject_name": "Computerized Accounting System",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Cost Accounting System (CAS) · B.Com (Hons) · Sem V · Sec E · (E2)"
+            "formatted_display": "Computerized Accounting System (CAS) · B.Com (Hons) · Sem V · Sec E · (E2 / EP2)"
           }
         ],
         "Friday": [
@@ -14816,9 +14862,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "CAS",
-            "subject_name": "Cost Accounting System",
+            "subject_name": "Computerized Accounting System",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Cost Accounting System (CAS) · B.Com (Hons) · Sem V · Sec C"
+            "formatted_display": "Computerized Accounting System (CAS) · B.Com (Hons) · Sem V · Sec C"
           },
           {
             "raw": "L-BCH-E-SEM VCommerce-CAS-R34",
@@ -14831,9 +14877,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "CAS",
-            "subject_name": "Cost Accounting System",
+            "subject_name": "Computerized Accounting System",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Cost Accounting System (CAS) · B.Com (Hons) · Sem V · Sec E"
+            "formatted_display": "Computerized Accounting System (CAS) · B.Com (Hons) · Sem V · Sec E"
           }
         ],
         "Saturday": []
@@ -14843,7 +14889,7 @@ window.SRCC_TEACHERS_DATA = {
         "AUD",
         "Auditing and Corporate Governance",
         "CAS",
-        "Cost Accounting System"
+        "Computerized Accounting System"
       ]
     },
     {
@@ -14931,7 +14977,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec H · (H2)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec H · (H2 / HP2)"
           }
         ],
         "Wednesday": [
@@ -14993,7 +15039,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec H · (H1)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec H · (H1 / HP1)"
           }
         ],
         "Thursday": [
@@ -15154,7 +15200,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec L · (L1)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec L · (L1 / LP1)"
           },
           {
             "raw": "L-BCH-E-SEM ICommerce-MPA-R3",
@@ -15184,7 +15230,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec H · (H3)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec H · (H3 / HP3)"
           }
         ],
         "Wednesday": [
@@ -15216,7 +15262,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec M · (M2)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec M · (M2 / MP2)"
           }
         ],
         "Thursday": [
@@ -15248,7 +15294,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec M · (M3)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec M · (M3 / MP3)"
           },
           {
             "raw": "L-BCH-L-SEM ICommerce-MPA-CLIB",
@@ -15310,7 +15356,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec L · (L3)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec L · (L3 / LP3)"
           },
           {
             "raw": "T-BCH-N-SEM ICommerce-BLAW-T2-N2",
@@ -15325,7 +15371,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec N · (N2)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec N · (N2 / NP2)"
           }
         ],
         "Saturday": [
@@ -15357,7 +15403,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec M · (M1)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec M · (M1 / MP1)"
           },
           {
             "raw": "L-BCH-E-SEM ICommerce-MPA-R34",
@@ -15457,8 +15503,8 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Tuesday": [
           {
-            "raw": "L-BCH-A-SEM VIIMaths-IGT-R20L-BAHE-A-SEM VIIMaths-IGT-R20",
-            "display": "L-BCH-A-SEM VIIMaths-IGT-R20L-BAHE-A-SEM VIIMaths-IGT-R20",
+            "raw": "L-BCH-A-SEM VIIMaths-IGT-R20",
+            "display": "L-BCH-A-SEM VIIMaths-IGT-R20",
             "type": "Lecture",
             "room": "R20",
             "course": "B.Com (Hons)",
@@ -15504,8 +15550,8 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Wednesday": [
           {
-            "raw": "L-BCH-A-SEM VIIMaths-IGT-R20L-BAHE-A-SEM VIIMaths-IGT-R20",
-            "display": "L-BCH-A-SEM VIIMaths-IGT-R20L-BAHE-A-SEM VIIMaths-IGT-R20",
+            "raw": "L-BCH-A-SEM VIIMaths-IGT-R20",
+            "display": "L-BCH-A-SEM VIIMaths-IGT-R20",
             "type": "Lecture",
             "room": "R20",
             "course": "B.Com (Hons)",
@@ -15598,8 +15644,8 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Friday": [
           {
-            "raw": "L-BCH-A-SEM VIIMaths-IGT-R4L-BAHE-A-SEM VIIMaths-IGT-R4",
-            "display": "L-BCH-A-SEM VIIMaths-IGT-R4L-BAHE-A-SEM VIIMaths-IGT-R4",
+            "raw": "L-BCH-A-SEM VIIMaths-IGT-R4",
+            "display": "L-BCH-A-SEM VIIMaths-IGT-R4",
             "type": "Lecture",
             "room": "R4",
             "course": "B.Com (Hons)",
@@ -15815,9 +15861,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "A1",
             "raw_batch": "A1",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · M.Com · Sem I · Sec A · (A1)"
+            "formatted_display": "Brand Management (BRM) · M.Com · Sem I · Sec A · (A1 / AP1)"
           },
           {
             "raw": "LAB-MCOM-A-SEM ICommerce-BRM-T48-A1",
@@ -15830,9 +15876,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "A1",
             "raw_batch": "A1",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · M.Com · Sem I · Sec A · (A1)"
+            "formatted_display": "Brand Management (BRM) · M.Com · Sem I · Sec A · (A1 / AP1)"
           },
           {
             "raw": "LAB-BCH-F-SEM IIICommerce-BMATH-T48-FP2",
@@ -15918,8 +15964,8 @@ window.SRCC_TEACHERS_DATA = {
       "subjects": [
         "BMATH",
         "BRM",
-        "Business Mathematics",
-        "Business Research Methods"
+        "Brand Management",
+        "Business Mathematics"
       ]
     },
     {
@@ -15960,7 +16006,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PM",
             "subject_name": "Project Management",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Project Management (PM) · B.A. (Hons) Economics · Sem V · Sec D · (D1)"
+            "formatted_display": "Project Management (PM) · B.A. (Hons) Economics · Sem V · Sec D · (D1 / DP1)"
           },
           {
             "raw": "T-BAHE-A-SEM VCommerce-PM-T43",
@@ -15978,8 +16024,8 @@ window.SRCC_TEACHERS_DATA = {
             "formatted_display": "Project Management (PM) · B.A. (Hons) Economics · Sem V · Sec A"
           },
           {
-            "raw": "L-BAHE-A-SEM VCommerce-PM-R24L-BAHE-B-SEM VCommerce-PM-R24L-BAHE-D-SEM VCommerce-PM-R24",
-            "display": "L-BAHE-A-SEM VCommerce-PM-R24L-BAHE-B-SEM VCommerce-PM-R24L-BAHE-D-SEM VCommerce-PM-R24",
+            "raw": "L-BAHE-A-SEM VCommerce-PM-R24",
+            "display": "L-BAHE-A-SEM VCommerce-PM-R24",
             "type": "Lecture",
             "room": "R24",
             "course": "B.A. (Hons) Economics",
@@ -16022,7 +16068,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PM",
             "subject_name": "Project Management",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Project Management (PM) · B.A. (Hons) Economics · Sem V · Sec D · (D2)"
+            "formatted_display": "Project Management (PM) · B.A. (Hons) Economics · Sem V · Sec D · (D2 / DP2)"
           },
           {
             "raw": "LAB-BCH-L-SEM VCommerce-MA-T43-LP2",
@@ -16040,8 +16086,8 @@ window.SRCC_TEACHERS_DATA = {
             "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec L · (L2 / LP2)"
           },
           {
-            "raw": "L-BAHE-A-SEM VCommerce-PM-R24L-BAHE-B-SEM VCommerce-PM-R24L-BAHE-D-SEM VCommerce-PM-R24",
-            "display": "L-BAHE-A-SEM VCommerce-PM-R24L-BAHE-B-SEM VCommerce-PM-R24L-BAHE-D-SEM VCommerce-PM-R24",
+            "raw": "L-BAHE-A-SEM VCommerce-PM-R24",
+            "display": "L-BAHE-A-SEM VCommerce-PM-R24",
             "type": "Lecture",
             "room": "R24",
             "course": "B.A. (Hons) Economics",
@@ -16120,8 +16166,8 @@ window.SRCC_TEACHERS_DATA = {
             "formatted_display": "Management Accounting (MA) · B.Com (Hons) · Sem V · Sec L · (L1 / LP1)"
           },
           {
-            "raw": "L-BAHE-A-SEM VCommerce-PM-R26L-BAHE-B-SEM VCommerce-PM-R26L-BAHE-D-SEM VCommerce-PM-R26",
-            "display": "L-BAHE-A-SEM VCommerce-PM-R26L-BAHE-B-SEM VCommerce-PM-R26L-BAHE-D-SEM VCommerce-PM-R26",
+            "raw": "L-BAHE-A-SEM VCommerce-PM-R26",
+            "display": "L-BAHE-A-SEM VCommerce-PM-R26",
             "type": "Lecture",
             "room": "R26",
             "course": "B.A. (Hons) Economics",
@@ -16162,9 +16208,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "A1",
             "raw_batch": "A1",
             "subject": "ACPA",
-            "subject_name": "Accounting & Auditing",
+            "subject_name": "Advanced Cost and Performance Analysis",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Accounting & Auditing (ACPA) · M.Com · Sem I · Sec A · (A1)"
+            "formatted_display": "Advanced Cost and Performance Analysis (ACPA) · M.Com · Sem I · Sec A · (A1 / AP1)"
           },
           {
             "raw": "T-MCOM-A-SEM ICommerce-ACPA-T43-A2",
@@ -16177,16 +16223,16 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "A2",
             "raw_batch": "A2",
             "subject": "ACPA",
-            "subject_name": "Accounting & Auditing",
+            "subject_name": "Advanced Cost and Performance Analysis",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Accounting & Auditing (ACPA) · M.Com · Sem I · Sec A · (A2)"
+            "formatted_display": "Advanced Cost and Performance Analysis (ACPA) · M.Com · Sem I · Sec A · (A2 / AP2)"
           }
         ]
       },
       "ref_code": "SAR",
       "subjects": [
         "ACPA",
-        "Accounting & Auditing",
+        "Advanced Cost and Performance Analysis",
         "MA",
         "Management Accounting",
         "PM",
@@ -16229,9 +16275,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC8",
             "raw_batch": "VAC8",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Development Economics (DE) · Sem III · Joint · (VAC8)"
+            "formatted_display": "Digital Empowerment (DE) · Sem III · Joint · (VAC8)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-DE-R5-VAC8",
@@ -16244,9 +16290,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC8",
             "raw_batch": "VAC8",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Development Economics (DE) · Sem III · Joint · (VAC8)"
+            "formatted_display": "Digital Empowerment (DE) · Sem III · Joint · (VAC8)"
           }
         ],
         "Tuesday": [
@@ -16278,7 +16324,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ISM",
             "subject_name": "Information Systems Management",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Information Systems Management (ISM) · B.A. (Hons) Economics · Sem III · Sec C · (C2)"
+            "formatted_display": "Information Systems Management (ISM) · B.A. (Hons) Economics · Sem III · Sec C · (C2 / CP2)"
           },
           {
             "raw": "L-BCH-K-SEM IIICommerce-OB-R2",
@@ -16310,7 +16356,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ISM",
             "subject_name": "Information Systems Management",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Information Systems Management (ISM) · B.A. (Hons) Economics · Sem III · Sec C · (C3)"
+            "formatted_display": "Information Systems Management (ISM) · B.A. (Hons) Economics · Sem III · Sec C · (C3 / CP3)"
           },
           {
             "raw": "L-BCH-K-SEM IIICommerce-OB-R2",
@@ -16338,9 +16384,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC9",
             "raw_batch": "VAC9",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem III · Joint · (VAC9)"
+            "formatted_display": "Digital Empowerment (DE) · Sem III · Joint · (VAC9)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-DE-R18-VAC9",
@@ -16353,9 +16399,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC9",
             "raw_batch": "VAC9",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem III · Joint · (VAC9)"
+            "formatted_display": "Digital Empowerment (DE) · Sem III · Joint · (VAC9)"
           }
         ],
         "Thursday": [
@@ -16372,7 +16418,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ISM",
             "subject_name": "Information Systems Management",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Information Systems Management (ISM) · B.A. (Hons) Economics · Sem III · Sec C · (C1)"
+            "formatted_display": "Information Systems Management (ISM) · B.A. (Hons) Economics · Sem III · Sec C · (C1 / CP1)"
           },
           {
             "raw": "L-BCH-K-SEM IIICommerce-OB-R22",
@@ -16404,7 +16450,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "OB",
             "subject_name": "Organizational Behavior",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Organizational Behavior (OB) · B.Com (Hons) · Sem III · Sec K · (K1)"
+            "formatted_display": "Organizational Behavior (OB) · B.Com (Hons) · Sem III · Sec K · (K1 / KP1)"
           },
           {
             "raw": "L-BAHE-C-SEM IIICommerce-GE-ISM-R29",
@@ -16432,9 +16478,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC8",
             "raw_batch": "VAC8",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem III · Joint · (VAC8)"
+            "formatted_display": "Digital Empowerment (DE) · Sem III · Joint · (VAC8)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-DE-R18-VAC8",
@@ -16447,9 +16493,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC8",
             "raw_batch": "VAC8",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem III · Joint · (VAC8)"
+            "formatted_display": "Digital Empowerment (DE) · Sem III · Joint · (VAC8)"
           }
         ],
         "Saturday": []
@@ -16457,7 +16503,7 @@ window.SRCC_TEACHERS_DATA = {
       "ref_code": "SVK",
       "subjects": [
         "DE",
-        "Development Economics",
+        "Digital Empowerment",
         "ISM",
         "Information Systems Management",
         "OB",
@@ -16990,9 +17036,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec B"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec B"
           },
           {
             "raw": "T-BCH-G-SEM IIICommerce-BRM-T38-G3",
@@ -17005,9 +17051,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "G3",
             "raw_batch": "G3",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec G · (G3)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec G · (G3 / GP3)"
           },
           {
             "raw": "T-BCH-B-SEM IIICommerce-BRM-T36-B3",
@@ -17020,9 +17066,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "B3",
             "raw_batch": "B3",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec B · (B3)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec B · (B3 / BP3)"
           },
           {
             "raw": "L-BCH-F-SEM IIICommerce-BRM-R2",
@@ -17035,9 +17081,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec F"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec F"
           },
           {
             "raw": "L-BCH-H-SEM IIICommerce-BRM-R15",
@@ -17050,9 +17096,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec H"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec H"
           }
         ],
         "Wednesday": [
@@ -17067,9 +17113,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec B"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec B"
           },
           {
             "raw": "T-BCH-H-SEM IIICommerce-BRM-T37-H3",
@@ -17082,9 +17128,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "H3",
             "raw_batch": "H3",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec H · (H3)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec H · (H3 / HP3)"
           },
           {
             "raw": "L-BCH-H-SEM IIICommerce-BRM-R22",
@@ -17097,9 +17143,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec H"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec H"
           }
         ],
         "Thursday": [
@@ -17114,9 +17160,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "A2",
             "raw_batch": "A2",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec A · (A2)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec A · (A2 / AP2)"
           },
           {
             "raw": "L-BCH-F-SEM IIICommerce-BRM-R10",
@@ -17129,9 +17175,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec F"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec F"
           }
         ],
         "Friday": [
@@ -17148,7 +17194,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec N · (N1)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec N · (N1 / NP1)"
           },
           {
             "raw": "T-BCH-J-SEM IIICommerce-POM-T37-J2",
@@ -17163,7 +17209,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec J · (J2)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec J · (J2 / JP2)"
           },
           {
             "raw": "L-BCH-H-SEM IIICommerce-BRM-R22",
@@ -17176,9 +17222,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec H"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec H"
           }
         ],
         "Saturday": [
@@ -17193,9 +17239,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec B"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec B"
           },
           {
             "raw": "T-BCH-E-SEM IIICommerce-BRM-T37-E1",
@@ -17208,9 +17254,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "E1",
             "raw_batch": "E1",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec E · (E1)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec E · (E1 / EP1)"
           },
           {
             "raw": "L-BCH-F-SEM IIICommerce-BRM-R22",
@@ -17223,16 +17269,16 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec F"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec F"
           }
         ]
       },
       "ref_code": "SNS",
       "subjects": [
         "BRM",
-        "Business Research Methods",
+        "Brand Management",
         "POM",
         "Principles of Marketing"
       ]
@@ -17260,7 +17306,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "NM",
             "subject_name": "Numerical Methods",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec C · (C2)"
+            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec C · (C2 / CP2)"
           },
           {
             "raw": "LAB-BAHE-A-SEM VMaths-NM-R6-A2",
@@ -17275,7 +17321,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "NM",
             "subject_name": "Numerical Methods",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec A · (A2)"
+            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec A · (A2 / AP2)"
           },
           {
             "raw": "L-BAHE-C-SEM VMaths-NM-R29",
@@ -17305,7 +17351,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "NM",
             "subject_name": "Numerical Methods",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec C · (C3)"
+            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec C · (C3 / CP3)"
           }
         ],
         "Tuesday": [
@@ -17322,7 +17368,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "NM",
             "subject_name": "Numerical Methods",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec A · (A2)"
+            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec A · (A2 / AP2)"
           },
           {
             "raw": "LAB-BAHE-C-SEM VMaths-NM-R29-C1",
@@ -17337,7 +17383,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "NM",
             "subject_name": "Numerical Methods",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec C · (C1)"
+            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec C · (C1 / CP1)"
           },
           {
             "raw": "L-BCH-N-SEM VMaths-NM-R23",
@@ -17369,7 +17415,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "NM",
             "subject_name": "Numerical Methods",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec C · (C1)"
+            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec C · (C1 / CP1)"
           },
           {
             "raw": "LAB-BAHE-C-SEM VMaths-NM-R8-C2",
@@ -17384,7 +17430,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "NM",
             "subject_name": "Numerical Methods",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec C · (C2)"
+            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec C · (C2 / CP2)"
           },
           {
             "raw": "L-BAHE-C-SEM VMaths-NM-PB4",
@@ -17446,7 +17492,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "NM",
             "subject_name": "Numerical Methods",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec B · (B2)"
+            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec B · (B2 / BP2)"
           },
           {
             "raw": "L-BCH-N-SEM VMaths-NM-R23",
@@ -17478,7 +17524,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "NM",
             "subject_name": "Numerical Methods",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec C · (C3)"
+            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec C · (C3 / CP3)"
           },
           {
             "raw": "LAB-BAHE-B-SEM VMaths-NM-R29-B2",
@@ -17493,7 +17539,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "NM",
             "subject_name": "Numerical Methods",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec B · (B2)"
+            "formatted_display": "Numerical Methods (NM) · B.A. (Hons) Economics · Sem V · Sec B · (B2 / BP2)"
           }
         ],
         "Saturday": []
@@ -17558,7 +17604,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec B · (B3)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec B · (B3 / BP3)"
           },
           {
             "raw": "L-BCH-D-SEM IIICommerce-BMATH-R8",
@@ -17729,7 +17775,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec B · (B2)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec B · (B2 / BP2)"
           }
         ],
         "Saturday": [
@@ -18282,16 +18328,16 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "SEC24",
             "raw_batch": "SEC24",
             "subject": "CPL",
-            "subject_name": "Corporate Planning & Law",
+            "subject_name": "Communication in Professional Life",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Corporate Planning & Law (CPL) · Sem I · Joint · (SEC24)"
+            "formatted_display": "Communication in Professional Life (CPL) · Sem I · Joint · (SEC24)"
           }
         ]
       },
       "ref_code": "ENG",
       "subjects": [
         "CPL",
-        "Corporate Planning & Law"
+        "Communication in Professional Life"
       ]
     },
     {
@@ -18314,10 +18360,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec G",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec G"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec G"
           },
           {
             "raw": "LAB-BCH-G-SEM III-EVS-II-R16",
@@ -18329,10 +18375,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec G",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec G"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec G"
           }
         ],
         "Tuesday": [
@@ -18378,10 +18424,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec G",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec G"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec G"
           }
         ],
         "Thursday": [
@@ -18413,10 +18459,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec L",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec L"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec L"
           },
           {
             "raw": "LAB-BCH-L-SEM III-EVS-II-R14",
@@ -18428,17 +18474,19 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec L",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec L"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec L"
           }
         ]
       },
       "ref_code": "EVSG1",
       "subjects": [
         "EVS-I",
-        "Environmental Studies I (Theory into Practice)"
+        "EVS-II",
+        "Environmental Studies I (Theory into Practice)",
+        "Environmental Studies II (Theory into Practice)"
       ]
     },
     {
@@ -18461,10 +18509,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec M",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec M"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec M"
           },
           {
             "raw": "LAB-BCH-M-SEM III-EVS-II-Library FF",
@@ -18476,10 +18524,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec M",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec M"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec M"
           }
         ],
         "Tuesday": [
@@ -18493,10 +18541,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec I",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec I"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec I"
           },
           {
             "raw": "L-BCH-M-SEM III-EVS-II-R20",
@@ -18508,10 +18556,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec M",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec M"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec M"
           }
         ],
         "Wednesday": [],
@@ -18544,10 +18592,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec I",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec I"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec I"
           },
           {
             "raw": "LAB-BCH-I-SEM III-EVS-II-R6",
@@ -18559,10 +18607,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec I",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec I"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec I"
           },
           {
             "raw": "LAB-BCH-H-SEM I-EVS-I-R29",
@@ -18584,7 +18632,9 @@ window.SRCC_TEACHERS_DATA = {
       "ref_code": "EVSG2",
       "subjects": [
         "EVS-I",
-        "Environmental Studies I (Theory into Practice)"
+        "EVS-II",
+        "Environmental Studies I (Theory into Practice)",
+        "Environmental Studies II (Theory into Practice)"
       ]
     },
     {
@@ -18701,10 +18751,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec K",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec K"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec K"
           }
         ],
         "Thursday": [],
@@ -18719,10 +18769,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec H",
             "batch": "",
             "raw_batch": "",
-            "subject": "EVS-I",
-            "subject_name": "Environmental Studies I (Theory into Practice)",
+            "subject": "EVS-II",
+            "subject_name": "Environmental Studies II (Theory into Practice)",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Environmental Studies I (Theory into Practice) (EVS-I) · B.Com (Hons) · Sem III · Sec H"
+            "formatted_display": "Environmental Studies II (Theory into Practice) (EVS-II) · B.Com (Hons) · Sem III · Sec H"
           }
         ],
         "Saturday": []
@@ -18730,7 +18780,9 @@ window.SRCC_TEACHERS_DATA = {
       "ref_code": "EVSG3",
       "subjects": [
         "EVS-I",
-        "Environmental Studies I (Theory into Practice)"
+        "EVS-II",
+        "Environmental Studies I (Theory into Practice)",
+        "Environmental Studies II (Theory into Practice)"
       ]
     },
     {
@@ -18905,9 +18957,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC11",
             "raw_batch": "VAC11",
             "subject": "EC",
-            "subject_name": "E-Commerce",
+            "subject_name": "Ethics and Culture",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "E-Commerce (EC) · Sem III · Joint · (VAC11)"
+            "formatted_display": "Ethics and Culture (EC) · Sem III · Joint · (VAC11)"
           },
           {
             "raw": "L-JOINT-SEM IIICommerce-EC-R19-VAC12",
@@ -18920,9 +18972,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC12",
             "raw_batch": "VAC12",
             "subject": "EC",
-            "subject_name": "E-Commerce",
+            "subject_name": "Ethics and Culture",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "E-Commerce (EC) · Sem III · Joint · (VAC12)"
+            "formatted_display": "Ethics and Culture (EC) · Sem III · Joint · (VAC12)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-EC-R2-VAC15",
@@ -18935,9 +18987,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC15",
             "raw_batch": "VAC15",
             "subject": "EC",
-            "subject_name": "E-Commerce",
+            "subject_name": "Ethics and Culture",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "E-Commerce (EC) · Sem I · Joint · (VAC15)"
+            "formatted_display": "Ethics and Culture (EC) · Sem I · Joint · (VAC15)"
           }
         ],
         "Tuesday": [
@@ -18952,9 +19004,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC15",
             "raw_batch": "VAC15",
             "subject": "EC",
-            "subject_name": "E-Commerce",
+            "subject_name": "Ethics and Culture",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "E-Commerce (EC) · Sem I · Joint · (VAC15)"
+            "formatted_display": "Ethics and Culture (EC) · Sem I · Joint · (VAC15)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-EC-R13-VAC15",
@@ -18967,9 +19019,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC15",
             "raw_batch": "VAC15",
             "subject": "EC",
-            "subject_name": "E-Commerce",
+            "subject_name": "Ethics and Culture",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "E-Commerce (EC) · Sem I · Joint · (VAC15)"
+            "formatted_display": "Ethics and Culture (EC) · Sem I · Joint · (VAC15)"
           }
         ],
         "Wednesday": [
@@ -18984,9 +19036,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC12",
             "raw_batch": "VAC12",
             "subject": "EC",
-            "subject_name": "E-Commerce",
+            "subject_name": "Ethics and Culture",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "E-Commerce (EC) · Sem III · Joint · (VAC12)"
+            "formatted_display": "Ethics and Culture (EC) · Sem III · Joint · (VAC12)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-EC-R20-VAC12",
@@ -18999,9 +19051,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC12",
             "raw_batch": "VAC12",
             "subject": "EC",
-            "subject_name": "E-Commerce",
+            "subject_name": "Ethics and Culture",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "E-Commerce (EC) · Sem III · Joint · (VAC12)"
+            "formatted_display": "Ethics and Culture (EC) · Sem III · Joint · (VAC12)"
           }
         ],
         "Thursday": [],
@@ -19017,9 +19069,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC11",
             "raw_batch": "VAC11",
             "subject": "EC",
-            "subject_name": "E-Commerce",
+            "subject_name": "Ethics and Culture",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "E-Commerce (EC) · Sem III · Joint · (VAC11)"
+            "formatted_display": "Ethics and Culture (EC) · Sem III · Joint · (VAC11)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-EC-R19-VAC11",
@@ -19032,17 +19084,17 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC11",
             "raw_batch": "VAC11",
             "subject": "EC",
-            "subject_name": "E-Commerce",
+            "subject_name": "Ethics and Culture",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "E-Commerce (EC) · Sem III · Joint · (VAC11)"
+            "formatted_display": "Ethics and Culture (EC) · Sem III · Joint · (VAC11)"
           }
         ],
         "Saturday": []
       },
       "ref_code": "HNC",
       "subjects": [
-        "E-Commerce",
-        "EC"
+        "EC",
+        "Ethics and Culture"
       ]
     },
     {
@@ -19200,7 +19252,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "Adv MME",
             "subject_name": "Advanced Mathematical Methods for Economics",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Advanced Mathematical Methods for Economics (Adv MME) · B.A. (Hons) Economics · Sem III · Sec C · (C2)"
+            "formatted_display": "Advanced Mathematical Methods for Economics (Adv MME) · B.A. (Hons) Economics · Sem III · Sec C · (C2 / CP2)"
           },
           {
             "raw": "L-BAHE-A-SEM IIIEconomics-Adv MME-R26",
@@ -19230,7 +19282,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "Adv MME",
             "subject_name": "Advanced Mathematical Methods for Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Advanced Mathematical Methods for Economics (Adv MME) · B.A. (Hons) Economics · Sem III · Sec C · (C1)"
+            "formatted_display": "Advanced Mathematical Methods for Economics (Adv MME) · B.A. (Hons) Economics · Sem III · Sec C · (C1 / CP1)"
           },
           {
             "raw": "L-BAHE-C-SEM IIIEconomics-Adv MME-R24",
@@ -19295,7 +19347,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "Adv MME",
             "subject_name": "Advanced Mathematical Methods for Economics",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Advanced Mathematical Methods for Economics (Adv MME) · B.A. (Hons) Economics · Sem III · Sec C · (C3)"
+            "formatted_display": "Advanced Mathematical Methods for Economics (Adv MME) · B.A. (Hons) Economics · Sem III · Sec C · (C3 / CP3)"
           },
           {
             "raw": "L-BAHE-C-SEM IIIEconomics-Adv MME-R25",
@@ -19340,7 +19392,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "Adv MME",
             "subject_name": "Advanced Mathematical Methods for Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Advanced Mathematical Methods for Economics (Adv MME) · B.A. (Hons) Economics · Sem III · Sec A · (A1)"
+            "formatted_display": "Advanced Mathematical Methods for Economics (Adv MME) · B.A. (Hons) Economics · Sem III · Sec A · (A1 / AP1)"
           }
         ]
       },
@@ -19388,7 +19440,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec K · (K3)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec K · (K3 / KP3)"
           },
           {
             "raw": "T-BCH-C-SEM ICommerce-BLAW-T5-C3",
@@ -19403,7 +19455,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec C · (C3)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec C · (C3 / CP3)"
           }
         ],
         "Tuesday": [
@@ -19435,7 +19487,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec E · (E3)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec E · (E3 / EP3)"
           }
         ],
         "Wednesday": [],
@@ -19651,7 +19703,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MB",
             "subject_name": "Money and Banking",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Money and Banking (MB) · B.Com (Hons) · Sem V · Sec M · (M1)"
+            "formatted_display": "Money and Banking (MB) · B.Com (Hons) · Sem V · Sec M · (M1 / MP1)"
           },
           {
             "raw": "L-BCH-L-SEM VEconomics-MB-PB3",
@@ -19698,7 +19750,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BDE",
             "subject_name": "Business Data Ecosystem",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Data Ecosystem (BDE) · B.Com (Hons) · Sem I · Sec M · (M1)"
+            "formatted_display": "Business Data Ecosystem (BDE) · B.Com (Hons) · Sem I · Sec M · (M1 / MP1)"
           },
           {
             "raw": "L-BCH-L-SEM VEconomics-MB-R28",
@@ -19730,7 +19782,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "TPF",
             "subject_name": "Theory of Public Finance",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Theory of Public Finance (TPF) · B.Com (Hons) · Sem V · Sec N · (N3)"
+            "formatted_display": "Theory of Public Finance (TPF) · B.Com (Hons) · Sem V · Sec N · (N3 / NP3)"
           },
           {
             "raw": "L-BCH-N-SEM VEconomics-MB-CLIB",
@@ -19848,9 +19900,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "SEC24",
             "raw_batch": "SEC24",
             "subject": "SWR",
-            "subject_name": "Social Work & Relations",
+            "subject_name": "Statistics with R",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Social Work & Relations (SWR) · Sem III · Joint · (SEC24)"
+            "formatted_display": "Statistics with R (SWR) · Sem III · Joint · (SEC24)"
           },
           {
             "raw": "LAB-JOINT-SEM IIIEconomics-SWR-R24-SEC24",
@@ -19863,9 +19915,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "SEC24",
             "raw_batch": "SEC24",
             "subject": "SWR",
-            "subject_name": "Social Work & Relations",
+            "subject_name": "Statistics with R",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Social Work & Relations (SWR) · Sem III · Joint · (SEC24)"
+            "formatted_display": "Statistics with R (SWR) · Sem III · Joint · (SEC24)"
           },
           {
             "raw": "LAB-JOINT-SEM IIIEconomics-SWR-R24-SEC24",
@@ -19878,9 +19930,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "SEC24",
             "raw_batch": "SEC24",
             "subject": "SWR",
-            "subject_name": "Social Work & Relations",
+            "subject_name": "Statistics with R",
             "slot": "4:00 PM to 5:00 PM",
-            "formatted_display": "Social Work & Relations (SWR) · Sem III · Joint · (SEC24)"
+            "formatted_display": "Statistics with R (SWR) · Sem III · Joint · (SEC24)"
           },
           {
             "raw": "LAB-JOINT-SEM IIIEconomics-SWR-R24-SEC24",
@@ -19893,9 +19945,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "SEC24",
             "raw_batch": "SEC24",
             "subject": "SWR",
-            "subject_name": "Social Work & Relations",
+            "subject_name": "Statistics with R",
             "slot": "5:00 PM to 6:00 PM",
-            "formatted_display": "Social Work & Relations (SWR) · Sem III · Joint · (SEC24)"
+            "formatted_display": "Statistics with R (SWR) · Sem III · Joint · (SEC24)"
           }
         ],
         "Wednesday": [
@@ -19912,7 +19964,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "EoE",
             "subject_name": "Principles of Microeconomics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Principles of Microeconomics (EoE) · B.Com (Hons) · Sem I · Sec K · (K2)"
+            "formatted_display": "Principles of Microeconomics (EoE) · B.Com (Hons) · Sem I · Sec K · (K2 / KP2)"
           },
           {
             "raw": "L-BCH-J-SEM IEconomics-EOE-R17",
@@ -19942,7 +19994,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BDE",
             "subject_name": "Business Data Ecosystem",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Business Data Ecosystem (BDE) · B.Com (Hons) · Sem V · Sec N · (N2)"
+            "formatted_display": "Business Data Ecosystem (BDE) · B.Com (Hons) · Sem V · Sec N · (N2 / NP2)"
           }
         ],
         "Thursday": [
@@ -19973,7 +20025,7 @@ window.SRCC_TEACHERS_DATA = {
         "EoE",
         "Principles of Microeconomics",
         "SWR",
-        "Social Work & Relations"
+        "Statistics with R"
       ]
     },
     {
@@ -19997,9 +20049,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "K3",
             "raw_batch": "K3",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec K · (K3)"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec K · (K3 / KP3)"
           },
           {
             "raw": "L-BCH-D-SEM VEconomics-DnD-R28",
@@ -20012,9 +20064,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec D"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec D"
           }
         ],
         "Tuesday": [],
@@ -20030,9 +20082,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "I2",
             "raw_batch": "I2",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec I · (I2)"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec I · (I2 / IP2)"
           },
           {
             "raw": "L-BCH-E-SEM VEconomics-DnD-R19",
@@ -20045,9 +20097,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec E"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec E"
           }
         ],
         "Thursday": [
@@ -20062,9 +20114,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec E"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec E"
           },
           {
             "raw": "L-BCH-D-SEM VEconomics-DnD-R19",
@@ -20077,9 +20129,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec D"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec D"
           },
           {
             "raw": "T-BCH-H-SEM VEconomics-DnD-T49-H2",
@@ -20092,9 +20144,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "H2",
             "raw_batch": "H2",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec H · (H2)"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec H · (H2 / HP2)"
           }
         ],
         "Friday": [
@@ -20109,9 +20161,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec D"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec D"
           },
           {
             "raw": "T-BCH-D-SEM VEconomics-DnD-T50-D2",
@@ -20124,9 +20176,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "D2",
             "raw_batch": "D2",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec D · (D2)"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec D · (D2 / DP2)"
           },
           {
             "raw": "L-BCH-E-SEM VEconomics-DnD-R20",
@@ -20139,17 +20191,17 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec E"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec E"
           }
         ],
         "Saturday": []
       },
       "ref_code": "IT3",
       "subjects": [
-        "DnD",
-        "Negotiation and Deal Making"
+        "Digitalization and Development",
+        "DnD"
       ]
     },
     {
@@ -20190,7 +20242,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "Intro MME",
             "subject_name": "Introductory Mathematical Methods for Economics",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Introductory Mathematical Methods for Economics (Intro MME) · B.A. (Hons) Economics · Sem I · Sec D · (D1)"
+            "formatted_display": "Introductory Mathematical Methods for Economics (Intro MME) · B.A. (Hons) Economics · Sem I · Sec D · (D1 / DP1)"
           }
         ],
         "Tuesday": [
@@ -20224,7 +20276,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "Intro MME",
             "subject_name": "Introductory Mathematical Methods for Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Introductory Mathematical Methods for Economics (Intro MME) · B.A. (Hons) Economics · Sem I · Sec C · (C2)"
+            "formatted_display": "Introductory Mathematical Methods for Economics (Intro MME) · B.A. (Hons) Economics · Sem I · Sec C · (C2 / CP2)"
           }
         ],
         "Thursday": [],
@@ -20242,7 +20294,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GBS",
             "subject_name": "Global Business Strategy",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Global Business Strategy (GBS) · B.A. (Hons) Economics · Sem V · Sec A · (A1)"
+            "formatted_display": "Global Business Strategy (GBS) · B.A. (Hons) Economics · Sem V · Sec A · (A1 / AP1)"
           },
           {
             "raw": "T-BAHE-B-SEM IEconomics-Intro MME-T51-B3",
@@ -20257,7 +20309,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "Intro MME",
             "subject_name": "Introductory Mathematical Methods for Economics",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Introductory Mathematical Methods for Economics (Intro MME) · B.A. (Hons) Economics · Sem I · Sec B · (B3)"
+            "formatted_display": "Introductory Mathematical Methods for Economics (Intro MME) · B.A. (Hons) Economics · Sem I · Sec B · (B3 / BP3)"
           },
           {
             "raw": "T-BAHE-A-SEM IEconomics-Intro MME-T30-A2",
@@ -20272,7 +20324,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "Intro MME",
             "subject_name": "Introductory Mathematical Methods for Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Introductory Mathematical Methods for Economics (Intro MME) · B.A. (Hons) Economics · Sem I · Sec A · (A2)"
+            "formatted_display": "Introductory Mathematical Methods for Economics (Intro MME) · B.A. (Hons) Economics · Sem I · Sec A · (A2 / AP2)"
           },
           {
             "raw": "L-BAHE-C-SEM VEconomics-GBS-R25",
@@ -20341,11 +20393,11 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "RM",
             "subject_name": "Research Methodology",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Research Methodology (RM) · B.A. (Hons) Economics · Sem V · Sec A · (A3)"
+            "formatted_display": "Research Methodology (RM) · B.A. (Hons) Economics · Sem V · Sec A · (A3 / AP3)"
           },
           {
-            "raw": "L-BAHE-A-SEM VEconomics-RM-R37L-BAHE-A-SEM VIIEconomics-RM-R37",
-            "display": "L-BAHE-A-SEM VEconomics-RM-R37L-BAHE-A-SEM VIIEconomics-RM-R37",
+            "raw": "L-BAHE-A-SEM VEconomics-RM-R37",
+            "display": "L-BAHE-A-SEM VEconomics-RM-R37",
             "type": "Lecture",
             "room": "R37",
             "course": "B.A. (Hons) Economics",
@@ -20388,11 +20440,11 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "RM",
             "subject_name": "Research Methodology",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Research Methodology (RM) · B.A. (Hons) Economics · Sem VII · Sec A · (A1)"
+            "formatted_display": "Research Methodology (RM) · B.A. (Hons) Economics · Sem VII · Sec A · (A1 / AP1)"
           },
           {
-            "raw": "L-BAHE-A-SEM VEconomics-RM-PB4L-BAHE-A-SEM VIIEconomics-RM-PB4",
-            "display": "L-BAHE-A-SEM VEconomics-RM-PB4L-BAHE-A-SEM VIIEconomics-RM-PB4",
+            "raw": "L-BAHE-A-SEM VEconomics-RM-PB4",
+            "display": "L-BAHE-A-SEM VEconomics-RM-PB4",
             "type": "Lecture",
             "room": "PB4",
             "course": "B.A. (Hons) Economics",
@@ -20435,11 +20487,11 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MB",
             "subject_name": "Money and Banking",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Money and Banking (MB) · B.Com (Hons) · Sem V · Sec J · (J1)"
+            "formatted_display": "Money and Banking (MB) · B.Com (Hons) · Sem V · Sec J · (J1 / JP1)"
           },
           {
-            "raw": "L-BAHE-A-SEM VEconomics-RM-R26L-BAHE-A-SEM VIIEconomics-RM-R26",
-            "display": "L-BAHE-A-SEM VEconomics-RM-R26L-BAHE-A-SEM VIIEconomics-RM-R26",
+            "raw": "L-BAHE-A-SEM VEconomics-RM-R26",
+            "display": "L-BAHE-A-SEM VEconomics-RM-R26",
             "type": "Lecture",
             "room": "R26",
             "course": "B.A. (Hons) Economics",
@@ -20486,7 +20538,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "Adv MME",
             "subject_name": "Advanced Mathematical Methods for Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Advanced Mathematical Methods for Economics (Adv MME) · B.A. (Hons) Economics · Sem III · Sec B · (B3)"
+            "formatted_display": "Advanced Mathematical Methods for Economics (Adv MME) · B.A. (Hons) Economics · Sem III · Sec B · (B3 / BP3)"
           },
           {
             "raw": "T-BAHE-D-SEM IIIEconomics-Adv MME-T2-D3",
@@ -20501,7 +20553,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "Adv MME",
             "subject_name": "Advanced Mathematical Methods for Economics",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Advanced Mathematical Methods for Economics (Adv MME) · B.A. (Hons) Economics · Sem III · Sec D · (D3)"
+            "formatted_display": "Advanced Mathematical Methods for Economics (Adv MME) · B.A. (Hons) Economics · Sem III · Sec D · (D3 / DP3)"
           }
         ],
         "Tuesday": [
@@ -20578,9 +20630,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "SEC18",
             "raw_batch": "SEC18",
             "subject": "SWR",
-            "subject_name": "Social Work & Relations",
+            "subject_name": "Statistics with R",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Social Work & Relations (SWR) · Sem I · Joint · (SEC18)"
+            "formatted_display": "Statistics with R (SWR) · Sem I · Joint · (SEC18)"
           },
           {
             "raw": "LAB-JOINT-SEM IEconomics-SWR-R33-SEC18",
@@ -20593,9 +20645,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "SEC18",
             "raw_batch": "SEC18",
             "subject": "SWR",
-            "subject_name": "Social Work & Relations",
+            "subject_name": "Statistics with R",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Social Work & Relations (SWR) · Sem I · Joint · (SEC18)"
+            "formatted_display": "Statistics with R (SWR) · Sem I · Joint · (SEC18)"
           }
         ],
         "Thursday": [
@@ -20612,7 +20664,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "Adv MME",
             "subject_name": "Advanced Mathematical Methods for Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Advanced Mathematical Methods for Economics (Adv MME) · B.A. (Hons) Economics · Sem III · Sec A · (A2)"
+            "formatted_display": "Advanced Mathematical Methods for Economics (Adv MME) · B.A. (Hons) Economics · Sem III · Sec A · (A2 / AP2)"
           },
           {
             "raw": "T-BAHE-A-SEM IIIEconomics-Adv MME-T51-A3",
@@ -20627,7 +20679,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "Adv MME",
             "subject_name": "Advanced Mathematical Methods for Economics",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Advanced Mathematical Methods for Economics (Adv MME) · B.A. (Hons) Economics · Sem III · Sec A · (A3)"
+            "formatted_display": "Advanced Mathematical Methods for Economics (Adv MME) · B.A. (Hons) Economics · Sem III · Sec A · (A3 / AP3)"
           }
         ],
         "Friday": [],
@@ -20640,7 +20692,7 @@ window.SRCC_TEACHERS_DATA = {
         "BIT",
         "Business Information Technologies",
         "SWR",
-        "Social Work & Relations"
+        "Statistics with R"
       ]
     },
     {
@@ -20667,7 +20719,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ISME",
             "subject_name": "Introductory Statistics for Economics",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Introductory Statistics for Economics (ISME) · B.A. (Hons) Economics · Sem I · Sec D · (D1)"
+            "formatted_display": "Introductory Statistics for Economics (ISME) · B.A. (Hons) Economics · Sem I · Sec D · (D1 / DP1)"
           },
           {
             "raw": "L-BAHE-D-SEM IEconomics-ISME -R29",
@@ -20697,7 +20749,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ISME",
             "subject_name": "Introductory Statistics for Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Introductory Statistics for Economics (ISME) · B.A. (Hons) Economics · Sem I · Sec B · (B3)"
+            "formatted_display": "Introductory Statistics for Economics (ISME) · B.A. (Hons) Economics · Sem I · Sec B · (B3 / BP3)"
           },
           {
             "raw": "L-BAHE-B-SEM IEconomics-ISME -R24",
@@ -20744,7 +20796,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ISME",
             "subject_name": "Introductory Statistics for Economics",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Introductory Statistics for Economics (ISME) · B.A. (Hons) Economics · Sem I · Sec D · (D3)"
+            "formatted_display": "Introductory Statistics for Economics (ISME) · B.A. (Hons) Economics · Sem I · Sec D · (D3 / DP3)"
           },
           {
             "raw": "T-BAHE-B-SEM IEconomics-ISME -T44-B1",
@@ -20759,7 +20811,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ISME",
             "subject_name": "Introductory Statistics for Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Introductory Statistics for Economics (ISME) · B.A. (Hons) Economics · Sem I · Sec B · (B1)"
+            "formatted_display": "Introductory Statistics for Economics (ISME) · B.A. (Hons) Economics · Sem I · Sec B · (B1 / BP1)"
           },
           {
             "raw": "L-BAHE-B-SEM IEconomics-ISME -R24",
@@ -20856,7 +20908,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IMIC1",
             "subject_name": "Intermediate Microeconomics I",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Intermediate Microeconomics I (IMIC1) · B.A. (Hons) Economics · Sem III · Sec C · (C1)"
+            "formatted_display": "Intermediate Microeconomics I (IMIC1) · B.A. (Hons) Economics · Sem III · Sec C · (C1 / CP1)"
           },
           {
             "raw": "L-BAHE-C-SEM IIIEconomics-IMIC1-PB4",
@@ -20903,7 +20955,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IMIC1",
             "subject_name": "Intermediate Microeconomics I",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Intermediate Microeconomics I (IMIC1) · B.A. (Hons) Economics · Sem III · Sec A · (A3)"
+            "formatted_display": "Intermediate Microeconomics I (IMIC1) · B.A. (Hons) Economics · Sem III · Sec A · (A3 / AP3)"
           },
           {
             "raw": "T-BAHE-A-SEM IIIEconomics-IMIC1-PB2-A1",
@@ -20918,7 +20970,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IMIC1",
             "subject_name": "Intermediate Microeconomics I",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Intermediate Microeconomics I (IMIC1) · B.A. (Hons) Economics · Sem III · Sec A · (A1)"
+            "formatted_display": "Intermediate Microeconomics I (IMIC1) · B.A. (Hons) Economics · Sem III · Sec A · (A1 / AP1)"
           }
         ],
         "Wednesday": [],
@@ -20983,7 +21035,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IMIC1",
             "subject_name": "Intermediate Microeconomics I",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Intermediate Microeconomics I (IMIC1) · B.A. (Hons) Economics · Sem III · Sec C · (C2)"
+            "formatted_display": "Intermediate Microeconomics I (IMIC1) · B.A. (Hons) Economics · Sem III · Sec C · (C2 / CP2)"
           }
         ],
         "Saturday": []
@@ -21015,9 +21067,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC3",
             "raw_batch": "VAC3",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem III · Joint · (VAC3)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem III · Joint · (VAC3)"
           },
           {
             "raw": "L-JOINT-SEM IIICommerce-EI-R6-VAC5",
@@ -21030,9 +21082,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC5",
             "raw_batch": "VAC5",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem III · Joint · (VAC5)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem III · Joint · (VAC5)"
           },
           {
             "raw": "L-JOINT-SEM IIICommerce-EI-R13-VAC4",
@@ -21045,9 +21097,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC4",
             "raw_batch": "VAC4",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem III · Joint · (VAC4)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem III · Joint · (VAC4)"
           }
         ],
         "Tuesday": [],
@@ -21063,9 +21115,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC3",
             "raw_batch": "VAC3",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem III · Joint · (VAC3)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem III · Joint · (VAC3)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-EI-R6-VAC3",
@@ -21078,9 +21130,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC3",
             "raw_batch": "VAC3",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem III · Joint · (VAC3)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem III · Joint · (VAC3)"
           }
         ],
         "Thursday": [],
@@ -21096,9 +21148,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC4",
             "raw_batch": "VAC4",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem III · Joint · (VAC4)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem III · Joint · (VAC4)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-EI-R16-VAC4",
@@ -21111,9 +21163,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC4",
             "raw_batch": "VAC4",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem III · Joint · (VAC4)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem III · Joint · (VAC4)"
           }
         ],
         "Saturday": [
@@ -21128,9 +21180,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC5",
             "raw_batch": "VAC5",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem III · Joint · (VAC5)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem III · Joint · (VAC5)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-EI-R5-VAC5",
@@ -21143,16 +21195,16 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC5",
             "raw_batch": "VAC5",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem III · Joint · (VAC5)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem III · Joint · (VAC5)"
           }
         ]
       },
       "ref_code": "MAC",
       "subjects": [
         "EI",
-        "Economics of Industry"
+        "Emotional Intelligence"
       ]
     },
     {
@@ -21178,7 +21230,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IMIC1",
             "subject_name": "Intermediate Microeconomics I",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Intermediate Microeconomics I (IMIC1) · B.A. (Hons) Economics · Sem III · Sec D · (D3)"
+            "formatted_display": "Intermediate Microeconomics I (IMIC1) · B.A. (Hons) Economics · Sem III · Sec D · (D3 / DP3)"
           },
           {
             "raw": "L-BAHE-D-SEM IIIEconomics-IMIC1-R29",
@@ -21208,7 +21260,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IMIC1",
             "subject_name": "Intermediate Microeconomics I",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Intermediate Microeconomics I (IMIC1) · B.A. (Hons) Economics · Sem III · Sec B · (B1)"
+            "formatted_display": "Intermediate Microeconomics I (IMIC1) · B.A. (Hons) Economics · Sem III · Sec B · (B1 / BP1)"
           },
           {
             "raw": "L-BAHE-B-SEM IIIEconomics-IMIC1-R25",
@@ -21270,7 +21322,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IMIC1",
             "subject_name": "Intermediate Microeconomics I",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Intermediate Microeconomics I (IMIC1) · B.A. (Hons) Economics · Sem III · Sec B · (B3)"
+            "formatted_display": "Intermediate Microeconomics I (IMIC1) · B.A. (Hons) Economics · Sem III · Sec B · (B3 / BP3)"
           }
         ],
         "Wednesday": [],
@@ -21320,7 +21372,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IMIC1",
             "subject_name": "Intermediate Microeconomics I",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Intermediate Microeconomics I (IMIC1) · B.A. (Hons) Economics · Sem III · Sec D · (D2)"
+            "formatted_display": "Intermediate Microeconomics I (IMIC1) · B.A. (Hons) Economics · Sem III · Sec D · (D2 / DP2)"
           }
         ]
       },
@@ -21370,7 +21422,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "Adv MME",
             "subject_name": "Advanced Mathematical Methods for Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Advanced Mathematical Methods for Economics (Adv MME) · B.A. (Hons) Economics · Sem III · Sec B · (B2)"
+            "formatted_display": "Advanced Mathematical Methods for Economics (Adv MME) · B.A. (Hons) Economics · Sem III · Sec B · (B2 / BP2)"
           },
           {
             "raw": "L-BAHE-D-SEM IIIEconomics-Adv MME-R26",
@@ -21403,7 +21455,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "Adv MME",
             "subject_name": "Advanced Mathematical Methods for Economics",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Advanced Mathematical Methods for Economics (Adv MME) · B.A. (Hons) Economics · Sem III · Sec D · (D2)"
+            "formatted_display": "Advanced Mathematical Methods for Economics (Adv MME) · B.A. (Hons) Economics · Sem III · Sec D · (D2 / DP2)"
           },
           {
             "raw": "L-BAHE-D-SEM IIIEconomics-Adv MME-R24",
@@ -21433,7 +21485,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "Adv MME",
             "subject_name": "Advanced Mathematical Methods for Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Advanced Mathematical Methods for Economics (Adv MME) · B.A. (Hons) Economics · Sem III · Sec B · (B1)"
+            "formatted_display": "Advanced Mathematical Methods for Economics (Adv MME) · B.A. (Hons) Economics · Sem III · Sec B · (B1 / BP1)"
           },
           {
             "raw": "L-BAHE-B-SEM IIIEconomics-Adv MME-R24",
@@ -21465,7 +21517,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "Adv MME",
             "subject_name": "Advanced Mathematical Methods for Economics",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Advanced Mathematical Methods for Economics (Adv MME) · B.A. (Hons) Economics · Sem III · Sec D · (D1)"
+            "formatted_display": "Advanced Mathematical Methods for Economics (Adv MME) · B.A. (Hons) Economics · Sem III · Sec D · (D1 / DP1)"
           },
           {
             "raw": "L-BAHE-B-SEM IIIEconomics-Adv MME-R24",
@@ -22017,9 +22069,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "TR",
-            "subject_name": "Tax Research",
+            "subject_name": "Tools for Research",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Tax Research (TR) · M.Com · Sem III · Sec A"
+            "formatted_display": "Tools for Research (TR) · M.Com · Sem III · Sec A"
           },
           {
             "raw": "LAB-MCOM-A-SEM IIICommerce-TR-T25",
@@ -22032,9 +22084,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "TR",
-            "subject_name": "Tax Research",
+            "subject_name": "Tools for Research",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Tax Research (TR) · M.Com · Sem III · Sec A"
+            "formatted_display": "Tools for Research (TR) · M.Com · Sem III · Sec A"
           },
           {
             "raw": "L-BCH-I-SEM VCommerce-ITLP-R33",
@@ -22062,7 +22114,7 @@ window.SRCC_TEACHERS_DATA = {
         "ITLP",
         "Income Tax Law and Practice",
         "TR",
-        "Tax Research"
+        "Tools for Research"
       ]
     },
     {
@@ -22324,9 +22376,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC14",
             "raw_batch": "VAC14",
             "subject": "EC",
-            "subject_name": "E-Commerce",
+            "subject_name": "Ethics and Culture",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "E-Commerce (EC) · Sem III · Joint · (VAC14)"
+            "formatted_display": "Ethics and Culture (EC) · Sem III · Joint · (VAC14)"
           }
         ],
         "Thursday": [],
@@ -22342,9 +22394,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC14",
             "raw_batch": "VAC14",
             "subject": "EC",
-            "subject_name": "E-Commerce",
+            "subject_name": "Ethics and Culture",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "E-Commerce (EC) · Sem III · Joint · (VAC14)"
+            "formatted_display": "Ethics and Culture (EC) · Sem III · Joint · (VAC14)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-EC-R13-VAC14",
@@ -22357,9 +22409,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC14",
             "raw_batch": "VAC14",
             "subject": "EC",
-            "subject_name": "E-Commerce",
+            "subject_name": "Ethics and Culture",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "E-Commerce (EC) · Sem III · Joint · (VAC14)"
+            "formatted_display": "Ethics and Culture (EC) · Sem III · Joint · (VAC14)"
           }
         ],
         "Saturday": []
@@ -22368,8 +22420,8 @@ window.SRCC_TEACHERS_DATA = {
       "subjects": [
         "BIDV",
         "Business Intelligence & Data Visualization",
-        "E-Commerce",
-        "EC"
+        "EC",
+        "Ethics and Culture"
       ]
     },
     {
@@ -22412,9 +22464,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC6",
             "raw_batch": "VAC6",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Development Economics (DE) · Sem III · Joint · (VAC6)"
+            "formatted_display": "Digital Empowerment (DE) · Sem III · Joint · (VAC6)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-DE-R17-VAC6",
@@ -22427,9 +22479,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC6",
             "raw_batch": "VAC6",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Development Economics (DE) · Sem III · Joint · (VAC6)"
+            "formatted_display": "Digital Empowerment (DE) · Sem III · Joint · (VAC6)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-DE-R17-VAC7",
@@ -22442,9 +22494,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC7",
             "raw_batch": "VAC7",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem I · Joint · (VAC7)"
+            "formatted_display": "Digital Empowerment (DE) · Sem I · Joint · (VAC7)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-DE-R17-VAC7",
@@ -22457,9 +22509,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC7",
             "raw_batch": "VAC7",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem I · Joint · (VAC7)"
+            "formatted_display": "Digital Empowerment (DE) · Sem I · Joint · (VAC7)"
           }
         ],
         "Tuesday": [
@@ -22476,7 +22528,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "FP",
             "subject_name": "Financial Planning",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Financial Planning (FP) · M.Com · Sem I · Sec A · (A1)"
+            "formatted_display": "Financial Planning (FP) · M.Com · Sem I · Sec A · (A1 / AP1)"
           },
           {
             "raw": "LAB-MCOM-A-SEM ICommerce-FP-T17-A1",
@@ -22491,7 +22543,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "FP",
             "subject_name": "Financial Planning",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Financial Planning (FP) · M.Com · Sem I · Sec A · (A1)"
+            "formatted_display": "Financial Planning (FP) · M.Com · Sem I · Sec A · (A1 / AP1)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-DE-R17-VAC8",
@@ -22504,9 +22556,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC8",
             "raw_batch": "VAC8",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem I · Joint · (VAC8)"
+            "formatted_display": "Digital Empowerment (DE) · Sem I · Joint · (VAC8)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-DE-R17-VAC8",
@@ -22519,9 +22571,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC8",
             "raw_batch": "VAC8",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem I · Joint · (VAC8)"
+            "formatted_display": "Digital Empowerment (DE) · Sem I · Joint · (VAC8)"
           }
         ],
         "Wednesday": [
@@ -22536,9 +22588,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC7",
             "raw_batch": "VAC7",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem III · Joint · (VAC7)"
+            "formatted_display": "Digital Empowerment (DE) · Sem III · Joint · (VAC7)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-DE-R17-VAC7",
@@ -22551,9 +22603,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC7",
             "raw_batch": "VAC7",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem III · Joint · (VAC7)"
+            "formatted_display": "Digital Empowerment (DE) · Sem III · Joint · (VAC7)"
           }
         ],
         "Thursday": [
@@ -22568,9 +22620,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC7",
             "raw_batch": "VAC7",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem I · Joint · (VAC7)"
+            "formatted_display": "Digital Empowerment (DE) · Sem I · Joint · (VAC7)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-DE-R17-VAC8",
@@ -22583,9 +22635,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC8",
             "raw_batch": "VAC8",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem I · Joint · (VAC8)"
+            "formatted_display": "Digital Empowerment (DE) · Sem I · Joint · (VAC8)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-DE-R17-VAC8",
@@ -22598,9 +22650,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC8",
             "raw_batch": "VAC8",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "4:00 PM to 5:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem I · Joint · (VAC8)"
+            "formatted_display": "Digital Empowerment (DE) · Sem I · Joint · (VAC8)"
           }
         ],
         "Friday": [
@@ -22615,9 +22667,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC7",
             "raw_batch": "VAC7",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem I · Joint · (VAC7)"
+            "formatted_display": "Digital Empowerment (DE) · Sem I · Joint · (VAC7)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-DE-R17-VAC6",
@@ -22630,9 +22682,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC6",
             "raw_batch": "VAC6",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem III · Joint · (VAC6)"
+            "formatted_display": "Digital Empowerment (DE) · Sem III · Joint · (VAC6)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-DE-R17-VAC6",
@@ -22645,9 +22697,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC6",
             "raw_batch": "VAC6",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "4:00 PM to 5:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem III · Joint · (VAC6)"
+            "formatted_display": "Digital Empowerment (DE) · Sem III · Joint · (VAC6)"
           }
         ],
         "Saturday": []
@@ -22655,7 +22707,7 @@ window.SRCC_TEACHERS_DATA = {
       "ref_code": "AKY",
       "subjects": [
         "DE",
-        "Development Economics",
+        "Digital Empowerment",
         "FP",
         "Financial Planning"
       ]
@@ -23029,7 +23081,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "AUD",
             "subject_name": "Auditing and Corporate Governance",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec H · (H3)"
+            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec H · (H3 / HP3)"
           }
         ],
         "Wednesday": [
@@ -23061,7 +23113,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "AUD",
             "subject_name": "Auditing and Corporate Governance",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec K · (K3)"
+            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec K · (K3 / KP3)"
           },
           {
             "raw": "L-BCH-I-SEM VCommerce-AUD-R13",
@@ -23091,7 +23143,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "AUD",
             "subject_name": "Auditing and Corporate Governance",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec G · (G3)"
+            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec G · (G3 / GP3)"
           }
         ],
         "Thursday": [
@@ -23108,7 +23160,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "AUD",
             "subject_name": "Auditing and Corporate Governance",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec H · (H2)"
+            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec H · (H2 / HP2)"
           },
           {
             "raw": "LAB-BCH-L-SEM IIICommerce-FM-T29-LP3",
@@ -23138,7 +23190,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "AUD",
             "subject_name": "Auditing and Corporate Governance",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec J · (J1)"
+            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec J · (J1 / JP1)"
           }
         ],
         "Friday": [
@@ -23185,7 +23237,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "AUD",
             "subject_name": "Auditing and Corporate Governance",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec K · (K1)"
+            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec K · (K1 / KP1)"
           }
         ],
         "Saturday": []
@@ -23221,7 +23273,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IM",
             "subject_name": "International Marketing",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "International Marketing (IM) · B.A. (Hons) Economics · Sem I · Sec D · (D3)"
+            "formatted_display": "International Marketing (IM) · B.A. (Hons) Economics · Sem I · Sec D · (D3 / DP3)"
           },
           {
             "raw": "T-BAHE-C-SEM IEconomics-IM-T30-C2",
@@ -23236,7 +23288,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IM",
             "subject_name": "International Marketing",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "International Marketing (IM) · B.A. (Hons) Economics · Sem I · Sec C · (C2)"
+            "formatted_display": "International Marketing (IM) · B.A. (Hons) Economics · Sem I · Sec C · (C2 / CP2)"
           },
           {
             "raw": "L-BAHE-C-SEM IEconomics-IM-R24",
@@ -23298,7 +23350,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec H · (H1)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec H · (H1 / HP1)"
           }
         ],
         "Wednesday": [
@@ -23330,7 +23382,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IM",
             "subject_name": "International Marketing",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "International Marketing (IM) · B.A. (Hons) Economics · Sem I · Sec C · (C1)"
+            "formatted_display": "International Marketing (IM) · B.A. (Hons) Economics · Sem I · Sec C · (C1 / CP1)"
           }
         ],
         "Thursday": [
@@ -23347,7 +23399,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IM",
             "subject_name": "International Marketing",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "International Marketing (IM) · B.A. (Hons) Economics · Sem I · Sec D · (D2)"
+            "formatted_display": "International Marketing (IM) · B.A. (Hons) Economics · Sem I · Sec D · (D2 / DP2)"
           },
           {
             "raw": "T-BAHE-D-SEM IEconomics-IM-T17-D1",
@@ -23362,7 +23414,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IM",
             "subject_name": "International Marketing",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "International Marketing (IM) · B.A. (Hons) Economics · Sem I · Sec D · (D1)"
+            "formatted_display": "International Marketing (IM) · B.A. (Hons) Economics · Sem I · Sec D · (D1 / DP1)"
           },
           {
             "raw": "L-BAHE-C-SEM IEconomics-IM-R25",
@@ -23392,7 +23444,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec G · (G3)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec G · (G3 / GP3)"
           }
         ],
         "Friday": [
@@ -23409,7 +23461,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec D · (D3)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec D · (D3 / DP3)"
           },
           {
             "raw": "T-BAHE-C-SEM IEconomics-IM-T3-C3",
@@ -23424,7 +23476,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IM",
             "subject_name": "International Marketing",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "International Marketing (IM) · B.A. (Hons) Economics · Sem I · Sec C · (C3)"
+            "formatted_display": "International Marketing (IM) · B.A. (Hons) Economics · Sem I · Sec C · (C3 / CP3)"
           },
           {
             "raw": "L-BAHE-D-SEM IEconomics-IM-PB4",
@@ -23454,7 +23506,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec G · (G2)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec G · (G2 / GP2)"
           }
         ],
         "Saturday": []
@@ -23759,7 +23811,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "FMI",
             "subject_name": "Financial Markets and Institutions",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Financial Markets and Institutions (FMI) · B.Com (Hons) · Sem III · Sec J · (J2)"
+            "formatted_display": "Financial Markets and Institutions (FMI) · B.Com (Hons) · Sem III · Sec J · (J2 / JP2)"
           },
           {
             "raw": "L-BCH-I-SEM IIICommerce-FMI-R4",
@@ -23806,7 +23858,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IF",
             "subject_name": "International Finance",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "International Finance (IF) · B.Com (Hons) · Sem V · Sec A · (A3)"
+            "formatted_display": "International Finance (IF) · B.Com (Hons) · Sem V · Sec A · (A3 / AP3)"
           },
           {
             "raw": "L-BCH-I-SEM IIICommerce-FMI-R6",
@@ -23853,7 +23905,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IF",
             "subject_name": "International Finance",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "International Finance (IF) · B.Com (Hons) · Sem V · Sec B · (B2)"
+            "formatted_display": "International Finance (IF) · B.Com (Hons) · Sem V · Sec B · (B2 / BP2)"
           },
           {
             "raw": "L-BCH-J-SEM IIICommerce-FMI-R15",
@@ -23881,9 +23933,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BFIM",
-            "subject_name": "Banking & Financial Institutions Management",
+            "subject_name": "Banking, Financial Institutions & Markets",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Banking & Financial Institutions Management (BFIM) · M.Com · Sem III · Sec A"
+            "formatted_display": "Banking, Financial Institutions & Markets (BFIM) · M.Com · Sem III · Sec A"
           }
         ],
         "Thursday": [
@@ -23915,7 +23967,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "FMI",
             "subject_name": "Financial Markets and Institutions",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Financial Markets and Institutions (FMI) · B.Com (Hons) · Sem III · Sec I · (I3)"
+            "formatted_display": "Financial Markets and Institutions (FMI) · B.Com (Hons) · Sem III · Sec I · (I3 / IP3)"
           },
           {
             "raw": "L-BCH-I-SEM IIICommerce-FMI-R4",
@@ -23962,7 +24014,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "FMI",
             "subject_name": "Financial Markets and Institutions",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Financial Markets and Institutions (FMI) · B.Com (Hons) · Sem III · Sec J · (J1)"
+            "formatted_display": "Financial Markets and Institutions (FMI) · B.Com (Hons) · Sem III · Sec J · (J1 / JP1)"
           },
           {
             "raw": "L-BCH-J-SEM IIICommerce-FMI-R32",
@@ -23992,7 +24044,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "FMI",
             "subject_name": "Financial Markets and Institutions",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Financial Markets and Institutions (FMI) · B.Com (Hons) · Sem III · Sec J · (J3)"
+            "formatted_display": "Financial Markets and Institutions (FMI) · B.Com (Hons) · Sem III · Sec J · (J3 / JP3)"
           }
         ],
         "Saturday": []
@@ -24000,7 +24052,7 @@ window.SRCC_TEACHERS_DATA = {
       "ref_code": "HHK",
       "subjects": [
         "BFIM",
-        "Banking & Financial Institutions Management",
+        "Banking, Financial Institutions & Markets",
         "FMI",
         "Financial Markets and Institutions",
         "IF",
@@ -24141,7 +24193,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec H · (H2)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec H · (H2 / HP2)"
           }
         ],
         "Wednesday": [
@@ -24267,7 +24319,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec I · (I3)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec I · (I3 / IP3)"
           },
           {
             "raw": "LAB-BCH-J-SEM VCommerce-ITLP-T49-JP3",
@@ -24319,7 +24371,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec J · (J1)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec J · (J1 / JP1)"
           },
           {
             "raw": "L-BCH-J-SEM IIICommerce-POM-R1",
@@ -24349,7 +24401,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec A · (A3)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec A · (A3 / AP3)"
           },
           {
             "raw": "L-BCH-I-SEM IIICommerce-POM-R22",
@@ -24426,7 +24478,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec G · (G1)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec G · (G1 / GP1)"
           }
         ],
         "Thursday": [
@@ -24520,7 +24572,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec C · (C3)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec C · (C3 / CP3)"
           }
         ],
         "Saturday": [
@@ -24596,8 +24648,8 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Tuesday": [
           {
-            "raw": "L-BCH-N-SEM IIIPol.Sc.-UIR-R19L-BAHE-D-SEM IIIPol.Sc.-UIR-R19",
-            "display": "L-BCH-N-SEM IIIPol.Sc.-UIR-R19L-BAHE-D-SEM IIIPol.Sc.-UIR-R19",
+            "raw": "L-BCH-N-SEM IIIPol.Sc.-UIR-R19",
+            "display": "L-BCH-N-SEM IIIPol.Sc.-UIR-R19",
             "type": "Lecture",
             "room": "R19",
             "course": "B.Com (Hons)",
@@ -24611,8 +24663,8 @@ window.SRCC_TEACHERS_DATA = {
             "formatted_display": "Understanding International Relations (UIR) · B.Com (Hons) · Sem III · Sec N"
           },
           {
-            "raw": "L-BCH-N-SEM IIIPol.Sc.-UIR-CL1L-BAHE-D-SEM IIIPol.Sc.-UIR-CL1",
-            "display": "L-BCH-N-SEM IIIPol.Sc.-UIR-CL1L-BAHE-D-SEM IIIPol.Sc.-UIR-CL1",
+            "raw": "L-BCH-N-SEM IIIPol.Sc.-UIR-CL1",
+            "display": "L-BCH-N-SEM IIIPol.Sc.-UIR-CL1",
             "type": "Lecture",
             "room": "CL1",
             "course": "B.Com (Hons)",
@@ -24715,11 +24767,11 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IIPT",
             "subject_name": "Indian Political Thought",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Indian Political Thought (IIPT) · B.Com (Hons) · Sem V · Sec K · (K1)"
+            "formatted_display": "Indian Political Thought (IIPT) · B.Com (Hons) · Sem V · Sec K · (K1 / KP1)"
           },
           {
-            "raw": "T-BAHE-A-SEM VPol.Sc.-IIPT-R25T-BAHE-D-SEM VPol.Sc.-IIPT-R25T-BAHE-B-SEM VPol.Sc.-IIPT-R25",
-            "display": "T-BAHE-A-SEM VPol.Sc.-IIPT-R25T-BAHE-D-SEM VPol.Sc.-IIPT-R25T-BAHE-B-SEM VPol.Sc.-IIPT-R25",
+            "raw": "T-BAHE-A-SEM VPol.Sc.-IIPT-R25",
+            "display": "T-BAHE-A-SEM VPol.Sc.-IIPT-R25",
             "type": "Tutorial",
             "room": "R25",
             "course": "B.A. (Hons) Economics",
@@ -24735,8 +24787,8 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Thursday": [
           {
-            "raw": "L-BCH-N-SEM IIIPol.Sc.-UIR-R16L-BAHE-D-SEM IIIPol.Sc.-UIR-R16",
-            "display": "L-BCH-N-SEM IIIPol.Sc.-UIR-R16L-BAHE-D-SEM IIIPol.Sc.-UIR-R16",
+            "raw": "L-BCH-N-SEM IIIPol.Sc.-UIR-R16",
+            "display": "L-BCH-N-SEM IIIPol.Sc.-UIR-R16",
             "type": "Lecture",
             "room": "R16",
             "course": "B.Com (Hons)",
@@ -24750,19 +24802,19 @@ window.SRCC_TEACHERS_DATA = {
             "formatted_display": "Understanding International Relations (UIR) · B.Com (Hons) · Sem III · Sec N"
           },
           {
-            "raw": "T-BCH-N-SEM IIIPol.Sc.-UIR-T4-N3T-BAHE-D-SEM IIIPol.Sc.-UIR-T4-D3",
-            "display": "T-BCH-N-SEM IIIPol.Sc.-UIR-T4-N3T-BAHE-D-SEM IIIPol.Sc.-UIR-T4-D3",
+            "raw": "T-BCH-N-SEM IIIPol.Sc.-UIR-T4-N3",
+            "display": "T-BCH-N-SEM IIIPol.Sc.-UIR-T4-N3",
             "type": "Tutorial",
             "room": "T4",
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec N",
-            "batch": "D3",
-            "raw_batch": "D3",
+            "batch": "N3",
+            "raw_batch": "N3",
             "subject": "UIR",
             "subject_name": "Understanding International Relations",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Understanding International Relations (UIR) · B.Com (Hons) · Sem III · Sec N · (D3)"
+            "formatted_display": "Understanding International Relations (UIR) · B.Com (Hons) · Sem III · Sec N · (N3 / NP3)"
           },
           {
             "raw": "L-BCH-M-SEM VPol.Sc.-IIPT-R28",
@@ -24868,30 +24920,30 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC30",
             "raw_batch": "VAC30",
             "subject": "RIFE",
-            "subject_name": "Risk & Insurance in Financial Engineering",
+            "subject_name": "Reading Indian Fiction in English",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Risk & Insurance in Financial Engineering (RIFE) · Sem III · Joint · (VAC30)"
+            "formatted_display": "Reading Indian Fiction in English (RIFE) · Sem III · Joint · (VAC30)"
           }
         ],
         "Tuesday": [
           {
-            "raw": "T-BCH-L-SEM IIIEnglish-GF-T34-L3T-BAHE-D-SEM IIIEnglish-GF-T34-D3",
-            "display": "T-BCH-L-SEM IIIEnglish-GF-T34-L3T-BAHE-D-SEM IIIEnglish-GF-T34-D3",
+            "raw": "T-BCH-L-SEM IIIEnglish-GF-T34-L3",
+            "display": "T-BCH-L-SEM IIIEnglish-GF-T34-L3",
             "type": "Tutorial",
             "room": "T34",
             "course": "B.Com (Hons)",
             "semester": "Sem III",
             "section": "Sec L",
-            "batch": "D3",
-            "raw_batch": "D3",
+            "batch": "L3",
+            "raw_batch": "L3",
             "subject": "GF",
             "subject_name": "Global Finance",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Global Finance (GF) · B.Com (Hons) · Sem III · Sec L · (D3)"
+            "formatted_display": "Global Finance (GF) · B.Com (Hons) · Sem III · Sec L · (L3 / LP3)"
           },
           {
-            "raw": "L-BCH-L-SEM IIIEnglish-GF-R14L-BAHE-D-SEM IIIEnglish-GF-R14",
-            "display": "L-BCH-L-SEM IIIEnglish-GF-R14L-BAHE-D-SEM IIIEnglish-GF-R14",
+            "raw": "L-BCH-L-SEM IIIEnglish-GF-R14",
+            "display": "L-BCH-L-SEM IIIEnglish-GF-R14",
             "type": "Lecture",
             "room": "R14",
             "course": "B.Com (Hons)",
@@ -24907,8 +24959,8 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Wednesday": [
           {
-            "raw": "L-BCH-L-SEM IIIEnglish-GF-R14L-BAHE-D-SEM IIIEnglish-GF-R14",
-            "display": "L-BCH-L-SEM IIIEnglish-GF-R14L-BAHE-D-SEM IIIEnglish-GF-R14",
+            "raw": "L-BCH-L-SEM IIIEnglish-GF-R14",
+            "display": "L-BCH-L-SEM IIIEnglish-GF-R14",
             "type": "Lecture",
             "room": "R14",
             "course": "B.Com (Hons)",
@@ -24954,8 +25006,8 @@ window.SRCC_TEACHERS_DATA = {
             "formatted_display": "Global Finance (GF) · B.Com (Hons) · Sem V · Sec N"
           },
           {
-            "raw": "L-BCH-L-SEM IIIEnglish-GF-R14L-BAHE-D-SEM IIIEnglish-GF-R14",
-            "display": "L-BCH-L-SEM IIIEnglish-GF-R14L-BAHE-D-SEM IIIEnglish-GF-R14",
+            "raw": "L-BCH-L-SEM IIIEnglish-GF-R14",
+            "display": "L-BCH-L-SEM IIIEnglish-GF-R14",
             "type": "Lecture",
             "room": "R14",
             "course": "B.Com (Hons)",
@@ -24981,7 +25033,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GF",
             "subject_name": "Global Finance",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Global Finance (GF) · B.Com (Hons) · Sem V · Sec M · (M1)"
+            "formatted_display": "Global Finance (GF) · B.Com (Hons) · Sem V · Sec M · (M1 / MP1)"
           }
         ],
         "Friday": [
@@ -25011,9 +25063,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC30",
             "raw_batch": "VAC30",
             "subject": "RIFE",
-            "subject_name": "Risk & Insurance in Financial Engineering",
+            "subject_name": "Reading Indian Fiction in English",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Risk & Insurance in Financial Engineering (RIFE) · Sem III · Joint · (VAC30)"
+            "formatted_display": "Reading Indian Fiction in English (RIFE) · Sem III · Joint · (VAC30)"
           },
           {
             "raw": "LAB-JOINT-SEM IIIEnglish-RIFE-R6-VAC30",
@@ -25026,9 +25078,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC30",
             "raw_batch": "VAC30",
             "subject": "RIFE",
-            "subject_name": "Risk & Insurance in Financial Engineering",
+            "subject_name": "Reading Indian Fiction in English",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Risk & Insurance in Financial Engineering (RIFE) · Sem III · Joint · (VAC30)"
+            "formatted_display": "Reading Indian Fiction in English (RIFE) · Sem III · Joint · (VAC30)"
           }
         ],
         "Saturday": []
@@ -25038,7 +25090,7 @@ window.SRCC_TEACHERS_DATA = {
         "GF",
         "Global Finance",
         "RIFE",
-        "Risk & Insurance in Financial Engineering"
+        "Reading Indian Fiction in English"
       ]
     },
     {
@@ -25053,8 +25105,8 @@ window.SRCC_TEACHERS_DATA = {
         "Monday": [],
         "Tuesday": [
           {
-            "raw": "L-BAHE-A-SEM VIIEnglish-R4L-BAHE-B-SEM VEnglish-R4",
-            "display": "L-BAHE-A-SEM VIIEnglish-R4L-BAHE-B-SEM VEnglish-R4",
+            "raw": "L-BAHE-A-SEM VIIEnglish-R4",
+            "display": "L-BAHE-A-SEM VIIEnglish-R4",
             "type": "Lecture",
             "room": "R4",
             "course": "B.A. (Hons) Economics",
@@ -25062,10 +25114,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec A",
             "batch": "",
             "raw_batch": "",
-            "subject": "SEM VIIEnglish",
-            "subject_name": "SEM VIIEnglish",
+            "subject": "English",
+            "subject_name": "English",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "SEM VIIEnglish · B.A. (Hons) Economics · Sem VII · Sec A"
+            "formatted_display": "English · B.A. (Hons) Economics · Sem VII · Sec A"
           },
           {
             "raw": "L-BCH-A-SEM VIIEnglish-RIDL-R4",
@@ -25115,8 +25167,8 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Wednesday": [
           {
-            "raw": "L-BAHE-A-SEM VIIEnglish-R4L-BAHE-B-SEM VEnglish-R4",
-            "display": "L-BAHE-A-SEM VIIEnglish-R4L-BAHE-B-SEM VEnglish-R4",
+            "raw": "L-BAHE-A-SEM VIIEnglish-R4",
+            "display": "L-BAHE-A-SEM VIIEnglish-R4",
             "type": "Lecture",
             "room": "R4",
             "course": "B.A. (Hons) Economics",
@@ -25124,10 +25176,10 @@ window.SRCC_TEACHERS_DATA = {
             "section": "Sec A",
             "batch": "",
             "raw_batch": "",
-            "subject": "SEM VIIEnglish",
-            "subject_name": "SEM VIIEnglish",
+            "subject": "English",
+            "subject_name": "English",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "SEM VIIEnglish · B.A. (Hons) Economics · Sem VII · Sec A"
+            "formatted_display": "English · B.A. (Hons) Economics · Sem VII · Sec A"
           },
           {
             "raw": "L-BCH-A-SEM VIIEnglish-RIDL-R4",
@@ -25162,8 +25214,8 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Thursday": [
           {
-            "raw": "T-BAHE-A-SEM VIIEnglish-RIDL-T1T-BAHE-B-SEM VEnglish-RIDL-T1",
-            "display": "T-BAHE-A-SEM VIIEnglish-RIDL-T1T-BAHE-B-SEM VEnglish-RIDL-T1",
+            "raw": "T-BAHE-A-SEM VIIEnglish-RIDL-T1",
+            "display": "T-BAHE-A-SEM VIIEnglish-RIDL-T1",
             "type": "Tutorial",
             "room": "T1",
             "course": "B.A. (Hons) Economics",
@@ -25211,8 +25263,8 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": [
           {
-            "raw": "L-BCH-L-SEM IEnglish-DEC-R5L-BAHE-D-SEM IEnglish-DEC-R5",
-            "display": "L-BCH-L-SEM IEnglish-DEC-R5L-BAHE-D-SEM IEnglish-DEC-R5",
+            "raw": "L-BCH-L-SEM IEnglish-DEC-R5",
+            "display": "L-BCH-L-SEM IEnglish-DEC-R5",
             "type": "Lecture",
             "room": "R5",
             "course": "B.Com (Hons)",
@@ -25236,9 +25288,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "SEC24",
             "raw_batch": "SEC24",
             "subject": "CPL",
-            "subject_name": "Corporate Planning & Law",
+            "subject_name": "Communication in Professional Life",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Corporate Planning & Law (CPL) · Sem I · Joint · (SEC24)"
+            "formatted_display": "Communication in Professional Life (CPL) · Sem I · Joint · (SEC24)"
           },
           {
             "raw": "LAB-JOINT-SEM IEnglish-CPL-R6-SEC24",
@@ -25251,9 +25303,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "SEC24",
             "raw_batch": "SEC24",
             "subject": "CPL",
-            "subject_name": "Corporate Planning & Law",
+            "subject_name": "Communication in Professional Life",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Corporate Planning & Law (CPL) · Sem I · Joint · (SEC24)"
+            "formatted_display": "Communication in Professional Life (CPL) · Sem I · Joint · (SEC24)"
           },
           {
             "raw": "LAB-JOINT-SEM IEnglish-CPL-R6-SEC24",
@@ -25266,9 +25318,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "SEC24",
             "raw_batch": "SEC24",
             "subject": "CPL",
-            "subject_name": "Corporate Planning & Law",
+            "subject_name": "Communication in Professional Life",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Corporate Planning & Law (CPL) · Sem I · Joint · (SEC24)"
+            "formatted_display": "Communication in Professional Life (CPL) · Sem I · Joint · (SEC24)"
           }
         ]
       },
@@ -25276,13 +25328,13 @@ window.SRCC_TEACHERS_DATA = {
       "subjects": [
         "CPL",
         "CW",
-        "Corporate Planning & Law",
+        "Communication in Professional Life",
         "Creative Writing",
         "DEC",
         "Digital Economy & E-Commerce",
+        "English",
         "RIDL",
         "Readings in Indian Democratic Literature",
-        "SEM VIIEnglish",
         "VAC SEL",
         "Value Addition Course Elective"
       ]
@@ -25342,7 +25394,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "SMM",
             "subject_name": "Social Media Marketing",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Social Media Marketing (SMM) · M.Com · Sem III · Sec A · (A1)"
+            "formatted_display": "Social Media Marketing (SMM) · M.Com · Sem III · Sec A · (A1 / AP1)"
           },
           {
             "raw": "L-BCH-M-SEM ICommerce-BLAW-R28",
@@ -25372,7 +25424,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec M · (M1)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec M · (M1 / MP1)"
           }
         ],
         "Wednesday": [
@@ -25404,7 +25456,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec L · (L1)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec L · (L1 / LP1)"
           },
           {
             "raw": "L-BCH-M-SEM ICommerce-BLAW-R28",
@@ -25451,7 +25503,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec A · (A1)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec A · (A1 / AP1)"
           },
           {
             "raw": "L-BCH-K-SEM ICommerce-BLAW-R28",
@@ -25498,7 +25550,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec B · (B1)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec B · (B1 / BP1)"
           },
           {
             "raw": "L-BCH-K-SEM ICommerce-BLAW-R21",
@@ -25528,7 +25580,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec N · (N1)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec N · (N1 / NP1)"
           },
           {
             "raw": "T-BCH-B-SEM ICommerce-MPA-T32-B1",
@@ -25543,7 +25595,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec B · (B1)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec B · (B1 / BP1)"
           }
         ],
         "Saturday": []
@@ -25864,7 +25916,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec B · (B3)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec B · (B3 / BP3)"
           },
           {
             "raw": "L-BCH-F-SEM IIICommerce-POM-PB4",
@@ -25894,7 +25946,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec K · (K2)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec K · (K2 / KP2)"
           },
           {
             "raw": "T-BCH-F-SEM IIICommerce-BRM-T12-F1",
@@ -25907,9 +25959,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "F1",
             "raw_batch": "F1",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec F · (F1)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec F · (F1 / FP1)"
           }
         ],
         "Wednesday": [
@@ -25956,7 +26008,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec E · (E3)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec E · (E3 / EP3)"
           },
           {
             "raw": "T-BCH-I-SEM IIICommerce-BRM-T12-I1",
@@ -25969,9 +26021,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "I1",
             "raw_batch": "I1",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec I · (I1)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec I · (I1 / IP1)"
           }
         ],
         "Thursday": [
@@ -26018,7 +26070,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec L · (L2)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec L · (L2 / LP2)"
           }
         ],
         "Friday": [
@@ -26067,7 +26119,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec E · (E2)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec E · (E2 / EP2)"
           },
           {
             "raw": "L-BCH-K-SEM IIICommerce-POM-R13",
@@ -26089,7 +26141,7 @@ window.SRCC_TEACHERS_DATA = {
       "ref_code": "VIS",
       "subjects": [
         "BRM",
-        "Business Research Methods",
+        "Brand Management",
         "POM",
         "Principles of Marketing"
       ]
@@ -26132,7 +26184,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec E · (E1)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec E · (E1 / EP1)"
           }
         ],
         "Tuesday": [
@@ -26149,7 +26201,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec D · (D1)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec D · (D1 / DP1)"
           },
           {
             "raw": "L-BCH-G-SEM ICommerce-MPA-R27",
@@ -26179,7 +26231,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec A · (A2)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec A · (A2 / AP2)"
           }
         ],
         "Wednesday": [
@@ -26211,7 +26263,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec F · (F2)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec F · (F2 / FP2)"
           }
         ],
         "Thursday": [
@@ -26228,7 +26280,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec C · (C3)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec C · (C3 / CP3)"
           },
           {
             "raw": "L-BCH-G-SEM ICommerce-MPA-R5",
@@ -26273,9 +26325,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "H1",
             "raw_batch": "H1",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec H · (H1)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec H · (H1 / HP1)"
           },
           {
             "raw": "T-BCH-J-SEM ICommerce-MPA-T29-J1",
@@ -26290,7 +26342,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec J · (J1)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec J · (J1 / JP1)"
           },
           {
             "raw": "L-BCH-G-SEM ICommerce-MPA-R15",
@@ -26318,9 +26370,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "A3",
             "raw_batch": "A3",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem III · Sec A · (A3)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem III · Sec A · (A3 / AP3)"
           }
         ],
         "Saturday": []
@@ -26328,7 +26380,7 @@ window.SRCC_TEACHERS_DATA = {
       "ref_code": "AKG",
       "subjects": [
         "BRM",
-        "Business Research Methods",
+        "Brand Management",
         "MPA",
         "Management Principles and Applications"
       ]
@@ -26558,7 +26610,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PM",
             "subject_name": "Project Management",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Project Management (PM) · B.A. (Hons) Economics · Sem VII · Sec A · (A1)"
+            "formatted_display": "Project Management (PM) · B.A. (Hons) Economics · Sem VII · Sec A · (A1 / AP1)"
           }
         ],
         "Saturday": [
@@ -26647,7 +26699,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec E · (E2)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec E · (E2 / EP2)"
           },
           {
             "raw": "L-BCH-J-SEM ICommerce-BLAW-R32",
@@ -26677,7 +26729,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec G · (G2)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec G · (G2 / GP2)"
           },
           {
             "raw": "L-BCH-L-SEM ICommerce-BLAW-R8",
@@ -26724,7 +26776,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec G · (G1)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec G · (G1 / GP1)"
           },
           {
             "raw": "L-BCH-N-SEM ICommerce-BLAW-R8",
@@ -26771,7 +26823,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec G · (G3)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec G · (G3 / GP3)"
           },
           {
             "raw": "L-BCH-L-SEM ICommerce-BLAW-R8",
@@ -26803,7 +26855,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec I · (I2)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec I · (I2 / IP2)"
           },
           {
             "raw": "L-BCH-N-SEM ICommerce-BLAW-R3",
@@ -26833,7 +26885,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec I · (I1)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec I · (I1 / IP1)"
           },
           {
             "raw": "L-BCH-J-SEM ICommerce-BLAW-R21",
@@ -26930,7 +26982,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GBS",
             "subject_name": "Global Business Strategy",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Global Business Strategy (GBS) · B.A. (Hons) Economics · Sem V · Sec A · (A3)"
+            "formatted_display": "Global Business Strategy (GBS) · B.A. (Hons) Economics · Sem V · Sec A · (A3 / AP3)"
           },
           {
             "raw": "L-BAHE-B-SEM VEconomics-GBS-R26",
@@ -26992,7 +27044,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GBS",
             "subject_name": "Global Business Strategy",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Global Business Strategy (GBS) · B.A. (Hons) Economics · Sem V · Sec B · (B3)"
+            "formatted_display": "Global Business Strategy (GBS) · B.A. (Hons) Economics · Sem V · Sec B · (B3 / BP3)"
           }
         ],
         "Wednesday": [
@@ -27009,7 +27061,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GBS",
             "subject_name": "Global Business Strategy",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Global Business Strategy (GBS) · B.A. (Hons) Economics · Sem V · Sec C · (C3)"
+            "formatted_display": "Global Business Strategy (GBS) · B.A. (Hons) Economics · Sem V · Sec C · (C3 / CP3)"
           },
           {
             "raw": "L-BAHE-D-SEM VEconomics-GBS-R7",
@@ -27039,7 +27091,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GBS",
             "subject_name": "Global Business Strategy",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Global Business Strategy (GBS) · B.A. (Hons) Economics · Sem V · Sec B · (B2)"
+            "formatted_display": "Global Business Strategy (GBS) · B.A. (Hons) Economics · Sem V · Sec B · (B2 / BP2)"
           }
         ],
         "Thursday": [
@@ -27086,7 +27138,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GBS",
             "subject_name": "Global Business Strategy",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Global Business Strategy (GBS) · B.A. (Hons) Economics · Sem V · Sec B · (B1)"
+            "formatted_display": "Global Business Strategy (GBS) · B.A. (Hons) Economics · Sem V · Sec B · (B1 / BP1)"
           }
         ],
         "Friday": [
@@ -27103,7 +27155,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GBS",
             "subject_name": "Global Business Strategy",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Global Business Strategy (GBS) · B.A. (Hons) Economics · Sem V · Sec C · (C1)"
+            "formatted_display": "Global Business Strategy (GBS) · B.A. (Hons) Economics · Sem V · Sec C · (C1 / CP1)"
           },
           {
             "raw": "L-BAHE-D-SEM VEconomics-GBS-R7",
@@ -27148,7 +27200,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GBS",
             "subject_name": "Global Business Strategy",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Global Business Strategy (GBS) · B.A. (Hons) Economics · Sem V · Sec A · (A2)"
+            "formatted_display": "Global Business Strategy (GBS) · B.A. (Hons) Economics · Sem V · Sec A · (A2 / AP2)"
           }
         ],
         "Saturday": []
@@ -27198,7 +27250,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "CFD",
             "subject_name": "Corporate Financial Decisions",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Corporate Financial Decisions (CFD) · B.Com (Hons) · Sem V · Sec A · (A2)"
+            "formatted_display": "Corporate Financial Decisions (CFD) · B.Com (Hons) · Sem V · Sec A · (A2 / AP2)"
           },
           {
             "raw": "L-BAHE-A-SEM IEconomics-IM-R25",
@@ -27245,7 +27297,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "CFD",
             "subject_name": "Corporate Financial Decisions",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Corporate Financial Decisions (CFD) · B.Com (Hons) · Sem V · Sec A · (A1)"
+            "formatted_display": "Corporate Financial Decisions (CFD) · B.Com (Hons) · Sem V · Sec A · (A1 / AP1)"
           },
           {
             "raw": "T-BCH-G-SEM VEconomics-CFD-T45-G2",
@@ -27260,7 +27312,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "CFD",
             "subject_name": "Corporate Financial Decisions",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Corporate Financial Decisions (CFD) · B.Com (Hons) · Sem V · Sec G · (G2)"
+            "formatted_display": "Corporate Financial Decisions (CFD) · B.Com (Hons) · Sem V · Sec G · (G2 / GP2)"
           },
           {
             "raw": "L-BAHE-A-SEM IEconomics-IM-R25",
@@ -27322,7 +27374,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IM",
             "subject_name": "International Marketing",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "International Marketing (IM) · B.A. (Hons) Economics · Sem I · Sec A · (A3)"
+            "formatted_display": "International Marketing (IM) · B.A. (Hons) Economics · Sem I · Sec A · (A3 / AP3)"
           },
           {
             "raw": "L-BCH-A-SEM VEconomics-CFD-R31",
@@ -27354,7 +27406,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "CFD",
             "subject_name": "Corporate Financial Decisions",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Corporate Financial Decisions (CFD) · B.Com (Hons) · Sem V · Sec G · (G1)"
+            "formatted_display": "Corporate Financial Decisions (CFD) · B.Com (Hons) · Sem V · Sec G · (G1 / GP1)"
           },
           {
             "raw": "L-BCH-G-SEM VEconomics-CFD-R2",
@@ -27386,7 +27438,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "CFD",
             "subject_name": "Corporate Financial Decisions",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Corporate Financial Decisions (CFD) · B.Com (Hons) · Sem V · Sec G · (G3)"
+            "formatted_display": "Corporate Financial Decisions (CFD) · B.Com (Hons) · Sem V · Sec G · (G3 / GP3)"
           },
           {
             "raw": "L-BAHE-A-SEM IEconomics-IM-R25",
@@ -27466,7 +27518,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec N · (N3)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec N · (N3 / NP3)"
           },
           {
             "raw": "L-BCH-N-SEM IEconomics-PME-I-R7",
@@ -27498,7 +27550,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec D · (D2)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec D · (D2 / DP2)"
           },
           {
             "raw": "T-BCH-N-SEM IEconomics-PME-I-T46-N1",
@@ -27513,7 +27565,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec N · (N1)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec N · (N1 / NP1)"
           },
           {
             "raw": "T-BCH-A-SEM IEconomics-PME-I-T23-A1",
@@ -27528,7 +27580,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec A · (A1)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec A · (A1 / AP1)"
           },
           {
             "raw": "L-BCH-C-SEM IEconomics-PME-I-R10",
@@ -27560,7 +27612,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec E · (E3)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec E · (E3 / EP3)"
           },
           {
             "raw": "L-BCH-N-SEM IEconomics-PME-I-CL2",
@@ -27607,7 +27659,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec A · (A3)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec A · (A3 / AP3)"
           },
           {
             "raw": "T-BCH-H-SEM VEconomics-DnD-T53-H3",
@@ -27620,9 +27672,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "H3",
             "raw_batch": "H3",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec H · (H3)"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec H · (H3 / HP3)"
           },
           {
             "raw": "L-BCH-C-SEM IEconomics-PME-I-R8",
@@ -27691,8 +27743,8 @@ window.SRCC_TEACHERS_DATA = {
       },
       "ref_code": "HA",
       "subjects": [
+        "Digitalization and Development",
         "DnD",
-        "Negotiation and Deal Making",
         "PME-I",
         "Principles of Microeconomics I"
       ]
@@ -27942,7 +27994,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec N · (N1)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec N · (N1 / NP1)"
           },
           {
             "raw": "L-BCH-M-SEM ICommerce-MPA-R34",
@@ -27989,7 +28041,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ODI",
             "subject_name": "Organizational Dynamics & Intervention",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Organizational Dynamics & Intervention (ODI) · B.Com (Hons) · Sem V · Sec M · (M3)"
+            "formatted_display": "Organizational Dynamics & Intervention (ODI) · B.Com (Hons) · Sem V · Sec M · (M3 / MP3)"
           },
           {
             "raw": "L-BCH-M-SEM ICommerce-MPA-R33",
@@ -28038,7 +28090,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ODI",
             "subject_name": "Organizational Dynamics & Intervention",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Organizational Dynamics & Intervention (ODI) · B.Com (Hons) · Sem V · Sec M · (M1)"
+            "formatted_display": "Organizational Dynamics & Intervention (ODI) · B.Com (Hons) · Sem V · Sec M · (M1 / MP1)"
           },
           {
             "raw": "L-BCH-M-SEM VCommerce-ODI-R29",
@@ -28068,7 +28120,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec L · (L2)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec L · (L2 / LP2)"
           },
           {
             "raw": "L-BCH-M-SEM ICommerce-MPA-R29",
@@ -28130,7 +28182,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec A · (A3)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec A · (A3 / AP3)"
           },
           {
             "raw": "T-BCH-B-SEM VCommerce-ODI-T4-B3",
@@ -28145,7 +28197,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ODI",
             "subject_name": "Organizational Dynamics & Intervention",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Organizational Dynamics & Intervention (ODI) · B.Com (Hons) · Sem V · Sec B · (B3)"
+            "formatted_display": "Organizational Dynamics & Intervention (ODI) · B.Com (Hons) · Sem V · Sec B · (B3 / BP3)"
           },
           {
             "raw": "T-BCH-N-SEM ICommerce-MPA-T45-N3",
@@ -28160,7 +28212,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec N · (N3)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec N · (N3 / NP3)"
           }
         ],
         "Saturday": []
@@ -28467,7 +28519,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ISME",
             "subject_name": "Introductory Statistics for Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Introductory Statistics for Economics (ISME) · B.A. (Hons) Economics · Sem I · Sec A · (A2)"
+            "formatted_display": "Introductory Statistics for Economics (ISME) · B.A. (Hons) Economics · Sem I · Sec A · (A2 / AP2)"
           },
           {
             "raw": "T-BAHE-D-SEM IEconomics-ISME -T17-D2",
@@ -28482,7 +28534,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ISME",
             "subject_name": "Introductory Statistics for Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Introductory Statistics for Economics (ISME) · B.A. (Hons) Economics · Sem I · Sec D · (D2)"
+            "formatted_display": "Introductory Statistics for Economics (ISME) · B.A. (Hons) Economics · Sem I · Sec D · (D2 / DP2)"
           }
         ],
         "Tuesday": [
@@ -28514,7 +28566,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ISME",
             "subject_name": "Introductory Statistics for Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Introductory Statistics for Economics (ISME) · B.A. (Hons) Economics · Sem I · Sec A · (A3)"
+            "formatted_display": "Introductory Statistics for Economics (ISME) · B.A. (Hons) Economics · Sem I · Sec A · (A3 / AP3)"
           },
           {
             "raw": "T-BAHE-C-SEM IEconomics-ISME -T17-C1",
@@ -28529,7 +28581,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ISME",
             "subject_name": "Introductory Statistics for Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Introductory Statistics for Economics (ISME) · B.A. (Hons) Economics · Sem I · Sec C · (C1)"
+            "formatted_display": "Introductory Statistics for Economics (ISME) · B.A. (Hons) Economics · Sem I · Sec C · (C1 / CP1)"
           }
         ],
         "Wednesday": [
@@ -28578,7 +28630,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ISME",
             "subject_name": "Introductory Statistics for Economics",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Introductory Statistics for Economics (ISME) · B.A. (Hons) Economics · Sem I · Sec C · (C3)"
+            "formatted_display": "Introductory Statistics for Economics (ISME) · B.A. (Hons) Economics · Sem I · Sec C · (C3 / CP3)"
           },
           {
             "raw": "L-BAHE-C-SEM IEconomics-ISME -R23",
@@ -28625,7 +28677,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ISME",
             "subject_name": "Introductory Statistics for Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Introductory Statistics for Economics (ISME) · B.A. (Hons) Economics · Sem I · Sec C · (C2)"
+            "formatted_display": "Introductory Statistics for Economics (ISME) · B.A. (Hons) Economics · Sem I · Sec C · (C2 / CP2)"
           }
         ],
         "Saturday": []
@@ -28674,7 +28726,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec D · (D2)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec D · (D2 / DP2)"
           }
         ],
         "Tuesday": [
@@ -28706,7 +28758,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec N · (N2)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec N · (N2 / NP2)"
           },
           {
             "raw": "T-BCH-C-SEM ICommerce-MPA-T8-C2",
@@ -28721,7 +28773,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec C · (C2)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec C · (C2 / CP2)"
           }
         ],
         "Wednesday": [
@@ -28753,7 +28805,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec B · (B2)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec B · (B2 / BP2)"
           },
           {
             "raw": "T-BCH-C-SEM ICommerce-MPA-T9-C1",
@@ -28768,7 +28820,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec C · (C1)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec C · (C1 / CP1)"
           }
         ],
         "Thursday": [
@@ -28800,7 +28852,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec B · (B3)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec B · (B3 / BP3)"
           },
           {
             "raw": "T-BCH-A-SEM ICommerce-MPA-T9-A1",
@@ -28815,7 +28867,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec A · (A1)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec A · (A1 / AP1)"
           }
         ],
         "Friday": [
@@ -28847,7 +28899,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec C · (C1)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec C · (C1 / CP1)"
           },
           {
             "raw": "L-BCH-F-SEM ICommerce-MPA-R2",
@@ -28898,7 +28950,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec G · (G1)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec G · (G1 / GP1)"
           },
           {
             "raw": "T-BCH-C-SEM IEconomics-PME-I-T16-C1",
@@ -28913,7 +28965,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec C · (C1)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec C · (C1 / CP1)"
           }
         ],
         "Tuesday": [
@@ -28945,7 +28997,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec E · (E1)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec E · (E1 / EP1)"
           }
         ],
         "Wednesday": [
@@ -28962,7 +29014,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec H · (H2)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec H · (H2 / HP2)"
           },
           {
             "raw": "T-BCH-H-SEM IEconomics-PME-I-T16-H3",
@@ -28977,7 +29029,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec H · (H3)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec H · (H3 / HP3)"
           },
           {
             "raw": "L-BCH-E-SEM IEconomics-PME-I-R5",
@@ -29007,7 +29059,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec F · (F2)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec F · (F2 / FP2)"
           }
         ],
         "Thursday": [
@@ -29039,7 +29091,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec D · (D1)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec D · (D1 / DP1)"
           },
           {
             "raw": "T-BCH-I-SEM IEconomics-PME-I-T16-I3",
@@ -29054,7 +29106,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec I · (I3)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec I · (I3 / IP3)"
           },
           {
             "raw": "L-BCH-E-SEM IEconomics-PME-I-R5",
@@ -29086,7 +29138,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec B · (B3)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec B · (B3 / BP3)"
           },
           {
             "raw": "T-BCH-F-SEM IEconomics-PME-I-T16-F3",
@@ -29101,7 +29153,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec F · (F3)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec F · (F3 / FP3)"
           },
           {
             "raw": "L-BCH-E-SEM IEconomics-PME-I-R3",
@@ -29212,7 +29264,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "FP",
             "subject_name": "Financial Planning",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Financial Planning (FP) · M.Com · Sem I · Sec A · (A2)"
+            "formatted_display": "Financial Planning (FP) · M.Com · Sem I · Sec A · (A2 / AP2)"
           },
           {
             "raw": "L-BCH-N-SEM VCommerce-MA-R26",
@@ -29257,7 +29309,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "FP",
             "subject_name": "Financial Planning",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Financial Planning (FP) · M.Com · Sem I · Sec A · (A2)"
+            "formatted_display": "Financial Planning (FP) · M.Com · Sem I · Sec A · (A2 / AP2)"
           }
         ],
         "Wednesday": [
@@ -29490,7 +29542,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BDE",
             "subject_name": "Business Data Ecosystem",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Data Ecosystem (BDE) · B.Com (Hons) · Sem V · Sec L · (L1)"
+            "formatted_display": "Business Data Ecosystem (BDE) · B.Com (Hons) · Sem V · Sec L · (L1 / LP1)"
           },
           {
             "raw": "T-BCH-F-SEM VEconomics-BDE-T27-F1",
@@ -29505,7 +29557,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BDE",
             "subject_name": "Business Data Ecosystem",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Data Ecosystem (BDE) · B.Com (Hons) · Sem V · Sec F · (F1)"
+            "formatted_display": "Business Data Ecosystem (BDE) · B.Com (Hons) · Sem V · Sec F · (F1 / FP1)"
           },
           {
             "raw": "L-BCH-N-SEM VEconomics-BDE-PB3",
@@ -29552,7 +29604,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BDE",
             "subject_name": "Business Data Ecosystem",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Data Ecosystem (BDE) · B.Com (Hons) · Sem V · Sec I · (I1)"
+            "formatted_display": "Business Data Ecosystem (BDE) · B.Com (Hons) · Sem V · Sec I · (I1 / IP1)"
           },
           {
             "raw": "L-BCH-N-SEM VEconomics-BDE-PB3",
@@ -29615,7 +29667,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BDE",
             "subject_name": "Business Data Ecosystem",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Data Ecosystem (BDE) · B.Com (Hons) · Sem V · Sec F · (F3)"
+            "formatted_display": "Business Data Ecosystem (BDE) · B.Com (Hons) · Sem V · Sec F · (F3 / FP3)"
           }
         ]
       },
@@ -29666,7 +29718,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "CFD",
             "subject_name": "Corporate Financial Decisions",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Corporate Financial Decisions (CFD) · B.Com (Hons) · Sem V · Sec A · (A3)"
+            "formatted_display": "Corporate Financial Decisions (CFD) · B.Com (Hons) · Sem V · Sec A · (A3 / AP3)"
           }
         ],
         "Thursday": [
@@ -29847,7 +29899,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "MPA",
             "subject_name": "Management Principles and Applications",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec F · (F1)"
+            "formatted_display": "Management Principles and Applications (MPA) · B.Com (Hons) · Sem I · Sec F · (F1 / FP1)"
           }
         ]
       },
@@ -29880,9 +29932,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC17",
             "raw_batch": "VAC17",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem I · Joint · (VAC17)"
+            "formatted_display": "Digital Empowerment (DE) · Sem I · Joint · (VAC17)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-DE-R14-VAC17",
@@ -29895,9 +29947,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC17",
             "raw_batch": "VAC17",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem I · Joint · (VAC17)"
+            "formatted_display": "Digital Empowerment (DE) · Sem I · Joint · (VAC17)"
           }
         ],
         "Tuesday": [
@@ -29942,9 +29994,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "MFB",
-            "subject_name": "Management of Financial Banks",
+            "subject_name": "Marketing for Beginners",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Management of Financial Banks (MFB) · B.A. (Hons) Economics · Sem I · Sec C"
+            "formatted_display": "Marketing for Beginners (MFB) · B.A. (Hons) Economics · Sem I · Sec C"
           }
         ],
         "Wednesday": [
@@ -29959,9 +30011,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "C3",
             "raw_batch": "C3",
             "subject": "MFB",
-            "subject_name": "Management of Financial Banks",
+            "subject_name": "Marketing for Beginners",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Management of Financial Banks (MFB) · B.A. (Hons) Economics · Sem I · Sec C · (C3)"
+            "formatted_display": "Marketing for Beginners (MFB) · B.A. (Hons) Economics · Sem I · Sec C · (C3 / CP3)"
           },
           {
             "raw": "L-BAHE-C-SEM ICommerce-GE- MFB-R29",
@@ -29974,9 +30026,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "MFB",
-            "subject_name": "Management of Financial Banks",
+            "subject_name": "Marketing for Beginners",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Management of Financial Banks (MFB) · B.A. (Hons) Economics · Sem I · Sec C"
+            "formatted_display": "Marketing for Beginners (MFB) · B.A. (Hons) Economics · Sem I · Sec C"
           }
         ],
         "Thursday": [],
@@ -29992,9 +30044,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "MFB",
-            "subject_name": "Management of Financial Banks",
+            "subject_name": "Marketing for Beginners",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Management of Financial Banks (MFB) · B.A. (Hons) Economics · Sem I · Sec C"
+            "formatted_display": "Marketing for Beginners (MFB) · B.A. (Hons) Economics · Sem I · Sec C"
           }
         ],
         "Saturday": [
@@ -30018,11 +30070,11 @@ window.SRCC_TEACHERS_DATA = {
       "ref_code": "NC",
       "subjects": [
         "DE",
-        "Development Economics",
+        "Digital Empowerment",
         "IMC",
         "Integrated Marketing Communication",
         "MFB",
-        "Management of Financial Banks"
+        "Marketing for Beginners"
       ]
     },
     {
@@ -30598,7 +30650,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GIC",
             "subject_name": "Global Institutions and Commerce",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Global Institutions and Commerce (GIC) · B.A. (Hons) Economics · Sem VII · Sec A · (A1)"
+            "formatted_display": "Global Institutions and Commerce (GIC) · B.A. (Hons) Economics · Sem VII · Sec A · (A1 / AP1)"
           },
           {
             "raw": "LAB-JOINT-SEM IIIPol.Sc.-NL-R20-SEC18",
@@ -30790,8 +30842,8 @@ window.SRCC_TEACHERS_DATA = {
             "formatted_display": "Operating Systems (OS) · B.Com (Hons) · Sem V · Sec K"
           },
           {
-            "raw": "LAB-BCH-N-SEM IIIComp.Sc.-DMS-R29LAB-BAHE-D-SEM IIIComp.Sc.-DMS-R29",
-            "display": "LAB-BCH-N-SEM IIIComp.Sc.-DMS-R29LAB-BAHE-D-SEM IIIComp.Sc.-DMS-R29",
+            "raw": "LAB-BCH-N-SEM IIIComp.Sc.-DMS-R29",
+            "display": "LAB-BCH-N-SEM IIIComp.Sc.-DMS-R29",
             "type": "Practical/Lab",
             "room": "R29",
             "course": "B.Com (Hons)",
@@ -31230,7 +31282,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec J · (J2)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec J · (J2 / JP2)"
           },
           {
             "raw": "L-BCH-G-SEM ICommerce-BLAW-R3",
@@ -31260,7 +31312,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec N · (N3)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec N · (N3 / NP3)"
           }
         ],
         "Wednesday": [
@@ -31292,7 +31344,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec H · (H3)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec H · (H3 / HP3)"
           },
           {
             "raw": "T-MCOM-A-SEM IIICommerce-BF-T11",
@@ -31305,9 +31357,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BF",
-            "subject_name": "Banking and Finance",
+            "subject_name": "Behavioral Finance",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Banking and Finance (BF) · M.Com · Sem III · Sec A"
+            "formatted_display": "Behavioral Finance (BF) · M.Com · Sem III · Sec A"
           }
         ],
         "Thursday": [
@@ -31339,7 +31391,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec M · (M2)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec M · (M2 / MP2)"
           },
           {
             "raw": "T-BCH-L-SEM ICommerce-BLAW-T11-L3",
@@ -31354,7 +31406,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec L · (L3)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec L · (L3 / LP3)"
           }
         ],
         "Friday": [
@@ -31386,7 +31438,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec M · (M3)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec M · (M3 / MP3)"
           },
           {
             "raw": "T-BCH-F-SEM ICommerce-BLAW-T11-F1",
@@ -31401,7 +31453,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec F · (F1)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec F · (F1 / FP1)"
           }
         ],
         "Saturday": []
@@ -31410,7 +31462,7 @@ window.SRCC_TEACHERS_DATA = {
       "subjects": [
         "BF",
         "BLAW",
-        "Banking and Finance",
+        "Behavioral Finance",
         "Business Law"
       ]
     },
@@ -31454,7 +31506,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "AUD",
             "subject_name": "Auditing and Corporate Governance",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec J · (J3)"
+            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec J · (J3 / JP3)"
           },
           {
             "raw": "LAB-BCH-E-SEM IIICommerce-FM-CL1-EP1",
@@ -31578,7 +31630,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "AUD",
             "subject_name": "Auditing and Corporate Governance",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec G · (G1)"
+            "formatted_display": "Auditing and Corporate Governance (AUD) · B.Com (Hons) · Sem V · Sec G · (G1 / GP1)"
           }
         ],
         "Friday": [
@@ -31644,9 +31696,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC15",
             "raw_batch": "VAC15",
             "subject": "ABH",
-            "subject_name": "Anuvad: Vyavahar aur Siddhant",
+            "subject_name": "The Art of Being Happy",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Anuvad: Vyavahar aur Siddhant (ABH) · Sem III · Joint · (VAC15)"
+            "formatted_display": "The Art of Being Happy (ABH) · Sem III · Joint · (VAC15)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-ABH-R3-VAC15",
@@ -31659,9 +31711,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC15",
             "raw_batch": "VAC15",
             "subject": "ABH",
-            "subject_name": "Anuvad: Vyavahar aur Siddhant",
+            "subject_name": "The Art of Being Happy",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Anuvad: Vyavahar aur Siddhant (ABH) · Sem III · Joint · (VAC15)"
+            "formatted_display": "The Art of Being Happy (ABH) · Sem III · Joint · (VAC15)"
           }
         ],
         "Tuesday": [
@@ -31678,7 +31730,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec G · (G1)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec G · (G1 / GP1)"
           },
           {
             "raw": "L-JOINT-SEM ICommerce-ABH-R3-VAC3",
@@ -31691,9 +31743,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC3",
             "raw_batch": "VAC3",
             "subject": "ABH",
-            "subject_name": "Anuvad: Vyavahar aur Siddhant",
+            "subject_name": "The Art of Being Happy",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Anuvad: Vyavahar aur Siddhant (ABH) · Sem I · Joint · (VAC3)"
+            "formatted_display": "The Art of Being Happy (ABH) · Sem I · Joint · (VAC3)"
           }
         ],
         "Wednesday": [
@@ -31710,7 +31762,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec F · (F2)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec F · (F2 / FP2)"
           },
           {
             "raw": "T-BCH-E-SEM VCommerce-BECON-T15-E3",
@@ -31725,7 +31777,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec E · (E3)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec E · (E3 / EP3)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-ABH-R4-VAC16",
@@ -31738,9 +31790,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC16",
             "raw_batch": "VAC16",
             "subject": "ABH",
-            "subject_name": "Anuvad: Vyavahar aur Siddhant",
+            "subject_name": "The Art of Being Happy",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Anuvad: Vyavahar aur Siddhant (ABH) · Sem III · Joint · (VAC16)"
+            "formatted_display": "The Art of Being Happy (ABH) · Sem III · Joint · (VAC16)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-ABH-R4-VAC16",
@@ -31753,9 +31805,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC16",
             "raw_batch": "VAC16",
             "subject": "ABH",
-            "subject_name": "Anuvad: Vyavahar aur Siddhant",
+            "subject_name": "The Art of Being Happy",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Anuvad: Vyavahar aur Siddhant (ABH) · Sem III · Joint · (VAC16)"
+            "formatted_display": "The Art of Being Happy (ABH) · Sem III · Joint · (VAC16)"
           }
         ],
         "Thursday": [
@@ -31770,9 +31822,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC3",
             "raw_batch": "VAC3",
             "subject": "ABH",
-            "subject_name": "Anuvad: Vyavahar aur Siddhant",
+            "subject_name": "The Art of Being Happy",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Anuvad: Vyavahar aur Siddhant (ABH) · Sem I · Joint · (VAC3)"
+            "formatted_display": "The Art of Being Happy (ABH) · Sem I · Joint · (VAC3)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-ABH-R3-VAC3",
@@ -31785,9 +31837,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC3",
             "raw_batch": "VAC3",
             "subject": "ABH",
-            "subject_name": "Anuvad: Vyavahar aur Siddhant",
+            "subject_name": "The Art of Being Happy",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Anuvad: Vyavahar aur Siddhant (ABH) · Sem I · Joint · (VAC3)"
+            "formatted_display": "The Art of Being Happy (ABH) · Sem I · Joint · (VAC3)"
           }
         ],
         "Friday": [
@@ -31804,7 +31856,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec A · (A1)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec A · (A1 / AP1)"
           },
           {
             "raw": "T-BCH-A-SEM VCommerce-BECON-T15-A2",
@@ -31819,7 +31871,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec A · (A2)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec A · (A2 / AP2)"
           },
           {
             "raw": "L-JOINT-SEM IIICommerce-ABH-R3-VAC16",
@@ -31832,9 +31884,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC16",
             "raw_batch": "VAC16",
             "subject": "ABH",
-            "subject_name": "Anuvad: Vyavahar aur Siddhant",
+            "subject_name": "The Art of Being Happy",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Anuvad: Vyavahar aur Siddhant (ABH) · Sem III · Joint · (VAC16)"
+            "formatted_display": "The Art of Being Happy (ABH) · Sem III · Joint · (VAC16)"
           },
           {
             "raw": "L-JOINT-SEM IIICommerce-ABH-R3-VAC15",
@@ -31847,9 +31899,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC15",
             "raw_batch": "VAC15",
             "subject": "ABH",
-            "subject_name": "Anuvad: Vyavahar aur Siddhant",
+            "subject_name": "The Art of Being Happy",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Anuvad: Vyavahar aur Siddhant (ABH) · Sem III · Joint · (VAC15)"
+            "formatted_display": "The Art of Being Happy (ABH) · Sem III · Joint · (VAC15)"
           }
         ],
         "Saturday": []
@@ -31857,9 +31909,9 @@ window.SRCC_TEACHERS_DATA = {
       "ref_code": "DPE",
       "subjects": [
         "ABH",
-        "Anuvad: Vyavahar aur Siddhant",
         "BECON",
-        "Business Economics"
+        "Business Economics",
+        "The Art of Being Happy"
       ]
     },
     {
@@ -32156,7 +32208,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec C · (C1)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec C · (C1 / CP1)"
           },
           {
             "raw": "T-BCH-D-SEM ICommerce-BLAW-T26-D1",
@@ -32171,7 +32223,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec D · (D1)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec D · (D1 / DP1)"
           }
         ],
         "Wednesday": [
@@ -32203,7 +32255,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec A · (A2)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec A · (A2 / AP2)"
           },
           {
             "raw": "T-BCH-D-SEM ICommerce-BLAW-T26-D2",
@@ -32218,7 +32270,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec D · (D2)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec D · (D2 / DP2)"
           }
         ],
         "Thursday": [
@@ -32250,7 +32302,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BLAW",
             "subject_name": "Business Law",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec A · (A3)"
+            "formatted_display": "Business Law (BLAW) · B.Com (Hons) · Sem I · Sec A · (A3 / AP3)"
           },
           {
             "raw": "T-MCOM-A-SEM ICommerce-BSC-T27",
@@ -32331,9 +32383,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC2",
             "raw_batch": "VAC2",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem III · Joint · (VAC2)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem III · Joint · (VAC2)"
           },
           {
             "raw": "L-JOINT-SEM IIICommerce-EI-R1-VAC1",
@@ -32346,9 +32398,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC1",
             "raw_batch": "VAC1",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem III · Joint · (VAC1)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem III · Joint · (VAC1)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-EI-R1-VAC1",
@@ -32361,9 +32413,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC1",
             "raw_batch": "VAC1",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem I · Joint · (VAC1)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem I · Joint · (VAC1)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-EI-R1-VAC1",
@@ -32376,9 +32428,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC1",
             "raw_batch": "VAC1",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem I · Joint · (VAC1)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem I · Joint · (VAC1)"
           }
         ],
         "Tuesday": [
@@ -32393,9 +32445,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC2",
             "raw_batch": "VAC2",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem I · Joint · (VAC2)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem I · Joint · (VAC2)"
           },
           {
             "raw": "L-JOINT-SEM ICommerce-EI-R1-VAC1",
@@ -32408,9 +32460,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC1",
             "raw_batch": "VAC1",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem I · Joint · (VAC1)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem I · Joint · (VAC1)"
           }
         ],
         "Wednesday": [
@@ -32425,9 +32477,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC2",
             "raw_batch": "VAC2",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem III · Joint · (VAC2)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem III · Joint · (VAC2)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-EI-R1-VAC2",
@@ -32440,9 +32492,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC2",
             "raw_batch": "VAC2",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem III · Joint · (VAC2)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem III · Joint · (VAC2)"
           }
         ],
         "Thursday": [
@@ -32457,9 +32509,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC2",
             "raw_batch": "VAC2",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem I · Joint · (VAC2)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem I · Joint · (VAC2)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-EI-R1-VAC2",
@@ -32472,9 +32524,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC2",
             "raw_batch": "VAC2",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem I · Joint · (VAC2)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem I · Joint · (VAC2)"
           }
         ],
         "Friday": [
@@ -32491,7 +32543,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec N · (N1)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec N · (N1 / NP1)"
           },
           {
             "raw": "T-BCH-B-SEM VCommerce-BECON-T13-B1",
@@ -32506,7 +32558,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec B · (B1)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec B · (B1 / BP1)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-EI-R1-VAC1",
@@ -32519,9 +32571,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC1",
             "raw_batch": "VAC1",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem III · Joint · (VAC1)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem III · Joint · (VAC1)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-EI-R1-VAC1",
@@ -32534,9 +32586,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC1",
             "raw_batch": "VAC1",
             "subject": "EI",
-            "subject_name": "Economics of Industry",
+            "subject_name": "Emotional Intelligence",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Economics of Industry (EI) · Sem III · Joint · (VAC1)"
+            "formatted_display": "Emotional Intelligence (EI) · Sem III · Joint · (VAC1)"
           }
         ],
         "Saturday": []
@@ -32546,7 +32598,7 @@ window.SRCC_TEACHERS_DATA = {
         "BECON",
         "Business Economics",
         "EI",
-        "Economics of Industry"
+        "Emotional Intelligence"
       ]
     },
     {
@@ -32824,7 +32876,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec I · (I3)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec I · (I3 / IP3)"
           }
         ],
         "Tuesday": [
@@ -32856,7 +32908,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec I · (I1)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec I · (I1 / IP1)"
           }
         ],
         "Wednesday": [
@@ -32873,7 +32925,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ME",
             "subject_name": "Managerial Economics",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Managerial Economics (ME) · M.Com · Sem I · Sec A · (A1)"
+            "formatted_display": "Managerial Economics (ME) · M.Com · Sem I · Sec A · (A1 / AP1)"
           },
           {
             "raw": "L-BCH-C-SEM VCommerce-BECON-R15",
@@ -32903,7 +32955,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec M · (M2)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec M · (M2 / MP2)"
           },
           {
             "raw": "T-BCH-N-SEM VCommerce-BECON-T24-N3",
@@ -32918,7 +32970,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec N · (N3)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec N · (N3 / NP3)"
           }
         ],
         "Thursday": [
@@ -32950,7 +33002,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec N · (N2)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec N · (N2 / NP2)"
           },
           {
             "raw": "T-BCH-H-SEM VCommerce-BECON-T24-H2",
@@ -32965,7 +33017,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec H · (H2)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec H · (H2 / HP2)"
           }
         ],
         "Friday": [
@@ -32997,7 +33049,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec I · (I2)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec I · (I2 / IP2)"
           },
           {
             "raw": "L-BCH-I-SEM VCommerce-BECON-R6",
@@ -33315,7 +33367,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GT",
             "subject_name": "Game Theory",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Game Theory (GT) · B.A. (Hons) Economics · Sem V · Sec A · (A2)"
+            "formatted_display": "Game Theory (GT) · B.A. (Hons) Economics · Sem V · Sec A · (A2 / AP2)"
           }
         ],
         "Tuesday": [
@@ -33347,7 +33399,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GT",
             "subject_name": "Game Theory",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Game Theory (GT) · B.A. (Hons) Economics · Sem V · Sec C · (C3)"
+            "formatted_display": "Game Theory (GT) · B.A. (Hons) Economics · Sem V · Sec C · (C3 / CP3)"
           },
           {
             "raw": "T-BAHE-A-SEM VEconomics-GT-T6-A3",
@@ -33362,7 +33414,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GT",
             "subject_name": "Game Theory",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Game Theory (GT) · B.A. (Hons) Economics · Sem V · Sec A · (A3)"
+            "formatted_display": "Game Theory (GT) · B.A. (Hons) Economics · Sem V · Sec A · (A3 / AP3)"
           }
         ],
         "Wednesday": [
@@ -33394,7 +33446,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GT",
             "subject_name": "Game Theory",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Game Theory (GT) · B.A. (Hons) Economics · Sem V · Sec A · (A1)"
+            "formatted_display": "Game Theory (GT) · B.A. (Hons) Economics · Sem V · Sec A · (A1 / AP1)"
           }
         ],
         "Thursday": [
@@ -33411,7 +33463,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GT",
             "subject_name": "Game Theory",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Game Theory (GT) · B.A. (Hons) Economics · Sem V · Sec C · (C1)"
+            "formatted_display": "Game Theory (GT) · B.A. (Hons) Economics · Sem V · Sec C · (C1 / CP1)"
           },
           {
             "raw": "L-BAHE-C-SEM VEconomics-GT-R23",
@@ -33441,7 +33493,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ISME",
             "subject_name": "Introductory Statistics for Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Introductory Statistics for Economics (ISME) · B.A. (Hons) Economics · Sem I · Sec B · (B2)"
+            "formatted_display": "Introductory Statistics for Economics (ISME) · B.A. (Hons) Economics · Sem I · Sec B · (B2 / BP2)"
           }
         ],
         "Friday": [
@@ -33473,7 +33525,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "GT",
             "subject_name": "Game Theory",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Game Theory (GT) · B.A. (Hons) Economics · Sem V · Sec C · (C2)"
+            "formatted_display": "Game Theory (GT) · B.A. (Hons) Economics · Sem V · Sec C · (C2 / CP2)"
           },
           {
             "raw": "T-BAHE-A-SEM IEconomics-ISME -T17-A1",
@@ -33488,7 +33540,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ISME",
             "subject_name": "Introductory Statistics for Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Introductory Statistics for Economics (ISME) · B.A. (Hons) Economics · Sem I · Sec A · (A1)"
+            "formatted_display": "Introductory Statistics for Economics (ISME) · B.A. (Hons) Economics · Sem I · Sec A · (A1 / AP1)"
           }
         ],
         "Saturday": []
@@ -33733,7 +33785,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IDE",
             "subject_name": "Issues in Development Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Issues in Development Economics (IDE) · B.A. (Hons) Economics · Sem V · Sec D · (D2)"
+            "formatted_display": "Issues in Development Economics (IDE) · B.A. (Hons) Economics · Sem V · Sec D · (D2 / DP2)"
           },
           {
             "raw": "L-BAHE-D-SEM VEconomics-IDE -R7",
@@ -33765,7 +33817,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IDE",
             "subject_name": "Issues in Development Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Issues in Development Economics (IDE) · B.A. (Hons) Economics · Sem V · Sec C · (C2)"
+            "formatted_display": "Issues in Development Economics (IDE) · B.A. (Hons) Economics · Sem V · Sec C · (C2 / CP2)"
           },
           {
             "raw": "L-BAHE-C-SEM VEconomics-IDE -R23",
@@ -33795,7 +33847,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BDE",
             "subject_name": "Business Data Ecosystem",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Data Ecosystem (BDE) · B.Com (Hons) · Sem I · Sec M · (M2)"
+            "formatted_display": "Business Data Ecosystem (BDE) · B.Com (Hons) · Sem I · Sec M · (M2 / MP2)"
           }
         ],
         "Wednesday": [
@@ -33812,7 +33864,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IDE",
             "subject_name": "Issues in Development Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Issues in Development Economics (IDE) · B.A. (Hons) Economics · Sem V · Sec C · (C1)"
+            "formatted_display": "Issues in Development Economics (IDE) · B.A. (Hons) Economics · Sem V · Sec C · (C1 / CP1)"
           },
           {
             "raw": "L-BAHE-D-SEM VEconomics-IDE -R7",
@@ -33859,7 +33911,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IDE",
             "subject_name": "Issues in Development Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Issues in Development Economics (IDE) · B.A. (Hons) Economics · Sem V · Sec D · (D3)"
+            "formatted_display": "Issues in Development Economics (IDE) · B.A. (Hons) Economics · Sem V · Sec D · (D3 / DP3)"
           },
           {
             "raw": "T-BAHE-D-SEM VEconomics-IDE -T2-D1",
@@ -33874,7 +33926,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IDE",
             "subject_name": "Issues in Development Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Issues in Development Economics (IDE) · B.A. (Hons) Economics · Sem V · Sec D · (D1)"
+            "formatted_display": "Issues in Development Economics (IDE) · B.A. (Hons) Economics · Sem V · Sec D · (D1 / DP1)"
           },
           {
             "raw": "L-BAHE-C-SEM VEconomics-IDE -R24",
@@ -33906,7 +33958,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IDE",
             "subject_name": "Issues in Development Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Issues in Development Economics (IDE) · B.A. (Hons) Economics · Sem V · Sec C · (C3)"
+            "formatted_display": "Issues in Development Economics (IDE) · B.A. (Hons) Economics · Sem V · Sec C · (C3 / CP3)"
           },
           {
             "raw": "L-BAHE-D-SEM VEconomics-IDE -R7",
@@ -33936,7 +33988,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BDE",
             "subject_name": "Business Data Ecosystem",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Data Ecosystem (BDE) · B.Com (Hons) · Sem V · Sec F · (F2)"
+            "formatted_display": "Business Data Ecosystem (BDE) · B.Com (Hons) · Sem V · Sec F · (F2 / FP2)"
           }
         ],
         "Saturday": []
@@ -33970,9 +34022,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "SEC6",
             "raw_batch": "SEC6",
             "subject": "CIEL",
-            "subject_name": "Corporate Insolvency & Environmental Law",
+            "subject_name": "Communication in Everyday Life",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Corporate Insolvency & Environmental Law (CIEL) · Sem I · Joint · (SEC6)"
+            "formatted_display": "Communication in Everyday Life (CIEL) · Sem I · Joint · (SEC6)"
           },
           {
             "raw": "LAB-JOINT-SEM IEnglish-CIEL-R8-SEC6",
@@ -33985,9 +34037,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "SEC6",
             "raw_batch": "SEC6",
             "subject": "CIEL",
-            "subject_name": "Corporate Insolvency & Environmental Law",
+            "subject_name": "Communication in Everyday Life",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Corporate Insolvency & Environmental Law (CIEL) · Sem I · Joint · (SEC6)"
+            "formatted_display": "Communication in Everyday Life (CIEL) · Sem I · Joint · (SEC6)"
           },
           {
             "raw": "L-JOINT-SEM IIIEnglish-VAC SEL-R8-VAC22",
@@ -34039,19 +34091,19 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Wednesday": [
           {
-            "raw": "T-BCH-L-SEM IEnglish-DEC-T14-L3T-BAHE-D-SEM IEnglish-DEC-T14",
-            "display": "T-BCH-L-SEM IEnglish-DEC-T14-L3T-BAHE-D-SEM IEnglish-DEC-T14",
+            "raw": "T-BCH-L-SEM IEnglish-DEC-T14-L3",
+            "display": "T-BCH-L-SEM IEnglish-DEC-T14-L3",
             "type": "Tutorial",
             "room": "T14",
             "course": "B.Com (Hons)",
             "semester": "Sem I",
             "section": "Sec L",
-            "batch": "",
-            "raw_batch": "",
+            "batch": "L3",
+            "raw_batch": "L3",
             "subject": "DEC",
             "subject_name": "Digital Economy & E-Commerce",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Digital Economy & E-Commerce (DEC) · B.Com (Hons) · Sem I · Sec L"
+            "formatted_display": "Digital Economy & E-Commerce (DEC) · B.Com (Hons) · Sem I · Sec L · (L3 / LP3)"
           },
           {
             "raw": "LAB-JOINT-SEM IEnglish-CIEL-R8-SEC6",
@@ -34064,9 +34116,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "SEC6",
             "raw_batch": "SEC6",
             "subject": "CIEL",
-            "subject_name": "Corporate Insolvency & Environmental Law",
+            "subject_name": "Communication in Everyday Life",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Corporate Insolvency & Environmental Law (CIEL) · Sem I · Joint · (SEC6)"
+            "formatted_display": "Communication in Everyday Life (CIEL) · Sem I · Joint · (SEC6)"
           },
           {
             "raw": "LAB-JOINT-SEM IEnglish-CIEL-R8-SEC6",
@@ -34079,9 +34131,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "SEC6",
             "raw_batch": "SEC6",
             "subject": "CIEL",
-            "subject_name": "Corporate Insolvency & Environmental Law",
+            "subject_name": "Communication in Everyday Life",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Corporate Insolvency & Environmental Law (CIEL) · Sem I · Joint · (SEC6)"
+            "formatted_display": "Communication in Everyday Life (CIEL) · Sem I · Joint · (SEC6)"
           }
         ],
         "Thursday": [
@@ -34103,8 +34155,8 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Friday": [
           {
-            "raw": "L-BCH-L-SEM IEnglish-DEC-R19L-BAHE-D-SEM IEnglish-DEC-R19",
-            "display": "L-BCH-L-SEM IEnglish-DEC-R19L-BAHE-D-SEM IEnglish-DEC-R19",
+            "raw": "L-BCH-L-SEM IEnglish-DEC-R19",
+            "display": "L-BCH-L-SEM IEnglish-DEC-R19",
             "type": "Lecture",
             "room": "R19",
             "course": "B.Com (Hons)",
@@ -34153,7 +34205,7 @@ window.SRCC_TEACHERS_DATA = {
       "ref_code": "RUK",
       "subjects": [
         "CIEL",
-        "Corporate Insolvency & Environmental Law",
+        "Communication in Everyday Life",
         "DEC",
         "Digital Economy & E-Commerce",
         "VAC SEL",
@@ -34214,9 +34266,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem VII · Sec A"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem VII · Sec A"
           },
           {
             "raw": "LAB-BCH-A-SEM VIICommerce-BRM-R18-AP2",
@@ -34229,9 +34281,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "A2",
             "raw_batch": "AP2",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem VII · Sec A · (A2 / AP2)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem VII · Sec A · (A2 / AP2)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-DM-R21-SEC2",
@@ -34308,9 +34360,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem VII · Sec A"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem VII · Sec A"
           },
           {
             "raw": "LAB-BCH-A-SEM VIICommerce-BRM-R27-AP1",
@@ -34323,9 +34375,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "A1",
             "raw_batch": "AP1",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem VII · Sec A · (A1 / AP1)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem VII · Sec A · (A1 / AP1)"
           },
           {
             "raw": "LAB-BCH-A-SEM VIICommerce-BRM-R4-AP3",
@@ -34338,9 +34390,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "A3",
             "raw_batch": "AP3",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem VII · Sec A · (A3 / AP3)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem VII · Sec A · (A3 / AP3)"
           }
         ],
         "Saturday": [
@@ -34355,9 +34407,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem VII · Sec A"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem VII · Sec A"
           },
           {
             "raw": "LAB-BCH-A-SEM VIICommerce-BRM-R21-AP1",
@@ -34370,9 +34422,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "A1",
             "raw_batch": "AP1",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Business Research Methods (BRM) · B.Com (Hons) · Sem VII · Sec A · (A1 / AP1)"
+            "formatted_display": "Brand Management (BRM) · B.Com (Hons) · Sem VII · Sec A · (A1 / AP1)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-DM-R4-SEC2",
@@ -34394,7 +34446,7 @@ window.SRCC_TEACHERS_DATA = {
       "ref_code": "SHK",
       "subjects": [
         "BRM",
-        "Business Research Methods",
+        "Brand Management",
         "DM",
         "Digital Marketing"
       ]
@@ -34425,7 +34477,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec A · (A2)"
+            "formatted_display": "Principles of Microeconomics I (PME-I) · B.Com (Hons) · Sem I · Sec A · (A2 / AP2)"
           }
         ],
         "Friday": [],
@@ -34492,7 +34544,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec B · (B1)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec B · (B1 / BP1)"
           }
         ],
         "Wednesday": [
@@ -34524,7 +34576,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec M · (M3)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec M · (M3 / MP3)"
           },
           {
             "raw": "T-BCH-I-SEM IIICommerce-POM-T12-I2",
@@ -34539,7 +34591,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec I · (I2)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec I · (I2 / IP2)"
           }
         ],
         "Thursday": [
@@ -34601,7 +34653,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec H · (H1)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec H · (H1 / HP1)"
           }
         ],
         "Friday": [
@@ -34633,7 +34685,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec N · (N3)"
+            "formatted_display": "Principles of Marketing (POM) · B.Com (Hons) · Sem III · Sec N · (N3 / NP3)"
           }
         ],
         "Saturday": []
@@ -34685,7 +34737,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec B · (B2)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec B · (B2 / BP2)"
           },
           {
             "raw": "L-BCH-D-SEM VCommerce-BECON-R14",
@@ -34715,7 +34767,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec B · (B3)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec B · (B3 / BP3)"
           }
         ],
         "Wednesday": [
@@ -34747,7 +34799,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec L · (L2)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec L · (L2 / LP2)"
           },
           {
             "raw": "T-MCOM-A-SEM ICommerce-ME-T13-A2",
@@ -34762,7 +34814,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "ME",
             "subject_name": "Managerial Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Managerial Economics (ME) · M.Com · Sem I · Sec A · (A2)"
+            "formatted_display": "Managerial Economics (ME) · M.Com · Sem I · Sec A · (A2 / AP2)"
           }
         ],
         "Thursday": [
@@ -34794,7 +34846,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec D · (D1)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec D · (D1 / DP1)"
           },
           {
             "raw": "T-BCH-J-SEM VCommerce-BECON-T12-J1",
@@ -34809,7 +34861,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec J · (J1)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec J · (J1 / JP1)"
           }
         ],
         "Friday": [
@@ -34841,7 +34893,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec L · (L3)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec L · (L3 / LP3)"
           }
         ],
         "Saturday": [
@@ -34873,7 +34925,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BECON",
             "subject_name": "Business Economics",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec D · (D2)"
+            "formatted_display": "Business Economics (BECON) · B.Com (Hons) · Sem V · Sec D · (D2 / DP2)"
           }
         ]
       },
@@ -34908,7 +34960,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IF",
             "subject_name": "International Finance",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "International Finance (IF) · B.Com (Hons) · Sem V · Sec B · (B1)"
+            "formatted_display": "International Finance (IF) · B.Com (Hons) · Sem V · Sec B · (B1 / BP1)"
           },
           {
             "raw": "L-BCH-C-SEM IIICommerce-FM-R13",
@@ -34940,7 +34992,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IF",
             "subject_name": "International Finance",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "International Finance (IF) · B.Com (Hons) · Sem V · Sec M · (M1)"
+            "formatted_display": "International Finance (IF) · B.Com (Hons) · Sem V · Sec M · (M1 / MP1)"
           },
           {
             "raw": "LAB-BCH-C-SEM IIICommerce-FM-CL2-CP1",
@@ -34987,7 +35039,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IF",
             "subject_name": "International Finance",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "International Finance (IF) · B.Com (Hons) · Sem V · Sec A · (A2)"
+            "formatted_display": "International Finance (IF) · B.Com (Hons) · Sem V · Sec A · (A2 / AP2)"
           },
           {
             "raw": "L-BCH-C-SEM IIICommerce-FM-R18",
@@ -35111,7 +35163,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "IF",
             "subject_name": "International Finance",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "International Finance (IF) · B.Com (Hons) · Sem V · Sec A · (A1)"
+            "formatted_display": "International Finance (IF) · B.Com (Hons) · Sem V · Sec A · (A1 / AP1)"
           }
         ],
         "Saturday": []
@@ -35339,9 +35391,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC9",
             "raw_batch": "VAC9",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Development Economics (DE) · Sem III · Joint · (VAC9)"
+            "formatted_display": "Digital Empowerment (DE) · Sem III · Joint · (VAC9)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-DE-R14-VAC9",
@@ -35354,9 +35406,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC9",
             "raw_batch": "VAC9",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Development Economics (DE) · Sem III · Joint · (VAC9)"
+            "formatted_display": "Digital Empowerment (DE) · Sem III · Joint · (VAC9)"
           }
         ],
         "Tuesday": [
@@ -35437,9 +35489,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC7",
             "raw_batch": "VAC7",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Development Economics (DE) · Sem III · Joint · (VAC7)"
+            "formatted_display": "Digital Empowerment (DE) · Sem III · Joint · (VAC7)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-DE-R4-VAC7",
@@ -35452,9 +35504,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC7",
             "raw_batch": "VAC7",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Development Economics (DE) · Sem III · Joint · (VAC7)"
+            "formatted_display": "Digital Empowerment (DE) · Sem III · Joint · (VAC7)"
           }
         ]
       },
@@ -35463,7 +35515,7 @@ window.SRCC_TEACHERS_DATA = {
         "BLAW",
         "Business Law",
         "DE",
-        "Development Economics",
+        "Digital Empowerment",
         "MFD",
         "Macro Financial Dynamics"
       ]
@@ -35665,9 +35717,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "B2",
             "raw_batch": "B2",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec B · (B2)"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec B · (B2 / BP2)"
           }
         ],
         "Tuesday": [],
@@ -35683,9 +35735,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec H"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec H"
           },
           {
             "raw": "L-BCH-I-SEM VEconomics-DnD-R13",
@@ -35698,9 +35750,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec I"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec I"
           }
         ],
         "Thursday": [
@@ -35715,9 +35767,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec I"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec I"
           },
           {
             "raw": "T-BCH-D-SEM VEconomics-DnD-T15-D3",
@@ -35730,9 +35782,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "D3",
             "raw_batch": "D3",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec D · (D3)"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec D · (D3 / DP3)"
           },
           {
             "raw": "L-BCH-H-SEM VEconomics-DnD-R16",
@@ -35745,9 +35797,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec H"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec H"
           },
           {
             "raw": "T-BCH-H-SEM VEconomics-DnD-T53-H1",
@@ -35760,9 +35812,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "H1",
             "raw_batch": "H1",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec H · (H1)"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec H · (H1 / HP1)"
           }
         ],
         "Friday": [
@@ -35777,9 +35829,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec H"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec H"
           },
           {
             "raw": "T-BCH-D-SEM VEconomics-DnD-T53-D1",
@@ -35792,9 +35844,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "D1",
             "raw_batch": "D1",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec D · (D1)"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec D · (D1 / DP1)"
           },
           {
             "raw": "L-BCH-I-SEM VEconomics-DnD-R15",
@@ -35807,17 +35859,17 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "DnD",
-            "subject_name": "Negotiation and Deal Making",
+            "subject_name": "Digitalization and Development",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Negotiation and Deal Making (DnD) · B.Com (Hons) · Sem V · Sec I"
+            "formatted_display": "Digitalization and Development (DnD) · B.Com (Hons) · Sem V · Sec I"
           }
         ],
         "Saturday": []
       },
       "ref_code": "SK2",
       "subjects": [
-        "DnD",
-        "Negotiation and Deal Making"
+        "Digitalization and Development",
+        "DnD"
       ]
     },
     {
@@ -35841,9 +35893,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC18",
             "raw_batch": "VAC18",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem I · Joint · (VAC18)"
+            "formatted_display": "Digital Empowerment (DE) · Sem I · Joint · (VAC18)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-DE-R22-VAC18",
@@ -35856,9 +35908,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC18",
             "raw_batch": "VAC18",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem I · Joint · (VAC18)"
+            "formatted_display": "Digital Empowerment (DE) · Sem I · Joint · (VAC18)"
           }
         ],
         "Tuesday": [
@@ -35936,9 +35988,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC18",
             "raw_batch": "VAC18",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem I · Joint · (VAC18)"
+            "formatted_display": "Digital Empowerment (DE) · Sem I · Joint · (VAC18)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-DE-R24-VAC18",
@@ -35951,9 +36003,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC18",
             "raw_batch": "VAC18",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem I · Joint · (VAC18)"
+            "formatted_display": "Digital Empowerment (DE) · Sem I · Joint · (VAC18)"
           },
           {
             "raw": "LAB-MCOM-A-SEM ICommerce-BRM-T1",
@@ -35966,9 +36018,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "4:00 PM to 5:00 PM",
-            "formatted_display": "Business Research Methods (BRM) · M.Com · Sem I · Sec A"
+            "formatted_display": "Brand Management (BRM) · M.Com · Sem I · Sec A"
           },
           {
             "raw": "LAB-MCOM-A-SEM ICommerce-BRM-T1",
@@ -35981,9 +36033,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "BRM",
-            "subject_name": "Business Research Methods",
+            "subject_name": "Brand Management",
             "slot": "5:00 PM to 6:00 PM",
-            "formatted_display": "Business Research Methods (BRM) · M.Com · Sem I · Sec A"
+            "formatted_display": "Brand Management (BRM) · M.Com · Sem I · Sec A"
           }
         ],
         "Friday": [],
@@ -35993,10 +36045,10 @@ window.SRCC_TEACHERS_DATA = {
       "subjects": [
         "BIT",
         "BRM",
+        "Brand Management",
         "Business Information Technologies",
-        "Business Research Methods",
         "DE",
-        "Development Economics"
+        "Digital Empowerment"
       ]
     },
     {
@@ -36228,9 +36280,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "SEC18",
             "raw_batch": "SEC18",
             "subject": "SWR",
-            "subject_name": "Social Work & Relations",
+            "subject_name": "Statistics with R",
             "slot": "4:00 PM to 5:00 PM",
-            "formatted_display": "Social Work & Relations (SWR) · Sem I · Joint · (SEC18)"
+            "formatted_display": "Statistics with R (SWR) · Sem I · Joint · (SEC18)"
           },
           {
             "raw": "LAB-JOINT-SEM IEconomics-SWR-R33-SEC18",
@@ -36243,9 +36295,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "SEC18",
             "raw_batch": "SEC18",
             "subject": "SWR",
-            "subject_name": "Social Work & Relations",
+            "subject_name": "Statistics with R",
             "slot": "5:00 PM to 6:00 PM",
-            "formatted_display": "Social Work & Relations (SWR) · Sem I · Joint · (SEC18)"
+            "formatted_display": "Statistics with R (SWR) · Sem I · Joint · (SEC18)"
           }
         ],
         "Thursday": [
@@ -36318,7 +36370,7 @@ window.SRCC_TEACHERS_DATA = {
         "ITSA I",
         "Introduction to Statistics and Analysis I",
         "SWR",
-        "Social Work & Relations"
+        "Statistics with R"
       ]
     },
     {
@@ -36357,9 +36409,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC4",
             "raw_batch": "VAC4",
             "subject": "ABH",
-            "subject_name": "Anuvad: Vyavahar aur Siddhant",
+            "subject_name": "The Art of Being Happy",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Anuvad: Vyavahar aur Siddhant (ABH) · Sem I · Joint · (VAC4)"
+            "formatted_display": "The Art of Being Happy (ABH) · Sem I · Joint · (VAC4)"
           }
         ],
         "Tuesday": [],
@@ -36437,9 +36489,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC4",
             "raw_batch": "VAC4",
             "subject": "ABH",
-            "subject_name": "Anuvad: Vyavahar aur Siddhant",
+            "subject_name": "The Art of Being Happy",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Anuvad: Vyavahar aur Siddhant (ABH) · Sem I · Joint · (VAC4)"
+            "formatted_display": "The Art of Being Happy (ABH) · Sem I · Joint · (VAC4)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-ABH-PB4-VAC4",
@@ -36452,9 +36504,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC4",
             "raw_batch": "VAC4",
             "subject": "ABH",
-            "subject_name": "Anuvad: Vyavahar aur Siddhant",
+            "subject_name": "The Art of Being Happy",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Anuvad: Vyavahar aur Siddhant (ABH) · Sem I · Joint · (VAC4)"
+            "formatted_display": "The Art of Being Happy (ABH) · Sem I · Joint · (VAC4)"
           }
         ],
         "Friday": [],
@@ -36463,9 +36515,9 @@ window.SRCC_TEACHERS_DATA = {
       "ref_code": "SHC",
       "subjects": [
         "ABH",
-        "Anuvad: Vyavahar aur Siddhant",
         "DM",
-        "Digital Marketing"
+        "Digital Marketing",
+        "The Art of Being Happy"
       ]
     },
     {
@@ -36491,7 +36543,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "Intro MME",
             "subject_name": "Introductory Mathematical Methods for Economics",
             "slot": "8:30 AM to 9:30 AM",
-            "formatted_display": "Introductory Mathematical Methods for Economics (Intro MME) · B.A. (Hons) Economics · Sem I · Sec D · (D2)"
+            "formatted_display": "Introductory Mathematical Methods for Economics (Intro MME) · B.A. (Hons) Economics · Sem I · Sec D · (D2 / DP2)"
           },
           {
             "raw": "L-BAHE-D-SEM IEconomics-Intro MME-R24",
@@ -36540,7 +36592,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "Intro MME",
             "subject_name": "Introductory Mathematical Methods for Economics",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Introductory Mathematical Methods for Economics (Intro MME) · B.A. (Hons) Economics · Sem I · Sec B · (B1)"
+            "formatted_display": "Introductory Mathematical Methods for Economics (Intro MME) · B.A. (Hons) Economics · Sem I · Sec B · (B1 / BP1)"
           },
           {
             "raw": "T-BAHE-D-SEM IEconomics-Intro MME-T26-D3",
@@ -36555,7 +36607,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "Intro MME",
             "subject_name": "Introductory Mathematical Methods for Economics",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Introductory Mathematical Methods for Economics (Intro MME) · B.A. (Hons) Economics · Sem I · Sec D · (D3)"
+            "formatted_display": "Introductory Mathematical Methods for Economics (Intro MME) · B.A. (Hons) Economics · Sem I · Sec D · (D3 / DP3)"
           },
           {
             "raw": "L-BAHE-D-SEM IEconomics-Intro MME-R24",
@@ -36587,7 +36639,7 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "Intro MME",
             "subject_name": "Introductory Mathematical Methods for Economics",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Introductory Mathematical Methods for Economics (Intro MME) · B.A. (Hons) Economics · Sem I · Sec B · (B2)"
+            "formatted_display": "Introductory Mathematical Methods for Economics (Intro MME) · B.A. (Hons) Economics · Sem I · Sec B · (B2 / BP2)"
           },
           {
             "raw": "L-BAHE-B-SEM IEconomics-Intro MME-R23",
@@ -36844,13 +36896,13 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "D2",
             "raw_batch": "D2",
             "subject": "AFE",
-            "subject_name": "Accounting for Financial Entities",
+            "subject_name": "Accounting for Everyone",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Accounting for Financial Entities (AFE) · B.A. (Hons) Economics · Sem I · Sec D · (D2)"
+            "formatted_display": "Accounting for Everyone (AFE) · B.A. (Hons) Economics · Sem I · Sec D · (D2 / DP2)"
           },
           {
-            "raw": "L-BAHE-D-SEM ICommerce-GE-AFE-R7L-BAHE-C-SEM ICommerce-GE-AFE-R7",
-            "display": "L-BAHE-D-SEM ICommerce-GE-AFE-R7L-BAHE-C-SEM ICommerce-GE-AFE-R7",
+            "raw": "L-BAHE-D-SEM ICommerce-GE-AFE-R7",
+            "display": "L-BAHE-D-SEM ICommerce-GE-AFE-R7",
             "type": "Lecture",
             "room": "R7",
             "course": "B.A. (Hons) Economics",
@@ -36859,9 +36911,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "AFE",
-            "subject_name": "Accounting for Financial Entities",
+            "subject_name": "Accounting for Everyone",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Accounting for Financial Entities (AFE) · B.A. (Hons) Economics · Sem I · Sec D"
+            "formatted_display": "Accounting for Everyone (AFE) · B.A. (Hons) Economics · Sem I · Sec D"
           }
         ],
         "Wednesday": [
@@ -36876,9 +36928,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "D3",
             "raw_batch": "D3",
             "subject": "AFE",
-            "subject_name": "Accounting for Financial Entities",
+            "subject_name": "Accounting for Everyone",
             "slot": "11:30 AM to 12:30 PM",
-            "formatted_display": "Accounting for Financial Entities (AFE) · B.A. (Hons) Economics · Sem I · Sec D · (D3)"
+            "formatted_display": "Accounting for Everyone (AFE) · B.A. (Hons) Economics · Sem I · Sec D · (D3 / DP3)"
           },
           {
             "raw": "LAB-BAHE-D-SEM ICommerce-GE-AFE-T23-D3",
@@ -36891,9 +36943,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "D3",
             "raw_batch": "D3",
             "subject": "AFE",
-            "subject_name": "Accounting for Financial Entities",
+            "subject_name": "Accounting for Everyone",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Accounting for Financial Entities (AFE) · B.A. (Hons) Economics · Sem I · Sec D · (D3)"
+            "formatted_display": "Accounting for Everyone (AFE) · B.A. (Hons) Economics · Sem I · Sec D · (D3 / DP3)"
           }
         ],
         "Thursday": [
@@ -36908,9 +36960,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "C1",
             "raw_batch": "C1",
             "subject": "AFE",
-            "subject_name": "Accounting for Financial Entities",
+            "subject_name": "Accounting for Everyone",
             "slot": "9:30 AM to 10:30 AM",
-            "formatted_display": "Accounting for Financial Entities (AFE) · B.A. (Hons) Economics · Sem I · Sec C · (C1)"
+            "formatted_display": "Accounting for Everyone (AFE) · B.A. (Hons) Economics · Sem I · Sec C · (C1 / CP1)"
           },
           {
             "raw": "LAB-BAHE-D-SEM ICommerce-GE-AFE-T49-D2",
@@ -36923,13 +36975,13 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "D2",
             "raw_batch": "D2",
             "subject": "AFE",
-            "subject_name": "Accounting for Financial Entities",
+            "subject_name": "Accounting for Everyone",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Accounting for Financial Entities (AFE) · B.A. (Hons) Economics · Sem I · Sec D · (D2)"
+            "formatted_display": "Accounting for Everyone (AFE) · B.A. (Hons) Economics · Sem I · Sec D · (D2 / DP2)"
           },
           {
-            "raw": "L-BAHE-D-SEM ICommerce-GE-AFE-PB4L-BAHE-C-SEM ICommerce-GE-AFE-PB4",
-            "display": "L-BAHE-D-SEM ICommerce-GE-AFE-PB4L-BAHE-C-SEM ICommerce-GE-AFE-PB4",
+            "raw": "L-BAHE-D-SEM ICommerce-GE-AFE-PB4",
+            "display": "L-BAHE-D-SEM ICommerce-GE-AFE-PB4",
             "type": "Lecture",
             "room": "PB4",
             "course": "B.A. (Hons) Economics",
@@ -36938,9 +36990,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "AFE",
-            "subject_name": "Accounting for Financial Entities",
+            "subject_name": "Accounting for Everyone",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Accounting for Financial Entities (AFE) · B.A. (Hons) Economics · Sem I · Sec D"
+            "formatted_display": "Accounting for Everyone (AFE) · B.A. (Hons) Economics · Sem I · Sec D"
           }
         ],
         "Friday": [
@@ -36955,13 +37007,13 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "C1",
             "raw_batch": "C1",
             "subject": "AFE",
-            "subject_name": "Accounting for Financial Entities",
+            "subject_name": "Accounting for Everyone",
             "slot": "10:30 AM to 11:30 AM",
-            "formatted_display": "Accounting for Financial Entities (AFE) · B.A. (Hons) Economics · Sem I · Sec C · (C1)"
+            "formatted_display": "Accounting for Everyone (AFE) · B.A. (Hons) Economics · Sem I · Sec C · (C1 / CP1)"
           },
           {
-            "raw": "L-BAHE-D-SEM ICommerce-GE-AFE-R23L-BAHE-C-SEM ICommerce-GE-AFE-R23",
-            "display": "L-BAHE-D-SEM ICommerce-GE-AFE-R23L-BAHE-C-SEM ICommerce-GE-AFE-R23",
+            "raw": "L-BAHE-D-SEM ICommerce-GE-AFE-R23",
+            "display": "L-BAHE-D-SEM ICommerce-GE-AFE-R23",
             "type": "Lecture",
             "room": "R23",
             "course": "B.A. (Hons) Economics",
@@ -36970,9 +37022,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "raw_batch": "",
             "subject": "AFE",
-            "subject_name": "Accounting for Financial Entities",
+            "subject_name": "Accounting for Everyone",
             "slot": "12:30 PM to 1:30 PM",
-            "formatted_display": "Accounting for Financial Entities (AFE) · B.A. (Hons) Economics · Sem I · Sec D"
+            "formatted_display": "Accounting for Everyone (AFE) · B.A. (Hons) Economics · Sem I · Sec D"
           }
         ],
         "Saturday": []
@@ -36980,7 +37032,7 @@ window.SRCC_TEACHERS_DATA = {
       "ref_code": "SMRC",
       "subjects": [
         "AFE",
-        "Accounting for Financial Entities"
+        "Accounting for Everyone"
       ]
     },
     {
@@ -37004,9 +37056,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC21",
             "raw_batch": "VAC21",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem I · Joint · (VAC21)"
+            "formatted_display": "Digital Empowerment (DE) · Sem I · Joint · (VAC21)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-DE-PB3-VAC21",
@@ -37019,9 +37071,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC21",
             "raw_batch": "VAC21",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem I · Joint · (VAC21)"
+            "formatted_display": "Digital Empowerment (DE) · Sem I · Joint · (VAC21)"
           }
         ],
         "Tuesday": [
@@ -37036,9 +37088,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC17",
             "raw_batch": "VAC17",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem I · Joint · (VAC17)"
+            "formatted_display": "Digital Empowerment (DE) · Sem I · Joint · (VAC17)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-DE-R35-VAC17",
@@ -37051,9 +37103,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC17",
             "raw_batch": "VAC17",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem I · Joint · (VAC17)"
+            "formatted_display": "Digital Empowerment (DE) · Sem I · Joint · (VAC17)"
           }
         ],
         "Wednesday": [
@@ -37130,9 +37182,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC21",
             "raw_batch": "VAC21",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem I · Joint · (VAC21)"
+            "formatted_display": "Digital Empowerment (DE) · Sem I · Joint · (VAC21)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-DE-PB3-VAC21",
@@ -37145,9 +37197,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC21",
             "raw_batch": "VAC21",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem I · Joint · (VAC21)"
+            "formatted_display": "Digital Empowerment (DE) · Sem I · Joint · (VAC21)"
           }
         ],
         "Friday": [],
@@ -37158,7 +37210,7 @@ window.SRCC_TEACHERS_DATA = {
         "BIDV",
         "Business Intelligence & Data Visualization",
         "DE",
-        "Development Economics"
+        "Digital Empowerment"
       ]
     },
     {
@@ -37844,9 +37896,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC22",
             "raw_batch": "VAC22",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem I · Joint · (VAC22)"
+            "formatted_display": "Digital Empowerment (DE) · Sem I · Joint · (VAC22)"
           },
           {
             "raw": "LAB-JOINT-SEM ICommerce-DE-CL1-VAC22",
@@ -37859,9 +37911,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC22",
             "raw_batch": "VAC22",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem I · Joint · (VAC22)"
+            "formatted_display": "Digital Empowerment (DE) · Sem I · Joint · (VAC22)"
           }
         ],
         "Tuesday": [],
@@ -37910,9 +37962,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC10",
             "raw_batch": "VAC10",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "2:00 PM to 3:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem III · Joint · (VAC10)"
+            "formatted_display": "Digital Empowerment (DE) · Sem III · Joint · (VAC10)"
           },
           {
             "raw": "LAB-JOINT-SEM IIICommerce-DE-R14-VAC10",
@@ -37925,9 +37977,9 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC10",
             "raw_batch": "VAC10",
             "subject": "DE",
-            "subject_name": "Development Economics",
+            "subject_name": "Digital Empowerment",
             "slot": "3:00 PM to 4:00 PM",
-            "formatted_display": "Development Economics (DE) · Sem III · Joint · (VAC10)"
+            "formatted_display": "Digital Empowerment (DE) · Sem III · Joint · (VAC10)"
           }
         ],
         "Saturday": []
@@ -37937,7 +37989,7 @@ window.SRCC_TEACHERS_DATA = {
         "BIT",
         "Business Information Technologies",
         "DE",
-        "Development Economics"
+        "Digital Empowerment"
       ]
     }
   ]

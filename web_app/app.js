@@ -1198,11 +1198,7 @@ document.addEventListener('DOMContentLoaded', () => {
             calloutText: `🟢 Entire day free on ${targetDay} (8:30 AM – 6:00 PM)`
           };
         } else if (effectiveFreeSlots.size > 0) {
-          return {
-            isFreeNow: true,
-            badgeText: `${effectiveFreeSlots.size}/9 Hours Free`,
-            calloutText: `🟢 ${effectiveFreeSlots.size} academic hours available on ${targetDay}`
-          };
+          return null; // Removed redundant free hours badge per user request
         } else {
           return {
             isFreeNow: false,
@@ -1923,7 +1919,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Fallback: whole word match in name or code (avoiding substring leakage)
       const words = (name + ' ' + code).toLowerCase().split(/[^a-z0-9]+/);
-      return words.includes(qNoSpace);
+      if (words.includes(qNoSpace)) return true;
+
+      // Also match by teacher or subject currently scheduled in this room
+      const sched = room.schedule ? room.schedule[state.activeDay] : null;
+      if (sched && Array.isArray(sched.occupied_slots)) {
+        for (const occ of sched.occupied_slots) {
+          const clsText = (occ.class || '').toLowerCase();
+          if (clsText.includes(q) || clsText.replace(/[\s\-_]/g, '').includes(qNoSpace)) return true;
+        }
+      }
+      return false;
     }
 
     function copyToClipboard(text) {
@@ -2681,15 +2687,18 @@ ${directRoomUrl}`;
              </div>`
           : '';
 
+        const isGenericName = (room.name === `Lecture Classroom ${room.code.replace(/\D+/g, '')}` || 
+                               room.name === `Tutorial Room ${room.code.replace(/\D+/g, '')}` ||
+                               room.name === `Classroom ${room.code.replace(/\D+/g, '')}`);
+
         return `
           <article class="room-card ${cardStyleClass} ${themeClass}" data-room-code="${escapeHtml(room.code)}">
             <div class="card-header room-card-header">
               <div class="card-title-group">
                 <div class="card-room-code">${escapeHtml(room.code)}</div>
-                <div class="card-room-name">${escapeHtml(room.name)}</div>
+                ${(!isGenericName && room.name) ? `<div class="card-room-name">${escapeHtml(room.name)}</div>` : ''}
               </div>
               <div class="card-meta-badges">
-                <span class="badge-category ${catBadgeClass}">${escapeHtml(room.category.split(' (')[0])}</span>
                 <span class="badge-capacity">${escapeHtml(room.capacity)} Seats</span>
                 ${unavailableBadgeHtml}
                 ${freeUntilBadgeHtml}
@@ -2703,7 +2712,6 @@ ${directRoomUrl}`;
             <div class="card-timeline-wrapper">
               <div class="timeline-header-row">
                 <span>Day Period Breakdown</span>
-                <span>${effectiveFreeHours}/9 Free</span>
               </div>
               <div class="timeline-periods-strip">
                 ${p1_5}
@@ -2713,27 +2721,16 @@ ${directRoomUrl}`;
             </div>
 
             <div class="card-body">
-              <div class="free-summary-bar ${effectiveFreeHours === 0 ? 'zero-free' : ''}">
-                <span>${effectiveFreeHours > 0 ? `🟢 ${effectiveFreeHours} Academic Hours Free` : `🔴 Fully Booked Day`}</span>
-                <span>${sched.occupied_slots.length} Classes Scheduled</span>
-              </div>
-
-              ${consecutiveChipsHtml ? `
-                <div class="consecutive-windows-section" style="margin: 8px 0 6px 0;">
-                  <div style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">Vacant Windows for GD:</div>
-                  <div style="display: flex; flex-direction: column; gap: 4px;">
+              ${(consecutiveChipsHtml || chipsHtml) ? `
+                <div class="vacant-timings-section" style="margin-top: 4px;">
+                  <div class="slots-chips-title" style="margin-bottom: 5px;">Vacant Timings:</div>
+                  <div class="slots-chips-container room-free-list">
                     ${consecutiveChipsHtml}
+                    ${chipsHtml}
                   </div>
                 </div>
-              ` : ''}
-
-              ${chipsHtml ? `
-                <div class="slots-chips-title" style="margin-top: 6px;">${consecutiveChipsHtml ? 'Other Free Timings for GD:' : 'Free Timings for GD:'}</div>
-                <div class="slots-chips-container room-free-list">
-                  ${chipsHtml}
-                </div>
               ` : (effectiveFreeHours === 0 ? `
-                <div class="slots-chips-container room-free-list">
+                <div class="slots-chips-container room-free-list" style="margin-top: 4px;">
                   <div class="slot-chip slot-none">No free periods on this day</div>
                 </div>
               ` : '')}
@@ -2778,6 +2775,18 @@ ${directRoomUrl}`;
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;');
+    }
+
+    function formatBatchCode(b) {
+      if (!b) return '';
+      const str = String(b).trim();
+      const m = str.match(/^([A-Za-z])(?:P)?(\d+)$/);
+      if (m) {
+        const l = m[1].toUpperCase();
+        const n = m[2];
+        return `${l}${n} / ${l}P${n}`;
+      }
+      return str;
     }
 
     function formatClassDetails(raw) {
@@ -3021,7 +3030,7 @@ ${directRoomUrl}`;
               const cls = m.classInfo;
               const courseStr = cls.course ? `${cls.course}` : 'B.Com (Hons)';
               const semStr = cls.semester ? `(${cls.semester})` : '';
-              const secBatchStr = [cls.section, cls.batch ? `Batch ${cls.batch}` : ''].filter(Boolean).join(' · ');
+              const secBatchStr = [cls.section, cls.batch ? `Batch ${formatBatchCode(cls.batch)}` : ''].filter(Boolean).join(' · ');
 
               return `
                 <div class="room-sched-details-wrap" style="margin-bottom: 6px;">
@@ -3165,7 +3174,7 @@ ${directRoomUrl}`;
               const cls = m.classInfo;
               const courseStr = cls.course ? `${cls.course}` : 'B.Com (Hons)';
               const semStr = cls.semester ? `(${cls.semester})` : '';
-              const secBatchStr = [cls.section, cls.batch ? `Batch ${cls.batch}` : ''].filter(Boolean).join(' · ');
+              const secBatchStr = [cls.section, cls.batch ? `Batch ${formatBatchCode(cls.batch)}` : ''].filter(Boolean).join(' · ');
 
               return `
                 <div class="room-sched-details-wrap" style="margin-bottom: 6px;">
@@ -4038,7 +4047,7 @@ ${directRoomUrl}`;
             type: 'FREE_NOW',
             badgeClass: 'status-free',
             dotClass: 'dot-free',
-            text: `☕ Currently Free / Doubt Hour (No class this period)`,
+            text: `☕ Available (No class scheduled in this slot)`,
             isTeachingNow: false,
             isOnLeave: false,
             isFreeNow: true,
@@ -4157,6 +4166,7 @@ ${directRoomUrl}`;
       if (!rawQuery) return true;
       const q = rawQuery.trim().toLowerCase();
       if (!q) return true;
+      const qNorm = q.replace(/[\s\-_]+/g, '');
 
       const name = (teacher.clean_name || '').toLowerCase();
       const label = (teacher.label || '').toLowerCase();
@@ -4166,6 +4176,7 @@ ${directRoomUrl}`;
 
       // Direct case-insensitive match on name, label, short code, ref code, department
       if (name.includes(q) || label.includes(q) || code.includes(q) || refCode.includes(q) || dept.includes(q)) return true;
+      if (name.replace(/[\s\-_]+/g, '').includes(qNorm) || label.replace(/[\s\-_]+/g, '').includes(qNorm)) return true;
 
       // Phonetic / spelling variant matching (e.g. "sefali" matches "Dr. Shefali Kapoor")
       const normQ = normalizeFacultySearchText(q);
@@ -4175,23 +4186,35 @@ ${directRoomUrl}`;
         if (normName.includes(normQ) || normLabel.includes(normQ)) return true;
       }
 
-      // Check subjects array (e.g. FMI, CLAW, BLAW, IF, etc.)
+      // Check subjects array (e.g. FMI, CLAW, BLAW, IF, BRM, etc.) and full names
       if (Array.isArray(teacher.subjects)) {
         for (const sub of teacher.subjects) {
-          if (sub.toLowerCase().includes(q)) return true;
+          const subLower = sub.toLowerCase();
+          if (subLower.includes(q) || subLower.replace(/[\s\-_]+/g, '').includes(qNorm)) return true;
+          const mapped = (SRCC_SUBJECT_MAP[sub] || SRCC_SUBJECT_MAP[sub.toUpperCase()] || '').toLowerCase();
+          if (mapped && (mapped.includes(q) || mapped.replace(/[\s\-_]+/g, '').includes(qNorm))) return true;
         }
       }
 
-      // Check inside schedule for room or subject match
-      const sched = teacher.schedule ? teacher.schedule[facultyState.activeDay] : [];
-      if (Array.isArray(sched)) {
-        for (const cls of sched) {
-          if ((cls.room || '').toLowerCase().includes(q)) return true;
-          if ((cls.subject || '').toLowerCase().includes(q)) return true;
-          if ((cls.course || '').toLowerCase().includes(q)) return true;
-          if ((cls.section || '').toLowerCase().includes(q)) return true;
-          if ((cls.batch || '').toLowerCase().includes(q)) return true;
-          if ((cls.raw || '').toLowerCase().includes(q)) return true;
+      // Check inside schedule for room or subject match across ALL days
+      if (teacher.schedule) {
+        for (const dayKey of Object.keys(teacher.schedule)) {
+          const sched = teacher.schedule[dayKey];
+          if (Array.isArray(sched)) {
+            for (const cls of sched) {
+              const clsSubj = (cls.subject || '').toLowerCase();
+              const clsSubjName = (cls.subject_name || '').toLowerCase();
+              const clsRoom = (cls.room || '').toLowerCase();
+              const clsCourse = (cls.course || '').toLowerCase();
+              const clsSec = (cls.section || '').toLowerCase();
+              const clsBatch = (cls.batch || '').toLowerCase();
+              const clsRaw = (cls.raw || '').toLowerCase();
+              const mapped = (SRCC_SUBJECT_MAP[cls.subject] || SRCC_SUBJECT_MAP[(cls.subject || '').toUpperCase()] || '').toLowerCase();
+
+              const clsBlob = `${clsSubj} ${clsSubjName} ${mapped} ${clsRoom} ${clsCourse} ${clsSec} ${clsBatch} ${clsRaw}`.toLowerCase();
+              if (clsBlob.includes(q) || clsBlob.replace(/[\s\-_]+/g, '').includes(qNorm)) return true;
+            }
+          }
         }
       }
       return false;
@@ -4651,7 +4674,7 @@ ${directRoomUrl}`;
       'RM': 'Research Methodology',
       'GBS': 'Global Business Strategy',
       'OEM': 'Open Elective Management',
-      'AdTrix': 'Advertising & Media Management',
+      'AdTrix': 'Advanced Econometrics',
       'IIPT': 'Indian Political Thought',
       'NL': 'Nationalism in India',
       'NII': 'Nationalism & Indian Identity',
@@ -4675,13 +4698,13 @@ ${directRoomUrl}`;
       'DA': 'Data Analysis',
       'DM': 'Digital Marketing',
       'DMS': 'Database Management Systems',
-      'CAS': 'Cost Accounting System',
+      'CAS': 'Computerized Accounting System',
       'CFD': 'Corporate Financial Decisions',
       'CFCR': 'Corporate Finance & Restructuring',
-      'CIEL': 'Corporate Insolvency & Environmental Law',
-      'CPL': 'Corporate Planning & Law',
-      'CVFD': 'Corporate Valuation & Financial Decisions',
-      'DnD': 'Negotiation & Deal Making',
+      'CIEL': 'Communication in Everyday Life',
+      'CPL': 'Communication in Professional Life',
+      'CVFD': 'Constitutional Values and Fundamental Duties',
+      'DnD': 'Digitalization and Development',
       'EI': 'Economics of Industry',
       'EP': 'Economic Policy',
       'FC': 'Finance for Everyone',
@@ -4697,7 +4720,7 @@ ${directRoomUrl}`;
       'ITL': 'Income Tax Law',
       'ITPD': 'IT for Professional Development',
       'ME': 'Managerial Economics',
-      'MFB': 'Management of Financial Banks',
+      'MFB': 'Marketing for Beginners',
       'MFD': 'Macro Financial Dynamics',
       'NM': 'Numerical Methods',
       'OB': 'Organizational Behavior',
@@ -4710,26 +4733,26 @@ ${directRoomUrl}`;
       'PAB': 'Public Administration & Business',
       'PSEL': 'Professional Skills in English Language',
       'PSELL': 'Professional Skills in English Language',
-      'RIFE': 'Risk & Insurance in Financial Engineering',
+      'RIFE': 'Reading Indian Fiction in English',
       'SET': 'Statistical Economics & Techniques',
       'SHRM': 'Strategic Human Resource Management',
       'SM': 'Strategic Management',
       'SMM': 'Social Media Marketing',
       'SRG': 'Social Responsibility & Governance',
-      'SWR': 'Social Work & Relations',
+      'SWR': 'Statistics with R',
       'TA': 'Taxation & Accounting',
-      'TGNLC': 'The Good, Nature & Local Community',
+      'TGNLC': 'The Gita for Navigating Life Challenges',
       'TPF': 'Theory of Public Finance',
-      'TR': 'Tax Research',
+      'TR': 'Tools for Research',
       'VAC SEL': 'Value Addition Course Elective',
       'VM I': 'Vedic Mathematics I',
       'VM II': 'Vedic Mathematics II',
       'VM III': 'Vedic Mathematics III',
       'WM': 'Wealth Management',
-      'BF': 'Banking & Finance',
-      'BFIM': 'Banking & Financial Institutions Management',
+      'BF': 'Behavioral Finance',
+      'BFIM': 'Banking, Financial Institutions & Markets',
       'BM': 'Business Management',
-      'BRM': 'Business Research Methods',
+      'BRM': 'Brand Management',
       'BSC': 'Business Communication',
       'CW': 'Creative Writing',
       'DTHRS': 'Design Thinking & HR Systems',
@@ -4740,17 +4763,35 @@ ${directRoomUrl}`;
       'HD': 'Hindi Gadhy: Udbhav aur Vikas (Hindi D)',
       'HE': 'Hindi Sahitya (Hindi E)',
       'H B': 'Hindi B',
-      'ABH': 'Anuvad: Vyavahar aur Siddhant',
-      'ACPA': 'Accounting & Auditing',
-      'ACR': 'Academic & Creative Research',
-      'AFE': 'Accounting for Financial Entities'
+      'ABH': 'The Art of Being Happy',
+      'ACPA': 'Advanced Cost and Performance Analysis',
+      'ACR': 'Accounting for Corporate Restructuring',
+      'AFE': 'Accounting for Everyone',
+      'AIS': 'Accounting Information Systems',
+      'English': 'English'
     };
 
-    function getSubjectDetails(code, givenFullName) {
+    function getSubjectDetails(code, givenFullName, isVac) {
       const cleanCode = (code || '').trim();
       let fullName = (givenFullName || '').trim();
-      if (!fullName || fullName.toLowerCase() === cleanCode.toLowerCase()) {
-        fullName = SRCC_SUBJECT_MAP[cleanCode] || SRCC_SUBJECT_MAP[cleanCode.toUpperCase()] || cleanCode;
+      if (isVac) {
+        if (cleanCode === 'DE') fullName = 'Digital Empowerment';
+        else if (cleanCode === 'EC') fullName = 'Ethics and Culture';
+        else if (cleanCode === 'EI') fullName = 'Emotional Intelligence';
+        else if (cleanCode === 'FC') fullName = 'Financial Literacy';
+      }
+      if (!fullName || fullName.toLowerCase() === cleanCode.toLowerCase() ||
+          fullName === 'Business Research Management' || fullName === 'Corporate Valuation & Financial Decisions' ||
+          fullName === 'Corporate Insolvency & Environmental Law' || fullName === 'Corporate Planning & Law' ||
+          fullName === 'Advertising & Media Management' || fullName === 'Cost Accounting System' ||
+          fullName === 'Negotiation & Deal Making' || fullName === 'Management of Financial Banks' ||
+          fullName === 'Risk & Insurance in Financial Engineering' || fullName === 'Social Work & Relations' ||
+          fullName === 'The Good, Nature & Local Community' || fullName === 'Tax Research' ||
+          fullName === 'Banking & Finance' || fullName === 'Banking & Financial Institutions Management' ||
+          fullName === 'Anuvad: Vyavahar aur Siddhant' || fullName === 'Accounting & Auditing' ||
+          fullName === 'Academic & Creative Research' || fullName === 'Accounting for Financial Entities' ||
+          fullName === 'English Literature') {
+        fullName = SRCC_SUBJECT_MAP[cleanCode] || SRCC_SUBJECT_MAP[cleanCode.toUpperCase()] || fullName || cleanCode;
       }
       return {
         code: cleanCode,
@@ -5011,21 +5052,52 @@ ${directRoomUrl}`;
       // Merge consecutive classes for cleaner display (e.g. 2:00 PM to 6:00 PM practical blocks)
       const mergedDaySched = [];
       const periodOrder = {
-        '8:30 AM to 9:30 AM': 1, '9:30 AM to 10:30 AM': 2, '10:30 AM to 11:30 AM': 3,
-        '11:30 AM to 12:30 PM': 4, '1:00 PM to 2:00 PM': 5, '2:00 PM to 3:00 PM': 6,
-        '3:00 PM to 4:00 PM': 7, '4:00 PM to 5:00 PM': 8, '5:00 PM to 6:00 PM': 9
+        '8:30 AM to 9:30 AM': 1, '8:30 AM – 9:30 AM': 1, '8:30 AM - 9:30 AM': 1,
+        '9:30 AM to 10:30 AM': 2, '9:30 AM – 10:30 AM': 2, '9:30 AM - 10:30 AM': 2,
+        '10:30 AM to 11:30 AM': 3, '10:30 AM – 11:30 AM': 3, '10:30 AM - 11:30 AM': 3,
+        '11:30 AM to 12:30 PM': 4, '11:30 AM – 12:30 PM': 4, '11:30 AM - 12:30 PM': 4,
+        '12:30 PM to 1:30 PM': 5, '12:30 PM – 1:30 PM': 5, '12:30 PM - 1:30 PM': 5, '1:00 PM to 2:00 PM': 5,
+        '2:00 PM to 3:00 PM': 6, '2:00 PM – 3:00 PM': 6, '2:00 PM - 3:00 PM': 6,
+        '3:00 PM to 4:00 PM': 7, '3:00 PM – 4:00 PM': 7, '3:00 PM - 4:00 PM': 7,
+        '4:00 PM to 5:00 PM': 8, '4:00 PM – 5:00 PM': 8, '4:00 PM - 5:00 PM': 8,
+        '5:00 PM to 6:00 PM': 9, '5:00 PM – 6:00 PM': 9, '5:00 PM - 6:00 PM': 9
       };
       const slotTimes = {
         1: { start: '8:30 AM', end: '9:30 AM' }, 2: { start: '9:30 AM', end: '10:30 AM' },
         3: { start: '10:30 AM', end: '11:30 AM' }, 4: { start: '11:30 AM', end: '12:30 PM' },
-        5: { start: '1:00 PM', end: '2:00 PM' }, 6: { start: '2:00 PM', end: '3:00 PM' },
+        5: { start: '12:30 PM', end: '1:30 PM' }, 6: { start: '2:00 PM', end: '3:00 PM' },
         7: { start: '3:00 PM', end: '4:00 PM' }, 8: { start: '4:00 PM', end: '5:00 PM' },
         9: { start: '5:00 PM', end: '6:00 PM' }
       };
 
-      const sortedSched = [...daySched].sort((a, b) => (periodOrder[a.slot] || 0) - (periodOrder[b.slot] || 0));
+      function getSlotPeriodNum(slot) {
+        if (!slot) return 99;
+        const s = slot.trim();
+        if (periodOrder[s]) return periodOrder[s];
+        const norm = s.replace(/\s+/g, ' ');
+        if (periodOrder[norm]) return periodOrder[norm];
+        const m = norm.match(/(\d{1,2}):(\d{2})\s*(AM|PM)?/i);
+        if (m) {
+          let hr = parseInt(m[1], 10);
+          const ampm = (m[3] || '').toUpperCase();
+          if (ampm === 'PM' && hr < 12) hr += 12;
+          if (ampm === 'AM' && hr === 12) hr = 0;
+          if (hr === 8) return 1;
+          if (hr === 9) return 2;
+          if (hr === 10) return 3;
+          if (hr === 11) return 4;
+          if (hr === 12 || hr === 13) return 5;
+          if (hr === 14) return 6;
+          if (hr === 15) return 7;
+          if (hr === 16) return 8;
+          if (hr === 17) return 9;
+        }
+        return 99;
+      }
+
+      const sortedSched = [...daySched].sort((a, b) => getSlotPeriodNum(a.slot) - getSlotPeriodNum(b.slot));
       sortedSched.forEach(cls => {
-        const pNum = periodOrder[cls.slot] || 0;
+        const pNum = getSlotPeriodNum(cls.slot);
         if (mergedDaySched.length > 0) {
           const last = mergedDaySched[mergedDaySched.length - 1];
           const isSameClass = last.subject === cls.subject &&
@@ -5033,7 +5105,8 @@ ${directRoomUrl}`;
                               last.room === cls.room &&
                               last.course === cls.course &&
                               last.section === cls.section;
-          if (isSameClass && pNum > 0 && last.endPeriodNum + 1 === pNum) {
+          const isSecVac = Boolean(/SEC/i.test(cls.raw || '') || /VAC/i.test(cls.raw || '') || cls.isSec || cls.isVac);
+          if (isSecVac && isSameClass && pNum > 0 && last.endPeriodNum + 1 === pNum) {
             last.endPeriodNum = pNum;
             last.periodsCount = (last.periodsCount || 1) + 1;
             last.endSlot = cls.slot;
@@ -5053,7 +5126,7 @@ ${directRoomUrl}`;
       // 1. Desktop Table Rows (> 640px)
       const tableRows = mergedDaySched.map((cls, idx) => {
         const roomCode = cls.room ? cls.room.trim() : 'TBD';
-        const subjInfo = getSubjectDetails(cls.subject, cls.subject_name);
+        const subjInfo = getSubjectDetails(cls.subject, cls.subject_name, /VAC/i.test(cls.raw || ''));
         const subjCode = subjInfo.code;
         const subjFullName = subjInfo.fullName;
         const courseName = cls.course || 'B.Com (Hons)';
@@ -5083,7 +5156,7 @@ ${directRoomUrl}`;
                 ${subjCode ? `<span class="subject-pill" title="${escapeHtml(subjFullName)}" style="font-size: 0.72rem; padding: 1.5px 6px; font-weight: 700; flex-shrink: 0;">${escapeHtml(subjCode)}</span>` : ''}
                 ${sem ? `<span class="class-batch-badge" style="color: #0284c7; background: rgba(2, 132, 199, 0.08); border-color: rgba(2, 132, 199, 0.25); font-size: 0.72rem; padding: 1.5px 6px; flex-shrink: 0;">${escapeHtml(sem)}</span>` : ''}
                 ${sec ? `<span class="class-batch-badge" style="font-size: 0.72rem; padding: 1.5px 6px; flex-shrink: 0;">${escapeHtml(sec)}</span>` : ''}
-                ${batch ? `<span class="class-batch-badge" style="color: var(--srcc-gold); border-color: rgba(252, 235, 10, 0.3); font-size: 0.72rem; padding: 1.5px 6px; flex-shrink: 0;">Batch ${escapeHtml(batch)}${rawBatch && rawBatch !== batch ? ` (${escapeHtml(rawBatch)})` : ''}</span>` : ''}
+                ${(batch || rawBatch) ? `<span class="class-batch-badge" style="color: var(--srcc-gold); border-color: rgba(252, 235, 10, 0.3); font-size: 0.72rem; padding: 1.5px 6px; flex-shrink: 0;">Batch ${escapeHtml(formatBatchCode(batch || rawBatch))}</span>` : ''}
               </div>
             </td>
             <td>
@@ -5100,7 +5173,7 @@ ${directRoomUrl}`;
       // 2. Mobile Schedule Cards (<= 640px)
       const mobileCards = mergedDaySched.map((cls, idx) => {
         const roomCode = cls.room ? cls.room.trim() : 'TBD';
-        const subjInfo = getSubjectDetails(cls.subject, cls.subject_name);
+        const subjInfo = getSubjectDetails(cls.subject, cls.subject_name, /VAC/i.test(cls.raw || ''));
         const subjCode = subjInfo.code;
         const subjFullName = subjInfo.fullName;
         const courseName = cls.course || 'B.Com (Hons)';
@@ -5134,7 +5207,7 @@ ${directRoomUrl}`;
                 ${subjCode ? `<span class="subject-pill" style="font-size: 0.72rem; padding: 1.5px 6px; font-weight: 700; flex-shrink: 0;" title="${escapeHtml(subjFullName)}">${escapeHtml(subjCode)}</span>` : ''}
                 ${sem ? `<span class="class-sem-badge" style="font-size: 0.72rem; padding: 1.5px 6px; flex-shrink: 0;">${escapeHtml(sem)}</span>` : ''}
                 ${sec ? `<span class="sec-chip" style="font-size: 0.72rem; padding: 1.5px 6px; flex-shrink: 0;">Sec: <strong>${escapeHtml(sec)}</strong></span>` : ''}
-                ${batch ? `<span class="batch-chip" style="font-size: 0.72rem; padding: 1.5px 6px; flex-shrink: 0;">Batch ${escapeHtml(batch)}</span>` : ''}
+                ${(batch || rawBatch) ? `<span class="batch-chip" style="font-size: 0.72rem; padding: 1.5px 6px; flex-shrink: 0;">Batch ${escapeHtml(formatBatchCode(batch || rawBatch))}</span>` : ''}
               </div>
             </div>
             <div class="m-tt-meta-row" style="display: flex; justify-content: flex-end; align-items: center;">
@@ -5696,7 +5769,7 @@ window.SRCC_FACULTY_LEAVES = {
                   secBatchesBySem[sem].add(batch);
                   if (!secBatchMeta[sem]) secBatchMeta[sem] = {};
                   if (!secBatchMeta[sem][batch]) {
-                    const details = getSubjectDetails(s.subject, s.subject_name);
+                    const details = getSubjectDetails(s.subject, s.subject_name, false);
                     secBatchMeta[sem][batch] = { code: details.code || s.subject || '', name: details.fullName || s.subject_name || '' };
                   }
                 }
@@ -5705,7 +5778,7 @@ window.SRCC_FACULTY_LEAVES = {
                   vacBatchesBySem[sem].add(batch);
                   if (!vacBatchMeta[sem]) vacBatchMeta[sem] = {};
                   if (!vacBatchMeta[sem][batch]) {
-                    const details = getSubjectDetails(s.subject, s.subject_name);
+                    const details = getSubjectDetails(s.subject, s.subject_name, true);
                     vacBatchMeta[sem][batch] = { code: details.code || s.subject || '', name: details.fullName || s.subject_name || '' };
                   }
                 }
@@ -5747,10 +5820,10 @@ window.SRCC_FACULTY_LEAVES = {
 
       buildHierarchy();
 
-      const validCourses = ['B.A. (Hons) Economics', 'B.Com (Hons)', 'M.Com', 'GBO', 'SEC', 'VAC'];
+      const validCourses = ['B.A. (Hons) Economics', 'B.Com (Hons)', 'SEC', 'VAC'];
       let savedCourse = localStorage.getItem('srcc_my_tt_course');
-      if (savedCourse === 'SEC_VAC' || savedCourse === 'SEC / VAC') {
-        savedCourse = 'SEC';
+      if (savedCourse === 'SEC_VAC' || savedCourse === 'SEC / VAC' || savedCourse === 'M.Com' || savedCourse === 'GBO') {
+        savedCourse = 'B.Com (Hons)';
       }
       let savedSem = localStorage.getItem('srcc_my_tt_sem');
       let savedSec = localStorage.getItem('srcc_my_tt_sec');
@@ -5837,22 +5910,14 @@ window.SRCC_FACULTY_LEAVES = {
             ttMainSearchInput.placeholder = 'Search SEC paper (e.g. SEC12, 12, ITSA), faculty, or room...';
           } else if (isVac) {
             ttMainSearchInput.placeholder = 'Search VAC paper (e.g. VAC5, 5, EC), faculty, or room...';
-          } else if (ttState.course === 'M.Com') {
-            ttMainSearchInput.placeholder = 'Search M.Com paper (e.g. BRM, BADS), professor, batch, or room...';
-          } else if (ttState.course === 'GBO') {
-            ttMainSearchInput.placeholder = 'Search GBO paper, professor, batch, or room...';
           } else {
             ttMainSearchInput.placeholder = 'Search subject (e.g. MME), teacher, batch, or room...';
           }
         }
 
-        // Semesters adjustments for SEC / VAC or M.Com or GBO
+        // Semesters adjustments for SEC / VAC
         if (isSecVacCourse) {
           if (ttState.sem === 'Sem VII') {
-            ttState.sem = 'Sem I';
-          }
-        } else if (ttState.course === 'M.Com' || ttState.course === 'GBO') {
-          if (ttState.sem === 'Sem V' || ttState.sem === 'Sem VII') {
             ttState.sem = 'Sem I';
           }
         }
@@ -5964,8 +6029,6 @@ window.SRCC_FACULTY_LEAVES = {
           pill.classList.toggle('active', sem === ttState.sem);
           if (isSecVacCourse) {
             pill.style.display = (sem === 'Sem VII') ? 'none' : '';
-          } else if (ttState.course === 'M.Com' || ttState.course === 'GBO') {
-            pill.style.display = (sem === 'Sem V' || sem === 'Sem VII') ? 'none' : '';
           } else {
             pill.style.display = '';
           }
@@ -5977,15 +6040,59 @@ window.SRCC_FACULTY_LEAVES = {
 
       const academicPeriodsMap = {
         '8:30 AM to 9:30 AM': { num: 1, start: '8:30 AM', end: '9:30 AM' },
+        '8:30 AM – 9:30 AM': { num: 1, start: '8:30 AM', end: '9:30 AM' },
+        '8:30 AM - 9:30 AM': { num: 1, start: '8:30 AM', end: '9:30 AM' },
         '9:30 AM to 10:30 AM': { num: 2, start: '9:30 AM', end: '10:30 AM' },
+        '9:30 AM – 10:30 AM': { num: 2, start: '9:30 AM', end: '10:30 AM' },
+        '9:30 AM - 10:30 AM': { num: 2, start: '9:30 AM', end: '10:30 AM' },
         '10:30 AM to 11:30 AM': { num: 3, start: '10:30 AM', end: '11:30 AM' },
+        '10:30 AM – 11:30 AM': { num: 3, start: '10:30 AM', end: '11:30 AM' },
+        '10:30 AM - 11:30 AM': { num: 3, start: '10:30 AM', end: '11:30 AM' },
         '11:30 AM to 12:30 PM': { num: 4, start: '11:30 AM', end: '12:30 PM' },
-        '1:00 PM to 2:00 PM': { num: 5, start: '1:00 PM', end: '2:00 PM' },
+        '11:30 AM – 12:30 PM': { num: 4, start: '11:30 AM', end: '12:30 PM' },
+        '11:30 AM - 12:30 PM': { num: 4, start: '11:30 AM', end: '12:30 PM' },
+        '12:30 PM to 1:30 PM': { num: 5, start: '12:30 PM', end: '1:30 PM' },
+        '12:30 PM – 1:30 PM': { num: 5, start: '12:30 PM', end: '1:30 PM' },
+        '12:30 PM - 1:30 PM': { num: 5, start: '12:30 PM', end: '1:30 PM' },
+        '1:00 PM to 2:00 PM': { num: 5, start: '12:30 PM', end: '1:30 PM' },
         '2:00 PM to 3:00 PM': { num: 6, start: '2:00 PM', end: '3:00 PM' },
+        '2:00 PM – 3:00 PM': { num: 6, start: '2:00 PM', end: '3:00 PM' },
+        '2:00 PM - 3:00 PM': { num: 6, start: '2:00 PM', end: '3:00 PM' },
         '3:00 PM to 4:00 PM': { num: 7, start: '3:00 PM', end: '4:00 PM' },
+        '3:00 PM – 4:00 PM': { num: 7, start: '3:00 PM', end: '4:00 PM' },
+        '3:00 PM - 4:00 PM': { num: 7, start: '3:00 PM', end: '4:00 PM' },
         '4:00 PM to 5:00 PM': { num: 8, start: '4:00 PM', end: '5:00 PM' },
-        '5:00 PM to 6:00 PM': { num: 9, start: '5:00 PM', end: '6:00 PM' }
+        '4:00 PM – 5:00 PM': { num: 8, start: '4:00 PM', end: '5:00 PM' },
+        '4:00 PM - 5:00 PM': { num: 8, start: '4:00 PM', end: '5:00 PM' },
+        '5:00 PM to 6:00 PM': { num: 9, start: '5:00 PM', end: '6:00 PM' },
+        '5:00 PM – 6:00 PM': { num: 9, start: '5:00 PM', end: '6:00 PM' },
+        '5:00 PM - 6:00 PM': { num: 9, start: '5:00 PM', end: '6:00 PM' }
       };
+
+      function getPeriodInfo(slotStr) {
+        if (!slotStr) return null;
+        const trimmed = slotStr.trim();
+        if (academicPeriodsMap[trimmed]) return academicPeriodsMap[trimmed];
+        const norm = trimmed.replace(/\s+/g, ' ');
+        if (academicPeriodsMap[norm]) return academicPeriodsMap[norm];
+        const m = norm.match(/(\d{1,2}):(\d{2})\s*(AM|PM)?/i);
+        if (m) {
+          let hr = parseInt(m[1], 10);
+          const ampm = (m[3] || '').toUpperCase();
+          if (ampm === 'PM' && hr < 12) hr += 12;
+          if (ampm === 'AM' && hr === 12) hr = 0;
+          if (hr === 8) return academicPeriodsMap['8:30 AM to 9:30 AM'];
+          if (hr === 9) return academicPeriodsMap['9:30 AM to 10:30 AM'];
+          if (hr === 10) return academicPeriodsMap['10:30 AM to 11:30 AM'];
+          if (hr === 11) return academicPeriodsMap['11:30 AM to 12:30 PM'];
+          if (hr === 12 || hr === 13) return academicPeriodsMap['12:30 PM to 1:30 PM'];
+          if (hr === 14) return academicPeriodsMap['2:00 PM to 3:00 PM'];
+          if (hr === 15) return academicPeriodsMap['3:00 PM to 4:00 PM'];
+          if (hr === 16) return academicPeriodsMap['4:00 PM to 5:00 PM'];
+          if (hr === 17) return academicPeriodsMap['5:00 PM to 6:00 PM'];
+        }
+        return null;
+      }
 
       function mergeConsecutiveSessions(rawList) {
         if (!rawList || rawList.length === 0) return [];
@@ -6000,6 +6107,8 @@ window.SRCC_FACULTY_LEAVES = {
         const merged = [];
 
         Object.values(groups).forEach(items => {
+          const isSecVac = Boolean(items[0].isSec || items[0].isVac);
+
           const byPeriod = {};
           items.forEach(it => {
             if (!byPeriod[it.periodNum]) {
@@ -6010,6 +6119,15 @@ window.SRCC_FACULTY_LEAVES = {
           });
 
           const uniquePeriods = Object.keys(byPeriod).map(n => parseInt(n, 10)).sort((a, b) => a - b);
+
+          // Per user rule: In B.Com (Hons), B.A. (Hons) Economics, and normal classes, DO NOT merge consecutive classes into one tile!
+          // Only for SEC and VAC courses (practical multi-hour blocks 2-6 periods) should classes be merged.
+          if (!isSecVac) {
+            uniquePeriods.forEach(pNum => {
+              merged.push(createSessionBlock([pNum], byPeriod));
+            });
+            return;
+          }
 
           let currentBlock = [];
           uniquePeriods.forEach(pNum => {
@@ -6030,7 +6148,19 @@ window.SRCC_FACULTY_LEAVES = {
           }
         });
 
-        merged.sort((a, b) => a.startPeriod - b.startPeriod || a.subject.localeCompare(b.subject));
+        const getBatchSortNum = (s) => {
+          const b = String(s.batch || s.rawBatch || '').toUpperCase();
+          const m = b.match(/\d+/);
+          return m ? parseInt(m[0], 10) : 999;
+        };
+
+        merged.sort((a, b) => {
+          if (a.startPeriod !== b.startPeriod) return a.startPeriod - b.startPeriod;
+          const bA = getBatchSortNum(a);
+          const bB = getBatchSortNum(b);
+          if (bA !== bB) return bA - bB;
+          return (a.subject || '').localeCompare(b.subject || '');
+        });
         return merged;
       }
 
@@ -6040,8 +6170,10 @@ window.SRCC_FACULTY_LEAVES = {
         const base = periodMap[startP];
         const pCount = periodNums.length;
 
-        const startInfo = academicPeriodsMap[academicPeriods[startP - 1]?.slot] || { start: '8:30 AM' };
-        const endInfo = academicPeriodsMap[academicPeriods[endP - 1]?.slot] || { end: '9:30 AM' };
+        const startSlot = academicPeriods[startP - 1]?.slot;
+        const endSlot = academicPeriods[endP - 1]?.slot;
+        const startInfo = getPeriodInfo(startSlot) || { start: '8:30 AM' };
+        const endInfo = getPeriodInfo(endSlot) || { end: '9:30 AM' };
         const slotsCovered = periodNums.map(n => academicPeriods[n - 1]?.slot).filter(Boolean);
 
         return {
@@ -6138,10 +6270,10 @@ window.SRCC_FACULTY_LEAVES = {
                 }
               }
 
-              const slotInfo = academicPeriodsMap[s.slot];
+              const slotInfo = getPeriodInfo(s.slot);
               if (!slotInfo) return;
 
-              const subjInfo = getSubjectDetails(s.subject, s.subject_name);
+              const subjInfo = getSubjectDetails(s.subject, s.subject_name, isVac);
               const leaveRecord = (typeof isTeacherOnLeave === 'function' ? isTeacherOnLeave(t) : null) || activeLeaves.find(l => {
                 const nameMatch = l.teacher_name && (tName.toLowerCase().includes(l.teacher_name.toLowerCase()) || l.teacher_name.toLowerCase().includes(tName.toLowerCase()));
                 const dayMatch = l.day === targetDay || !l.day;
@@ -6177,7 +6309,7 @@ window.SRCC_FACULTY_LEAVES = {
               const cls = (occ.class || '').toUpperCase();
               if (cls.includes('GBO')) {
                 const slotStr = occ.slot || '';
-                const pInfo = academicPeriodsMap[slotStr];
+                const pInfo = getPeriodInfo(slotStr);
                 if (pInfo) {
                   const alreadyPresent = rawList.some(item => item.slot === slotStr && item.room === r.code);
                   if (!alreadyPresent) {
@@ -6216,23 +6348,26 @@ window.SRCC_FACULTY_LEAVES = {
         const qNorm = q.replace(/[\s\-_]+/g, '');
         const subjCode = (session.subject || '').toLowerCase();
         const subjName = (session.subjectName || '').toLowerCase();
+        const mappedSubj = (SRCC_SUBJECT_MAP[session.subject] || SRCC_SUBJECT_MAP[(session.subject || '').toUpperCase()] || '').toLowerCase();
         const type = (session.type || '').toLowerCase();
         const batch = (session.batch || '').toLowerCase();
         const rawBatch = (session.rawBatch || '').toLowerCase();
         const teacher = (session.teacher || '').toLowerCase();
         const room = (session.room || '').toLowerCase();
         const sem = (session.sem || '').toLowerCase();
+        const dayVal = (session.day || ttState.day || '').toLowerCase();
         const course = (session.course || '').toLowerCase();
-        const mcomKeywords = (course.includes('m.com') || (session.raw && session.raw.toUpperCase().includes('MCOM'))) ? 'mcom m.com commerce' : '';
-        const combined = `${subjCode} ${subjName} ${type} ${batch} ${rawBatch} ${teacher} ${room} ${sem} ${day} ${course} ${mcomKeywords} ${session.isSec ? 'sec skill enhancement' : ''} ${session.isVac ? 'vac value addition' : ''}`.toLowerCase();
+        const sec = (session.section || '').toLowerCase();
+        const secVacTerms = `${session.isSec ? 'sec skill enhancement' : ''} ${session.isVac ? 'vac value addition' : ''}`;
+        const combined = `${subjCode} ${subjName} ${mappedSubj} ${type} ${batch} ${rawBatch} ${teacher} ${room} ${sem} ${dayVal} ${course} ${sec} ${secVacTerms}`.toLowerCase();
         const combinedNorm = combined.replace(/[\s\-_]+/g, '');
 
         if (combined.includes(q) || combinedNorm.includes(qNorm)) return true;
 
         // If query is pure digits (e.g., "12"), check if batch number ends with or equals 12
         if (/^\d+$/.test(q)) {
-          const batchDigits = batch.replace(/\D+/g, '');
-          if (batchDigits === q) return true;
+          const batchDigits = (batch + ' ' + rawBatch).replace(/\D+/g, '');
+          if (batchDigits === q || (batch + ' ' + rawBatch).includes(q)) return true;
         }
 
         // Multi-word matching: all words in query must match
@@ -6241,20 +6376,27 @@ window.SRCC_FACULTY_LEAVES = {
           return true;
         }
 
+        // Teacher phonetic search
+        if (typeof normalizeFacultySearchText === 'function') {
+          const normQ = normalizeFacultySearchText(q);
+          if (normQ && normalizeFacultySearchText(session.teacher).includes(normQ)) return true;
+        }
+
         return false;
       }
 
       function renderSessionCard(session, isCrossDay = false) {
-        const displayBatch = session.rawBatch || session.batch;
+        const displayBatch = session.batch || session.rawBatch;
         let batchBadge = '';
         if (displayBatch) {
           const bTrimmed = String(displayBatch).trim();
           if (bTrimmed.includes(',') || bTrimmed.toLowerCase() === 'whole section') {
             batchBadge = ' · Whole Section';
-          } else if (/^(sec|vac|batch)/i.test(bTrimmed)) {
+          } else if (/^(sec|vac)/i.test(bTrimmed)) {
             batchBadge = ` · ${escapeHtml(bTrimmed)}`;
           } else {
-            batchBadge = ` · Batch ${escapeHtml(bTrimmed)}`;
+            const formatted = formatBatchCode(bTrimmed);
+            batchBadge = ` · Batch ${escapeHtml(formatted)}`;
           }
         }
 
@@ -6286,7 +6428,7 @@ window.SRCC_FACULTY_LEAVES = {
 
         const periodBadgeText = (session.periodsCount > 1)
           ? `🕒 Period ${session.startPeriod}–${session.endPeriod} · ${session.startTime} – ${session.endTime}`
-          : `🕒 Period ${session.startPeriod} · ${session.startTime}`;
+          : `🕒 Period ${session.startPeriod} · ${session.startTime} – ${session.endTime}`;
 
         const durationPill = (session.periodsCount > 1)
           ? `<span class="tt-block-duration-pill">${session.periodsCount} Periods (${session.periodsCount} Hrs)</span>`
@@ -6426,6 +6568,73 @@ window.SRCC_FACULTY_LEAVES = {
                 <button class="btn-jump-day-pill btn-switch-day-quick" data-day="${escapeHtml(matchedOtherDayName)}">Switch to ${escapeHtml(matchedOtherDayName)}</button>
               </div>
             ` + otherDayMatches.map(s => renderSessionCard(s, true)).join('');
+          } else if (teachersData && Array.isArray(teachersData.teachers)) {
+            // Global cross-course, cross-section & SEC/VAC search fallback
+            const globalRawMatches = [];
+            const activeLeaves = (leavesData && Array.isArray(leavesData.leaves)) ? leavesData.leaves : (window.SRCC_FACULTY_LEAVES?.leaves || []);
+
+            teachersData.teachers.forEach(t => {
+              const tName = t.clean_name || t.label || 'Faculty';
+              if (!t.schedule) return;
+
+              allDays.forEach(dayName => {
+                const daySched = t.schedule[dayName];
+                if (!Array.isArray(daySched)) return;
+
+                daySched.forEach(s => {
+                  const slotInfo = getPeriodInfo(s.slot);
+                  if (!slotInfo) return;
+
+                  const isSec = isSecSlot(s);
+                  const isVac = isVacSlot(s);
+                  const subjInfo = getSubjectDetails(s.subject, s.subject_name, isVac);
+                  const leaveRecord = (typeof isTeacherOnLeave === 'function' ? isTeacherOnLeave(t) : null) || activeLeaves.find(l => {
+                    const nameMatch = l.teacher_name && (tName.toLowerCase().includes(l.teacher_name.toLowerCase()) || l.teacher_name.toLowerCase().includes(tName.toLowerCase()));
+                    const dayMatch = l.day === dayName || !l.day;
+                    return nameMatch && dayMatch;
+                  });
+
+                  const candidateSession = {
+                    slot: s.slot,
+                    periodNum: slotInfo.num,
+                    subject: subjInfo.code,
+                    subjectName: subjInfo.fullName,
+                    type: s.type || 'Lecture',
+                    batch: s.batch || '',
+                    rawBatch: s.raw_batch || '',
+                    teacher: tName,
+                    teacherId: t.id,
+                    room: s.room || '',
+                    isOnLeave: Boolean(leaveRecord),
+                    isSec: isSec,
+                    isVac: isVac,
+                    sem: s.semester || '',
+                    course: s.course || '',
+                    section: s.section || '',
+                    day: dayName
+                  };
+
+                  if (matchesSessionSearch(candidateSession, filterQuery)) {
+                    globalRawMatches.push(candidateSession);
+                  }
+                });
+              });
+            });
+
+            if (globalRawMatches.length > 0) {
+              const mergedGlobal = mergeConsecutiveSessions(globalRawMatches);
+              matchCount = mergedGlobal.length;
+              cardsHtml = `
+                <div class="tt-search-other-days-banner" style="grid-column: 1 / -1;">
+                  <div class="tt-srb-left">
+                    <span style="font-size: 1.3rem;">🔍</span>
+                    <div class="tt-srb-text">
+                      Found <strong>${mergedGlobal.length}</strong> matching classes across SRCC Timetable for "<strong>${escapeHtml(filterQuery)}</strong>"
+                    </div>
+                  </div>
+                </div>
+              ` + mergedGlobal.map(s => renderSessionCard(s, true)).join('');
+            }
           }
         }
 
@@ -7867,7 +8076,14 @@ window.SRCC_FACULTY_LEAVES = {
         if (filtered.length === 0) {
           grid.innerHTML = `
             <div style="grid-column: 1 / -1; text-align: center; padding: 36px 16px; color: var(--text-secondary);">
-              <div style="font-size: 2.2rem; margin-bottom: 8px;">📶</div>
+              <div style="margin-bottom: 8px; display: flex; justify-content: center;">
+                <svg class="wifi-svg-icon" style="width: 42px; height: 42px; color: var(--text-secondary); opacity: 0.6;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                  <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+                  <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                  <circle cx="12" cy="20" r="1.3" fill="currentColor"></circle>
+                </svg>
+              </div>
               <h3 style="margin: 0 0 6px; font-size: 1.1rem; color: var(--text-primary);">No WiFi Networks Found</h3>
               <p style="margin: 0; font-size: 0.85rem;">Try clearing your search query or switching filters.</p>
             </div>
@@ -7884,7 +8100,7 @@ window.SRCC_FACULTY_LEAVES = {
           return `
             <div class="wifi-card" id="card-${escapeHtml(w.id || w.ssid)}">
               <div class="wifi-card-header">
-                <span class="wifi-ssid-title">📶 ${escapeHtml(w.ssid)}</span>
+                <span class="wifi-ssid-title"><svg class="wifi-svg-icon" style="width: 16px; height: 16px; vertical-align: -2px; margin-right: 4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><circle cx="12" cy="20" r="1.3" fill="currentColor"></circle></svg>${escapeHtml(w.ssid)}</span>
                 <span class="wifi-band-badge ${bandClass}">${escapeHtml(band)}</span>
               </div>
               <div class="wifi-location-text">
@@ -7896,16 +8112,27 @@ window.SRCC_FACULTY_LEAVES = {
               </div>
               ${w.notes ? `<div style="font-size: 0.75rem; color: var(--text-muted); line-height: 1.3;">ℹ️ ${escapeHtml(w.notes)}</div>` : ''}
               <div class="wifi-card-actions">
-                <button type="button" class="btn-copy-wifi-pwd" data-pwd="${escapeHtml(w.password)}">
-                  📋 Copy Password
+                <button type="button" class="btn-copy-wifi-pwd" data-pwd="${escapeHtml(w.password)}" title="Copy network password">
+                  📋 Copy
                 </button>
                 <button type="button" class="btn-qr-wifi" data-target="qr-${escapeHtml(w.id || w.ssid)}">
                   📷 Scan QR
+                </button>
+                <button type="button" class="btn-share-wifi" data-ssid="${escapeHtml(w.ssid)}" data-pwd="${escapeHtml(w.password)}" data-loc="${escapeHtml(w.location || w.wing || 'SRCC Campus')}" data-qr="${qrUrl}" title="Share WiFi credentials & QR code">
+                  📤 Share
                 </button>
               </div>
               <div class="wifi-qr-popup" id="qr-${escapeHtml(w.id || w.ssid)}" style="display: none;">
                 <img src="${qrUrl}" alt="WiFi QR for ${escapeHtml(w.ssid)}" loading="lazy" />
                 <p style="font-size: 0.75rem; color: #475569; margin: 6px 0 0; font-weight: 600;">Point phone camera or scanner to connect directly</p>
+                <div style="display: flex; gap: 8px; justify-content: center; margin-top: 8px; flex-wrap: wrap;">
+                  <button type="button" class="btn-share-qr-action" data-ssid="${escapeHtml(w.ssid)}" data-pwd="${escapeHtml(w.password)}" data-loc="${escapeHtml(w.location || w.wing || 'SRCC Campus')}" data-qr="${qrUrl}" style="background: #0891b2; color: #ffffff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.76rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 5px;">
+                    📤 Share QR
+                  </button>
+                  <a href="${qrUrl}" download="SRCC_WiFi_${escapeHtml(w.ssid)}_QR.png" target="_blank" rel="noopener" class="btn-download-qr-action" style="background: #e2e8f0; color: #1e293b; border: 1px solid #cbd5e1; padding: 6px 12px; border-radius: 6px; font-size: 0.76rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                    💾 Download QR
+                  </a>
+                </div>
               </div>
             </div>
           `;
@@ -7931,6 +8158,56 @@ window.SRCC_FACULTY_LEAVES = {
               qrEl.style.display = isOpen ? 'none' : 'block';
               btn.textContent = isOpen ? '📷 Scan QR' : '✕ Hide QR';
             }
+          });
+        });
+
+        // Wire WiFi QR Share actions
+        const handleShareWifi = async (btn) => {
+          const ssid = btn.dataset.ssid;
+          const pwd = btn.dataset.pwd;
+          const loc = btn.dataset.loc || 'SRCC Campus';
+          const qrUrl = btn.dataset.qr;
+          const shareMsg = `📶 *SRCC Campus WiFi Network: ${ssid}*\n🔑 Password: ${pwd}\n📍 Location: ${loc}\n\n📲 Auto-Connect with QR: ${qrUrl}\n🔗 Portal: https://anand-srcc.github.io/srcc-free-classrooms/`;
+
+          if (navigator.share) {
+            try {
+              let files = [];
+              try {
+                const resp = await fetch(qrUrl);
+                const blob = await resp.blob();
+                files = [new File([blob], `SRCC_${ssid}_WiFi_QR.png`, { type: blob.type })];
+              } catch (e) {}
+
+              if (files.length > 0 && navigator.canShare && navigator.canShare({ files })) {
+                await navigator.share({
+                  title: `SRCC WiFi - ${ssid}`,
+                  text: `Connect to SRCC WiFi (${ssid}) - Password: ${pwd}`,
+                  files: files
+                });
+                showToast(`✅ Shared WiFi QR for ${ssid}!`);
+                return;
+              } else {
+                await navigator.share({
+                  title: `SRCC WiFi - ${ssid}`,
+                  text: shareMsg
+                });
+                showToast(`✅ Shared WiFi details for ${ssid}!`);
+                return;
+              }
+            } catch (err) {
+              if (err.name === 'AbortError') return;
+            }
+          }
+
+          copyToClipboard(shareMsg).then(() => {
+            showToast(`📋 Copied WiFi details & QR link for <strong>${ssid}</strong>!`);
+          });
+        };
+
+        grid.querySelectorAll('.btn-share-wifi, .btn-share-qr-action').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            handleShareWifi(btn);
           });
         });
       };

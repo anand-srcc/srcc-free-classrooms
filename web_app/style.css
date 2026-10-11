@@ -7431,6 +7431,26 @@ body.dark-mode .tt-room-btn:hover,
   box-shadow: 0 4px 10px rgba(8, 145, 178, 0.25);
 }
 
+.wifi-svg-icon {
+  width: 17px;
+  height: 17px;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.btn-wifi-header .wifi-svg-icon {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+}
+
+.bnav-icon .wifi-svg-icon {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+}
+
 .wifi-modal-dialog {
   max-width: 680px;
   width: 95%;
@@ -7617,6 +7637,27 @@ body.dark-mode .tt-room-btn:hover,
   display: inline-flex;
   align-items: center;
   gap: 4px;
+}
+
+.btn-share-wifi {
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-heading);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s ease;
+}
+
+.btn-share-wifi:hover {
+  background: var(--bg-hover, #f1f5f9);
+  border-color: #0891b2;
+  color: #0891b2;
 }
 
 .wifi-qr-popup {

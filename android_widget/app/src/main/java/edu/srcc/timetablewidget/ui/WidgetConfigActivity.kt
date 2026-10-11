@@ -44,7 +44,7 @@ class WidgetConfigActivity : AppCompatActivity() {
         val btnSave = findViewById<Button>(R.id.btn_save_config)
 
         // Setup spinners
-        val courses = arrayOf("B.Com (Hons)", "B.A. (Hons) Economics", "M.Com", "GBO", "SEC", "VAC")
+        val courses = arrayOf("B.Com (Hons)", "B.A. (Hons) Economics", "SEC", "VAC")
         val sems = arrayOf("Sem I", "Sem III", "Sem V", "Sem VII")
         val secs = arrayOf("Sec A", "Sec B", "Sec C", "Sec D", "Sec E", "Sec F", "Sec G", "Sec H", "Sec I", "Sec J", "Sec K", "Sec L", "Sec M", "Sec N")
         val batches = arrayOf("ALL", "Batch 1", "Batch 2", "Batch 3", "Batch 4")

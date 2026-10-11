@@ -55,7 +55,7 @@ SUBJECT_MAP = {
     'RM': 'Research Methodology',
     'GBS': 'Global Business Strategy',
     'OEM': 'Open Elective Management',
-    'AdTrix': 'Advertising and Media Management',
+    'AdTrix': 'Advanced Econometrics',
     'IIPT': 'Indian Political Thought',
     'NL': 'Nationalism in India',
     'NII': 'Nationalism and Indian Identity',
@@ -80,13 +80,13 @@ SUBJECT_MAP = {
     'DA': 'Data Analysis',
     'DM': 'Digital Marketing',
     'DMS': 'Database Management Systems',
-    'CAS': 'Cost Accounting System',
+    'CAS': 'Computerized Accounting System',
     'CFD': 'Corporate Financial Decisions',
     'CFCR': 'Corporate Finance & Restructuring',
-    'CIEL': 'Corporate Insolvency & Environmental Law',
-    'CPL': 'Corporate Planning & Law',
-    'CVFD': 'Corporate Valuation & Financial Decisions',
-    'DnD': 'Negotiation and Deal Making',
+    'CIEL': 'Communication in Everyday Life',
+    'CPL': 'Communication in Professional Life',
+    'CVFD': 'Constitutional Values and Fundamental Duties',
+    'DnD': 'Digitalization and Development',
     'EI': 'Economics of Industry',
     'EP': 'Economic Policy',
     'FC': 'Finance for Everyone',
@@ -102,7 +102,7 @@ SUBJECT_MAP = {
     'ITL': 'Income Tax Law',
     'ITPD': 'IT for Professional Development',
     'ME': 'Managerial Economics',
-    'MFB': 'Management of Financial Banks',
+    'MFB': 'Marketing for Beginners',
     'MFD': 'Macro Financial Dynamics',
     'NM': 'Numerical Methods',
     'OB': 'Organizational Behavior',
@@ -115,26 +115,26 @@ SUBJECT_MAP = {
     'PAB': 'Public Administration and Business',
     'PSEL': 'Professional Skills in English Language',
     'PSELL': 'Professional Skills in English Language',
-    'RIFE': 'Risk & Insurance in Financial Engineering',
+    'RIFE': 'Reading Indian Fiction in English',
     'SET': 'Statistical Economics & Techniques',
     'SHRM': 'Strategic Human Resource Management',
     'SM': 'Strategic Management',
     'SMM': 'Social Media Marketing',
     'SRG': 'Social Responsibility & Governance',
-    'SWR': 'Social Work & Relations',
+    'SWR': 'Statistics with R',
     'TA': 'Taxation & Accounting',
-    'TGNLC': 'The Good, Nature & Local Community',
+    'TGNLC': 'The Gita for Navigating Life Challenges',
     'TPF': 'Theory of Public Finance',
-    'TR': 'Tax Research',
+    'TR': 'Tools for Research',
     'VAC SEL': 'Value Addition Course Elective',
     'VM I': 'Vedic Mathematics I',
     'VM II': 'Vedic Mathematics II',
     'VM III': 'Vedic Mathematics III',
     'WM': 'Wealth Management',
-    'BF': 'Banking and Finance',
-    'BFIM': 'Banking & Financial Institutions Management',
+    'BF': 'Behavioral Finance',
+    'BFIM': 'Banking, Financial Institutions & Markets',
     'BM': 'Business Management',
-    'BRM': 'Business Research Methods',
+    'BRM': 'Brand Management',
     'BSC': 'Business Communication',
     'CW': 'Creative Writing',
     'DTHRS': 'Design Thinking & HR Systems',
@@ -145,10 +145,12 @@ SUBJECT_MAP = {
     'HD': 'Hindi Gadhy: Udbhav aur Vikas (Hindi D)',
     'HE': 'Hindi Sahitya (Hindi E)',
     'H B': 'Hindi B',
-    'ABH': 'Anuvad: Vyavahar aur Siddhant',
-    'ACPA': 'Accounting & Auditing',
-    'ACR': 'Academic and Creative Research',
-    'AFE': 'Accounting for Financial Entities'
+    'ABH': 'The Art of Being Happy',
+    'ACPA': 'Advanced Cost and Performance Analysis',
+    'ACR': 'Accounting for Corporate Restructuring',
+    'AFE': 'Accounting for Everyone',
+    'AIS': 'Accounting Information Systems',
+    'English': 'English'
 }
 
 def parse_single_class(raw_part, slot):
@@ -167,7 +169,7 @@ def parse_single_class(raw_part, slot):
     course = ''
     if 'BCH' in clean:
         course = 'B.Com (Hons)'
-    elif 'BAH' in clean or 'ECO' in clean:
+    elif 'BAHE' in clean or 'BAH' in clean or 'ECO' in clean:
         course = 'B.A. (Hons) Economics'
     elif 'MCOM' in clean or 'M.COM' in clean:
         course = 'M.Com'
@@ -212,14 +214,18 @@ def parse_single_class(raw_part, slot):
 
     # 7. Subject
     subj = ''
-    if 'EVS-I' in clean or 'EVS-1' in clean:
-        subj = 'EVS-I'
-    elif 'EVS-II' in clean or 'EVS-2' in clean:
+    if 'EVS-II' in clean or 'EVS-2' in clean:
         subj = 'EVS-II'
+    elif 'EVS-I' in clean or 'EVS-1' in clean:
+        subj = 'EVS-I'
     elif '-EVS-' in clean:
         subj = 'EVS'
     elif '-PME-I-' in clean or clean.endswith('-PME-I'):
         subj = 'PME-I'
+    elif re.search(rf'SEM\s*[IVX]+English-(?:{ROOM_REGEX}|$)', clean, re.I):
+        subj = 'English'
+    elif re.search(rf'SEM\s*[IVX]+Hindi-(?:{ROOM_REGEX}|$)', clean, re.I):
+        subj = 'Hindi'
     else:
         m = re.search(rf'SEM\s*[IVX]+[A-Za-z\.\s]*-([A-Za-z0-9\.\(\)\/\s\+&]{{2,15}})-(?:{ROOM_REGEX}|SEC\d+|VAC\d+|-)', clean, re.I)
         if m:
@@ -234,7 +240,7 @@ def parse_single_class(raw_part, slot):
                     subj = m3.group(1).strip()
 
     # Filter out false subject extractions
-    if subj in ('Commerce', 'Economics', 'Mathematics', 'English', 'Hindi', 'Phy.Ed', 'SEM', 'JOINT', 'Library FF', 'FF'):
+    if subj in ('Commerce', 'Economics', 'Mathematics', 'Phy.Ed', 'SEM', 'JOINT', 'Library FF', 'FF'):
         subj = ''
     if re.match(r'^(NP|VAC|SEC|[A-Z])\d+$', subj, re.I):
         subj = ''
@@ -245,6 +251,15 @@ def parse_single_class(raw_part, slot):
 
     # Full subject name
     subject_name = SUBJECT_MAP.get(subj, subj)
+    if 'VAC' in clean.upper():
+        if subj == 'DE':
+            subject_name = 'Digital Empowerment'
+        elif subj == 'EC':
+            subject_name = 'Ethics and Culture'
+        elif subj == 'EI':
+            subject_name = 'Emotional Intelligence'
+        elif subj == 'FC':
+            subject_name = 'Financial Literacy'
 
     # Formatted display string
     parts = []
@@ -259,7 +274,11 @@ def parse_single_class(raw_part, slot):
     if section:
         parts.append(section)
     if batch:
-        if raw_batch and raw_batch != batch:
+        p_m = re.match(r'^([A-Z])(\d+)$', batch)
+        if p_m:
+            sec_l, b_num = p_m.group(1), p_m.group(2)
+            parts.append(f"({sec_l}{b_num} / {sec_l}P{b_num})")
+        elif raw_batch and raw_batch != batch:
             parts.append(f"({batch} / {raw_batch})")
         else:
             parts.append(f"({batch})")
@@ -464,10 +483,23 @@ def enrich():
                 if base.get('section'):
                     parts.append(base['section'])
 
-                if raw_batches:
-                    parts.append(f"({', '.join(raw_batches)})")
-                elif batches:
-                    parts.append(f"({', '.join(batches)})")
+                # Consistently sort and format batches
+                source_batches = batches if batches else raw_batches
+                if source_batches:
+                    def get_batch_num(val):
+                        m = re.search(r'\d+', val)
+                        return int(m.group(0)) if m else 999
+
+                    sorted_b = sorted(list(dict.fromkeys(source_batches)), key=get_batch_num)
+                    formatted_b_items = []
+                    for b_val in sorted_b:
+                        p_m = re.match(r'^([A-Za-z])(?:P)?(\d+)$', b_val)
+                        if p_m:
+                            sec_l, b_num = p_m.group(1).upper(), p_m.group(2)
+                            formatted_b_items.append(f"{sec_l}{b_num} / {sec_l}P{b_num}")
+                        else:
+                            formatted_b_items.append(b_val)
+                    parts.append(f"({', '.join(formatted_b_items)})")
 
                 base['formatted_display'] = ' · '.join(parts)
                 result.append(base)
@@ -486,7 +518,7 @@ def enrich():
                 raw = c.get('raw', '')
                 slot = c.get('slot', '')
 
-                parts = re.split(r'(?=(?:LAB|L|T)-(?:BCH|BAH|MCOM|M\.COM|MA-ECO|JOINT)-)', raw)
+                parts = re.split(r'(?=(?:LAB|L|T)-(?:BCH|BAHE|BAH|MCOM|M\.COM|MA-ECO|JOINT)-)', raw)
                 parts = [p.strip() for p in parts if p.strip()]
                 if not parts:
                     parts = [raw]
