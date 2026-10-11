@@ -6429,10 +6429,6 @@ window.SRCC_FACULTY_LEAVES = {
           ? `🕒 Period ${session.startPeriod}–${session.endPeriod} · ${session.startTime} – ${session.endTime}`
           : `🕒 Period ${session.startPeriod} · ${session.startTime} – ${session.endTime}`;
 
-        const durationPill = (session.periodsCount > 1)
-          ? `<span class="tt-block-duration-pill">${session.periodsCount} Periods (${session.periodsCount} Hrs)</span>`
-          : '';
-
         const dayTagHtml = isCrossDay ? `<span class="tt-day-tag">📅 ${escapeHtml(session.day)}</span>` : '';
 
         return `
@@ -6441,7 +6437,6 @@ window.SRCC_FACULTY_LEAVES = {
               <span class="tt-period-badge">${dayTagHtml}${periodBadgeText}</span>
               <div class="tt-card-badges">
                 ${secVacBadge}
-                ${durationPill}
                 <span class="tt-type-pill">${escapeHtml(session.type)}${batchBadge}</span>
               </div>
             </div>
