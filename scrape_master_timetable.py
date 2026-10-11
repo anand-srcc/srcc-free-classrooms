@@ -155,34 +155,35 @@ SUBJECT_MAP = {
     'DM': 'Digital Marketing',
     'PFP': 'Personal Financial Planning',
     'BIT': 'Basic IT Tools',
-    'ITSA I': 'Introduction to Statistics and Analysis I',
-    'ITSA II': 'Introduction to Statistics and Analysis II',
-    'AS': 'Applied Statistics',
+    'ITSA I': 'IT Skills and Data Analysis I',
+    'ITSA II': 'IT Skills and Data Analysis II',
+    'AS': 'Advanced Spreadsheet',
     'SWR': 'Statistics with R',
     'PUP': 'Programming Using Python',
     'CIEL': 'Communication in Everyday Life',
     'CPL': 'Communication in Professional Life',
     'CW': 'Creative Writing',
-    'SET': 'Statistical Software Package',
-    'SRG': 'Social Responsibility & Governance',
-    'EP': 'Enterprise Planning',
-    'NL': 'Negotiating and Leadership',
+    'SET': 'Sustainable Eco Tourism and Entrepreneurship',
+    'SRG': 'Sustainability Reporting',
+    'EP': 'Essentials of Python',
+    'NL': 'Negotiation and Leadership',
     'SMM': 'Social Media Marketing',
-    'PSEL': 'Professional Skills in English Language',
-    'PSELL': 'Professional Skills in English Language',
+    'PSEL': 'Public Speaking in English Language and Leadership',
+    'PSELL': 'Public Speaking in English Language and Leadership',
 
     # Value Addition Courses (VAC)
     'EI': 'Emotional Intelligence',
     'ABH': 'The Art of Being Happy',
     'DE': 'Digital Empowerment',
     'CVFD': 'Constitutional Values and Fundamental Duties',
-    'VM I': 'Vedic Mathematics I',
-    'VM II': 'Vedic Mathematics II',
-    'VM III': 'Vedic Mathematics III',
+    'VM I': 'Vedic Mathematics-I',
+    'VM II': 'Vedic Mathematics-II',
+    'VM III': 'Vedic Mathematics-III',
     'EC': 'Ethics and Culture',
-    'TGNLC': 'The Gita for Navigating Life Challenges',
+    'TGNLC': 'The Gita: Navigating Life Challenges',
     'RIFE': 'Reading Indian Fiction in English',
-    'VAC SEL': 'Value Addition Course Elective',
+    'VAC SEL': 'Social and Emotional Learning',
+    'SEL': 'Social and Emotional Learning',
 
     # Ability Enhancement Courses (AEC)
     'HA': 'Hindi Cinema aur Uska Adhyayan (Hindi A)',
@@ -315,36 +316,99 @@ def resolve_subject_title(subj_code, context_str=''):
         if subj_code == 'EC': return 'Ethics and Culture'
         if subj_code == 'ABH': return 'The Art of Being Happy'
         if subj_code == 'CVFD': return 'Constitutional Values and Fundamental Duties'
-        if subj_code == 'TGNLC': return 'The Gita for Navigating Life Challenges'
+        if subj_code == 'TGNLC': return 'The Gita: Navigating Life Challenges'
         if subj_code == 'RIFE': return 'Reading Indian Fiction in English'
-        if subj_code in ('VM I', 'VM 1'): return 'Vedic Mathematics I'
-        if subj_code in ('VM II', 'VM 2'): return 'Vedic Mathematics II'
-        if subj_code in ('VM III', 'VM 3'): return 'Vedic Mathematics III'
-        if subj_code == 'VAC SEL': return 'Value Addition Course Elective'
+        if subj_code in ('VM I', 'VM 1'): return 'Vedic Mathematics-I'
+        if subj_code in ('VM II', 'VM 2'): return 'Vedic Mathematics-II'
+        if subj_code in ('VM III', 'VM 3'): return 'Vedic Mathematics-III'
+        if subj_code in ('VAC SEL', 'SEL'): return 'Social and Emotional Learning'
 
     if is_sec:
         if subj_code == 'IE': return 'Innovation and Entrepreneurship'
         if subj_code == 'BIDV': return 'Business Intelligence & Data Visualization'
         if subj_code == 'DM': return 'Digital Marketing'
         if subj_code == 'BIT': return 'Basic IT Tools'
-        if subj_code == 'SET': return 'Statistical Software Package'
+        if subj_code == 'SET': return 'Sustainable Eco Tourism and Entrepreneurship'
         if subj_code == 'PFP': return 'Personal Financial Planning'
-        if subj_code == 'SRG': return 'Social Responsibility & Governance'
-        if subj_code == 'AS': return 'Applied Statistics'
+        if subj_code == 'SRG': return 'Sustainability Reporting'
+        if subj_code == 'AS': return 'Advanced Spreadsheet'
         if subj_code == 'SWR': return 'Statistics with R'
         if subj_code == 'PUP': return 'Programming Using Python'
         if subj_code == 'CIEL': return 'Communication in Everyday Life'
         if subj_code == 'CPL': return 'Communication in Professional Life'
         if subj_code == 'CW': return 'Creative Writing'
-        if subj_code == 'NL': return 'Negotiating and Leadership'
+        if subj_code == 'NL': return 'Negotiation and Leadership'
         if subj_code == 'SMM': return 'Social Media Marketing'
-        if subj_code in ('PSEL', 'PSELL'): return 'Professional Skills in English Language'
-        if subj_code == 'EP': return 'Enterprise Planning'
+        if subj_code in ('PSEL', 'PSELL'): return 'Public Speaking in English Language and Leadership'
+        if subj_code == 'EP': return 'Essentials of Python'
+        if subj_code == 'ITSA I': return 'IT Skills and Data Analysis I'
+        if subj_code == 'ITSA II': return 'IT Skills and Data Analysis II'
 
     if subj_code.startswith('AEC-'):
         return SUBJECT_MAP.get(subj_code, subj_code)
 
     return SUBJECT_MAP.get(subj_code, subj_code)
+
+
+# Official Teacher Code Mapping directly from SRCC Official Timetable PDF Legends (SEC/VAC)
+OFFICIAL_PDF_TEACHER_CODES = {
+    'A21': {'name': 'Aditi (21)', 'dept': 'Economics', 'id': '696'},
+    'AB': {'name': 'Abhilash (HG4)', 'dept': 'Hindi', 'id': '711'},
+    'AC': {'name': 'Aishwerya (CG11)', 'dept': 'Commerce', 'id': '640'},
+    'AIC': {'name': 'Anshika (CG32)', 'dept': 'Commerce', 'id': '693'},
+    'AJC': {'name': 'Anju (CG17)', 'dept': 'Commerce', 'id': '644'},
+    'AK24': {'name': 'Aditi Khanna (24)', 'dept': 'Economics', 'id': '713'},
+    'AKY': {'name': 'Mr. Abhishek Kumar Yadav', 'dept': 'Commerce', 'id': '509'},
+    'AM23': {'name': 'Anurag Maurya', 'dept': 'Economics', 'id': '712'},
+    'ANC': {'name': 'Anisha (CG1)', 'dept': 'Commerce', 'id': '636'},
+    'ANIC': {'name': 'Anjali (CG10)', 'dept': 'Commerce', 'id': '618'},
+    'APC': {'name': 'Aparna (CG22)', 'dept': 'Commerce', 'id': '650'},
+    'ASC': {'name': 'Akanksha Sehgal (CG28)', 'dept': 'Commerce', 'id': '660'},
+    'ATK': {'name': 'Dr. Amit Kumar', 'dept': 'Commerce', 'id': '523'},
+    'CC': {'name': 'Chanchal (CG30)', 'dept': 'Commerce', 'id': '664'},
+    'CG13': {'name': 'Deepaish (CG13)', 'dept': 'Commerce', 'id': '661'},
+    'DPE': {'name': 'Prof. Deepashree', 'dept': 'Commerce', 'id': '613'},
+    'ENG': {'name': 'English Guest', 'dept': 'English', 'id': '675'},
+    'GVR': {'name': 'Mr. Gaurav Rana', 'dept': 'Commerce', 'id': '521'},
+    'HC': {'name': 'Himanshi (CG4)', 'dept': 'Commerce', 'id': '626'},
+    'HC26': {'name': 'Hritika Chauhan (26)', 'dept': 'Economics', 'id': '715'},
+    'HNC': {'name': 'Hardik Negi (CG7)', 'dept': 'Commerce', 'id': '623'},
+    'KA 25': {'name': 'Katyayani (25)', 'dept': 'Economics', 'id': '714'},
+    'KA25': {'name': 'Katyayani (25)', 'dept': 'Economics', 'id': '714'},
+    'KAG': {'name': 'Dr. Kanika Gandhi', 'dept': 'English', 'id': '497'},
+    'LVV': {'name': 'Dr. Linesh V. V.', 'dept': 'Political Science', 'id': '577'},
+    'MAC': {'name': 'Madhu (CG5)', 'dept': 'Commerce', 'id': '627'},
+    'MAK': {'name': 'Prof. Mallika Kumar', 'dept': 'Commerce', 'id': '559'},
+    'MG1': {'name': 'Maths Guest 1', 'dept': 'Mathematics', 'id': '628'},
+    'MG2': {'name': 'Maths Guest 2', 'dept': 'Mathematics', 'id': '646'},
+    'MYC': {'name': 'Mayank Kumar (CG2)', 'dept': 'Commerce', 'id': '624'},
+    'NA22': {'name': 'Neha Anand', 'dept': 'Economics', 'id': '697'},
+    'NBC': {'name': 'Nisha Bajaj (CG9)', 'dept': 'Commerce', 'id': '686'},
+    'NC': {'name': 'Nisha (CG33)', 'dept': 'Commerce', 'id': '692'},
+    'NSC': {'name': 'Mehak (CG8)', 'dept': 'Commerce', 'id': '637'},
+    'PC': {'name': 'Pratiksha (CG14)', 'dept': 'Commerce', 'id': '662'},
+    'PG': {'name': 'Prachi Goel (CSG1)', 'dept': 'Computer Science', 'id': '698'},
+    'PSG1': {'name': 'Pol Science Guest 1', 'dept': 'Political Science', 'id': '631'},
+    'PSG2': {'name': 'Pol Science Guest 2', 'dept': 'Political Science', 'id': '699'},
+    'RHR': {'name': 'Mr. Rishabh Raj', 'dept': 'Commerce', 'id': '496'},
+    'RKS': {'name': 'Rajkumari Sharma (HG1)', 'dept': 'Hindi', 'id': '639'},
+    'RPC': {'name': 'Ram Prakash (CG6)', 'dept': 'Commerce', 'id': '635'},
+    'RUK': {'name': 'Prof. Ruchi Kaushik', 'dept': 'English', 'id': '593'},
+    'SFK': {'name': 'Dr. Shefali Kapoor', 'dept': 'Mathematics', 'id': '499'},
+    'SHC': {'name': 'Shailendra (CG27)', 'dept': 'Commerce', 'id': '659'},
+    'SHK': {'name': 'Prof. Santosh Kumari', 'dept': 'Commerce', 'id': '586'},
+    'SK19': {'name': 'Shruti Kashyap (19)', 'dept': 'Economics', 'id': '694'},
+    'SK20': {'name': 'Seema Kumari (20)', 'dept': 'Economics', 'id': '695'},
+    'SKC': {'name': 'Santosh Kumar (CG18)', 'dept': 'Commerce', 'id': '592'},
+    'SOC': {'name': 'Mr. Soumitra Kumar Choudhary', 'dept': 'English', 'id': '597'},
+    'SSS': {'name': 'Dr. Santosh Sabharwal', 'dept': 'Commerce', 'id': '595'},
+    'STK': {'name': 'Suneet Kumar (HG2)', 'dept': 'Hindi', 'id': '681'},
+    'SVK': {'name': 'Dr. Shivangi Kaushik', 'dept': 'Commerce', 'id': '504'},
+    'SVM': {'name': 'Saurav Meena (CG3)', 'dept': 'Commerce', 'id': '625'},
+    'TAC': {'name': 'Tanisha (CG29)', 'dept': 'Commerce', 'id': '663'},
+    'TM30': {'name': 'Tanmoy', 'dept': 'Economics', 'id': '719'},
+    'YC': {'name': 'Yash (CG21)', 'dept': 'Commerce', 'id': '649'},
+}
 
 
 def parse_session_entry(raw_str, default_course='', default_sem='', default_sec=''):
@@ -636,6 +700,13 @@ def main():
         code_to_teacher[code] = best_tid
         teacher_to_code[best_tid] = code
 
+    # Also seed with official PDF teacher codes
+    for p_code, p_info in OFFICIAL_PDF_TEACHER_CODES.items():
+        if p_info['id'] in faculty_dir:
+            code_to_teacher[p_code] = p_info['id']
+            if p_info['id'] not in teacher_to_code:
+                teacher_to_code[p_info['id']] = p_code
+
     # Also map known manual references or parenthesized codes
     for tid, prof in faculty_dir.items():
         ref = prof['ref_code']
@@ -688,15 +759,32 @@ def main():
 
                     t_code = parsed['teacher_code'].upper().strip()
                     t_prof = None
-                    if t_code in code_to_teacher:
-                        t_prof = faculty_dir.get(code_to_teacher[t_code])
-                    if not t_prof and parsed['room']:
-                        tids_at_point = teacher_schedule_points.get((day, slot, parsed['room']), [])
-                        if tids_at_point:
-                            t_prof = faculty_dir.get(tids_at_point[0])
+                    t_name = ''
+                    t_id = ''
 
-                    t_name = t_prof['name'] if t_prof else (t_code or 'Faculty')
-                    t_id = t_prof['id'] if t_prof else ''
+                    # Priority 1: Official PDF legend teacher codes
+                    if t_code in OFFICIAL_PDF_TEACHER_CODES:
+                        dept_clean = parsed['dept'].lower()
+                        if t_code == 'SOC' and dept_clean == 'commerce':
+                            t_name = 'Sonam (CG19)'
+                            t_id = '647'
+                        elif t_code == 'SKC' and dept_clean == 'english':
+                            t_name = 'Mr. Shailesh Kumar Chawla'
+                            t_id = '594'
+                        else:
+                            t_info = OFFICIAL_PDF_TEACHER_CODES[t_code]
+                            t_name = t_info['name']
+                            t_id = t_info['id']
+                    else:
+                        if t_code in code_to_teacher:
+                            t_prof = faculty_dir.get(code_to_teacher[t_code])
+                        if not t_prof and parsed['room']:
+                            tids_at_point = teacher_schedule_points.get((day, slot, parsed['room']), [])
+                            if tids_at_point:
+                                t_prof = faculty_dir.get(tids_at_point[0])
+
+                        t_name = t_prof['name'] if t_prof else (t_code or 'Faculty')
+                        t_id = t_prof['id'] if t_prof else ''
 
                     session_record = {
                         'day': day,
