@@ -771,15 +771,159 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
+    /* Mobile Phone UI / UX Optimizations */
+    @media (max-width: 768px) {
+      body.admin-page-body {
+        font-size: 14px;
+      }
+      .admin-navbar {
+        padding: 10px 14px;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .admin-nav-actions {
+        width: 100%;
+        justify-content: flex-end;
+        gap: 8px;
+      }
+      .btn-admin-nav {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+        min-height: 40px;
+      }
+      .admin-dashboard-container {
+        padding: 12px 10px 70px;
+      }
+      .admin-hero-banner {
+        padding: 14px 16px;
+      }
+      .admin-hero-right {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+      }
+      .admin-kpi-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+      .admin-tab-nav {
+        padding: 4px;
+        gap: 4px;
+        border-radius: var(--radius-md);
+      }
+      .admin-tab-btn {
+        padding: 9px 12px;
+        min-height: 44px;
+        font-size: 0.8rem;
+      }
+      /* Prevent iOS Safari auto-zoom on field focus */
+      input, select, textarea,
+      .leave-field-group input,
+      .leave-field-group select,
+      .leave-field-group textarea {
+        font-size: 16px !important;
+      }
+      .leave-item-row {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+        padding: 12px !important;
+      }
+      .leave-item-actions {
+        width: 100% !important;
+        justify-content: flex-end !important;
+        margin-left: 0 !important;
+        border-top: 1px dashed #e2e8f0 !important;
+        padding-top: 8px !important;
+        gap: 8px !important;
+      }
+      .btn-edit-leave,
+      .btn-delete-leave,
+      .btn-share-wa {
+        padding: 8px 12px !important;
+        font-size: 0.8rem !important;
+        min-height: 38px !important;
+      }
+      .print-controls-card {
+        padding: 14px 12px !important;
+      }
+      #btnAdminTriggerPrint {
+        width: 100% !important;
+        justify-content: center !important;
+        min-height: 46px !important;
+      }
+      .print-preview-shell {
+        padding: 12px 8px !important;
+        border-radius: var(--radius-md);
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+      }
+      .print-sheet {
+        min-width: 680px !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+        padding: 16px 14px !important;
+        min-height: auto !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .admin-nav-titles h1 {
+        font-size: 0.94rem;
+      }
+      .admin-hero-left h2 {
+        font-size: 1.1rem;
+      }
+      .admin-kpi-card {
+        padding: 10px 12px;
+        gap: 8px;
+      }
+      .admin-kpi-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 1.05rem;
+      }
+      .admin-kpi-val {
+        font-size: 1.2rem;
+      }
+      .admin-kpi-title {
+        font-size: 0.64rem;
+      }
+      .admin-section-card {
+        padding: 12px 10px !important;
+      }
+    }
+
+    /* Print Stylesheet */
     @media print {
       @page {
         size: A4 portrait;
         margin: 8mm 10mm 8mm 10mm;
       }
-      body.admin-page-body {
+      *, *::before, *::after {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      html, body.admin-page-body {
         background: #ffffff !important;
+        color: #000000 !important;
         margin: 0 !important;
         padding: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        overflow: visible !important;
+      }
+      body.admin-page-body main,
+      body.admin-page-body .admin-dashboard-container {
+        display: block !important;
+        visibility: visible !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: visible !important;
+        position: static !important;
+        height: auto !important;
       }
       .admin-navbar,
       .admin-hero-banner,
@@ -790,42 +934,66 @@
       .attachment-modal-overlay,
       #adminAuthView {
         display: none !important;
-      }
-      .admin-dashboard-container {
-        padding: 0 !important;
-        margin: 0 !important;
-        max-width: 100% !important;
+        visibility: hidden !important;
       }
       .admin-tab-pane {
         display: none !important;
       }
       .admin-tab-pane#tabContentPrint {
         display: block !important;
+        visibility: visible !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
       }
       .print-preview-shell {
         background: transparent !important;
         padding: 0 !important;
+        margin: 0 !important;
         gap: 0 !important;
         display: block !important;
+        overflow: visible !important;
+        border: none !important;
+        box-shadow: none !important;
       }
       .print-sheet {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        visibility: visible !important;
+        background: #ffffff !important;
         box-shadow: none !important;
+        border: none !important;
+        width: 100% !important;
         max-width: 100% !important;
+        min-width: 0 !important;
         min-height: auto !important;
-        padding: 0 !important;
-        margin: 0 0 20mm 0 !important;
+        padding: 4mm 6mm !important;
+        margin: 0 0 15mm 0 !important;
         page-break-after: always !important;
         break-after: page !important;
+        box-sizing: border-box !important;
       }
       .print-sheet:last-child {
         margin-bottom: 0 !important;
         page-break-after: auto !important;
         break-after: auto !important;
       }
+      .print-sheet[style*="display: none"] {
+        display: none !important;
+      }
+      .print-table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+      }
       .print-table th {
         background: #f0f0f0 !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
+      }
+      .print-table tr {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
       }
     }
   </style>
@@ -1789,7 +1957,7 @@
           </div>
 
           <footer class="print-sheet-footer">
-            <span>Generated by SRCC Admin Assist</span>
+            <span>Generated by SRCC Admin Assist • * Vacant due to scheduled faculty on leave</span>
             <span id="printMatrixGeneratedTime">Printed on: 10 Oct 2026, 07:30 AM IST</span>
           </footer>
         </article>
@@ -1809,17 +1977,18 @@
             </header>
             <hr class="print-header-divider" />
 
-            <h2 class="print-sheet-title">FACULTY ON LEAVE</h2>
+            <h2 class="print-sheet-title">FACULTY ON LEAVE &amp; VACANT ROOMS</h2>
             <div class="print-sheet-sub" id="printLeavesMeta">Date: 10 October 2026 | Day: Saturday</div>
 
             <table class="print-table" id="printLeavesTable">
               <thead>
                 <tr>
-                  <th style="width: 8%;">S.NO.</th>
-                  <th style="width: 44%; text-align: left;">FACULTY NAME</th>
-                  <th style="width: 20%;">FROM</th>
-                  <th style="width: 20%;">TO</th>
-                  <th style="width: 8%;">DAYS</th>
+                  <th style="width: 6%;">S.NO.</th>
+                  <th style="width: 32%; text-align: left;">FACULTY NAME &amp; DEPT</th>
+                  <th style="width: 14%;">FROM</th>
+                  <th style="width: 14%;">TO</th>
+                  <th style="width: 10%;">DAYS</th>
+                  <th style="width: 24%; text-align: left;">ROOMS VACANT (TODAY)</th>
                 </tr>
               </thead>
               <tbody id="printLeavesTbody">
@@ -1829,7 +1998,7 @@
           </div>
 
           <footer class="print-sheet-footer">
-            <span>Generated by SRCC Admin Assist</span>
+            <span>Generated by SRCC Admin Assist • Faculty Leave &amp; Vacant Classroom Notice</span>
             <span id="printLeavesGeneratedTime">Printed on: 10 Oct 2026, 07:30 AM IST</span>
           </footer>
         </article>
@@ -1857,11 +2026,12 @@
   <div class="toast-container" id="toastContainer"></div>
 
   <!-- Data Scripts -->
-  <script src="cloud_config.js?v=54"></script>
-  <script src="data.js?v=54"></script>
-  <script src="wifi_data.js?v=54"></script>
-  <script src="faculty_leaves.js?v=54"></script>
-  <script src="teachers_data.js?v=54"></script>
-  <script src="admin.js?v=54"></script>
+  <script src="cloud_config.js?v=56"></script>
+  <script src="data.js?v=56"></script>
+  <script src="classes_data.js?v=56"></script>
+  <script src="wifi_data.js?v=56"></script>
+  <script src="faculty_leaves.js?v=56"></script>
+  <script src="teachers_data.js?v=56"></script>
+  <script src="admin.js?v=56"></script>
 </body>
 </html>

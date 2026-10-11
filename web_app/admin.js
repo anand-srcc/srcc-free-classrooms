@@ -3680,7 +3680,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const triggerBtn = document.getElementById('btnAdminTriggerPrint');
     if (triggerBtn) {
       triggerBtn.addEventListener('click', () => {
-        window.print();
+        renderPrintSheets();
+        setTimeout(() => {
+          window.print();
+        }, 60);
       });
     }
 
@@ -3713,6 +3716,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (dateInput) {
       dateInput.addEventListener('change', renderPrintSheets);
     }
+
+    // Auto-update sheets whenever system print is invoked (Ctrl+P / Cmd+P / browser menu)
+    window.addEventListener('beforeprint', renderPrintSheets);
+
+    // Initial render
+    renderPrintSheets();
   }
 
   function renderPrintSheets() {
@@ -3738,6 +3747,113 @@ document.addEventListener('DOMContentLoaded', () => {
     const now = new Date();
     const generatedTimeStr = `Printed on: ${formatShortDate(getTodayIsoDate())}, ${now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })} IST`;
 
+    // 0. DATA PREPARATION: Room locks, leaves, and teacher timetable schedules
+    const rawData = window.SRCC_DATA || window.SRCC_TIMETABLE_DATA || {};
+    const roomsList = Array.isArray(rawData.rooms) ? rawData.rooms : Object.values(rawData.rooms || {});
+    const currentLocks = getRoomLocksList();
+
+    let allLeaves = [];
+    try {
+      allLeaves = getLeavesList();
+    } catch (e) {
+      if (window.SRCC_FACULTY_LEAVES && Array.isArray(window.SRCC_FACULTY_LEAVES.leaves)) {
+        allLeaves = window.SRCC_FACULTY_LEAVES.leaves;
+      }
+    }
+
+    // Filter leaves active on selected date
+    const activeLeaves = allLeaves.filter(l => {
+      const s = l.start_date || l.startDate;
+      const e = l.end_date || l.endDate || s;
+      if (!s) return false;
+      return (selectedDate >= s && selectedDate <= e);
+    });
+
+    const teachersList = (window.SRCC_TEACHERS_DATA && Array.isArray(window.SRCC_TEACHERS_DATA.teachers))
+      ? window.SRCC_TEACHERS_DATA.teachers
+      : [];
+
+    function cleanTeacherName(n) {
+      return String(n || '').toLowerCase().replace(/^(dr\.|prof\.|mr\.|ms\.)\s*/i, '').replace(/\s+/g, ' ').trim();
+    }
+
+    // Map: slot -> Set of room codes freed by active faculty leaves
+    const leaveFreedRoomsBySlot = {};
+    // Map: leave -> Array of { room, slot } vacated by that teacher on selectedDate
+    const teacherVacatedMap = new Map();
+
+    activeLeaves.forEach(l => {
+      const tId = String(l.teacher_id || l.teacherId || '');
+      const tCode = String(l.teacher_code || l.teacherCode || '').toUpperCase().trim();
+      const tNameClean = cleanTeacherName(l.teacher_name || l.teacherName);
+
+      const matchedTeacher = teachersList.find(t => {
+        if (tId && String(t.id) === tId) return true;
+        if (tCode && t.short_code && String(t.short_code).toUpperCase().trim() === tCode) return true;
+        if (tNameClean && cleanTeacherName(t.name) === tNameClean) return true;
+        if (tNameClean && cleanTeacherName(t.clean_name) === tNameClean) return true;
+        return false;
+      });
+
+      const vacatedList = [];
+
+      // A. Check teacher's schedule for dayName
+      if (matchedTeacher && matchedTeacher.schedule && Array.isArray(matchedTeacher.schedule[dayName])) {
+        matchedTeacher.schedule[dayName].forEach(p => {
+          if (p.room && p.slot) {
+            const rNorm = p.room.trim().toUpperCase();
+            if (!leaveFreedRoomsBySlot[p.slot]) leaveFreedRoomsBySlot[p.slot] = new Set();
+            leaveFreedRoomsBySlot[p.slot].add(rNorm);
+            vacatedList.push({ room: p.room.trim(), slot: p.slot });
+          }
+        });
+      }
+
+      // B. Cross-check room schedules for occupied classes matching this teacher's code
+      if (tCode) {
+        roomsList.forEach(r => {
+          const sched = r.schedule ? r.schedule[dayName] : null;
+          if (sched && Array.isArray(sched.occupied_slots)) {
+            sched.occupied_slots.forEach(occ => {
+              const cls = occ.class || '';
+              const regex = new RegExp(`(^|[-_\\s/,])${tCode}([-_\\s/,]|$)`, 'i');
+              if (regex.test(cls)) {
+                const rNorm = r.code.toUpperCase();
+                if (!leaveFreedRoomsBySlot[occ.slot]) leaveFreedRoomsBySlot[occ.slot] = new Set();
+                leaveFreedRoomsBySlot[occ.slot].add(rNorm);
+                if (!vacatedList.some(v => v.room === r.code && v.slot === occ.slot)) {
+                  vacatedList.push({ room: r.code, slot: occ.slot });
+                }
+              }
+            });
+          }
+        });
+      }
+
+      teacherVacatedMap.set(l, vacatedList);
+    });
+
+    // Helper: is room locked on selectedDate & dayName & slot
+    function isRoomLocked(rCode, slot) {
+      const rUpper = rCode.toUpperCase();
+      return currentLocks.some(lock => {
+        const lockRoom = String(lock.room || lock.room_code || lock.roomCode || '').toUpperCase().trim();
+        if (lockRoom !== rUpper) return false;
+
+        const lockSlot = lock.slot || 'ALL_DAY';
+        if (lockSlot !== 'ALL_DAY' && lockSlot !== slot) return false;
+
+        if (lock.recurrence === 'daily') return true;
+        if (lock.recurrence === 'once') return (lock.date === selectedDate || !lock.date);
+
+        const recurringDays = Array.isArray(lock.recurring_days) ? lock.recurring_days : (Array.isArray(lock.days) ? lock.days : []);
+        if (lock.recurrence === 'weekly') return recurringDays.includes(dayName);
+        if (lock.recurrence === 'weekend') return (dayName === 'Saturday' || dayName === 'Sunday');
+
+        return (lock.date === selectedDate);
+      });
+    }
+
     // 1. SHEET 1: EMPTY ROOMS MATRIX
     const matrixTitle = document.getElementById('printMatrixTitle');
     const matrixMeta = document.getElementById('printMatrixMeta');
@@ -3753,7 +3869,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (matrixMeta) matrixMeta.textContent = `Date: ${formattedDate} | Day: ${dayName}`;
     if (matrixGenTime) matrixGenTime.textContent = generatedTimeStr;
 
-    // Dynamically adjust table headers based on Venue Filter choice
     let numCols = 7;
     if (matrixThead) {
       if (venueFilter === 'rooms_labs_pb') {
@@ -3813,15 +3928,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (dayName === 'Sunday') {
         matrixTbody.innerHTML = `<tr><td colspan="${numCols}" style="text-align:center; padding: 24px; font-weight:700;">College is closed on Sunday. All classrooms are non-academic.</td></tr>`;
       } else {
-        const roomsMap = (window.SRCC_DATA && window.SRCC_DATA.rooms) ? window.SRCC_DATA.rooms : {};
-        const roomKeys = Object.keys(roomsMap);
-
-        // Get active locks for this date & day
-        const currentLocks = getRoomLocksList();
-
         let rowsHtml = '';
         targetSlots.forEach((slot) => {
-          // If in 'all' mode and we reach 2:00 PM, insert Lunch Recess divider
           if (slotRange === 'all' && slot === '2:00 PM to 3:00 PM') {
             rowsHtml += `
               <tr style="background: #f8fafc; font-weight: 700;">
@@ -3840,67 +3948,57 @@ document.addEventListener('DOMContentLoaded', () => {
           const freeScrs = [];
           const freeOthers = [];
 
-          roomKeys.forEach(rKey => {
-            const roomObj = roomsMap[rKey];
+          roomsList.forEach(roomObj => {
             if (!roomObj) return;
             const rCode = roomObj.code || '';
-            const scheduleForDay = roomObj.schedule ? roomObj.schedule[dayName] : null;
+            const rUpper = rCode.toUpperCase();
 
-            let isFree = false;
+            // Strict Rule 1: If room is locked, MUST NOT be shown!
+            if (isRoomLocked(rCode, slot)) {
+              return;
+            }
+
+            // Rule 2: Check normally free in timetable
+            let isNormallyFree = false;
+            const scheduleForDay = roomObj.schedule ? roomObj.schedule[dayName] : null;
             if (scheduleForDay) {
               if (Array.isArray(scheduleForDay.free_slots) && scheduleForDay.free_slots.includes(slot)) {
-                isFree = true;
+                isNormallyFree = true;
               } else if (Array.isArray(scheduleForDay.occupied_slots)) {
                 const isOccupied = scheduleForDay.occupied_slots.some(occ => occ.slot === slot);
-                if (!isOccupied) isFree = true;
+                if (!isOccupied) isNormallyFree = true;
               }
             } else {
-              isFree = true;
+              isNormallyFree = true;
             }
 
-            // Check if locked in admin locks
-            if (isFree) {
-              const isLocked = currentLocks.some(lock => {
-                if (String(lock.room_code || lock.roomCode || '').toUpperCase() !== rCode.toUpperCase()) return false;
-                if (lock.recurrence === 'daily') return true;
-                if (lock.recurrence === 'once' && lock.date === selectedDate) {
-                  return (lock.slot === 'ALL_DAY' || lock.slot === slot);
-                }
-                if (lock.recurrence === 'weekly' && Array.isArray(lock.days) && lock.days.includes(dayName)) {
-                  return (lock.slot === 'ALL_DAY' || lock.slot === slot);
-                }
-                if (lock.recurrence === 'weekend' && (dayName === 'Saturday' || dayName === 'Sunday')) {
-                  return (lock.slot === 'ALL_DAY' || lock.slot === slot);
-                }
-                return false;
-              });
-
-              if (isLocked) {
-                isFree = false;
+            // Rule 3: Check if freed due to teacher on leave
+            let isFreedByLeave = false;
+            if (!isNormallyFree) {
+              const freedSet = leaveFreedRoomsBySlot[slot];
+              if (freedSet && freedSet.has(rUpper)) {
+                isFreedByLeave = true;
               }
             }
 
-            if (isFree) {
-              const codeUp = rCode.toUpperCase();
-              if (/^R\d+$/.test(codeUp)) {
-                // Pure lecture classrooms e.g. R1, R2, R4, R14, R36
-                freeRooms.push(rCode);
-              } else if (codeUp.startsWith('PB')) {
-                // PB Wing classrooms e.g. PB1, PB2, PB3, PB4
-                freePbs.push(rCode);
-              } else if (codeUp.startsWith('T') && !codeUp.startsWith('TOTAL')) {
-                // Tutorial rooms e.g. T1, T2, ... T54
-                freeTuts.push(rCode);
-              } else if (codeUp.startsWith('CL') || codeUp.includes('LAB') || codeUp.includes('COMP') || codeUp.includes('PC')) {
-                // Computer labs e.g. CL1, CL2, CL3, CLIB
-                freePcs.push(rCode);
-              } else if (codeUp.startsWith('SCR')) {
-                // Staff Common Rooms e.g. SCR1, SCR2, SCR3, SCR4
-                freeScrs.push(rCode);
-              } else {
-                // Inke alawa jo bache: Library FF, Seminar Room, Principal Office, PLAYGROUND
-                freeOthers.push(rCode);
-              }
+            const isFree = isNormallyFree || isFreedByLeave;
+            if (!isFree) return;
+
+            // Indicator: rooms freed by leave carry an asterisk (*)
+            const displayCode = isFreedByLeave ? `${rCode}*` : rCode;
+
+            if (/^R\d+/i.test(rUpper)) {
+              freeRooms.push(displayCode);
+            } else if (rUpper.startsWith('PB')) {
+              freePbs.push(displayCode);
+            } else if (rUpper.startsWith('T') && !rUpper.startsWith('TOTAL')) {
+              freeTuts.push(displayCode);
+            } else if (rUpper.startsWith('CL') || rUpper.includes('LAB') || rUpper.includes('COMP') || rUpper.includes('PC')) {
+              freePcs.push(displayCode);
+            } else if (rUpper.startsWith('SCR')) {
+              freeScrs.push(displayCode);
+            } else {
+              freeOthers.push(displayCode);
             }
           });
 
@@ -3946,7 +4044,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // 2. SHEET 2: FACULTY ON LEAVE
+    // 2. SHEET 2: FACULTY ON LEAVE & VACANT ROOMS
     const leavesMeta = document.getElementById('printLeavesMeta');
     const leavesTbody = document.getElementById('printLeavesTbody');
     const leavesGenTime = document.getElementById('printLeavesGeneratedTime');
@@ -3955,65 +4053,70 @@ document.addEventListener('DOMContentLoaded', () => {
     if (leavesGenTime) leavesGenTime.textContent = generatedTimeStr;
 
     if (leavesTbody) {
-      let allLeaves = [];
-      try {
-        allLeaves = getLeavesList();
-      } catch (e) {
-        if (window.SRCC_FACULTY_LEAVES && window.SRCC_FACULTY_LEAVES.leaves) {
-          allLeaves = window.SRCC_FACULTY_LEAVES.leaves;
-        }
-      }
-
-      // Filter leaves covering selectedDate, fallback to all recorded leaves
-      let activeLeaves = allLeaves.filter(l => {
-        const s = l.start_date || l.startDate;
-        const e = l.end_date || l.endDate || s;
-        if (!s) return false;
-        return (selectedDate >= s && selectedDate <= e);
-      });
-
-      if (activeLeaves.length === 0) {
-        activeLeaves = allLeaves;
-      }
-
       let leavesHtml = '';
       if (activeLeaves.length === 0) {
-        leavesHtml += `<tr><td colspan="5" style="text-align: center; padding: 20px; font-weight: 700;">No faculty reported on leave for this date.</td></tr>`;
+        leavesHtml += `<tr><td colspan="6" style="text-align: center; padding: 22px; font-weight: 700;">No faculty reported on leave for this date. All 210 faculty members are on active college duty.</td></tr>`;
       } else {
         activeLeaves.forEach((leave, idx) => {
-          let name = (leave.teacher_name || leave.teacherName || 'Faculty Member').toUpperCase().trim();
-          if (!name.startsWith('DR.') && !name.startsWith('PROF.') && !name.startsWith('MR.') && !name.startsWith('MS.')) {
-            name = 'DR. ' + name;
-          }
-          const dept = leave.department ? ` (${leave.department})` : '';
-          const fromDate = formatShortDate(leave.start_date || leave.startDate);
-          const toDate = formatShortDate(leave.end_date || leave.endDate || leave.start_date || leave.startDate);
-
-          // Calculate actual number of leave calendar days
-          let daysVal = '1';
-          if (leave.half_day) {
-            daysVal = '½';
-          } else if (leave.days_count || leave.days) {
-            daysVal = String(leave.days_count || leave.days);
+          let name = (leave.teacher_name || leave.teacherName || 'Faculty Member').trim();
+          if (!/^(dr\.|prof\.|mr\.|ms\.)/i.test(name)) {
+            name = 'DR. ' + name.toUpperCase();
           } else {
-            const sStr = leave.start_date || leave.startDate;
-            const eStr = leave.end_date || leave.endDate || sStr;
-            if (sStr && eStr) {
-              const sDate = new Date(sStr + 'T00:00:00');
-              const eDate = new Date(eStr + 'T00:00:00');
-              const diffMs = eDate.getTime() - sDate.getTime();
-              const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24)) + 1;
-              daysVal = diffDays > 0 ? String(diffDays) : '1';
+            name = name.toUpperCase();
+          }
+          const tCode = leave.teacher_code || leave.teacherCode;
+          const codeBadge = (tCode && !/^(cg|eg|mg|hg|hgc)\d*$/i.test(tCode)) ? ` [${tCode}]` : '';
+          const dept = leave.department ? ` (${leave.department})` : '';
+
+          const sStr = leave.start_date || leave.startDate || selectedDate;
+          const eStr = leave.end_date || leave.endDate || sStr;
+          const fromDate = formatShortDate(sStr);
+          const toDate = formatShortDate(eStr);
+
+          // Calculate inclusive days of leave
+          let daysVal = '1 Day';
+          if (leave.half_day || leave.isHalfDay) {
+            daysVal = '½ Day';
+          } else {
+            const sDate = new Date(sStr + 'T00:00:00');
+            const eDate = new Date(eStr + 'T00:00:00');
+            const diffMs = eDate.getTime() - sDate.getTime();
+            const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24)) + 1;
+            daysVal = diffDays > 1 ? `${diffDays} Days` : '1 Day';
+          }
+
+          // Compute vacant classrooms freed today by this professor
+          let vacantDisplay = '—';
+          if (dayName === 'Sunday') {
+            vacantDisplay = '<span style="color: #64748b;">College Closed (Sun)</span>';
+          } else {
+            const vacatedList = teacherVacatedMap.get(leave) || [];
+            if (vacatedList.length === 0) {
+              vacantDisplay = '<span style="color: #64748b; font-style: italic;">No classes today (Off/Prep)</span>';
+            } else {
+              const roomSlotMap = {};
+              vacatedList.forEach(v => {
+                const slotStart = v.slot.split(' to ')[0].trim();
+                if (!roomSlotMap[v.room]) roomSlotMap[v.room] = [];
+                if (!roomSlotMap[v.room].includes(slotStart)) {
+                  roomSlotMap[v.room].push(slotStart);
+                }
+              });
+              const parts = Object.entries(roomSlotMap).map(([rm, slots]) => {
+                return `<strong>${rm}</strong> (${slots.join(', ')})`;
+              });
+              vacantDisplay = parts.join('; ');
             }
           }
 
           leavesHtml += `
             <tr>
               <td class="cell-sno">${idx + 1}</td>
-              <td class="cell-faculty-name">${name}${dept}</td>
+              <td class="cell-faculty-name">${name}${codeBadge}${dept}</td>
               <td class="cell-date">${fromDate}</td>
               <td class="cell-date">${toDate}</td>
-              <td class="cell-days">${daysVal}</td>
+              <td class="cell-days" style="font-weight: 700;">${daysVal}</td>
+              <td style="font-size: 8.5pt; text-align: left; padding: 4px 6px;">${vacantDisplay}</td>
             </tr>
           `;
         });
@@ -4025,6 +4128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         leavesHtml += `
           <tr class="blank-ruled-row">
             <td class="cell-sno">&nbsp;</td>
+            <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
