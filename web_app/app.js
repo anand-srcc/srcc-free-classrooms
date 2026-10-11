@@ -5808,13 +5808,48 @@ window.SRCC_FACULTY_LEAVES = {
           });
         });
 
-        // Ensure GBO semesters and default sections exist in courseMap
-        if (!courseMap['GBO']) courseMap['GBO'] = {};
-        ['Sem I', 'Sem II', 'Sem III', 'Sem IV'].forEach(sem => {
-          if (!courseMap['GBO'][sem]) courseMap['GBO'][sem] = {};
-          if (!courseMap['GBO'][sem]['Whole Batch']) courseMap['GBO'][sem]['Whole Batch'] = new Set(['ALL']);
-          if (!courseMap['GBO'][sem]['Sec A']) courseMap['GBO'][sem]['Sec A'] = new Set(['ALL', 'Batch 1', 'Batch 2']);
-        });
+        // Ingest official direct SEC, VAC and Class sections from SRCC_CLASSES_DATA
+        if (window.SRCC_CLASSES_DATA && window.SRCC_CLASSES_DATA.courses) {
+          const cData = window.SRCC_CLASSES_DATA.courses;
+          if (cData.SEC) {
+            Object.keys(cData.SEC).forEach(sem => {
+              if (!secBatchesBySem[sem]) secBatchesBySem[sem] = new Set();
+              if (!secBatchMeta[sem]) secBatchMeta[sem] = {};
+              cData.SEC[sem].forEach(s => {
+                if (s.batch) {
+                  secBatchesBySem[sem].add(s.batch);
+                  secBatchMeta[sem][s.batch] = { code: s.subject || '', name: s.subject_name || '' };
+                }
+              });
+            });
+          }
+          if (cData.VAC) {
+            Object.keys(cData.VAC).forEach(sem => {
+              if (!vacBatchesBySem[sem]) vacBatchesBySem[sem] = new Set();
+              if (!vacBatchMeta[sem]) vacBatchMeta[sem] = {};
+              cData.VAC[sem].forEach(s => {
+                if (s.batch) {
+                  vacBatchesBySem[sem].add(s.batch);
+                  vacBatchMeta[sem][s.batch] = { code: s.subject || '', name: s.subject_name || '' };
+                }
+              });
+            });
+          }
+          ['B.Com (Hons)', 'B.A. (Hons) Economics', 'M.Com'].forEach(cName => {
+            if (cData[cName]) {
+              if (!courseMap[cName]) courseMap[cName] = {};
+              Object.keys(cData[cName]).forEach(sem => {
+                if (!courseMap[cName][sem]) courseMap[cName][sem] = {};
+                Object.keys(cData[cName][sem]).forEach(sec => {
+                  if (!courseMap[cName][sem][sec]) courseMap[cName][sem][sec] = new Set();
+                  cData[cName][sem][sec].forEach(s => {
+                    if (s.batch) courseMap[cName][sem][sec].add(s.batch);
+                  });
+                });
+              });
+            }
+          });
+        }
       }
 
       buildHierarchy();
@@ -6197,6 +6232,65 @@ window.SRCC_FACULTY_LEAVES = {
         const isVacCourse = (targetCourse === 'VAC');
 
         const rawList = [];
+
+        // 1. Direct High-Fidelity Query from Official SRCC Classes Data (JOINT SEC-VAC & Class Sections)
+        if (window.SRCC_CLASSES_DATA && window.SRCC_CLASSES_DATA.courses) {
+          const cData = window.SRCC_CLASSES_DATA.courses;
+          let candidateList = [];
+          if (targetCourse === 'SEC' && cData.SEC && cData.SEC[targetSem]) {
+            candidateList = cData.SEC[targetSem];
+          } else if (targetCourse === 'VAC' && cData.VAC && cData.VAC[targetSem]) {
+            candidateList = cData.VAC[targetSem];
+          } else if (cData[targetCourse] && cData[targetCourse][targetSem]) {
+            if (targetSec && targetSec !== 'ALL' && cData[targetCourse][targetSem][targetSec]) {
+              candidateList = cData[targetCourse][targetSem][targetSec];
+            } else if (!targetSec || targetSec === 'ALL') {
+              Object.values(cData[targetCourse][targetSem]).forEach(arr => {
+                if (Array.isArray(arr)) candidateList.push(...arr);
+              });
+            }
+          }
+
+          if (candidateList.length > 0) {
+            const selBatch = (targetBatch || 'ALL').trim().toUpperCase();
+            candidateList.forEach(s => {
+              if (s.day !== targetDay) return;
+              if (selBatch !== 'ALL' && s.batch && s.batch.toUpperCase() !== selBatch) return;
+
+              const slotInfo = getPeriodInfo(s.slot);
+              if (!slotInfo) return;
+
+              const tName = s.teacher_name || s.teacher || 'Faculty';
+              const leaveRecord = (typeof isTeacherOnLeave === 'function' ? isTeacherOnLeave({ clean_name: tName, name: tName, id: s.teacher_id }) : null) || activeLeaves.find(l => {
+                const nameMatch = l.teacher_name && (tName.toLowerCase().includes(l.teacher_name.toLowerCase()) || l.teacher_name.toLowerCase().includes(tName.toLowerCase()));
+                const dayMatch = l.day === targetDay || !l.day;
+                return nameMatch && dayMatch;
+              });
+
+              rawList.push({
+                slot: s.slot,
+                periodNum: slotInfo.num,
+                subject: s.subject,
+                subjectName: s.subject_name,
+                type: s.type || 'Lecture',
+                batch: s.batch || '',
+                rawBatch: s.batch || '',
+                teacher: tName,
+                teacherId: s.teacher_id || '',
+                room: s.room || '',
+                isOnLeave: Boolean(leaveRecord),
+                isSec: (targetCourse === 'SEC' || s.course === 'SEC'),
+                isVac: (targetCourse === 'VAC' || s.course === 'VAC'),
+                sem: s.semester || targetSem,
+                day: targetDay
+              });
+            });
+
+            if (rawList.length > 0) {
+              return mergeConsecutiveSessions(rawList);
+            }
+          }
+        }
 
         teachers.forEach(t => {
           const tName = t.clean_name || t.label || 'Faculty';

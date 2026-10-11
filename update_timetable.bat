@@ -6,19 +6,10 @@ echo =========================================================
 echo    SRCC TIMETABLE - 1-CLICK LIVE SYNC & EXCEL REFRESH
 echo =========================================================
 echo.
-echo [1/3] Scraping latest timetable from srcccollegetimetable.in...
-.\.venv\Scripts\python.exe export_data_json.py
+echo [1/2] Scraping & cross-verifying latest master timetable from srcccollegetimetable.in...
+.\.venv\Scripts\python.exe scrape_master_timetable.py
 if %ERRORLEVEL% NEQ 0 (
-    echo [ERROR] Failed to fetch latest timetable data!
-    pause
-    exit /b 1
-)
-
-echo.
-echo [2/3] Generating fresh Excel workbook with updated schedules...
-.\.venv\Scripts\python.exe srcc_scraper.py
-if %ERRORLEVEL% NEQ 0 (
-    echo [ERROR] Failed to generate Excel workbook!
+    echo [ERROR] Failed to fetch and reconcile master timetable data!
     pause
     exit /b 1
 )

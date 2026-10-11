@@ -3,37 +3,8 @@
     "college": "Shri Ram College of Commerce (SRCC)",
     "portal": "https://srcccollegetimetable.in/",
     "total_rooms": 96,
-    "last_synced": "08 Oct 2026, 09:22 PM",
-    "last_synced_iso": "2026-10-08T21:22:46.371351",
-    "academic_periods": [
-      "8:30 AM to 9:30 AM",
-      "9:30 AM to 10:30 AM",
-      "10:30 AM to 11:30 AM",
-      "11:30 AM to 12:30 PM",
-      "12:30 PM to 1:30 PM",
-      "2:00 PM to 3:00 PM",
-      "3:00 PM to 4:00 PM",
-      "4:00 PM to 5:00 PM",
-      "5:00 PM to 6:00 PM"
-    ],
-    "recess_slot": "1:30 PM to 2:00 PM",
-    "days": [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday"
-    ],
-    "categories": [
-      "All Rooms",
-      "Principal Bungalow (PB)",
-      "Tutorial Rooms (T)",
-      "Sports Complex (SCR)",
-      "Classrooms (R)",
-      "Computer Labs (CL)",
-      "Library & Other Facilities"
-    ]
+    "last_synced": "11 Oct 2026, 07:27 PM",
+    "reconciled": true
   },
   "rooms": [
     {
@@ -1961,19 +1932,19 @@
             },
             {
               "slot": "2:00 PM to 3:00 PM",
-              "class": "LAB-JOINT-SEM VPol.Sc.-NL-RHR-SEC4<----------------------->"
+              "class": "LAB-JOINT-SEM VCommerce-SRG-HC-SEC7<----------------------->"
             },
             {
               "slot": "3:00 PM to 4:00 PM",
-              "class": "LAB-JOINT-SEM VPol.Sc.-NL-RHR-SEC4<----------------------->"
+              "class": "LAB-JOINT-SEM VCommerce-SRG-HC-SEC7<----------------------->"
             },
             {
               "slot": "4:00 PM to 5:00 PM",
-              "class": "LAB-JOINT-SEM VPol.Sc.-NL-RHR-SEC4<----------------------->"
+              "class": "LAB-JOINT-SEM VCommerce-SRG-HC-SEC7<----------------------->"
             },
             {
               "slot": "5:00 PM to 6:00 PM",
-              "class": "LAB-JOINT-SEM VPol.Sc.-NL-RHR-SEC4<----------------------->"
+              "class": "LAB-JOINT-SEM VCommerce-SRG-HC-SEC7<----------------------->"
             }
           ]
         },
@@ -6855,19 +6826,19 @@
             },
             {
               "slot": "2:00 PM to 3:00 PM",
-              "class": "LAB-JOINT-SEM VCommerce-SRG-HC-SEC7<----------------------->"
+              "class": "LAB-JOINT-SEM VPol.Sc.-NL-RHR-SEC4<----------------------->"
             },
             {
               "slot": "3:00 PM to 4:00 PM",
-              "class": "LAB-JOINT-SEM VCommerce-SRG-HC-SEC7<----------------------->"
+              "class": "LAB-JOINT-SEM VPol.Sc.-NL-RHR-SEC4<----------------------->"
             },
             {
               "slot": "4:00 PM to 5:00 PM",
-              "class": "LAB-JOINT-SEM VCommerce-SRG-HC-SEC7<----------------------->"
+              "class": "LAB-JOINT-SEM VPol.Sc.-NL-RHR-SEC4<----------------------->"
             },
             {
               "slot": "5:00 PM to 6:00 PM",
-              "class": "LAB-JOINT-SEM VCommerce-SRG-HC-SEC7<----------------------->"
+              "class": "LAB-JOINT-SEM VPol.Sc.-NL-RHR-SEC4<----------------------->"
             }
           ]
         },
@@ -7401,13 +7372,12 @@
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "10:30 AM to 11:30 AM",
-            "12:30 PM to 1:30 PM",
             "2:00 PM to 3:00 PM",
             "3:00 PM to 4:00 PM",
             "4:00 PM to 5:00 PM",
             "5:00 PM to 6:00 PM"
           ],
-          "free_hours": 7,
+          "free_hours": 6,
           "lunch_recess_free": true,
           "occupied_slots": [
             {
@@ -7417,6 +7387,13 @@
             {
               "slot": "11:30 AM to 12:30 PM",
               "class": "L-1. BAHE-B-SEM VEconomics-EHI-DA L-2. BAHE-A-SEM VIIEconomics-EHI-DA L-3. BAHE-D-SEM IIIEconomics-EHI-DA"
+            },
+            {
+              "slot": "12:30 PM to 1:30 PM",
+              "class": "Lecture · Economic History of India (EHI) · B.A. (Hons) Economics Sem III Sec D",
+              "subject": "EHI",
+              "teacher": "David A Longkumer",
+              "batch": ""
             }
           ]
         },

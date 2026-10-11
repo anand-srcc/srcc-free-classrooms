@@ -22,3 +22,9 @@ Thumbs.db
 
 # Dependencies
 node_modules/
+
+# Scratch & Temporary
+scratch/
+homepage_temp.html
+srcc_data.json
+*.pdf

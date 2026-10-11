@@ -49,6 +49,7 @@ const rootFiles = [
   'centenary_official.png',
   'sync_leaves.py',
   'auto_sync_timetable.py',
+  'scrape_master_timetable.py',
   'export_data_json.py',
   'scrape_teachers.py',
   'enrich_teachers.py',
