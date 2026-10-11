@@ -2774,7 +2774,8 @@ ${directRoomUrl}`;
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
     }
 
     function formatBatchCode(b) {
@@ -8211,7 +8212,7 @@ window.SRCC_FACULTY_LEAVES = {
                 </button>
               </div>
               <div class="wifi-qr-popup" id="qr-${escapeHtml(w.id || w.ssid)}" style="display: none;">
-                <img src="${qrUrl}" alt="WiFi QR for ${escapeHtml(w.ssid)}" loading="lazy" />
+                <img data-src="${qrUrl}" alt="WiFi QR for ${escapeHtml(w.ssid)}" />
                 <p style="font-size: 0.75rem; color: #475569; margin: 6px 0 0; font-weight: 600;">Point phone camera or scanner to connect directly</p>
                 <div style="display: flex; gap: 8px; justify-content: center; margin-top: 8px; flex-wrap: wrap;">
                   <button type="button" class="btn-share-qr-action" data-ssid="${escapeHtml(w.ssid)}" data-pwd="${escapeHtml(w.password)}" data-loc="${escapeHtml(w.location || w.wing || 'SRCC Campus')}" data-qr="${qrUrl}" style="background: #0891b2; color: #ffffff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.76rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 5px;">
@@ -8245,6 +8246,10 @@ window.SRCC_FACULTY_LEAVES = {
               const isOpen = qrEl.style.display === 'block';
               qrEl.style.display = isOpen ? 'none' : 'block';
               btn.textContent = isOpen ? '📷 Scan QR' : '✕ Hide QR';
+              const img = qrEl.querySelector('img[data-src]');
+              if (img && !img.src && !isOpen) {
+                img.src = img.dataset.src;
+              }
             }
           });
         });

@@ -1265,34 +1265,72 @@ document.addEventListener('DOMContentLoaded', () => {
     openAttachmentViewer(notice.title, notice.attachment);
   };
 
+  function getSafeAttachmentUrl(url) {
+    if (!url || typeof url !== 'string') return '';
+    const trimmed = url.trim();
+    if (/^data:(application\/pdf|image\/(png|jpe?g|webp|gif));base64,[A-Za-z0-9+/=\s]+$/i.test(trimmed)) {
+      return trimmed;
+    }
+    if (/^https:\/\/[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=]+$/i.test(trimmed)) {
+      return trimmed;
+    }
+    return '';
+  }
+
   function openAttachmentViewer(title, attachment) {
     const overlay = document.getElementById('attachmentModalOverlay');
     const titleEl = document.getElementById('attachmentModalTitle');
     const bodyEl = document.getElementById('attachmentModalBody');
 
-    if (!overlay || !bodyEl) return;
+    if (!overlay || !bodyEl || !attachment) return;
     if (titleEl) titleEl.textContent = title || 'Notice Attachment';
 
+    const safeUrl = getSafeAttachmentUrl(attachment.dataUrl);
+    if (!safeUrl) {
+      showToast('⚠️ Unable to display attachment (invalid or untrusted file format).', false);
+      return;
+    }
+
+    bodyEl.innerHTML = '';
     if (attachment.type === 'pdf') {
-      bodyEl.innerHTML = `
-        <iframe src="${attachment.dataUrl}" style="width: 100%; height: 70vh; border: none; border-radius: 6px;"></iframe>
-        <div style="margin-top: 10px; display: flex; justify-content: flex-end;">
-          <a href="${attachment.dataUrl}" download="${escapeHtml(attachment.name || 'SRCC_Notice.pdf')}" class="btn-primary" style="text-decoration: none; font-size: 0.8rem; padding: 6px 14px;">
-            ⬇️ Download PDF
-          </a>
-        </div>
-      `;
+      const iframe = document.createElement('iframe');
+      iframe.src = safeUrl;
+      iframe.style.cssText = 'width: 100%; height: 70vh; border: none; border-radius: 6px;';
+
+      const dlWrap = document.createElement('div');
+      dlWrap.style.cssText = 'margin-top: 10px; display: flex; justify-content: flex-end;';
+      const dlLink = document.createElement('a');
+      dlLink.href = safeUrl;
+      dlLink.download = attachment.name || 'SRCC_Notice.pdf';
+      dlLink.className = 'btn-primary';
+      dlLink.style.cssText = 'text-decoration: none; font-size: 0.8rem; padding: 6px 14px;';
+      dlLink.textContent = '⬇️ Download PDF';
+      dlWrap.appendChild(dlLink);
+
+      bodyEl.appendChild(iframe);
+      bodyEl.appendChild(dlWrap);
     } else {
-      bodyEl.innerHTML = `
-        <div style="text-align: center;">
-          <img src="${attachment.dataUrl}" alt="Notice Attachment" style="max-width: 100%; max-height: 70vh; object-fit: contain; border-radius: 6px;" />
-          <div style="margin-top: 10px; display: flex; justify-content: flex-end;">
-            <a href="${attachment.dataUrl}" download="${escapeHtml(attachment.name || 'SRCC_Poster.png')}" class="btn-primary" style="text-decoration: none; font-size: 0.8rem; padding: 6px 14px;">
-              ⬇️ Download Image
-            </a>
-          </div>
-        </div>
-      `;
+      const imgWrap = document.createElement('div');
+      imgWrap.style.textAlign = 'center';
+
+      const img = document.createElement('img');
+      img.src = safeUrl;
+      img.alt = 'Notice Attachment';
+      img.style.cssText = 'max-width: 100%; max-height: 70vh; object-fit: contain; border-radius: 6px;';
+
+      const dlWrap = document.createElement('div');
+      dlWrap.style.cssText = 'margin-top: 10px; display: flex; justify-content: flex-end;';
+      const dlLink = document.createElement('a');
+      dlLink.href = safeUrl;
+      dlLink.download = attachment.name || 'SRCC_Poster.png';
+      dlLink.className = 'btn-primary';
+      dlLink.style.cssText = 'text-decoration: none; font-size: 0.8rem; padding: 6px 14px;';
+      dlLink.textContent = '⬇️ Download Image';
+      dlWrap.appendChild(dlLink);
+
+      imgWrap.appendChild(img);
+      imgWrap.appendChild(dlWrap);
+      bodyEl.appendChild(imgWrap);
     }
 
     overlay.style.display = 'flex';
@@ -2216,7 +2254,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function escapeHtml(str) {
     if (!str) return '';
-    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
   }
 
   // ==========================================================================

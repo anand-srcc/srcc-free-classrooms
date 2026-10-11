@@ -23,6 +23,20 @@ exports.handler = async (event) => {
     };
   }
 
+  // Security: Enforce admin secret authorization if ADMIN_DISPATCH_SECRET is set
+  const expectedSecret = process.env.ADMIN_DISPATCH_SECRET || process.env.VAPID_PRIVATE_KEY;
+  if (expectedSecret) {
+    const authHeader = event.headers['authorization'] || event.headers['x-dispatch-secret'] || '';
+    const token = authHeader.replace(/^Bearer\s+/i, '').trim();
+    if (!token || token !== expectedSecret) {
+      return {
+        statusCode: 401,
+        headers: { 'Access-Control-Allow-Origin': '*' },
+        body: JSON.stringify({ error: 'Unauthorized: Valid dispatch secret required' })
+      };
+    }
+  }
+
   try {
     let payload = {
       title: 'SRCC Live Campus Update 🔔',
@@ -33,9 +47,19 @@ exports.handler = async (event) => {
     if (event.body) {
       try {
         const parsed = JSON.parse(event.body);
-        if (parsed.title) payload.title = parsed.title;
-        if (parsed.body) payload.body = parsed.body;
-        if (parsed.url) payload.url = parsed.url;
+        if (parsed.title && typeof parsed.title === 'string') {
+          payload.title = parsed.title.slice(0, 120);
+        }
+        if (parsed.body && typeof parsed.body === 'string') {
+          payload.body = parsed.body.slice(0, 300);
+        }
+        if (parsed.url && typeof parsed.url === 'string') {
+          // Strictly validate URL to relative path or official SRCC domain to prevent open-redirect phishing
+          const targetUrl = parsed.url.trim();
+          if (targetUrl.startsWith('./') || targetUrl.startsWith('/') || /^https:\/\/([a-zA-Z0-9-]+\.)*srcc\.du\.ac\.in(\/|$)/i.test(targetUrl)) {
+            payload.url = targetUrl;
+          }
+        }
       } catch (e) {}
     }
 

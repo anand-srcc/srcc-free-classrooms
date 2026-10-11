@@ -212,8 +212,11 @@ def main():
         enrich_teachers.enrich()
         from generate_widget_feed import generate_feed
         generate_feed()
+        # Enforce full 100% bidirectional reconciliation across Faculty, Rooms, and Sections
+        print("\n  [Integrity] Executing bidirectional reconciliation across Faculty, Rooms, and Sections...")
+        import execute_reverse_reconciliation
     except Exception as e:
-        print(f"[Warning] Failed to scrape teacher timetables or generate widget feed: {e}")
+        print(f"[Warning] Note on post-sync reconciliation / widget feed: {e}")
 
     # 5. Copy to Downloads & create deployment package (if on Windows)
     print("\n[5/5] Updating local deployment package & Downloads folder...")

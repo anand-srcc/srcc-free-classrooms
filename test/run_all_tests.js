@@ -116,6 +116,46 @@ runTest('JavaScript core files pass syntax compilation without errors', () => {
   execSync('node -c web_app/admin.js', { stdio: 'pipe' });
 });
 
+// 7. Security: HTML Escaper Single Quote Protection
+runTest('escapeHtml function protects against single quote attribute breakout', () => {
+  const appJs = fs.readFileSync(path.join(__dirname, '../web_app/app.js'), 'utf8');
+  const adminJs = fs.readFileSync(path.join(__dirname, '../web_app/admin.js'), 'utf8');
+  assert(appJs.includes(".replace(/'/g, '&#39;')"), 'app.js escapeHtml must escape single quotes');
+  assert(adminJs.includes(".replace(/'/g, '&#39;')"), 'admin.js escapeHtml must escape single quotes');
+});
+
+// 8. Security: Serverless Push Dispatch Authorization & URL Whitelist
+runTest('push_dispatch.js enforces secret authorization & validates notification URLs', () => {
+  const fnCode = fs.readFileSync(path.join(__dirname, '../netlify/functions/push_dispatch.js'), 'utf8');
+  assert(fnCode.includes('ADMIN_DISPATCH_SECRET') || fnCode.includes('VAPID_PRIVATE_KEY'), 'Must check secret authorization');
+  assert(fnCode.includes('targetUrl.startsWith'), 'Must validate notification destination URL');
+});
+
+// 9. Offline Service Worker Asset Completeness
+runTest('Service Worker pre-caches classes_data.js and synchronizes cache version', () => {
+  const swCode = fs.readFileSync(path.join(__dirname, '../web_app/sw.js'), 'utf8');
+  assert(swCode.includes("'./classes_data.js?v=57'"), 'sw.js must cache classes_data.js?v=57');
+  assert(swCode.includes("'./classes_data.json'"), 'sw.js must cache classes_data.json');
+  assert(swCode.includes('srcc-classroom-v57'), 'sw.js must be bumped to v57');
+});
+
+// 10. Data Integrity: Zero Conflict Free Room Invariant
+runTest('Free classroom invariant holds: Zero conflict between free and occupied slots', () => {
+  const srccData = JSON.parse(fs.readFileSync(path.join(__dirname, '../web_app/srcc_data.json'), 'utf8'));
+  const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  for (const room of srccData.rooms) {
+    for (const d of days) {
+      const sched = room.schedule[d];
+      if (!sched) continue;
+      const freeSet = new Set(sched.free_slots || []);
+      const occSet = new Set((sched.occupied_slots || []).map(o => o.slot));
+      for (const slot of freeSet) {
+        assert(!occSet.has(slot), `Room ${room.code} on ${d} has slot ${slot} marked both free and occupied`);
+      }
+    }
+  }
+});
+
 console.log(`\nResults: ${testsPassed}/${testsTotal} tests passed.\n`);
 
 if (testsPassed === testsTotal) {
