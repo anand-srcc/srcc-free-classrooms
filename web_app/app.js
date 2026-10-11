@@ -4008,7 +4008,7 @@ ${directRoomUrl}`;
           type: 'SCHEDULE_VIEW',
           badgeClass: 'status-offhours',
           dotClass: 'dot-off',
-          text: `🗓️ ${daySched.length} Lecture(s) Scheduled on ${facultyState.activeDay}`,
+          text: '',
           isTeachingNow: false,
           isOnLeave: false,
           isFreeNow: false,
@@ -4060,7 +4060,7 @@ ${directRoomUrl}`;
         type: 'OFFHOURS',
         badgeClass: 'status-offhours',
         dotClass: 'dot-off',
-        text: `🕒 Off-Hours (${daySched.length} Lecture(s) Today)`,
+        text: '',
         isTeachingNow: false,
         isOnLeave: false,
         isFreeNow: false,
@@ -4460,11 +4460,12 @@ ${directRoomUrl}`;
                 </div>
               </div>
 
+              ${status.text ? `
               <div class="faculty-compact-status">
                 <div class="faculty-live-status-strip ${status.badgeClass}" style="margin: 0; padding: 4px 8px; font-size: 0.74rem;">
                   <span>${status.text}</span>
                 </div>
-              </div>
+              </div>` : ''}
 
               <div class="faculty-compact-actions" style="display: flex; gap: 6px;">
                 <button class="btn-teacher-timetable" data-teacher-id="${teacher.id}" title="Full Weekly Schedule">
@@ -4538,9 +4539,10 @@ ${directRoomUrl}`;
               ${subjectsHtml}
 
               <!-- Live Status Strip -->
+              ${status.text ? `
               <div class="faculty-live-status-strip ${status.badgeClass}">
                 <span>${status.text}</span>
-              </div>
+              </div>` : ''}
 
               <!-- Day Schedule Breakdown -->
               <div class="faculty-day-schedule-wrap">

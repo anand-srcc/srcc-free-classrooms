@@ -388,31 +388,42 @@ def enrich():
                     prefix = {'COMMERCE': 'CG', 'ECO': 'EG', 'HINDI': 'HG', 'CS': 'CSG'}.get(m2.group(1).upper(), 'G')
                     assigned_code = f"{prefix}{m2.group(2)}"
 
-        if not assigned_code:
-            # Check candidate codes from room slots
-            candidate_codes = {}
-            for day, classes in t['schedule'].items():
-                for c in classes:
-                    r = c.get('room', '').strip().upper()
-                    slot = c.get('slot', '')
-                    k = (r, day, slot)
-                    if k in room_slots:
-                        for r_cls in room_slots[k]:
-                            m_end = re.search(r'-([A-Za-z0-9]+)$', r_cls)
-                            if m_end and is_valid_teacher_code(m_end.group(1)):
-                                code = m_end.group(1).upper()
-                                candidate_codes[code] = candidate_codes.get(code, 0) + 1
-                            m2_mid = re.search(r'-([A-Za-z0-9]+)-[A-Za-z0-9]+$', r_cls)
-                            if m2_mid and is_valid_teacher_code(m2_mid.group(1)):
-                                code2 = m2_mid.group(1).upper()
-                                candidate_codes[code2] = candidate_codes.get(code2, 0) + 1
-            if candidate_codes:
-                assigned_code = max(candidate_codes.items(), key=lambda x: x[1])[0]
-            elif is_valid_teacher_code(t.get('short_code', '')):
-                assigned_code = t.get('short_code', '')
+        # Check candidate codes from room slots
+        candidate_codes = {}
+        for day, classes in t['schedule'].items():
+            for c in classes:
+                r = c.get('room', '').strip().upper()
+                slot = c.get('slot', '')
+                k = (r, day, slot)
+                if k in room_slots:
+                    for r_cls in room_slots[k]:
+                        m_end = re.search(r'-([A-Za-z0-9]+)$', r_cls)
+                        if m_end and is_valid_teacher_code(m_end.group(1)):
+                            code = m_end.group(1).upper()
+                            candidate_codes[code] = candidate_codes.get(code, 0) + 1
+                        m2_mid = re.search(r'-([A-Za-z0-9]+)-[A-Za-z0-9]+$', r_cls)
+                        if m2_mid and is_valid_teacher_code(m2_mid.group(1)):
+                            code2 = m2_mid.group(1).upper()
+                            candidate_codes[code2] = candidate_codes.get(code2, 0) + 1
+        room_code = max(candidate_codes.items(), key=lambda x: x[1])[0] if candidate_codes else ''
 
-        t['short_code'] = assigned_code
-        t['ref_code'] = assigned_code
+        # Combine dual codes where teachers have both official guest code and initials/timetable code
+        if name == 'Abhilash':
+            final_code = 'HG4 / AH'
+            room_code = f"AH {room_code}".strip()
+        elif assigned_code and room_code and assigned_code != room_code and not assigned_code.endswith(room_code) and not room_code.endswith(assigned_code):
+            final_code = f"{assigned_code} / {room_code}"
+        elif assigned_code:
+            final_code = assigned_code
+        elif room_code:
+            final_code = room_code
+        elif is_valid_teacher_code(t.get('short_code', '')):
+            final_code = t.get('short_code', '')
+        else:
+            final_code = ''
+
+        t['short_code'] = final_code
+        t['ref_code'] = f"{final_code} {assigned_code} {room_code}".strip()
 
     def merge_day_classes(classes_list):
         by_slot = {}
