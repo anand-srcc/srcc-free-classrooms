@@ -2,10 +2,11 @@
   "metadata": {
     "college": "Shri Ram College of Commerce (SRCC)",
     "portal": "https://srcccollegetimetable.in/",
-    "last_synced": "11 Oct 2026, 10:06 PM",
+    "last_synced": "11 Oct 2026, 10:16 PM",
     "total_classes_recorded": 2485,
     "audit_reconciled": true,
-    "tridiagonal_passes": 5
+    "tridiagonal_passes": 5,
+    "reverse_reconciled": true
   },
   "courses": {
     "SEC": {

@@ -3,9 +3,10 @@
     "college": "Shri Ram College of Commerce (SRCC)",
     "portal": "https://srcccollegetimetable.in/",
     "total_teachers": 210,
-    "last_synced": "11 Oct 2026, 10:06 PM",
+    "last_synced": "11 Oct 2026, 10:16 PM",
     "audit_reconciled": true,
-    "tridiagonal_passes": 5
+    "tridiagonal_passes": 5,
+    "reverse_reconciled": true
   },
   "teachers": [
     {
@@ -2909,7 +2910,7 @@
       "label": "Anisha (cg1)",
       "name": "Tanisha (Cg29)",
       "clean_name": "Anisha",
-      "short_code": "TAC",
+      "short_code": "ANC",
       "ref_code": "TAC CG1",
       "initials": "A",
       "department": "Commerce",
@@ -3412,18 +3413,191 @@
       "label": "Dr. Anisha",
       "name": "Dr. Anisha",
       "clean_name": "Anisha",
-      "short_code": "",
+      "short_code": "ASA",
       "ref_code": "",
       "initials": "A",
       "department": "Commerce",
       "subjects_taught": [],
-      "total_teaching_periods": 0,
+      "total_teaching_periods": 14,
       "schedule": {
-        "Monday": [],
-        "Tuesday": [],
-        "Wednesday": [],
-        "Thursday": [],
-        "Friday": [],
+        "Monday": [
+          {
+            "slot": "8:30 AM to 9:30 AM",
+            "raw": "L- Commerce-POM-R18-ASA",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Commerce",
+            "subject_name": "Commerce",
+            "room": "R18",
+            "type": "Lecture"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "L- Commerce-POM-R21-ASA",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Commerce",
+            "subject_name": "Commerce",
+            "room": "R21",
+            "type": "Lecture"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "T- 1. Commerce-POM-T8-ASA-F2",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "1. Commerce",
+            "subject_name": "1. Commerce",
+            "room": "T8",
+            "type": "Tutorial"
+          }
+        ],
+        "Tuesday": [
+          {
+            "slot": "8:30 AM to 9:30 AM",
+            "raw": "L- Commerce-POM-R18-ASA",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Commerce",
+            "subject_name": "Commerce",
+            "room": "R18",
+            "type": "Lecture"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "T- 2. Commerce-MPA-T8-ASA-D3",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "2. Commerce",
+            "subject_name": "2. Commerce",
+            "room": "T8",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "T- 3. Commerce-POM-T8-ASA-K3",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "3. Commerce",
+            "subject_name": "3. Commerce",
+            "room": "T8",
+            "type": "Tutorial"
+          }
+        ],
+        "Wednesday": [
+          {
+            "slot": "8:30 AM to 9:30 AM",
+            "raw": "L- Commerce-POM-R18-ASA",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Commerce",
+            "subject_name": "Commerce",
+            "room": "R18",
+            "type": "Lecture"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "T- 2. Commerce-MPA-T8-ASA-D2",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "2. Commerce",
+            "subject_name": "2. Commerce",
+            "room": "T8",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "T- 2. Commerce-POM-T27-ASA-F1",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "2. Commerce",
+            "subject_name": "2. Commerce",
+            "room": "T27",
+            "type": "Tutorial"
+          }
+        ],
+        "Thursday": [
+          {
+            "slot": "8:30 AM to 9:30 AM",
+            "raw": "L- Commerce-POM-R18-ASA",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Commerce",
+            "subject_name": "Commerce",
+            "room": "R18",
+            "type": "Lecture"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "T- 1. Commerce-POM-T8-ASA-F3",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "1. Commerce",
+            "subject_name": "1. Commerce",
+            "room": "T8",
+            "type": "Tutorial"
+          }
+        ],
+        "Friday": [
+          {
+            "slot": "8:30 AM to 9:30 AM",
+            "raw": "L- Commerce-POM-R2-ASA",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Commerce",
+            "subject_name": "Commerce",
+            "room": "R2",
+            "type": "Lecture"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "T- 2. Commerce-POM-T8-ASA-K1",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "2. Commerce",
+            "subject_name": "2. Commerce",
+            "room": "T8",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "T- 2. Commerce-POM-T31-ASA-D1",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "2. Commerce",
+            "subject_name": "2. Commerce",
+            "room": "T31",
+            "type": "Tutorial"
+          }
+        ],
         "Saturday": []
       }
     },
@@ -3577,9 +3751,34 @@
         "PEOPLE MANAGEMENT)",
         "VAC-EMOTIONAL INTELLIGENCE"
       ],
-      "total_teaching_periods": 16,
+      "total_teaching_periods": 26,
       "schedule": {
-        "Monday": [],
+        "Monday": [
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- 6. Commerce-EI-R15-AJC-VAC16",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "6. Commerce",
+            "subject_name": "6. Commerce",
+            "room": "R15",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB- 5. Commerce-EI-R15-AJC-VAC16",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "5. Commerce",
+            "subject_name": "5. Commerce",
+            "room": "R15",
+            "type": "Practical/Lab"
+          }
+        ],
         "Tuesday": [
           {
             "slot": "9:30 AM to 10:30 AM",
@@ -3628,6 +3827,18 @@
             "subject_name": "Strategic Human Resource Management",
             "room": "T31",
             "type": "Tutorial"
+          },
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "L- 10. Commerce-EI-R14-AJC-VAC20",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "10. Commerce",
+            "subject_name": "10. Commerce",
+            "room": "R14",
+            "type": "Lecture"
           }
         ],
         "Wednesday": [
@@ -3666,6 +3877,54 @@
             "subject_name": "Business Mathematics",
             "room": "CL2",
             "type": "Lecture"
+          },
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- 14. Commerce-IE-PB4-AJC-SEC9",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "14. Commerce",
+            "subject_name": "14. Commerce",
+            "room": "PB4",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB- 15. Commerce-IE-PB4-AJC-SEC9",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "15. Commerce",
+            "subject_name": "15. Commerce",
+            "room": "PB4",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "LAB- 9. Commerce-IE-PB4-AJC-SEC9",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "9. Commerce",
+            "subject_name": "9. Commerce",
+            "room": "PB4",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "5:00 PM to 6:00 PM",
+            "raw": "LAB- 8. Commerce-IE-PB4-AJC-SEC9",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "8. Commerce",
+            "subject_name": "8. Commerce",
+            "room": "PB4",
+            "type": "Practical/Lab"
           }
         ],
         "Thursday": [
@@ -3691,6 +3950,30 @@
             "subject": "BMATH",
             "subject_name": "Business Mathematics",
             "room": "R13",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- 7. Commerce-EI-R23-AJC-VAC20",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "7. Commerce",
+            "subject_name": "7. Commerce",
+            "room": "R23",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB- 7. Commerce-EI-R23-AJC-VAC20",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "7. Commerce",
+            "subject_name": "7. Commerce",
+            "room": "R23",
             "type": "Practical/Lab"
           }
         ],
@@ -3754,6 +4037,18 @@
             "subject_name": "Project Management",
             "room": "T25",
             "type": "Tutorial"
+          },
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "L- 2. Commerce-EI-R21-AJC-VAC16",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "2. Commerce",
+            "subject_name": "2. Commerce",
+            "room": "R21",
+            "type": "Lecture"
           }
         ],
         "Saturday": [
@@ -3789,7 +4084,7 @@
       "label": "Ms. Anju Verma",
       "name": "Ms. Anju Verma",
       "clean_name": "Anju Verma",
-      "short_code": "",
+      "short_code": "AJC",
       "ref_code": "",
       "initials": "AV",
       "department": "Commerce",
@@ -7522,7 +7817,7 @@
         "ECONOMIC HISTORY OF INDIA)",
         "MONEY AND BANKING)"
       ],
-      "total_teaching_periods": 10,
+      "total_teaching_periods": 12,
       "schedule": {
         "Monday": [],
         "Tuesday": [],
@@ -7562,6 +7857,30 @@
             "subject_name": "Economic History of India",
             "room": "R29",
             "type": "Lecture"
+          },
+          {
+            "slot": "12:30 PM to 1:30 PM",
+            "raw": "LAB- Commerce-DA-T27-PAC",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Commerce",
+            "subject_name": "Commerce",
+            "room": "T27",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "8:30 AM to 9:30 AM",
+            "raw": "LAB- 2. Commerce-DA-T42-PAC",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "2. Commerce",
+            "subject_name": "2. Commerce",
+            "room": "T42",
+            "type": "Practical/Lab"
           }
         ],
         "Thursday": [
@@ -10061,7 +10380,7 @@
       "label": "Harsh Goel (cg12)",
       "name": "Harsh Goel",
       "clean_name": "Harsh Goel",
-      "short_code": "CG12",
+      "short_code": "HGC",
       "ref_code": "CG12",
       "initials": "HG",
       "department": "Commerce",
@@ -10528,7 +10847,7 @@
         "DIGITALISATION AND DEVELOPMENT)",
         "PRINCIPLES OF MICROECONOMICS-I)"
       ],
-      "total_teaching_periods": 16,
+      "total_teaching_periods": 35,
       "schedule": {
         "Monday": [
           {
@@ -10616,6 +10935,54 @@
             "subject_name": "Principles of Microeconomics I",
             "room": "T46",
             "type": "Tutorial"
+          },
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- 4. Commerce-SRG-R10-HC-SEC7",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "4. Commerce",
+            "subject_name": "4. Commerce",
+            "room": "R10",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB- 4. Commerce-SRG-R10-HC-SEC7",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "4. Commerce",
+            "subject_name": "4. Commerce",
+            "room": "R10",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "LAB- 4. Commerce-SRG-R10-HC-SEC7",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "4. Commerce",
+            "subject_name": "4. Commerce",
+            "room": "R10",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "5:00 PM to 6:00 PM",
+            "raw": "LAB- 4. Commerce-SRG-R10-HC-SEC7",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "4. Commerce",
+            "subject_name": "4. Commerce",
+            "room": "R10",
+            "type": "Practical/Lab"
           }
         ],
         "Wednesday": [
@@ -10654,6 +11021,90 @@
             "subject_name": "Principles of Microeconomics I",
             "room": "CL2",
             "type": "Lecture"
+          },
+          {
+            "slot": "12:30 PM to 1:30 PM",
+            "raw": "L- Economics-Adv MME-R24-HC",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Economics",
+            "subject_name": "Economics",
+            "room": "R24",
+            "type": "Lecture"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "L- Economics-Adv MME-R26-HC",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Economics",
+            "subject_name": "Economics",
+            "room": "R26",
+            "type": "Lecture"
+          },
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- 6. Commerce-PFP-R35-HC-SEC15",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "6. Commerce",
+            "subject_name": "6. Commerce",
+            "room": "R35",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB- 7. Commerce-PFP-R35-HC-SEC15",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "7. Commerce",
+            "subject_name": "7. Commerce",
+            "room": "R35",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "L- 3. Commerce-PFP-R35-HC-SEC15",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "3. Commerce",
+            "subject_name": "3. Commerce",
+            "room": "R35",
+            "type": "Lecture"
+          },
+          {
+            "slot": "11:30 AM to 12:30 PM",
+            "raw": "T- 3. Economics-Adv MME-PB2-HC-C1",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "3. Economics",
+            "subject_name": "3. Economics",
+            "room": "PB2",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "T- 1. Economics-Adv MME-T51-HC-C2",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "1. Economics",
+            "subject_name": "1. Economics",
+            "room": "T51",
+            "type": "Tutorial"
           }
         ],
         "Thursday": [
@@ -10730,9 +11181,106 @@
             "subject_name": "Principles of Microeconomics I",
             "room": "R1",
             "type": "Lecture"
+          },
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- 2. Commerce-SRG-R20-HC-SEC8",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "2. Commerce",
+            "subject_name": "2. Commerce",
+            "room": "R20",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB- 2. Commerce-SRG-R20-HC-SEC8",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "2. Commerce",
+            "subject_name": "2. Commerce",
+            "room": "R20",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "11:30 AM to 12:30 PM",
+            "raw": "L- Economics-Adv MME-R24-HC",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Economics",
+            "subject_name": "Economics",
+            "room": "R24",
+            "type": "Lecture"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "L- Economics-Adv MME-PB4-HC",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Economics",
+            "subject_name": "Economics",
+            "room": "PB4",
+            "type": "Lecture"
           }
         ],
-        "Saturday": []
+        "Saturday": [
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "L- Economics-Adv MME-R7-HC",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Economics",
+            "subject_name": "Economics",
+            "room": "R7",
+            "type": "Lecture"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "L- Economics-Adv MME-R25-HC",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Economics",
+            "subject_name": "Economics",
+            "room": "R25",
+            "type": "Lecture"
+          },
+          {
+            "slot": "8:30 AM to 9:30 AM",
+            "raw": "T- Economics-Adv MME-T2-HC-C3",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Economics",
+            "subject_name": "Economics",
+            "room": "T2",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "11:30 AM to 12:30 PM",
+            "raw": "T- Economics-Adv MME-T16-HC-A1",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Economics",
+            "subject_name": "Economics",
+            "room": "T16",
+            "type": "Tutorial"
+          }
+        ]
       }
     },
     {
@@ -10740,19 +11288,251 @@
       "label": "Ms. Himanshi Aggarwal",
       "name": "Ms. Himanshi Aggarwal",
       "clean_name": "Himanshi Aggarwal",
-      "short_code": "",
+      "short_code": "HC",
       "ref_code": "",
       "initials": "HA",
       "department": "Commerce",
       "subjects_taught": [],
-      "total_teaching_periods": 0,
+      "total_teaching_periods": 19,
       "schedule": {
         "Monday": [],
-        "Tuesday": [],
-        "Wednesday": [],
+        "Tuesday": [
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- 4. Commerce-SRG-R10-HC-SEC7",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "4. Commerce",
+            "subject_name": "4. Commerce",
+            "room": "R10",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB- 4. Commerce-SRG-R10-HC-SEC7",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "4. Commerce",
+            "subject_name": "4. Commerce",
+            "room": "R10",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "LAB- 4. Commerce-SRG-R10-HC-SEC7",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "4. Commerce",
+            "subject_name": "4. Commerce",
+            "room": "R10",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "5:00 PM to 6:00 PM",
+            "raw": "LAB- 4. Commerce-SRG-R10-HC-SEC7",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "4. Commerce",
+            "subject_name": "4. Commerce",
+            "room": "R10",
+            "type": "Practical/Lab"
+          }
+        ],
+        "Wednesday": [
+          {
+            "slot": "12:30 PM to 1:30 PM",
+            "raw": "L- Economics-Adv MME-R24-HC",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Economics",
+            "subject_name": "Economics",
+            "room": "R24",
+            "type": "Lecture"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "L- Economics-Adv MME-R26-HC",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Economics",
+            "subject_name": "Economics",
+            "room": "R26",
+            "type": "Lecture"
+          },
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- 6. Commerce-PFP-R35-HC-SEC15",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "6. Commerce",
+            "subject_name": "6. Commerce",
+            "room": "R35",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB- 7. Commerce-PFP-R35-HC-SEC15",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "7. Commerce",
+            "subject_name": "7. Commerce",
+            "room": "R35",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "L- 3. Commerce-PFP-R35-HC-SEC15",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "3. Commerce",
+            "subject_name": "3. Commerce",
+            "room": "R35",
+            "type": "Lecture"
+          },
+          {
+            "slot": "11:30 AM to 12:30 PM",
+            "raw": "T- 3. Economics-Adv MME-PB2-HC-C1",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "3. Economics",
+            "subject_name": "3. Economics",
+            "room": "PB2",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "T- 1. Economics-Adv MME-T51-HC-C2",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "1. Economics",
+            "subject_name": "1. Economics",
+            "room": "T51",
+            "type": "Tutorial"
+          }
+        ],
         "Thursday": [],
-        "Friday": [],
-        "Saturday": []
+        "Friday": [
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- 2. Commerce-SRG-R20-HC-SEC8",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "2. Commerce",
+            "subject_name": "2. Commerce",
+            "room": "R20",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB- 2. Commerce-SRG-R20-HC-SEC8",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "2. Commerce",
+            "subject_name": "2. Commerce",
+            "room": "R20",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "11:30 AM to 12:30 PM",
+            "raw": "L- Economics-Adv MME-R24-HC",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Economics",
+            "subject_name": "Economics",
+            "room": "R24",
+            "type": "Lecture"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "L- Economics-Adv MME-PB4-HC",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Economics",
+            "subject_name": "Economics",
+            "room": "PB4",
+            "type": "Lecture"
+          }
+        ],
+        "Saturday": [
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "L- Economics-Adv MME-R7-HC",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Economics",
+            "subject_name": "Economics",
+            "room": "R7",
+            "type": "Lecture"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "L- Economics-Adv MME-R25-HC",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Economics",
+            "subject_name": "Economics",
+            "room": "R25",
+            "type": "Lecture"
+          },
+          {
+            "slot": "8:30 AM to 9:30 AM",
+            "raw": "T- Economics-Adv MME-T2-HC-C3",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Economics",
+            "subject_name": "Economics",
+            "room": "T2",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "11:30 AM to 12:30 PM",
+            "raw": "T- Economics-Adv MME-T16-HC-A1",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Economics",
+            "subject_name": "Economics",
+            "room": "T16",
+            "type": "Tutorial"
+          }
+        ]
       }
     },
     {
@@ -16378,7 +17158,7 @@
         "DIGITALISATION AND DEVELOPMENT)",
         "GE-ESSENTIALS OF ECONOMICS)"
       ],
-      "total_teaching_periods": 16,
+      "total_teaching_periods": 26,
       "schedule": {
         "Monday": [
           {
@@ -16492,6 +17272,42 @@
             "subject_name": "Digitalisation and Development",
             "room": "T54",
             "type": "Tutorial"
+          },
+          {
+            "slot": "11:30 AM to 12:30 PM",
+            "raw": "L- Economics-Adv MME-R26-MG 15",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Economics",
+            "subject_name": "Economics",
+            "room": "R26",
+            "type": "Lecture"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "T- 3. Economics-Adv MME-R37-MG 15-B2",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "3. Economics",
+            "subject_name": "3. Economics",
+            "room": "R37",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "L- Economics-Adv MME-PB4-MG 15",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Economics",
+            "subject_name": "Economics",
+            "room": "PB4",
+            "type": "Lecture"
           }
         ],
         "Thursday": [
@@ -16580,9 +17396,94 @@
             "subject_name": "Digitalisation and Development",
             "room": "T54",
             "type": "Tutorial"
+          },
+          {
+            "slot": "12:30 PM to 1:30 PM",
+            "raw": "L- Economics-Adv MME-R24-MG 15",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Economics",
+            "subject_name": "Economics",
+            "room": "R24",
+            "type": "Lecture"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "L- Economics-Adv MME-R24-MG 15",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Economics",
+            "subject_name": "Economics",
+            "room": "R24",
+            "type": "Lecture"
+          },
+          {
+            "slot": "11:30 AM to 12:30 PM",
+            "raw": "T- 2. Economics-Adv MME-T3-MG 15-B1",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "2. Economics",
+            "subject_name": "2. Economics",
+            "room": "T3",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "T- 1. Economics-Adv MME-T49-MG 15-D2",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "1. Economics",
+            "subject_name": "1. Economics",
+            "room": "T49",
+            "type": "Tutorial"
           }
         ],
-        "Saturday": []
+        "Saturday": [
+          {
+            "slot": "11:30 AM to 12:30 PM",
+            "raw": "L- Economics-Adv MME-R23-MG 15",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Economics",
+            "subject_name": "Economics",
+            "room": "R23",
+            "type": "Lecture"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "L- Economics-Adv MME-R24-MG 15",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Economics",
+            "subject_name": "Economics",
+            "room": "R24",
+            "type": "Lecture"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "T- 2. Economics-Adv MME-T3-MG 15-D1",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "2. Economics",
+            "subject_name": "2. Economics",
+            "room": "T3",
+            "type": "Tutorial"
+          }
+        ]
       }
     },
     {
@@ -17661,16 +18562,41 @@
       "label": "Nisha (cg33)",
       "name": "Nisha Bajaj (Cg9)",
       "clean_name": "Nisha",
-      "short_code": "NBC",
+      "short_code": "NC",
       "ref_code": "NBC CG33",
       "initials": "N",
       "department": "Commerce",
       "subjects_taught": [
         "SEC SUSTAINABLE ECO TOURISM AND ENT)"
       ],
-      "total_teaching_periods": 8,
+      "total_teaching_periods": 17,
       "schedule": {
-        "Monday": [],
+        "Monday": [
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- 5. Commerce-DE-R14-NC-VAC17",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "5. Commerce",
+            "subject_name": "5. Commerce",
+            "room": "R14",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB- 4. Commerce-DE-R14-NC-VAC17",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "4. Commerce",
+            "subject_name": "4. Commerce",
+            "room": "R14",
+            "type": "Practical/Lab"
+          }
+        ],
         "Tuesday": [
           {
             "slot": "2:00 PM to 3:00 PM",
@@ -17695,9 +18621,70 @@
             "subject_name": "Sustainable Eco Tourism and Entrepreneurship",
             "room": "R16",
             "type": "Practical/Lab"
+          },
+          {
+            "slot": "8:30 AM to 9:30 AM",
+            "raw": "L- Commerce-IMC-R16-NC",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Commerce",
+            "subject_name": "Commerce",
+            "room": "R16",
+            "type": "Lecture"
+          },
+          {
+            "slot": "11:30 AM to 12:30 PM",
+            "raw": "L- 2. Commerce-GE- MFB-R29-NC",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "2. Commerce",
+            "subject_name": "2. Commerce",
+            "room": "R29",
+            "type": "Lecture"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "L- 1. Commerce-IMC-SCR4-NC",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "1. Commerce",
+            "subject_name": "1. Commerce",
+            "room": "SCR4",
+            "type": "Lecture"
           }
         ],
-        "Wednesday": [],
+        "Wednesday": [
+          {
+            "slot": "12:30 PM to 1:30 PM",
+            "raw": "L- Commerce-GE- MFB-R29-NC",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Commerce",
+            "subject_name": "Commerce",
+            "room": "R29",
+            "type": "Lecture"
+          },
+          {
+            "slot": "11:30 AM to 12:30 PM",
+            "raw": "T- 3. Commerce-GE- MFB-T16-NC-C3",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "3. Commerce",
+            "subject_name": "3. Commerce",
+            "room": "T16",
+            "type": "Tutorial"
+          }
+        ],
         "Thursday": [
           {
             "slot": "2:00 PM to 3:00 PM",
@@ -17772,9 +18759,34 @@
             "subject_name": "Basic IT Tools",
             "room": "R30",
             "type": "Practical/Lab"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "L- Commerce-GE- MFB-PB4-NC",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Commerce",
+            "subject_name": "Commerce",
+            "room": "PB4",
+            "type": "Lecture"
           }
         ],
-        "Saturday": []
+        "Saturday": [
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "L- Commerce-IMC-PB4-NC",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Commerce",
+            "subject_name": "Commerce",
+            "room": "PB4",
+            "type": "Lecture"
+          }
+        ]
       }
     },
     {
@@ -17782,18 +18794,117 @@
       "label": "Nisha Bajaj (cg9)",
       "name": "Nisha Bajaj",
       "clean_name": "Nisha Bajaj",
-      "short_code": "CG9",
+      "short_code": "NBC",
       "ref_code": "CG9",
       "initials": "NB",
       "department": "Commerce",
       "subjects_taught": [],
-      "total_teaching_periods": 0,
+      "total_teaching_periods": 8,
       "schedule": {
         "Monday": [],
-        "Tuesday": [],
+        "Tuesday": [
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- 7. Commerce-SET-R16-NBC-SEC19",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "7. Commerce",
+            "subject_name": "7. Commerce",
+            "room": "R16",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB- 7. Commerce-SET-R16-NBC-SEC19",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "7. Commerce",
+            "subject_name": "7. Commerce",
+            "room": "R16",
+            "type": "Practical/Lab"
+          }
+        ],
         "Wednesday": [],
-        "Thursday": [],
-        "Friday": [],
+        "Thursday": [
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- 10. Commerce-SET-R16-NBC-SEC19",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "10. Commerce",
+            "subject_name": "10. Commerce",
+            "room": "R16",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB- 11. Commerce-SET-R16-NBC-SEC19",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "11. Commerce",
+            "subject_name": "11. Commerce",
+            "room": "R16",
+            "type": "Practical/Lab"
+          }
+        ],
+        "Friday": [
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- 3. Commerce-BIT-R30-NBC-SEC15",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "3. Commerce",
+            "subject_name": "3. Commerce",
+            "room": "R30",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB- 3. Commerce-BIT-R30-NBC-SEC15",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "3. Commerce",
+            "subject_name": "3. Commerce",
+            "room": "R30",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "LAB- 3. Commerce-BIT-R30-NBC-SEC15",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "3. Commerce",
+            "subject_name": "3. Commerce",
+            "room": "R30",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "5:00 PM to 6:00 PM",
+            "raw": "LAB- 3. Commerce-BIT-R30-NBC-SEC15",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "3. Commerce",
+            "subject_name": "3. Commerce",
+            "room": "R30",
+            "type": "Practical/Lab"
+          }
+        ],
         "Saturday": []
       }
     },
@@ -19886,7 +20997,7 @@
       "label": "Dr. Priyanka Aggarwal",
       "name": "Priyanka Aggarwal (Cg26)",
       "clean_name": "Priyanka Aggarwal",
-      "short_code": "PKC",
+      "short_code": "PAA",
       "ref_code": "PKC",
       "initials": "PA",
       "department": "Commerce",
@@ -20143,17 +21254,55 @@
       "label": "Priyanka Aggarwal (cg26)",
       "name": "Priyanka Aggarwal",
       "clean_name": "Priyanka Aggarwal",
-      "short_code": "CG26",
+      "short_code": "PKC",
       "ref_code": "CG26",
       "initials": "PA",
       "department": "Commerce",
       "subjects_taught": [],
-      "total_teaching_periods": 0,
+      "total_teaching_periods": 3,
       "schedule": {
         "Monday": [],
-        "Tuesday": [],
+        "Tuesday": [
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "L- Commerce-PM-R37-PKC",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Commerce",
+            "subject_name": "Commerce",
+            "room": "R37",
+            "type": "Lecture"
+          }
+        ],
         "Wednesday": [],
-        "Thursday": [],
+        "Thursday": [
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "L- Commerce-PM-R4-PKC",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Commerce",
+            "subject_name": "Commerce",
+            "room": "R4",
+            "type": "Lecture"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "L- Commerce-PM-R30-PKC",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Commerce",
+            "subject_name": "Commerce",
+            "room": "R30",
+            "type": "Lecture"
+          }
+        ],
         "Friday": [],
         "Saturday": []
       }
@@ -21014,18 +22163,263 @@
       "label": "Rajkumari Sharma (hg1)",
       "name": "Rajkumari Sharma",
       "clean_name": "Rajkumari Sharma",
-      "short_code": "HG1",
+      "short_code": "RKS",
       "ref_code": "HG1",
       "initials": "RS",
       "department": "Commerce",
       "subjects_taught": [],
-      "total_teaching_periods": 0,
+      "total_teaching_periods": 20,
       "schedule": {
-        "Monday": [],
-        "Tuesday": [],
-        "Wednesday": [],
-        "Thursday": [],
-        "Friday": [],
+        "Monday": [
+          {
+            "slot": "8:30 AM to 9:30 AM",
+            "raw": "L- Commerce-FA-R3-RKS",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Commerce",
+            "subject_name": "Commerce",
+            "room": "R3",
+            "type": "Lecture"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "LAB- 1. Commerce-FA-T27-RKS-CP2",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "1. Commerce",
+            "subject_name": "1. Commerce",
+            "room": "T27",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "LAB- 1. Commerce-FA-CL2-RKS-HP1",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "1. Commerce",
+            "subject_name": "1. Commerce",
+            "room": "CL2",
+            "type": "Practical/Lab"
+          }
+        ],
+        "Tuesday": [
+          {
+            "slot": "8:30 AM to 9:30 AM",
+            "raw": "L- Commerce-FA-R3-RKS",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Commerce",
+            "subject_name": "Commerce",
+            "room": "R3",
+            "type": "Lecture"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "L- Hindi-HB-R15-RKS",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Hindi",
+            "subject_name": "Hindi",
+            "room": "R15",
+            "type": "Lecture"
+          },
+          {
+            "slot": "11:30 AM to 12:30 PM",
+            "raw": "L- Hindi-HB-R15-RKS",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Hindi",
+            "subject_name": "Hindi",
+            "room": "R15",
+            "type": "Lecture"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "LAB- 1. Commerce-FA-CL2-RKS-CP1",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "1. Commerce",
+            "subject_name": "1. Commerce",
+            "room": "CL2",
+            "type": "Practical/Lab"
+          }
+        ],
+        "Wednesday": [
+          {
+            "slot": "8:30 AM to 9:30 AM",
+            "raw": "L- Commerce-FA-R3-RKS",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Commerce",
+            "subject_name": "Commerce",
+            "room": "R3",
+            "type": "Lecture"
+          },
+          {
+            "slot": "8:30 AM to 9:30 AM",
+            "raw": "L- Hindi-HB-R30-RKS",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Hindi",
+            "subject_name": "Hindi",
+            "room": "R30",
+            "type": "Lecture"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "LAB- 1. Commerce-FA-T35-RKS-HP1",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "1. Commerce",
+            "subject_name": "1. Commerce",
+            "room": "T35",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "LAB- 1. Commerce-FA-T35-RKS-HP2",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "1. Commerce",
+            "subject_name": "1. Commerce",
+            "room": "T35",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "L- Hindi-HB-SCR1-RKS",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Hindi",
+            "subject_name": "Hindi",
+            "room": "SCR1",
+            "type": "Lecture"
+          }
+        ],
+        "Thursday": [
+          {
+            "slot": "8:30 AM to 9:30 AM",
+            "raw": "L- Commerce-FA-R3-RKS",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Commerce",
+            "subject_name": "Commerce",
+            "room": "R3",
+            "type": "Lecture"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "L- Hindi-HB-R26-RKS",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Hindi",
+            "subject_name": "Hindi",
+            "room": "R26",
+            "type": "Lecture"
+          },
+          {
+            "slot": "12:30 PM to 1:30 PM",
+            "raw": "L- Hindi-HB-R30-RKS",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Hindi",
+            "subject_name": "Hindi",
+            "room": "R30",
+            "type": "Lecture"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "LAB- 1. Commerce-FA-T36-RKS-CP1",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "1. Commerce",
+            "subject_name": "1. Commerce",
+            "room": "T36",
+            "type": "Practical/Lab"
+          }
+        ],
+        "Friday": [
+          {
+            "slot": "8:30 AM to 9:30 AM",
+            "raw": "L- Commerce-FA-R3-RKS",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Commerce",
+            "subject_name": "Commerce",
+            "room": "R3",
+            "type": "Lecture"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "L- Commerce-FA-R27-RKS",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Commerce",
+            "subject_name": "Commerce",
+            "room": "R27",
+            "type": "Lecture"
+          },
+          {
+            "slot": "11:30 AM to 12:30 PM",
+            "raw": "LAB- 1. Commerce-FA-T1-RKS-CP3",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "1. Commerce",
+            "subject_name": "1. Commerce",
+            "room": "T1",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "LAB- Commerce-FA-T35-RKS-HP3",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Commerce",
+            "subject_name": "Commerce",
+            "room": "T35",
+            "type": "Practical/Lab"
+          }
+        ],
         "Saturday": []
       }
     },
@@ -23462,7 +24856,7 @@
       "label": "Santosh Kumar (cg18)",
       "name": "Santosh Kumar",
       "clean_name": "Santosh Kumar",
-      "short_code": "CG18",
+      "short_code": "SKC",
       "ref_code": "CG18",
       "initials": "SK",
       "department": "Commerce",
@@ -23655,19 +25049,192 @@
       "label": "Prof. Santosh Kumari",
       "name": "Prof. Santosh Kumari",
       "clean_name": "Santosh Kumari",
-      "short_code": "",
+      "short_code": "SHK",
       "ref_code": "",
       "initials": "SK",
       "department": "Commerce",
       "subjects_taught": [],
-      "total_teaching_periods": 0,
+      "total_teaching_periods": 14,
       "schedule": {
         "Monday": [],
-        "Tuesday": [],
-        "Wednesday": [],
-        "Thursday": [],
-        "Friday": [],
-        "Saturday": []
+        "Tuesday": [
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- 1. Commerce-DM-R15-SHK-SEC3",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "1. Commerce",
+            "subject_name": "1. Commerce",
+            "room": "R15",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB- 1. Commerce-DM-R15-SHK-SEC3",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "1. Commerce",
+            "subject_name": "1. Commerce",
+            "room": "R15",
+            "type": "Practical/Lab"
+          }
+        ],
+        "Wednesday": [
+          {
+            "slot": "12:30 PM to 1:30 PM",
+            "raw": "LAB- 1. Commerce-BRM-R18-SHK-AP2",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "1. Commerce",
+            "subject_name": "1. Commerce",
+            "room": "R18",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- 2. Commerce-DM-R21-SHK-SEC2",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "2. Commerce",
+            "subject_name": "2. Commerce",
+            "room": "R21",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB- 2. Commerce-DM-R21-SHK-SEC2",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "2. Commerce",
+            "subject_name": "2. Commerce",
+            "room": "R21",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "11:30 AM to 12:30 PM",
+            "raw": "L- Commerce-BRM-R27-SHK",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Commerce",
+            "subject_name": "Commerce",
+            "room": "R27",
+            "type": "Lecture"
+          }
+        ],
+        "Thursday": [
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- 13. Commerce-DM-R13-SHK-SEC3",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "13. Commerce",
+            "subject_name": "13. Commerce",
+            "room": "R13",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB- 14. Commerce-DM-R13-SHK-SEC3",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "14. Commerce",
+            "subject_name": "14. Commerce",
+            "room": "R13",
+            "type": "Practical/Lab"
+          }
+        ],
+        "Friday": [
+          {
+            "slot": "11:30 AM to 12:30 PM",
+            "raw": "L- Commerce-BRM-R1-SHK",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Commerce",
+            "subject_name": "Commerce",
+            "room": "R1",
+            "type": "Lecture"
+          },
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- Commerce-BRM-R4-SHK-AP3",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Commerce",
+            "subject_name": "Commerce",
+            "room": "R4",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "12:30 PM to 1:30 PM",
+            "raw": "LAB- 1. Commerce-BRM-R27-SHK-AP1",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "1. Commerce",
+            "subject_name": "1. Commerce",
+            "room": "R27",
+            "type": "Practical/Lab"
+          }
+        ],
+        "Saturday": [
+          {
+            "slot": "11:30 AM to 12:30 PM",
+            "raw": "L- Commerce-BRM-R2-SHK",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "Commerce",
+            "subject_name": "Commerce",
+            "room": "R2",
+            "type": "Lecture"
+          },
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- 2. Commerce-DM-R4-SHK-SEC2",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "2. Commerce",
+            "subject_name": "2. Commerce",
+            "room": "R4",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "12:30 PM to 1:30 PM",
+            "raw": "LAB- 1. Commerce-BRM-R21-SHK-AP1",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "1. Commerce",
+            "subject_name": "1. Commerce",
+            "room": "R21",
+            "type": "Practical/Lab"
+          }
+        ]
       }
     },
     {
@@ -29417,17 +30984,103 @@
       "label": "Tanisha (cg29)",
       "name": "Tanisha",
       "clean_name": "Tanisha",
-      "short_code": "CG29",
+      "short_code": "TAC",
       "ref_code": "CG29",
       "initials": "T",
       "department": "Commerce",
       "subjects_taught": [],
-      "total_teaching_periods": 0,
+      "total_teaching_periods": 7,
       "schedule": {
         "Monday": [],
-        "Tuesday": [],
+        "Tuesday": [
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- 8. Economics-BIT-R26-TAC-SEC12",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "8. Economics",
+            "subject_name": "8. Economics",
+            "room": "R26",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB- 8. Economics-BIT-R26-TAC-SEC12",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "8. Economics",
+            "subject_name": "8. Economics",
+            "room": "R26",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "LAB- 7. Economics-BIT-R31-TAC-SEC12",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "7. Economics",
+            "subject_name": "7. Economics",
+            "room": "R31",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "5:00 PM to 6:00 PM",
+            "raw": "LAB- 7. Economics-BIT-R31-TAC-SEC12",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "7. Economics",
+            "subject_name": "7. Economics",
+            "room": "R31",
+            "type": "Practical/Lab"
+          }
+        ],
         "Wednesday": [],
-        "Thursday": [],
+        "Thursday": [
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- 5. Economics-BIT-R29-TAC-SEC10",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "5. Economics",
+            "subject_name": "5. Economics",
+            "room": "R29",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB- 6. Economics-BIT-R29-TAC-SEC10",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "6. Economics",
+            "subject_name": "6. Economics",
+            "room": "R29",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "LAB- 5. Economics-BIT-R29-TAC-SEC10",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "5. Economics",
+            "subject_name": "5. Economics",
+            "room": "R29",
+            "type": "Practical/Lab"
+          }
+        ],
         "Friday": [],
         "Saturday": []
       }
