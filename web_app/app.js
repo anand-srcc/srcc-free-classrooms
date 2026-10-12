@@ -1800,14 +1800,31 @@ document.addEventListener('DOMContentLoaded', () => {
       return targetDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
     }
 
+    function formatContinuousFreeSlots(freeSlots) {
+      if (!freeSlots || freeSlots.length === 0) return ['Only Lunch Recess (1:30 PM – 2:00 PM)'];
+      const parsed = freeSlots.map(s => {
+        const parts = s.split(/\s*(?:to|–|-)\s*/i);
+        return { start: parts[0]?.trim(), end: parts[1]?.trim() };
+      });
+      const merged = [];
+      for (let i = 0; i < parsed.length; i++) {
+        const curr = parsed[i];
+        if (merged.length > 0 && merged[merged.length - 1].end === curr.start) {
+          merged[merged.length - 1].end = curr.end;
+        } else {
+          merged.push({ start: curr.start, end: curr.end });
+        }
+      }
+      return merged.map(m => `${m.start} – ${m.end}`);
+    }
+
     function openShareModal(roomCode, showQrDirectly = false) {
       const room = appData.rooms.find(r => r.code === roomCode);
       if (!room) return;
 
       const sched = room.schedule[state.activeDay] || { free_slots: [] };
-      const freeSlotsList = sched.free_slots.length > 0
-        ? sched.free_slots.map(s => `  • ${s.replace(' to ', ' – ')}`).join('\n')
-        : '  • Only Lunch Recess (1:30 PM – 2:00 PM)';
+      const freeSlotsFormatted = formatContinuousFreeSlots(sched.free_slots)
+        .map(s => `  • ${s}`).join('\n');
 
       const siteUrl = window.location.origin + window.location.pathname.replace(/\/index\.html$/i, '');
       const directRoomUrl = `${siteUrl}${siteUrl.endsWith('/') ? '' : '/'}?room=${encodeURIComponent(room.code)}`;
@@ -1817,13 +1834,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const cleanMessage = `🎓 SRCC Classroom Vacancy Alert
 
 📍 Room: ${room.code} (${room.name})
-🏛️ Wing: ${room.category.split(' (')[0]}
 🗓️ Day & Date: ${dayAndDateDisplay}
-👥 Capacity: ${room.capacity} seats
-☕ Lunch Recess: 1:30 PM – 2:00 PM (Vacant)
 
 🕒 Free Academic Slots:
-${freeSlotsList}
+${freeSlotsFormatted}
 
 🔗 Live Schedule & Vacancy:
 ${directRoomUrl}`;
@@ -1831,21 +1845,32 @@ ${directRoomUrl}`;
       const whatsappMessage = `🎓 *SRCC Classroom Vacancy Alert*
 
 📍 *Room:* ${room.code} (${room.name})
-🏛️ *Wing:* ${room.category.split(' (')[0]}
 🗓️ *Day & Date:* ${dayAndDateDisplay}
-👥 *Capacity:* ${room.capacity} seats
-☕ *Lunch Recess:* 1:30 PM – 2:00 PM (Vacant)
 
 🕒 *Free Academic Slots:*
-${freeSlotsList}
+${freeSlotsFormatted}
 
 🔗 *Live Schedule & Vacancy:*
 ${directRoomUrl}`;
-
       const tweetText = `🎓 SRCC Vacancy: Room ${room.code} is FREE on ${dayAndDateDisplay}! Check live schedule:`;
       const emailSubject = `SRCC Room Vacancy: ${room.code} (${dayAndDateDisplay})`;
 
       currentShareMessage = cleanMessage;
+
+      if (navigator.share && !showQrDirectly) {
+        navigator.share({
+          title: `SRCC Room ${room.code} Vacancy Alert`,
+          text: whatsappMessage,
+          url: directRoomUrl
+        }).then(() => {
+          showToast(`📤 Shared vacancy for Room ${room.code}!`, true);
+        }).catch(err => {
+          if (err.name !== 'AbortError' && shareModal) {
+            openAppModal(shareModal);
+          }
+        });
+        return;
+      }
 
       if (shareModalTitle) shareModalTitle.textContent = `📤 Share ${room.code} (${room.name})`;
       if (sharePreviewText) sharePreviewText.textContent = cleanMessage;
@@ -2555,8 +2580,8 @@ ${directRoomUrl}`;
             </div>
 
             <div class="card-actions room-card-actions">
-              <button class="btn-share-room" data-room="${escapeHtml(room.code)}" title="Share room vacancy on WhatsApp, LinkedIn, Facebook, Instagram">
-                📤 Share Room
+              <button class="btn-share-room" data-room="${escapeHtml(room.code)}" title="Share room vacancy & QR directly">
+                📤 Share Room & QR
               </button>
               <button class="btn-view-schedule" data-room="${escapeHtml(room.code)}">
                 Schedule ↗
@@ -2678,16 +2703,9 @@ ${directRoomUrl}`;
       const sched = room.schedule[dayToUse] || { free_slots: [], occupied_slots: [], lunch_recess_free: true };
 
       if (modalRoomTitle) {
-        modalRoomTitle.innerHTML = `
-          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
-            <span>${escapeHtml(room.code)} - ${escapeHtml(room.name)}</span>
-            <button type="button" class="btn-share-modal-shortcut" onclick="openShareModal('${escapeHtml(room.code)}', true)" style="font-size: 0.82rem; padding: 6px 12px; border-radius: 8px; background: rgba(37,99,235,0.12); color: var(--primary-accent, #2563eb); border: 1px solid rgba(37,99,235,0.25); cursor: pointer; display: inline-flex; align-items: center; gap: 5px; font-weight: 600;">
-              📤 Share Room & QR
-            </button>
-          </div>
-        `;
+        modalRoomTitle.innerHTML = `<span>${escapeHtml(room.code)} - ${escapeHtml(room.name)}</span>`;
       }
-      if (modalRoomMeta) modalRoomMeta.textContent = `${room.category} · Capacity: ${room.capacity} · Selected Day: ${dayToUse}`;
+      if (modalRoomMeta) modalRoomMeta.textContent = `${room.category} · Selected Day: ${dayToUse}`;
 
       // Synchronize modal day tabs
       const modalRoomDayTabs = document.getElementById('modalRoomDayTabs');
@@ -2848,7 +2866,9 @@ ${directRoomUrl}`;
               const cls = m.classInfo;
               const courseStr = cls.course ? `${cls.course}` : 'B.Com (Hons)';
               const semStr = cls.semester ? `(${cls.semester})` : '';
-              const secBatchStr = [cls.section, cls.batch ? `Batch ${formatBatchCode(cls.batch)}` : ''].filter(Boolean).join(' · ');
+              const cleanSec = (cls.section && cls.section.toLowerCase() !== 'joint') ? cls.section : '';
+              const secBatchStr = [cleanSec, cls.batch ? `Batch ${formatBatchCode(cls.batch)}` : ''].filter(Boolean).join(' · ');
+              const tCodeDisp = getDisplayShortCode(teach);
 
               return `
                 <div class="room-sched-details-wrap" style="margin-bottom: 6px;">
@@ -2863,7 +2883,7 @@ ${directRoomUrl}`;
                   <div class="room-sched-teacher-row">
                     <div class="rs-teacher-chip">
                       <span class="rs-teacher-avatar">${escapeHtml(teach.initials || teach.clean_name.slice(0, 2).toUpperCase())}</span>
-                      <span class="rs-teacher-name">Prof. <strong>${escapeHtml(teach.clean_name)}</strong> ${teach.short_code ? `(${escapeHtml(teach.short_code)})` : ''}</span>
+                      <span class="rs-teacher-name">Prof. <strong>${escapeHtml(teach.clean_name)}</strong> ${tCodeDisp ? `(${escapeHtml(tCodeDisp)})` : ''}</span>
                       <span class="rs-dept-badge">${escapeHtml(teach.department || 'Faculty')}</span>
                     </div>
                     <button type="button" class="btn-room-view-teacher-tt" data-teacher-id="${escapeHtml(teach.id)}">
@@ -2992,7 +3012,9 @@ ${directRoomUrl}`;
               const cls = m.classInfo;
               const courseStr = cls.course ? `${cls.course}` : 'B.Com (Hons)';
               const semStr = cls.semester ? `(${cls.semester})` : '';
-              const secBatchStr = [cls.section, cls.batch ? `Batch ${formatBatchCode(cls.batch)}` : ''].filter(Boolean).join(' · ');
+              const cleanSec = (cls.section && cls.section.toLowerCase() !== 'joint') ? cls.section : '';
+              const secBatchStr = [cleanSec, cls.batch ? `Batch ${formatBatchCode(cls.batch)}` : ''].filter(Boolean).join(' · ');
+              const tCodeDisp = getDisplayShortCode(teach);
 
               return `
                 <div class="room-sched-details-wrap" style="margin-bottom: 6px;">
@@ -3007,7 +3029,7 @@ ${directRoomUrl}`;
                   <div class="room-sched-teacher-row">
                     <div class="rs-teacher-chip">
                       <span class="rs-teacher-avatar">${escapeHtml(teach.initials || teach.clean_name.slice(0, 2).toUpperCase())}</span>
-                      <span class="rs-teacher-name">Prof. <strong>${escapeHtml(teach.clean_name)}</strong> ${teach.short_code ? `(${escapeHtml(teach.short_code)})` : ''}</span>
+                      <span class="rs-teacher-name">Prof. <strong>${escapeHtml(teach.clean_name)}</strong> ${tCodeDisp ? `(${escapeHtml(tCodeDisp)})` : ''}</span>
                       <span class="rs-dept-badge">${escapeHtml(teach.department || 'Faculty')}</span>
                     </div>
                     <button type="button" class="btn-room-view-teacher-tt" data-teacher-id="${escapeHtml(teach.id)}">
@@ -3886,11 +3908,33 @@ ${directRoomUrl}`;
       };
     }
 
-    // Helper to get official faculty short code (e.g. HG4, CG16, AOK, AK24)
+    // Helper to get official faculty short code (primary timetable code only; never alias/secondary in student mode)
     function getDisplayShortCode(teacher) {
       if (!teacher) return '';
-      const code = (teacher.short_code || teacher.ref_code || '').trim();
-      return code.toUpperCase();
+      let primary = (teacher.short_code || '').trim().toUpperCase();
+      if (!primary && teacher.ref_code) {
+        const tokens = teacher.ref_code.trim().toUpperCase().split(/[\s,/]+/);
+        for (const tok of tokens) {
+          if (!/^(cg|hg|csg|eg|mg|hgc)?\d+$/i.test(tok)) {
+            primary = tok;
+            break;
+          }
+        }
+      }
+      if (/^(cg|hg|csg|eg|mg|hgc)?\d+$/i.test(primary)) {
+        return '';
+      }
+      return primary;
+    }
+
+    function getCleanStudentFacultyName(rawName, teacherId) {
+      if (teacherId && teachersData && teachersData.teachers) {
+        const t = teachersData.teachers.find(tch => String(tch.id) === String(teacherId));
+        if (t && t.clean_name) return t.clean_name;
+      }
+      return String(rawName || '')
+        .replace(/\s*\((?:cg|hg|csg|eg|mg|hgc)?\d*\)/gi, '')
+        .trim();
     }
 
     // Active Leaves Callout Banner Renderer (Syncs across Rooms and Faculty Locator)
@@ -4948,7 +4992,7 @@ ${directRoomUrl}`;
         const subjFullName = subjInfo.fullName;
         const courseName = cls.course || 'B.Com (Hons)';
         const sem = cls.semester || '';
-        const sec = cls.section || '';
+        const sec = (cls.section && cls.section.toLowerCase() !== 'joint') ? cls.section : '';
         const batch = cls.batch || '';
         const rawBatch = cls.raw_batch || '';
 
@@ -4995,7 +5039,7 @@ ${directRoomUrl}`;
         const subjFullName = subjInfo.fullName;
         const courseName = cls.course || 'B.Com (Hons)';
         const sem = cls.semester || '';
-        const sec = cls.section || '';
+        const sec = (cls.section && cls.section.toLowerCase() !== 'joint') ? cls.section : '';
         const batch = cls.batch || '';
         const rawBatch = cls.raw_batch || '';
         const typeCls = (cls.type && cls.type.toLowerCase().includes('tut')) ? 'is-tut' : (cls.type && cls.type.toLowerCase().includes('prac')) ? 'is-prac' : 'is-lec';
@@ -5136,13 +5180,12 @@ ${directRoomUrl}`;
           (leave.teacher_id && String(tch.id) === String(leave.teacher_id)) ||
           (leave.teacher_name && tch.clean_name && tch.clean_name.toLowerCase().trim() === leave.teacher_name.toLowerCase().trim())
         );
-        if (t && t.short_code) return t.short_code.toUpperCase().trim();
+        if (t) return getDisplayShortCode(t);
       }
       const raw = (leave.teacher_code || leave.teacherCode || '').trim();
-      if (raw.includes('/')) {
-        return raw.split('/')[0].trim().toUpperCase();
-      }
-      return raw.toUpperCase();
+      let primary = raw.includes('/') ? raw.split('/')[0].trim().toUpperCase() : raw.toUpperCase();
+      if (/^(cg|hg|csg|eg|mg|hgc)?\d+$/i.test(primary)) return '';
+      return primary;
     }
 
     function buildLeavesWhatsAppMessage(leavesList) {
@@ -5156,7 +5199,8 @@ ${directRoomUrl}`;
         const pCode = getClientDisplayCode(l);
         const code = (pCode && !/^(cg|eg|mg|hg|hgc)\d*$/i.test(pCode)) ? ` [${pCode}]` : '';
         const dates = formatLeaveDates(l.start_date, l.end_date);
-        return `${idx + 1}. ${l.teacher_name}${code} (${dates})`;
+        const cName = getCleanStudentFacultyName(l.teacher_name, l.teacher_id);
+        return `${idx + 1}. ${cName}${code} (${dates})`;
       });
 
       return `*SRCC Faculty Leave Update (${activeList.length})* 🏖️\n\n${lines.join('\n')}\n\n_Check free classrooms:_ ${getAppPublicUrl()}`;
@@ -6096,7 +6140,7 @@ window.SRCC_FACULTY_LEAVES = {
               const slotInfo = getPeriodInfo(s.slot);
               if (!slotInfo) return;
 
-              const tName = s.teacher_name || s.teacher || 'Faculty';
+              const tName = getCleanStudentFacultyName(s.teacher_name || s.teacher || 'Faculty', s.teacher_id);
               const leaveRecord = (typeof isTeacherOnLeave === 'function' ? isTeacherOnLeave({ clean_name: tName, name: tName, id: s.teacher_id }) : null) || activeLeaves.find(l => {
                 const nameMatch = l.teacher_name && (tName.toLowerCase().includes(l.teacher_name.toLowerCase()) || l.teacher_name.toLowerCase().includes(tName.toLowerCase()));
                 const dayMatch = l.day === targetDay || !l.day;
@@ -6129,7 +6173,7 @@ window.SRCC_FACULTY_LEAVES = {
         }
 
         teachers.forEach(t => {
-          const tName = t.clean_name || t.label || 'Faculty';
+          const tName = getCleanStudentFacultyName(t.clean_name || t.label || 'Faculty', t.id);
           const daySched = t.schedule?.[targetDay] || [];
           daySched.forEach(s => {
             const isSec = isSecSlot(s);
@@ -6333,7 +6377,6 @@ window.SRCC_FACULTY_LEAVES = {
           ? `<span class="tt-secvac-badge">SEC</span>` 
           : (session.isVac ? `<span class="tt-secvac-badge" style="background: rgba(16, 185, 129, 0.12); color: #059669; border-color: rgba(16, 185, 129, 0.28);">VAC</span>` : '');
 
-        const initials = session.teacher.split(' ').map(n => n[0]).filter(Boolean).slice(0, 2).join('').toUpperCase() || 'FC';
         const leaveHtml = session.isOnLeave 
           ? `<div class="tt-leave-badge">🏖️ Faculty on Leave Today · Class Suspended</div>` 
           : '';
@@ -6352,7 +6395,7 @@ window.SRCC_FACULTY_LEAVES = {
         let secMetaText = ttState.sec;
         if (session.isSec || session.isVac) {
           courseMetaText = session.isSec ? 'SEC' : 'VAC';
-          secMetaText = 'Joint';
+          secMetaText = '';
         }
 
         const periodBadgeText = (session.periodsCount > 1)
@@ -6360,6 +6403,8 @@ window.SRCC_FACULTY_LEAVES = {
           : `🕒 Period ${session.startPeriod} · ${session.startTime} – ${session.endTime}`;
 
         const dayTagHtml = isCrossDay ? `<span class="tt-day-tag">📅 ${escapeHtml(session.day)}</span>` : '';
+        const studentTeacher = getCleanStudentFacultyName(session.teacher, session.teacherId);
+        const initials = studentTeacher.split(' ').map(n => n[0]).filter(Boolean).slice(0, 2).join('').toUpperCase() || 'FC';
 
         return `
           <article class="tt-card${leaveCardCls}" data-slot="${escapeHtml(session.slot || '')}">
@@ -6376,14 +6421,13 @@ window.SRCC_FACULTY_LEAVES = {
             </div>
             <div class="tt-card-meta">
               <span>${escapeHtml(courseMetaText)}</span> •
-              <span>${escapeHtml(session.sem || ttState.sem)}</span> •
-              <span>${escapeHtml(secMetaText)}</span>
+              <span>${escapeHtml(session.sem || ttState.sem)}</span>${(secMetaText && secMetaText.toLowerCase() !== 'joint') ? ` • <span>${escapeHtml(secMetaText)}</span>` : ''}
             </div>
             <div class="tt-card-faculty">
-              <div class="tt-faculty-info btn-view-teacher-today" data-teacher-id="${escapeHtml(session.teacherId || '')}" data-teacher-name="${escapeHtml(session.teacher)}" role="button" tabindex="0" title="Click to view full timetable for ${escapeHtml(session.teacher)}">
+              <div class="tt-faculty-info btn-view-teacher-today" data-teacher-id="${escapeHtml(session.teacherId || '')}" data-teacher-name="${escapeHtml(studentTeacher)}" role="button" tabindex="0" title="Click to view full timetable for ${escapeHtml(studentTeacher)}">
                 <div class="tt-faculty-avatar">${initials}</div>
                 <div class="tt-faculty-name-wrap">
-                  <span class="tt-faculty-name">${escapeHtml(session.teacher)}</span>
+                  <span class="tt-faculty-name">${escapeHtml(studentTeacher)}</span>
                 </div>
               </div>
               ${roomButtonHtml}
