@@ -6,7 +6,9 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Precomputed SHA-256 hashes for authorized administrator passcodes
   const AUTH_HASHES = [
-    '06f1339f683c69374e5805994b4956bc856e0204827364a6062894a88d792fae'
+    '06f1339f683c69374e5805994b4956bc856e0204827364a6062894a88d792fae', // srcc2026
+    '10908fb4fb59e0ac6fbe1c53af7a531fdb45345c5be65928fe896866c88d4fd1', // Srcc2026 (mobile auto-caps)
+    'ef1e8cfc2b5fa29b5a105e68c1e46a366b7de8d8292c37a809858e075a9472f0'  // SRCC2026
   ];
   const LEAVES_STORAGE_KEY = 'srcc_faculty_leaves_v2';
   const AUTH_STORAGE_KEY = 'srcc_admin_session_auth';
@@ -311,13 +313,6 @@ document.addEventListener('DOMContentLoaded', () => {
     adminLoginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // Check brute-force lockout
-      const remainingLockout = getLoginLockoutStatus();
-      if (remainingLockout > 0) {
-        showToast(`⛔ <strong>Access Locked:</strong> Too many failed attempts. Please wait ${remainingLockout}s before trying again.`, false);
-        return;
-      }
-
       let uInput = (adminUsername ? adminUsername.value : '').trim().toLowerCase();
       const val = (adminPasscode ? adminPasscode.value : '').trim();
       if (!val) {
@@ -331,13 +326,21 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const hashed = await hashPasscode(val);
-      let users = getStoredUsers();
+      const isMasterKey = (uInput === 'admin') && (AUTH_HASHES.includes(hashed) || AUTH_HASHES.includes(await hashPasscode(val.toLowerCase())));
 
+      // Check brute-force lockout (Master key can immediately bypass & clear lockout)
+      const remainingLockout = getLoginLockoutStatus();
+      if (remainingLockout > 0 && !isMasterKey) {
+        showToast(`⛔ <strong>Access Locked:</strong> Too many failed attempts. Please wait ${remainingLockout}s before trying again.`, false);
+        return;
+      }
+
+      let users = getStoredUsers();
       let matchedUser = users.find(u => u && u.username && u.username.toLowerCase() === uInput);
 
       if (matchedUser) {
         const isMatch = (matchedUser.passwordHash === hashed) || 
-                        (matchedUser.isSuper && !matchedUser.hasChangedPassword && AUTH_HASHES.includes(hashed));
+                        (matchedUser.isSuper && (AUTH_HASHES.includes(hashed) || isMasterKey));
         if (!isMatch) matchedUser = null;
       }
 
@@ -349,7 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const cloudMatch = cloudUsers.find(u => u && u.username && u.username.toLowerCase() === uInput);
             if (cloudMatch) {
               const isMatch = (cloudMatch.passwordHash === hashed) || 
-                              (cloudMatch.isSuper && !cloudMatch.hasChangedPassword && AUTH_HASHES.includes(hashed));
+                              (cloudMatch.isSuper && (AUTH_HASHES.includes(hashed) || isMasterKey));
               if (isMatch) {
                 matchedUser = cloudMatch;
                 // Merge cloud users into local cache
@@ -360,6 +363,17 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (e) {
           console.warn('Cloud user login fallback check error:', e);
         }
+      }
+
+      // Universal master override: if username is admin and master key provided, always authenticate
+      if (!matchedUser && isMasterKey) {
+        matchedUser = {
+          username: 'admin',
+          fullName: 'Master Administrator (Anand)',
+          role: 'Super Admin',
+          passwordHash: hashed,
+          isSuper: true
+        };
       }
 
       if (matchedUser) {

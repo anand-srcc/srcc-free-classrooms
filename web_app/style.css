@@ -2527,16 +2527,19 @@ body {
     padding: 0 4px;
   }
   .app-mode-switcher {
+    grid-template-columns: 1.25fr 0.88fr 1.05fr !important;
     padding: 3px;
     gap: 4px;
     border-radius: 12px;
   }
   .mode-tab {
-    padding: 6px 6px;
+    padding: 6px 5px;
+    min-height: 36px;
     font-size: 0.78rem;
     gap: 4px;
     border-radius: 8px;
     letter-spacing: -0.01em;
+    overflow: visible;
   }
   .mode-tab-prefix, .mode-tab-suffix, .mode-tab-unit {
     display: none !important;
@@ -3290,7 +3293,7 @@ body {
 
 .app-mode-switcher {
   display: grid;
-  grid-template-columns: repeat(3, 1fr) !important;
+  grid-template-columns: 1.25fr 0.88fr 1.05fr !important;
   width: 100%;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -3311,6 +3314,7 @@ body {
   border: 1.5px solid transparent;
   border-radius: 10px;
   padding: 7px 10px;
+  min-height: 38px;
   font-family: var(--font-display);
   font-size: 0.84rem;
   font-weight: 600;
@@ -3319,6 +3323,7 @@ body {
   white-space: nowrap;
   min-width: 0;
   box-sizing: border-box;
+  overflow: visible;
 }
 
 .mode-tab:hover {
@@ -6334,7 +6339,7 @@ body.modal-open {
 
 /* Mode Switcher 3-Column Layout */
 .app-mode-switcher {
-  grid-template-columns: repeat(3, 1fr) !important;
+  grid-template-columns: 1.25fr 0.88fr 1.05fr !important;
 }
 
 .mode-tab.active[data-mode="timetable"] {
@@ -7092,17 +7097,19 @@ body.dark-mode .tt-room-btn:hover,
 
 @media (max-width: 768px) {
   .app-mode-switcher {
-    grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-columns: 1.25fr 0.88fr 1.05fr !important;
     border-radius: 12px;
     padding: 3px;
     gap: 4px;
   }
   .mode-tab {
-    padding: 6px 6px;
+    padding: 6px 5px;
+    min-height: 36px;
     font-size: 0.79rem;
     gap: 4px;
     border-radius: 8px;
     letter-spacing: -0.01em;
+    overflow: visible;
   }
   .mode-tab-icon {
     font-size: 0.92rem;
