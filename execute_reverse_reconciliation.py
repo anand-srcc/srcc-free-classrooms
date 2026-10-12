@@ -157,8 +157,12 @@ for r_code, r_obj in rooms_map.items():
                     # Check if already present
                     if not any(p['slot'] == slot and p.get('room') == r_code for p in t_day_sched):
                         # Extract course and subject if possible
-                        parts = cls_text.split('-')
-                        subj = parts[1].strip() if len(parts) > 1 else 'Lecture'
+                        m_subj = re.search(r'^(?:(LAB|L|T|PRAC)-\s*)?(?:\d+\.\s*)?(?:Commerce|Economics|Hindi|English|Mathematics|Maths|EVS|Political\s*Science)\s*-\s*(.+?)\s*-\s*(R\d+|PB\d+|T\d+|CL\d+|SCR\d+|LAB\d+|LIBRARY|AUDI)\b', cls_text, re.IGNORECASE)
+                        if m_subj:
+                            subj = m_subj.group(2).strip()
+                        else:
+                            parts = cls_text.split('-')
+                            subj = parts[1].strip() if len(parts) > 1 else 'Lecture'
                         t_day_sched.append({
                             'slot': slot,
                             'raw': cls_text,

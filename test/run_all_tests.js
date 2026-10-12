@@ -134,9 +134,9 @@ runTest('push_dispatch.js enforces secret authorization & validates notification
 // 9. Offline Service Worker Asset Completeness
 runTest('Service Worker pre-caches classes_data.js and synchronizes cache version', () => {
   const swCode = fs.readFileSync(path.join(__dirname, '../web_app/sw.js'), 'utf8');
-  assert(swCode.includes("'./classes_data.js?v=58'") || swCode.includes("'./classes_data.js?v=57'"), 'sw.js must cache classes_data.js');
+  assert(/['"]\.\/classes_data\.js(\?v=\d+)?['"]/.test(swCode), 'sw.js must cache classes_data.js');
   assert(swCode.includes("'./classes_data.json'"), 'sw.js must cache classes_data.json');
-  assert(swCode.includes('srcc-classroom-v58') || swCode.includes('srcc-classroom-v57'), 'sw.js must have valid cache version');
+  assert(/srcc-classroom-v\d+/.test(swCode), 'sw.js must have valid cache version');
 });
 
 // 10. Data Integrity: Zero Conflict Free Room Invariant

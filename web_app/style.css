@@ -2353,6 +2353,93 @@ body {
   cursor: pointer;
 }
 
+/* Share Mode Switcher Tabs */
+.share-mode-toggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.share-tab-btn {
+  flex: 1;
+  padding: 9px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.share-tab-btn.active {
+  background: var(--srcc-gold) !important;
+  color: #070D18 !important;
+  border-color: var(--srcc-gold) !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.25);
+}
+
+/* Timetable Status Summary Bar (Compact, Professional & Non-redundant) */
+.tt-summary-header-row {
+  margin-bottom: 12px;
+  width: 100%;
+}
+
+.tt-summary-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  flex-wrap: wrap;
+}
+
+.tt-sum-badge-num {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.18), rgba(245, 158, 11, 0.08));
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  color: var(--srcc-gold);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.tt-sum-desc {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+}
+
+.tt-sum-course {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.tt-sum-batch {
+  color: var(--text-secondary);
+}
+
+.tt-sum-day {
+  color: var(--srcc-gold);
+  font-weight: 600;
+}
+
+.tt-sum-sep {
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
 /* 8. Toast Notifications */
 .toast-container {
   position: fixed;
@@ -2437,34 +2524,38 @@ body {
   }
 
   /* Metric Stat Tiles - compact & non-clipped */
+  /* Metric Stat Tiles - ultra compact & non-clipped */
   .metric-tiles-row {
     grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-    margin-bottom: 12px;
+    gap: 5px;
+    margin-bottom: 8px;
+    padding: 2px 0;
   }
   .metric-tile {
-    padding: 7px 4px;
+    padding: 5px 3px;
     flex-direction: column;
     text-align: center;
     justify-content: center;
-    gap: 2px;
+    gap: 1px;
     min-height: auto;
+    border-radius: var(--radius-sm);
   }
   .metric-icon {
-    width: 24px;
-    height: 24px;
-    font-size: 0.85rem;
-    margin-bottom: 1px;
+    width: 20px;
+    height: 20px;
+    font-size: 0.72rem;
+    margin-bottom: 0px;
   }
   .metric-num {
-    font-size: 0.9rem;
-    line-height: 1.15;
+    font-size: 0.84rem;
+    line-height: 1.1;
+    font-weight: 700;
   }
   .metric-title {
-    font-size: 0.62rem;
+    font-size: 0.58rem;
     white-space: normal;
     text-align: center;
-    line-height: 1.15;
+    line-height: 1.1;
     overflow: visible;
     text-overflow: clip;
     width: 100%;
@@ -2473,37 +2564,50 @@ body {
     display: none !important;
   }
 
-  /* Faculty Locator 4 metrics on mobile: 2x2 Clean Grid */
+  /* Faculty Locator 4 metrics on mobile: 4-col ultra compact strip */
   .faculty-metrics-row {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 8px !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 4px !important;
+    margin-bottom: 8px !important;
   }
   .faculty-metrics-row .metric-tile {
-    padding: 8px 10px !important;
-    flex-direction: row !important;
-    text-align: left !important;
-    gap: 8px !important;
+    padding: 5px 2px !important;
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 1px !important;
     align-items: center !important;
+    border-radius: var(--radius-sm) !important;
   }
   .faculty-metrics-row .metric-icon {
-    width: 28px !important;
-    height: 28px !important;
-    font-size: 0.95rem !important;
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 0.72rem !important;
     margin-bottom: 0 !important;
   }
   .faculty-metrics-row .metric-num {
-    font-size: 1.05rem !important;
+    font-size: 0.84rem !important;
+    line-height: 1.1 !important;
   }
   .faculty-metrics-row .metric-title {
-    font-size: 0.65rem !important;
-    line-height: 1.2 !important;
-    text-align: left !important;
+    font-size: 0.56rem !important;
+    line-height: 1.1 !important;
+    text-align: center !important;
   }
 
-  /* Hide Compact View Switchers on Mobile to always preserve clean, rich layout */
+  /* View Mode Switchers on Mobile - visible & compact */
   #viewToggleWrapper,
   #facultyViewToggleWrapper {
-    display: none !important;
+    display: inline-flex !important;
+    align-self: flex-end;
+    margin-top: 2px;
+  }
+  .btn-view-mode {
+    padding: 4px 8px !important;
+    font-size: 0.72rem !important;
+  }
+  .btn-view-mode svg {
+    width: 13px !important;
+    height: 13px !important;
   }
 }
 
@@ -2669,20 +2773,17 @@ body {
     font-size: 0.82rem;
   }
 
-  /* Horizontally scrollable row for Weekdays on Mobile */
+  /* Mobile Day Picker: Clean wrapped tiles (3 columns, no horizontal slider) with vertical breathing room */
   .day-picker {
     display: flex;
+    flex-wrap: wrap !important;
+    overflow-x: visible !important;
     gap: 6px;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
-    overflow-x: auto !important;
-    flex-wrap: nowrap !important;
-    padding-bottom: 6px;
-    padding-right: 8px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; /* Hide scrollbar for cleaner look */
-    -ms-overflow-style: none;
+    padding: 6px 2px 8px 2px;
+    margin: 4px 0 6px 0;
   }
 
   .day-picker::-webkit-scrollbar {
@@ -2692,27 +2793,45 @@ body {
   }
 
   .day-btn {
-    flex: 0 0 auto !important;
-    padding: 7px 13px !important;
-    font-size: 0.84rem;
+    flex: 1 1 calc(33.333% - 6px) !important;
+    min-width: 0 !important;
+    padding: 8px 4px !important;
+    font-size: 0.82rem;
     text-align: center;
     justify-content: center;
     box-sizing: border-box;
     white-space: nowrap;
+    margin: 2px 0;
+    border-radius: var(--radius-md);
   }
 
-  /* Category pills */
+  /* Category pills on Mobile: Single-row horizontal slider to save vertical space */
   .category-pills {
     display: flex;
     gap: 6px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
     width: 100%;
+    max-width: 100%;
     box-sizing: border-box;
+    padding: 4px 2px 8px 2px;
+    margin: 2px 0;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .category-pills::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
   }
 
   .cat-pill {
+    flex: 0 0 auto !important;
+    white-space: nowrap;
     font-size: 0.78rem;
-    padding: 6px 11px;
+    padding: 6px 13px;
     box-sizing: border-box;
     min-width: 0;
   }
@@ -5030,8 +5149,9 @@ body {
 .modal-day-tabs {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 10px 14px;
+  gap: 8px;
+  padding: 12px 16px;
+  margin: 4px 0 6px 0;
   border-bottom: 1px solid var(--border-subtle);
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -5040,7 +5160,7 @@ body {
   scrollbar-width: none; /* Hide scrollbar so it never cuts through buttons */
   -ms-overflow-style: none;
   scroll-snap-type: x mandatory;
-  scroll-padding: 12px;
+  scroll-padding: 14px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -5054,10 +5174,11 @@ body {
 .modal-day-tabs .day-btn,
 .modal-day-tab-btn {
   width: auto !important;
-  min-width: 68px !important;
+  min-width: 72px !important;
   flex: 0 0 auto !important;
-  padding: 6px 14px !important;
-  font-size: 0.82rem !important;
+  padding: 8px 16px !important;
+  margin: 2px 0 !important;
+  font-size: 0.84rem !important;
   font-weight: 600 !important;
   white-space: nowrap !important;
   text-align: center !important;
@@ -5074,7 +5195,7 @@ body {
   color: #070D18 !important;
   border-color: var(--srcc-gold) !important;
   font-weight: 700 !important;
-  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.28) !important;
+  box-shadow: 0 2px 10px rgba(245, 158, 11, 0.32) !important;
 }
 
 /* ==========================================================================

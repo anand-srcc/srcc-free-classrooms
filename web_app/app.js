@@ -1857,21 +1857,6 @@ ${directRoomUrl}`;
 
       currentShareMessage = cleanMessage;
 
-      if (navigator.share && !showQrDirectly) {
-        navigator.share({
-          title: `SRCC Room ${room.code} Vacancy Alert`,
-          text: whatsappMessage,
-          url: directRoomUrl
-        }).then(() => {
-          showToast(`📤 Shared vacancy for Room ${room.code}!`, true);
-        }).catch(err => {
-          if (err.name !== 'AbortError' && shareModal) {
-            openAppModal(shareModal);
-          }
-        });
-        return;
-      }
-
       if (shareModalTitle) shareModalTitle.textContent = `📤 Share ${room.code} (${room.name})`;
       if (sharePreviewText) sharePreviewText.textContent = cleanMessage;
 
@@ -1896,7 +1881,7 @@ ${directRoomUrl}`;
         shareBtnLinkedin.onclick = (e) => {
           e.preventDefault();
           if (navigator.share) {
-            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage, url: directRoomUrl }).catch(() => {});
+            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage }).catch(() => {});
           } else {
             copyToClipboard(cleanMessage);
             window.open(`https://www.linkedin.com/feed/`, '_blank', 'noopener,noreferrer');
@@ -1908,7 +1893,7 @@ ${directRoomUrl}`;
         shareBtnInstagram.onclick = (e) => {
           e.preventDefault();
           if (navigator.share) {
-            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage, url: directRoomUrl }).catch(() => {});
+            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage }).catch(() => {});
           } else {
             copyToClipboard(cleanMessage).then(() => showToast('📸 Copied! Opening Instagram...', true));
             window.open('https://www.instagram.com/direct/inbox/', '_blank', 'noopener,noreferrer');
@@ -1920,7 +1905,7 @@ ${directRoomUrl}`;
         shareBtnFacebook.onclick = (e) => {
           e.preventDefault();
           if (navigator.share) {
-            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage, url: directRoomUrl }).catch(() => {});
+            navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage }).catch(() => {});
           } else {
             copyToClipboard(cleanMessage);
             window.open(`https://www.facebook.com/`, '_blank', 'noopener,noreferrer');
@@ -1931,7 +1916,7 @@ ${directRoomUrl}`;
       if (navigator.share && btnPrimaryShare) {
         btnPrimaryShare.style.display = 'flex';
         btnPrimaryShare.onclick = () => {
-          navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage, url: directRoomUrl }).catch(() => {});
+          navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage }).catch(() => {});
         };
       } else if (btnPrimaryShare) {
         btnPrimaryShare.style.display = 'none';
@@ -2098,34 +2083,34 @@ ${directRoomUrl}`;
         ctx.fillText('Scan with phone camera or WhatsApp to open schedule', W / 2, 465);
       }
 
-      function showQrCardView() {
-        if (!roomQrContainer) return;
-        roomQrContainer.style.display = 'block';
-        if (btnShareRoomQr) btnShareRoomQr.innerHTML = '<span>✕ Close Room QR</span>';
-        drawCustomQrCard();
-      }
+      const tabShareModeQr = document.getElementById('tabShareModeQr');
+      const tabShareModeText = document.getElementById('tabShareModeText');
+      const roomTextShareSection = document.getElementById('roomTextShareSection');
 
-      function hideQrCardView() {
-        if (!roomQrContainer) return;
-        roomQrContainer.style.display = 'none';
-        if (btnShareRoomQr) btnShareRoomQr.innerHTML = '<span>📷 View / Share Room QR</span>';
-      }
-
-      if (btnShareRoomQr && roomQrContainer) {
-        if (showQrDirectly) {
-          showQrCardView();
+      function setShareMode(mode) {
+        if (mode === 'qr') {
+          if (tabShareModeQr) tabShareModeQr.classList.add('active');
+          if (tabShareModeText) tabShareModeText.classList.remove('active');
+          if (roomQrContainer) roomQrContainer.style.display = 'block';
+          if (roomTextShareSection) roomTextShareSection.style.display = 'none';
+          drawCustomQrCard();
         } else {
-          hideQrCardView();
+          if (tabShareModeText) tabShareModeText.classList.add('active');
+          if (tabShareModeQr) tabShareModeQr.classList.remove('active');
+          if (roomQrContainer) roomQrContainer.style.display = 'none';
+          if (roomTextShareSection) roomTextShareSection.style.display = 'block';
         }
-        btnShareRoomQr.onclick = () => {
-          const isHidden = (roomQrContainer.style.display === 'none');
-          if (isHidden) {
-            showQrCardView();
-          } else {
-            hideQrCardView();
-          }
-        };
       }
+
+      if (tabShareModeQr) {
+        tabShareModeQr.onclick = () => setShareMode('qr');
+      }
+      if (tabShareModeText) {
+        tabShareModeText.onclick = () => setShareMode('text');
+      }
+
+      // Default to QR Card mode so users see QR clearly
+      setShareMode('qr');
 
       if (btnDownloadRoomQr && roomCustomQrCanvas) {
         btnDownloadRoomQr.onclick = () => {
@@ -4700,17 +4685,24 @@ ${directRoomUrl}`;
       const list = [];
       const seenCodes = new Set();
       const seenNames = new Set();
+      const isDeptPattern = /^(\d+\.\s*)?(commerce|economics|hindi|english|mathematics|maths|evs|political\s*science)$/i;
 
       // 1. Extract from schedule across all days (highest fidelity)
       Object.values(teacher.schedule || {}).flat().forEach(c => {
         let code = (c.subject || '').trim();
         let name = (c.subject_name || '').trim();
+        if (isDeptPattern.test(code) && isDeptPattern.test(name)) return;
+        if (isDeptPattern.test(code)) code = '';
+        if (isDeptPattern.test(name)) name = '';
+
         if (!name && code) {
           name = SRCC_SUBJECT_MAP[code] || SRCC_SUBJECT_MAP[code.toUpperCase()] || code;
         }
         if (!code && name) {
           code = name.length <= 8 ? name : '';
         }
+        if (isDeptPattern.test(code) || isDeptPattern.test(name)) return;
+
         const normCode = code.toUpperCase();
         const normName = name.toLowerCase();
 
@@ -4725,13 +4717,14 @@ ${directRoomUrl}`;
       // 2. Supplement from teacher.subjects if any missed
       (teacher.subjects || []).forEach(s => {
         const str = (s || '').trim();
-        if (!str) return;
+        if (!str || isDeptPattern.test(str)) return;
         const norm = str.toLowerCase();
         const normCode = str.toUpperCase();
         if (seenCodes.has(normCode) || seenNames.has(norm)) return;
 
         if (str.length <= 8 && (SRCC_SUBJECT_MAP[str] || SRCC_SUBJECT_MAP[normCode])) {
           const full = SRCC_SUBJECT_MAP[str] || SRCC_SUBJECT_MAP[normCode];
+          if (isDeptPattern.test(full)) return;
           seenCodes.add(normCode);
           seenNames.add(full.toLowerCase());
           list.push({ code: str, fullName: full });
@@ -4759,11 +4752,10 @@ ${directRoomUrl}`;
         `📅 *Weekly Teaching Load:* ${periods} classes\n\n` +
         `🔗 *View Complete Timetable & Classroom Locations:*\n${url}`;
 
-      if (navigator.share && navigator.canShare && navigator.canShare({ title: shareTitle, text: shareText, url: url })) {
+      if (navigator.share && navigator.canShare && navigator.canShare({ title: shareTitle, text: shareText })) {
         navigator.share({
           title: shareTitle,
-          text: shareText,
-          url: url
+          text: shareText
         }).then(() => {
           showToast(`📤 Shared profile for Prof. ${teacher.clean_name}!`);
         }).catch(err => {
@@ -6011,8 +6003,49 @@ window.SRCC_FACULTY_LEAVES = {
       function mergeConsecutiveSessions(rawList) {
         if (!rawList || rawList.length === 0) return [];
 
-        const groups = {};
+        // Pre-pass: Consolidate sessions with same periodNum, room, teacher, and subject
+        // so that sub-batches (J1, J2, J3 / JP1, JP2, JP3) share one unified tile
+        const slotMap = new Map();
         rawList.forEach(item => {
+          const tKey = (item.teacherId || item.teacher || '').trim().toLowerCase();
+          const sKey = (item.subject || '').trim().toLowerCase();
+          const rKey = (item.room || '').trim().toLowerCase();
+          const pKey = item.periodNum;
+          const slotKey = `${pKey}__${rKey}__${tKey}__${sKey}`;
+
+          if (!slotMap.has(slotKey)) {
+            const clone = Object.assign({}, item);
+            clone._batchList = [];
+            const b = (item.batch || item.rawBatch || '').trim();
+            if (b) clone._batchList.push(b);
+            slotMap.set(slotKey, clone);
+          } else {
+            const existing = slotMap.get(slotKey);
+            const b = (item.batch || item.rawBatch || '').trim();
+            if (b && !existing._batchList.includes(b)) {
+              existing._batchList.push(b);
+            }
+            if (item.isLab || item.isTut || item.type === 'LAB' || item.type === 'TUT') {
+              existing.isLab = existing.isLab || item.isLab;
+              existing.isTut = existing.isTut || item.isTut;
+              existing.type = existing.type || item.type;
+            }
+          }
+        });
+
+        const consolidatedList = Array.from(slotMap.values()).map(it => {
+          if (it._batchList && it._batchList.length > 1) {
+            const cleanBatches = it._batchList.map(b => b.replace(/^Batch\s+/i, '')).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+            const joined = cleanBatches.join(', ');
+            it.batch = `Batch ${joined}`;
+            it.rawBatch = joined;
+          }
+          delete it._batchList;
+          return it;
+        });
+
+        const groups = {};
+        consolidatedList.forEach(item => {
           const key = `${item.teacherId || item.teacher}__${item.subject}__${item.batch}__${item.room}`;
           if (!groups[key]) groups[key] = [];
           groups[key].push(item);
@@ -8141,7 +8174,7 @@ window.SRCC_FACULTY_LEAVES = {
           const pwd = btn.dataset.pwd;
           const loc = btn.dataset.loc || 'SRCC Campus';
           const qrUrl = btn.dataset.qr;
-          const shareMsg = `📶 *SRCC Campus WiFi Network: ${ssid}*\n🔑 Password: ${pwd}\n📍 Location: ${loc}\n\n📲 Auto-Connect with QR: ${qrUrl}\n🔗 Portal: https://anand-srcc.github.io/srcc-free-classrooms/`;
+          const shareMsg = `📶 *SRCC Campus WiFi Network: ${ssid}*\n🔑 Password: ${pwd}\n📍 Location: ${loc}\n\n🔗 Connect Link & Portal:\n${qrUrl || 'https://anand-srcc.github.io/srcc-free-classrooms/'}`;
 
           if (navigator.share) {
             try {

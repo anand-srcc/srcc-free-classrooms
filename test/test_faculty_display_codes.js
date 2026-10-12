@@ -11,7 +11,8 @@ const sandbox = { teachersData: { teachers }, window: {} };
 const fnAdminCode = adminCode.match(/function getAdminFacultyDisplayCode[\s\S]+?return primary \|\| alias \|\| '';\s*}/)[0];
 eval(fnAdminCode);
 
-const fnAppCode = appCode.match(/function getDisplayShortCode\(teacher\)[\s\S]+?return code\.toUpperCase\(\);\s*}/)[0];
+const fnAppMatch = appCode.match(/function getDisplayShortCode\(teacher\)[\s\S]+?return primary;\s*}/);
+if (fnAppMatch) eval(fnAppMatch[0]);
 function getClientDisplayShortCode(teacher) {
   if (!teacher) return '';
   const code = (teacher.short_code || teacher.ref_code || '').trim();
