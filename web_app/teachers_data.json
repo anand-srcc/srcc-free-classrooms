@@ -3,7 +3,7 @@
     "college": "Shri Ram College of Commerce (SRCC)",
     "portal": "https://srcccollegetimetable.in/",
     "total_teachers": 210,
-    "last_synced": "12 Oct 2026, 08:36 AM",
+    "last_synced": "12 Oct 2026, 09:33 PM",
     "audit_reconciled": true,
     "tridiagonal_passes": 5,
     "reverse_reconciled": true
@@ -327,13 +327,113 @@
         "HINDI-B)",
         "HINDI-EHINDI-D"
       ],
-      "total_teaching_periods": 2,
+      "total_teaching_periods": 10,
       "schedule": {
-        "Monday": [],
-        "Tuesday": [],
-        "Wednesday": [],
+        "Monday": [
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "L-JOINT-SEM IIIHindi-AEC-HD-AB",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R2",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "L-JOINT-SEM IIIHindi-AEC-HD-AB",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R2",
+            "type": "Tutorial"
+          }
+        ],
+        "Tuesday": [
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "L-JOINT-SEM IHindi-AEC-HE-AB",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R1",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "5:00 PM to 6:00 PM",
+            "raw": "L-JOINT-SEM IHindi-AEC-HE-AB",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R1",
+            "type": "Tutorial"
+          }
+        ],
+        "Wednesday": [
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "L-JOINT-SEM IIIHindi-AEC-HE-AB",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R1",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "5:00 PM to 6:00 PM",
+            "raw": "L-JOINT-SEM IIIHindi-AEC-HE-AB",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R1",
+            "type": "Tutorial"
+          }
+        ],
         "Thursday": [],
-        "Friday": [],
+        "Friday": [
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "L-JOINT-SEM IHindi-AEC-HD-AB",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R10",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "L-JOINT-SEM IHindi-AEC-HD-AB",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R24",
+            "type": "Tutorial"
+          }
+        ],
         "Saturday": [
           {
             "slot": "9:30 AM to 10:30 AM",
@@ -614,7 +714,7 @@
         "SEC IT SKILLS AND DATA ANALYSIS I)",
         "SEC-ADVANCED SPREADSHEET)"
       ],
-      "total_teaching_periods": 18,
+      "total_teaching_periods": 20,
       "schedule": {
         "Monday": [
           {
@@ -650,6 +750,18 @@
             "batch": "SEC17",
             "subject": "ITSA I",
             "subject_name": "IT Skills and Data Analysis I",
+            "room": "R27",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "12:30 PM to 1:30 PM",
+            "raw": "LAB-JOINT-SEM VEconomics-ITSA I-A21-SEC17<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
             "room": "R27",
             "type": "Practical/Lab"
           }
@@ -814,6 +926,18 @@
             "subject_name": "Advanced Spreadsheet",
             "room": "CLIB",
             "type": "Practical/Lab"
+          },
+          {
+            "slot": "5:00 PM to 6:00 PM",
+            "raw": "LAB-JOINT-SEM IIIEconomics-AS-AK24-SEC16<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "CLIB",
+            "type": "Practical/Lab"
           }
         ],
         "Friday": [
@@ -877,7 +1001,7 @@
       "subjects_taught": [
         "SEC BUSINESS INTELLIGENCE AND DATA VISUALISATION)"
       ],
-      "total_teaching_periods": 7,
+      "total_teaching_periods": 8,
       "schedule": {
         "Monday": [],
         "Tuesday": [
@@ -965,6 +1089,18 @@
             "batch": "SEC22",
             "subject": "BIDV",
             "subject_name": "Business Intelligence and Data Visualisation",
+            "room": "CL1",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "5:00 PM to 6:00 PM",
+            "raw": "LAB-JOINT-SEM IIICommerce-BIDV-AC-SEC22<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
             "room": "CL1",
             "type": "Practical/Lab"
           }
@@ -1130,7 +1266,7 @@
       "subjects_taught": [
         "PEOPLE MANAGEMENT)"
       ],
-      "total_teaching_periods": 8,
+      "total_teaching_periods": 9,
       "schedule": {
         "Monday": [
           {
@@ -1142,6 +1278,18 @@
             "batch": "SEC8",
             "subject": "SRG",
             "subject_name": "Sustainability Reporting",
+            "room": "R4",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "12:30 PM to 1:30 PM",
+            "raw": "LAB-JOINT-SEM VCommerce-SRG-ASC-SEC8<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
             "room": "R4",
             "type": "Practical/Lab"
           }
@@ -2698,7 +2846,7 @@
       "subjects_taught": [
         "FINANCIAL MANAGEMENT)"
       ],
-      "total_teaching_periods": 16,
+      "total_teaching_periods": 17,
       "schedule": {
         "Monday": [
           {
@@ -2823,6 +2971,18 @@
             "batch": "",
             "subject": "TA",
             "subject_name": "Taxation & Accounting",
+            "room": "T43",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "11:30 AM to 12:30 PM",
+            "raw": "LAB-MCOM-A-SEM IIICommerce-TA-ALK",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "MCOM",
+            "subject_name": "MCOM",
             "room": "T43",
             "type": "Practical/Lab"
           }
@@ -3615,7 +3775,7 @@
         "SEC DIGITAL MARKETING)",
         "SEC INNOVATION AND ENTREPRENEURSHIP)"
       ],
-      "total_teaching_periods": 9,
+      "total_teaching_periods": 11,
       "schedule": {
         "Monday": [
           {
@@ -3704,6 +3864,30 @@
             "batch": "SEC20",
             "subject": "IE",
             "subject_name": "Innovation and Entrepreneurship",
+            "room": "R33",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "LAB-JOINT-SEM IIICommerce-IE-ANIC-SEC20<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R33",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "5:00 PM to 6:00 PM",
+            "raw": "LAB-JOINT-SEM IIICommerce-IE-ANIC-SEC20<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
             "room": "R33",
             "type": "Practical/Lab"
           }
@@ -4404,7 +4588,7 @@
         "SEC IT SKILLS AND DATA ANALYSIS II)",
         "SEC-BASIC IT TOOLS)"
       ],
-      "total_teaching_periods": 6,
+      "total_teaching_periods": 10,
       "schedule": {
         "Monday": [
           {
@@ -4428,6 +4612,30 @@
             "batch": "SEC13",
             "subject": "BIT",
             "subject_name": "Basic IT Tools",
+            "room": "CL2",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "12:30 PM to 1:30 PM",
+            "raw": "LAB-JOINT-SEM VEconomics-BIT-AIC-SEC13<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "CL2",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB-JOINT-SEM VCommerce-BIT-AIC-SEC13",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
             "room": "CL2",
             "type": "Practical/Lab"
           }
@@ -4483,6 +4691,30 @@
             "subject_name": "IT Skills and Data Analysis II",
             "room": "R31",
             "type": "Practical/Lab"
+          },
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "LAB-JOINT-SEM IIIEconomics-ITSA II-AIC-SEC14<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R31",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "5:00 PM to 6:00 PM",
+            "raw": "LAB-JOINT-SEM IIIEconomics-ITSA II-AIC-SEC14<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R31",
+            "type": "Practical/Lab"
           }
         ],
         "Friday": [],
@@ -4501,7 +4733,7 @@
       "subjects_taught": [
         "BUSINESS LAWS)"
       ],
-      "total_teaching_periods": 16,
+      "total_teaching_periods": 17,
       "schedule": {
         "Monday": [],
         "Tuesday": [
@@ -4590,6 +4822,18 @@
             "subject_name": "Business Law",
             "room": "R8",
             "type": "Lecture"
+          },
+          {
+            "slot": "11:30 AM to 12:30 PM",
+            "raw": "T-BCH-G-SEM ICommerce-BLAW-AAG-G1",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "BCH",
+            "subject_name": "BCH",
+            "room": "T8",
+            "type": "Tutorial"
           }
         ],
         "Thursday": [
@@ -7189,7 +7433,7 @@
       "subjects_taught": [
         "SEC-BASIC IT TOOLS)"
       ],
-      "total_teaching_periods": 7,
+      "total_teaching_periods": 8,
       "schedule": {
         "Monday": [],
         "Tuesday": [
@@ -7277,6 +7521,18 @@
             "batch": "SEC9",
             "subject": "BIT",
             "subject_name": "Basic IT Tools",
+            "room": "R30",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "5:00 PM to 6:00 PM",
+            "raw": "LAB-JOINT-SEM IIIEconomics-BIT-CC-SEC9<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
             "room": "R30",
             "type": "Practical/Lab"
           }
@@ -9508,7 +9764,7 @@
       "subjects_taught": [
         "SEC INNOVATION AND ENTREPRENEURSHIP)"
       ],
-      "total_teaching_periods": 15,
+      "total_teaching_periods": 16,
       "schedule": {
         "Monday": [
           {
@@ -9646,6 +9902,18 @@
             "batch": "SEC1",
             "subject": "SET",
             "subject_name": "Sustainable Eco Tourism and Entrepreneurship",
+            "room": "R2",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "5:00 PM to 6:00 PM",
+            "raw": "LAB-JOINT-SEM IIICommerce-SET-GVR-SEC1<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
             "room": "R2",
             "type": "Practical/Lab"
           }
@@ -9960,7 +10228,7 @@
       "subjects_taught": [
         "FINANCIAL ACCOUNTING)"
       ],
-      "total_teaching_periods": 15,
+      "total_teaching_periods": 16,
       "schedule": {
         "Monday": [
           {
@@ -10074,6 +10342,18 @@
             "subject_name": "Financial Management",
             "room": "T5",
             "type": "Practical/Lab"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "L-BCH-G-SEM ICommerce-FA-HNT",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "BCH",
+            "subject_name": "BCH",
+            "room": "R1",
+            "type": "Lecture"
           }
         ],
         "Thursday": [
@@ -10847,7 +11127,7 @@
         "DIGITALISATION AND DEVELOPMENT)",
         "PRINCIPLES OF MICROECONOMICS-I)"
       ],
-      "total_teaching_periods": 35,
+      "total_teaching_periods": 39,
       "schedule": {
         "Monday": [
           {
@@ -10885,6 +11165,30 @@
             "subject_name": "Principles of Microeconomics I",
             "room": "R7",
             "type": "Lecture"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "L-JOINT-SEM IIIHindi-AEC-HA-RKS",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R21",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "L-JOINT-SEM IIIHindi-AEC-HA-RKS",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R21",
+            "type": "Tutorial"
           }
         ],
         "Tuesday": [
@@ -11229,6 +11533,30 @@
             "subject_name": "Advanced Mathematical Methods for Economics",
             "room": "PB4",
             "type": "Lecture"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "L-JOINT-SEM IHindi-AEC-HA-RKS",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R21",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "L-JOINT-SEM IHindi-AEC-HA-RKS",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R21",
+            "type": "Tutorial"
           }
         ],
         "Saturday": [
@@ -11293,9 +11621,34 @@
       "initials": "HA",
       "department": "Commerce",
       "subjects_taught": [],
-      "total_teaching_periods": 19,
+      "total_teaching_periods": 23,
       "schedule": {
-        "Monday": [],
+        "Monday": [
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "L-JOINT-SEM IIIHindi-AEC-HC-STK",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R10",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "L-JOINT-SEM IIIHindi-AEC-HC-STK",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R10",
+            "type": "Tutorial"
+          }
+        ],
         "Tuesday": [
           {
             "slot": "2:00 PM to 3:00 PM",
@@ -11481,6 +11834,30 @@
             "subject_name": "Advanced Mathematical Methods for Economics",
             "room": "PB4",
             "type": "Lecture"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "L-JOINT-SEM IHindi-AEC-HC-STK",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R22",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "L-JOINT-SEM IHindi-AEC-HC-STK",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R22",
+            "type": "Tutorial"
           }
         ],
         "Saturday": [
@@ -12008,7 +12385,7 @@
         "GE - MARKETING FOR BEGINERS)",
         "PRINCIPLES OF MARKETING)"
       ],
-      "total_teaching_periods": 16,
+      "total_teaching_periods": 17,
       "schedule": {
         "Monday": [
           {
@@ -12044,6 +12421,18 @@
             "batch": "",
             "subject": "POM",
             "subject_name": "Principles of Marketing",
+            "room": "CL2",
+            "type": "Lecture"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "L-BCH-M-SEM IIICommerce-POM-JDP",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "BCH",
+            "subject_name": "BCH",
             "room": "CL2",
             "type": "Lecture"
           }
@@ -13891,7 +14280,7 @@
       "subjects_taught": [
         "BUSINESS LAWS)"
       ],
-      "total_teaching_periods": 12,
+      "total_teaching_periods": 13,
       "schedule": {
         "Monday": [
           {
@@ -14017,6 +14406,18 @@
             "batch": "",
             "subject": "BSC",
             "subject_name": "Business Communication",
+            "room": "T27",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "12:30 PM to 1:30 PM",
+            "raw": "T-MCOM-A-SEM ICommerce-BSC-KIJ",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "MCOM",
+            "subject_name": "MCOM",
             "room": "T27",
             "type": "Tutorial"
           }
@@ -16490,7 +16891,7 @@
       "subjects_taught": [
         "CG2) ( SEC Sustainable Eco Tourism and Ent"
       ],
-      "total_teaching_periods": 7,
+      "total_teaching_periods": 8,
       "schedule": {
         "Monday": [],
         "Tuesday": [
@@ -16580,6 +16981,18 @@
             "subject_name": "Sustainable Eco Tourism and Entrepreneurship",
             "room": "R22",
             "type": "Practical/Lab"
+          },
+          {
+            "slot": "5:00 PM to 6:00 PM",
+            "raw": "LAB-JOINT-SEM IIICommerce-SET-MYC-SEC6<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R22",
+            "type": "Practical/Lab"
           }
         ],
         "Friday": [],
@@ -16598,7 +17011,7 @@
       "subjects_taught": [
         "VAC ETHICS AND CULTURE)"
       ],
-      "total_teaching_periods": 8,
+      "total_teaching_periods": 9,
       "schedule": {
         "Monday": [
           {
@@ -16610,6 +17023,18 @@
             "batch": "SEC9",
             "subject": "BIDV",
             "subject_name": "Business Intelligence and Data Visualisation",
+            "room": "R16",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "12:30 PM to 1:30 PM",
+            "raw": "LAB-JOINT-SEM VCommerce-BIDV-NSC-SEC9<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
             "room": "R16",
             "type": "Practical/Lab"
           }
@@ -19336,7 +19761,7 @@
         "PRINCIPLES OF",
         "PRINCIPLES OF MICROECONOMICS-I)"
       ],
-      "total_teaching_periods": 9,
+      "total_teaching_periods": 10,
       "schedule": {
         "Monday": [
           {
@@ -19389,6 +19814,18 @@
             "subject": "PME-I",
             "subject_name": "Principles of Microeconomics I",
             "room": "R8",
+            "type": "Lecture"
+          },
+          {
+            "slot": "12:30 PM to 1:30 PM",
+            "raw": "L-BCH-G-SEM IEconomics-PME-I-PB27",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "BCH",
+            "subject_name": "BCH",
+            "room": "R5",
             "type": "Lecture"
           }
         ],
@@ -19772,7 +20209,7 @@
       "subjects_taught": [
         "SEC NEGOTIATION AND LEADERSHIP)"
       ],
-      "total_teaching_periods": 6,
+      "total_teaching_periods": 7,
       "schedule": {
         "Monday": [],
         "Tuesday": [
@@ -19850,6 +20287,18 @@
             "subject_name": "Negotiation and Leadership",
             "room": "R19",
             "type": "Practical/Lab"
+          },
+          {
+            "slot": "5:00 PM to 6:00 PM",
+            "raw": "LAB-JOINT-SEM IIIPol.Sc.-NL-PSG1-SEC17<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R19",
+            "type": "Practical/Lab"
           }
         ],
         "Friday": [],
@@ -19869,7 +20318,7 @@
         "GOVERNANCE: ISSUES AND CHALLENGES)",
         "SEC"
       ],
-      "total_teaching_periods": 7,
+      "total_teaching_periods": 8,
       "schedule": {
         "Monday": [],
         "Tuesday": [
@@ -19948,6 +20397,18 @@
             "subject_name": "Global Institutions and Commerce",
             "room": "T3",
             "type": "Tutorial"
+          },
+          {
+            "slot": "5:00 PM to 6:00 PM",
+            "raw": "LAB-JOINT-SEM IIIPol.Sc.-NL-PSG2-SEC18<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R20",
+            "type": "Practical/Lab"
           }
         ],
         "Friday": [
@@ -22168,7 +22629,7 @@
       "initials": "RS",
       "department": "Commerce",
       "subjects_taught": [],
-      "total_teaching_periods": 20,
+      "total_teaching_periods": 24,
       "schedule": {
         "Monday": [
           {
@@ -22206,6 +22667,30 @@
             "subject_name": "Financial Accounting",
             "room": "CL2",
             "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "L-JOINT-SEM IIIHindi-AEC-HA-RKS",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R21",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "L-JOINT-SEM IIIHindi-AEC-HA-RKS",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R21",
+            "type": "Tutorial"
           }
         ],
         "Tuesday": [
@@ -22418,6 +22903,30 @@
             "subject_name": "Financial Accounting",
             "room": "T35",
             "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "L-JOINT-SEM IHindi-AEC-HA-RKS",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R21",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "L-JOINT-SEM IHindi-AEC-HA-RKS",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R21",
+            "type": "Tutorial"
           }
         ],
         "Saturday": []
@@ -25665,7 +26174,7 @@
       "subjects_taught": [
         "CONSUMER AFFAIRS AND SOVEREIGNTY)"
       ],
-      "total_teaching_periods": 16,
+      "total_teaching_periods": 17,
       "schedule": {
         "Monday": [
           {
@@ -25703,6 +26212,18 @@
             "subject_name": "Computerized Accounting System",
             "room": "T27",
             "type": "Tutorial"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "LAB-1. BCH-L-SEM ICommerce-FA-SJJ-LP1LAB-2. BCH-L-SEM ICommerce-FA-SJJ-LP2LAB-3. BCH-L-SEM ICommerce-FA-SJJ-LP3",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "1. BCH",
+            "subject_name": "1. BCH",
+            "room": "CL1",
+            "type": "Practical/Lab"
           }
         ],
         "Tuesday": [
@@ -26454,7 +26975,7 @@
         "SEC IT SKILLS AND DATA ANALYSIS I)",
         "SEC-STATISTICS WITH R)"
       ],
-      "total_teaching_periods": 9,
+      "total_teaching_periods": 10,
       "schedule": {
         "Monday": [],
         "Tuesday": [
@@ -26567,6 +27088,18 @@
             "batch": "SEC11",
             "subject": "ITSA I",
             "subject_name": "IT Skills and Data Analysis I",
+            "room": "CL2",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "5:00 PM to 6:00 PM",
+            "raw": "LAB-JOINT-SEM IIIEconomics-ITSA I-SK20-SEC11<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
             "room": "CL2",
             "type": "Practical/Lab"
           }
@@ -27649,7 +28182,7 @@
       "subjects_taught": [
         "BUSINESS MATHEMATICS)"
       ],
-      "total_teaching_periods": 15,
+      "total_teaching_periods": 16,
       "schedule": {
         "Monday": [
           {
@@ -27799,6 +28332,18 @@
             "batch": "A1",
             "subject": "BRM",
             "subject_name": "Brand Management",
+            "room": "T48",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "LAB-MCOM-A-SEM ICommerce-BRM-SAG-A1<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "MCOM",
+            "subject_name": "MCOM",
             "room": "T48",
             "type": "Practical/Lab"
           }
@@ -28662,7 +29207,7 @@
         "SEC IT SKILLS AND DATA ANALYSIS I)",
         "SEC-BASIC IT TOOLS)"
       ],
-      "total_teaching_periods": 9,
+      "total_teaching_periods": 10,
       "schedule": {
         "Monday": [
           {
@@ -28674,6 +29219,18 @@
             "batch": "SEC14",
             "subject": "BIT",
             "subject_name": "Basic IT Tools",
+            "room": "CLIB",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "12:30 PM to 1:30 PM",
+            "raw": "LAB-JOINT-SEM VEconomics-BIT-SK19-SEC14<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
             "room": "CLIB",
             "type": "Practical/Lab"
           }
@@ -30136,9 +30693,34 @@
         "HG2)",
         "HINDI-B)"
       ],
-      "total_teaching_periods": 6,
+      "total_teaching_periods": 10,
       "schedule": {
-        "Monday": [],
+        "Monday": [
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "L-JOINT-SEM IIIHindi-AEC-HC-STK",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R10",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "L-JOINT-SEM IIIHindi-AEC-HC-STK",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R10",
+            "type": "Tutorial"
+          }
+        ],
         "Tuesday": [],
         "Wednesday": [],
         "Thursday": [
@@ -30191,7 +30773,32 @@
             "type": "Lecture"
           }
         ],
-        "Friday": [],
+        "Friday": [
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "L-JOINT-SEM IHindi-AEC-HC-STK",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R22",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "L-JOINT-SEM IHindi-AEC-HC-STK",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R22",
+            "type": "Tutorial"
+          }
+        ],
         "Saturday": [
           {
             "slot": "8:30 AM to 9:30 AM",
@@ -30672,7 +31279,7 @@
       "subjects_taught": [
         "PRINCIPLES OF MARKETING)"
       ],
-      "total_teaching_periods": 12,
+      "total_teaching_periods": 13,
       "schedule": {
         "Monday": [
           {
@@ -30798,6 +31405,18 @@
             "batch": "",
             "subject": "DM",
             "subject_name": "Digital Marketing",
+            "room": "T13",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "T-MCOM-A-SEM ICommerce-DM-SAP",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "MCOM",
+            "subject_name": "MCOM",
             "room": "T13",
             "type": "Tutorial"
           }
@@ -30989,7 +31608,7 @@
       "initials": "T",
       "department": "Commerce",
       "subjects_taught": [],
-      "total_teaching_periods": 7,
+      "total_teaching_periods": 8,
       "schedule": {
         "Monday": [],
         "Tuesday": [
@@ -31077,6 +31696,18 @@
             "batch": "",
             "subject": "BIT",
             "subject_name": "Basic IT Tools",
+            "room": "R29",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "5:00 PM to 6:00 PM",
+            "raw": "LAB-JOINT-SEM IIIEconomics-BIT-TAC-SEC10<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
             "room": "R29",
             "type": "Practical/Lab"
           }

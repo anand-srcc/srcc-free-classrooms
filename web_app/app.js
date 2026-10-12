@@ -2688,9 +2688,9 @@ ${directRoomUrl}`;
       const sched = room.schedule[dayToUse] || { free_slots: [], occupied_slots: [], lunch_recess_free: true };
 
       if (modalRoomTitle) {
-        modalRoomTitle.innerHTML = `<span>${escapeHtml(room.code)} - ${escapeHtml(room.name)}</span>`;
+        modalRoomTitle.innerHTML = `<span>${escapeHtml(room.code)}</span>`;
       }
-      if (modalRoomMeta) modalRoomMeta.textContent = `${room.category} · Selected Day: ${dayToUse}`;
+      if (modalRoomMeta) modalRoomMeta.textContent = `${room.category} · Capacity: ${room.capacity || 0} seats`;
 
       // Synchronize modal day tabs
       const modalRoomDayTabs = document.getElementById('modalRoomDayTabs');

@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   
-  <link rel="stylesheet" href="style.css?v=63" />
+  <link rel="stylesheet" href="style.css?v=64" />
 </head>
 <body>
   <!-- Header / Navigation (Slim Single-Line Strip) -->
@@ -226,8 +226,8 @@
       <!-- Active Leaves Alert Banner for Rooms -->
       <div class="active-leaves-callout" id="activeLeavesRoomBanner" style="display: none;"></div>
 
-      <!-- Live Metric Stat Badges -->
-      <div class="metric-tiles-row">
+      <!-- Live Metric Stat Badges (Hidden per user request) -->
+      <div class="metric-tiles-row" style="display: none !important;">
         <div class="metric-tile" id="metricVacantNowTile">
           <div class="metric-icon">⚡</div>
           <div class="metric-details">
@@ -542,15 +542,14 @@
       <!-- Timetable Status Summary Bar (Compact, Professional & Non-redundant) -->
       <div class="tt-summary-header-row">
         <div class="tt-summary-card">
-          <div class="tt-sum-badge-num">
-            <span id="ttCountClasses">0</span> Classes
+          <div class="tt-sum-badges-wrap">
+            <span class="tt-sum-badge-num"><span id="ttCountClasses">0</span> Classes</span>
+            <span class="tt-sum-badge-day" id="ttRibbonDay">Monday</span>
           </div>
           <div class="tt-sum-desc">
             <span id="ttSelectedSummary" class="tt-sum-course">Economics · Sem I</span>
             <span class="tt-sum-sep">·</span>
             <span id="ttSelectedBatchSummary" class="tt-sum-batch">Sec A · All batches</span>
-            <span class="tt-sum-sep">·</span>
-            <span id="ttRibbonDay" class="tt-sum-day">Monday</span>
             <span id="ttRibbonCourseSec" style="display: none;"></span>
           </div>
         </div>
@@ -1132,12 +1131,12 @@
 
 
   <!-- Scripts -->
-  <script src="data.js?v=63"></script>
-  <script src="wifi_data.js?v=63"></script>
-  <script src="cloud_config.js?v=63"></script>
-  <script src="faculty_leaves.js?v=63"></script>
-  <script src="teachers_data.js?v=63"></script>
-  <script src="classes_data.js?v=63"></script>
-  <script src="app.js?v=63"></script>
+  <script src="data.js?v=64"></script>
+  <script src="wifi_data.js?v=64"></script>
+  <script src="cloud_config.js?v=64"></script>
+  <script src="faculty_leaves.js?v=64"></script>
+  <script src="teachers_data.js?v=64"></script>
+  <script src="classes_data.js?v=64"></script>
+  <script src="app.js?v=64"></script>
 </body>
 </html>
