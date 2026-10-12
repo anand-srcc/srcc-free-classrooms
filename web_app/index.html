@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   
-  <link rel="stylesheet" href="style.css?v=61" />
+  <link rel="stylesheet" href="style.css?v=62" />
 </head>
 <body>
   <!-- Header / Navigation (Slim Single-Line Strip) -->
@@ -82,17 +82,22 @@
     </div>
   </header>
 
-  <!-- One-Time Faculty Leave Notification Opt-in Prompt Banner -->
-  <aside id="leaveNotificationPromptBanner" class="leave-notif-banner" style="display: none;" role="region" aria-label="Faculty Leave Notifications">
+  <!-- One-Time Campus Notification Opt-in Prompt Banner -->
+  <aside id="leaveNotificationPromptBanner" class="leave-notif-banner" style="display: none;" role="region" aria-label="Campus Notifications">
     <div class="leave-notif-banner-content">
-      <span class="leave-notif-bell-icon">🔔</span>
+      <div class="leave-notif-icon-col">
+        <svg class="leave-notif-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+        </svg>
+      </div>
       <div class="leave-notif-text">
-        <strong>Instant Faculty Leave Alerts</strong>
-        <span>Receive automatic notifications on your screen whenever professors take leave or classes are suspended.</span>
+        <strong>Campus Notifications</strong>
+        <span>Enable real-time updates for classroom vacancies and schedule changes.</span>
       </div>
       <div class="leave-notif-actions">
-        <button id="btnAllowLeaveNotif" class="btn-notif-allow" type="button">✅ Allow Alerts</button>
-        <button id="btnDismissLeaveNotif" class="btn-notif-dismiss" type="button" aria-label="Dismiss">✕ Not Now</button>
+        <button id="btnAllowLeaveNotif" class="btn-notif-allow" type="button">Enable Alerts</button>
+        <button id="btnDismissLeaveNotif" class="btn-notif-dismiss" type="button" aria-label="Dismiss">Not Now</button>
       </div>
     </div>
   </aside>
@@ -1086,12 +1091,12 @@
 
 
   <!-- Scripts -->
-  <script src="data.js?v=61"></script>
-  <script src="wifi_data.js?v=61"></script>
-  <script src="cloud_config.js?v=61"></script>
-  <script src="faculty_leaves.js?v=61"></script>
-  <script src="teachers_data.js?v=61"></script>
-  <script src="classes_data.js?v=61"></script>
-  <script src="app.js?v=61"></script>
+  <script src="data.js?v=62"></script>
+  <script src="wifi_data.js?v=62"></script>
+  <script src="cloud_config.js?v=62"></script>
+  <script src="faculty_leaves.js?v=62"></script>
+  <script src="teachers_data.js?v=62"></script>
+  <script src="classes_data.js?v=62"></script>
+  <script src="app.js?v=62"></script>
 </body>
 </html>

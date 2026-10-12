@@ -2912,7 +2912,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast('⚠️ Notification permission was blocked or denied.', false);
             return;
           }
-          showToast('⏳ Registering device for closed-Chrome push alerts...', true, 2000);
+          showToast('⏳ Registering device for push notifications...', true, 2000);
           const reg = await (navigator.serviceWorker.ready || navigator.serviceWorker.getRegistration());
           let sub = await reg.pushManager.getSubscription();
           if (!sub) {
@@ -2940,7 +2940,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
               });
               updateSubscriberCount();
-              showToast('🎉 <strong>Admin Device Registered!</strong> You will now receive hourly & instant push alerts even when Chrome is shut.');
+              showToast('✅ <strong>Admin Device Registered!</strong> Push notifications enabled for schedule updates.');
             }
           }
         } catch (err) {

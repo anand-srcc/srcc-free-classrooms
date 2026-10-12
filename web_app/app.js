@@ -2442,7 +2442,7 @@ ${directRoomUrl}`;
           }).join('');
 
           const bonusChips = standaloneBonusSlots.map(b => {
-            return `<div class="slot-chip" style="background: rgba(168, 85, 247, 0.22); color: #6d28d9; border: 1px solid rgba(168, 85, 247, 0.45);" title="Class cancelled: Prof. ${escapeHtml(b.teacher.clean_name)} on leave">✨ ${escapeHtml(b.slot.replace(' to ', '–'))} (Faculty Leave)</div>`;
+            return `<div class="slot-chip" style="background: rgba(147, 51, 234, 0.08); color: #7e22ce; border: 1px solid rgba(147, 51, 234, 0.25);" title="Lecture suspended: Prof. ${escapeHtml(b.teacher.clean_name)} on leave">✨ ${escapeHtml(b.slot.replace(' to ', '–'))} (On Leave)</div>`;
           }).join('');
 
           chipsHtml = regularChips + bonusChips;
@@ -2466,7 +2466,7 @@ ${directRoomUrl}`;
           const cls = isFree ? (hasBonus ? 'p-block' : 'p-block free') : 'p-block busy';
           const bonusStyle = hasBonus ? 'background: linear-gradient(135deg, #9333EA, #7C3AED); color: #FFF;' : '';
           const title = hasBonus
-            ? `${p.full}: ✨ BONUS FREE (Prof. ${hasBonus.teacher.clean_name} on Leave)`
+            ? `${p.full}: Vacant · Faculty on Leave`
             : `${p.full}: ${isFree ? 'Vacant for GD' : 'Class in Session'}`;
           return `<div class="${cls}" style="${bonusStyle}" data-room="${room.code}" data-slot="${p.slot}" title="${title}">${p.label}</div>`;
         }).join('');
@@ -2490,7 +2490,7 @@ ${directRoomUrl}`;
           const cls = isFree ? (hasBonus ? 'p-block' : 'p-block free') : 'p-block busy';
           const bonusStyle = hasBonus ? 'background: linear-gradient(135deg, #9333EA, #7C3AED); color: #FFF;' : '';
           const title = hasBonus
-            ? `${p.full}: ✨ BONUS FREE (Prof. ${hasBonus.teacher.clean_name} on Leave)`
+            ? `${p.full}: Vacant · Faculty on Leave`
             : `${p.full}: ${isFree ? 'Vacant for GD' : 'Class in Session'}`;
           return `<div class="${cls}" style="${bonusStyle}" data-room="${room.code}" data-slot="${p.slot}" title="${title}">${p.label}</div>`;
         }).join('');
@@ -2514,7 +2514,7 @@ ${directRoomUrl}`;
         const bonusBannerHtml = effectiveBonusSlots.length > 0
           ? `<div class="bonus-free-banner">
                <span>✨</span>
-               <span><strong>BONUS FREE ROOM:</strong> ${effectiveBonusSlots.length} lecture(s) cancelled (Faculty on Leave)</span>
+               <span><strong>Extra Free Slot:</strong> Faculty on leave</span>
              </div>`
           : '';
 
@@ -2813,14 +2813,14 @@ ${directRoomUrl}`;
         if (leaveInfo) {
           const teach = leaveInfo.teacher;
           return `
-            <tr style="background: rgba(168, 85, 247, 0.08);">
+            <tr style="background: rgba(147, 51, 234, 0.05);">
               <td style="white-space: nowrap;"><strong>${slotFormatted}</strong></td>
-              <td style="white-space: nowrap;"><span class="badge-slot-leave">✨ BONUS FREE (LEAVE)</span></td>
+              <td style="white-space: nowrap;"><span class="badge-slot-leave">Vacant (Faculty Leave)</span></td>
               <td>
                 <div class="room-sched-details-wrap">
                   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
                     <div>
-                      <strong style="color: #6d28d9;">Class Cancelled:</strong> Prof. <strong>${escapeHtml(teach.clean_name)}</strong> (${escapeHtml(teach.short_code || '')}) is on leave. Classroom is vacant for self-study!
+                      <strong style="color: #7e22ce;">Lecture Suspended:</strong> Prof. <strong>${escapeHtml(teach.clean_name)}</strong> (${escapeHtml(teach.short_code || '')}) is on leave. Classroom is vacant for self-study.
                     </div>
                     <button type="button" class="btn-slot-cal-reminder" data-room="${escapeHtml(room.code)}" data-day="${escapeHtml(dayToUse)}" data-slot="${escapeHtml(timeSlot)}" title="Add reminder to Google Calendar / Apple Calendar">
                       📅 Add to Calendar
@@ -2958,10 +2958,10 @@ ${directRoomUrl}`;
             <div class="room-sched-mobile-card is-leave">
               <div class="rsm-header">
                 <div class="rsm-time">🕒 ${slotFormatted}</div>
-                <span class="badge-slot-leave">✨ BONUS FREE (LEAVE)</span>
+                <span class="badge-slot-leave">Vacant (Faculty Leave)</span>
               </div>
               <div class="rsm-body-text">
-                <div style="margin-bottom: 6px;"><strong style="color: #6d28d9;">Class Cancelled:</strong> Prof. <strong>${escapeHtml(teach.clean_name)}</strong> is on leave. Room is open for self-study!</div>
+                <div style="margin-bottom: 6px;"><strong style="color: #7e22ce;">Lecture Suspended:</strong> Prof. <strong>${escapeHtml(teach.clean_name)}</strong> is on leave. Room is open for study.</div>
                 <div class="room-sched-teacher-row">
                   <div class="rs-teacher-chip">
                     <span class="rs-teacher-avatar">${escapeHtml(teach.initials || teach.clean_name.slice(0, 2).toUpperCase())}</span>
@@ -3947,10 +3947,10 @@ ${directRoomUrl}`;
         if (count === 0) return '';
         const profWord = count === 1 ? 'Professor is' : 'Professors are';
         return `
-          <div class="active-leaves-strip" role="button" tabindex="0" title="Click to view absent faculty & suspended classes">
-            <span class="leaves-strip-badge">🏖️ FACULTY ON LEAVE</span>
+          <div class="active-leaves-strip" role="button" tabindex="0" title="Click to view absent faculty">
+            <span class="leaves-strip-badge">Faculty Update</span>
             <span class="leaves-strip-text">
-              <strong>${count} ${profWord} on leave today</strong> • <span class="leaves-strip-cta">Click here to view &rarr;</span>
+              <strong>${count} ${count === 1 ? 'professor' : 'professors'} on leave today</strong> • <span class="leaves-strip-cta">View list &rarr;</span>
             </span>
           </div>
         `;
@@ -6378,7 +6378,7 @@ window.SRCC_FACULTY_LEAVES = {
           : (session.isVac ? `<span class="tt-secvac-badge" style="background: rgba(16, 185, 129, 0.12); color: #059669; border-color: rgba(16, 185, 129, 0.28);">VAC</span>` : '');
 
         const leaveHtml = session.isOnLeave 
-          ? `<div class="tt-leave-badge">🏖️ Faculty on Leave Today · Class Suspended</div>` 
+          ? `<div class="tt-leave-badge"><span class="tt-leave-dot"></span>Faculty on Leave</div>` 
           : '';
 
         const targetRoom = getTargetRoomJumpCode(session.room);
@@ -7160,9 +7160,9 @@ window.SRCC_FACULTY_LEAVES = {
                 Prof. <strong>${escapeHtml(currentClass.teacher)}</strong> · ${currentClass.periodsCount > 1 ? `${currentClass.periodsCount} Continuous Periods` : '1 Period'}
               </div>
               ${leave ? `
-                <div class="batch-teacher-leave-alert" style="margin-top: 8px; padding: 6px 10px; border-radius: 6px; background: rgba(217, 119, 6, 0.12); border: 1px solid rgba(217, 119, 6, 0.3); color: #b45309; font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; gap: 6px;">
-                  <span>🏖️</span>
-                  <span><strong>FACULTY LEAVE ALERT:</strong> Prof. ${escapeHtml(currentClass.teacher)} is on leave today. This class may not be held!</span>
+                <div class="batch-teacher-leave-alert">
+                  <span class="batch-leave-dot"></span>
+                  <span>Faculty on leave today · Class may be suspended</span>
                 </div>
               ` : ''}
             </div>
@@ -7189,9 +7189,9 @@ window.SRCC_FACULTY_LEAVES = {
                 Prof. <strong>${escapeHtml(nextClass.teacher)}</strong> in Room <strong>${escapeHtml(nextClass.room)}</strong>
               </div>
               ${leave ? `
-                <div class="batch-teacher-leave-alert" style="margin-top: 8px; padding: 6px 10px; border-radius: 6px; background: rgba(217, 119, 6, 0.12); border: 1px solid rgba(217, 119, 6, 0.3); color: #b45309; font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; gap: 6px;">
-                  <span>🏖️</span>
-                  <span><strong>FACULTY LEAVE ALERT:</strong> Prof. ${escapeHtml(nextClass.teacher)} is on leave today! This lecture might be cancelled or substituted.</span>
+                <div class="batch-teacher-leave-alert">
+                  <span class="batch-leave-dot"></span>
+                  <span>Faculty on leave today · Class may be suspended</span>
                 </div>
               ` : ''}
             </div>
@@ -7625,7 +7625,10 @@ window.SRCC_FACULTY_LEAVES = {
 
       // 2. In-app Toast Banner for live changes
       if (isLiveUpdate) {
-        showToast(`🔔 <strong>Campus Update:</strong> ${escapeHtml(bodyText.replace('\n', ' • '))} <button onclick="openFacultyLeavesView()" style="margin-left:8px; padding:3px 8px; border-radius:4px; border:none; background:#070D18; color:#fff; cursor:pointer; font-size:0.75rem;">View</button>`, true, 7000);
+        const leaveMsg = count > 0 
+          ? `${count} ${count === 1 ? 'professor is' : 'professors are'} on leave today.`
+          : 'All professors present today.';
+        showToast(`🔔 <strong>Faculty Leave Update:</strong> ${leaveMsg} <button onclick="openFacultyLeavesView()" style="margin-left:8px; padding:3px 8px; border-radius:4px; border:none; background:#070D18; color:#fff; cursor:pointer; font-size:0.75rem;">View</button>`, true, 5000);
       }
     }
 
@@ -7789,7 +7792,7 @@ window.SRCC_FACULTY_LEAVES = {
       // Request permission helper (Registers closed-browser Push Alerts like Zomato/Blinkit)
       async function requestLeavePermission() {
         if (!('Notification' in window)) {
-          showToast('⚠️ Notifications are not supported in this browser. Try Chrome or Edge.', false, 4000);
+          showToast('⚠️ Notifications are not supported in this browser.', false, 3500);
           return;
         }
 
@@ -7797,7 +7800,7 @@ window.SRCC_FACULTY_LEAVES = {
           const perm = await Notification.requestPermission();
           if (perm === 'granted') {
             localStorage.setItem('srcc_leave_notif_enabled', 'true');
-            showToast('🔔 <strong>Hourly Alerts Enabled!</strong> You will receive automatic campus updates even when Chrome is closed.', true, 5000);
+            showToast('🔔 <strong>Campus Alerts Enabled</strong> You will receive real-time updates for schedule and classroom vacancies.', true, 4000);
 
             // 1. Register closed-browser Web Push subscription (Wakes up device even when Chrome is shut)
             registerDeviceWebPushSubscription();
@@ -7815,7 +7818,7 @@ window.SRCC_FACULTY_LEAVES = {
             const todayActive = getActiveTodayLeaves();
             notifyFacultyLeaves(todayActive, false);
           } else {
-            showToast('ℹ️ Notification permission was not granted. You can enable anytime via browser URL icon.', false, 4000);
+            showToast('ℹ️ Notification permission was not enabled. You can enable anytime via browser settings.', false, 3500);
           }
         } catch (e) {
           console.warn('Permission request error:', e);
@@ -7857,7 +7860,6 @@ window.SRCC_FACULTY_LEAVES = {
           if (banner) banner.style.display = 'none';
           window._isNotifBannerActive = false;
           sessionStorage.setItem('srcc_notif_session_dismissed', '1');
-          showToast('ℹ️ Notification banner dismissed.', false, 2500);
           if (typeof window._triggerDeferredPwaPrompt === 'function') {
             window._triggerDeferredPwaPrompt(6000);
           }
