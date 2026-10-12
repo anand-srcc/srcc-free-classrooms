@@ -2529,11 +2529,14 @@ body {
   .app-mode-switcher {
     padding: 3px;
     gap: 4px;
+    border-radius: 12px;
   }
   .mode-tab {
-    padding: 7px 6px;
-    font-size: 0.8rem;
+    padding: 6px 6px;
+    font-size: 0.78rem;
     gap: 4px;
+    border-radius: 8px;
+    letter-spacing: -0.01em;
   }
   .mode-tab-prefix, .mode-tab-suffix, .mode-tab-unit {
     display: none !important;
@@ -3287,14 +3290,14 @@ body {
 
 .app-mode-switcher {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr) !important;
   width: 100%;
   background: var(--bg-card);
-  border: 1px solid var(--bg-card);
-  border-radius: var(--radius-full);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
   padding: 4px;
-  gap: 6px;
-  box-shadow: var(--shadow-md);
+  gap: 5px;
+  box-shadow: var(--shadow-sm);
   backdrop-filter: blur(12px);
 }
 
@@ -3302,19 +3305,20 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 5px;
   background: transparent;
   color: var(--text-secondary);
-  border: 1px solid transparent;
-  border-radius: var(--radius-full);
-  padding: 8px 10px;
+  border: 1.5px solid transparent;
+  border-radius: 10px;
+  padding: 7px 10px;
   font-family: var(--font-display);
-  font-size: 0.88rem;
-  font-weight: 700;
+  font-size: 0.84rem;
+  font-weight: 600;
   cursor: pointer;
   transition: all var(--transition-fast);
   white-space: nowrap;
   min-width: 0;
+  box-sizing: border-box;
 }
 
 .mode-tab:hover {
@@ -3323,34 +3327,45 @@ body {
 }
 
 .mode-tab.active {
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.16), rgba(37, 99, 235, 0.05));
-  color: #1d4ed8;
-  border: 2px solid #1d4ed8;
-  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.18);
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.14), rgba(37, 99, 235, 0.04));
+  color: #1d4ed8 !important;
+  border: 1.5px solid #1d4ed8 !important;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
 }
 
 .mode-tab.active[data-mode="rooms"] {
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.16), rgba(37, 99, 235, 0.05));
-  border-color: #1d4ed8;
-  color: #1d4ed8;
-  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.18);
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.14), rgba(37, 99, 235, 0.04));
+  border-color: #1d4ed8 !important;
+  color: #1d4ed8 !important;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
 }
 
 .mode-tab.active[data-mode="faculty"] {
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.16), rgba(37, 99, 235, 0.05));
-  border-color: #1d4ed8;
-  color: #1d4ed8;
-  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.18);
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.14), rgba(37, 99, 235, 0.04));
+  border-color: #1d4ed8 !important;
+  color: #1d4ed8 !important;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+}
+
+.mode-tab.active[data-mode="timetable"] {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.14), rgba(37, 99, 235, 0.04));
+  border-color: #1d4ed8 !important;
+  color: #1d4ed8 !important;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
 }
 
 .mode-tab.active[data-mode="leaves"] {
   background: linear-gradient(135deg, rgba(239, 68, 68, 0.22), rgba(239, 68, 68, 0.08));
-  border-color: #dc2626;
-  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.22);
+  border-color: #dc2626 !important;
+  color: #dc2626 !important;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.22);
 }
 
 .mode-tab-icon {
-  font-size: 1.1rem;
+  font-size: 1rem;
+  line-height: 1;
+  flex-shrink: 0;
 }
 
 .mode-tab-count {
@@ -6323,10 +6338,10 @@ body.modal-open {
 }
 
 .mode-tab.active[data-mode="timetable"] {
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.18), rgba(37, 99, 235, 0.06));
-  border-color: #1d4ed8;
-  color: var(--text-primary);
-  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.2);
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.14), rgba(37, 99, 235, 0.04));
+  border: 1.5px solid #1d4ed8 !important;
+  color: #1d4ed8 !important;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
 }
 
 .mode-tab.active[data-mode="timetable"] .mode-tab-count {
@@ -7078,14 +7093,19 @@ body.dark-mode .tt-room-btn:hover,
 @media (max-width: 768px) {
   .app-mode-switcher {
     grid-template-columns: repeat(3, 1fr) !important;
-  }
-  .mode-tab {
-    padding: 7px 4px;
-    font-size: 0.8rem;
+    border-radius: 12px;
+    padding: 3px;
     gap: 4px;
   }
+  .mode-tab {
+    padding: 6px 6px;
+    font-size: 0.79rem;
+    gap: 4px;
+    border-radius: 8px;
+    letter-spacing: -0.01em;
+  }
   .mode-tab-icon {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
   }
   .tt-action-bar {
     padding: 12px 14px;
