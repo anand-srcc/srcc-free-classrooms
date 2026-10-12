@@ -1066,6 +1066,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const currentMinutes = istNow.getHours() * 60 + istNow.getMinutes();
 
       if (isToday) {
+        if (currentMinutes < 8 * 60 + 30) {
+          return {
+            isFreeNow: false,
+            isOffHours: true,
+            badgeText: 'College Off-Hours · Opens at 8:30 AM',
+            calloutText: '🌙 College Off-Hours (Academic periods begin at 8:30 AM).'
+          };
+        }
+
         const isLunchRecess = currentMinutes >= 13 * 60 + 30 && currentMinutes < 14 * 60 + 0;
 
         let isFreeNow = false;
@@ -1075,8 +1084,6 @@ document.addEventListener('DOMContentLoaded', () => {
           const livePeriod = periodIntervals.find(p => currentMinutes >= p.start && currentMinutes < p.end);
           if (livePeriod && effectiveFreeSlots.has(livePeriod.slot)) {
             isFreeNow = true;
-          } else if (currentMinutes < 8 * 60 + 30) {
-            isFreeNow = effectiveFreeSlots.has(periodIntervals[0].slot);
           }
         }
 
@@ -2675,8 +2682,11 @@ ${directRoomUrl}`;
 
         const catBadgeClass = getCategoryBadgeClass(room.category);
         const freeUntilStatus = getRoomFreeUntilStatus(room, state.activeDay);
+        const freeUntilBadgeClass = freeUntilStatus?.isOffHours
+          ? 'is-offhours'
+          : (freeUntilStatus?.isFreeNow ? 'is-free-now' : 'is-busy-now');
         const freeUntilBadgeHtml = freeUntilStatus
-          ? `<span class="badge-free-until ${freeUntilStatus.isFreeNow ? 'is-free-now' : 'is-busy-now'}" title="${escapeHtml(freeUntilStatus.calloutText)}"><span class="live-dot"></span>${escapeHtml(freeUntilStatus.badgeText)}</span>`
+          ? `<span class="badge-free-until ${freeUntilBadgeClass}" title="${escapeHtml(freeUntilStatus.calloutText)}"><span class="live-dot"></span>${escapeHtml(freeUntilStatus.badgeText)}</span>`
           : '';
 
         const unavailableBadgeHtml = isUnavailable

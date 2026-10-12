@@ -1,0 +1,10 @@
+period_number,time_slot,monday_classes,tuesday_classes,wednesday_classes,thursday_classes,friday_classes,saturday_classes,total_weekly_classes,verification_status
+1,8:30 AM to 9:30 AM,43,51,41,48,42,30,255,VERIFIED
+2,9:30 AM to 10:30 AM,74,86,86,73,85,55,459,VERIFIED
+3,10:30 AM to 11:30 AM,69,94,93,96,89,61,502,VERIFIED
+4,11:30 AM to 12:30 PM,41,93,95,94,84,25,432,VERIFIED
+5,12:30 PM to 1:30 PM,30,96,99,84,83,18,410,VERIFIED
+6,2:00 PM to 3:00 PM,20,42,66,50,29,5,212,VERIFIED
+7,3:00 PM to 4:00 PM,10,36,40,30,25,4,145,VERIFIED
+8,4:00 PM to 5:00 PM,0,22,10,12,6,0,50,VERIFIED
+9,5:00 PM to 6:00 PM,0,20,9,0,5,0,34,VERIFIED

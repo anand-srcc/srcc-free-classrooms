@@ -44,13 +44,13 @@ teachersData.teachers.forEach(t => {
 });
 
 const EXPECTED_DEPTS = {
-  'Commerce': 138,
-  'Economics': 46,
-  'Mathematics': 6,
-  'English': 5,
+  'Commerce': 152,
+  'Economics': 27,
+  'Mathematics': 11,
+  'Computer Science': 8,
+  'Hindi': 4,
   'Political Science': 4,
-  'Hindi': 5,
-  'EVS': 5,
+  'English': 3,
   'Physical Education': 1
 };
 

@@ -1,0 +1,97 @@
+room_code,room_name,category,capacity,total_occupied_slots,total_free_slots,total_weekly_slots,verification_status
+R1,Lecture Classroom 1,Classrooms (R),60/60,40,15,55,VERIFIED
+R2,Lecture Classroom 2,Classrooms (R),60/60,40,14,54,VERIFIED
+R3,Lecture Classroom 3,Classrooms (R),60/60,42,16,58,VERIFIED
+R4,Lecture Classroom 4,Classrooms (R),50/50,34,26,60,VERIFIED
+R5,Lecture Classroom 5,Classrooms (R),0/0,44,15,59,VERIFIED
+R6,Lecture Classroom 6,Classrooms (R),0/0,37,18,55,VERIFIED
+R7,Lecture Classroom 7,Classrooms (R),60/60,34,22,56,VERIFIED
+R8,Lecture Classroom 8,Classrooms (R),60/60,41,15,56,VERIFIED
+R10,Lecture Classroom 10,Classrooms (R),60/60,40,16,56,VERIFIED
+R13,Lecture Classroom 13,Classrooms (R),60/60,44,18,62,VERIFIED
+R14,Lecture Classroom 14,Classrooms (R),0/50,35,22,57,VERIFIED
+R15,Lecture Classroom 15,Classrooms (R),50/50,40,16,56,VERIFIED
+R16,Lecture Classroom 16,Classrooms (R),40/40,43,18,61,VERIFIED
+R17,Lecture Classroom 17,Classrooms (R),60/60,42,14,56,VERIFIED
+R18,Lecture Classroom 18,Classrooms (R),60/60,38,17,55,VERIFIED
+R19,Lecture Classroom 19,Classrooms (R),40/40,37,23,60,VERIFIED
+R20,Lecture Classroom 20,Classrooms (R),40/40,36,22,58,VERIFIED
+R21,Lecture Classroom 21,Classrooms (R),60/60,42,16,58,VERIFIED
+R22,Lecture Classroom 22,Classrooms (R),60/60,45,15,60,VERIFIED
+R23,Lecture Classroom 23,Classrooms (R),50/50,46,18,64,VERIFIED
+R24,Lecture Classroom 24,Classrooms (R),60/60,40,16,56,VERIFIED
+R25,Lecture Classroom 25,Classrooms (R),60/60,40,17,57,VERIFIED
+R26,Lecture Classroom 26,Classrooms (R),60/60,35,21,56,VERIFIED
+R27,Lecture Classroom 27,Classrooms (R),60/60,35,19,54,VERIFIED
+R28,Lecture Classroom 28,Classrooms (R),60/60,34,27,61,VERIFIED
+R29,Lecture Classroom 29,Classrooms (R),60/60,53,18,71,VERIFIED
+R30,Lecture Classroom 30,Classrooms (R),45/45,61,12,73,VERIFIED
+R31,Lecture Classroom 31,Classrooms (R),47/47,53,17,70,VERIFIED
+R32,Lecture Classroom 32,Classrooms (R),60/60,43,15,58,VERIFIED
+R33,Lecture Classroom 33,Classrooms (R),60/60,32,22,54,VERIFIED
+R34,Lecture Classroom 34,Classrooms (R),60/60,28,26,54,VERIFIED
+R35,Lecture Classroom 35,Classrooms (R),0/0,22,34,56,VERIFIED
+R36,Lecture Classroom 36,Classrooms (R),60/60,0,54,54,VERIFIED
+R37,Lecture Classroom 37,Classrooms (R),60/60,19,37,56,VERIFIED
+PB2,Principal Bungalow 2,Principal Bungalow (PB),30/30,15,39,54,VERIFIED
+PB3,Principal Bungalow 3,Principal Bungalow (PB),50/50,38,22,60,VERIFIED
+PB4,Principal Bungalow 4,Principal Bungalow (PB),50/50,33,23,56,VERIFIED
+T1,Tutorial Room 1,Tutorial Rooms (T),20/20,23,33,56,VERIFIED
+T2,Tutorial Room 2,Tutorial Rooms (T),20/20,25,32,57,VERIFIED
+T3,Tutorial Room 3,Tutorial Rooms (T),20/20,29,31,60,VERIFIED
+T4,Tutorial Room 4,Tutorial Rooms (T),20/20,19,40,59,VERIFIED
+T5,Tutorial Room 5,Tutorial Rooms (T),20/20,18,36,54,VERIFIED
+T6,Tutorial Room 6,Tutorial Rooms (T),20/20,10,44,54,VERIFIED
+T7,Tutorial Room 7,Tutorial Rooms (T),20/20,11,43,54,VERIFIED
+T8,Tutorial Room 8,Tutorial Rooms (T),20/20,17,38,55,VERIFIED
+T9,Tutorial Room 9,Tutorial Rooms (T),20/20,10,44,54,VERIFIED
+T11,Tutorial Room 11,Tutorial Rooms (T),20/20,20,34,54,VERIFIED
+T12,Tutorial Room 12,Tutorial Rooms (T),20/20,16,38,54,VERIFIED
+T13,Tutorial Room 13,Tutorial Rooms (T),20/20,12,42,54,VERIFIED
+T14,Tutorial Room 14,Tutorial Rooms (T),20/20,20,35,55,VERIFIED
+T15,Tutorial Room 15,Tutorial Rooms (T),20/20,7,47,54,VERIFIED
+T16,Tutorial Room 16,Tutorial Rooms (T),20/20,19,35,54,VERIFIED
+T17,Tutorial Room 17,Tutorial Rooms (T),20/20,17,37,54,VERIFIED
+T18,Tutorial Room 18,Tutorial Rooms (T),20/20,10,44,54,VERIFIED
+T23,Tutorial Room 23,Tutorial Rooms (T),20/20,22,33,55,VERIFIED
+T24,Tutorial Room 24,Tutorial Rooms (T),20/20,17,37,54,VERIFIED
+T25,Tutorial Room 25,Tutorial Rooms (T),20/20,16,38,54,VERIFIED
+T26,Tutorial Room 26,Tutorial Rooms (T),20/20,14,41,55,VERIFIED
+T27,Tutorial Room 27,Tutorial Rooms (T),20/20,17,37,54,VERIFIED
+T29,Tutorial Room 29,Tutorial Rooms (T),20/20,14,40,54,VERIFIED
+T30,Tutorial Room 30,Tutorial Rooms (T),20/20,19,35,54,VERIFIED
+T31,Tutorial Room 31,Tutorial Rooms (T),20/20,15,39,54,VERIFIED
+T32,Tutorial Room 32,Tutorial Rooms (T),20/20,18,36,54,VERIFIED
+T33,Tutorial Room 33,Tutorial Rooms (T),20/20,15,39,54,VERIFIED
+T34,Tutorial Room 34,Tutorial Rooms (T),20/20,5,50,55,VERIFIED
+T35,Tutorial Room 35,Tutorial Rooms (T),0/0,19,35,54,VERIFIED
+T36,Tutorial Room 36,Tutorial Rooms (T),20/20,18,36,54,VERIFIED
+T37,Tutorial Room 37,Tutorial Rooms (T),20/20,14,40,54,VERIFIED
+T38,Tutorial Room 38,Tutorial Rooms (T),20/20,16,38,54,VERIFIED
+T39,Tutorial Room 39,Tutorial Rooms (T),20/20,16,38,54,VERIFIED
+T40,Tutorial Room 40,Tutorial Rooms (T),20/20,18,36,54,VERIFIED
+T41,Tutorial Room 41,Tutorial Rooms (T),20/20,15,39,54,VERIFIED
+T42,Tutorial Room 42,Tutorial Rooms (T),0/0,15,39,54,VERIFIED
+T43,Tutorial Room 43,Tutorial Rooms (T),20/20,18,37,55,VERIFIED
+T44,Tutorial Room 44,Tutorial Rooms (T),20/20,16,38,54,VERIFIED
+T45,Tutorial Room 45,Tutorial Rooms (T),20/20,13,42,55,VERIFIED
+T46,Tutorial Room 46,Tutorial Rooms (T),20/20,9,45,54,VERIFIED
+T47,Tutorial Room 47,Tutorial Rooms (T),20/20,5,49,54,VERIFIED
+T48,Tutorial Room 48,Tutorial Rooms (T),20/20,16,38,54,VERIFIED
+T49,Tutorial Room 49,Tutorial Rooms (T),0/0,19,35,54,VERIFIED
+T50,Tutorial Room 50,Tutorial Rooms (T),20/20,19,37,56,VERIFIED
+T51,Tutorial Room 51,Tutorial Rooms (T),20/20,22,36,58,VERIFIED
+T53,Tutorial Room 53,Tutorial Rooms (T),15/15,18,39,57,VERIFIED
+T54,Tutorial Room 54,Tutorial Rooms (T),20/20,17,38,55,VERIFIED
+CL1,Computer Lab 1,Computer Labs (CL),60/60,73,13,86,VERIFIED
+CL2,Computer Lab 2,Computer Labs (CL),60/60,62,16,78,VERIFIED
+CL3,Computer Lab 3,Computer Labs (CL),40/40,0,54,54,VERIFIED
+CLIB,Computer Library Lab,Computer Labs (CL),60/60,59,16,75,VERIFIED
+SCR1,Sports Complex Room 1,Sports Complex (SCR),60/60,33,37,70,VERIFIED
+SCR2,Sports Complex Room 2,Sports Complex (SCR),40/40,0,54,54,VERIFIED
+SCR3,Sports Complex Room 3,Sports Complex (SCR),50/50,0,54,54,VERIFIED
+SCR4,Sports Complex Room 4,Sports Complex (SCR),50/50,4,52,56,VERIFIED
+Library FF,Library First Floor,Library & Other Facilities,70/70,20,36,56,VERIFIED
+PLAYGROUND,PLAYGROUND,Library & Other Facilities,60/60,11,48,59,VERIFIED
+Principal Office,Principal Office,Library & Other Facilities,20/20,1,53,54,VERIFIED
+Seminar Room,Seminar Room,Library & Other Facilities,70/70,0,54,54,VERIFIED
