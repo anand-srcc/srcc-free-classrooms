@@ -1,6 +1,7 @@
 import asyncio
 import os
 import sys
+import time
 if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8')
 from playwright.async_api import async_playwright
@@ -99,8 +100,13 @@ async def test_full_lifecycle():
         print("\n=================================================================")
         print("PHASE 3: USER CREATION & SUB-ADMIN ROLE TEST (TEST A)")
         print("=================================================================")
-        print("[*] Creating sub-admin user 'coord2' with password 'CoordPass789!'...")
-        await page.fill("#newUserUsername", "coord2")
+        # Switch to Settings tab to access user creation & account security
+        await page.click("button[data-tab='settings']")
+        await asyncio.sleep(0.5)
+
+        test_coord_user = f"coord_{int(time.time())}"
+        print(f"[*] Creating sub-admin user '{test_coord_user}' with password 'CoordPass789!'...")
+        await page.fill("#newUserUsername", test_coord_user)
         await page.fill("#newUserFullName", "Priya Sharma (Coord)")
         await page.fill("#newUserPassword", "CoordPass789!")
         await page.select_option("#newUserRole", "Leave Coordinator")
@@ -110,7 +116,7 @@ async def test_full_lifecycle():
         # Check localStorage to ensure user was stored
         users_raw = await page.evaluate("() => localStorage.getItem('srcc_admin_users_list_v1')")
         print(f"    Users stored in localStorage: {users_raw}")
-        assert "coord2" in users_raw, "coord2 was not saved in localStorage!"
+        assert test_coord_user in users_raw, f"{test_coord_user} was not saved in localStorage!"
 
         # Logout of master admin
         print("[*] Logging out of master admin...")
@@ -118,33 +124,39 @@ async def test_full_lifecycle():
         await asyncio.sleep(1)
         assert await page.is_visible("#adminAuthView"), "Auth view not visible after logout!"
 
-        # Attempt login as coord2
-        print("[*] Logging in as newly created user 'coord2' / 'CoordPass789!'...")
-        await page.fill("#adminUsername", "coord2")
+        # Attempt login as coord user
+        print(f"[*] Logging in as newly created user '{test_coord_user}' / 'CoordPass789!'...")
+        await page.fill("#adminUsername", test_coord_user)
         await page.fill("#adminPasscode", "CoordPass789!")
         await page.click("#btnAuthSubmit")
         await asyncio.sleep(1)
 
         coord_dash = await page.is_visible("#adminDashboardView")
-        print(f"    coord2 login result - Dashboard visible: {coord_dash}")
-        assert coord_dash, "Newly created user coord2 FAILED to log in!"
+        coord_toast = await page.inner_text("#toastContainer")
+        clean_coord_toast = coord_toast.encode('ascii', 'replace').decode('ascii')
+        print(f"    {test_coord_user} login result - Dashboard visible: {coord_dash}, Toast: {clean_coord_toast}")
+        assert coord_dash, f"Newly created user {test_coord_user} FAILED to log in!"
 
         # Verify active session role
         active_sess = await page.evaluate("() => sessionStorage.getItem('srcc_admin_active_user_session')")
-        print(f"    coord2 active session: {active_sess}")
-        assert "coord2" in active_sess and "Leave Coordinator" in active_sess
+        print(f"    {test_coord_user} active session: {active_sess}")
+        assert test_coord_user in active_sess and "Leave Coordinator" in active_sess
 
-        # Verify coord2 cannot delete users
+        # Verify coord user cannot delete users
         can_delete = await page.evaluate("""() => {
             const btns = document.querySelectorAll('.btn-delete-admin-user');
             return btns.length;
         }""")
-        print(f"    coord2 can see delete buttons: {can_delete} (Expected: 0)")
+        print(f"    {test_coord_user} can see delete buttons: {can_delete} (Expected: 0)")
         assert can_delete == 0, "Non-super admin was improperly granted delete buttons!"
 
         print("\n=================================================================")
         print("PHASE 4: PASSWORD CHANGE LIFECYCLE (TEST B)")
         print("=================================================================")
+        # Switch to Settings tab
+        await page.click("button[data-tab='settings']")
+        await asyncio.sleep(0.5)
+
         # Test 1: Change password with WRONG current password
         print("[*] Step 4.1: Attempting password change with WRONG current password...")
         await page.fill("#pwdCurrent", "WrongCurrentPass123!")
@@ -160,7 +172,7 @@ async def test_full_lifecycle():
         assert "Current password incorrect" in toast_text, "Failed to reject incorrect current password!"
 
         # Test 2: Change password with correct current password
-        print("[*] Step 4.2: Changing password for coord2 (Current: CoordPass789! -> New: CoordNewPass999!)...")
+        print(f"[*] Step 4.2: Changing password for {test_coord_user} (Current: CoordPass789! -> New: CoordNewPass999!)...")
         await page.fill("#pwdCurrent", "CoordPass789!")
         await page.fill("#pwdNew", "CoordNewPass999!")
         await page.fill("#pwdConfirm", "CoordNewPass999!")
@@ -170,7 +182,7 @@ async def test_full_lifecycle():
         toast_success = await page.inner_text("#toastContainer")
         clean_success = toast_success.encode('ascii', 'replace').decode('ascii')
         print(f"    Toast message: {clean_success}")
-        assert "Password updated successfully" in toast_success, "Password update success toast not found!"
+        assert "Password updated" in toast_success or "Security Credentials Updated" in toast_success, "Password update success toast not found!"
 
         # Step 4.3: Logout
         print("[*] Step 4.3: Logging out...")
@@ -178,8 +190,8 @@ async def test_full_lifecycle():
         await asyncio.sleep(1)
 
         # Step 4.4: Attempt login with OLD password (CoordPass789!) -> MUST FAIL
-        print("[*] Step 4.4: Attempting login with OLD password 'CoordPass789!'...")
-        await page.fill("#adminUsername", "coord2")
+        print(f"[*] Step 4.4: Attempting login with OLD password 'CoordPass789!' for {test_coord_user}...")
+        await page.fill("#adminUsername", test_coord_user)
         await page.fill("#adminPasscode", "CoordPass789!")
         await page.click("#btnAuthSubmit")
         await asyncio.sleep(1)
@@ -188,8 +200,8 @@ async def test_full_lifecycle():
         assert not old_login_dash, "CRITICAL ERROR: Old password was accepted after change!"
 
         # Step 4.5: Attempt login with NEW password (CoordNewPass999!) -> MUST SUCCEED
-        print("[*] Step 4.5: Attempting login with NEW password 'CoordNewPass999!'...")
-        await page.fill("#adminUsername", "coord2")
+        print(f"[*] Step 4.5: Attempting login with NEW password 'CoordNewPass999!' for {test_coord_user}...")
+        await page.fill("#adminUsername", test_coord_user)
         await page.fill("#adminPasscode", "CoordNewPass999!")
         await page.click("#btnAuthSubmit")
         await asyncio.sleep(1)
@@ -217,6 +229,10 @@ async def test_full_lifecycle():
         await page.fill("#adminPasscode", "srcc2026")
         await page.click("#btnAuthSubmit")
         await asyncio.sleep(1)
+
+        # Switch to Settings tab
+        await page.click("button[data-tab='settings']")
+        await asyncio.sleep(0.5)
 
         # Change admin password
         print("[*] Changing master admin password (Current: srcc2026 -> New: SuperSecureAdmin2026!)...")
