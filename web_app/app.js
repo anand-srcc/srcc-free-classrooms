@@ -5933,9 +5933,16 @@ window.SRCC_FACULTY_LEAVES = {
             const selBatch = (targetBatch || 'ALL').trim().toUpperCase();
             candidateList.forEach(s => {
               if (s.day !== targetDay) return;
-              if (selBatch !== 'ALL' && s.batch) {
-                const bList = s.batch.toUpperCase().split(/[\s,]+/);
-                if (!bList.includes(selBatch) && !s.batch.toUpperCase().includes(selBatch)) return;
+              if (selBatch !== 'ALL') {
+                const targetSubBatches = selBatch.split(/[\s,\/]+/).map(x => x.trim().toUpperCase()).filter(Boolean);
+                if (s.batch) {
+                  const classBatches = s.batch.toUpperCase().split(/[\s,]+/);
+                  const matches = classBatches.some(cb => {
+                    return targetSubBatches.includes(cb) || 
+                           targetSubBatches.some(tb => tb.replace(/P(\d+)$/, '$1') === cb.replace(/P(\d+)$/, '$1'));
+                  });
+                  if (!matches) return;
+                }
               }
 
               const slotInfo = getPeriodInfo(s.slot);
@@ -5954,8 +5961,8 @@ window.SRCC_FACULTY_LEAVES = {
                 subject: s.subject,
                 subjectName: s.subject_name,
                 type: s.type || 'Lecture',
-                batch: s.batch || '',
-                rawBatch: s.batch || '',
+                batch: s.batch || (s.type === 'Lecture' ? 'Whole Section' : ''),
+                rawBatch: s.batch || (s.type === 'Lecture' ? 'Whole Section' : ''),
                 teacher: tName,
                 teacherId: s.teacher_id || '',
                 room: s.room || '',
@@ -6060,8 +6067,8 @@ window.SRCC_FACULTY_LEAVES = {
                 subject: subjInfo.code,
                 subjectName: subjInfo.fullName,
                 type: s.type || 'Lecture',
-                batch: s.batch || '',
-                rawBatch: s.raw_batch || '',
+                batch: s.batch || (s.type === 'Lecture' ? 'Whole Section' : ''),
+                rawBatch: s.raw_batch || (s.type === 'Lecture' ? 'Whole Section' : ''),
                 teacher: tName,
                 teacherId: t.id,
                 room: s.room || '',
@@ -6369,8 +6376,8 @@ window.SRCC_FACULTY_LEAVES = {
                     subject: subjInfo.code,
                     subjectName: subjInfo.fullName,
                     type: s.type || 'Lecture',
-                    batch: s.batch || '',
-                    rawBatch: s.raw_batch || '',
+                    batch: s.batch || (s.type === 'Lecture' ? 'Whole Section' : ''),
+                    rawBatch: s.raw_batch || (s.type === 'Lecture' ? 'Whole Section' : ''),
                     teacher: tName,
                     teacherId: t.id,
                     room: s.room || '',
