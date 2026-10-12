@@ -2579,7 +2579,8 @@ ${directRoomUrl}`;
           let detailsHtml = '';
 
           if (matchedTeachers.length > 0) {
-            detailsHtml = matchedTeachers.map(m => {
+            const isMulti = matchedTeachers.length > 1;
+            detailsHtml = matchedTeachers.map((m, idx) => {
               const teach = m.teacher;
               const cls = m.classInfo;
               const courseStr = cls.course ? `${cls.course}` : 'B.Com (Hons)';
@@ -2587,18 +2588,20 @@ ${directRoomUrl}`;
               const cleanSec = (cls.section && cls.section.toLowerCase() !== 'joint') ? cls.section : '';
               const secBatchStr = [cleanSec, cls.batch ? `Batch ${formatBatchCode(cls.batch)}` : ''].filter(Boolean).join(' · ');
               const tCodeDisp = getDisplayShortCode(teach);
+              const sessionLabel = isMulti ? `<div class="room-session-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;"><span class="badge-session-idx" style="font-size: 0.72rem; font-weight: 700; background: rgba(59, 130, 246, 0.12); color: #2563eb; padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(59, 130, 246, 0.25);">Session ${idx + 1}</span><span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">${escapeHtml(courseStr)} ${escapeHtml(semStr)}</span></div>` : '';
 
               return `
-                <div class="room-sched-details-wrap" style="margin-bottom: 6px;">
+                <div class="room-sched-details-wrap${isMulti ? ' is-multi-session' : ''}" style="${isMulti ? 'background: rgba(0,0,0,0.015); border: 1px solid var(--border-color); border-radius: 8px; padding: 9px 12px; margin-bottom: 8px;' : 'margin-bottom: 6px;'}">
+                  ${sessionLabel}
                   <div class="room-sched-meta-line">
                     <span class="subject-pill" style="cursor: default;">
                       <strong class="subj-code-badge">${escapeHtml(m.subjectCode)}</strong>
                       <span class="subj-name-text">${escapeHtml(m.subjectFullName)}</span>
                     </span>
-                    <span class="class-sem-badge">${escapeHtml(courseStr)} ${escapeHtml(semStr)}</span>
+                    ${!isMulti ? `<span class="class-sem-badge">${escapeHtml(courseStr)} ${escapeHtml(semStr)}</span>` : ''}
                     ${secBatchStr ? `<span class="class-sec-badge">${escapeHtml(secBatchStr)}</span>` : ''}
                   </div>
-                  <div class="room-sched-teacher-row">
+                  <div class="room-sched-teacher-row" style="margin-top: 4px;">
                     <div class="rs-teacher-chip">
                       <span class="rs-teacher-avatar">${escapeHtml(teach.initials || teach.clean_name.slice(0, 2).toUpperCase())}</span>
                       <span class="rs-teacher-name">Prof. <strong>${escapeHtml(teach.clean_name)}</strong> ${tCodeDisp ? `(${escapeHtml(tCodeDisp)})` : ''}</span>
@@ -2725,7 +2728,8 @@ ${directRoomUrl}`;
           let innerContent = '';
 
           if (matchedTeachers.length > 0) {
-            innerContent = matchedTeachers.map(m => {
+            const isMulti = matchedTeachers.length > 1;
+            innerContent = matchedTeachers.map((m, idx) => {
               const teach = m.teacher;
               const cls = m.classInfo;
               const courseStr = cls.course ? `${cls.course}` : 'B.Com (Hons)';
@@ -2733,18 +2737,20 @@ ${directRoomUrl}`;
               const cleanSec = (cls.section && cls.section.toLowerCase() !== 'joint') ? cls.section : '';
               const secBatchStr = [cleanSec, cls.batch ? `Batch ${formatBatchCode(cls.batch)}` : ''].filter(Boolean).join(' · ');
               const tCodeDisp = getDisplayShortCode(teach);
+              const sessionLabel = isMulti ? `<div class="room-session-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;"><span class="badge-session-idx" style="font-size: 0.72rem; font-weight: 700; background: rgba(59, 130, 246, 0.12); color: #2563eb; padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(59, 130, 246, 0.25);">Session ${idx + 1}</span><span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">${escapeHtml(courseStr)} ${escapeHtml(semStr)}</span></div>` : '';
 
               return `
-                <div class="room-sched-details-wrap" style="margin-bottom: 6px;">
+                <div class="room-sched-details-wrap${isMulti ? ' is-multi-session' : ''}" style="${isMulti ? 'background: rgba(0,0,0,0.015); border: 1px solid var(--border-color); border-radius: 8px; padding: 9px 12px; margin-bottom: 8px;' : 'margin-bottom: 6px;'}">
+                  ${sessionLabel}
                   <div class="room-sched-meta-line">
                     <span class="subject-pill" style="cursor: default;">
                       <strong class="subj-code-badge">${escapeHtml(m.subjectCode)}</strong>
                       <span class="subj-name-text">${escapeHtml(m.subjectFullName)}</span>
                     </span>
-                    <span class="class-sem-badge">${escapeHtml(courseStr)} ${escapeHtml(semStr)}</span>
+                    ${!isMulti ? `<span class="class-sem-badge">${escapeHtml(courseStr)} ${escapeHtml(semStr)}</span>` : ''}
                     ${secBatchStr ? `<span class="class-sec-badge">${escapeHtml(secBatchStr)}</span>` : ''}
                   </div>
-                  <div class="room-sched-teacher-row">
+                  <div class="room-sched-teacher-row" style="margin-top: 4px;">
                     <div class="rs-teacher-chip">
                       <span class="rs-teacher-avatar">${escapeHtml(teach.initials || teach.clean_name.slice(0, 2).toUpperCase())}</span>
                       <span class="rs-teacher-name">Prof. <strong>${escapeHtml(teach.clean_name)}</strong> ${tCodeDisp ? `(${escapeHtml(tCodeDisp)})` : ''}</span>
@@ -4158,7 +4164,7 @@ ${directRoomUrl}`;
           e.stopPropagation();
           const tId = btn.dataset.teacherId;
           const tObj = teachersData?.teachers?.find(t => t.id === tId);
-          if (tObj) shareTeacherProfile(tObj);
+          if (tObj) shareTeacherProfile(tObj, facultyState.activeDay);
         });
       });
 
@@ -4473,16 +4479,47 @@ ${directRoomUrl}`;
     // ========================================================================
     // 📤 SHARE FACULTY PROFILE / WEEKLY TIMETABLE
     // ========================================================================
-    function shareTeacherProfile(teacher) {
+    function shareTeacherProfile(teacher, targetDay = null) {
       if (!teacher) return;
       const url = `${window.location.origin}${window.location.pathname}?faculty=${encodeURIComponent(teacher.clean_name)}`;
-      const periods = teacher.total_teaching_periods || 0;
+      const activeDay = targetDay || facultyState.modalActiveDay || facultyState.activeDay || ((typeof getLiveDayName === 'function') ? getLiveDayName() : 'Monday');
       const displayCode = (typeof getDisplayShortCode === 'function') ? getDisplayShortCode(teacher) : (teacher.short_code || '');
       const shareTitle = `SRCC Faculty Timetable: Prof. ${teacher.clean_name}`;
+
+      // Build daily schedule for the active/tapped day
+      const daySched = (teacher.schedule && teacher.schedule[activeDay]) || [];
+      let daySchedText = '';
+      if (daySched.length > 0) {
+        const sorted = [...daySched].sort((a, b) => {
+          const pA = getPeriodInfo(a.slot)?.num || 99;
+          const pB = getPeriodInfo(b.slot)?.num || 99;
+          return pA - pB;
+        });
+        const classLines = sorted.map(c => {
+          const pInfo = getPeriodInfo(c.slot);
+          const timeStr = pInfo ? `${pInfo.start} – ${pInfo.end}` : (c.slot || '');
+          const subjName = c.subject_name || c.subject || 'Class';
+          const subjCode = (c.subject && c.subject !== subjName) ? ` (${c.subject})` : '';
+          const roomStr = c.room ? ` · Room ${c.room}` : '';
+          const typeStr = (c.type && c.type !== 'Lecture') ? ` · ${c.type}` : '';
+          let secStr = '';
+          if (c.section && c.section.toLowerCase() !== 'joint' && !c.section.toLowerCase().includes('reconciled')) {
+            secStr = ` · ${c.course ? c.course + ' ' : ''}${c.semester ? c.semester + ' ' : ''}${c.section}`;
+            if (c.batch) secStr += ` (Batch ${formatBatchCode(c.batch)})`;
+          } else if (c.semester && !c.semester.toLowerCase().includes('all sem')) {
+            secStr = ` · ${c.course ? c.course + ' ' : ''}${c.semester}`;
+          }
+          return `• *${timeStr}:* ${subjName}${subjCode}${roomStr}${typeStr}${secStr}`;
+        });
+        daySchedText = `📅 *Schedule for ${activeDay}:*\n${classLines.join('\n')}\n\n`;
+      } else {
+        daySchedText = `📅 *Schedule for ${activeDay}:* No classes scheduled (Free Day)\n\n`;
+      }
+
       const shareText = `👨‍🏫 *SRCC Faculty Schedule & Timetable*\n\n` +
         `👤 *Prof. ${teacher.clean_name}* ${displayCode ? `(${displayCode})` : ''}\n` +
-        `🏛️ *Department:* ${teacher.department || 'Faculty'}\n` +
-        `📅 *Weekly Teaching Load:* ${periods} classes\n\n` +
+        `🏛️ *Department:* ${teacher.department || 'Faculty'}\n\n` +
+        daySchedText +
         `🔗 *View Complete Timetable & Classroom Locations:*\n${url}`;
 
       if (navigator.share && navigator.canShare && navigator.canShare({ title: shareTitle, text: shareText })) {
@@ -4490,7 +4527,7 @@ ${directRoomUrl}`;
           title: shareTitle,
           text: shareText
         }).then(() => {
-          showToast(`📤 Shared profile for Prof. ${teacher.clean_name}!`);
+          showToast(`📤 Shared schedule for Prof. ${teacher.clean_name} (${activeDay})!`);
         }).catch(err => {
           if (err.name !== 'AbortError') {
             copyToClipboard(url).then(() => {
@@ -4501,7 +4538,7 @@ ${directRoomUrl}`;
       } else {
         const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
         copyToClipboard(shareText).then(() => {
-          showToast(`📋 Copied timetable link for Prof. ${teacher.clean_name}! Opening WhatsApp...`);
+          showToast(`📋 Copied schedule for Prof. ${teacher.clean_name}! Opening WhatsApp...`);
           setTimeout(() => window.open(waUrl, '_blank'), 600);
         }).catch(() => {
           window.open(waUrl, '_blank');
@@ -4884,7 +4921,7 @@ ${directRoomUrl}`;
     if (btnShareTeacherProfile) {
       btnShareTeacherProfile.addEventListener('click', () => {
         if (facultyState.modalActiveTeacher) {
-          shareTeacherProfile(facultyState.modalActiveTeacher);
+          shareTeacherProfile(facultyState.modalActiveTeacher, facultyState.modalActiveDay);
         }
       });
     }
