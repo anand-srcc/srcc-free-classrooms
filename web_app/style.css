@@ -2991,12 +2991,14 @@ body {
     min-width: 0 !important;
   }
 
-  /* Rooms Grid */
-  .rooms-grid {
-    grid-template-columns: 1fr;
+  /* Rooms & Faculty Grids */
+  .rooms-grid,
+  .faculty-grid {
+    grid-template-columns: 1fr !important;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
+    gap: 12px;
   }
 
   /* Bottom sheet modal styling for mobile */
@@ -3084,11 +3086,11 @@ body {
   }
 
   .bottom-nav-item:active {
-    color: var(--srcc-gold);
+    color: var(--accent-blue);
   }
 
   .bottom-nav-item.active {
-    color: var(--srcc-gold);
+    color: var(--accent-blue);
   }
 
   .bottom-nav-item[data-bnav="freenow"].active {
@@ -3321,16 +3323,24 @@ body {
 }
 
 .mode-tab.active {
-  background: rgba(245, 158, 11, 0.14);
-  color: #b45309;
-  border: 2.5px solid var(--srcc-gold);
-  box-shadow: 0 2px 12px rgba(245, 158, 11, 0.25);
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.16), rgba(37, 99, 235, 0.05));
+  color: #1d4ed8;
+  border: 2px solid #1d4ed8;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.18);
+}
+
+.mode-tab.active[data-mode="rooms"] {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.16), rgba(37, 99, 235, 0.05));
+  border-color: #1d4ed8;
+  color: #1d4ed8;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.18);
 }
 
 .mode-tab.active[data-mode="faculty"] {
-  background: linear-gradient(135deg, rgba(56, 189, 248, 0.22), rgba(56, 189, 248, 0.08));
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.16), rgba(37, 99, 235, 0.05));
   border-color: #1d4ed8;
-  box-shadow: 0 4px 16px rgba(56, 189, 248, 0.2);
+  color: #1d4ed8;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.18);
 }
 
 .mode-tab.active[data-mode="leaves"] {
@@ -3353,8 +3363,8 @@ body {
 }
 
 .mode-tab.active .mode-tab-count {
-  background: rgba(252, 235, 10, 0.2);
-  color: var(--srcc-gold);
+  background: rgba(37, 99, 235, 0.18);
+  color: var(--accent-blue);
 }
 
 .mode-tab.active[data-mode="faculty"] .mode-tab-count {
