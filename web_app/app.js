@@ -1032,191 +1032,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Answers student question: "Har free room kab tak khali hai (Free until 12:30)?"
     // ========================================================================
     function getRoomFreeUntilStatus(room, targetDay) {
-      if (!room || !room.schedule) return null;
-      const sched = room.schedule[targetDay] || { free_slots: [], occupied_slots: [] };
-      const todayIso = getTodayIsoDate();
-      const activeRoomLocks = getRoomActiveLocks(room.code, todayIso);
-      const isFullDayLocked = activeRoomLocks.some(l => l.slot === 'ALL_DAY');
-      if (isFullDayLocked) {
-        return {
-          isFreeNow: false,
-          badgeText: '🔒 Room Locked All Day',
-          calloutText: '🔒 Room is fully locked today (Maintenance / Reserved).'
-        };
-      }
-
-      const lockedSlotsSet = new Set(activeRoomLocks.filter(l => l.slot !== 'ALL_DAY').map(l => l.slot));
-
-      // Calculate bonus free slots (classes where faculty is on leave)
-      const bonusSlots = [];
-      sched.occupied_slots.forEach(o => {
-        const leave = getRoomScheduledTeacherLeave(room.code, targetDay, o.slot);
-        if (leave) bonusSlots.push(o.slot);
-      });
-
-      const effectiveFreeSlots = new Set([
-        ...(sched.free_slots || []).filter(s => !lockedSlotsSet.has(s)),
-        ...bonusSlots.filter(s => !lockedSlotsSet.has(s))
-      ]);
-
-      const istNow = getIstDate();
-      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-      const todayName = days[istNow.getDay()];
-      const isToday = (targetDay === todayName);
-      const currentMinutes = istNow.getHours() * 60 + istNow.getMinutes();
-
-      if (isToday) {
-        if (currentMinutes < 8 * 60 + 30) {
-          return {
-            isFreeNow: false,
-            isOffHours: true,
-            badgeText: 'College Off-Hours · Opens at 8:30 AM',
-            calloutText: '🌙 College Off-Hours (Academic periods begin at 8:30 AM).'
-          };
-        }
-
-        const isLunchRecess = currentMinutes >= 13 * 60 + 30 && currentMinutes < 14 * 60 + 0;
-
-        let isFreeNow = false;
-        if (isLunchRecess) {
-          isFreeNow = true;
-        } else {
-          const livePeriod = periodIntervals.find(p => currentMinutes >= p.start && currentMinutes < p.end);
-          if (livePeriod && effectiveFreeSlots.has(livePeriod.slot)) {
-            isFreeNow = true;
-          }
-        }
-
-        if (currentMinutes >= 18 * 60) {
-          return {
-            isFreeNow: false,
-            badgeText: '🌙 College Closed',
-            calloutText: 'Classes completed for today (Closed at 6:00 PM).'
-          };
-        }
-
-        if (isFreeNow) {
-          // Find next occupied lecture starting after currentMinutes
-          const futureOccupied = sched.occupied_slots.filter(o => {
-            const leave = getRoomScheduledTeacherLeave(room.code, targetDay, o.slot);
-            if (leave) return false;
-            const p = periodIntervals.find(pi => pi.slot === o.slot);
-            return p && p.start >= currentMinutes;
-          }).sort((a, b) => {
-            const pa = periodIntervals.find(p => p.slot === a.slot);
-            const pb = periodIntervals.find(p => p.slot === b.slot);
-            return (pa ? pa.start : 0) - (pb ? pb.start : 0);
-          });
-
-          // Also check future locks
-          const futureLocks = activeRoomLocks.filter(l => {
-            const p = periodIntervals.find(pi => pi.slot === l.slot);
-            return p && p.start >= currentMinutes;
-          }).sort((a, b) => {
-            const pa = periodIntervals.find(p => p.slot === a.slot);
-            const pb = periodIntervals.find(p => p.slot === b.slot);
-            return (pa ? pa.start : 0) - (pb ? pb.start : 0);
-          });
-
-          const nextStart = futureOccupied[0]
-            ? periodIntervals.find(p => p.slot === futureOccupied[0].slot)?.start
-            : (futureLocks[0] ? periodIntervals.find(p => p.slot === futureLocks[0].slot)?.start : null);
-
-          if (nextStart) {
-            const h = Math.floor(nextStart / 60);
-            const m = nextStart % 60;
-            const ampm = h >= 12 ? 'PM' : 'AM';
-            const displayH = h > 12 ? h - 12 : (h === 0 ? 12 : h);
-            const timeStr = `${displayH}:${String(m).padStart(2, '0')} ${ampm}`;
-            const diffM = Math.max(0, nextStart - currentMinutes);
-            const countdownStr = diffM >= 60 ? `${Math.floor(diffM / 60)}h ${diffM % 60}m left` : `${diffM}m left`;
-
-            return {
-              isFreeNow: true,
-              badgeText: `Free until ${timeStr}`,
-              calloutText: `🟢 Free until ${timeStr}`
-            };
-          } else {
-            return {
-              isFreeNow: true,
-              badgeText: 'Free until 6:00 PM',
-              calloutText: '🟢 Free until 6:00 PM (No more classes today)'
-            };
-          }
-        } else {
-          // Room is currently occupied
-          const nextFreePeriod = periodIntervals.find(p => p.start >= currentMinutes && effectiveFreeSlots.has(p.slot));
-          if (nextFreePeriod) {
-            const h = Math.floor(nextFreePeriod.start / 60);
-            const m = nextFreePeriod.start % 60;
-            const ampm = h >= 12 ? 'PM' : 'AM';
-            const displayH = h > 12 ? h - 12 : (h === 0 ? 12 : h);
-            const timeStr = `${displayH}:${String(m).padStart(2, '0')} ${ampm}`;
-            return {
-              isFreeNow: false,
-              badgeText: `Free at ${timeStr}`,
-              calloutText: `🔴 Class in session · Free at ${timeStr}`
-            };
-          } else {
-            return {
-              isFreeNow: false,
-              badgeText: 'Occupied today',
-              calloutText: '🔴 Class in session · Booked for remaining periods'
-            };
-          }
-        }
-      } else {
-        // Browsing another day
-        if (state.activeSlot !== 'ALL') {
-          const isSlotFree = effectiveFreeSlots.has(state.activeSlot);
-          if (isSlotFree) {
-            const curP = periodIntervals.find(p => p.slot === state.activeSlot);
-            const futureOcc = sched.occupied_slots.filter(o => {
-              const leave = getRoomScheduledTeacherLeave(room.code, targetDay, o.slot);
-              if (leave) return false;
-              const p = periodIntervals.find(pi => pi.slot === o.slot);
-              return p && curP && p.start >= curP.end;
-            });
-            if (futureOcc[0]) {
-              const p = periodIntervals.find(pi => pi.slot === futureOcc[0].slot);
-              const timeStr = p ? (p.start >= 12 * 60 ? `${p.start > 12 * 60 ? Math.floor(p.start / 60) - 12 : 12}:${String(p.start % 60).padStart(2, '0')} PM` : `${Math.floor(p.start / 60)}:${String(p.start % 60).padStart(2, '0')} AM`) : 'Later';
-              return {
-                isFreeNow: true,
-                badgeText: `Free until ${timeStr}`,
-                calloutText: `🟢 Free in selected slot (until ${timeStr})`
-              };
-            } else {
-              return {
-                isFreeNow: true,
-                badgeText: 'Free until 6:00 PM',
-                calloutText: `🟢 Free in this slot and remainder of day`
-              };
-            }
-          } else {
-            return {
-              isFreeNow: false,
-              badgeText: 'Occupied in this slot',
-              calloutText: `🔴 Class scheduled in ${state.activeSlot}`
-            };
-          }
-        }
-
-        if (effectiveFreeSlots.size === 9) {
-          return {
-            isFreeNow: true,
-            badgeText: 'Free all day',
-            calloutText: `🟢 Entire day free on ${targetDay} (8:30 AM – 6:00 PM)`
-          };
-        } else if (effectiveFreeSlots.size > 0) {
-          return null; // Removed redundant free hours badge per user request
-        } else {
-          return {
-            isFreeNow: false,
-            badgeText: 'Fully Booked',
-            calloutText: `🔴 Fully booked on ${targetDay}`
-          };
-        }
-      }
+      return null;
     }
 
     // ========================================================================
@@ -1998,14 +1814,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const activeDateStr = getDateForDay(state.activeDay);
       const dayAndDateDisplay = `${state.activeDay}, ${activeDateStr}`;
 
-      const freeUntilStatus = getRoomFreeUntilStatus(room, state.activeDay);
-      const freeUntilNote = (freeUntilStatus && freeUntilStatus.calloutText) ? `\n⏳ Status: ${freeUntilStatus.calloutText}` : '';
-
       const cleanMessage = `🎓 SRCC Classroom Vacancy Alert
 
 📍 Room: ${room.code} (${room.name})
 🏛️ Wing: ${room.category.split(' (')[0]}
-🗓️ Day & Date: ${dayAndDateDisplay}${freeUntilNote}
+🗓️ Day & Date: ${dayAndDateDisplay}
 👥 Capacity: ${room.capacity} seats
 ☕ Lunch Recess: 1:30 PM – 2:00 PM (Vacant)
 
@@ -2019,7 +1832,7 @@ ${directRoomUrl}`;
 
 📍 *Room:* ${room.code} (${room.name})
 🏛️ *Wing:* ${room.category.split(' (')[0]}
-🗓️ *Day & Date:* ${dayAndDateDisplay}${freeUntilNote}
+🗓️ *Day & Date:* ${dayAndDateDisplay}
 👥 *Capacity:* ${room.capacity} seats
 ☕ *Lunch Recess:* 1:30 PM – 2:00 PM (Vacant)
 
@@ -2681,13 +2494,6 @@ ${directRoomUrl}`;
           : '';
 
         const catBadgeClass = getCategoryBadgeClass(room.category);
-        const freeUntilStatus = getRoomFreeUntilStatus(room, state.activeDay);
-        const freeUntilBadgeClass = freeUntilStatus?.isOffHours
-          ? 'is-offhours'
-          : (freeUntilStatus?.isFreeNow ? 'is-free-now' : 'is-busy-now');
-        const freeUntilBadgeHtml = freeUntilStatus
-          ? `<span class="badge-free-until ${freeUntilBadgeClass}" title="${escapeHtml(freeUntilStatus.calloutText)}"><span class="live-dot"></span>${escapeHtml(freeUntilStatus.badgeText)}</span>`
-          : '';
 
         const unavailableBadgeHtml = isUnavailable
           ? `<span class="badge-room-unavailable">🛠️ Unavailable</span>`
@@ -2714,7 +2520,6 @@ ${directRoomUrl}`;
               <div class="card-meta-badges">
                 <span class="badge-capacity">${escapeHtml(room.capacity)} Seats</span>
                 ${unavailableBadgeHtml}
-                ${freeUntilBadgeHtml}
               </div>
             </div>
 
@@ -2871,7 +2676,6 @@ ${directRoomUrl}`;
       currentModalDay = dayToUse;
 
       const sched = room.schedule[dayToUse] || { free_slots: [], occupied_slots: [], lunch_recess_free: true };
-      const freeUntil = getRoomFreeUntilStatus(room, dayToUse);
 
       if (modalRoomTitle) {
         modalRoomTitle.innerHTML = `
