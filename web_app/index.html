@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   
-  <link rel="stylesheet" href="style.css?v=64" />
+  <link rel="stylesheet" href="style.css?v=65" />
 </head>
 <body>
   <!-- Header / Navigation (Slim Single-Line Strip) -->
@@ -628,8 +628,8 @@
         <button type="button" class="btn-sched-action btn-sched-img" id="btnModalExportScheduleImg" title="Save clean daily schedule as high-res PNG image">
           📸 Save Day Schedule
         </button>
-        <button type="button" class="btn-sched-action btn-sched-share" id="btnModalShareDirect" title="Share room vacancy & QR directly">
-          📤 Share Room & QR
+        <button type="button" class="btn-sched-action btn-sched-share" id="btnModalShareDirect" title="Share room vacancy directly">
+          📤 Share Room
         </button>
       </div>
 
@@ -928,98 +928,11 @@
         <!-- Copy & Direct Share Bar -->
         <div class="share-copy-row">
           <button class="btn-primary-share" id="btnPrimaryShare" style="display: none;">
-            📱 Direct Share via Any App (WhatsApp, Insta Chat, etc.)
+            📱 Direct Share via Any App
           </button>
           <button class="btn-copy-full-text" id="btnCopyShareText">
             📋 Copy Formatted Text to Clipboard
           </button>
-        </div>
-
-        <!-- Mode Selector: Share QR vs Share Text -->
-        <div class="share-mode-toggle" style="display: flex; gap: 8px; margin-bottom: 14px;">
-          <button type="button" id="tabShareModeQr" class="share-tab-btn active" style="flex: 1; padding: 8px 12px; border-radius: 8px; border: 1px solid #2563eb; background: #2563eb; color: #fff; font-weight: 600; font-size: 0.84rem; cursor: pointer; transition: all 0.2s;">
-            📷 Share QR Card
-          </button>
-          <button type="button" id="tabShareModeText" class="share-tab-btn" style="flex: 1; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border-color, #cbd5e1); background: var(--bg-surface, #f8fafc); color: var(--text-primary); font-weight: 600; font-size: 0.84rem; cursor: pointer; transition: all 0.2s;">
-            💬 Share Text & Link
-          </button>
-        </div>
-
-        <!-- Section 1: Customized QR Card Preview & Actions -->
-        <div id="roomQrContainer" class="room-custom-qr-card" style="margin-bottom: 12px;">
-          <div class="custom-qr-preview-box" id="customQrPreviewBox" style="text-align: center;">
-            <canvas id="roomCustomQrCanvas" width="380" height="490" style="width: 100%; max-width: 290px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.12); margin: 0 auto; display: block; background: #ffffff;"></canvas>
-          </div>
-          <div class="room-qr-btn-group" style="display: flex; gap: 8px; margin-top: 12px; justify-content: center; flex-wrap: wrap;">
-            <button type="button" id="btnShareWaQr" style="padding: 9px 16px; border-radius: 8px; border: none; background: #25D366; color: #fff; font-weight: 700; font-size: 0.88rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 8px rgba(37,211,102,0.3);">
-              <span>📤 Share QR Image</span>
-            </button>
-            <button type="button" id="btnDownloadRoomQr" style="padding: 9px 14px; border-radius: 8px; border: 1px solid #1d4ed8; background: #eff6ff; color: #1d4ed8; font-weight: 600; font-size: 0.85rem; cursor: pointer;">
-              📥 Download PNG
-            </button>
-            <button type="button" id="btnCopyCleanRoomLink" style="padding: 9px 14px; border-radius: 8px; border: 1px solid var(--border-color, #e2e8f0); background: var(--bg-card); color: var(--text-primary); font-size: 0.85rem; cursor: pointer;">
-              📋 Copy Link
-            </button>
-          </div>
-          <p class="room-qr-caption" style="text-align: center; margin: 8px 0 0; font-size: 0.78rem; color: var(--text-muted);">
-            Scan with phone camera or WhatsApp to open live room schedule!
-          </p>
-        </div>
-
-        <!-- Section 2: Text & Social Apps (Hidden when on QR tab) -->
-        <div id="roomTextShareSection" style="display: none;">
-          <div class="share-preview-box" id="sharePreviewText">
-            <!-- Text preview of the share message -->
-          </div>
-
-          <div class="share-apps-label">Direct Share via App:</div>
-          <div class="share-apps-grid">
-            <a href="#" class="share-app-btn share-whatsapp" id="shareBtnWhatsapp" target="_blank" rel="noopener noreferrer" title="Direct share via WhatsApp">
-              <span class="share-app-icon">
-                <svg width="28" height="28" viewBox="0 0 24 24">
-                  <path fill="#25D366" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/>
-                  <path fill="#FFF" d="M17.47 14.38c-.28-.14-1.67-.82-1.93-.91-.26-.1-.45-.14-.64.14-.19.28-.73.91-.89 1.1-.16.18-.33.21-.61.07-.28-.14-1.18-.44-2.25-1.39-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.46.1-.19.05-.35-.02-.49-.07-.14-.64-1.54-.88-2.11-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.49.07-.75.35-.26.28-1 1-1 2.43 0 1.44 1.03 2.82 1.18 3.01.14.19 2.03 3.1 4.93 4.35.69.3 1.23.48 1.65.61.69.22 1.32.19 1.81.12.55-.08 1.67-.68 1.91-1.34.23-.65.23-1.22.16-1.34-.07-.11-.26-.18-.54-.32z"/>
-                </svg>
-              </span>
-              <span class="share-app-name">WhatsApp</span>
-            </a>
-            <a href="#" class="share-app-btn share-gmail" id="shareBtnGmail" target="_blank" rel="noopener noreferrer" title="Send via Gmail">
-              <span class="share-app-icon">
-                <svg width="28" height="28" viewBox="0 0 24 24">
-                  <path fill="#EA4335" d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                </svg>
-              </span>
-              <span class="share-app-name">Gmail</span>
-            </a>
-            <a href="#" class="share-app-btn share-x" id="shareBtnX" target="_blank" rel="noopener noreferrer" title="Post on X (Twitter)">
-              <span class="share-app-icon">
-                <svg width="28" height="28" viewBox="0 0 24 24">
-                  <rect width="24" height="24" rx="5" fill="#000000"/>
-                  <path fill="#FFFFFF" d="M16.99 5h2.15l-4.7 5.37L20 17.5h-4.32l-3.39-4.43-3.87 4.43H6.26l5.03-5.75L6 5h4.43l3.06 4.05L16.99 5zm-.75 11.22h1.19L9.83 6.22H8.55l7.69 10z"/>
-                </svg>
-              </span>
-              <span class="share-app-name">X (Twitter)</span>
-            </a>
-            <a href="#" class="share-app-btn share-telegram" id="shareBtnTelegram" target="_blank" rel="noopener noreferrer" title="Share via Telegram">
-              <span class="share-app-icon">
-                <svg width="28" height="28" viewBox="0 0 24 24">
-                  <circle cx="12" cy="12" r="12" fill="#24A1DE"/>
-                  <path fill="#FFF" d="M5.4 11.7l3.8 1.4 1.5 4.5c.1.3.4.4.7.4.2 0 .4-.1.6-.2l2.2-2 3.6 2.7c.3.2.7.1.9-.2.2-.2.3-.6.2-.9l-2.4-11.4c-.1-.4-.5-.6-.9-.5l-10 3.8c-.4.2-.5.6-.4 1 .1.3.4.5.7.6zm4.7 1.4l5.8-3.7-4.6 4.3-.4 2.2-.8-2.8z"/>
-                </svg>
-              </span>
-              <span class="share-app-name">Telegram</span>
-            </a>
-          </div>
-
-          <!-- Copy & Direct Share Bar -->
-          <div class="share-copy-row" style="margin-top: 10px;">
-            <button class="btn-primary-share" id="btnPrimaryShare" style="display: none;">
-              📱 Direct Share Text
-            </button>
-            <button class="btn-copy-full-text" id="btnCopyShareText">
-              📋 Copy Formatted Text to Clipboard
-            </button>
-          </div>
         </div>
       </div>
     </div>
@@ -1131,12 +1044,12 @@
 
 
   <!-- Scripts -->
-  <script src="data.js?v=64"></script>
-  <script src="wifi_data.js?v=64"></script>
-  <script src="cloud_config.js?v=64"></script>
-  <script src="faculty_leaves.js?v=64"></script>
-  <script src="teachers_data.js?v=64"></script>
-  <script src="classes_data.js?v=64"></script>
-  <script src="app.js?v=64"></script>
+  <script src="data.js?v=65"></script>
+  <script src="wifi_data.js?v=65"></script>
+  <script src="cloud_config.js?v=65"></script>
+  <script src="faculty_leaves.js?v=65"></script>
+  <script src="teachers_data.js?v=65"></script>
+  <script src="classes_data.js?v=65"></script>
+  <script src="app.js?v=65"></script>
 </body>
 </html>

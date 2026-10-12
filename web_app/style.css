@@ -445,7 +445,7 @@ body {
 .day-btn.active {
   background: var(--srcc-gold);
   color: #070D18;
-  border: 1.5px solid #b45309;
+  border: 2.5px solid #b45309;
   font-weight: 700;
   box-shadow: 0 2px 8px rgba(245, 158, 11, 0.35);
 }
@@ -715,7 +715,7 @@ body {
   align-items: center;
   font-size: 0.88rem;
   color: var(--text-secondary);
-  padding: 4px 6px 16px 6px;
+  padding: 2px 6px 6px 6px;
   flex-wrap: wrap;
   gap: 12px;
 }
@@ -1429,6 +1429,9 @@ body {
 /* 1. Metric Stat Tiles (Rooms metric row hidden per user request) */
 .metric-tiles-row:not(.faculty-metrics-row) {
   display: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 0 !important;
 }
 
 .metric-tiles-row {
@@ -2611,20 +2614,10 @@ body {
     text-align: center !important;
   }
 
-  /* View Mode Switchers on Mobile - visible & compact */
+  /* View Mode Switchers on Mobile - hidden per user instruction */
   #viewToggleWrapper,
   #facultyViewToggleWrapper {
-    display: inline-flex !important;
-    align-self: flex-end;
-    margin-top: 2px;
-  }
-  .btn-view-mode {
-    padding: 4px 8px !important;
-    font-size: 0.72rem !important;
-  }
-  .btn-view-mode svg {
-    width: 13px !important;
-    height: 13px !important;
+    display: none !important;
   }
 }
 
@@ -2827,7 +2820,7 @@ body {
   .day-btn.active {
     background: var(--srcc-gold) !important;
     color: #070D18 !important;
-    border: 1.5px solid #b45309 !important;
+    border: 2.5px solid #b45309 !important;
     font-weight: 700 !important;
     box-shadow: 0 2px 8px rgba(245, 158, 11, 0.35) !important;
   }
@@ -2935,6 +2928,67 @@ body {
     font-size: 0.74rem;
     line-height: 1.25;
     min-width: 0;
+  }
+
+  /* Campus Alert Notification Banner - sleek, compact, non-bulky on mobile */
+  .leave-notif-banner {
+    padding: 4px 10px !important;
+  }
+  .leave-notif-banner-content {
+    gap: 6px !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+  .leave-notif-icon-col {
+    width: 22px !important;
+    height: 22px !important;
+    font-size: 0.7rem !important;
+  }
+  .leave-notif-text {
+    min-width: 0 !important;
+    font-size: 0.72rem !important;
+    line-height: 1.25 !important;
+  }
+  .leave-notif-text strong {
+    display: inline !important;
+    font-size: 0.75rem !important;
+    margin-right: 4px !important;
+  }
+  .leave-notif-text span {
+    display: inline !important;
+    font-size: 0.7rem !important;
+  }
+  .leave-notif-actions {
+    gap: 4px !important;
+    display: flex !important;
+    flex-shrink: 0 !important;
+    align-items: center !important;
+  }
+  .btn-notif-allow {
+    padding: 3px 8px !important;
+    font-size: 0.68rem !important;
+    white-space: nowrap !important;
+  }
+  .btn-notif-dismiss {
+    padding: 3px 6px !important;
+    font-size: 0.68rem !important;
+    white-space: nowrap !important;
+  }
+
+  /* Active leaves callout strip on mobile */
+  .active-leaves-callout {
+    padding: 4px 10px !important;
+    margin-bottom: 6px !important;
+    font-size: 0.75rem !important;
+  }
+  .leaves-strip-badge {
+    font-size: 0.62rem !important;
+    padding: 1px 6px !important;
+  }
+  .leaves-strip-text {
+    font-size: 0.72rem !important;
+    min-width: 0 !important;
   }
 
   /* Rooms Grid */
@@ -3269,7 +3323,7 @@ body {
 .mode-tab.active {
   background: rgba(245, 158, 11, 0.14);
   color: #b45309;
-  border: 1.5px solid var(--srcc-gold);
+  border: 2.5px solid var(--srcc-gold);
   box-shadow: 0 2px 12px rgba(245, 158, 11, 0.25);
 }
 
@@ -5222,7 +5276,7 @@ body {
 .modal-day-tab-btn.active {
   background: var(--srcc-gold) !important;
   color: #070D18 !important;
-  border: 1.5px solid #b45309 !important;
+  border: 2.5px solid #b45309 !important;
   font-weight: 700 !important;
   box-shadow: 0 2px 8px rgba(245, 158, 11, 0.35) !important;
 }

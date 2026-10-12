@@ -1852,8 +1852,19 @@ ${freeSlotsFormatted}
 
 🔗 *Live Schedule & Vacancy:*
 ${directRoomUrl}`;
+
       const tweetText = `🎓 SRCC Vacancy: Room ${room.code} is FREE on ${dayAndDateDisplay}! Check live schedule:`;
       const emailSubject = `SRCC Room Vacancy: ${room.code} (${dayAndDateDisplay})`;
+
+      // Direct mobile share sheet: Open WhatsApp/native app share directly on phones
+      const isMobileDevice = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || (window.innerWidth <= 768);
+      if (isMobileDevice && navigator.share) {
+        navigator.share({
+          title: `SRCC Room ${room.code} Vacancy Alert`,
+          text: whatsappMessage
+        }).catch(() => {});
+        return;
+      }
 
       currentShareMessage = cleanMessage;
 
@@ -1920,284 +1931,6 @@ ${directRoomUrl}`;
         };
       } else if (btnPrimaryShare) {
         btnPrimaryShare.style.display = 'none';
-      }
-
-      // 📷 Customized Room QR Code Generator
-      const btnShareRoomQr = document.getElementById('btnShareRoomQr');
-      const roomQrContainer = document.getElementById('roomQrContainer');
-      const roomCustomQrCanvas = document.getElementById('roomCustomQrCanvas');
-      const btnDownloadRoomQr = document.getElementById('btnDownloadRoomQr');
-      const btnCopyCleanRoomLink = document.getElementById('btnCopyCleanRoomLink');
-      const btnShareWaQr = document.getElementById('btnShareWaQr');
-
-      function drawCustomQrCard() {
-        if (!roomCustomQrCanvas) return;
-        const ctx = roomCustomQrCanvas.getContext('2d');
-        const W = roomCustomQrCanvas.width;
-        const H = roomCustomQrCanvas.height;
-
-        // Reset
-        ctx.clearRect(0, 0, W, H);
-
-        // Helper rounded rect
-        function drawRRect(x, y, w, h, r) {
-          ctx.beginPath();
-          ctx.moveTo(x + r, y);
-          ctx.lineTo(x + w - r, y);
-          ctx.quadraticCurveTo(x + w, y, x + w, y + r);
-          ctx.lineTo(x + w, y + h - r);
-          ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-          ctx.lineTo(x + r, y + h);
-          ctx.quadraticCurveTo(x, y + h, x, y + h - r);
-          ctx.lineTo(x, y + r);
-          ctx.quadraticCurveTo(x, y, x + r, y);
-          ctx.closePath();
-        }
-
-        // White Card Background
-        ctx.fillStyle = '#ffffff';
-        drawRRect(0, 0, W, H, 20);
-        ctx.fill();
-
-        // Card Border
-        ctx.strokeStyle = '#e2e8f0';
-        ctx.lineWidth = 2;
-        drawRRect(1, 1, W - 2, H - 2, 19);
-        ctx.stroke();
-
-        // Top Header Banner (Deep SRCC Navy Gradient)
-        const headerH = 75;
-        const grad = ctx.createLinearGradient(0, 0, W, 0);
-        grad.addColorStop(0, '#000066');
-        grad.addColorStop(1, '#1e3a8a');
-        ctx.fillStyle = grad;
-        ctx.beginPath();
-        ctx.moveTo(0, 20);
-        ctx.quadraticCurveTo(0, 0, 20, 0);
-        ctx.lineTo(W - 20, 0);
-        ctx.quadraticCurveTo(W, 0, W, 20);
-        ctx.lineTo(W, headerH);
-        ctx.lineTo(0, headerH);
-        ctx.closePath();
-        ctx.fill();
-
-        // Gold bottom accent line on header
-        ctx.fillStyle = '#f59e0b';
-        ctx.fillRect(0, headerH - 3, W, 3);
-
-        // Header text
-        ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText('SHRI RAM COLLEGE OF COMMERCE', W / 2, 33);
-
-        ctx.fillStyle = '#bfdbfe';
-        ctx.font = '500 11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-        ctx.fillText('Official Classroom Schedule & Direct QR', W / 2, 53);
-
-        // Loading QR Placeholder
-        ctx.fillStyle = '#f8fafc';
-        drawRRect(60, 95, 260, 240, 12);
-        ctx.fill();
-        ctx.fillStyle = '#94a3b8';
-        ctx.font = '500 12px sans-serif';
-        ctx.fillText('Generating customized QR...', W / 2, 215);
-
-        // Load QR Code
-        const qrImg = new Image();
-        qrImg.crossOrigin = 'anonymous';
-        qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(directRoomUrl)}`;
-
-        qrImg.onload = () => {
-          ctx.drawImage(qrImg, 70, 95, 240, 240);
-
-          // Center College Logo Badge
-          const logoX = W / 2;
-          const logoY = 95 + 120;
-          const logoR = 26;
-
-          // White Circular Shield with Shadow
-          ctx.save();
-          ctx.beginPath();
-          ctx.arc(logoX, logoY, logoR + 4, 0, Math.PI * 2);
-          ctx.fillStyle = '#ffffff';
-          ctx.shadowColor = 'rgba(0,0,0,0.25)';
-          ctx.shadowBlur = 8;
-          ctx.fill();
-          ctx.restore();
-
-          // Border around center badge
-          ctx.beginPath();
-          ctx.arc(logoX, logoY, logoR + 3, 0, Math.PI * 2);
-          ctx.strokeStyle = '#000066';
-          ctx.lineWidth = 2;
-          ctx.stroke();
-
-          // Draw Crest in center
-          const crestImg = new Image();
-          crestImg.crossOrigin = 'anonymous';
-          crestImg.src = 'srcc_crest.png';
-          crestImg.onload = () => {
-            ctx.save();
-            ctx.beginPath();
-            ctx.arc(logoX, logoY, logoR, 0, Math.PI * 2);
-            ctx.clip();
-            ctx.drawImage(crestImg, logoX - logoR, logoY - logoR, logoR * 2, logoR * 2);
-            ctx.restore();
-          };
-          crestImg.onerror = () => {
-            ctx.fillStyle = '#000066';
-            ctx.font = 'bold 12px sans-serif';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillText('SRCC', logoX, logoY);
-          };
-        };
-
-        // Room Name and Details Below QR
-        ctx.textBaseline = 'alphabetic';
-        const cleanRoomTitle = room.code.startsWith('R') ? `Room ${room.code.slice(1)}` : room.code;
-        ctx.fillStyle = '#0f172a';
-        ctx.font = 'bold 24px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText(cleanRoomTitle, W / 2, 375);
-
-        ctx.fillStyle = '#64748b';
-        ctx.font = '500 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-        const wingText = `${room.category.split(' (')[0]} · Capacity: ${room.capacity} seats`;
-        ctx.fillText(wingText, W / 2, 396);
-
-        // Vacancy Status Tag
-        const freeCount = sched.free_slots ? sched.free_slots.length : 0;
-        const pillText = freeCount > 0 ? `⚡ ${freeCount} Academic Slots Free Today` : `☕ Recess Free · Classes Scheduled`;
-        ctx.fillStyle = freeCount > 0 ? '#ecfdf5' : '#eff6ff';
-        drawRRect(50, 412, 280, 28, 14);
-        ctx.fill();
-
-        ctx.fillStyle = freeCount > 0 ? '#059669' : '#2563eb';
-        ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-        ctx.fillText(pillText, W / 2, 430);
-
-        ctx.fillStyle = '#94a3b8';
-        ctx.font = '500 11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-        ctx.fillText('Scan with phone camera or WhatsApp to open schedule', W / 2, 465);
-      }
-
-      const tabShareModeQr = document.getElementById('tabShareModeQr');
-      const tabShareModeText = document.getElementById('tabShareModeText');
-      const roomTextShareSection = document.getElementById('roomTextShareSection');
-
-      function setShareMode(mode) {
-        if (mode === 'qr') {
-          if (tabShareModeQr) tabShareModeQr.classList.add('active');
-          if (tabShareModeText) tabShareModeText.classList.remove('active');
-          if (roomQrContainer) roomQrContainer.style.display = 'block';
-          if (roomTextShareSection) roomTextShareSection.style.display = 'none';
-          drawCustomQrCard();
-        } else {
-          if (tabShareModeText) tabShareModeText.classList.add('active');
-          if (tabShareModeQr) tabShareModeQr.classList.remove('active');
-          if (roomQrContainer) roomQrContainer.style.display = 'none';
-          if (roomTextShareSection) roomTextShareSection.style.display = 'block';
-        }
-      }
-
-      if (tabShareModeQr) {
-        tabShareModeQr.onclick = () => setShareMode('qr');
-      }
-      if (tabShareModeText) {
-        tabShareModeText.onclick = () => setShareMode('text');
-      }
-
-      // Default to QR Card mode so users see QR clearly
-      setShareMode('qr');
-
-      if (btnDownloadRoomQr && roomCustomQrCanvas) {
-        btnDownloadRoomQr.onclick = () => {
-          try {
-            const dataUrl = roomCustomQrCanvas.toDataURL('image/png');
-            const a = document.createElement('a');
-            a.href = dataUrl;
-            a.download = `SRCC_Room_${room.code}_Schedule_QR.png`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            showToast(`📥 <strong>Room ${room.code} QR Card</strong> downloaded!`, true);
-          } catch (e) {
-            showToast(`Unable to export image directly. Point phone to scan.`, false);
-          }
-        };
-      }
-
-      if (btnCopyCleanRoomLink) {
-        btnCopyCleanRoomLink.onclick = () => {
-          copyToClipboard(directRoomUrl).then(() => {
-            btnCopyCleanRoomLink.textContent = '✅ Link Copied!';
-            showToast(`🔗 Clean room link copied: <strong>${escapeHtml(room.code)}</strong>`, true, 3000);
-            setTimeout(() => {
-              btnCopyCleanRoomLink.textContent = '📋 Copy Link';
-            }, 2500);
-          });
-        };
-      }
-
-      async function shareQrImage() {
-        if (!roomCustomQrCanvas) return;
-        try {
-          const blob = await new Promise(resolve => roomCustomQrCanvas.toBlob(resolve, 'image/png'));
-          if (!blob) throw new Error('Failed to generate QR blob');
-
-          const fileName = `SRCC_Room_${room.code}_Schedule_QR.png`;
-          const file = new File([blob], fileName, { type: 'image/png' });
-
-          // 1. Mobile Web Share API: Shares the actual QR image file into WhatsApp, Instagram, Telegram, etc.
-          if (navigator.canShare && navigator.canShare({ files: [file] })) {
-            await navigator.share({
-              files: [file],
-              title: `SRCC Room ${room.code} QR Schedule`,
-              text: `🎓 SRCC Room ${room.code} Vacancy & QR Schedule\n🔗 ${directRoomUrl}`
-            });
-            return;
-          }
-
-          // 2. Desktop Clipboard Image: User can paste the image directly into WhatsApp Web (Ctrl+V)
-          if (navigator.clipboard && window.ClipboardItem) {
-            try {
-              await navigator.clipboard.write([
-                new ClipboardItem({ 'image/png': blob })
-              ]);
-              showToast(`📸 <strong>Room ${room.code} QR Image copied!</strong> Paste directly (Ctrl+V) into WhatsApp.`, true, 5000);
-              const waText = encodeURIComponent(`🎓 SRCC Room ${room.code} Vacancy & Schedule QR:\n${directRoomUrl}`);
-              window.open(`https://api.whatsapp.com/send?text=${waText}`, '_blank', 'noopener,noreferrer');
-              return;
-            } catch (clipErr) {
-              // proceed to download fallback
-            }
-          }
-
-          // 3. Fallback: Download QR PNG and open WhatsApp
-          const a = document.createElement('a');
-          a.href = URL.createObjectURL(blob);
-          a.download = fileName;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          showToast(`📥 <strong>Room ${room.code} QR Card downloaded!</strong> Attach image in WhatsApp.`, true, 5000);
-          const waText = encodeURIComponent(`🎓 SRCC Room ${room.code} Vacancy & Schedule QR:\n${directRoomUrl}`);
-          window.open(`https://api.whatsapp.com/send?text=${waText}`, '_blank', 'noopener,noreferrer');
-        } catch (err) {
-          if (err.name !== 'AbortError') {
-            console.error('Error sharing QR image:', err);
-            showToast(`⚠️ Could not share image directly. Use "Download QR" instead.`, false, 4000);
-          }
-        }
-      }
-
-      if (btnShareWaQr) {
-        btnShareWaQr.onclick = (e) => {
-          e.preventDefault();
-          shareQrImage();
-        };
       }
 
       if (shareModal) openAppModal(shareModal);
@@ -4949,7 +4682,39 @@ ${directRoomUrl}`;
       }
 
       const sortedSched = [...daySched].sort((a, b) => getSlotPeriodNum(a.slot) - getSlotPeriodNum(b.slot));
+
+      // Consolidate duplicate slots with same period & room (e.g. sub-batches J1, J2, J3 / JP1, JP2, JP3 / Lab / Tut)
+      const slotTeacherMap = new Map();
       sortedSched.forEach(cls => {
+        const pNum = getSlotPeriodNum(cls.slot);
+        const rNorm = (cls.room || '').trim().toLowerCase();
+        const key = (pNum < 90 && rNorm && rNorm !== 'tbd' && rNorm !== 'none') ? `${pNum}__${rNorm}` : `${cls.slot}__${rNorm}__${(cls.subject || '').trim().toLowerCase()}`;
+        if (!slotTeacherMap.has(key)) {
+          const clone = { ...cls };
+          clone._batchList = [];
+          if (cls.batch) clone._batchList.push(cls.batch);
+          slotTeacherMap.set(key, clone);
+        } else {
+          const existing = slotTeacherMap.get(key);
+          if (cls.batch && !existing._batchList.includes(cls.batch)) {
+            existing._batchList.push(cls.batch);
+          }
+          if (cls.type && /lab|tut|prac/i.test(cls.type)) {
+            existing.type = cls.type;
+          }
+        }
+      });
+
+      const uniqueTeacherSched = Array.from(slotTeacherMap.values()).map(it => {
+        if (it._batchList && it._batchList.length > 1) {
+          const cleanBatches = it._batchList.map(b => b.replace(/^Batch\s+/i, '')).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+          it.batch = cleanBatches.join(', ');
+        }
+        delete it._batchList;
+        return it;
+      });
+
+      uniqueTeacherSched.forEach(cls => {
         const pNum = getSlotPeriodNum(cls.slot);
         if (mergedDaySched.length > 0) {
           const last = mergedDaySched[mergedDaySched.length - 1];
@@ -6011,7 +5776,7 @@ window.SRCC_FACULTY_LEAVES = {
           const sKey = (item.subject || '').trim().toLowerCase();
           const rKey = (item.room || '').trim().toLowerCase();
           const pKey = item.periodNum;
-          const slotKey = `${pKey}__${rKey}__${tKey}__${sKey}`;
+          const slotKey = (pKey && rKey && rKey !== 'none' && rKey !== 'tbd' && tKey) ? `${pKey}__${rKey}__${tKey}` : `${pKey}__${rKey}__${tKey}__${sKey}`;
 
           if (!slotMap.has(slotKey)) {
             const clone = Object.assign({}, item);
@@ -6168,7 +5933,10 @@ window.SRCC_FACULTY_LEAVES = {
             const selBatch = (targetBatch || 'ALL').trim().toUpperCase();
             candidateList.forEach(s => {
               if (s.day !== targetDay) return;
-              if (selBatch !== 'ALL' && s.batch && s.batch.toUpperCase() !== selBatch) return;
+              if (selBatch !== 'ALL' && s.batch) {
+                const bList = s.batch.toUpperCase().split(/[\s,]+/);
+                if (!bList.includes(selBatch) && !s.batch.toUpperCase().includes(selBatch)) return;
+              }
 
               const slotInfo = getPeriodInfo(s.slot);
               if (!slotInfo) return;
@@ -6396,13 +6164,13 @@ window.SRCC_FACULTY_LEAVES = {
         let batchBadge = '';
         if (displayBatch) {
           const bTrimmed = String(displayBatch).trim();
-          if (bTrimmed.includes(',') || bTrimmed.toLowerCase() === 'whole section') {
+          if (bTrimmed.toLowerCase() === 'whole section') {
             batchBadge = ' · Whole Section';
           } else if (/^(sec|vac)/i.test(bTrimmed)) {
             batchBadge = ` · ${escapeHtml(bTrimmed)}`;
           } else {
-            const formatted = formatBatchCode(bTrimmed);
-            batchBadge = ` · Batch ${escapeHtml(formatted)}`;
+            const cleanBatch = bTrimmed.replace(/^Batch\s+/i, '');
+            batchBadge = ` · Batch ${escapeHtml(cleanBatch)}`;
           }
         }
 
