@@ -700,13 +700,28 @@ document.addEventListener('DOMContentLoaded', () => {
       const targetDate = checkDateStr || getTodayIsoDate();
       const allLeaves = getLeavesList();
 
+      const tCode = (teacher.short_code || '').toLowerCase().trim();
+      const tClean = (teacher.clean_name || teacher.name || '').replace(/^(?:(?:dr|prof|mr|ms|mrs|ca|cma)\.?\s+)/i, '').toLowerCase().trim();
+      const tId = String(teacher.id || '').trim();
+
       return allLeaves.find(leave => {
-        const matchId = String(leave.teacher_id) === String(teacher.id);
-        const matchCode = (leave.teacher_code && teacher.short_code && (
-          leave.teacher_code.toLowerCase().trim() === teacher.short_code.toLowerCase().trim() ||
-          leave.teacher_code.toLowerCase().split(/\s*[\/,]\s*/).includes(teacher.short_code.toLowerCase().trim())
+        const lId = String(leave.teacher_id || '').trim();
+        const lCode = String(leave.teacher_code || '').toLowerCase().trim();
+        const lClean = String(leave.clean_name || leave.teacher_name || '').replace(/^(?:(?:dr|prof|mr|ms|mrs|ca|cma)\.?\s+)/i, '').toLowerCase().trim();
+
+        // 1. Direct ID match
+        const matchId = (lId && tId && lId === tId);
+
+        // 2. Short code match (check both leave.teacher_code and leave.teacher_id since StudentAssist uses short_code as id)
+        const matchCode = (tCode && (
+          lCode === tCode ||
+          lId.toLowerCase() === tCode ||
+          (lCode && lCode.split(/\s*[\/,]\s*/).includes(tCode)) ||
+          (lId && lId.toLowerCase().split(/\s*[\/,]\s*/).includes(tCode))
         ));
-        const matchName = (leave.teacher_name && teacher.clean_name && leave.teacher_name.toLowerCase().trim() === teacher.clean_name.toLowerCase().trim());
+
+        // 3. Normalized Name match (ignoring Dr., Ms., Mr., etc.)
+        const matchName = (lClean && tClean && (lClean === tClean || lClean.includes(tClean) || tClean.includes(lClean)));
 
         if (matchId || matchCode || matchName) {
           if (!leave.start_date && !leave.end_date) return true;
@@ -3725,6 +3740,10 @@ ${directRoomUrl}`;
 
       // Metric Tile in Faculty Locator ("On Leave Today")
       const metricFacultyOnLeaveTile = document.getElementById('metricFacultyOnLeaveTile');
+      const metricFacultyOnLeave = document.getElementById('metricFacultyOnLeave');
+      if (metricFacultyOnLeave) {
+        metricFacultyOnLeave.textContent = count;
+      }
       if (metricFacultyOnLeaveTile) {
         metricFacultyOnLeaveTile.onclick = openFacultyLeavesView;
       }
