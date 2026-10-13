@@ -56,6 +56,16 @@
             <span class="toggle-status-text" id="toggleStatusText">OFF</span>
           </button>
         </div>
+        <!-- Widget Feature Button (Header) -->
+        <button id="btnOpenWidgetModal" class="btn-widget-header" title="Daily Timetable Widget & Android App">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="9" rx="2"></rect>
+            <rect x="14" y="3" width="7" height="5" rx="2"></rect>
+            <rect x="14" y="12" width="7" height="9" rx="2"></rect>
+            <rect x="3" y="16" width="7" height="5" rx="2"></rect>
+          </svg>
+          <span>Widget</span>
+        </button>
         <!-- WiFi Directory Button (Header) -->
         <button id="btnOpenWifiModal" class="btn-wifi-header" title="Campus WiFi Networks & Passwords Directory">
           <svg class="wifi-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -467,6 +477,15 @@
     <div id="viewTimetableSection" class="app-view-section" style="display: none;">
       <!-- 📢 TIMETABLE CHANGE NOTICES BANNER CONTAINER -->
       <div id="timetableNoticesContainer" style="display: none;"></div>
+
+      <!-- Subtle Widget Feature Strip -->
+      <div class="timetable-widget-banner" id="ttWidgetBanner">
+        <div class="tt-widget-banner-left">
+          <span class="tt-widget-badge">📱 WIDGET READY</span>
+          <span>Pin your section's live schedule to your phone home screen!</span>
+        </div>
+        <button type="button" class="btn-tt-widget-open" id="btnOpenWidgetFromTt">Launch Widget ↗</button>
+      </div>
 
       <!-- Controls Panel (100% Native App UX/UI) -->
       <section class="controls-panel">
@@ -1046,6 +1065,60 @@
         <button type="button" id="btnCloseStudentAttachmentModal" style="background: transparent; border: none; font-size: 1.25rem; cursor: pointer; color: #64748b; padding: 4px;">✕</button>
       </div>
       <div class="attachment-modal-body" id="studentAttachmentModalBody"></div>
+    </div>
+  <!-- ====================================================================
+       WIDGET FEATURE MODAL (Professional Client Widget Portal)
+       ==================================================================== -->
+  <div class="modal-overlay" id="widgetModal" style="display: none;">
+    <div class="modal-card" style="max-width: 620px;">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <h2>📱 SRCC Timetable Widget</h2>
+          <p>Access your live schedule directly on your phone's home screen</p>
+        </div>
+        <button class="modal-close" id="btnWidgetModalClose">✕</button>
+      </div>
+      <div class="modal-body" style="padding: 20px;">
+        <!-- Card 1: Web PWA Widget (Instant access on any phone) -->
+        <div class="widget-feature-card">
+          <div class="widget-feature-icon" style="background: #eff6ff; color: #2563eb;">🌐</div>
+          <div class="widget-feature-info">
+            <h3>Web Timetable Widget (All Phones & Laptops)</h3>
+            <p>Clean standalone widget interface with live lecture tracker, next class pill, and teacher leave alerts. Zero installation needed.</p>
+            <div class="widget-feature-actions">
+              <a href="widget.html" target="_blank" class="btn-primary" style="text-decoration: none; padding: 7px 14px; font-size: 0.82rem; border-radius: 8px;">
+                🚀 Open Web Widget
+              </a>
+              <button type="button" class="btn-secondary" id="btnCopyWidgetUrl" style="padding: 7px 12px; font-size: 0.82rem; border-radius: 8px;">
+                📋 Copy Link
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Android Native App & 4x1, 4x2, 4x4 Widgets -->
+        <div class="widget-feature-card" style="margin-top: 14px;">
+          <div class="widget-feature-icon" style="background: #f0fdf4; color: #16a34a;">🤖</div>
+          <div class="widget-feature-info">
+            <h3>Android App & Home Screen Widgets</h3>
+            <p>Official <strong>SRCC Room</strong> app with centenary logo. Long-press phone home screen to pin <strong>4x1 Pill</strong>, <strong>4x2 Schedule</strong>, or <strong>4x4 Dashboard</strong> widgets.</p>
+            <div class="widget-feature-actions">
+              <a href="app-debug.apk" download class="btn-primary" style="background: #16a34a; border-color: #16a34a; text-decoration: none; padding: 7px 14px; font-size: 0.82rem; border-radius: 8px;">
+                ⬇️ Download Android App (APK)
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Quick Tip / How to Pin -->
+        <div class="widget-tips-box" style="margin-top: 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px 14px; font-size: 0.8rem; color: #475569; line-height: 1.5;">
+          <strong>💡 How to add widget to phone home screen:</strong>
+          <ul style="margin: 6px 0 0 18px; padding: 0;">
+            <li><strong>Android:</strong> Install APK → Long press home screen → Tap "Widgets" → Select <em>SRCC Room</em>.</li>
+            <li><strong>iPhone / iPad:</strong> Open Web Widget in Safari → Tap Share (<span style="font-size: 1rem;">⎙</span>) → Tap <em>"Add to Home Screen"</em>.</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 

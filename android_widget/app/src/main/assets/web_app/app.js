@@ -1627,10 +1627,39 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    // Widget Feature Modal Handlers
+    const widgetModal = document.getElementById('widgetModal');
+    const btnOpenWidgetModal = document.getElementById('btnOpenWidgetModal');
+    const btnOpenWidgetFromTt = document.getElementById('btnOpenWidgetFromTt');
+    const btnWidgetModalClose = document.getElementById('btnWidgetModalClose');
+    const btnCopyWidgetUrl = document.getElementById('btnCopyWidgetUrl');
+
+    function openWidgetModal() {
+      if (widgetModal) openAppModal(widgetModal);
+    }
+    if (btnOpenWidgetModal) btnOpenWidgetModal.addEventListener('click', openWidgetModal);
+    if (btnOpenWidgetFromTt) btnOpenWidgetFromTt.addEventListener('click', openWidgetModal);
+    if (btnWidgetModalClose) btnWidgetModalClose.addEventListener('click', () => { closeAppModal(widgetModal); });
+    if (widgetModal) {
+      widgetModal.addEventListener('click', (e) => {
+        if (e.target === widgetModal) closeAppModal(widgetModal);
+      });
+    }
+    if (btnCopyWidgetUrl) {
+      btnCopyWidgetUrl.addEventListener('click', () => {
+        const base = (window.location.origin + window.location.pathname).replace(/\/+$/, '');
+        const widgetUrl = `${base}/widget.html`;
+        copyToClipboard(widgetUrl).then(() => {
+          showToast('📋 Copied Standalone Widget Link!');
+        });
+      });
+    }
+
     // Keyboard Shortcuts
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         if (scheduleModal && scheduleModal.style.display !== 'none') closeAppModal(scheduleModal);
+        else if (widgetModal && widgetModal.style.display !== 'none') closeAppModal(widgetModal);
         else if (shareModal && shareModal.style.display !== 'none') closeAppModal(shareModal);
         else if (teacherModal && teacherModal.style.display !== 'none') closeAppModal(teacherModal);
         else if (leaveManagerModal && leaveManagerModal.style.display !== 'none') closeAppModal(leaveManagerModal);
