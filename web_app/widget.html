@@ -3,66 +3,74 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>SRCC Timetable Widget</title>
-  <meta name="description" content="Personalized standalone timetable widget for SRCC students and faculty. Save to your phone homescreen for instant 1-tap access." />
+  <title>SRCC Daily Schedule Widget | Offline Ready</title>
+  <meta name="description" content="Personalized standalone timetable widget for Shri Ram College of Commerce (SRCC) students and faculty. Works 100% offline on mobile homescreen." />
 
   <!-- PWA & Homescreen Meta -->
   <link rel="manifest" href="widget_manifest.json" />
-  <meta name="theme-color" content="#f0f4f9" />
+  <meta name="theme-color" content="#000066" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="SRCC Widget" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="SRCC Timetable" />
   <link rel="icon" type="image/png" sizes="64x64" href="favicon.png" />
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
   <link rel="apple-touch-icon" href="srcc_crest.png" />
 
-  <!-- Google Fonts: Plus Jakarta Sans / Google Sans style -->
+  <!-- Google Fonts: Plus Jakarta Sans / Inter style -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --widget-bg: #f8f9fc;
-      --card-bg: #ffffff;
-      --card-subtle: #eff2fe;
-      --card-subtle-border: #dbe4f9;
-      --text-primary: #191c1e;
-      --text-secondary: #44474e;
-      --text-muted: #74777f;
-      --brand-blue: #0b57d0;
-      --brand-blue-hover: #0842a0;
-      --brand-blue-container: #d3e3fd;
-      --brand-blue-text: #041e49;
-      --accent-coral: #ba1a1a;
-      --accent-green: #146c2e;
-      --accent-green-bg: #c4eed0;
-      --accent-amber: #e37400;
-      --accent-amber-bg: #feeedb;
-      --border-light: #e1e2ec;
-      --radius-widget: 32px;
-      --radius-card: 24px;
+      --srcc-navy-deep: #000066;
+      --srcc-navy-primary: #1e3a8a;
+      --srcc-blue-accent: #2563eb;
+      --srcc-blue-light: #eff6ff;
+      --srcc-gold: #f59e0b;
+      --srcc-gold-bg: #fffbeb;
+      --srcc-green: #10b981;
+      --srcc-green-bg: #ecfdf5;
+      --srcc-red: #ef4444;
+      --srcc-red-bg: #fef2f2;
+      
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-subtle: #f1f5f9;
+      --border-color: #e2e8f0;
+      --border-subtle: #f8fafc;
+      
+      --text-main: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+
+      /* Material You / Google Calendar Widget Colors */
+      --widget-tint-bg: #eef2ff;
+      --widget-tint-border: #dbe4f9;
+      --widget-blue: #0b57d0;
+      --widget-blue-hover: #0842a0;
+
+      --radius-widget: 28px;
+      --radius-card: 20px;
       --radius-pill: 9999px;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-      --shadow-md: 0 4px 14px rgba(11,87,208,0.08), 0 2px 6px rgba(0,0,0,0.04);
-      --shadow-lg: 0 12px 32px rgba(15,23,42,0.12);
+      --shadow-widget: 0 8px 24px rgba(0, 0, 102, 0.08), 0 2px 6px rgba(0,0,0,0.04);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
     }
 
     @media (prefers-color-scheme: dark) {
       :root {
-        --widget-bg: #111318;
-        --card-bg: #1e2025;
-        --card-subtle: #242938;
-        --card-subtle-border: #353f57;
-        --text-primary: #e2e2e9;
-        --text-secondary: #c4c6d0;
-        --text-muted: #8e9099;
-        --brand-blue: #a8c7fa;
-        --brand-blue-hover: #c2e7ff;
-        --brand-blue-container: #0842a0;
-        --brand-blue-text: #d3e3fd;
-        --border-light: #2c3038;
-        --accent-green-bg: #0f381e;
-        --accent-amber-bg: #402400;
+        --bg-page: #0b0f19;
+        --bg-card: #151b28;
+        --bg-subtle: #1e2638;
+        --border-color: #273248;
+        --border-subtle: #1c2436;
+        --text-main: #f8fafc;
+        --text-secondary: #cbd5e1;
+        --text-muted: #94a3b8;
+        --widget-tint-bg: #1e293b;
+        --widget-tint-border: #334155;
+        --widget-blue: #60a5fa;
+        --widget-blue-hover: #93c5fd;
       }
     }
 
@@ -75,64 +83,151 @@
 
     body {
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: var(--widget-bg);
-      color: var(--text-primary);
+      background-color: var(--bg-page);
+      color: var(--text-main);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 16px 14px 40px;
+      padding: 12px 12px 40px;
       -webkit-font-smoothing: antialiased;
     }
 
-    .widget-app {
+    .widget-container {
       width: 100%;
-      max-width: 440px;
+      max-width: 460px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Top Brand Navigation Bar (Aligned with Main Website) */
+    .top-brand-bar {
+      background: var(--bg-card);
+      border-radius: 18px;
+      border: 1px solid var(--border-color);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .brand-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logos {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .brand-logo-img {
+      height: 28px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .brand-separator {
+      color: var(--border-color);
+      font-weight: 300;
+      font-size: 1.1rem;
+    }
+
+    .brand-title-wrap h1 {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--srcc-navy-primary);
+      line-height: 1.1;
+    }
+
+    .brand-status-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--srcc-green);
+      margin-top: 2px;
+    }
+
+    .status-dot-pulse {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--srcc-green);
+      animation: statusPulse 1.6s infinite;
+    }
+
+    @keyframes statusPulse {
+      0% { opacity: 0.5; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.3); }
+      100% { opacity: 0.5; transform: scale(0.9); }
+    }
+
+    .btn-main-site {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      padding: 6px 10px;
+      border-radius: var(--radius-pill);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-main-site:hover {
+      background: var(--border-color);
+    }
+
+    /* Core Material You Widget Card (Matches User's Photo) */
+    .widget-hero-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-widget);
+      border: 1px solid var(--border-color);
+      padding: 20px 18px 18px;
+      box-shadow: var(--shadow-widget);
       display: flex;
       flex-direction: column;
       gap: 14px;
-    }
-
-    /* Top Material You Widget Box */
-    .material-widget-card {
-      background: var(--card-bg);
-      border-radius: var(--radius-widget);
-      padding: 22px 20px 20px;
-      box-shadow: var(--shadow-md);
-      border: 1px solid var(--border-light);
       position: relative;
-      transition: all 0.25s ease;
     }
 
     .widget-header-row {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      margin-bottom: 16px;
     }
 
-    .widget-date-group {
+    .widget-date-col {
       display: flex;
       flex-direction: column;
     }
 
-    .widget-day-num {
-      font-size: 2.1rem;
+    .widget-day-title {
+      font-size: 2.15rem;
       font-weight: 800;
-      color: var(--text-primary);
+      color: var(--text-main);
       line-height: 1.05;
       letter-spacing: -0.5px;
     }
 
-    .widget-full-date {
-      font-size: 0.86rem;
+    .widget-date-subtitle {
+      font-size: 0.84rem;
       font-weight: 600;
       color: var(--text-muted);
-      margin-top: 4px;
+      margin-top: 3px;
     }
 
-    /* Blue Circular Action FAB (matches user's screenshot) */
-    .widget-fab-btn {
+    /* Circular Blue FAB Button (+) from user's photo */
+    .widget-action-fab {
       width: 44px;
       height: 44px;
       border-radius: 50%;
@@ -143,86 +238,93 @@
       align-items: center;
       justify-content: center;
       font-size: 26px;
-      line-height: 1;
       font-weight: 400;
+      line-height: 1;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(11, 87, 208, 0.35);
+      box-shadow: 0 4px 14px rgba(11, 87, 208, 0.35);
       transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.15s ease;
       flex-shrink: 0;
     }
 
-    .widget-fab-btn:hover {
+    .widget-action-fab:hover {
       background: #0842a0;
       transform: scale(1.06);
     }
 
-    .widget-fab-btn:active {
-      transform: scale(0.94);
+    .widget-action-fab:active {
+      transform: scale(0.92);
     }
 
-    /* Active User Profile Pill */
-    .profile-chip-strip {
+    /* Pinned Role Ribbon */
+    .pinned-profile-ribbon {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: var(--card-subtle);
-      border: 1px solid var(--card-subtle-border);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
       border-radius: var(--radius-pill);
-      padding: 6px 14px;
-      margin-bottom: 14px;
+      padding: 6px 12px;
+      font-size: 0.82rem;
     }
 
-    .profile-chip-content {
+    .pinned-profile-left {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       overflow: hidden;
     }
 
-    .profile-role-badge {
+    .profile-tag {
       font-size: 0.68rem;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.6px;
-      background: var(--brand-blue-container);
-      color: var(--brand-blue-text);
+      letter-spacing: 0.5px;
       padding: 2px 7px;
       border-radius: var(--radius-pill);
+      background: var(--srcc-blue-accent);
+      color: #ffffff;
+      flex-shrink: 0;
     }
 
-    .profile-chip-name {
-      font-size: 0.85rem;
+    .profile-title-text {
       font-weight: 700;
-      color: var(--text-primary);
+      color: var(--text-main);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .btn-chip-switch {
+    .btn-edit-profile {
       background: none;
       border: none;
-      color: var(--brand-blue);
-      font-size: 0.76rem;
+      color: var(--srcc-blue-accent);
       font-weight: 700;
+      font-size: 0.78rem;
       cursor: pointer;
-      padding: 2px 6px;
-      border-radius: 6px;
+      padding: 2px 4px;
+      border-radius: 4px;
+      flex-shrink: 0;
     }
 
-    /* Center Bubble / Hero Status (Directly mirrors user's photo) */
+    /* Center Status Bubble: "Nothing scheduled" or Ongoing Class */
     .widget-status-bubble {
-      background: var(--card-subtle);
-      border: 1px solid var(--card-subtle-border);
+      background: var(--widget-tint-bg);
+      border: 1.5px solid var(--widget-tint-border);
       border-radius: var(--radius-card);
-      padding: 18px 18px 16px;
+      padding: 16px 16px 14px;
       display: flex;
       flex-direction: column;
       gap: 8px;
-      transition: background 0.2s ease;
+      transition: all 0.2s ease;
     }
 
-    .bubble-status-tag {
+    .bubble-status-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .bubble-status-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -230,18 +332,18 @@
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      color: var(--brand-blue);
+      color: var(--widget-blue);
     }
 
-    .bubble-pulse-dot {
-      width: 8px;
-      height: 8px;
+    .bubble-status-dot {
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: currentColor;
     }
 
-    .bubble-pulse-dot.live-pulse {
-      background: #ba1a1a;
+    .bubble-status-dot.live-dot {
+      background: var(--srcc-red);
       animation: liveDotPulse 1.4s infinite;
     }
 
@@ -252,20 +354,20 @@
     }
 
     .bubble-headline {
-      font-size: 1.35rem;
+      font-size: 1.32rem;
       font-weight: 800;
-      color: var(--brand-blue);
+      color: var(--widget-blue);
       line-height: 1.25;
     }
 
     .bubble-subtext {
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-weight: 500;
       color: var(--text-secondary);
       line-height: 1.35;
     }
 
-    .bubble-meta-pills {
+    .bubble-pills-row {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
@@ -273,89 +375,86 @@
       margin-top: 4px;
     }
 
-    .meta-pill {
-      font-size: 0.8rem;
+    .bubble-pill {
+      font-size: 0.78rem;
       font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 10px;
+      padding: 4px 9px;
+      border-radius: 8px;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
     }
 
-    .meta-pill-room {
-      background: var(--card-bg);
-      border: 1.5px solid var(--brand-blue-container);
-      color: var(--brand-blue);
+    .bubble-pill-room {
+      background: var(--bg-card);
+      border: 1.5px solid var(--widget-tint-border);
+      color: var(--widget-blue);
     }
 
-    .meta-pill-time {
-      background: rgba(0,0,0,0.04);
-      color: var(--text-primary);
+    .bubble-pill-time {
+      background: rgba(0, 0, 0, 0.05);
+      color: var(--text-main);
     }
 
-    .meta-pill-type {
-      background: rgba(0,0,0,0.04);
-      color: var(--text-secondary);
-      font-size: 0.74rem;
+    .bubble-pill-batch {
+      background: var(--srcc-gold-bg);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: #92400e;
     }
 
-    .bubble-leave-banner {
-      background: #ffdad6;
-      border: 1px solid #ffb4ab;
-      color: #410002;
-      border-radius: 12px;
+    .bubble-leave-alert {
+      background: var(--srcc-red-bg);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #991b1b;
       padding: 8px 12px;
+      border-radius: 10px;
       font-size: 0.8rem;
       font-weight: 700;
       display: flex;
       align-items: center;
       gap: 6px;
-      margin-top: 4px;
     }
 
-    /* Bottom Widget Footnote (e.g. Sat 17 Oct / Next class) */
-    .widget-bottom-row {
-      margin-top: 14px;
-      padding-top: 10px;
+    .widget-footer-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-top: 1px dashed var(--border-light);
+      padding-top: 8px;
+      border-top: 1px dashed var(--border-color);
     }
 
-    .widget-next-title {
-      font-size: 0.95rem;
+    .widget-footer-next {
+      font-size: 0.92rem;
       font-weight: 800;
-      color: var(--text-primary);
+      color: var(--text-main);
     }
 
-    .widget-live-clock {
+    .widget-clock-pill {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.76rem;
       font-weight: 700;
       color: var(--text-muted);
-      background: var(--card-subtle);
+      background: var(--bg-subtle);
       padding: 3px 8px;
       border-radius: var(--radius-pill);
     }
 
-    /* Weekday Switcher Pill Tabs */
+    /* Weekday Switcher Pill Tabs (Mon - Sat) */
     .weekday-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 5px;
-      background: var(--card-bg);
+      gap: 4px;
+      background: var(--bg-card);
       border-radius: var(--radius-pill);
       padding: 4px;
-      border: 1px solid var(--border-light);
+      border: 1px solid var(--border-color);
       box-shadow: var(--shadow-sm);
     }
 
-    .weekday-pill {
+    .weekday-pill-btn {
       flex: 1;
-      padding: 8px 4px;
+      padding: 8px 2px;
       text-align: center;
       border: none;
       background: none;
@@ -365,90 +464,89 @@
       font-weight: 700;
       color: var(--text-muted);
       cursor: pointer;
-      transition: all 0.18s ease;
+      transition: all 0.15s ease;
     }
 
-    .weekday-pill:hover {
-      color: var(--text-primary);
-      background: rgba(0,0,0,0.03);
+    .weekday-pill-btn:hover {
+      color: var(--text-main);
+      background: var(--bg-subtle);
     }
 
-    .weekday-pill.active {
-      background: #0b57d0;
+    .weekday-pill-btn.active {
+      background: var(--srcc-navy-primary);
       color: #ffffff;
-      box-shadow: 0 2px 8px rgba(11,87,208,0.25);
+      box-shadow: 0 2px 8px rgba(30, 58, 138, 0.25);
     }
 
-    /* Schedule List Section */
-    .schedule-section-card {
-      background: var(--card-bg);
+    /* Full Day Timeline */
+    .timeline-container-card {
+      background: var(--bg-card);
       border-radius: var(--radius-card);
       padding: 16px;
-      border: 1px solid var(--border-light);
+      border: 1px solid var(--border-color);
       box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
 
-    .schedule-header {
+    .timeline-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding-bottom: 8px;
-      border-bottom: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-color);
     }
 
-    .schedule-header h2 {
-      font-size: 0.95rem;
+    .timeline-header h2 {
+      font-size: 0.96rem;
       font-weight: 800;
-      color: var(--text-primary);
+      color: var(--text-main);
     }
 
-    .schedule-count-badge {
+    .timeline-count-badge {
       font-size: 0.75rem;
       font-weight: 700;
-      color: var(--brand-blue);
-      background: var(--card-subtle);
+      color: var(--srcc-blue-accent);
+      background: var(--srcc-blue-light);
       padding: 3px 9px;
       border-radius: var(--radius-pill);
     }
 
-    .timeline-items {
+    .timeline-items-list {
       display: flex;
       flex-direction: column;
       gap: 8px;
     }
 
-    .timeline-card {
-      background: var(--card-subtle);
-      border: 1px solid var(--card-subtle-border);
-      border-radius: 16px;
+    .period-slot-card {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
       padding: 12px 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      transition: transform 0.15s ease;
+      gap: 10px;
+      transition: all 0.15s ease;
     }
 
-    .timeline-card.is-current {
-      background: #e8f0fe;
-      border-color: #8ab4f8;
-      box-shadow: 0 2px 10px rgba(11,87,208,0.15);
-      position: relative;
+    .period-slot-card.is-live {
+      background: #eff6ff;
+      border-color: #93c5fd;
+      box-shadow: 0 2px 10px rgba(37, 99, 235, 0.15);
     }
 
-    .timeline-card.is-past {
+    .period-slot-card.is-past {
       opacity: 0.55;
     }
 
-    .timeline-card.has-leave {
-      background: #fdf2f2;
+    .period-slot-card.has-leave {
+      background: var(--srcc-red-bg);
       border-color: #fca5a5;
     }
 
-    .timeline-left {
+    .slot-time-col {
       display: flex;
       flex-direction: column;
       gap: 2px;
@@ -456,21 +554,21 @@
       flex-shrink: 0;
     }
 
-    .timeline-time-text {
-      font-size: 0.8rem;
+    .slot-time-text {
+      font-size: 0.82rem;
       font-weight: 800;
-      color: var(--text-primary);
+      color: var(--text-main);
       white-space: nowrap;
     }
 
-    .timeline-period-badge {
+    .slot-period-num {
       font-size: 0.68rem;
       font-weight: 700;
       color: var(--text-muted);
       text-transform: uppercase;
     }
 
-    .timeline-center {
+    .slot-info-col {
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -478,16 +576,16 @@
       overflow: hidden;
     }
 
-    .timeline-subj-name {
+    .slot-subject-title {
       font-size: 0.9rem;
       font-weight: 800;
-      color: var(--text-primary);
+      color: var(--text-main);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .timeline-sub-details {
+    .slot-details-sub {
       font-size: 0.76rem;
       font-weight: 600;
       color: var(--text-muted);
@@ -496,77 +594,88 @@
       text-overflow: ellipsis;
     }
 
-    .timeline-room-tag {
-      font-size: 0.82rem;
+    .slot-room-pill {
+      font-size: 0.84rem;
       font-weight: 800;
-      color: var(--brand-blue);
-      background: var(--card-bg);
-      border: 1.5px solid var(--card-subtle-border);
+      color: var(--srcc-navy-primary);
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-color);
       padding: 5px 9px;
       border-radius: 10px;
       white-space: nowrap;
       flex-shrink: 0;
     }
 
-    /* PWA Install Guide Banner */
-    .install-widget-card {
-      background: linear-gradient(135deg, #0b57d0, #0040aa);
+    /* Offline Ready & Native App Install Card */
+    .offline-pwa-card {
+      background: linear-gradient(135deg, #000066, #1e3a8a);
       color: #ffffff;
       border-radius: var(--radius-card);
       padding: 16px 18px;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      box-shadow: 0 6px 20px rgba(11,87,208,0.25);
+      box-shadow: 0 8px 24px rgba(0, 0, 102, 0.2);
     }
 
-    .install-card-title {
+    .pwa-header-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .pwa-title {
       font-size: 0.96rem;
       font-weight: 800;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
-    .install-card-desc {
+    .pwa-badge {
+      font-size: 0.68rem;
+      font-weight: 800;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      letter-spacing: 0.4px;
+    }
+
+    .pwa-desc {
       font-size: 0.78rem;
       line-height: 1.45;
-      color: rgba(255,255,255,0.9);
+      color: rgba(255, 255, 255, 0.9);
     }
 
-    .install-steps-list {
-      background: rgba(255,255,255,0.12);
+    .pwa-steps-box {
+      background: rgba(255, 255, 255, 0.12);
       border-radius: 12px;
       padding: 10px 14px;
       font-size: 0.76rem;
       line-height: 1.5;
     }
 
-    .btn-native-install {
+    .btn-native-pwa-install {
       background: #ffffff;
-      color: #0b57d0;
+      color: var(--srcc-navy-deep);
       border: none;
       border-radius: var(--radius-pill);
       padding: 10px 16px;
-      font-size: 0.85rem;
+      font-size: 0.86rem;
       font-weight: 800;
       cursor: pointer;
       display: none;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-      transition: transform 0.15s ease;
-    }
-    .btn-native-install:hover {
-      transform: scale(1.02);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
-    /* Interactive Profile Setup Modal */
+    /* Setup Modal */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.65);
+      background: rgba(15, 23, 42, 0.7);
       backdrop-filter: blur(8px);
       display: flex;
       align-items: center;
@@ -582,18 +691,18 @@
     }
 
     .setup-dialog {
-      background: var(--card-bg);
+      background: var(--bg-card);
       border-radius: var(--radius-widget);
       width: 100%;
-      max-width: 420px;
+      max-width: 430px;
       max-height: 90vh;
       overflow-y: auto;
-      padding: 24px 20px;
-      box-shadow: var(--shadow-lg);
+      padding: 22px 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      border: 1px solid var(--border-light);
+      gap: 14px;
+      border: 1px solid var(--border-color);
     }
 
     .dialog-header {
@@ -605,37 +714,36 @@
     .dialog-title {
       font-size: 1.25rem;
       font-weight: 800;
-      color: var(--text-primary);
+      color: var(--srcc-navy-primary);
     }
 
-    .btn-dialog-close {
+    .btn-close-modal {
       background: none;
       border: none;
-      font-size: 24px;
+      font-size: 26px;
       color: var(--text-muted);
       cursor: pointer;
-      padding: 4px;
       line-height: 1;
+      padding: 4px;
     }
 
-    /* Mode Segmented Switcher in Modal */
-    .mode-tab-bar {
+    .role-segmented-tabs {
       display: flex;
-      background: var(--card-subtle);
+      background: var(--bg-subtle);
       border-radius: var(--radius-pill);
       padding: 4px;
-      border: 1px solid var(--card-subtle-border);
+      border: 1px solid var(--border-color);
       gap: 4px;
     }
 
-    .mode-tab-btn {
+    .role-tab-btn {
       flex: 1;
       padding: 9px 12px;
       border: none;
       background: none;
       border-radius: var(--radius-pill);
       font-family: inherit;
-      font-size: 0.86rem;
+      font-size: 0.88rem;
       font-weight: 700;
       color: var(--text-secondary);
       cursor: pointer;
@@ -646,19 +754,19 @@
       gap: 6px;
     }
 
-    .mode-tab-btn.active {
-      background: #0b57d0;
+    .role-tab-btn.active {
+      background: var(--srcc-navy-primary);
       color: #ffffff;
-      box-shadow: 0 2px 8px rgba(11,87,208,0.25);
+      box-shadow: 0 2px 8px rgba(30, 58, 138, 0.25);
     }
 
-    .setup-form-group {
+    .field-group {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 5px;
     }
 
-    .setup-label {
+    .field-label {
       font-size: 0.74rem;
       font-weight: 800;
       text-transform: uppercase;
@@ -666,175 +774,169 @@
       color: var(--text-muted);
     }
 
-    .setup-input, .setup-select {
+    .field-input, .field-select {
       width: 100%;
-      padding: 11px 14px;
+      padding: 11px 12px;
       border-radius: 12px;
-      border: 1.5px solid var(--border-light);
-      background: var(--card-bg);
-      color: var(--text-primary);
+      border: 1.5px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-main);
       font-family: inherit;
       font-size: 0.92rem;
       outline: none;
       transition: border-color 0.18s ease;
     }
 
-    .setup-input:focus, .setup-select:focus {
-      border-color: #0b57d0;
+    .field-input:focus, .field-select:focus {
+      border-color: var(--srcc-blue-accent);
     }
 
-    .faculty-search-results {
-      max-height: 180px;
-      overflow-y: auto;
-      border: 1.5px solid var(--border-light);
-      border-radius: 12px;
-      background: var(--card-bg);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .faculty-opt-row {
-      padding: 10px 14px;
-      border-bottom: 1px solid var(--border-light);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: background 0.12s ease;
-    }
-
-    .faculty-opt-row:last-child {
-      border-bottom: none;
-    }
-
-    .faculty-opt-row:hover, .faculty-opt-row.selected {
-      background: var(--card-subtle);
-    }
-
-    .faculty-opt-row.selected {
-      font-weight: 800;
-      color: var(--brand-blue);
-    }
-
-    .btn-submit-save {
+    .btn-save-confirm {
       width: 100%;
       padding: 13px;
       border-radius: var(--radius-pill);
       border: none;
-      background: #0b57d0;
+      background: linear-gradient(135deg, #000066, #1e3a8a);
       color: #ffffff;
       font-size: 0.95rem;
       font-weight: 800;
       cursor: pointer;
-      box-shadow: 0 4px 14px rgba(11,87,208,0.3);
+      box-shadow: 0 4px 14px rgba(0, 0, 102, 0.3);
       transition: all 0.18s ease;
       margin-top: 6px;
     }
 
-    .btn-submit-save:hover {
-      background: #0842a0;
+    .btn-save-confirm:hover {
+      opacity: 0.94;
       transform: translateY(-1px);
     }
 
-    .empty-state-notice {
+    .empty-state-card {
       text-align: center;
       padding: 24px 10px;
       color: var(--text-muted);
       font-size: 0.88rem;
-      line-height: 1.5;
     }
   </style>
 </head>
 <body>
 
-  <main class="widget-app">
+  <main class="widget-container">
 
-    <!-- Top Material You Standalone Widget Card (Mirrors User's Photo) -->
-    <div class="material-widget-card" id="mainWidgetCard">
+    <!-- Top Brand Strip (Aligned with Main Website) -->
+    <header class="top-brand-bar">
+      <div class="brand-left">
+        <div class="brand-logos">
+          <img src="assets/srcc_crest.png" onerror="this.onerror=null; this.src='srcc_crest.png';" alt="SRCC Crest" class="brand-logo-img" />
+          <span class="brand-separator">|</span>
+          <img src="assets/srcc_100years.png" onerror="this.onerror=null; this.src='srcc_100years.png';" alt="SRCC 100 Years" class="brand-logo-img" />
+        </div>
+        <div class="brand-title-wrap">
+          <h1>SRCC Daily Widget</h1>
+          <div class="brand-status-chip" id="networkStatusBadge">
+            <span class="status-dot-pulse"></span>
+            <span id="networkStatusText">⚡ 100% Offline Ready</span>
+          </div>
+        </div>
+      </div>
+      <a href="./" class="btn-main-site" title="Open Full Classroom Finder">
+        🏛️ Room Finder
+      </a>
+    </header>
 
-      <!-- Header: Big Bold Date & Circular Blue Action FAB -->
+    <!-- Core Material You Widget Card (Matches User's Photo) -->
+    <section class="widget-hero-card" id="widgetHeroCard">
+
+      <!-- Top Row: Date & Action FAB (+) -->
       <div class="widget-header-row">
-        <div class="widget-date-group">
-          <div class="widget-day-num" id="widgetDayNum">Tue 13</div>
-          <div class="widget-full-date" id="widgetFullDate">Loading calendar...</div>
+        <div class="widget-date-col">
+          <div class="widget-day-title" id="widgetDayTitle">Tue 13</div>
+          <div class="widget-date-subtitle" id="widgetDateSubtitle">Tuesday, October 13, 2026</div>
         </div>
         <!-- Circular Blue FAB (+) button to Switch/Configure Timetable -->
-        <button type="button" class="widget-fab-btn" id="btnOpenSetupModal" title="Set or Change My Timetable" aria-label="Change Timetable">+</button>
+        <button type="button" class="widget-action-fab" id="btnOpenSetupModal" title="Set or Change Timetable" aria-label="Change Timetable">+</button>
       </div>
 
-      <!-- Active Pinned Profile Chip (Student or Faculty) -->
-      <div class="profile-chip-strip" id="profileChipStrip">
-        <div class="profile-chip-content">
-          <span class="profile-role-badge" id="profileRoleBadge">Profile</span>
-          <span class="profile-chip-name" id="profileChipName">Loading your timetable...</span>
+      <!-- Pinned Profile Ribbon -->
+      <div class="pinned-profile-ribbon">
+        <div class="pinned-profile-left">
+          <span class="profile-tag" id="profileRoleTag">STUDENT</span>
+          <span class="profile-title-text" id="profileTitleText">Loading profile...</span>
         </div>
-        <button type="button" class="btn-chip-switch" id="btnQuickSwitch">Change</button>
+        <button type="button" class="btn-edit-profile" id="btnQuickEdit">⚙️ Edit</button>
       </div>
 
-      <!-- Center Status Bubble: "Nothing scheduled" or Ongoing Class (Matches User's Photo) -->
+      <!-- Status Bubble: "Nothing scheduled" or Live Class -->
       <div class="widget-status-bubble" id="widgetStatusBubble">
-        <div class="bubble-status-tag" id="bubbleStatusTag">
-          <span class="bubble-pulse-dot" id="bubblePulseDot"></span>
-          <span id="bubbleStatusLabel">Status</span>
+        <div class="bubble-status-header">
+          <span class="bubble-status-badge" id="bubbleStatusBadge">
+            <span class="bubble-status-dot" id="bubbleStatusDot"></span>
+            <span id="bubbleStatusLabel">TODAY</span>
+          </span>
+          <span style="font-size: 0.74rem; font-weight: 700; color: var(--text-muted);" id="bubbleRightHint">SRCC Campus</span>
         </div>
+
         <div class="bubble-headline" id="bubbleHeadline">Nothing scheduled</div>
         <div class="bubble-subtext" id="bubbleSubtext">No ongoing classes right now</div>
-        
-        <div class="bubble-meta-pills" id="bubbleMetaPills" style="display: none;">
-          <span class="meta-pill meta-pill-room" id="bubbleRoomPill">🏛️ Room --</span>
-          <span class="meta-pill meta-pill-time" id="bubbleTimePill">🕒 --:--</span>
-          <span class="meta-pill meta-pill-type" id="bubbleTypePill">Lecture</span>
+
+        <div class="bubble-pills-row" id="bubblePillsRow" style="display: none;">
+          <span class="bubble-pill bubble-pill-room" id="bubbleRoomPill">🏛️ Room --</span>
+          <span class="bubble-pill bubble-pill-time" id="bubbleTimePill">🕒 --:--</span>
+          <span class="bubble-pill bubble-pill-batch" id="bubbleBatchPill">Batch --</span>
         </div>
 
-        <div class="bubble-leave-banner" id="bubbleLeaveBanner" style="display: none;">
+        <div class="bubble-leave-alert" id="bubbleLeaveAlert" style="display: none;">
           <span>🏖️ Professor is on leave today · Class suspended!</span>
         </div>
       </div>
 
-      <!-- Bottom Widget Footnote: Next Class / Day Summary -->
-      <div class="widget-bottom-row">
-        <div class="widget-next-title" id="widgetNextSummary">Today</div>
-        <div class="widget-live-clock" id="widgetLiveClock">--:-- --</div>
+      <!-- Footer: Next Period / Day Summary & Clock -->
+      <div class="widget-footer-row">
+        <div class="widget-footer-next" id="widgetFooterNext">Today</div>
+        <div class="widget-clock-pill" id="widgetClockPill">--:-- --</div>
       </div>
 
-    </div>
+    </section>
 
-    <!-- Weekday Selector Pill Bar (Mon - Sat) -->
+    <!-- Weekday Pill Bar (Mon - Sat) -->
     <nav class="weekday-bar" aria-label="Day Selector">
-      <button type="button" class="weekday-pill" data-day="Monday">Mon</button>
-      <button type="button" class="weekday-pill" data-day="Tuesday">Tue</button>
-      <button type="button" class="weekday-pill" data-day="Wednesday">Wed</button>
-      <button type="button" class="weekday-pill" data-day="Thursday">Thu</button>
-      <button type="button" class="weekday-pill" data-day="Friday">Fri</button>
-      <button type="button" class="weekday-pill" data-day="Saturday">Sat</button>
+      <button type="button" class="weekday-pill-btn" data-day="Monday">Mon</button>
+      <button type="button" class="weekday-pill-btn" data-day="Tuesday">Tue</button>
+      <button type="button" class="weekday-pill-btn" data-day="Wednesday">Wed</button>
+      <button type="button" class="weekday-pill-btn" data-day="Thursday">Thu</button>
+      <button type="button" class="weekday-pill-btn" data-day="Friday">Fri</button>
+      <button type="button" class="weekday-pill-btn" data-day="Saturday">Sat</button>
     </nav>
 
     <!-- Full Selected Day Timeline -->
-    <section class="schedule-section-card">
-      <div class="schedule-header">
-        <h2 id="scheduleHeaderTitle">Today's Schedule</h2>
-        <span class="schedule-count-badge" id="scheduleCountBadge">0 Periods</span>
+    <section class="timeline-container-card">
+      <div class="timeline-header">
+        <h2 id="timelineHeaderTitle">Today's Schedule</h2>
+        <span class="timeline-count-badge" id="timelineCountBadge">0 Periods</span>
       </div>
 
-      <div class="timeline-items" id="timelineContainer">
+      <div class="timeline-items-list" id="timelineItemsList">
         <!-- Rendered dynamically -->
       </div>
     </section>
 
-    <!-- Save to Home Screen Widget Guide -->
-    <section class="install-widget-card" id="installWidgetCard">
-      <div class="install-card-title">
-        <span>📲 Save as 1-Tap Homescreen Widget</span>
+    <!-- Offline PWA Card & Install Button -->
+    <section class="offline-pwa-card">
+      <div class="pwa-header-strip">
+        <div class="pwa-title">
+          <span>📲 Save on Homescreen (100% Offline)</span>
+        </div>
+        <span class="pwa-badge">Native App Mode</span>
       </div>
-      <p class="install-card-desc">
-        Never search for PDF timetables or open the college website again. Add this personalized widget directly to your phone's home screen!
+      <p class="pwa-desc">
+        Save this widget to your mobile desktop just like Google Calendar or Snapchat. Open anytime with <strong>zero internet / offline mode</strong> without downloading PDFs or opening the website!
       </p>
-      <button type="button" class="btn-native-install" id="btnNativeInstall">
-        <span>➕ Add to Homescreen</span>
+      <button type="button" class="btn-native-pwa-install" id="btnNativePwaInstall">
+        <span>➕ Install Widget to Home Screen</span>
       </button>
-      <div class="install-steps-list">
-        <div>🤖 <strong>Android (Chrome):</strong> Tap <strong>⋮ (three dots)</strong> &gt; Tap <strong>"Add to Home screen"</strong></div>
-        <div style="margin-top: 4px;">🍎 <strong>iPhone (Safari):</strong> Tap <strong>Share (⎋)</strong> &gt; Tap <strong>"Add to Home Screen (+)"</strong></div>
+      <div class="pwa-steps-box">
+        <div>🤖 <strong>Android (Chrome):</strong> Tap <strong>⋮ (three dots)</strong> ➔ Tap <strong>"Add to Home screen"</strong></div>
+        <div style="margin-top: 4px;">🍎 <strong>iPhone (Safari):</strong> Tap <strong>Share (⎋)</strong> ➔ Tap <strong>"Add to Home Screen (+)"</strong></div>
       </div>
     </section>
 
@@ -842,27 +944,27 @@
 
   <!-- Interactive Profile Setup Modal -->
   <div class="modal-overlay" id="setupModalOverlay" style="display: none;">
-    <div class="setup-dialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
+    <div class="setup-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="dialog-header">
-        <h3 class="dialog-title" id="dialogTitle">📌 Set Up Your Timetable</h3>
-        <button type="button" class="btn-dialog-close" id="btnCancelModal" aria-label="Close">&times;</button>
+        <h3 class="dialog-title" id="modalTitle">📌 Configure My Timetable</h3>
+        <button type="button" class="btn-close-modal" id="btnCancelModal" aria-label="Close">&times;</button>
       </div>
 
       <!-- Segmented Profile Toggle: Student vs Faculty -->
-      <div class="mode-tab-bar">
-        <button type="button" class="mode-tab-btn active" id="tabStudentMode">
+      <div class="role-segmented-tabs">
+        <button type="button" class="role-tab-btn active" id="tabStudentMode">
           <span>🎓 Student</span>
         </button>
-        <button type="button" class="mode-tab-btn" id="tabFacultyMode">
+        <button type="button" class="role-tab-btn" id="tabFacultyMode">
           <span>👨‍🏫 Faculty</span>
         </button>
       </div>
 
-      <!-- Student Setup Fields -->
-      <div id="studentFormSection">
-        <div class="setup-form-group">
-          <label class="setup-label">Course</label>
-          <select class="setup-select" id="selCourse">
+      <!-- Student Fields -->
+      <div id="studentFormBox">
+        <div class="field-group">
+          <label class="field-label">Course</label>
+          <select class="field-select" id="selCourse">
             <option value="B.Com (Hons)">B.Com (Hons)</option>
             <option value="B.A. (Hons) Economics">B.A. (Hons) Economics</option>
             <option value="M.Com">M.Com</option>
@@ -871,77 +973,104 @@
           </select>
         </div>
 
-        <div class="setup-form-group" style="margin-top: 10px;">
-          <label class="setup-label">Semester</label>
-          <select class="setup-select" id="selSemester">
-            <!-- Dynamically populated based on course -->
+        <div class="field-group" style="margin-top: 10px;">
+          <label class="field-label">Semester</label>
+          <select class="field-select" id="selSemester">
+            <!-- Dynamically populated -->
           </select>
         </div>
 
-        <div class="setup-form-group" id="groupSectionField" style="margin-top: 10px;">
-          <label class="setup-label">Section</label>
-          <select class="setup-select" id="selSection">
-            <!-- Dynamically populated based on semester -->
+        <div class="field-group" id="groupSectionWrap" style="margin-top: 10px;">
+          <label class="field-label">Section</label>
+          <select class="field-select" id="selSection">
+            <!-- Dynamically populated -->
           </select>
         </div>
 
-        <div class="setup-form-group" style="margin-top: 10px;">
-          <label class="setup-label">Batch / Group</label>
-          <select class="setup-select" id="selBatch">
-            <option value="ALL">All Batches (Whole Section)</option>
-            <option value="Batch 1">Batch 1</option>
-            <option value="Batch 2">Batch 2</option>
+        <!-- Real Student Batches (J1, J2, J3, A1, A2, A3, etc.) -->
+        <div class="field-group" style="margin-top: 10px;">
+          <label class="field-label">Tutorial / Practical Group (Batch)</label>
+          <select class="field-select" id="selBatch">
+            <!-- Dynamically populated with J1, J2, J3, etc. -->
           </select>
         </div>
       </div>
 
-      <!-- Faculty Setup Fields -->
-      <div id="facultyFormSection" style="display: none;">
-        <div class="setup-form-group">
-          <label class="setup-label">Search Professor</label>
-          <input type="text" class="setup-input" id="inputFacultySearch" placeholder="Type professor name or department..." autocomplete="off" />
+      <!-- Faculty Fields -->
+      <div id="facultyFormBox" style="display: none;">
+        <div class="field-group">
+          <label class="field-label">Search Professor</label>
+          <input type="text" class="field-input" id="inputFacultySearch" placeholder="Type professor name or department..." autocomplete="off" />
         </div>
 
-        <div class="setup-form-group" style="margin-top: 10px;">
-          <label class="setup-label">Select Faculty Member (210 Teachers)</label>
-          <select class="setup-select" id="selFacultyTeacher" size="6" style="height: 180px;">
+        <div class="field-group" style="margin-top: 10px;">
+          <label class="field-label">Select Faculty Member (210 Teachers)</label>
+          <select class="field-select" id="selFacultyTeacher" size="6" style="height: 180px;">
             <!-- Dynamically populated from teachers_data.js -->
           </select>
         </div>
       </div>
 
-      <button type="button" class="btn-submit-save" id="btnSaveProfile">
-        📌 Save My Homescreen Widget
+      <button type="button" class="btn-save-confirm" id="btnSaveProfile">
+        📌 Save My Widget (Offline Enabled)
       </button>
     </div>
   </div>
 
-  <!-- Load Data Files -->
-  <script src="data.js?v=44"></script>
-  <script src="classes_data.js?v=44"></script>
-  <script src="teachers_data.js?v=44"></script>
-  <script src="faculty_leaves.js?v=44"></script>
+  <!-- Load Core Data Files -->
+  <script src="data.js?v=66"></script>
+  <script src="classes_data.js?v=66"></script>
+  <script src="teachers_data.js?v=66"></script>
+  <script src="faculty_leaves.js?v=66"></script>
 
   <script>
     (function() {
-      const STORAGE_KEY = 'srcc_widget_user_profile_v2';
+      const STORAGE_KEY = 'srcc_widget_user_profile_v3';
+      const CACHE_SCHEDULE_KEY = 'srcc_offline_weekly_schedule_v3';
       let selectedDay = getTodayName();
-      let deferredPrompt = null;
-      let activeMode = 'student'; // 'student' or 'faculty'
+      let deferredInstallPrompt = null;
+      let activeMode = 'student';
 
-      // Academic periods map with standard SRCC minute offsets
+      // Standard SRCC Academic Periods Map
       const ACADEMIC_PERIODS = {
-        '8:30 AM to 9:30 AM': { num: 1, start: '8:30 AM', end: '9:30 AM', startMin: 510, endMin: 570 },
-        '9:30 AM to 10:30 AM': { num: 2, start: '9:30 AM', end: '10:30 AM', startMin: 570, endMin: 630 },
-        '10:30 AM to 11:30 AM': { num: 3, start: '10:30 AM', end: '11:30 AM', startMin: 630, endMin: 690 },
-        '11:30 AM to 12:30 PM': { num: 4, start: '11:30 AM', end: '12:30 PM', startMin: 690, endMin: 750 },
-        '12:30 PM to 1:30 PM': { num: 5, start: '12:30 PM', end: '1:30 PM', startMin: 750, endMin: 810 },
-        '1:00 PM to 2:00 PM': { num: 5, start: '1:00 PM', end: '2:00 PM', startMin: 780, endMin: 840 },
-        '2:00 PM to 3:00 PM': { num: 6, start: '2:00 PM', end: '3:00 PM', startMin: 840, endMin: 900 },
-        '3:00 PM to 4:00 PM': { num: 7, start: '3:00 PM', end: '4:00 PM', startMin: 900, endMin: 960 },
-        '4:00 PM to 5:00 PM': { num: 8, start: '4:00 PM', end: '5:00 PM', startMin: 960, endMin: 1020 },
-        '5:00 PM to 6:00 PM': { num: 9, start: '5:00 PM', end: '6:00 PM', startMin: 1020, endMin: 1080 }
+        '8:30 AM to 9:30 AM': { num: 1, startMin: 510, endMin: 570 },
+        '9:30 AM to 10:30 AM': { num: 2, startMin: 570, endMin: 630 },
+        '10:30 AM to 11:30 AM': { num: 3, startMin: 630, endMin: 690 },
+        '11:30 AM to 12:30 PM': { num: 4, startMin: 690, endMin: 750 },
+        '12:30 PM to 1:30 PM': { num: 5, startMin: 750, endMin: 810 },
+        '1:00 PM to 2:00 PM': { num: 5, startMin: 780, endMin: 840 },
+        '2:00 PM to 3:00 PM': { num: 6, startMin: 840, endMin: 900 },
+        '3:00 PM to 4:00 PM': { num: 7, startMin: 900, endMin: 960 },
+        '4:00 PM to 5:00 PM': { num: 8, startMin: 960, endMin: 1020 },
+        '5:00 PM to 6:00 PM': { num: 9, startMin: 1020, endMin: 1080 }
       };
+
+      // Service Worker Registration for 100% Offline Capability
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js').then((reg) => {
+            console.log('[Widget PWA] Service Worker registered:', reg.scope);
+          }).catch(err => console.warn('[Widget PWA] SW register note:', err));
+        });
+      }
+
+      // Online / Offline Status Monitoring
+      function updateNetworkStatus() {
+        const badge = document.getElementById('networkStatusBadge');
+        const text = document.getElementById('networkStatusText');
+        if (!badge || !text) return;
+
+        if (navigator.onLine) {
+          text.textContent = '⚡ 100% Offline Ready';
+          badge.style.color = 'var(--srcc-green)';
+        } else {
+          text.textContent = '✈️ Offline Mode (Saved Locally)';
+          badge.style.color = 'var(--srcc-gold)';
+        }
+      }
+      window.addEventListener('online', updateNetworkStatus);
+      window.addEventListener('offline', updateNetworkStatus);
+      updateNetworkStatus();
 
       function getIstTime() {
         const now = new Date();
@@ -972,31 +1101,53 @@
       function saveProfile(prof) {
         try {
           localStorage.setItem(STORAGE_KEY, JSON.stringify(prof));
+          // Pre-cache full week schedule offline immediately
+          cacheEntireWeekSchedule(prof);
         } catch(e) {}
       }
 
-      // Update Live Clock & Date matching Google Calendar / Material You widget
-      function updateDateAndClock() {
+      function updateLiveHeaderClock() {
         const ist = getIstTime();
         const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         const dayShort = days[ist.getDay()];
         const dateNum = ist.getDate();
 
-        const dayNumEl = document.getElementById('widgetDayNum');
-        const fullDateEl = document.getElementById('widgetFullDate');
-        const liveClockEl = document.getElementById('widgetLiveClock');
+        const titleEl = document.getElementById('widgetDayTitle');
+        const subEl = document.getElementById('widgetDateSubtitle');
+        const clockEl = document.getElementById('widgetClockPill');
 
-        if (dayNumEl) dayNumEl.textContent = `${dayShort} ${dateNum}`;
-        if (fullDateEl) {
-          fullDateEl.textContent = ist.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+        if (titleEl) titleEl.textContent = `${dayShort} ${dateNum}`;
+        if (subEl) {
+          subEl.textContent = ist.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
         }
-        if (liveClockEl) {
-          liveClockEl.textContent = ist.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+        if (clockEl) {
+          clockEl.textContent = ist.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
         }
       }
 
-      // Fetch Schedule for Student Profile
-      function getStudentSchedule(profile, dayName) {
+      // Precompute and store complete Monday-Saturday timetable in localStorage for 100% offline access
+      function cacheEntireWeekSchedule(profile) {
+        const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const weekMap = {};
+        weekDays.forEach(d => {
+          weekMap[d] = (profile.type === 'faculty') 
+            ? computeFacultySchedule(profile, d) 
+            : computeStudentSchedule(profile, d);
+        });
+        try {
+          localStorage.setItem(CACHE_SCHEDULE_KEY, JSON.stringify(weekMap));
+        } catch(e) {}
+      }
+
+      function getCachedWeekSchedule() {
+        try {
+          const raw = localStorage.getItem(CACHE_SCHEDULE_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch(e) { return null; }
+      }
+
+      // Student Timetable Computation with exact batch filtering (J1, J2, J3, etc.)
+      function computeStudentSchedule(profile, dayName) {
         const coursesData = window.SRCC_CLASSES_DATA?.courses || {};
         const teachersData = window.SRCC_TEACHERS_DATA?.teachers || [];
         const activeLeaves = (window.SRCC_FACULTY_LEAVES?.leaves || []).filter(l => l.active);
@@ -1005,21 +1156,21 @@
         const course = profile.course;
         const sem = profile.sem;
         const sec = profile.sec;
-        const batch = profile.batch;
+        const chosenBatch = (profile.batch || 'ALL').trim();
 
         if (course === 'SEC' || course === 'VAC') {
           const arr = coursesData[course]?.[sem] || [];
           arr.filter(c => c.day === dayName).forEach(c => {
-            if (!batch || batch === 'ALL' || !c.batch || c.batch === batch || c.batch.includes(batch)) {
-              list.push(formatClassItem(c, activeLeaves));
+            if (isClassApplicableToBatch(c, chosenBatch)) {
+              list.push(formatClassItem(c, activeLeaves, chosenBatch));
             }
           });
         } else {
-          // Direct lookup in classes_data
+          // Direct lookup in section grid
           const secClasses = coursesData[course]?.[sem]?.[sec] || [];
           secClasses.filter(c => c.day === dayName).forEach(c => {
-            if (!batch || batch === 'ALL' || !c.batch || c.batch === batch || c.batch.includes(batch)) {
-              list.push(formatClassItem(c, activeLeaves));
+            if (isClassApplicableToBatch(c, chosenBatch)) {
+              list.push(formatClassItem(c, activeLeaves, chosenBatch));
             }
           });
 
@@ -1029,8 +1180,8 @@
               const daySlots = t.schedule?.[dayName] || [];
               daySlots.forEach(s => {
                 if (s.course === course && s.semester === sem && (s.section === sec || (s.raw && s.raw.includes(sec)))) {
-                  if (!batch || batch === 'ALL' || !s.batch || s.batch === batch || s.batch.includes(batch)) {
-                    list.push(formatTeacherSlotForStudent(s, t, activeLeaves));
+                  if (isClassApplicableToBatch(s, chosenBatch)) {
+                    list.push(formatTeacherSlotForStudent(s, t, activeLeaves, chosenBatch));
                   }
                 }
               });
@@ -1042,8 +1193,22 @@
         return list;
       }
 
-      // Fetch Schedule for Faculty Profile
-      function getFacultySchedule(profile, dayName) {
+      // Precise Matcher: A class is for this student if:
+      // 1. It is a Whole Section lecture (no batch specified, or ALL)
+      // 2. OR it is their specific tutorial/practical group (e.g. J1, A1, SEC6)
+      function isClassApplicableToBatch(c, chosenBatch) {
+        if (!chosenBatch || chosenBatch === 'ALL') return true;
+
+        const rawBatch = (c.batch || '').trim();
+        // If class has no batch, it's a whole-section lecture attended by everyone in the section!
+        if (!rawBatch) return true;
+
+        const batchTokens = rawBatch.split(',').map(s => s.trim().toUpperCase());
+        return batchTokens.includes(chosenBatch.toUpperCase());
+      }
+
+      // Faculty Timetable Computation
+      function computeFacultySchedule(profile, dayName) {
         const teachersData = window.SRCC_TEACHERS_DATA?.teachers || [];
         const activeLeaves = (window.SRCC_FACULTY_LEAVES?.leaves || []).filter(l => l.active);
         const list = [];
@@ -1057,16 +1222,17 @@
         const daySlots = teacher.schedule?.[dayName] || [];
         daySlots.forEach(s => {
           const pInfo = ACADEMIC_PERIODS[s.slot] || { num: 1, startMin: 510, endMin: 570 };
-          const classLabel = `${s.course || ''} ${s.semester || ''} ${s.section || ''} ${s.batch || ''}`.trim() || 'Class';
+          const classDesc = `${s.course || ''} ${s.semester || ''} ${s.section || ''} ${s.batch ? '(' + s.batch + ')' : ''}`.trim() || 'Class';
           list.push({
             slot: s.slot,
             periodNum: pInfo.num,
             startMin: pInfo.startMin,
             endMin: pInfo.endMin,
-            subject: s.subject_name || s.subject || 'Class',
+            subject: s.subject_name || s.subject || 'Lecture',
             room: s.room || 'TBA',
-            subDetail: classLabel,
+            subDetail: classDesc,
             type: s.type || 'Lecture',
+            batchTag: s.batch ? s.batch : 'Full Class',
             isOnLeave: isOnLeave
           });
         });
@@ -1075,12 +1241,17 @@
         return list;
       }
 
-      function formatClassItem(c, activeLeaves) {
+      function formatClassItem(c, activeLeaves, chosenBatch) {
         const pInfo = ACADEMIC_PERIODS[c.slot] || { num: 1, startMin: 510, endMin: 570 };
         const isOnLeave = activeLeaves.some(l => 
           (c.teacher_id && l.teacher_id === c.teacher_id) || 
           (c.teacher_name && l.teacher_name && l.teacher_name.toLowerCase() === c.teacher_name.toLowerCase())
         );
+
+        let batchTag = 'Whole Section';
+        if (c.batch) {
+          batchTag = `Group ${c.batch}`;
+        }
 
         return {
           slot: c.slot,
@@ -1091,11 +1262,12 @@
           room: c.room || 'TBA',
           subDetail: c.teacher_name || 'Faculty',
           type: c.type || 'Lecture',
+          batchTag: batchTag,
           isOnLeave: isOnLeave
         };
       }
 
-      function formatTeacherSlotForStudent(s, t, activeLeaves) {
+      function formatTeacherSlotForStudent(s, t, activeLeaves, chosenBatch) {
         const pInfo = ACADEMIC_PERIODS[s.slot] || { num: 1, startMin: 510, endMin: 570 };
         const teacherName = t.clean_name || t.name || 'Faculty';
         const isOnLeave = activeLeaves.some(l => l.teacher_id === t.id || l.teacher_name?.toLowerCase() === teacherName.toLowerCase());
@@ -1109,13 +1281,44 @@
           room: s.room || 'TBA',
           subDetail: teacherName,
           type: s.type || 'Lecture',
+          batchTag: s.batch ? `Group ${s.batch}` : 'Whole Section',
           isOnLeave: isOnLeave
         };
       }
 
-      // Render the complete Widget and Timeline
+      // Dynamic Batch Extractor for selected Section
+      function extractDistinctBatchesForSection(course, sem, sec) {
+        const coursesData = window.SRCC_CLASSES_DATA?.courses || {};
+        const batches = new Set();
+
+        if (course === 'SEC' || course === 'VAC') {
+          const list = coursesData[course]?.[sem] || [];
+          list.forEach(c => {
+            if (c.batch) {
+              c.batch.split(',').forEach(b => {
+                const clean = b.trim();
+                if (clean) batches.add(clean);
+              });
+            }
+          });
+        } else {
+          const list = coursesData[course]?.[sem]?.[sec] || [];
+          list.forEach(c => {
+            if (c.batch) {
+              c.batch.split(',').forEach(b => {
+                const clean = b.trim();
+                if (clean) batches.add(clean);
+              });
+            }
+          });
+        }
+
+        return Array.from(batches).sort();
+      }
+
+      // Main UI Render
       function renderApp() {
-        updateDateAndClock();
+        updateLiveHeaderClock();
         const profile = getSavedProfile();
 
         if (!profile) {
@@ -1127,105 +1330,123 @@
         const curMin = getCurrentMinutes();
 
         // 1. Update Profile Strip
-        const roleBadge = document.getElementById('profileRoleBadge');
-        const chipName = document.getElementById('profileChipName');
+        const roleTag = document.getElementById('profileRoleTag');
+        const titleText = document.getElementById('profileTitleText');
 
         if (profile.type === 'faculty') {
-          roleBadge.textContent = 'Faculty';
-          roleBadge.style.background = '#d3e3fd';
-          roleBadge.style.color = '#041e49';
-          chipName.textContent = `${profile.teacherName} · ${profile.department || 'SRCC'}`;
+          roleTag.textContent = 'FACULTY';
+          roleTag.style.background = 'var(--srcc-navy-primary)';
+          titleText.textContent = `${profile.teacherName} · ${profile.department || 'SRCC'}`;
         } else {
-          roleBadge.textContent = 'Student';
-          roleBadge.style.background = '#c4eed0';
-          roleBadge.style.color = '#072711';
-          chipName.textContent = `${profile.course} · ${profile.sem} ${profile.sec ? '· ' + profile.sec : ''} ${profile.batch && profile.batch !== 'ALL' ? '· ' + profile.batch : ''}`;
+          roleTag.textContent = 'STUDENT';
+          roleTag.style.background = 'var(--srcc-green)';
+          const batchDesc = (profile.batch && profile.batch !== 'ALL') ? ` · Group ${profile.batch}` : '';
+          titleText.textContent = `${profile.course} · ${profile.sem} ${profile.sec ? '· ' + profile.sec : ''}${batchDesc}`;
         }
 
-        // 2. Fetch Classes for selected day & today
-        const classes = (profile.type === 'faculty') 
-          ? getFacultySchedule(profile, selectedDay) 
-          : getStudentSchedule(profile, selectedDay);
+        // 2. Fetch Classes from Live or Offline Precomputed Cache
+        let classes = [];
+        let todayClasses = [];
 
-        const todayClasses = (profile.type === 'faculty')
-          ? getFacultySchedule(profile, getTodayName())
-          : getStudentSchedule(profile, getTodayName());
+        // Check if offline precomputed cache exists
+        const offlineWeek = getCachedWeekSchedule();
+        if (offlineWeek && offlineWeek[selectedDay]) {
+          classes = offlineWeek[selectedDay];
+          todayClasses = offlineWeek[getTodayName()] || [];
+        } else {
+          classes = (profile.type === 'faculty') 
+            ? computeFacultySchedule(profile, selectedDay) 
+            : computeStudentSchedule(profile, selectedDay);
 
-        // 3. Render Status Bubble (Material You Google Calendar Widget style)
+          todayClasses = (profile.type === 'faculty')
+            ? computeFacultySchedule(profile, getTodayName())
+            : computeStudentSchedule(profile, getTodayName());
+        }
+
+        // 3. Render Status Bubble (Material You Google Calendar Widget aesthetic)
         const bubbleHeadline = document.getElementById('bubbleHeadline');
         const bubbleSubtext = document.getElementById('bubbleSubtext');
         const bubbleStatusLabel = document.getElementById('bubbleStatusLabel');
-        const bubblePulseDot = document.getElementById('bubblePulseDot');
-        const bubbleMetaPills = document.getElementById('bubbleMetaPills');
+        const bubbleStatusDot = document.getElementById('bubbleStatusDot');
+        const bubbleRightHint = document.getElementById('bubbleRightHint');
+        const bubblePillsRow = document.getElementById('bubblePillsRow');
         const bubbleRoomPill = document.getElementById('bubbleRoomPill');
         const bubbleTimePill = document.getElementById('bubbleTimePill');
-        const bubbleTypePill = document.getElementById('bubbleTypePill');
-        const bubbleLeaveBanner = document.getElementById('bubbleLeaveBanner');
-        const nextSummary = document.getElementById('widgetNextSummary');
+        const bubbleBatchPill = document.getElementById('bubbleBatchPill');
+        const bubbleLeaveAlert = document.getElementById('bubbleLeaveAlert');
+        const footerNext = document.getElementById('widgetFooterNext');
 
         if (!isToday) {
-          // Viewing another day
-          bubbleStatusLabel.textContent = `Schedule for ${selectedDay}`;
-          bubblePulseDot.className = 'bubble-pulse-dot';
-          bubblePulseDot.style.background = '#0b57d0';
+          // Viewing other weekday
+          bubbleStatusLabel.textContent = selectedDay.toUpperCase();
+          bubbleStatusDot.className = 'bubble-status-dot';
+          bubbleStatusDot.style.background = 'var(--widget-blue)';
+          bubbleRightHint.textContent = `${classes.length} Classes`;
+
           if (classes.length > 0) {
             bubbleHeadline.textContent = `${classes.length} Classes Scheduled`;
-            bubbleSubtext.textContent = `Starts with ${classes[0].subject} at ${classes[0].slot.split(' to ')[0]}`;
+            bubbleSubtext.textContent = `First lecture: ${classes[0].subject} at ${classes[0].slot.split(' to ')[0]} in ${classes[0].room}`;
           } else {
             bubbleHeadline.textContent = 'Nothing scheduled';
-            bubbleSubtext.textContent = `No lectures scheduled on ${selectedDay}`;
+            bubbleSubtext.textContent = `No lectures scheduled on ${selectedDay}. Enjoy your day off! 🎉`;
           }
-          bubbleMetaPills.style.display = 'none';
-          bubbleLeaveBanner.style.display = 'none';
-          nextSummary.textContent = `${selectedDay} Overview`;
+          bubblePillsRow.style.display = 'none';
+          bubbleLeaveAlert.style.display = 'none';
+          footerNext.textContent = `${selectedDay} Overview`;
         } else {
           // Viewing Today
           const liveClass = todayClasses.find(c => curMin >= c.startMin && curMin < c.endMin);
           const upcomingClass = todayClasses.find(c => c.startMin > curMin);
 
           if (liveClass) {
-            bubbleStatusLabel.textContent = `Live Right Now`;
-            bubblePulseDot.className = 'bubble-pulse-dot live-pulse';
+            bubbleStatusLabel.textContent = 'LIVE RIGHT NOW';
+            bubbleStatusDot.className = 'bubble-status-dot live-dot';
+            bubbleRightHint.textContent = `Period ${liveClass.periodNum}`;
             bubbleHeadline.textContent = liveClass.subject;
-            bubbleSubtext.textContent = `${liveClass.subDetail} · Period ${liveClass.periodNum} (${liveClass.endMin - curMin}m remaining)`;
+            bubbleSubtext.textContent = `${liveClass.subDetail} · Period ${liveClass.periodNum} (${liveClass.endMin - curMin}m left)`;
+            
             bubbleRoomPill.textContent = `🏛️ Room ${liveClass.room}`;
             bubbleTimePill.textContent = `🕒 ${liveClass.slot.replace(' to ', ' – ')}`;
-            bubbleTypePill.textContent = liveClass.type || 'Lecture';
-            bubbleMetaPills.style.display = 'flex';
-            bubbleLeaveBanner.style.display = liveClass.isOnLeave ? 'flex' : 'none';
-            nextSummary.textContent = `In Session: Period ${liveClass.periodNum}`;
+            bubbleBatchPill.textContent = liveClass.batchTag || liveClass.type || 'Lecture';
+            bubblePillsRow.style.display = 'flex';
+            bubbleLeaveAlert.style.display = liveClass.isOnLeave ? 'flex' : 'none';
+            footerNext.textContent = `In Session: Period ${liveClass.periodNum}`;
           } else if (upcomingClass) {
-            bubbleStatusLabel.textContent = `Next Upcoming`;
-            bubblePulseDot.className = 'bubble-pulse-dot';
-            bubblePulseDot.style.background = '#0b57d0';
+            bubbleStatusLabel.textContent = 'NEXT UPCOMING';
+            bubbleStatusDot.className = 'bubble-status-dot';
+            bubbleStatusDot.style.background = 'var(--widget-blue)';
+            bubbleRightHint.textContent = `Period ${upcomingClass.periodNum}`;
+
             const inMins = upcomingClass.startMin - curMin;
             const timeDesc = inMins > 60 ? `in ${Math.floor(inMins/60)}h ${inMins%60}m` : `in ${inMins}m`;
 
             bubbleHeadline.textContent = upcomingClass.subject;
             bubbleSubtext.textContent = `${upcomingClass.subDetail} · Starts ${timeDesc} (${upcomingClass.slot.split(' to ')[0]})`;
+            
             bubbleRoomPill.textContent = `🏛️ Room ${upcomingClass.room}`;
             bubbleTimePill.textContent = `🕒 ${upcomingClass.slot.replace(' to ', ' – ')}`;
-            bubbleTypePill.textContent = upcomingClass.type || 'Lecture';
-            bubbleMetaPills.style.display = 'flex';
-            bubbleLeaveBanner.style.display = upcomingClass.isOnLeave ? 'flex' : 'none';
-            nextSummary.textContent = `Next: ${upcomingClass.room} at ${upcomingClass.slot.split(' to ')[0]}`;
+            bubbleBatchPill.textContent = upcomingClass.batchTag || upcomingClass.type || 'Lecture';
+            bubblePillsRow.style.display = 'flex';
+            bubbleLeaveAlert.style.display = upcomingClass.isOnLeave ? 'flex' : 'none';
+            footerNext.textContent = `Next: ${upcomingClass.room} at ${upcomingClass.slot.split(' to ')[0]}`;
           } else {
-            // Nothing scheduled right now (Matches exact user's photo!)
-            bubbleStatusLabel.textContent = 'Today';
-            bubblePulseDot.className = 'bubble-pulse-dot';
-            bubblePulseDot.style.background = '#0b57d0';
+            // Nothing scheduled (Matches exact user's photo!)
+            bubbleStatusLabel.textContent = 'TODAY';
+            bubbleStatusDot.className = 'bubble-status-dot';
+            bubbleStatusDot.style.background = 'var(--widget-blue)';
+            bubbleRightHint.textContent = 'Free Time';
             bubbleHeadline.textContent = 'Nothing scheduled';
             bubbleSubtext.textContent = (todayClasses.length === 0) 
-              ? 'No classes scheduled for today. Enjoy your day! 🎉' 
+              ? 'No classes scheduled for today. Free day! 🎉' 
               : 'All scheduled classes completed for today! 🎉';
-            bubbleMetaPills.style.display = 'none';
-            bubbleLeaveBanner.style.display = 'none';
-            nextSummary.textContent = (todayClasses.length === 0) ? 'Free Day' : 'Day Complete';
+            bubblePillsRow.style.display = 'none';
+            bubbleLeaveAlert.style.display = 'none';
+            footerNext.textContent = (todayClasses.length === 0) ? 'Free Day' : 'Day Complete';
           }
         }
 
         // 4. Update Weekday Pills
-        document.querySelectorAll('.weekday-pill').forEach(btn => {
+        document.querySelectorAll('.weekday-pill-btn').forEach(btn => {
           if (btn.dataset.day === selectedDay) {
             btn.classList.add('active');
           } else {
@@ -1233,60 +1454,57 @@
           }
         });
 
-        // 5. Update Schedule Header Title & Badge
-        const schedTitle = document.getElementById('scheduleHeaderTitle');
-        const schedCount = document.getElementById('scheduleCountBadge');
-        schedTitle.textContent = (isToday ? "Today's Schedule" : `${selectedDay}'s Schedule`);
-        schedCount.textContent = `${classes.length} Period${classes.length === 1 ? '' : 's'}`;
+        // 5. Update Timeline Header & Count
+        const headerTitle = document.getElementById('timelineHeaderTitle');
+        const countBadge = document.getElementById('timelineCountBadge');
+        headerTitle.textContent = isToday ? "Today's Schedule" : `${selectedDay}'s Schedule`;
+        countBadge.textContent = `${classes.length} Period${classes.length === 1 ? '' : 's'}`;
 
-        // 6. Render Timeline List
-        const container = document.getElementById('timelineContainer');
+        // 6. Render Timeline Cards
+        const listContainer = document.getElementById('timelineItemsList');
         if (classes.length === 0) {
-          container.innerHTML = `
-            <div class="empty-state-notice">
-              <span>☕ No lectures scheduled for ${selectedDay}. Enjoy your free time!</span>
+          listContainer.innerHTML = `
+            <div class="empty-state-card">
+              <span>🏖️ No scheduled periods for ${selectedDay}. Enjoy your free time!</span>
             </div>
           `;
         } else {
-          container.innerHTML = classes.map(c => {
+          listContainer.innerHTML = classes.map(c => {
             const isLive = isToday && (curMin >= c.startMin && curMin < c.endMin);
             const isPast = isToday && (curMin >= c.endMin);
-            let cls = 'timeline-card';
-            if (isLive) cls += ' is-current';
-            if (isPast) cls += ' is-past';
-            if (c.isOnLeave) cls += ' has-leave';
+            let cardClass = 'period-slot-card';
+            if (isLive) cardClass += ' is-live';
+            if (isPast) cardClass += ' is-past';
+            if (c.isOnLeave) cardClass += ' has-leave';
 
             return `
-              <div class="${cls}">
-                <div class="timeline-left">
-                  <span class="timeline-time-text">${c.slot.split(' to ')[0]}</span>
-                  <span class="timeline-period-badge">P${c.periodNum} · ${c.type}</span>
+              <div class="${cardClass}">
+                <div class="slot-time-col">
+                  <span class="slot-time-text">${c.slot.split(' to ')[0]}</span>
+                  <span class="slot-period-num">P${c.periodNum} · ${c.type}</span>
                 </div>
-                <div class="timeline-center">
-                  <span class="timeline-subj-name">${c.subject}</span>
-                  <span class="timeline-sub-details">
-                    ${c.subDetail} ${c.isOnLeave ? '· <strong style="color: #ba1a1a;">🏖️ Leave</strong>' : ''}
+                <div class="slot-info-col">
+                  <span class="slot-subject-title">${c.subject}</span>
+                  <span class="slot-details-sub">
+                    ${c.subDetail} · <strong style="color: var(--srcc-gold);">${c.batchTag}</strong> ${c.isOnLeave ? '· <strong style="color: var(--srcc-red);">🏖️ Leave</strong>' : ''}
                   </span>
                 </div>
-                <div class="timeline-room-tag">
-                  🏛️ ${c.room}
-                </div>
+                <span class="slot-room-pill">🏛️ ${c.room}</span>
               </div>
             `;
           }).join('');
         }
       }
 
-      // Populate Modal Dropdowns & Options
+      // Initialize Modal Data with Dynamic J1, J2, J3, etc. Batches
       function initModalData() {
         const coursesData = window.SRCC_CLASSES_DATA?.courses || {};
         const teachersData = window.SRCC_TEACHERS_DATA?.teachers || [];
 
-        // 1. Populate Faculty Select
+        // 1. Populate Faculty List
         const selTeacher = document.getElementById('selFacultyTeacher');
         selTeacher.innerHTML = '';
-        
-        // Sort teachers alphabetically by clean name
+
         const sortedTeachers = [...teachersData].sort((a, b) => {
           const nameA = (a.clean_name || a.name || '').toLowerCase();
           const nameB = (b.clean_name || b.name || '').toLowerCase();
@@ -1296,7 +1514,7 @@
         sortedTeachers.forEach(t => {
           const opt = document.createElement('option');
           opt.value = t.id;
-          opt.textContent = `${t.clean_name || t.name} (${t.department || 'Faculty'})`;
+          opt.textContent = `${t.clean_name || t.name} (${t.department || 'Commerce'})`;
           opt.dataset.cleanName = t.clean_name || t.name;
           opt.dataset.dept = t.department || '';
           selTeacher.appendChild(opt);
@@ -1312,19 +1530,20 @@
           });
         };
 
-        // 2. Student Course onchange handler
+        // 2. Student Dynamic Selectors: Course -> Semester -> Section -> Real Batches (J1, J2, J3, etc.)
         const selCourse = document.getElementById('selCourse');
         const selSem = document.getElementById('selSemester');
         const selSec = document.getElementById('selSection');
-        const secGroup = document.getElementById('groupSectionField');
+        const selBatch = document.getElementById('selBatch');
+        const secWrap = document.getElementById('groupSectionWrap');
 
         function updateSemesters() {
           const course = selCourse.value;
           selSem.innerHTML = '';
           const sems = Object.keys(coursesData[course] || {});
-          
+
           if (sems.length === 0) {
-            ['Sem I', 'Sem III', 'Sem V'].forEach(s => {
+            ['Sem I', 'Sem III', 'Sem V', 'Sem VII'].forEach(s => {
               const opt = document.createElement('option');
               opt.value = s;
               opt.textContent = s;
@@ -1347,29 +1566,59 @@
           selSec.innerHTML = '';
 
           if (course === 'SEC' || course === 'VAC') {
-            secGroup.style.display = 'none';
-            return;
-          }
-
-          secGroup.style.display = 'flex';
-          const secObj = coursesData[course]?.[sem];
-          let secs = [];
-          if (secObj && typeof secObj === 'object' && !Array.isArray(secObj)) {
-            secs = Object.keys(secObj);
+            secWrap.style.display = 'none';
           } else {
-            secs = ['Sec A', 'Sec B', 'Sec C', 'Sec D', 'Sec E', 'Sec F', 'Sec G', 'Sec H'];
+            secWrap.style.display = 'flex';
+            const secObj = coursesData[course]?.[sem];
+            let secs = [];
+            if (secObj && typeof secObj === 'object' && !Array.isArray(secObj)) {
+              secs = Object.keys(secObj);
+            } else {
+              secs = ['Sec A', 'Sec B', 'Sec C', 'Sec D', 'Sec E', 'Sec F', 'Sec G', 'Sec H', 'Sec I', 'Sec J', 'Sec K', 'Sec L', 'Sec M', 'Sec N'];
+            }
+
+            secs.forEach(s => {
+              const opt = document.createElement('option');
+              opt.value = s;
+              opt.textContent = s;
+              selSec.appendChild(opt);
+            });
           }
 
-          secs.forEach(s => {
+          updateBatches();
+        }
+
+        function updateBatches() {
+          const course = selCourse.value;
+          const sem = selSem.value;
+          const sec = selSec.value;
+          selBatch.innerHTML = '';
+
+          // 1. Default Option: Whole Section (All Groups & Lectures)
+          const allOpt = document.createElement('option');
+          allOpt.value = 'ALL';
+          allOpt.textContent = 'Whole Section (Lectures + All Groups)';
+          selBatch.appendChild(allOpt);
+
+          // 2. Extract Real Distinct Batches (J1, J2, J3, JP1, A1, A2, etc.)
+          const distinctBatches = extractDistinctBatchesForSection(course, sem, sec);
+          distinctBatches.forEach(b => {
             const opt = document.createElement('option');
-            opt.value = s;
-            opt.textContent = s;
-            selSec.appendChild(opt);
+            opt.value = b;
+            let label = `Group ${b}`;
+            if (b.includes('P')) {
+              label = `Practical Lab Group ${b}`;
+            } else {
+              label = `Tutorial Group ${b}`;
+            }
+            opt.textContent = label;
+            selBatch.appendChild(opt);
           });
         }
 
         selCourse.onchange = updateSemesters;
         selSem.onchange = updateSections;
+        selSec.onchange = updateBatches;
         updateSemesters();
       }
 
@@ -1380,11 +1629,11 @@
         const saved = getSavedProfile();
         if (saved) {
           if (saved.type === 'faculty') {
-            switchMode('faculty');
+            switchRoleMode('faculty');
             const selTeacher = document.getElementById('selFacultyTeacher');
-            if (selTeacher) selTeacher.value = saved.teacherId;
+            if (selTeacher && saved.teacherId) selTeacher.value = saved.teacherId;
           } else {
-            switchMode('student');
+            switchRoleMode('student');
             const selCourse = document.getElementById('selCourse');
             const selSem = document.getElementById('selSemester');
             const selSec = document.getElementById('selSection');
@@ -1398,8 +1647,13 @@
               selSem.value = saved.sem;
               selSem.dispatchEvent(new Event('change'));
             }
-            if (selSec && saved.sec) selSec.value = saved.sec;
-            if (selBatch && saved.batch) selBatch.value = saved.batch;
+            if (selSec && saved.sec) {
+              selSec.value = saved.sec;
+              selSec.dispatchEvent(new Event('change'));
+            }
+            if (selBatch && saved.batch) {
+              selBatch.value = saved.batch;
+            }
           }
         }
       }
@@ -1409,45 +1663,44 @@
         overlay.style.display = 'none';
       }
 
-      function switchMode(mode) {
+      function switchRoleMode(mode) {
         activeMode = mode;
         const btnStudent = document.getElementById('tabStudentMode');
         const btnFaculty = document.getElementById('tabFacultyMode');
-        const studentSec = document.getElementById('studentFormSection');
-        const facultySec = document.getElementById('facultyFormSection');
+        const studentBox = document.getElementById('studentFormBox');
+        const facultyBox = document.getElementById('facultyFormBox');
 
         if (mode === 'student') {
           btnStudent.classList.add('active');
           btnFaculty.classList.remove('active');
-          studentSec.style.display = 'block';
-          facultySec.style.display = 'none';
+          studentBox.style.display = 'block';
+          facultyBox.style.display = 'none';
         } else {
           btnFaculty.classList.add('active');
           btnStudent.classList.remove('active');
-          facultySec.style.display = 'block';
-          studentSec.style.display = 'none';
+          facultyBox.style.display = 'block';
+          studentBox.style.display = 'none';
         }
       }
 
-      // Event Listeners
-      document.getElementById('tabStudentMode').onclick = () => switchMode('student');
-      document.getElementById('tabFacultyMode').onclick = () => switchMode('faculty');
+      // Event Handlers
+      document.getElementById('tabStudentMode').onclick = () => switchRoleMode('student');
+      document.getElementById('tabFacultyMode').onclick = () => switchRoleMode('faculty');
 
       document.getElementById('btnOpenSetupModal').onclick = openSetupModal;
-      document.getElementById('btnQuickSwitch').onclick = openSetupModal;
+      document.getElementById('btnQuickEdit').onclick = openSetupModal;
       document.getElementById('btnCancelModal').onclick = () => {
         if (getSavedProfile()) closeSetupModal();
       };
 
-      // Weekday Pill clicks
-      document.querySelectorAll('.weekday-pill').forEach(btn => {
+      document.querySelectorAll('.weekday-pill-btn').forEach(btn => {
         btn.onclick = () => {
           selectedDay = btn.dataset.day;
           renderApp();
         };
       });
 
-      // Save Profile Button
+      // Save Profile with Offline Pre-Caching
       document.getElementById('btnSaveProfile').onclick = () => {
         if (activeMode === 'faculty') {
           const selTeacher = document.getElementById('selFacultyTeacher');
@@ -1483,29 +1736,29 @@
         renderApp();
       };
 
-      // PWA Install Prompt handling
+      // Native PWA Install Prompt handling
       window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
-        deferredPrompt = e;
-        const btn = document.getElementById('btnNativeInstall');
+        deferredInstallPrompt = e;
+        const btn = document.getElementById('btnNativePwaInstall');
         if (btn) {
           btn.style.display = 'inline-flex';
           btn.onclick = async () => {
-            if (deferredPrompt) {
-              deferredPrompt.prompt();
-              const { outcome } = await deferredPrompt.userChoice;
-              deferredPrompt = null;
+            if (deferredInstallPrompt) {
+              deferredInstallPrompt.prompt();
+              const { outcome } = await deferredInstallPrompt.userChoice;
+              deferredInstallPrompt = null;
               btn.style.display = 'none';
             }
           };
         }
       });
 
-      // Periodic Auto-refresh (every 30 seconds for live period status)
+      // Periodically refresh (every 30s)
       setInterval(renderApp, 30000);
-      setInterval(updateDateAndClock, 1000);
+      setInterval(updateLiveHeaderClock, 1000);
 
-      // Initialize
+      // Start App
       initModalData();
       renderApp();
 

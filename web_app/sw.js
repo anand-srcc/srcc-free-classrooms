@@ -1,7 +1,9 @@
-const CACHE_NAME = 'srcc-classroom-v65';
+const CACHE_NAME = 'srcc-classroom-v66';
 const ASSETS = [
   './',
   './index.html',
+  './widget.html',
+  './widget_manifest.json',
   './style.css?v=65',
   './app.js?v=65',
   './data.js?v=65',
@@ -71,7 +73,12 @@ self.addEventListener('fetch', (e) => {
         }
         return networkResponse;
       });
-    }).catch(() => caches.match('./index.html'))
+    }).catch(() => {
+      if (e.request.url.includes('widget')) {
+        return caches.match('./widget.html');
+      }
+      return caches.match('./index.html');
+    })
   );
 });
 
