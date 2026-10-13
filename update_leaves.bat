@@ -12,7 +12,6 @@ python sync_leaves.py
 if %ERRORLEVEL% NEQ 0 (
     echo.
     echo [ERROR] Leave sync failed or encountered an error.
-    pause
     exit /b %ERRORLEVEL%
 )
 
@@ -21,4 +20,3 @@ echo =======================================================
 echo   Sync Complete! web_app/faculty_leaves.js updated.
 echo =======================================================
 echo.
-timeout /t 3 >nul

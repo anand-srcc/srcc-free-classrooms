@@ -1,0 +1,226 @@
+{
+  "source": "database",
+  "student": {
+    "name": "Anand Kumar",
+    "rollNo": "25BC070",
+    "course": "B.Com. (Hons.)",
+    "semester": "III",
+    "section": "J",
+    "groups": [
+      "J1",
+      "JP1",
+      "SEC12",
+      "VAC23"
+    ]
+  },
+  "schedule": {
+    "Monday": [
+      {
+        "periodIndex": 1,
+        "subject": "FM",
+        "room": "T40",
+        "type": "Practical",
+        "teacher": "ALK"
+      },
+      {
+        "periodIndex": 2,
+        "subject": "FMI",
+        "room": "R32",
+        "type": "Lecture",
+        "teacher": "HHK"
+      }
+    ],
+    "Tuesday": [
+      {
+        "periodIndex": 0,
+        "subject": "FM",
+        "room": "R2",
+        "type": "Lecture",
+        "teacher": "ALK"
+      },
+      {
+        "periodIndex": 1,
+        "subject": "POM",
+        "room": "T24",
+        "type": "Tutorial",
+        "teacher": "MDH"
+      },
+      {
+        "periodIndex": 2,
+        "subject": "POM",
+        "room": "R1",
+        "type": "Lecture",
+        "teacher": "MDH"
+      },
+      {
+        "periodIndex": 3,
+        "subject": "BMATH",
+        "room": "R27",
+        "type": "Lecture",
+        "teacher": "MTS"
+      },
+      {
+        "periodIndex": 4,
+        "subject": "EVS-II",
+        "room": "CLIB",
+        "type": "Lecture",
+        "teacher": "FYV"
+      },
+      {
+        "periodIndex": 5,
+        "subject": "IT Skills and Data Analysis-I",
+        "room": "R25",
+        "type": "Practical",
+        "teacher": "SK19"
+      },
+      {
+        "periodIndex": 6,
+        "subject": "IT Skills and Data Analysis-I",
+        "room": "R25",
+        "type": "Practical",
+        "teacher": "SK19"
+      },
+      {
+        "periodIndex": 7,
+        "subject": "IT Skills and Data Analysis-I",
+        "room": "R25",
+        "type": "Practical",
+        "teacher": "SK19"
+      },
+      {
+        "periodIndex": 8,
+        "subject": "IT Skills and Data Analysis-I",
+        "room": "R25",
+        "type": "Practical",
+        "teacher": "SK19"
+      }
+    ],
+    "Wednesday": [
+      {
+        "periodIndex": 1,
+        "subject": "BMATH",
+        "room": "R27",
+        "type": "Lecture",
+        "teacher": "MTS"
+      },
+      {
+        "periodIndex": 2,
+        "subject": "FMI",
+        "room": "R15",
+        "type": "Lecture",
+        "teacher": "HHK"
+      },
+      {
+        "periodIndex": 3,
+        "subject": "EVS-II",
+        "room": "R33",
+        "type": "Practical",
+        "teacher": "FYV"
+      },
+      {
+        "periodIndex": 4,
+        "subject": "EVS-II",
+        "room": "R33",
+        "type": "Practical",
+        "teacher": "FYV"
+      },
+      {
+        "periodIndex": 5,
+        "subject": "Vedic Mathematics-I",
+        "room": "R15",
+        "type": "Lecture",
+        "teacher": "SFK"
+      }
+    ],
+    "Thursday": [
+      {
+        "periodIndex": 0,
+        "subject": "FM",
+        "room": "R22",
+        "type": "Lecture",
+        "teacher": "ALK"
+      },
+      {
+        "periodIndex": 1,
+        "subject": "BMATH",
+        "room": "T33",
+        "type": "Practical",
+        "teacher": "MTS"
+      },
+      {
+        "periodIndex": 2,
+        "subject": "BMATH",
+        "room": "R32",
+        "type": "Practical",
+        "teacher": "MTS"
+      },
+      {
+        "periodIndex": 3,
+        "subject": "POM",
+        "room": "R15",
+        "type": "Lecture",
+        "teacher": "MDH"
+      }
+    ],
+    "Friday": [
+      {
+        "periodIndex": 1,
+        "subject": "BMATH",
+        "room": "R3",
+        "type": "Lecture",
+        "teacher": "MTS"
+      },
+      {
+        "periodIndex": 2,
+        "subject": "FMI",
+        "room": "T38",
+        "type": "Tutorial",
+        "teacher": "HHK"
+      },
+      {
+        "periodIndex": 3,
+        "subject": "FMI",
+        "room": "R32",
+        "type": "Lecture",
+        "teacher": "HHK"
+      },
+      {
+        "periodIndex": 5,
+        "subject": "Vedic Mathematics-I",
+        "room": "R15",
+        "type": "Practical",
+        "teacher": "SFK"
+      },
+      {
+        "periodIndex": 6,
+        "subject": "Vedic Mathematics-I",
+        "room": "R15",
+        "type": "Practical",
+        "teacher": "SFK"
+      }
+    ],
+    "Saturday": [
+      {
+        "periodIndex": 0,
+        "subject": "FM",
+        "room": "R17",
+        "type": "Lecture",
+        "teacher": "ALK"
+      },
+      {
+        "periodIndex": 1,
+        "subject": "FM",
+        "room": "R21",
+        "type": "Practical",
+        "teacher": "ALK"
+      },
+      {
+        "periodIndex": 2,
+        "subject": "POM",
+        "room": "R1",
+        "type": "Lecture",
+        "teacher": "MDH"
+      }
+    ]
+  }
+}

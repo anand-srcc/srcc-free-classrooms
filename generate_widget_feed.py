@@ -97,10 +97,10 @@ def generate_feed():
         t_name = t.get('clean_name', t.get('label', ''))
         t_code = t.get('short_code', t.get('ref_code', ''))
         t_id = str(t.get('id', ''))
-        sched = t.get('schedule', {})
+        sched = t.get('schedule') or {}
 
         for day in DAYS:
-            slots = sched.get(day, [])
+            slots = sched.get(day, []) or []
             for s in slots:
                 c = s.get('course', '').strip()
                 sem = s.get('semester', '').strip()
