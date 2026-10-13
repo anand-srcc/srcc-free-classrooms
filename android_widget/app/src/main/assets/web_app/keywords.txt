@@ -1,0 +1,148 @@
+
+--- FIREBASE ---
+
+--- JSON ---
+,a=new Headers(s.headers);let n=s.body??null;if(s.json!==void 0&&(n=JSON.stringify(s.json),a.set("Conten
+
+eaders);let n=s.body??null;if(s.json!==void 0&&(n=JSON.stringify(s.json),a.set("Content-Type","applicati
+
+ody??null;if(s.json!==void 0&&(n=JSON.stringify(s.json),a.set("Content-Type","application/json")),!no.ha
+
+ringify(s.json),a.set("Content-Type","application/json")),!no.has(r)){const i=Ps(oo);i&&a.set("X-CSRF-To
+
+){const i=Ps(oo);i&&a.set("X-CSRF-Token",i)}const{json:o,...l}=s;return fetch(t,{...l,method:r,headers:a
+
+ait Z(t,s),a=await r.text();let n=null;if(a)try{n=JSON.parse(a)}catch{n=a}if(!r.ok){mo(r.status,n);const
+
+nst S=await(await Z("/api/chatbot",{method:"POST",json:{message:f,rollNo:(t==null?void 0:t.rollNo)||null
+
+sage:f,rollNo:(t==null?void 0:t.rollNo)||null}})).json(),D={role:"assistant",text:S.response||S.error||"
+
+e.getItem("srcc_teachers_cache");if(u)try{const p=JSON.parse(u);p&&typeof p=="object"&&!Array.isArray(p)
+
+u);try{localStorage.setItem("srcc_teachers_cache",JSON.stringify(u))}catch{}m("ready")}else m(u=>u==="re
+
+encodeURIComponent(C)}`);if(H.ok){const z=await H.json();a(z.friends||[]),o(z.incomingRequests||[]),i(z.
+
+)=>{const Y=await Z("/api/friends",{method:"POST",json:{action:C,senderRoll:$,receiverRoll:j}}),K=await 
+
+action:C,senderRoll:$,receiverRoll:j}}),K=await Y.json();return Y.ok?(g(K.message||H),N(t.rollNo),!0):(h
+
+ull}}function Mo(t){if(!t)return null;let s;try{s=JSON.parse(t)}catch{return null}if(!s||typeof s!="obje
+
+oms:s.rooms,teachers:s.teachers};try{r.setItem(Mt,JSON.stringify(a))}catch{}}function Po(){const t=Tt();
+
+It(){const t=Ps(lo);if(!t)return null;try{const s=JSON.parse(qo(t));return{rollNo:typeof s.rollNo=="stri
+
+e border border-gray-200 text-sm",value:t.subject?JSON.stringify({subject:t.subject,type:t.type}):"",onC
+
+"",onChange:o=>{if(!o.target.value)return;const l=JSON.parse(o.target.value);s({...t,subject:l.subject,t
+
+eCompare(x.label)),l.map(i=>e.jsx("option",{value:JSON.stringify({subject:i.subject,type:i.type}),childr
+
+racker/dashboard?${M.toString()}`;Z(ie).then(J=>J.json()).then(J=>{u(J);const O=J.allEntries||J.recentEn
+
+!0),Z("/api/attendance_tracker/status").then(B=>B.json()).then(B=>{B.connected?(o(!0),d(B.spreadsheetUrl
+
+nce_tracker/dashboard?${M.toString()}`).then(B=>B.json()).then(B=>{u(B)}).finally(()=>h(!1))},H=(M,B)=>{
+
+),Z("/api/attendance_tracker/mark",{method:"POST",json:ie}).then(()=>setTimeout(q,1500))};return{attenda
+
+fore saving.`:""},ys=async t=>{try{return await t.json()}catch{return{success:!1}}},Ml=()=>{const[t,s]=c
+
+await Z("/api/subject_preferences",{method:"POST",json:W}),Q=await ys(te);if(!te.ok||!Q.success)throw ne
+
+{const ne=await Z(`/api/auth/${_}`,{method:"POST",json:{email:A}}),ve=await ne.json().catch(()=>({}));if
+
+${_}`,{method:"POST",json:{email:A}}),ve=await ne.json().catch(()=>({}));if(!ne.ok||typeof ve.authorizat
+
+nst F=await Z("/api/student_login",{method:"POST",json:{rollNo:J.toUpperCase(),clientCredential:await Re
+
+We?{password:I}:{},turnstileToken:te}}),E=await F.json().catch(()=>({}));F.ok?(qe(E.user,E.preferences),
+
+t F=await Z("/api/set_access_code",{method:"POST",json:{clientCredential:await Re(((l==null?void 0:l.rol
+
+e.selectionsForCurrentSemester()}:{}}}),E=await F.json().catch(()=>({}));F.ok?(xe(E.user),a(),h(""),g(""
+
+t Z("/api/student_change_password",{method:"POST",json:{oldClientCredential:await Re(((l==null?void 0:l.
+
+.We?{oldPassword:w,newPassword:p}:{}}}),F=await A.json().catch(()=>({}));A.ok?(S(F.message),N(""),h(""),
+
+it Z("/api/student_recovery_email",{method:"POST",json:{clientCredential:await Re(((l==null?void 0:l.rol
+
+..We?{password:$}:{},recoveryEmail:A}}),E=await F.json().catch(()=>({}));if(!F.ok)throw new Error(E.erro
+
+_=await Z("/api/auth/master_login",{method:"POST",json:{rollNo:m}}),A=await _.json().catch(()=>({}));_.o
+
+login",{method:"POST",json:{rollNo:m}}),A=await _.json().catch(()=>({}));_.ok?(xe(A.user),a()):f(A.error
+
+
+--- API ---
+ends Error{constructor(s,r,a){super(r),this.name="ApiError",this.status=s,this.body=a}get isUnauthentic
+
+current=null))},y.onerror=w,y.onstalled=w,y.src=`/api/tts?lang=${g}&text=${encodeURIComponent(h)}`;try{
+
+text:f}]),l(""),x(!0);try{const S=await(await Z("/api/chatbot",{method:"POST",json:{message:f,rollNo:(t
+
+i([]),d([]),w.current=null);try{const H=await Z(`/api/friends?rollNo=${encodeURIComponent(C)}`);if(H.ok
+
+ta:",H)}}},R=async(C,$,j,H,z)=>{const Y=await Z("/api/friends",{method:"POST",json:{action:C,senderRoll
+
+now()-a.current<ns-wo||(a.current=Date.now(),At("/api/weather").then(l=>{l&&l.temperature!==void 0?r(l)
+
+=()=>{document.hidden||(n.current=Date.now(),At("/api/check_status").then(h=>{l||h===null||a(os(h))}))}
+
+onent(s.version)}&cs=${s.shape}`:"";return we(r?`/api/bootstrap?${r}`:"/api/bootstrap").then(n=>({...Os
+
+{s.shape}`:"";return we(r?`/api/bootstrap?${r}`:"/api/bootstrap").then(n=>({...Os,...n}))}function Oo()
+
+User)===!0}async function Bo(){const t=await we("/api/auth/abandon_pending",{method:"POST"});return t.c
+
+abandoned"}async function Uo(){const t=await At("/api/auth/session",{method:"POST"});return(t==null?voi
+
+);return s>0&&s<Do}async function Wo(){await we("/api/auth/logout",{method:"POST"}),Fs(),Po()}function 
+
+"You are blocked."})]})}),cs="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&disp
+
+ files this app creates."})]}),e.jsxs("a",{href:"/api/auth/google_sheets",className:"inline-flex items-
+
+",I),M.set("_t",Date.now().toString());const ie=`/api/attendance_tracker/dashboard?${M.toString()}`;Z(i
+
+l||""),i(a.email||""),q()):o(!1);return}h(!0),Z("/api/attendance_tracker/status").then(B=>B.json()).the
+
+attendance spreadsheet and clear the data.")&&Z("/api/attendance_tracker/reset",{method:"POST"}).then((
+
+set("semesterStart",T),M.set("semesterEnd",D),Z(`/api/attendance_tracker/dashboard?${M.toString()}`).th
+
+tra&&v(J=>({...J,[I.periodIndex]:M})),g(null),Z("/api/attendance_tracker/mark",{method:"POST",json:ie})
+
+})=>{O&&z(),N(!0),S(""),H();try{const U=await Z("/api/subject_preferences",{cache:"no-store"}),W=await 
+
+ded yet."),!1;f(!0);try{const W=ie(),te=await Z("/api/subject_preferences",{method:"POST",json:W}),Q=aw
+
+th>=Nt&&t.length<=kt},{id:"uppercase",label:"One capital letter (A-Z)",test:t=>/[A-Z]/.test(t)},{id:"nu
+
+rs.`:s.id==="uppercase"?"Password must include a capital letter.":"Password must include a number.":nul
+
+w",_)},[x]);const De=async _=>{const A=await we(`/api/student_schedule?rollNo=${encodeURIComponent(_)}`
+
+ try again.");return}P(!0);try{const ne=await Z(`/api/auth/${_}`,{method:"POST",json:{email:A}}),ve=awa
+
+umber and password.");P(!0);try{const F=await Z("/api/student_login",{method:"POST",json:{rollNo:J.toUp
+
+or();if(E)return f(E)}P(!0);try{const F=await Z("/api/set_access_code",{method:"POST",json:{clientCrede
+
+e fill both fields.");P(!0);try{const A=await Z("/api/student_change_password",{method:"POST",json:{old
+
+this change.");return}B(!0);try{const F=await Z("/api/student_recovery_email",{method:"POST",json:{clie
+
+Login:async()=>{P(!0),f("");try{const _=await Z("/api/auth/master_login",{method:"POST",json:{rollNo:m}
+
+c="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit",l.async=!0,l.defer=!0,l.onloa
+
+},ia=async(G,pe)=>{Ir("");try{const xt=await we(`/api/student_schedule?rollNo=${encodeURIComponent(G)}`
+
+eout(()=>a.abort(),5e3);let o;try{o=await fetch("/api/auth/legacy_upgrade",{method:"POST",credentials:"
+
+
+--- LEAVES ---

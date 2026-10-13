@@ -1,0 +1,1991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>SRCC Daily Schedule Widget | Shri Ram College of Commerce</title>
+  <meta name="description" content="Personalized standalone timetable widget for Shri Ram College of Commerce (SRCC) students and faculty. Clean white UI, 100% offline ready." />
+
+  <!-- PWA & Homescreen Meta -->
+  <link rel="manifest" href="widget_manifest.json" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="SRCC Timetable" />
+  <link rel="icon" type="image/png" sizes="64x64" href="favicon.png" />
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="srcc_crest.png" />
+
+  <!-- Google Fonts: Plus Jakarta Sans / Inter style -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Clean White Design System (Matching Main Website) */
+    :root {
+      --srcc-navy-deep: #000066;
+      --srcc-navy-primary: #1e3a8a;
+      --srcc-blue-accent: #2563eb;
+      --srcc-blue-light: #eff6ff;
+      --srcc-gold: #d97706;
+      --srcc-gold-bg: #fef3c7;
+      --srcc-green: #059669;
+      --srcc-green-bg: #ecfdf5;
+      --srcc-red: #dc2626;
+      --srcc-red-bg: #fef2f2;
+      
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-subtle: #f1f5f9;
+      --border-color: #e2e8f0;
+      --border-focus: #2563eb;
+      
+      --text-main: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+
+      /* Material You / Google Calendar Widget Colors */
+      --widget-tint-bg: #eef2ff;
+      --widget-tint-border: #dbe4f9;
+      --widget-blue: #0b57d0;
+      --widget-blue-hover: #0842a0;
+
+      --radius-widget: 28px;
+      --radius-card: 18px;
+      --radius-pill: 9999px;
+      --shadow-widget: 0 6px 20px rgba(0, 0, 102, 0.06), 0 2px 6px rgba(0,0,0,0.03);
+      --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    /* Force Clean White UI always, matching main website */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 14px 14px 44px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .widget-container {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Top Brand Navigation Bar (Clean White, Dual Logos) */
+    .top-brand-bar {
+      background: var(--bg-card);
+      border-radius: 20px;
+      border: 1px solid var(--border-color);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .brand-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logos {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .brand-logo-img {
+      height: 30px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .brand-separator {
+      color: var(--border-color);
+      font-weight: 300;
+      font-size: 1.15rem;
+    }
+
+    .brand-title-wrap h1 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--srcc-navy-primary);
+      line-height: 1.15;
+    }
+
+    .brand-status-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--srcc-green);
+      margin-top: 2px;
+    }
+
+    .status-dot-pulse {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--srcc-green);
+      animation: statusPulse 1.6s infinite;
+    }
+
+    @keyframes statusPulse {
+      0% { opacity: 0.5; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.3); }
+      100% { opacity: 0.5; transform: scale(0.9); }
+    }
+
+    .btn-main-site {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--srcc-navy-primary);
+      background: var(--srcc-blue-light);
+      border: 1px solid #bfdbfe;
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-main-site:hover {
+      background: #dbeafe;
+    }
+
+    /* Core Material You Widget Card (Clean White, User Screenshot Style) */
+    .widget-hero-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-widget);
+      border: 1px solid var(--border-color);
+      padding: 22px 20px 20px;
+      box-shadow: var(--shadow-widget);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+
+    .widget-header-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .widget-date-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .widget-day-title {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.05;
+      letter-spacing: -0.5px;
+    }
+
+    .widget-date-subtitle {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Circular Blue FAB Button (+) from user's photo */
+    .widget-action-fab {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: #0b57d0;
+      color: #ffffff;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: 400;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(11, 87, 208, 0.35);
+      transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .widget-action-fab:hover {
+      background: #0842a0;
+      transform: scale(1.06);
+    }
+
+    .widget-action-fab:active {
+      transform: scale(0.92);
+    }
+
+    /* Pinned Role Ribbon */
+    .pinned-profile-ribbon {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f8fafc;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-pill);
+      padding: 7px 14px;
+      font-size: 0.84rem;
+      gap: 8px;
+    }
+
+    .pinned-profile-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .profile-tag {
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 2.5px 8px;
+      border-radius: var(--radius-pill);
+      background: var(--srcc-navy-primary);
+      color: #ffffff;
+      flex-shrink: 0;
+    }
+
+    .profile-title-text {
+      font-weight: 700;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 0.86rem;
+    }
+
+    .btn-edit-profile {
+      background: none;
+      border: none;
+      color: var(--srcc-blue-accent);
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      padding: 2px 6px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .btn-edit-profile:hover {
+      text-decoration: underline;
+    }
+
+    /* Center Status Bubble: "Nothing scheduled" or Ongoing Class */
+    .widget-status-bubble {
+      background: var(--widget-tint-bg);
+      border: 1.5px solid var(--widget-tint-border);
+      border-radius: 22px;
+      padding: 18px 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .bubble-status-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .bubble-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--widget-blue);
+    }
+
+    .bubble-status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .bubble-status-dot.live-dot {
+      background: var(--srcc-red);
+      animation: liveDotPulse 1.4s infinite;
+    }
+
+    @keyframes liveDotPulse {
+      0% { transform: scale(0.9); opacity: 0.6; }
+      50% { transform: scale(1.3); opacity: 1; }
+      100% { transform: scale(0.9); opacity: 0.6; }
+    }
+
+    .bubble-headline {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--widget-blue);
+      line-height: 1.25;
+    }
+
+    .bubble-subtext {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    .bubble-pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .bubble-pill {
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .bubble-pill-room {
+      background: #ffffff;
+      border: 1.5px solid var(--widget-tint-border);
+      color: var(--widget-blue);
+    }
+
+    .bubble-pill-time {
+      background: rgba(0, 0, 0, 0.05);
+      color: var(--text-main);
+    }
+
+    .bubble-pill-batch {
+      background: var(--srcc-gold-bg);
+      border: 1px solid rgba(217, 119, 6, 0.3);
+      color: #92400e;
+    }
+
+    /* Prominent Leave Warning Alert */
+    .bubble-leave-alert {
+      background: var(--srcc-red-bg);
+      border: 1.5px solid #fca5a5;
+      color: #991b1b;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 2px 6px rgba(220, 38, 38, 0.08);
+    }
+
+    .widget-footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px dashed var(--border-color);
+    }
+
+    .widget-footer-next {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .widget-clock-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      padding: 3px 9px;
+      border-radius: var(--radius-pill);
+    }
+
+    /* Weekday Switcher Pill Tabs (Mon - Sat) */
+    .weekday-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 5px;
+      background: var(--bg-card);
+      border-radius: var(--radius-pill);
+      padding: 4px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .weekday-pill-btn {
+      flex: 1;
+      padding: 9px 3px;
+      text-align: center;
+      border: none;
+      background: none;
+      border-radius: var(--radius-pill);
+      font-family: inherit;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .weekday-pill-btn:hover {
+      color: var(--text-main);
+      background: var(--bg-subtle);
+    }
+
+    .weekday-pill-btn.active {
+      background: var(--srcc-navy-primary);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(30, 58, 138, 0.25);
+    }
+
+    /* Full Day Timeline Section */
+    .timeline-container-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-card);
+      padding: 18px 16px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .timeline-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .timeline-header h2 {
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .timeline-count-badge {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--srcc-blue-accent);
+      background: var(--srcc-blue-light);
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+    }
+
+    .timeline-items-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* Clean, Well-Spaced Period Slot Card */
+    .period-slot-card {
+      background: #ffffff;
+      border: 1.5px solid var(--border-color);
+      border-radius: 16px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      transition: all 0.15s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+
+    .period-slot-card.is-live {
+      background: #eff6ff;
+      border-color: #60a5fa;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12);
+    }
+
+    .period-slot-card.is-past {
+      opacity: 0.55;
+    }
+
+    .period-slot-card.has-leave {
+      background: #fff5f5;
+      border-color: #fca5a5;
+    }
+
+    .slot-time-col {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 86px;
+      flex-shrink: 0;
+    }
+
+    .slot-time-text {
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: var(--text-main);
+      white-space: nowrap;
+    }
+
+    .slot-period-num {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .slot-info-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      overflow: hidden;
+    }
+
+    .slot-subject-title {
+      font-size: 0.94rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.25;
+      word-break: break-word;
+    }
+
+    .slot-details-sub {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--srcc-navy-primary);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .slot-badge-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      padding: 1.5px 6px;
+      border-radius: 6px;
+    }
+
+    .slot-leave-pill {
+      font-size: 0.72rem;
+      font-weight: 800;
+      background: #fee2e2;
+      border: 1px solid #fca5a5;
+      color: #b91c1c;
+      padding: 2px 7px;
+      border-radius: 6px;
+    }
+
+    .slot-room-pill {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--srcc-navy-primary);
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      padding: 6px 12px;
+      border-radius: 11px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* Offline Ready & Native App Install Card */
+    .offline-pwa-card {
+      background: linear-gradient(135deg, #000066, #1e3a8a);
+      color: #ffffff;
+      border-radius: var(--radius-card);
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 8px 24px rgba(0, 0, 102, 0.15);
+    }
+
+    .pwa-header-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .pwa-title {
+      font-size: 0.96rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pwa-badge {
+      font-size: 0.68rem;
+      font-weight: 800;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      letter-spacing: 0.4px;
+    }
+
+    .pwa-desc {
+      font-size: 0.78rem;
+      line-height: 1.45;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .pwa-steps-box {
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 0.76rem;
+      line-height: 1.5;
+    }
+
+    .btn-native-pwa-install {
+      background: #ffffff;
+      color: var(--srcc-navy-deep);
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 10px 16px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    /* Setup Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 999;
+      animation: fadeIn 0.18s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .setup-dialog {
+      background: #ffffff;
+      border-radius: var(--radius-widget);
+      width: 100%;
+      max-width: 440px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 24px 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      border: 1px solid var(--border-color);
+    }
+
+    .dialog-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .dialog-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--srcc-navy-primary);
+    }
+
+    .btn-close-modal {
+      background: none;
+      border: none;
+      font-size: 26px;
+      color: var(--text-muted);
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px;
+    }
+
+    .role-segmented-tabs {
+      display: flex;
+      background: var(--bg-subtle);
+      border-radius: var(--radius-pill);
+      padding: 4px;
+      border: 1px solid var(--border-color);
+      gap: 4px;
+    }
+
+    .role-tab-btn {
+      flex: 1;
+      padding: 10px 12px;
+      border: none;
+      background: none;
+      border-radius: var(--radius-pill);
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .role-tab-btn.active {
+      background: var(--srcc-navy-primary);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(30, 58, 138, 0.25);
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .field-label {
+      font-size: 0.74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+    }
+
+    .field-input, .field-select {
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 12px;
+      border: 1.5px solid var(--border-color);
+      background: #ffffff;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.18s ease;
+    }
+
+    .field-input:focus, .field-select:focus {
+      border-color: var(--srcc-blue-accent);
+    }
+
+    .btn-save-confirm {
+      width: 100%;
+      padding: 13px;
+      border-radius: var(--radius-pill);
+      border: none;
+      background: linear-gradient(135deg, #000066, #1e3a8a);
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0, 0, 102, 0.25);
+      transition: all 0.18s ease;
+      margin-top: 6px;
+    }
+
+    .btn-save-confirm:hover {
+      opacity: 0.94;
+      transform: translateY(-1px);
+    }
+
+    .empty-state-card {
+      text-align: center;
+      padding: 24px 10px;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+  </style>
+</head>
+<body>
+
+  <main class="widget-container">
+
+    <!-- Top Brand Strip (Clean White, Dual Logos) -->
+    <header class="top-brand-bar">
+      <div class="brand-left">
+        <div class="brand-logos">
+          <img src="assets/srcc_crest.png" onerror="this.onerror=null; this.src='srcc_crest.png';" alt="SRCC Crest" class="brand-logo-img" />
+          <span class="brand-separator">|</span>
+          <img src="assets/srcc_100years.png" onerror="this.onerror=null; this.src='srcc_100years.png';" alt="SRCC 100 Years" class="brand-logo-img" />
+        </div>
+        <div class="brand-title-wrap">
+          <h1>SRCC Daily Widget</h1>
+          <div class="brand-status-chip" id="networkStatusBadge">
+            <span class="status-dot-pulse"></span>
+            <span id="networkStatusText">⚡ 100% Offline Ready</span>
+          </div>
+        </div>
+      </div>
+      <a href="./" class="btn-main-site" title="Open Full Classroom Finder">
+        🏛️ Room Finder
+      </a>
+    </header>
+
+    <!-- Core Material You Widget Card (Clean White, User Screenshot Style) -->
+    <section class="widget-hero-card" id="widgetHeroCard">
+
+      <!-- Top Row: Date & Action FAB (+) -->
+      <div class="widget-header-row">
+        <div class="widget-date-col">
+          <div class="widget-day-title" id="widgetDayTitle">Tue 13</div>
+          <div class="widget-date-subtitle" id="widgetDateSubtitle">Tuesday, October 13, 2026</div>
+        </div>
+        <!-- Circular Blue FAB (+) button to Switch/Configure Timetable -->
+        <button type="button" class="widget-action-fab" id="btnOpenSetupModal" title="Set or Change Timetable" aria-label="Change Timetable">+</button>
+      </div>
+
+      <!-- Pinned Profile Ribbon -->
+      <div class="pinned-profile-ribbon">
+        <div class="pinned-profile-left">
+          <span class="profile-tag" id="profileRoleTag">STUDENT</span>
+          <span class="profile-title-text" id="profileTitleText">Loading profile...</span>
+        </div>
+        <button type="button" class="btn-edit-profile" id="btnQuickEdit">⚙️ Change</button>
+      </div>
+
+      <!-- Status Bubble: "Nothing scheduled" or Live Class -->
+      <div class="widget-status-bubble" id="widgetStatusBubble">
+        <div class="bubble-status-header">
+          <span class="bubble-status-badge" id="bubbleStatusBadge">
+            <span class="bubble-status-dot" id="bubbleStatusDot"></span>
+            <span id="bubbleStatusLabel">TODAY</span>
+          </span>
+          <span style="font-size: 0.74rem; font-weight: 700; color: var(--text-muted);" id="bubbleRightHint">SRCC Campus</span>
+        </div>
+
+        <div class="bubble-headline" id="bubbleHeadline">Nothing scheduled</div>
+        <div class="bubble-subtext" id="bubbleSubtext">No ongoing classes right now</div>
+
+        <div class="bubble-pills-row" id="bubblePillsRow" style="display: none;">
+          <span class="bubble-pill bubble-pill-room" id="bubbleRoomPill">🏛️ Room --</span>
+          <span class="bubble-pill bubble-pill-time" id="bubbleTimePill">🕒 --:--</span>
+          <span class="bubble-pill bubble-pill-batch" id="bubbleBatchPill">Batch --</span>
+        </div>
+
+        <div class="bubble-leave-alert" id="bubbleLeaveAlert" style="display: none;">
+          <span>🏖️ Professor is on leave today · Class suspended!</span>
+        </div>
+      </div>
+
+      <!-- Footer: Next Period / Day Summary & Clock -->
+      <div class="widget-footer-row">
+        <div class="widget-footer-next" id="widgetFooterNext">Today</div>
+        <div class="widget-clock-pill" id="widgetClockPill">--:-- --</div>
+      </div>
+
+    </section>
+
+    <!-- Weekday Pill Bar (Mon - Sat) -->
+    <nav class="weekday-bar" aria-label="Day Selector">
+      <button type="button" class="weekday-pill-btn" data-day="Monday">Mon</button>
+      <button type="button" class="weekday-pill-btn" data-day="Tuesday">Tue</button>
+      <button type="button" class="weekday-pill-btn" data-day="Wednesday">Wed</button>
+      <button type="button" class="weekday-pill-btn" data-day="Thursday">Thu</button>
+      <button type="button" class="weekday-pill-btn" data-day="Friday">Fri</button>
+      <button type="button" class="weekday-pill-btn" data-day="Saturday">Sat</button>
+    </nav>
+
+    <!-- Full Selected Day Timeline -->
+    <section class="timeline-container-card">
+      <div class="timeline-header">
+        <h2 id="timelineHeaderTitle">Today's Schedule</h2>
+        <span class="timeline-count-badge" id="timelineCountBadge">0 Periods</span>
+      </div>
+
+      <div class="timeline-items-list" id="timelineItemsList">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- Offline PWA Card & Install Button -->
+    <section class="offline-pwa-card">
+      <div class="pwa-header-strip">
+        <div class="pwa-title">
+          <span>📲 Save on Homescreen (100% Offline)</span>
+        </div>
+        <span class="pwa-badge">Native App Mode</span>
+      </div>
+      <p class="pwa-desc">
+        Save this widget to your mobile desktop just like Google Calendar or Snapchat. Open anytime with <strong>zero internet / offline mode</strong> without downloading PDFs or opening the website!
+      </p>
+      <button type="button" class="btn-native-pwa-install" id="btnNativePwaInstall">
+        <span>➕ Install Widget to Home Screen</span>
+      </button>
+      <div class="pwa-steps-box">
+        <div>🤖 <strong>Android (Chrome):</strong> Tap <strong>⋮ (three dots)</strong> ➔ Tap <strong>"Add to Home screen"</strong></div>
+        <div style="margin-top: 4px;">🍎 <strong>iPhone (Safari):</strong> Tap <strong>Share (⎋)</strong> ➔ Tap <strong>"Add to Home Screen (+)"</strong></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Interactive Profile Setup Modal -->
+  <div class="modal-overlay" id="setupModalOverlay" style="display: none;">
+    <div class="setup-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="dialog-header">
+        <h3 class="dialog-title" id="modalTitle">📌 Configure My Timetable</h3>
+        <button type="button" class="btn-close-modal" id="btnCancelModal" aria-label="Close">&times;</button>
+      </div>
+
+      <!-- Segmented Profile Toggle: Student vs Faculty -->
+      <div class="role-segmented-tabs">
+        <button type="button" class="role-tab-btn active" id="tabStudentMode">
+          <span>🎓 Student</span>
+        </button>
+        <button type="button" class="role-tab-btn" id="tabFacultyMode">
+          <span>👨‍🏫 Faculty</span>
+        </button>
+      </div>
+
+      <!-- Student Fields -->
+      <div id="studentFormBox">
+        <div class="field-group">
+          <label class="field-label">Course</label>
+          <select class="field-select" id="selCourse">
+            <option value="B.Com (Hons)">B.Com (Hons)</option>
+            <option value="B.A. (Hons) Economics">B.A. (Hons) Economics</option>
+            <option value="M.Com">M.Com</option>
+            <option value="SEC">Skill Enhancement (SEC)</option>
+            <option value="VAC">Value Addition (VAC)</option>
+          </select>
+        </div>
+
+        <div class="field-group" style="margin-top: 10px;">
+          <label class="field-label">Semester</label>
+          <select class="field-select" id="selSemester">
+            <!-- Dynamically populated -->
+          </select>
+        </div>
+
+        <div class="field-group" id="groupSectionWrap" style="margin-top: 10px;">
+          <label class="field-label">Section</label>
+          <select class="field-select" id="selSection">
+            <!-- Dynamically populated -->
+          </select>
+        </div>
+
+        <!-- Real Student Batches (J1, J2, J3, A1, A2, A3, etc.) -->
+        <div class="field-group" style="margin-top: 10px;">
+          <label class="field-label">Tutorial / Practical Group (Batch)</label>
+          <select class="field-select" id="selBatch">
+            <!-- Dynamically populated with J1, J2, J3, etc. -->
+          </select>
+        </div>
+      </div>
+
+      <!-- Faculty Fields with Department Filter (Commerce, Eco, etc.) -->
+      <div id="facultyFormBox" style="display: none;">
+        <div class="field-group">
+          <label class="field-label">Department Filter</label>
+          <select class="field-select" id="selFacultyDept">
+            <option value="ALL">🏢 All Departments (210 Professors)</option>
+            <option value="Commerce">📈 Commerce (152 Professors)</option>
+            <option value="Economics">📊 Economics (27 Professors)</option>
+            <option value="Mathematics">📐 Mathematics (11 Professors)</option>
+            <option value="Computer Science">💻 Computer Science (8 Professors)</option>
+            <option value="English">📚 English (3 Professors)</option>
+            <option value="Hindi">✍️ Hindi (4 Professors)</option>
+            <option value="Political Science">🏛️ Political Science (4 Professors)</option>
+            <option value="Physical Education">🏃 Physical Education (1 Professor)</option>
+          </select>
+        </div>
+
+        <div class="field-group" style="margin-top: 10px;">
+          <label class="field-label">Search Professor</label>
+          <input type="text" class="field-input" id="inputFacultySearch" placeholder="Type professor name..." autocomplete="off" />
+        </div>
+
+        <div class="field-group" style="margin-top: 10px;">
+          <label class="field-label" id="facultyListLabel">Select Professor</label>
+          <select class="field-select" id="selFacultyTeacher" size="6" style="height: 180px;">
+            <!-- Dynamically filtered based on department & search -->
+          </select>
+        </div>
+      </div>
+
+      <button type="button" class="btn-save-confirm" id="btnSaveProfile">
+        📌 Save My Widget (Offline Enabled)
+      </button>
+    </div>
+  </div>
+
+  <!-- Load Core Data Files -->
+  <script src="data.js?v=68"></script>
+  <script src="classes_data.js?v=68"></script>
+  <script src="teachers_data.js?v=68"></script>
+  <script src="faculty_leaves.js?v=68"></script>
+
+  <script>
+    (function() {
+      const STORAGE_KEY = 'srcc_widget_user_profile_v4';
+      const CACHE_SCHEDULE_KEY = 'srcc_offline_weekly_schedule_v4';
+      let selectedDay = getTodayName();
+      let deferredInstallPrompt = null;
+      let activeMode = 'student';
+
+      // Standard SRCC Academic Periods Map
+      const ACADEMIC_PERIODS = {
+        '8:30 AM to 9:30 AM': { num: 1, startMin: 510, endMin: 570 },
+        '9:30 AM to 10:30 AM': { num: 2, startMin: 570, endMin: 630 },
+        '10:30 AM to 11:30 AM': { num: 3, startMin: 630, endMin: 690 },
+        '11:30 AM to 12:30 PM': { num: 4, startMin: 690, endMin: 750 },
+        '12:30 PM to 1:30 PM': { num: 5, startMin: 750, endMin: 810 },
+        '1:00 PM to 2:00 PM': { num: 5, startMin: 780, endMin: 840 },
+        '2:00 PM to 3:00 PM': { num: 6, startMin: 840, endMin: 900 },
+        '3:00 PM to 4:00 PM': { num: 7, startMin: 900, endMin: 960 },
+        '4:00 PM to 5:00 PM': { num: 8, startMin: 960, endMin: 1020 },
+        '5:00 PM to 6:00 PM': { num: 9, startMin: 1020, endMin: 1080 }
+      };
+
+      // Service Worker Registration for 100% Offline Capability
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js').then((reg) => {
+            console.log('[Widget PWA] Service Worker registered:', reg.scope);
+          }).catch(err => console.warn('[Widget PWA] SW register note:', err));
+        });
+      }
+
+      // Online / Offline Status Monitoring
+      function updateNetworkStatus() {
+        const badge = document.getElementById('networkStatusBadge');
+        const text = document.getElementById('networkStatusText');
+        if (!badge || !text) return;
+
+        if (navigator.onLine) {
+          text.textContent = '⚡ 100% Offline Ready';
+          badge.style.color = 'var(--srcc-green)';
+        } else {
+          text.textContent = '✈️ Offline Mode (Saved Locally)';
+          badge.style.color = 'var(--srcc-gold)';
+        }
+      }
+      window.addEventListener('online', updateNetworkStatus);
+      window.addEventListener('offline', updateNetworkStatus);
+      updateNetworkStatus();
+
+      function getIstTime() {
+        const now = new Date();
+        const istOffset = 5.5 * 60 * 60 * 1000;
+        return new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + istOffset);
+      }
+
+      function getTodayName() {
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const day = days[getIstTime().getDay()];
+        return day === 'Sunday' ? 'Monday' : day;
+      }
+
+      function getCurrentMinutes() {
+        const ist = getIstTime();
+        return ist.getHours() * 60 + ist.getMinutes();
+      }
+
+      function getSavedProfile() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch(e) {
+          return null;
+        }
+      }
+
+      function saveProfile(prof) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(prof));
+          // Pre-cache full week schedule offline immediately
+          cacheEntireWeekSchedule(prof);
+        } catch(e) {}
+      }
+
+      function updateLiveHeaderClock() {
+        const ist = getIstTime();
+        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const dayShort = days[ist.getDay()];
+        const dateNum = ist.getDate();
+
+        const titleEl = document.getElementById('widgetDayTitle');
+        const subEl = document.getElementById('widgetDateSubtitle');
+        const clockEl = document.getElementById('widgetClockPill');
+
+        if (titleEl) titleEl.textContent = `${dayShort} ${dateNum}`;
+        if (subEl) {
+          subEl.textContent = ist.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+        }
+        if (clockEl) {
+          clockEl.textContent = ist.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+        }
+      }
+
+      // Live Faculty Leaves Detection (supports status: "On Leave" and date ranges)
+      function getActiveFacultyLeaves() {
+        let list = [];
+        if (window.SRCC_FACULTY_LEAVES && Array.isArray(window.SRCC_FACULTY_LEAVES.leaves)) {
+          list = window.SRCC_FACULTY_LEAVES.leaves;
+        }
+        try {
+          const localStored = localStorage.getItem('srcc_faculty_leaves_v2');
+          if (localStored) {
+            const parsed = JSON.parse(localStored);
+            if (Array.isArray(parsed) && parsed.length > 0) list = parsed;
+          }
+        } catch(e) {}
+
+        const todayIso = getIstTime().toISOString().split('T')[0]; // "2026-10-13"
+
+        return list.filter(l => {
+          if (l.status === 'On Leave' || l.status === 'Absent' || l.active === true) {
+            if (l.start_date && l.end_date) {
+              return todayIso >= l.start_date && todayIso <= l.end_date;
+            }
+            return true;
+          }
+          return false;
+        });
+      }
+
+      function isTeacherOnLeave(teacherId, teacherName, teacherCode, activeLeaves) {
+        if (!activeLeaves || activeLeaves.length === 0) return false;
+        const cleanName = (teacherName || '').toLowerCase().trim();
+
+        return activeLeaves.some(l => {
+          if (teacherId && l.teacher_id && String(l.teacher_id) === String(teacherId)) return true;
+          if (teacherCode && l.teacher_code && l.teacher_code.toUpperCase() === teacherCode.toUpperCase()) return true;
+          if (cleanName && l.teacher_name) {
+            const lName = l.teacher_name.toLowerCase().trim();
+            if (cleanName === lName || cleanName.includes(lName) || lName.includes(cleanName)) return true;
+          }
+          return false;
+        });
+      }
+
+      // Precompute and store complete Monday-Saturday timetable in localStorage for 100% offline access
+      function cacheEntireWeekSchedule(profile) {
+        const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const weekMap = {};
+        weekDays.forEach(d => {
+          weekMap[d] = (profile.type === 'faculty') 
+            ? computeFacultySchedule(profile, d) 
+            : computeStudentSchedule(profile, d);
+        });
+        try {
+          localStorage.setItem(CACHE_SCHEDULE_KEY, JSON.stringify(weekMap));
+        } catch(e) {}
+      }
+
+      function getCachedWeekSchedule() {
+        try {
+          const raw = localStorage.getItem(CACHE_SCHEDULE_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch(e) { return null; }
+      }
+
+      // Student Timetable Computation with exact batch filtering (J1, J2, J3, etc.)
+      function computeStudentSchedule(profile, dayName) {
+        const coursesData = window.SRCC_CLASSES_DATA?.courses || {};
+        const teachersData = window.SRCC_TEACHERS_DATA?.teachers || [];
+        const activeLeaves = getActiveFacultyLeaves();
+        const list = [];
+
+        const course = profile.course;
+        const sem = profile.sem;
+        const sec = profile.sec;
+        const chosenBatch = (profile.batch || 'ALL').trim();
+
+        if (course === 'SEC' || course === 'VAC') {
+          const arr = coursesData[course]?.[sem] || [];
+          arr.filter(c => c.day === dayName).forEach(c => {
+            if (isClassApplicableToBatch(c, chosenBatch)) {
+              list.push(formatClassItem(c, activeLeaves, chosenBatch));
+            }
+          });
+        } else {
+          // Direct lookup in section grid
+          const secClasses = coursesData[course]?.[sem]?.[sec] || [];
+          secClasses.filter(c => c.day === dayName).forEach(c => {
+            if (isClassApplicableToBatch(c, chosenBatch)) {
+              list.push(formatClassItem(c, activeLeaves, chosenBatch));
+            }
+          });
+
+          // Fallback check against teachers_data if empty
+          if (list.length === 0) {
+            teachersData.forEach(t => {
+              const daySlots = t.schedule?.[dayName] || [];
+              daySlots.forEach(s => {
+                if (s.course === course && s.semester === sem && (s.section === sec || (s.raw && s.raw.includes(sec)))) {
+                  if (isClassApplicableToBatch(s, chosenBatch)) {
+                    list.push(formatTeacherSlotForStudent(s, t, activeLeaves, chosenBatch));
+                  }
+                }
+              });
+            });
+          }
+        }
+
+        list.sort((a, b) => a.startMin - b.startMin);
+        return list;
+      }
+
+      function isClassApplicableToBatch(c, chosenBatch) {
+        if (!chosenBatch || chosenBatch === 'ALL') return true;
+        const rawBatch = (c.batch || '').trim();
+        if (!rawBatch) return true; // Whole section lecture
+        const batchTokens = rawBatch.split(',').map(s => s.trim().toUpperCase());
+        return batchTokens.includes(chosenBatch.toUpperCase());
+      }
+
+      // Faculty Timetable Computation
+      function computeFacultySchedule(profile, dayName) {
+        const teachersData = window.SRCC_TEACHERS_DATA?.teachers || [];
+        const activeLeaves = getActiveFacultyLeaves();
+        const list = [];
+
+        const teacher = teachersData.find(t => t.id === profile.teacherId || t.name === profile.teacherName || t.clean_name === profile.teacherName);
+        if (!teacher) return list;
+
+        const teacherName = teacher.clean_name || teacher.name || 'Faculty';
+        const onLeave = isTeacherOnLeave(teacher.id, teacherName, teacher.short_code, activeLeaves);
+
+        const daySlots = teacher.schedule?.[dayName] || [];
+        daySlots.forEach(s => {
+          const pInfo = ACADEMIC_PERIODS[s.slot] || { num: 1, startMin: 510, endMin: 570 };
+          const classDesc = `${s.course || ''} ${s.semester || ''} ${s.section || ''}`.trim() || 'Class';
+          
+          let displayBatch = s.batch ? `Group ${s.batch}` : 'Full Class';
+          let fullSubj = s.subject_name || s.subject || 'Lecture';
+          if (s.subject && s.subject_name && s.subject !== s.subject_name) {
+            fullSubj = `${s.subject_name} (${s.subject})`;
+          }
+
+      function getRoomLocationMeta(roomCode) {
+        const code = String(roomCode || '').trim().toUpperCase();
+        const numMatch = code.match(/\d+/);
+        const num = numMatch ? parseInt(numMatch[0], 10) : 0;
+
+        let floor = 'Ground Floor';
+        let wing = 'Main Building';
+        let landmark = 'Central Campus';
+
+        if (code.startsWith('R')) {
+          if (num === 32) {
+            floor = '1st Floor';
+            wing = 'New Building (1st Floor)';
+            landmark = 'Near Room 33 (R-33)';
+          } else if (num === 35) {
+            floor = 'Ground Floor';
+            wing = 'Canteen Area';
+            landmark = 'Canteen Building';
+          } else if (num === 36) {
+            floor = 'Ground Floor';
+            wing = 'Near Canteen';
+            landmark = 'Ground Floor (Near Canteen)';
+          } else if (num >= 26 && num <= 28) {
+            floor = 'Ground Floor';
+            wing = 'New Building (Ground Floor)';
+            landmark = 'Near Tutorial Rooms';
+          } else if (num >= 1 && num <= 10) {
+            floor = 'Ground Floor';
+            wing = 'Main Building (Front Wing)';
+            landmark = 'Near Principal Office & Central Lawns';
+          } else if (num >= 11 && num <= 25) {
+            floor = '1st Floor';
+            wing = 'Main Building (Heritage Wing)';
+            landmark = 'Accessible via Main Heritage Stairs';
+          } else if (num >= 29 && num <= 31) {
+            floor = 'Ground Floor';
+            wing = 'New Classroom Wing';
+            landmark = 'Near Central Lawns & Main Auditorium';
+          } else if (num >= 33 && num <= 37) {
+            floor = '1st Floor';
+            wing = 'New Classroom Wing';
+            landmark = 'Near Computer Labs & North Corridor';
+          }
+        } else if (code.startsWith('T')) {
+          wing = 'Tutorial Block';
+          if (num >= 37) {
+            floor = '2nd Floor';
+            landmark = 'Tutorial Block 2nd Floor Corridor';
+          } else if (num === 17 || num === 18) {
+            floor = 'Ground Floor';
+            landmark = 'Tutorial Lawns & Ground Floor Corridor';
+          } else if (num >= 19) {
+            floor = '1st Floor';
+            landmark = 'Tutorial Block 1st Floor Corridor';
+          } else {
+            floor = 'Ground Floor';
+            landmark = 'Tutorial Lawns & Ground Floor Corridor';
+          }
+        } else if (code.startsWith('PB')) {
+          floor = 'Ground Floor';
+          wing = 'Principal Bungalow';
+          landmark = 'Near Gate 1';
+        } else if (code.startsWith('SCR')) {
+          floor = 'Ground Floor';
+          wing = 'Sports Complex';
+          landmark = 'Near Sports Ground';
+        } else if (code.startsWith('CL')) {
+          floor = '1st Floor';
+          wing = 'Computer Center';
+          landmark = 'Computer Lab Block';
+        }
+        return { code, floor, wing, landmark };
+      }
+
+          const rLoc = getRoomLocationMeta(s.room);
+          list.push({
+            slot: s.slot,
+            periodNum: pInfo.num,
+            startMin: pInfo.startMin,
+            endMin: pInfo.endMin,
+            subject: fullSubj,
+            room: s.room || 'TBA',
+            roomFloor: rLoc.floor,
+            roomWing: rLoc.wing,
+            roomLandmark: rLoc.landmark,
+            subDetail: classDesc,
+            type: s.type || 'Lecture',
+            batchTag: displayBatch,
+            isOnLeave: onLeave
+          });
+        });
+
+        list.sort((a, b) => a.startMin - b.startMin);
+        return list;
+      }
+
+      function formatClassItem(c, activeLeaves, chosenBatch) {
+        const pInfo = ACADEMIC_PERIODS[c.slot] || { num: 1, startMin: 510, endMin: 570 };
+        const onLeave = isTeacherOnLeave(c.teacher_id, c.teacher_name, c.teacher_code, activeLeaves);
+
+        let batchTag = 'Whole Section';
+        if (c.batch) {
+          batchTag = `Group ${c.batch}`;
+        }
+
+        let fullSubj = c.subject_name || c.subject || 'Class';
+        if (c.subject && c.subject_name && c.subject !== c.subject_name) {
+          fullSubj = `${c.subject_name} (${c.subject})`;
+        }
+
+        const rLoc = getRoomLocationMeta(c.room);
+        return {
+          slot: c.slot,
+          periodNum: pInfo.num,
+          startMin: pInfo.startMin,
+          endMin: pInfo.endMin,
+          subject: fullSubj,
+          room: c.room || 'TBA',
+          roomFloor: rLoc.floor,
+          roomWing: rLoc.wing,
+          roomLandmark: rLoc.landmark,
+          subDetail: c.teacher_name ? `👨‍🏫 ${c.teacher_name}` : 'Faculty',
+          type: c.type || 'Lecture',
+          batchTag: batchTag,
+          isOnLeave: onLeave
+        };
+      }
+
+      function formatTeacherSlotForStudent(s, t, activeLeaves, chosenBatch) {
+        const pInfo = ACADEMIC_PERIODS[s.slot] || { num: 1, startMin: 510, endMin: 570 };
+        const teacherName = t.clean_name || t.name || 'Faculty';
+        const onLeave = isTeacherOnLeave(t.id, teacherName, t.short_code, activeLeaves);
+
+        let fullSubj = s.subject_name || s.subject || 'Class';
+        if (s.subject && s.subject_name && s.subject !== s.subject_name) {
+          fullSubj = `${s.subject_name} (${s.subject})`;
+        }
+
+        const rLoc = getRoomLocationMeta(s.room);
+        return {
+          slot: s.slot,
+          periodNum: pInfo.num,
+          startMin: pInfo.startMin,
+          endMin: pInfo.endMin,
+          subject: fullSubj,
+          room: s.room || 'TBA',
+          roomFloor: rLoc.floor,
+          roomWing: rLoc.wing,
+          roomLandmark: rLoc.landmark,
+          subDetail: `👨‍🏫 ${teacherName}`,
+          type: s.type || 'Lecture',
+          batchTag: s.batch ? `Group ${s.batch}` : 'Whole Section',
+          isOnLeave: onLeave
+        };
+      }
+
+      // Dynamic Batch Extractor for selected Section
+      function extractDistinctBatchesForSection(course, sem, sec) {
+        const coursesData = window.SRCC_CLASSES_DATA?.courses || {};
+        const batches = new Set();
+
+        if (course === 'SEC' || course === 'VAC') {
+          const list = coursesData[course]?.[sem] || [];
+          list.forEach(c => {
+            if (c.batch) {
+              c.batch.split(',').forEach(b => {
+                const clean = b.trim();
+                if (clean) batches.add(clean);
+              });
+            }
+          });
+        } else {
+          const list = coursesData[course]?.[sem]?.[sec] || [];
+          list.forEach(c => {
+            if (c.batch) {
+              c.batch.split(',').forEach(b => {
+                const clean = b.trim();
+                if (clean) batches.add(clean);
+              });
+            }
+          });
+        }
+
+        return Array.from(batches).sort();
+      }
+
+      // Main UI Render
+      function renderApp() {
+        updateLiveHeaderClock();
+        const profile = getSavedProfile();
+
+        if (!profile) {
+          openSetupModal();
+          return;
+        }
+
+        const isToday = (selectedDay === getTodayName());
+        const curMin = getCurrentMinutes();
+
+        // 1. Update Profile Strip
+        const roleTag = document.getElementById('profileRoleTag');
+        const titleText = document.getElementById('profileTitleText');
+
+        if (profile.type === 'faculty') {
+          roleTag.textContent = 'FACULTY';
+          roleTag.style.background = 'var(--srcc-navy-primary)';
+          titleText.textContent = `${profile.teacherName} · ${profile.department || 'Commerce'}`;
+        } else {
+          roleTag.textContent = 'STUDENT';
+          roleTag.style.background = 'var(--srcc-green)';
+          const batchDesc = (profile.batch && profile.batch !== 'ALL') ? ` · Group ${profile.batch}` : '';
+          titleText.textContent = `${profile.course} · ${profile.sem} ${profile.sec ? '· ' + profile.sec : ''}${batchDesc}`;
+        }
+
+        // 2. Fetch Classes (Live or Pre-Cached)
+        let classes = [];
+        let todayClasses = [];
+
+        classes = (profile.type === 'faculty') 
+          ? computeFacultySchedule(profile, selectedDay) 
+          : computeStudentSchedule(profile, selectedDay);
+
+        todayClasses = (profile.type === 'faculty')
+          ? computeFacultySchedule(profile, getTodayName())
+          : computeStudentSchedule(profile, getTodayName());
+
+        // 3. Render Status Bubble
+        const bubbleHeadline = document.getElementById('bubbleHeadline');
+        const bubbleSubtext = document.getElementById('bubbleSubtext');
+        const bubbleStatusLabel = document.getElementById('bubbleStatusLabel');
+        const bubbleStatusDot = document.getElementById('bubbleStatusDot');
+        const bubbleRightHint = document.getElementById('bubbleRightHint');
+        const bubblePillsRow = document.getElementById('bubblePillsRow');
+        const bubbleRoomPill = document.getElementById('bubbleRoomPill');
+        const bubbleTimePill = document.getElementById('bubbleTimePill');
+        const bubbleBatchPill = document.getElementById('bubbleBatchPill');
+        const bubbleLeaveAlert = document.getElementById('bubbleLeaveAlert');
+        const footerNext = document.getElementById('widgetFooterNext');
+
+        if (!isToday) {
+          // Viewing other weekday
+          bubbleStatusLabel.textContent = selectedDay.toUpperCase();
+          bubbleStatusDot.className = 'bubble-status-dot';
+          bubbleStatusDot.style.background = 'var(--widget-blue)';
+          bubbleRightHint.textContent = `${classes.length} Classes`;
+
+          if (classes.length > 0) {
+            bubbleHeadline.textContent = `${classes.length} Classes Scheduled`;
+            bubbleSubtext.textContent = `First lecture: ${classes[0].subject} at ${classes[0].slot.split(' to ')[0]} in ${classes[0].room}`;
+          } else {
+            bubbleHeadline.textContent = 'Nothing scheduled';
+            bubbleSubtext.textContent = `No lectures scheduled on ${selectedDay}. Enjoy your day off! 🎉`;
+          }
+          bubblePillsRow.style.display = 'none';
+          bubbleLeaveAlert.style.display = 'none';
+          footerNext.textContent = `${selectedDay} Overview`;
+        } else {
+          // Viewing Today
+          const liveClass = todayClasses.find(c => curMin >= c.startMin && curMin < c.endMin);
+          const upcomingClass = todayClasses.find(c => c.startMin > curMin);
+
+          if (liveClass) {
+            bubbleStatusLabel.textContent = 'LIVE RIGHT NOW';
+            bubbleStatusDot.className = 'bubble-status-dot live-dot';
+            bubbleRightHint.textContent = `Period ${liveClass.periodNum}`;
+            bubbleHeadline.textContent = liveClass.subject;
+            bubbleSubtext.textContent = `${liveClass.subDetail} · Period ${liveClass.periodNum} (${liveClass.endMin - curMin}m left)`;
+            
+            bubbleRoomPill.textContent = `🏛️ Room ${liveClass.room}${liveClass.roomFloor ? ' (' + liveClass.roomFloor + ')' : ''}`;
+            bubbleTimePill.textContent = `🕒 ${liveClass.slot.replace(' to ', ' – ')}`;
+            bubbleBatchPill.textContent = liveClass.batchTag || liveClass.type || 'Lecture';
+            bubblePillsRow.style.display = 'flex';
+            bubbleLeaveAlert.style.display = liveClass.isOnLeave ? 'flex' : 'none';
+            if (liveClass.isOnLeave) {
+              bubbleLeaveAlert.innerHTML = `<span>🏖️ Professor on Leave Today · Class Suspended!</span>`;
+            }
+            footerNext.textContent = `In Session: Period ${liveClass.periodNum}`;
+          } else if (upcomingClass) {
+            bubbleStatusLabel.textContent = 'NEXT UPCOMING';
+            bubbleStatusDot.className = 'bubble-status-dot';
+            bubbleStatusDot.style.background = 'var(--widget-blue)';
+            bubbleRightHint.textContent = `Period ${upcomingClass.periodNum}`;
+
+            const inMins = upcomingClass.startMin - curMin;
+            const timeDesc = inMins > 60 ? `in ${Math.floor(inMins/60)}h ${inMins%60}m` : `in ${inMins}m`;
+
+            bubbleHeadline.textContent = upcomingClass.subject;
+            bubbleSubtext.textContent = `${upcomingClass.subDetail} · Starts ${timeDesc} (${upcomingClass.slot.split(' to ')[0]})`;
+            
+            bubbleRoomPill.textContent = `🏛️ Room ${upcomingClass.room}${upcomingClass.roomFloor ? ' (' + upcomingClass.roomFloor + ')' : ''}`;
+            bubbleTimePill.textContent = `🕒 ${upcomingClass.slot.replace(' to ', ' – ')}`;
+            bubbleBatchPill.textContent = upcomingClass.batchTag || upcomingClass.type || 'Lecture';
+            bubblePillsRow.style.display = 'flex';
+            bubbleLeaveAlert.style.display = upcomingClass.isOnLeave ? 'flex' : 'none';
+            if (upcomingClass.isOnLeave) {
+              bubbleLeaveAlert.innerHTML = `<span>🏖️ Notice: Professor on Leave Today · Class Suspended</span>`;
+            }
+            footerNext.textContent = `Next: ${upcomingClass.room} at ${upcomingClass.slot.split(' to ')[0]}`;
+          } else {
+            // Nothing scheduled (Matches exact user's photo!)
+            bubbleStatusLabel.textContent = 'TODAY';
+            bubbleStatusDot.className = 'bubble-status-dot';
+            bubbleStatusDot.style.background = 'var(--widget-blue)';
+            bubbleRightHint.textContent = 'Free Time';
+            bubbleHeadline.textContent = 'Nothing scheduled';
+            bubbleSubtext.textContent = (todayClasses.length === 0) 
+              ? 'No classes scheduled for today. Free day! 🎉' 
+              : 'All scheduled classes completed for today! 🎉';
+            bubblePillsRow.style.display = 'none';
+            bubbleLeaveAlert.style.display = 'none';
+            footerNext.textContent = (todayClasses.length === 0) ? 'Free Day' : 'Day Complete';
+          }
+        }
+
+        // 4. Update Weekday Pills
+        document.querySelectorAll('.weekday-pill-btn').forEach(btn => {
+          if (btn.dataset.day === selectedDay) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+
+        // 5. Update Timeline Header & Count
+        const headerTitle = document.getElementById('timelineHeaderTitle');
+        const countBadge = document.getElementById('timelineCountBadge');
+        headerTitle.textContent = isToday ? "Today's Schedule" : `${selectedDay}'s Schedule`;
+        countBadge.textContent = `${classes.length} Period${classes.length === 1 ? '' : 's'}`;
+
+        // 6. Render Timeline Cards with clear distinction and spacing
+        const listContainer = document.getElementById('timelineItemsList');
+        if (classes.length === 0) {
+          listContainer.innerHTML = `
+            <div class="empty-state-card">
+              <span>🏖️ No scheduled periods for ${selectedDay}. Enjoy your free time!</span>
+            </div>
+          `;
+        } else {
+          listContainer.innerHTML = classes.map(c => {
+            const isLive = isToday && (curMin >= c.startMin && curMin < c.endMin);
+            const isPast = isToday && (curMin >= c.endMin);
+            let cardClass = 'period-slot-card';
+            if (isLive) cardClass += ' is-live';
+            if (isPast) cardClass += ' is-past';
+            if (c.isOnLeave) cardClass += ' has-leave';
+
+            const roomText = c.roomFloor ? `${c.room} · ${c.roomFloor}` : c.room;
+            return `
+              <div class="${cardClass}">
+                <div class="slot-time-col">
+                  <span class="slot-time-text">${c.slot.split(' to ')[0]}</span>
+                  <span class="slot-period-num">Period ${c.periodNum}</span>
+                </div>
+                <div class="slot-info-col">
+                  <div class="slot-subject-title">${c.subject}</div>
+                  <div class="slot-details-sub">
+                    <span>${c.subDetail}</span>
+                    <span class="slot-badge-tag">${c.batchTag}</span>
+                    <span class="slot-badge-tag">${c.type}</span>
+                    ${c.isOnLeave ? '<span class="slot-leave-pill">🏖️ On Leave · Cancelled</span>' : ''}
+                  </div>
+                </div>
+                <span class="slot-room-pill" title="${c.roomWing ? c.roomWing + ' (' + c.roomLandmark + ')' : ''}">🏛️ ${roomText}</span>
+              </div>
+            `;
+          }).join('');
+        }
+      }
+
+      // Initialize Modal Data with Department Selector & Dynamic J1, J2, J3 Batches
+      function initModalData() {
+        const coursesData = window.SRCC_CLASSES_DATA?.courses || {};
+        const teachersData = window.SRCC_TEACHERS_DATA?.teachers || [];
+
+        // 1. Department Filtering for Faculty
+        const selDept = document.getElementById('selFacultyDept');
+        const selTeacher = document.getElementById('selFacultyTeacher');
+        const inputSearch = document.getElementById('inputFacultySearch');
+        const facultyListLabel = document.getElementById('facultyListLabel');
+
+        function populateFacultyList() {
+          const chosenDept = selDept.value;
+          const searchQ = (inputSearch.value || '').trim().toLowerCase();
+
+          selTeacher.innerHTML = '';
+
+          let filtered = [...teachersData];
+          if (chosenDept !== 'ALL') {
+            filtered = filtered.filter(t => t.department === chosenDept);
+          }
+
+          if (searchQ) {
+            filtered = filtered.filter(t => {
+              const name = (t.clean_name || t.name || '').toLowerCase();
+              const dept = (t.department || '').toLowerCase();
+              return name.includes(searchQ) || dept.includes(searchQ);
+            });
+          }
+
+          // Sort alphabetically
+          filtered.sort((a, b) => {
+            const nameA = (a.clean_name || a.name || '').toLowerCase();
+            const nameB = (b.clean_name || b.name || '').toLowerCase();
+            return nameA.localeCompare(nameB);
+          });
+
+          if (facultyListLabel) {
+            facultyListLabel.textContent = `Select Professor (${filtered.length} Available)`;
+          }
+
+          filtered.forEach(t => {
+            const opt = document.createElement('option');
+            opt.value = t.id;
+            opt.textContent = `${t.clean_name || t.name} — ${t.department || 'Commerce'}`;
+            opt.dataset.cleanName = t.clean_name || t.name;
+            opt.dataset.dept = t.department || '';
+            selTeacher.appendChild(opt);
+          });
+
+          if (filtered.length > 0) {
+            selTeacher.selectedIndex = 0;
+          }
+        }
+
+        selDept.onchange = populateFacultyList;
+        inputSearch.oninput = populateFacultyList;
+        populateFacultyList();
+
+        // 2. Student Dynamic Selectors: Course -> Semester -> Section -> Real Batches (J1, J2, J3, etc.)
+        const selCourse = document.getElementById('selCourse');
+        const selSem = document.getElementById('selSemester');
+        const selSec = document.getElementById('selSection');
+        const selBatch = document.getElementById('selBatch');
+        const secWrap = document.getElementById('groupSectionWrap');
+
+        function updateSemesters() {
+          const course = selCourse.value;
+          selSem.innerHTML = '';
+          const sems = Object.keys(coursesData[course] || {});
+
+          if (sems.length === 0) {
+            ['Sem I', 'Sem III', 'Sem V', 'Sem VII'].forEach(s => {
+              const opt = document.createElement('option');
+              opt.value = s;
+              opt.textContent = s;
+              selSem.appendChild(opt);
+            });
+          } else {
+            sems.forEach(s => {
+              const opt = document.createElement('option');
+              opt.value = s;
+              opt.textContent = s;
+              selSem.appendChild(opt);
+            });
+          }
+          updateSections();
+        }
+
+        function updateSections() {
+          const course = selCourse.value;
+          const sem = selSem.value;
+          selSec.innerHTML = '';
+
+          if (course === 'SEC' || course === 'VAC') {
+            secWrap.style.display = 'none';
+          } else {
+            secWrap.style.display = 'flex';
+            const secObj = coursesData[course]?.[sem];
+            let secs = [];
+            if (secObj && typeof secObj === 'object' && !Array.isArray(secObj)) {
+              secs = Object.keys(secObj);
+            } else {
+              secs = ['Sec A', 'Sec B', 'Sec C', 'Sec D', 'Sec E', 'Sec F', 'Sec G', 'Sec H', 'Sec I', 'Sec J', 'Sec K', 'Sec L', 'Sec M', 'Sec N'];
+            }
+
+            secs.forEach(s => {
+              const opt = document.createElement('option');
+              opt.value = s;
+              opt.textContent = s;
+              selSec.appendChild(opt);
+            });
+          }
+
+          updateBatches();
+        }
+
+        function updateBatches() {
+          const course = selCourse.value;
+          const sem = selSem.value;
+          const sec = selSec.value;
+          selBatch.innerHTML = '';
+
+          // 1. Default Option: Whole Section (All Groups & Lectures)
+          const allOpt = document.createElement('option');
+          allOpt.value = 'ALL';
+          allOpt.textContent = 'Whole Section (Lectures + All Groups)';
+          selBatch.appendChild(allOpt);
+
+          // 2. Extract Real Distinct Batches (J1, J2, J3, JP1, A1, A2, etc.)
+          const distinctBatches = extractDistinctBatchesForSection(course, sem, sec);
+          distinctBatches.forEach(b => {
+            const opt = document.createElement('option');
+            opt.value = b;
+            let label = `Group ${b}`;
+            if (b.includes('P')) {
+              label = `Practical Lab Group ${b}`;
+            } else {
+              label = `Tutorial Group ${b}`;
+            }
+            opt.textContent = label;
+            selBatch.appendChild(opt);
+          });
+        }
+
+        selCourse.onchange = updateSemesters;
+        selSem.onchange = updateSections;
+        selSec.onchange = updateBatches;
+        updateSemesters();
+      }
+
+      function openSetupModal() {
+        const overlay = document.getElementById('setupModalOverlay');
+        overlay.style.display = 'flex';
+
+        const saved = getSavedProfile();
+        if (saved) {
+          if (saved.type === 'faculty') {
+            switchRoleMode('faculty');
+            const selDept = document.getElementById('selFacultyDept');
+            const selTeacher = document.getElementById('selFacultyTeacher');
+            if (selDept && saved.department) {
+              selDept.value = saved.department;
+              selDept.dispatchEvent(new Event('change'));
+            }
+            if (selTeacher && saved.teacherId) selTeacher.value = saved.teacherId;
+          } else {
+            switchRoleMode('student');
+            const selCourse = document.getElementById('selCourse');
+            const selSem = document.getElementById('selSemester');
+            const selSec = document.getElementById('selSection');
+            const selBatch = document.getElementById('selBatch');
+
+            if (selCourse && saved.course) {
+              selCourse.value = saved.course;
+              selCourse.dispatchEvent(new Event('change'));
+            }
+            if (selSem && saved.sem) {
+              selSem.value = saved.sem;
+              selSem.dispatchEvent(new Event('change'));
+            }
+            if (selSec && saved.sec) {
+              selSec.value = saved.sec;
+              selSec.dispatchEvent(new Event('change'));
+            }
+            if (selBatch && saved.batch) {
+              selBatch.value = saved.batch;
+            }
+          }
+        }
+      }
+
+      function closeSetupModal() {
+        const overlay = document.getElementById('setupModalOverlay');
+        overlay.style.display = 'none';
+      }
+
+      function switchRoleMode(mode) {
+        activeMode = mode;
+        const btnStudent = document.getElementById('tabStudentMode');
+        const btnFaculty = document.getElementById('tabFacultyMode');
+        const studentBox = document.getElementById('studentFormBox');
+        const facultyBox = document.getElementById('facultyFormBox');
+
+        if (mode === 'student') {
+          btnStudent.classList.add('active');
+          btnFaculty.classList.remove('active');
+          studentBox.style.display = 'block';
+          facultyBox.style.display = 'none';
+        } else {
+          btnFaculty.classList.add('active');
+          btnStudent.classList.remove('active');
+          facultyBox.style.display = 'block';
+          studentBox.style.display = 'none';
+        }
+      }
+
+      // Event Handlers
+      document.getElementById('tabStudentMode').onclick = () => switchRoleMode('student');
+      document.getElementById('tabFacultyMode').onclick = () => switchRoleMode('faculty');
+
+      document.getElementById('btnOpenSetupModal').onclick = openSetupModal;
+      document.getElementById('btnQuickEdit').onclick = openSetupModal;
+      document.getElementById('btnCancelModal').onclick = () => {
+        if (getSavedProfile()) closeSetupModal();
+      };
+
+      document.querySelectorAll('.weekday-pill-btn').forEach(btn => {
+        btn.onclick = () => {
+          selectedDay = btn.dataset.day;
+          renderApp();
+        };
+      });
+
+      // Save Profile with Offline Pre-Caching
+      document.getElementById('btnSaveProfile').onclick = () => {
+        if (activeMode === 'faculty') {
+          const selTeacher = document.getElementById('selFacultyTeacher');
+          const opt = selTeacher.selectedOptions[0];
+          if (!opt) {
+            alert('Please select a faculty member.');
+            return;
+          }
+          const prof = {
+            type: 'faculty',
+            teacherId: opt.value,
+            teacherName: opt.dataset.cleanName || opt.textContent.split(' — ')[0],
+            department: opt.dataset.dept || 'Commerce'
+          };
+          saveProfile(prof);
+        } else {
+          const course = document.getElementById('selCourse').value;
+          const sem = document.getElementById('selSemester').value;
+          const sec = (course === 'SEC' || course === 'VAC') ? '' : document.getElementById('selSection').value;
+          const batch = document.getElementById('selBatch').value;
+
+          const prof = {
+            type: 'student',
+            course: course,
+            sem: sem,
+            sec: sec,
+            batch: batch || 'ALL'
+          };
+          saveProfile(prof);
+        }
+
+        closeSetupModal();
+        renderApp();
+      };
+
+      // Native PWA Install Prompt handling
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredInstallPrompt = e;
+        const btn = document.getElementById('btnNativePwaInstall');
+        if (btn) {
+          btn.style.display = 'inline-flex';
+          btn.onclick = async () => {
+            if (deferredInstallPrompt) {
+              deferredInstallPrompt.prompt();
+              const { outcome } = await deferredInstallPrompt.userChoice;
+              deferredInstallPrompt = null;
+              btn.style.display = 'none';
+            }
+          };
+        }
+      });
+
+      // Fetch live leaves daily in background
+      function syncLiveLeavesDaily() {
+        fetch('faculty_leaves.json?t=' + Date.now())
+          .then(res => res.json())
+          .then(data => {
+            if (data && Array.isArray(data.leaves)) {
+              if (window.SRCC_FACULTY_LEAVES) {
+                window.SRCC_FACULTY_LEAVES.leaves = data.leaves;
+              } else {
+                window.SRCC_FACULTY_LEAVES = data;
+              }
+              try {
+                localStorage.setItem('srcc_faculty_leaves_v2', JSON.stringify(data.leaves));
+              } catch(e) {}
+              renderApp();
+            }
+          })
+          .catch(() => {});
+      }
+
+      // Periodically refresh (every 30s)
+      setInterval(renderApp, 30000);
+      setInterval(updateLiveHeaderClock, 1000);
+
+      // Start App
+      initModalData();
+      renderApp();
+      syncLiveLeavesDaily();
+
+    })();
+  </script>
+</body>
+</html>

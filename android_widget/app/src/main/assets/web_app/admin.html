@@ -1,0 +1,2043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>SRCC Timetable Admin Portal | Control Center</title>
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+  <link rel="icon" type="image/png" href="assets/srcc_crest.png" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=43" />
+  <style>
+    /* Admin Portal Specific Modern Styling */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body.admin-page-body {
+      background-color: var(--bg-base);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Top Header Navbar */
+    .admin-navbar {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .admin-nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .admin-nav-brand img {
+      height: 38px;
+      width: 38px;
+      flex-shrink: 0;
+    }
+
+    .admin-nav-titles {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .admin-nav-titles h1 {
+      font-family: var(--font-display);
+      font-size: 1.12rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .admin-nav-titles p {
+      font-size: 0.74rem;
+      color: var(--text-secondary);
+      margin: 2px 0 0 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .admin-badge-role {
+      background: rgba(245, 158, 11, 0.15);
+      color: #b45309;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      display: inline-block;
+    }
+
+    .admin-nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .btn-admin-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 13px;
+      border-radius: var(--radius-md);
+      font-size: 0.8rem;
+      font-weight: 700;
+      font-family: var(--font-display);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      border: 1px solid var(--border-subtle);
+      white-space: nowrap;
+    }
+
+    .btn-view-app {
+      background: rgba(56, 189, 248, 0.1);
+      color: #0284c7;
+      border-color: rgba(56, 189, 248, 0.35);
+    }
+    .btn-view-app:hover {
+      background: rgba(56, 189, 248, 0.2);
+      color: #0369a1;
+    }
+
+    .btn-admin-logout {
+      background: rgba(244, 63, 94, 0.1);
+      color: #e11d48;
+      border-color: rgba(244, 63, 94, 0.3);
+    }
+    .btn-admin-logout:hover {
+      background: #e11d48;
+      color: #ffffff;
+    }
+
+    /* Mobile Navbar Optimization */
+    @media (max-width: 640px) {
+      .admin-navbar {
+        padding: 8px 12px;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .admin-nav-brand img {
+        height: 32px;
+        width: 32px;
+      }
+      .admin-nav-titles h1 {
+        font-size: 0.98rem;
+      }
+      .admin-nav-titles p {
+        display: none;
+      }
+      .btn-admin-nav {
+        padding: 5px 10px;
+        font-size: 0.74rem;
+      }
+    }
+
+    /* Auth Screen */
+    .admin-auth-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+
+    .admin-auth-card {
+      background: #ffffff;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: var(--radius-xl);
+      padding: 32px 26px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+
+    .auth-logo-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .auth-logo-row img {
+      height: 48px;
+      width: 48px;
+    }
+
+    .admin-auth-card h2 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin: 0 0 6px 0;
+    }
+
+    .admin-auth-card p {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+
+    .auth-input-group {
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    .auth-input-group label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-bottom: 5px;
+    }
+
+    .auth-input-group input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 11px 13px;
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .auth-input-group input:focus {
+      border-color: #f59e0b;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+    }
+
+    .btn-auth-submit {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      color: #070D18;
+      border: none;
+      border-radius: var(--radius-md);
+      font-family: var(--font-display);
+      font-size: 0.94rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.25);
+    }
+
+    /* Admin Dashboard Panel */
+    .admin-dashboard-container {
+      max-width: 1120px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px 16px 80px;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 600px) {
+      .admin-dashboard-container {
+        padding: 12px 10px 60px;
+      }
+    }
+
+    /* Hero Banner */
+    .admin-hero-banner {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    }
+
+    .admin-hero-left h2 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .admin-hero-sub {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin-top: 3px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+    }
+
+    /* KPI Row */
+    .admin-kpi-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 860px) {
+      .admin-kpi-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .admin-kpi-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+      .admin-kpi-card {
+        padding: 12px 14px;
+        gap: 10px;
+      }
+      .admin-kpi-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 1.1rem;
+      }
+      .admin-kpi-val {
+        font-size: 1.25rem;
+      }
+      .admin-kpi-title {
+        font-size: 0.66rem;
+      }
+    }
+
+    .admin-kpi-card {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    }
+
+    .admin-kpi-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .admin-kpi-val {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--text-primary);
+    }
+
+    .admin-kpi-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-secondary);
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    /* Tab Navigation System */
+    .admin-tab-nav {
+      display: flex;
+      gap: 6px;
+      background: #f1f5f9;
+      padding: 6px;
+      border-radius: var(--radius-lg);
+      margin-bottom: 18px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .admin-tab-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .admin-tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: var(--radius-md);
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: var(--font-display);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .admin-tab-btn:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    .admin-tab-btn.active {
+      background: #ffffff;
+      color: var(--text-primary);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .admin-tab-badge {
+      font-size: 0.68rem;
+      padding: 2px 6px;
+      border-radius: 9999px;
+      background: rgba(0, 0, 0, 0.07);
+      font-weight: 800;
+    }
+
+    .admin-tab-badge.badge-danger {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+
+    .admin-tab-pane {
+      display: none;
+    }
+
+    .admin-tab-pane.active {
+      display: block;
+      animation: tabFadeIn 0.2s ease-in-out;
+    }
+
+    @keyframes tabFadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Cards in Dashboard */
+    .admin-section-card {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    }
+
+    @media (max-width: 600px) {
+      .admin-section-card {
+        padding: 14px 14px;
+      }
+    }
+
+    .admin-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .admin-section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    /* Forms */
+    .leave-form-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .leave-form-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+
+    .leave-field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .leave-field-group label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+    }
+
+    .leave-field-group input,
+    .leave-field-group select,
+    .leave-field-group textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 9px 12px;
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      color: var(--text-primary);
+      outline: none;
+    }
+
+    .leave-field-group input:focus,
+    .leave-field-group select:focus,
+    .leave-field-group textarea:focus {
+      border-color: #f59e0b;
+      box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.15);
+    }
+
+    .teacher-search-field input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 8px 12px;
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-size: 0.84rem;
+    }
+
+    .quick-date-pills {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .quick-date-btn {
+      background: #f1f5f9;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+    }
+
+    .quick-date-btn:hover {
+      background: rgba(245, 158, 11, 0.15);
+      color: #b45309;
+      border-color: rgba(245, 158, 11, 0.35);
+    }
+
+    /* Active Lock & Room Card */
+    .room-lock-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .room-lock-badge.badge-lock {
+      background: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid #fca5a5;
+    }
+
+    .room-lock-badge.badge-extra {
+      background: #dbeafe;
+      color: #1d4ed8;
+      border: 1px solid #93c5fd;
+    }
+
+    .code-preview-block {
+      background: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      font-family: monospace;
+      font-size: 0.74rem;
+      color: #38bdf8;
+      max-height: 160px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      margin-top: 10px;
+    }
+    /* Print Notice Sheets Feature Styles */
+    .print-controls-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .print-preview-shell {
+      background: #475569;
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      overflow-x: auto;
+    }
+
+    .print-sheet {
+      background: #ffffff;
+      color: #000000;
+      width: 100%;
+      max-width: 820px;
+      min-height: 1100px;
+      padding: 24px 28px;
+      box-sizing: border-box;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      font-family: 'Times New Roman', Times, serif;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .print-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 6px;
+    }
+
+    .print-header-logo {
+      height: 64px;
+      width: auto;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .print-header-center {
+      flex: 1;
+      text-align: center;
+      line-height: 1.25;
+    }
+
+    .print-header-line1 {
+      font-size: 14pt;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      color: #000;
+    }
+
+    .print-header-line2 {
+      font-size: 11pt;
+      font-weight: 700;
+      margin-top: 2px;
+      color: #111;
+    }
+
+    .print-header-line3 {
+      font-size: 9pt;
+      font-weight: 600;
+      margin-top: 2px;
+      color: #222;
+    }
+
+    .print-header-line4 {
+      font-size: 8pt;
+      margin-top: 3px;
+      color: #333;
+    }
+
+    .print-header-divider {
+      border: none;
+      border-top: 2.5px solid #000000;
+      margin: 6px 0 12px 0;
+    }
+
+    .print-sheet-title {
+      font-size: 15pt;
+      font-weight: 800;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin: 4px 0 2px 0;
+    }
+
+    .print-sheet-sub {
+      font-size: 10pt;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .print-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1.5px solid #000000;
+      font-size: 9pt;
+    }
+
+    .print-table th {
+      border: 1.2px solid #000000;
+      padding: 6px 8px;
+      background: #f1f5f9;
+      font-weight: 800;
+      font-size: 8.5pt;
+      text-align: center;
+      color: #000000;
+    }
+
+    .print-table td {
+      border: 1px solid #000000;
+      padding: 5px 7px;
+      vertical-align: middle;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 8.5pt;
+      color: #000000;
+    }
+
+    .print-table td.cell-time {
+      font-weight: 700;
+      white-space: nowrap;
+      text-align: center;
+      font-family: inherit;
+    }
+
+    .print-table td.cell-sno,
+    .print-table td.cell-date,
+    .print-table td.cell-days {
+      text-align: center;
+      font-family: inherit;
+    }
+
+    .print-table td.cell-faculty-name {
+      font-weight: 700;
+      font-family: inherit;
+      text-transform: uppercase;
+    }
+
+    .print-table tr.blank-ruled-row td {
+      height: 28px;
+    }
+
+    .print-sheet-footer {
+      border-top: 1.5px solid #000000;
+      margin-top: 18px;
+      padding-top: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 8pt;
+      font-weight: 600;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    /* Mobile Phone UI / UX Optimizations */
+    @media (max-width: 768px) {
+      body.admin-page-body {
+        font-size: 14px;
+      }
+      .admin-navbar {
+        padding: 10px 14px;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .admin-nav-actions {
+        width: 100%;
+        justify-content: flex-end;
+        gap: 8px;
+      }
+      .btn-admin-nav {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+        min-height: 40px;
+      }
+      .admin-dashboard-container {
+        padding: 12px 10px 70px;
+      }
+      .admin-hero-banner {
+        padding: 14px 16px;
+      }
+      .admin-hero-right {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+      }
+      .admin-kpi-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+      .admin-tab-nav {
+        padding: 4px;
+        gap: 4px;
+        border-radius: var(--radius-md);
+      }
+      .admin-tab-btn {
+        padding: 9px 12px;
+        min-height: 44px;
+        font-size: 0.8rem;
+      }
+      /* Prevent iOS Safari auto-zoom on field focus */
+      input, select, textarea,
+      .leave-field-group input,
+      .leave-field-group select,
+      .leave-field-group textarea {
+        font-size: 16px !important;
+      }
+      .leave-item-row {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+        padding: 12px !important;
+      }
+      .leave-item-actions {
+        width: 100% !important;
+        justify-content: flex-end !important;
+        margin-left: 0 !important;
+        border-top: 1px dashed #e2e8f0 !important;
+        padding-top: 8px !important;
+        gap: 8px !important;
+      }
+      .btn-edit-leave,
+      .btn-delete-leave,
+      .btn-share-wa {
+        padding: 8px 12px !important;
+        font-size: 0.8rem !important;
+        min-height: 38px !important;
+      }
+      .print-controls-card {
+        padding: 14px 12px !important;
+      }
+      #btnAdminTriggerPrint {
+        width: 100% !important;
+        justify-content: center !important;
+        min-height: 46px !important;
+      }
+      .print-preview-shell {
+        padding: 12px 8px !important;
+        border-radius: var(--radius-md);
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+      }
+      .print-sheet {
+        min-width: 680px !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+        padding: 16px 14px !important;
+        min-height: auto !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .admin-nav-titles h1 {
+        font-size: 0.94rem;
+      }
+      .admin-hero-left h2 {
+        font-size: 1.1rem;
+      }
+      .admin-kpi-card {
+        padding: 10px 12px;
+        gap: 8px;
+      }
+      .admin-kpi-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 1.05rem;
+      }
+      .admin-kpi-val {
+        font-size: 1.2rem;
+      }
+      .admin-kpi-title {
+        font-size: 0.64rem;
+      }
+      .admin-section-card {
+        padding: 12px 10px !important;
+      }
+    }
+
+    /* Print Stylesheet */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 8mm 10mm 8mm 10mm;
+      }
+      *, *::before, *::after {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      html, body.admin-page-body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        overflow: visible !important;
+      }
+      body.admin-page-body main,
+      body.admin-page-body .admin-dashboard-container {
+        display: block !important;
+        visibility: visible !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: visible !important;
+        position: static !important;
+        height: auto !important;
+      }
+      .admin-navbar,
+      .admin-hero-banner,
+      .admin-kpi-row,
+      .admin-tab-nav,
+      .print-controls-card,
+      .toast-container,
+      .attachment-modal-overlay,
+      #adminAuthView {
+        display: none !important;
+        visibility: hidden !important;
+      }
+      .admin-tab-pane {
+        display: none !important;
+      }
+      .admin-tab-pane#tabContentPrint {
+        display: block !important;
+        visibility: visible !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      .print-preview-shell {
+        background: transparent !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        gap: 0 !important;
+        display: block !important;
+        overflow: visible !important;
+        border: none !important;
+        box-shadow: none !important;
+      }
+      .print-sheet {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        visibility: visible !important;
+        background: #ffffff !important;
+        box-shadow: none !important;
+        border: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        min-height: auto !important;
+        padding: 4mm 6mm !important;
+        margin: 0 0 15mm 0 !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        box-sizing: border-box !important;
+      }
+      .print-sheet:last-child {
+        margin-bottom: 0 !important;
+        page-break-after: auto !important;
+        break-after: auto !important;
+      }
+      .print-sheet[style*="display: none"] {
+        display: none !important;
+      }
+      .print-table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+      }
+      .print-table th {
+        background: #f0f0f0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .print-table tr {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+    }
+  </style>
+</head>
+<body class="admin-page-body">
+
+  <!-- Top Navbar -->
+  <header class="admin-navbar">
+    <div class="admin-nav-brand">
+      <img src="assets/srcc_crest.png" onerror="this.onerror=null; this.src='srcc_crest.png';" alt="SRCC Crest" />
+      <div class="admin-nav-titles">
+        <h1>SRCC Admin Portal <span class="admin-badge-role">Administrator</span></h1>
+        <p>Faculty Leaves, Room Locks & Notices Manager</p>
+      </div>
+    </div>
+    <div class="admin-nav-actions" id="adminNavActions" style="display: none;">
+      <a href="printable_timetables/Print_Portal.html" target="_blank" class="btn-admin-nav" title="Open complete timetable PDF booklets hub">
+        <span>📚 Timetable PDFs ↗</span>
+      </a>
+      <a href="index.html" target="_blank" class="btn-admin-nav btn-view-app" title="Open student view in a new tab">
+        <span>👁️ Student App ↗</span>
+      </a>
+      <button type="button" class="btn-admin-nav btn-admin-logout" id="btnAdminLogout" title="Lock and logout">
+        <span>🚪 Logout</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- STATE 1: Admin Password Authentication Screen -->
+  <main class="admin-auth-container" id="adminAuthView">
+    <div class="admin-auth-card">
+      <div class="auth-logo-row">
+        <img src="assets/srcc_crest.png" onerror="this.onerror=null; this.src='srcc_crest.png';" alt="SRCC Crest" />
+        <img src="assets/srcc_100years.png" onerror="this.onerror=null; this.src='srcc_100years.png';" alt="SRCC 100 Years" />
+      </div>
+      <h2>Admin Control Center</h2>
+      <p>Enter administrator passcode to access live dashboard.</p>
+
+      <form id="adminLoginForm">
+        <div class="auth-input-group">
+          <label for="adminUsername">Username:</label>
+          <input type="text" id="adminUsername" placeholder="Enter username (or leave blank)" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" />
+        </div>
+        <div class="auth-input-group">
+          <label for="adminPasscode">Password:</label>
+          <div class="password-input-wrapper" style="position: relative; display: flex; align-items: center;">
+            <input type="password" id="adminPasscode" placeholder="Enter administrator passcode" required autofocus autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false" style="width: 100%; padding-right: 44px;" />
+            <button type="button" id="btnTogglePassword" class="btn-toggle-pwd" title="Show / Hide password" style="position: absolute; right: 8px; background: none; border: none; cursor: pointer; font-size: 1.15rem; padding: 4px; color: var(--text-muted); line-height: 1;">👁️</button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-auth-submit" id="btnAuthSubmit">
+          🔒 Unlock Admin Portal
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <!-- STATE 2: Admin Management Dashboard -->
+  <main class="admin-dashboard-container" id="adminDashboardView" style="display: none;">
+    
+    <!-- Hero / Welcome Banner -->
+    <div class="admin-hero-banner">
+      <div class="admin-hero-left">
+        <h2>Welcome, Anand Kumar 👋</h2>
+        <div class="admin-hero-sub">
+          <span id="adminLiveDateDisplay">Thursday, Today</span>
+          <span>·</span>
+          <span>Shri Ram College of Commerce</span>
+        </div>
+      </div>
+      <div>
+        <a href="index.html" class="btn-admin-nav btn-view-app" target="_blank">👁️ Live Student App ↗</a>
+      </div>
+    </div>
+
+    <!-- Live KPIs Row (Clean 4-col / 2x2 on mobile) -->
+    <div class="admin-kpi-row">
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon" style="background: rgba(59, 130, 246, 0.12); color: #2563eb;">👨‍🏫</div>
+        <div>
+          <div class="admin-kpi-val" id="kpiTotalFaculty">210</div>
+          <div class="admin-kpi-title">Faculty Members</div>
+        </div>
+      </div>
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon" style="background: rgba(244, 63, 94, 0.12); color: #e11d48;">🏖️</div>
+        <div>
+          <div class="admin-kpi-val" id="kpiActiveLeaves">0</div>
+          <div class="admin-kpi-title">Leaves Today</div>
+        </div>
+      </div>
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon" style="background: rgba(239, 68, 68, 0.12); color: #dc2626;">🔒</div>
+        <div>
+          <div class="admin-kpi-val" id="kpiActiveLocks">0</div>
+          <div class="admin-kpi-title">Locked Rooms / Extra</div>
+        </div>
+      </div>
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon" style="background: rgba(217, 119, 6, 0.12); color: #d97706;">📢</div>
+        <div>
+          <div class="admin-kpi-val" id="kpiActiveNotices">0</div>
+          <div class="admin-kpi-title">Campus Notices</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin Navigation Tabs (Single-tap switching on mobile) -->
+    <nav class="admin-tab-nav" id="adminTabNav">
+      <button type="button" class="admin-tab-btn active" data-tab="leaves">
+        <span>🏖️</span>
+        <span>Faculty Leaves</span>
+        <span class="admin-tab-badge" id="tabLeavesBadge">0</span>
+      </button>
+      <button type="button" class="admin-tab-btn" data-tab="locks">
+        <span>🔒</span>
+        <span>Room Locks & Extra Classes</span>
+        <span class="admin-tab-badge" id="tabLocksBadge" style="display: none;">0</span>
+      </button>
+      <button type="button" class="admin-tab-btn" data-tab="notices">
+        <span>📢</span>
+        <span>Campus Notices</span>
+        <span class="admin-tab-badge" id="tabNoticesBadge" style="display: none;">0</span>
+      </button>
+      <button type="button" class="admin-tab-btn" data-tab="rooms">
+        <span>🏛️</span>
+        <span>Room Management</span>
+        <span class="admin-tab-badge" id="tabRoomsBadge" style="display: none;">0</span>
+      </button>
+      <button type="button" class="admin-tab-btn" data-tab="wifi">
+        <span>📶</span>
+        <span>Campus WiFi</span>
+        <span class="admin-tab-badge" id="tabWifiBadge">24</span>
+      </button>
+      <button type="button" class="admin-tab-btn" data-tab="broadcast">
+        <span>🔔</span>
+        <span>Hourly Broadcast</span>
+      </button>
+      <button type="button" class="admin-tab-btn" data-tab="reports">
+        <span>⚠️</span>
+        <span>Reports</span>
+        <span class="admin-tab-badge badge-danger" id="tabReportsBadge">0</span>
+      </button>
+      <button type="button" class="admin-tab-btn" data-tab="settings">
+        <span>⚙️</span>
+        <span>Cloud & Settings</span>
+      </button>
+      <button type="button" class="admin-tab-btn" data-tab="print">
+        <span>🖨️</span>
+        <span>Print Notice Sheets</span>
+      </button>
+    </nav>
+
+    <!-- ================================================================= -->
+    <!-- TAB 1: FACULTY LEAVES -->
+    <!-- ================================================================= -->
+    <div class="admin-tab-pane active" id="tabContentLeaves">
+      <!-- Mark Professor on Leave Form -->
+      <section class="admin-section-card">
+        <div class="admin-section-header">
+          <div class="admin-section-title">
+            <span>➕</span>
+            <span>Mark Professor on Leave</span>
+          </div>
+        </div>
+
+        <div class="leave-form-grid">
+          <div class="leave-field-group">
+            <label for="adminTeacherSearch">Search & Select Professor (Multi-select enabled):</label>
+            <div class="teacher-search-field">
+              <input type="text" id="adminTeacherSearch" placeholder="Type professor name, code or department..." />
+            </div>
+            <div id="adminTeacherSelect" style="height: 150px; overflow-y: auto; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 4px;">
+              <!-- Populated dynamically via admin.js -->
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px;">
+              <span id="adminSelectedTeacherCount" style="font-size: 0.74rem; font-weight: 700; color: var(--text-muted);">0 professors selected</span>
+              <button type="button" id="btnClearSelectedTeachers" style="display: none; background: none; border: none; color: #ef4444; font-size: 0.72rem; cursor: pointer; text-decoration: underline; font-weight: 600;">Clear selection</button>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div class="leave-field-group">
+              <label for="adminLeaveReason">Reason / Category (Optional):</label>
+              <input type="text" id="adminLeaveReason" placeholder="e.g. Conference, Medical, Academic Duty" />
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+              <div class="leave-field-group">
+                <label for="adminStartDate">Start Date:</label>
+                <input type="date" id="adminStartDate" />
+              </div>
+              <div class="leave-field-group">
+                <label for="adminEndDate">End Date:</label>
+                <input type="date" id="adminEndDate" />
+              </div>
+            </div>
+
+            <div class="quick-date-pills">
+              <span style="font-size: 0.72rem; color: var(--text-muted); line-height: 22px;">Quick:</span>
+              <button type="button" class="quick-date-btn" id="btnQuickToday">Today Only</button>
+              <button type="button" class="quick-date-btn" id="btnQuickTomorrow">Tomorrow</button>
+              <button type="button" class="quick-date-btn" id="btnQuickThisWeek">Next 3 Days</button>
+            </div>
+            
+            <div style="margin-top: 4px;">
+              <label style="font-size: 0.82rem; display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--text-primary);">
+                <input type="checkbox" id="adminHalfDayLeave" style="width: 15px; height: 15px; cursor: pointer;" />
+                <strong>½ Half Day Leave</strong>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 14px;">
+          <button type="button" class="btn-add-leave" id="btnAdminAddLeave" style="width: 100%; justify-content: center; padding: 11px; font-weight: 800; font-size: 0.9rem;">
+            🏖️ Record Leave & Unlock Classrooms Immediately
+          </button>
+        </div>
+      </section>
+
+      <!-- Active Leaves List -->
+      <section class="admin-section-card">
+        <div class="admin-section-header">
+          <div class="admin-section-title">
+            <span>📋</span>
+            <span>Recorded Faculty Leaves (<span id="adminActiveLeavesCount">0</span>)</span>
+          </div>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+            <button type="button" class="btn-primary" id="btnAdminShareAllWhatsApp" style="font-size: 0.74rem; padding: 5px 10px; background: #16A34A; border: none; font-weight: 700;">
+              💬 Share WhatsApp
+            </button>
+            <button type="button" class="btn-primary" id="btnAdminExportCSV" style="font-size: 0.74rem; padding: 5px 10px; background: #0284C7; border: none; font-weight: 700;">
+              ⬇️ Export CSV
+            </button>
+            <button type="button" class="btn-reset-filters" id="btnAdminCleanOld" style="font-size: 0.74rem; padding: 5px 10px;">
+              🧹 Clean Expired
+            </button>
+            <button type="button" class="btn-reset-filters" id="btnAdminClearAllLeaves" style="font-size: 0.74rem; padding: 5px 10px;">
+              Clear All
+            </button>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 12px;">
+          <input type="text" id="adminLeavesSearch" placeholder="🔍 Search leaves by professor or department..." style="width: 100%; box-sizing: border-box; padding: 9px 12px; background: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-size: 0.86rem; outline: none;" />
+        </div>
+
+        <div class="leaves-items-container" id="adminLeavesListContainer">
+          <!-- Populated dynamically via admin.js -->
+        </div>
+      </section>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TAB 2: ROOM LOCKS & RECURRING EXTRA CLASSES -->
+    <!-- ================================================================= -->
+    <div class="admin-tab-pane" id="tabContentLocks">
+      <!-- Lock Room / Schedule Extra Class Form -->
+      <section class="admin-section-card">
+        <div class="admin-section-header">
+          <div class="admin-section-title">
+            <span>🔒</span>
+            <span>Lock Classroom or Schedule Extra Class</span>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 12px;">
+          <div class="leave-field-group">
+            <label for="adminLockRoomSelect">Select Room:</label>
+            <select id="adminLockRoomSelect" style="font-weight: 700;">
+              <!-- Populated dynamically via admin.js with all 96 rooms -->
+            </select>
+          </div>
+
+          <div class="leave-field-group">
+            <label for="adminLockType">Action Type:</label>
+            <select id="adminLockType" style="font-weight: 700;">
+              <option value="lock">🔒 Lock Room (Event / Notice / Seminar / Exam)</option>
+              <option value="extra_class">📚 Schedule Extra Class (Room Occupied)</option>
+            </select>
+          </div>
+
+          <div class="leave-field-group">
+            <label for="adminLockSlot">Time Slot / Duration:</label>
+            <select id="adminLockSlot">
+              <option value="ALL_DAY">Full Day (8:30 AM – 6:00 PM)</option>
+              <option value="8:30 AM to 9:30 AM">Period 1 (8:30 AM – 9:30 AM)</option>
+              <option value="9:30 AM to 10:30 AM">Period 2 (9:30 AM – 10:30 AM)</option>
+              <option value="10:30 AM to 11:30 AM">Period 3 (10:30 AM – 11:30 AM)</option>
+              <option value="11:30 AM to 12:30 PM">Period 4 (11:30 AM – 12:30 PM)</option>
+              <option value="12:30 PM to 1:30 PM">Period 5 (12:30 PM – 1:30 PM)</option>
+              <option value="2:00 PM to 3:00 PM">Period 6 (2:00 PM – 3:00 PM)</option>
+              <option value="3:00 PM to 4:00 PM">Period 7 (3:00 PM – 4:00 PM)</option>
+              <option value="4:00 PM to 5:00 PM">Period 8 (4:00 PM – 5:00 PM)</option>
+              <option value="5:00 PM to 6:00 PM">Period 9 (5:00 PM – 6:00 PM)</option>
+            </select>
+          </div>
+
+          <div class="leave-field-group">
+            <label for="adminLockRecurrence">Recurrence / Frequency:</label>
+            <select id="adminLockRecurrence" style="font-weight: 700;">
+              <option value="once">📅 One-Time (Selected Date Only)</option>
+              <option value="weekend">🔁 Every Weekend (Saturday & Sunday)</option>
+              <option value="weekly">🔁 Specific Days of the Week</option>
+              <option value="daily">🔁 Everyday (Monday to Saturday)</option>
+            </select>
+          </div>
+
+          <div class="leave-field-group" id="adminLockDateFieldGroup">
+            <label for="adminLockDate">Effective Date:</label>
+            <input type="date" id="adminLockDate" />
+          </div>
+        </div>
+
+        <!-- Checkboxes for specific days of week (when weekly recurrence selected) -->
+        <div id="adminLockDaysGroup" style="display: none; margin-bottom: 12px; padding: 10px 14px; background: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+          <label style="font-size: 0.78rem; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px;">Select Days for Recurring Extra Class:</label>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <label style="font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; gap: 4px; cursor: pointer;"><input type="checkbox" class="lock-day-check" value="Monday" /> Mon</label>
+            <label style="font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; gap: 4px; cursor: pointer;"><input type="checkbox" class="lock-day-check" value="Tuesday" /> Tue</label>
+            <label style="font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; gap: 4px; cursor: pointer;"><input type="checkbox" class="lock-day-check" value="Wednesday" /> Wed</label>
+            <label style="font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; gap: 4px; cursor: pointer;"><input type="checkbox" class="lock-day-check" value="Thursday" /> Thu</label>
+            <label style="font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; gap: 4px; cursor: pointer;"><input type="checkbox" class="lock-day-check" value="Friday" /> Fri</label>
+            <label style="font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; gap: 4px; cursor: pointer;"><input type="checkbox" class="lock-day-check" value="Saturday" /> Sat</label>
+          </div>
+        </div>
+
+        <div class="leave-field-group">
+          <label for="adminLockTitle">Reason / Notice Title / Event Name:</label>
+          <input type="text" id="adminLockTitle" placeholder="e.g. Commerce Society Audition, Weekend Stats Batch, Seminar Setup" />
+        </div>
+
+        <div style="margin-top: 14px; display: flex; gap: 10px;">
+          <button type="button" class="btn-primary" id="btnAdminAddLock" style="flex: 1; justify-content: center; padding: 11px; font-weight: 800; font-size: 0.9rem; background: linear-gradient(135deg, #ef4444, #dc2626); color: #ffffff; border: none; border-radius: var(--radius-md); cursor: pointer; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);">
+            🔒 Push Room Lock / Extra Class
+          </button>
+          <button type="button" id="btnAdminCancelLockEdit" style="display: none; padding: 11px 18px; background: #e2e8f0; color: #334155; border: 1px solid #cbd5e1; border-radius: var(--radius-md); font-weight: 700; cursor: pointer;">
+            ✕ Cancel Edit
+          </button>
+        </div>
+      </section>
+
+      <!-- Active Room Locks List -->
+      <section class="admin-section-card">
+        <div class="admin-section-header">
+          <div class="admin-section-title">
+            <span>📋</span>
+            <span>Active Room Locks & Extra Classes (<span id="adminLocksCount">0</span>)</span>
+          </div>
+          <button type="button" class="btn-reset-filters" id="btnAdminClearAllLocks" style="font-size: 0.74rem; padding: 5px 10px;">
+            Clear All Locks
+          </button>
+        </div>
+
+        <div class="leaves-items-container" id="adminLocksListContainer">
+          <!-- Populated via admin.js -->
+        </div>
+      </section>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TAB 3: CAMPUS NOTICES & BANNERS (Freshers, Elections, Circulars) -->
+    <!-- ================================================================= -->
+    <div class="admin-tab-pane" id="tabContentNotices">
+      <!-- Create Notice Form -->
+      <section class="admin-section-card">
+        <div class="admin-section-header">
+          <div class="admin-section-title" style="color: #d97706;">
+            <span>📢</span>
+            <span>Publish Campus Notice Banner (Freshers / Elections / Circulars)</span>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 12px;">
+          <div class="leave-field-group">
+            <label for="adminNoticeCategory">Category / Event:</label>
+            <select id="adminNoticeCategory" style="font-weight: 700;">
+              <option value="timetable_change">⚠️ Timetable Change Notice (Shows in Timetable Explorer)</option>
+              <option value="circular">📢 Official Notice / Circular</option>
+              <option value="urgent">📌 Urgent Campus Alert</option>
+              <option value="freshers">🎉 Freshers 2026</option>
+              <option value="elections">🗳️ Student Elections</option>
+              <option value="societies">🏆 Societies & Auditions</option>
+            </select>
+          </div>
+
+          <div class="leave-field-group">
+            <label for="adminNoticeEventDate">🗓️ Event Date / Schedule (When is event?):</label>
+            <input type="text" id="adminNoticeEventDate" placeholder="e.g. 15 Oct 2026 or 15–17 Oct 2026" />
+          </div>
+
+          <div class="leave-field-group">
+            <label for="adminNoticeExpiry">📅 Auto-Expiry Date (Banner hides after):</label>
+            <input type="date" id="adminNoticeExpiry" />
+          </div>
+        </div>
+
+        <div class="leave-field-group" style="margin-bottom: 12px;">
+          <label for="adminNoticeTitle">Notice Title / Headline:</label>
+          <input type="text" id="adminNoticeTitle" placeholder="e.g. SEC/VAC Room Shift or Economics Lecture Rescheduled" required />
+        </div>
+
+        <div class="leave-field-group" style="margin-bottom: 12px;">
+          <label for="adminNoticeBody">Notice Details / Announcement Message:</label>
+          <textarea id="adminNoticeBody" rows="3" placeholder="Enter instructions, schedule, or details for students..."></textarea>
+        </div>
+
+        <!-- Attachment Upload (Image or PDF) -->
+        <div class="leave-field-group" style="margin-bottom: 12px;">
+          <label for="adminNoticeFileInput">Attach Poster / Circular (Image or PDF):</label>
+          <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+            <input type="file" id="adminNoticeFileInput" accept="image/*,application/pdf" style="flex: 1; min-width: 220px; padding: 8px; background: #ffffff; border: 1px dashed var(--border-color); border-radius: var(--radius-md);" />
+            <button type="button" id="btnClearNoticeFile" style="display: none; background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; padding: 8px 12px; border-radius: var(--radius-sm); font-size: 0.76rem; font-weight: 700; cursor: pointer;">✕ Remove</button>
+          </div>
+          <div id="noticeFilePreviewText" style="display: none; margin-top: 6px; font-size: 0.78rem; font-weight: 600; color: #059669;">
+            <!-- File info preview -->
+          </div>
+        </div>
+
+        <!-- Instant Push Broadcast Checkbox -->
+        <div style="margin: 10px 0 14px; display: flex; align-items: center; gap: 8px; background: #fffbeb; padding: 10px 14px; border-radius: 8px; border: 1px solid #fde68a;">
+          <input type="checkbox" id="adminNoticePushBroadcast" checked style="width: 18px; height: 18px; cursor: pointer;" />
+          <label for="adminNoticePushBroadcast" style="font-size: 0.85rem; font-weight: 700; color: #92400e; cursor: pointer;">
+            🔔 Send instant push notification & alert to all student devices immediately
+          </label>
+        </div>
+
+        <div style="margin-top: 14px; display: flex; gap: 10px;">
+          <button type="button" class="btn-primary" id="btnAdminPublishNotice" style="flex: 1; justify-content: center; padding: 11px; font-weight: 800; font-size: 0.9rem; background: linear-gradient(135deg, #f59e0b, #d97706); color: #070d18; border: none; border-radius: var(--radius-md); cursor: pointer; box-shadow: 0 4px 14px rgba(217, 119, 6, 0.25);">
+            📢 Publish Campus Notice Banner (Live for Students)
+          </button>
+          <button type="button" id="btnAdminCancelNoticeEdit" style="display: none; padding: 11px 18px; background: #e2e8f0; color: #334155; border: 1px solid #cbd5e1; border-radius: var(--radius-md); font-weight: 700; cursor: pointer;">
+            ✕ Cancel Edit
+          </button>
+        </div>
+      </section>
+
+      <!-- Active Campus Notices List -->
+      <section class="admin-section-card">
+        <div class="admin-section-header">
+          <div class="admin-section-title">
+            <span>📋</span>
+            <span>Active Campus Notices (<span id="adminNoticesCount">0</span>)</span>
+          </div>
+          <button type="button" class="btn-reset-filters" id="btnAdminClearAllNotices" style="font-size: 0.74rem; padding: 5px 10px;">
+            Clear All Notices
+          </button>
+        </div>
+
+        <div class="leaves-items-container" id="adminNoticesListContainer">
+          <!-- Populated via admin.js -->
+        </div>
+      </section>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TAB 4: HOURLY BROADCAST CENTER -->
+    <!-- ================================================================= -->
+    <div class="admin-tab-pane" id="tabContentBroadcast">
+      <section class="admin-section-card" id="adminBroadcastSection" style="border: 1px solid rgba(245, 158, 11, 0.4); background: linear-gradient(135deg, #ffffff, #fffbeb);">
+        <div class="admin-section-header">
+          <div class="admin-section-title" style="color: #b45309;">
+            <span>🔔</span>
+            <span>Live Campus Broadcast Center</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span id="adminBroadcastStatusBadge" style="font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 9999px; background: #059669; color: #ffffff;">
+              ⏰ Auto-Hourly: Active
+            </span>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+          <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary);">
+            📲 Registered Devices for Web Push: <strong id="adminSubscribersCount" style="color: #0284c7;">Loading...</strong>
+          </span>
+          <button type="button" id="btnAdminRegisterDevicePush" class="btn-primary" style="background: #10b981; color: #ffffff; border: none; font-size: 0.76rem; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: 700;">
+            📲 Enable Device Push Notifications
+          </button>
+        </div>
+
+        <!-- Live Payload Preview Card -->
+        <div style="background: #0f172a; color: #f8fafc; border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; border: 1px solid rgba(255,255,255,0.12);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: #fbbf24; letter-spacing: 0.5px;">Live Broadcast Preview</span>
+            <span id="adminLivePeriodSlot" style="font-size: 0.7rem; color: #94a3b8; background: rgba(255,255,255,0.1); padding: 2px 7px; border-radius: 4px;">Period Slot</span>
+          </div>
+          <div id="adminBroadcastPreviewTitle" style="font-weight: 800; font-size: 0.94rem; color: #38bdf8; margin-bottom: 4px;">
+            SRCC Live Campus Update 🔔
+          </div>
+          <div id="adminBroadcastPreviewBody" style="font-size: 0.84rem; color: #e2e8f0; line-height: 1.45;">
+            Loading live preview...
+          </div>
+        </div>
+
+        <!-- Admin Action Buttons -->
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button type="button" class="btn-primary" id="btnAdminBroadcastNow" style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #070d18; border: none; font-weight: 800; font-size: 0.84rem; padding: 9px 16px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+            <span>📢</span> Send Notification to All Users Now
+          </button>
+          <button type="button" class="btn-primary" id="btnAdminTestAlert" style="background: #0284c7; color: #ffffff; border: none; font-weight: 700; font-size: 0.82rem; padding: 9px 14px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+            <span>🧪</span> Test on My Screen
+          </button>
+          <button type="button" class="btn-reset-filters" id="btnAdminRefreshPreview" style="font-size: 0.8rem; padding: 9px 12px;">
+            🔄 Refresh
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TAB 5: STUDENT REPORTS -->
+    <!-- ================================================================= -->
+    <div class="admin-tab-pane" id="tabContentReports">
+      <section class="admin-section-card" id="adminStudentReportsSection" style="border-color: rgba(220, 38, 38, 0.35);">
+        <div class="admin-section-header">
+          <div class="admin-section-title" style="color: #dc2626;">
+            <span>⚠️</span>
+            <span>Student Issue Reports (<span id="adminReportsCount">0</span>)</span>
+          </div>
+        </div>
+        <div class="leaves-items-container" id="adminReportsListContainer">
+          <!-- Populated via admin.js -->
+        </div>
+      </section>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TAB 6: CLOUD & SETTINGS -->
+    <!-- ================================================================= -->
+    <div class="admin-tab-pane" id="tabContentSettings">
+      <!-- Zero-Cost Cloud Auto-Sync -->
+      <section class="admin-section-card" style="border-color: rgba(56, 189, 248, 0.35);">
+        <div class="admin-section-header">
+          <div class="admin-section-title" style="color: #0284c7;">
+            <span>☁️</span>
+            <span>Firebase Realtime Database Cloud Sync</span>
+          </div>
+          <span id="cloudSyncStatusBadge" style="font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 9999px; background: rgba(245, 158, 11, 0.15); color: #b45309; border: 1px solid rgba(245, 158, 11, 0.35);">
+            🟡 Checking...
+          </span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div class="leave-field-group">
+            <label for="cloudDbUrlInput">Firebase Database URL:</label>
+            <input type="url" id="cloudDbUrlInput" value="https://srcc-leaves-default-rtdb.firebaseio.com/leaves.json" placeholder="https://your-project.firebaseio.com/leaves.json" style="width: 100%; box-sizing: border-box;" />
+          </div>
+
+          <div class="leave-field-group">
+            <label for="cloudDbSecretInput">Database Secret (Optional):</label>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <input type="password" id="cloudDbSecretInput" placeholder="Database Secret / Token" style="flex: 1; min-width: 220px;" />
+              <button type="button" class="btn-add-leave" id="btnSaveCloudDbUrl" style="padding: 9px 16px; font-size: 0.82rem;">
+                💾 Save & Test
+              </button>
+              <button type="button" class="btn-export-leaves" id="btnPushToCloudNow" style="padding: 9px 16px; font-size: 0.82rem; background: rgba(56, 189, 248, 0.15); border-color: rgba(56, 189, 248, 0.35); color: #0284c7;">
+                ☁️ Push Now
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Backup Manual Export -->
+      <section class="admin-section-card" style="border-color: rgba(16, 185, 129, 0.35);">
+        <div class="admin-section-header">
+          <div class="admin-section-title" style="color: #059669;">
+            <span>💾</span>
+            <span>Manual Export</span>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button type="button" class="btn-export-leaves" id="btnAdminDownloadLeavesJs">
+              💾 Download faculty_leaves.js
+            </button>
+            <button type="button" class="btn-export-leaves" id="btnAdminCopyLeavesJs" style="background: rgba(56, 189, 248, 0.15); border-color: rgba(56, 189, 248, 0.35); color: #0284c7;">
+              📋 Copy Code
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <pre class="code-preview-block" id="adminCodePreview"></pre>
+        </div>
+      </section>
+
+      <!-- Admin User Management & Password Reset -->
+      <section class="admin-section-card" style="border-color: rgba(168, 85, 247, 0.35);">
+        <div class="admin-section-header">
+          <div class="admin-section-title" style="color: #7c3aed;">
+            <span>👥</span>
+            <span>Admin Accounts & Security</span>
+          </div>
+          <span class="admin-badge-role" id="adminActiveUserDisplay" style="background: rgba(168, 85, 247, 0.15); color: #7c3aed; border-color: rgba(168, 85, 247, 0.35);">Active: Anand (Super Admin)</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 16px;">
+          <!-- Change Username & Password -->
+          <div style="background: #f8fafc; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 14px;">
+            <h4 style="color: var(--text-primary); font-size: 0.9rem; margin: 0 0 10px 0; font-family: var(--font-display);">
+              🛡️ Change Username & Password
+            </h4>
+            <form id="formChangePassword">
+              <div class="leave-field-group" style="margin-bottom: 8px;">
+                <label for="editNewUsername">New Username (Optional):</label>
+                <input type="text" id="editNewUsername" placeholder="Enter new username" />
+              </div>
+              <div class="leave-field-group" style="margin-bottom: 8px;">
+                <label for="pwdCurrent">Current Password (Required to verify):</label>
+                <input type="password" id="pwdCurrent" required placeholder="Enter current password" />
+              </div>
+              <div class="leave-field-group" style="margin-bottom: 8px;">
+                <label for="pwdNew">New Password (Min 4 chars, optional if only changing username):</label>
+                <input type="password" id="pwdNew" minlength="4" placeholder="Leave blank to keep same" />
+              </div>
+              <div class="leave-field-group" style="margin-bottom: 10px;">
+                <label for="pwdConfirm">Confirm New Password:</label>
+                <input type="password" id="pwdConfirm" minlength="4" placeholder="Repeat new password" />
+              </div>
+              <button type="submit" class="btn-primary" id="btnSubmitChangePwd" style="width: 100%; padding: 9px; font-size: 0.82rem; background: linear-gradient(135deg, #9333EA, #7C3AED); color: #ffffff; border: none; border-radius: var(--radius-sm); font-weight: 700; cursor: pointer;">
+                💾 Save Account Credentials
+              </button>
+            </form>
+          </div>
+
+          <!-- Add New Admin -->
+          <div style="background: #f8fafc; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 14px;">
+            <h4 style="color: var(--text-primary); font-size: 0.9rem; margin: 0 0 10px 0; font-family: var(--font-display);">
+              ➕ Add Admin / Team Member
+            </h4>
+            <form id="formCreateAdminUser">
+              <div class="leave-field-group" style="margin-bottom: 8px;">
+                <label for="newUserUsername">Username:</label>
+                <input type="text" id="newUserUsername" placeholder="e.g. rohit" required />
+              </div>
+              <div class="leave-field-group" style="margin-bottom: 8px;">
+                <label for="newUserFullName">Full Name:</label>
+                <input type="text" id="newUserFullName" placeholder="e.g. Rohit Sharma" required />
+              </div>
+              <div class="leave-field-group" style="margin-bottom: 8px;">
+                <label for="newUserPassword">Password:</label>
+                <input type="password" id="newUserPassword" required minlength="4" />
+              </div>
+              <div class="leave-field-group" style="margin-bottom: 10px;">
+                <label for="newUserRole">Role:</label>
+                <select id="newUserRole">
+                  <option value="Leave Coordinator">Leave Coordinator</option>
+                  <option value="Admin">Full Admin</option>
+                </select>
+              </div>
+              <button type="submit" class="btn-primary" id="btnSubmitCreateUser" style="width: 100%; padding: 9px; font-size: 0.82rem; background: linear-gradient(135deg, #10B981, #059669); color: #ffffff; border: none; border-radius: var(--radius-sm); font-weight: 700; cursor: pointer;">
+                ➕ Create Account
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Authorized Accounts -->
+        <div style="background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 14px;">
+          <h4 style="color: var(--text-primary); font-size: 0.9rem; font-weight: 700; margin: 0 0 10px 0;">
+            📋 Authorized Admin Accounts (<span id="adminUsersCount">1</span>)
+          </h4>
+          <div class="admin-users-table-wrap" id="adminUsersListContainer">
+            <!-- Populated via admin.js -->
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TAB: ROOM MANAGEMENT -->
+    <!-- ================================================================= -->
+    <div class="admin-tab-pane" id="tabContentRooms">
+      <!-- Add / Edit Room Details -->
+      <section class="admin-section-card">
+        <div class="admin-section-header">
+          <div class="admin-section-title">
+            <span>🏛️</span>
+            <span id="roomFormTitle">Add / Edit Classroom & Availability</span>
+          </div>
+          <span style="font-size: 0.74rem; font-weight: 700; color: var(--text-secondary); background: #f1f5f9; padding: 3px 8px; border-radius: 4px;">
+            Full Control: Add, Edit, Mark Unavailable, or Delete
+          </span>
+        </div>
+
+        <form id="adminRoomForm" onsubmit="return false;">
+          <input type="hidden" id="adminEditingRoomId" value="" />
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 12px;">
+            <div class="leave-field-group">
+              <label for="adminRoomCode">Room Code / Number *:</label>
+              <input type="text" id="adminRoomCode" placeholder="e.g. R37, C28, PB5, LAB4" required style="text-transform: uppercase;" />
+            </div>
+
+            <div class="leave-field-group">
+              <label for="adminRoomName">Room Name / Label:</label>
+              <input type="text" id="adminRoomName" placeholder="e.g. Classroom 37, Seminar Room" />
+            </div>
+
+            <div class="leave-field-group">
+              <label for="adminRoomWing">Wing / Location Category *:</label>
+              <select id="adminRoomWing" required>
+                <option value="Main Building">Main Building</option>
+                <option value="Tutorials">Tutorials</option>
+                <option value="Principal Bungalow">Principal Bungalow (PB)</option>
+                <option value="Computer Center">Computer Center</option>
+                <option value="Sports Complex">Sports Complex</option>
+                <option value="Library">Library Wing</option>
+              </select>
+            </div>
+
+            <div class="leave-field-group">
+              <label for="adminRoomCapacity">Seating Capacity:</label>
+              <input type="text" id="adminRoomCapacity" placeholder="e.g. 60 or 40/60" />
+            </div>
+          </div>
+
+          <!-- Availability & Maintenance Toggle -->
+          <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 12px 14px; margin-bottom: 14px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <input type="checkbox" id="adminRoomUnavailableToggle" style="width: 18px; height: 18px; cursor: pointer;" />
+              <label for="adminRoomUnavailableToggle" style="font-size: 0.88rem; font-weight: 800; color: #b91c1c; cursor: pointer;">
+                🛠️ Mark Temporarily Unavailable / Under Maintenance
+              </label>
+            </div>
+            <div id="adminRoomUnavailableFields" style="display: none; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div class="leave-field-group">
+                <label for="adminRoomUnavailableReason" style="color: #991b1b;">Reason for Unavailability:</label>
+                <input type="text" id="adminRoomUnavailableReason" placeholder="e.g. AC Maintenance, Ceiling repair, Exam center" />
+              </div>
+              <div class="leave-field-group">
+                <label for="adminRoomUnavailableDuration" style="color: #991b1b;">Expected Duration:</label>
+                <input type="text" id="adminRoomUnavailableDuration" placeholder="e.g. All Day Today, Till 15 Oct, 2 Hours" />
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 10px;">
+            <button type="button" class="btn-primary" id="btnAdminSaveRoom" style="flex: 1; justify-content: center; padding: 11px; font-weight: 800; font-size: 0.9rem;">
+              💾 Save Room Details
+            </button>
+            <button type="button" id="btnAdminCancelRoomEdit" style="display: none; padding: 11px 18px; background: #e2e8f0; color: #334155; border: 1px solid #cbd5e1; border-radius: var(--radius-md); font-weight: 700; cursor: pointer;">
+              ✕ Cancel
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Manage Classrooms Table -->
+      <section class="admin-section-card">
+        <div class="admin-section-header">
+          <div class="admin-section-title">
+            <span>📋</span>
+            <span>All Classrooms & Overrides (<span id="adminRoomsCount">0</span>)</span>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <input type="text" id="adminRoomSearchInput" placeholder="🔍 Search room..." style="padding: 6px 10px; border-radius: 6px; border: 1px solid var(--border-color); font-size: 0.8rem;" />
+            <select id="adminRoomFilterStatus" style="padding: 6px 10px; border-radius: 6px; border: 1px solid var(--border-color); font-size: 0.8rem;">
+              <option value="ALL">All Rooms</option>
+              <option value="UNAVAILABLE">🛠️ Under Maintenance Only</option>
+              <option value="AVAILABLE">✅ Available</option>
+              <option value="CUSTOM">✨ Custom Added</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="leaves-items-container" id="adminRoomsListContainer">
+          <!-- Populated via admin.js -->
+        </div>
+      </section>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TAB: CAMPUS WIFI -->
+    <!-- ================================================================= -->
+    <div class="admin-tab-pane" id="tabContentWifi">
+      <!-- Add / Edit WiFi Network -->
+      <section class="admin-section-card">
+        <div class="admin-section-header">
+          <div class="admin-section-title">
+            <span>📶</span>
+            <span id="wifiFormTitle">Add / Edit Campus WiFi Network</span>
+          </div>
+          <button type="button" id="btnResetOfficialWifi" style="font-size: 0.74rem; padding: 5px 10px; background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; border-radius: 6px; font-weight: 700; cursor: pointer;">
+            🔄 Reset to Official 24 Networks (PDF)
+          </button>
+        </div>
+
+        <form id="adminWifiForm" onsubmit="return false;">
+          <input type="hidden" id="adminEditingWifiId" value="" />
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 12px;">
+            <div class="leave-field-group">
+              <label for="adminWifiSsid">Network SSID / Name *:</label>
+              <input type="text" id="adminWifiSsid" placeholder="e.g. FAC_36_5G, PB-4G, CLASS 1-4G" required />
+            </div>
+
+            <div class="leave-field-group">
+              <label for="adminWifiPassword">WiFi Password *:</label>
+              <input type="text" id="adminWifiPassword" placeholder="e.g. 21AdSr@4631" required style="font-family: monospace;" />
+            </div>
+
+            <div class="leave-field-group">
+              <label for="adminWifiBand">Network Band *:</label>
+              <select id="adminWifiBand">
+                <option value="5G">5G High Speed</option>
+                <option value="4G">4G Standard</option>
+                <option value="Dual">Dual Band (2.4G & 5G)</option>
+              </select>
+            </div>
+
+            <div class="leave-field-group">
+              <label for="adminWifiWing">Wing / Building:</label>
+              <select id="adminWifiWing">
+                <option value="Main Building">Main Building</option>
+                <option value="Principal Bungalow">Principal Bungalow (PB)</option>
+                <option value="Tutorials">Tutorials</option>
+                <option value="Campus Wide">Campus Wide</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+            <div class="leave-field-group">
+              <label for="adminWifiLocation">Coverage Area / Room Details:</label>
+              <input type="text" id="adminWifiLocation" placeholder="e.g. Room 36 top floor, Corridor near R20" />
+            </div>
+            <div class="leave-field-group">
+              <label for="adminWifiNotes">Notes (Optional):</label>
+              <input type="text" id="adminWifiNotes" placeholder="e.g. Fast connection for students & faculty" />
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 10px;">
+            <button type="button" class="btn-primary" id="btnAdminSaveWifi" style="flex: 1; justify-content: center; padding: 11px; font-weight: 800; font-size: 0.9rem; background: #0891b2; color: #fff; border: none; border-radius: 6px; cursor: pointer;">
+              💾 Save WiFi Network
+            </button>
+            <button type="button" id="btnAdminCancelWifiEdit" style="display: none; padding: 11px 18px; background: #e2e8f0; color: #334155; border: 1px solid #cbd5e1; border-radius: var(--radius-md); font-weight: 700; cursor: pointer;">
+              ✕ Cancel
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Active WiFi Networks List -->
+      <section class="admin-section-card">
+        <div class="admin-section-header">
+          <div class="admin-section-title">
+            <span>📋</span>
+            <span>Campus WiFi Networks (<span id="adminWifiCount">0</span>)</span>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="adminWifiSearchInput" placeholder="🔍 Search network, password, room..." style="padding: 6px 10px; border-radius: 6px; border: 1px solid var(--border-color); font-size: 0.8rem;" />
+          </div>
+        </div>
+
+        <div class="leaves-items-container" id="adminWifiListContainer">
+          <!-- Populated via admin.js -->
+        </div>
+      </section>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TAB 9: PRINT NOTICE SHEETS (SRCC Official Board Printouts) -->
+    <!-- ================================================================= -->
+    <div class="admin-tab-pane" id="tabContentPrint">
+      <!-- Print Configuration Controls -->
+      <section class="print-controls-card">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 14px;">
+          <div>
+            <h3 style="margin: 0; font-family: var(--font-display); font-size: 1.15rem; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
+              <span>🖨️</span>
+              <span>SRCC Physical Notice Board Printouts</span>
+            </h3>
+            <p style="margin: 3px 0 0; font-size: 0.78rem; color: var(--text-secondary);">
+              Generate authentic A4 portrait printable notice sheets for physical campus notice boards (Empty Rooms Matrix &amp; Faculty on Leave).
+            </p>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <a href="printable_timetables/Print_Portal.html" target="_blank" style="padding: 10px 16px; font-weight: 700; font-size: 0.84rem; background: #f1f5f9; color: #1e293b; border: 1px solid var(--border-color); border-radius: var(--radius-md); text-decoration: none; display: inline-flex; align-items: center; gap: 8px;" title="Open all Course &amp; Semester printable timetable booklets">
+              <span>📚 Section &amp; Course Booklets ↗</span>
+            </a>
+            <button type="button" class="btn-primary" id="btnAdminTriggerPrint" style="padding: 10px 18px; font-weight: 800; font-size: 0.88rem; background: #000066; color: #ffffff; border: none; border-radius: var(--radius-md); cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(0, 0, 102, 0.25);">
+              <span>🖨️</span>
+              <span>Print / Save as PDF</span>
+            </button>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; background: #f8fafc; padding: 14px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+          <div class="leave-field-group">
+            <label for="adminPrintDateSelect" style="font-weight: 700; font-size: 0.78rem;">Target Notice Date:</label>
+            <input type="date" id="adminPrintDateSelect" style="font-weight: 700;" />
+          </div>
+
+          <div class="leave-field-group">
+            <label for="adminPrintSheetsSelect" style="font-weight: 700; font-size: 0.78rem;">Sheets to Print:</label>
+            <select id="adminPrintSheetsSelect" style="font-weight: 700;">
+              <option value="both">📄 Both Sheets (Empty Rooms Matrix + Faculty on Leave)</option>
+              <option value="matrix">1️⃣ Sheet 1 Only: Empty Rooms Matrix</option>
+              <option value="leaves">2️⃣ Sheet 2 Only: Faculty on Leave</option>
+            </select>
+          </div>
+
+          <div class="leave-field-group">
+            <label for="adminPrintSlotRange" style="font-weight: 700; font-size: 0.78rem;">Time Range for Matrix:</label>
+            <select id="adminPrintSlotRange" style="font-weight: 700;">
+              <option value="all">Full Academic Day (8:30 AM – 6:00 PM)</option>
+              <option value="morning">Morning Session (8:30 AM – 1:30 PM)</option>
+              <option value="afternoon">Afternoon Session (2:00 PM – 6:00 PM)</option>
+            </select>
+          </div>
+
+          <div class="leave-field-group">
+            <label for="adminPrintVenueFilter" style="font-weight: 700; font-size: 0.78rem;">Venue Categories:</label>
+            <select id="adminPrintVenueFilter" style="font-weight: 700;">
+              <option value="all">Full Campus Matrix (Room, PB, Tut, Lab, SCR, Other)</option>
+              <option value="rooms_labs_pb">Classrooms, PB &amp; Labs (Hide Tut/Other)</option>
+              <option value="rooms_only">Lecture Classrooms (R) Only</option>
+            </select>
+          </div>
+
+          <div style="display: flex; align-items: flex-end;">
+            <button type="button" id="btnAdminRefreshPrintSheets" style="width: 100%; padding: 9px 12px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-weight: 700; font-size: 0.82rem; cursor: pointer; color: var(--text-primary);">
+              🔄 Refresh Preview
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Live Printable Sheets Container -->
+      <div class="print-preview-shell" id="printNoticesShell">
+        <!-- Sheet 1: Empty Rooms Matrix -->
+        <article class="print-sheet" id="printSheetMatrix">
+          <div>
+            <header class="print-header-row">
+              <img src="assets/srcc_crest.png" onerror="this.onerror=null; this.src='srcc_crest.png';" class="print-header-logo" alt="SRCC Crest" />
+              <div class="print-header-center">
+                <div class="print-header-line1">श्री राम कॉलेज ऑफ़ कॉमर्स / SHRI RAM COLLEGE OF COMMERCE</div>
+                <div class="print-header-line2">(दिल्ली विश्वविद्यालय / University of Delhi)</div>
+                <div class="print-header-line3">मौरिस नगर, दिल्ली-110007 / Maurice Nagar, Delhi-110 007</div>
+                <div class="print-header-line4">फोन/Phone: 27667905, 27666519 • वेबसाइट/Website: www.srcc.edu • ईमेल/Email: principal@srcc.du.ac.in</div>
+              </div>
+              <img src="assets/srcc_100years.png" onerror="this.onerror=null; this.src='assets/srcc_crest.png';" class="print-header-logo" alt="SRCC 100 Years" />
+            </header>
+            <hr class="print-header-divider" />
+
+            <h2 class="print-sheet-title" id="printMatrixTitle">EMPTY ROOMS MATRIX (8:30 AM - 6:00 PM)</h2>
+            <div class="print-sheet-sub" id="printMatrixMeta">Date: 10 October 2026 | Day: Saturday</div>
+
+            <table class="print-table" id="printMatrixTable">
+              <thead id="printMatrixThead">
+                <tr>
+                  <th style="width: 13%;">TIME</th>
+                  <th style="width: 22%;">ROOM</th>
+                  <th style="width: 8%;">PB</th>
+                  <th style="width: 21%;">TUT</th>
+                  <th style="width: 12%;">COMP LAB (CL, CLIB)</th>
+                  <th style="width: 10%;">SCR</th>
+                  <th style="width: 14%;">OTHER</th>
+                </tr>
+              </thead>
+              <tbody id="printMatrixTbody">
+                <!-- Dynamically populated via admin.js -->
+              </tbody>
+            </table>
+          </div>
+
+          <footer class="print-sheet-footer">
+            <span>Generated by SRCC Admin Assist • * Vacant due to scheduled faculty on leave</span>
+            <span id="printMatrixGeneratedTime">Printed on: 10 Oct 2026, 07:30 AM IST</span>
+          </footer>
+        </article>
+
+        <!-- Sheet 2: Faculty on Leave -->
+        <article class="print-sheet" id="printSheetLeaves">
+          <div>
+            <header class="print-header-row">
+              <img src="assets/srcc_crest.png" onerror="this.onerror=null; this.src='srcc_crest.png';" class="print-header-logo" alt="SRCC Crest" />
+              <div class="print-header-center">
+                <div class="print-header-line1">श्री राम कॉलेज ऑफ़ कॉमर्स / SHRI RAM COLLEGE OF COMMERCE</div>
+                <div class="print-header-line2">(दिल्ली विश्वविद्यालय / University of Delhi)</div>
+                <div class="print-header-line3">मौरिस नगर, दिल्ली-110007 / Maurice Nagar, Delhi-110 007</div>
+                <div class="print-header-line4">फोन/Phone: 27667905, 27666519 • वेबसाइट/Website: www.srcc.edu • ईमेल/Email: principal@srcc.du.ac.in</div>
+              </div>
+              <img src="assets/srcc_100years.png" onerror="this.onerror=null; this.src='assets/srcc_crest.png';" class="print-header-logo" alt="SRCC 100 Years" />
+            </header>
+            <hr class="print-header-divider" />
+
+            <h2 class="print-sheet-title">FACULTY ON LEAVE &amp; VACANT ROOMS</h2>
+            <div class="print-sheet-sub" id="printLeavesMeta">Date: 10 October 2026 | Day: Saturday</div>
+
+            <table class="print-table" id="printLeavesTable">
+              <thead>
+                <tr>
+                  <th style="width: 6%;">S.NO.</th>
+                  <th style="width: 32%; text-align: left;">FACULTY NAME &amp; DEPT</th>
+                  <th style="width: 14%;">FROM</th>
+                  <th style="width: 14%;">TO</th>
+                  <th style="width: 10%;">DAYS</th>
+                  <th style="width: 24%; text-align: left;">ROOMS VACANT (TODAY)</th>
+                </tr>
+              </thead>
+              <tbody id="printLeavesTbody">
+                <!-- Dynamically populated via admin.js -->
+              </tbody>
+            </table>
+          </div>
+
+          <footer class="print-sheet-footer">
+            <span>Generated by SRCC Admin Assist • Faculty Leave &amp; Vacant Classroom Notice</span>
+            <span id="printLeavesGeneratedTime">Printed on: 10 Oct 2026, 07:30 AM IST</span>
+          </footer>
+        </article>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Notice Attachment Modal Viewer (Image / PDF) -->
+  <div class="attachment-modal-overlay" id="attachmentModalOverlay">
+    <div class="attachment-modal-card">
+      <div class="attachment-modal-header">
+        <h3 id="attachmentModalTitle" style="margin: 0; font-family: var(--font-display); font-size: 1rem; color: #1e293b;">
+          Attachment Preview
+        </h3>
+        <button type="button" id="btnCloseAttachmentModal" style="background: transparent; border: none; font-size: 1.2rem; cursor: pointer; color: #64748b; padding: 4px;">✕</button>
+      </div>
+      <div class="attachment-modal-body" id="attachmentModalBody">
+        <!-- Image or PDF viewer injected here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Data Scripts -->
+  <script src="cloud_config.js?v=58"></script>
+  <script src="data.js?v=58"></script>
+  <script src="classes_data.js?v=58"></script>
+  <script src="wifi_data.js?v=58"></script>
+  <script src="faculty_leaves.js?v=58"></script>
+  <script src="teachers_data.js?v=58"></script>
+  <script src="admin.js?v=58"></script>
+</body>
+</html>

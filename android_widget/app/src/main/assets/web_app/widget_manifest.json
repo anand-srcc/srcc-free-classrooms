@@ -1,0 +1,30 @@
+{
+  "name": "SRCC Timetable Widget",
+  "short_name": "Timetable",
+  "description": "Personalized daily schedule widget for SRCC students and faculty. Add to your homescreen for instant 1-tap timetable without opening PDFs.",
+  "start_url": "./widget.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#000066",
+  "theme_color": "#000066",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "srcc_crest.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "srcc_100years.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
