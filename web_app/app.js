@@ -687,6 +687,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+
+
     function isRoomLocked(roomCode, slot, checkDateStr) {
       const locks = getRoomActiveLocks(roomCode, checkDateStr);
       if (!locks || locks.length === 0) return false;
@@ -1846,27 +1848,31 @@ document.addEventListener('DOMContentLoaded', () => {
       const directRoomUrl = `${siteUrl}${siteUrl.endsWith('/') ? '' : '/'}?room=${encodeURIComponent(room.code)}`;
       const activeDateStr = getDateForDay(state.activeDay);
       const dayAndDateDisplay = `${state.activeDay}, ${activeDateStr}`;
+      const loc = getRoomLocationMeta(room.code);
+      const locDisplay = `${loc.floor} • ${loc.wing}`;
 
       const cleanMessage = `🎓 SRCC Classroom Vacancy Alert
 
 📍 Room: ${room.code} (${room.name})
+🏢 Location: ${locDisplay} (${loc.landmark})
 🗓️ Day & Date: ${dayAndDateDisplay}
 
 🕒 Free Academic Slots:
 ${freeSlotsFormatted}
 
-🔗 Live Schedule & Vacancy:
+🔗 Live Schedule:
 ${directRoomUrl}`;
 
       const whatsappMessage = `🎓 *SRCC Classroom Vacancy Alert*
 
 📍 *Room:* ${room.code} (${room.name})
+🏢 *Location:* ${locDisplay} (${loc.landmark})
 🗓️ *Day & Date:* ${dayAndDateDisplay}
 
 🕒 *Free Academic Slots:*
 ${freeSlotsFormatted}
 
-🔗 *Live Schedule & Vacancy:*
+🔗 *Live Schedule:*
 ${directRoomUrl}`;
 
       const tweetText = `🎓 SRCC Vacancy: Room ${room.code} is FREE on ${dayAndDateDisplay}! Check live schedule:`;
@@ -2269,12 +2275,18 @@ ${directRoomUrl}`;
                                room.name === `Tutorial Room ${room.code.replace(/\D+/g, '')}` ||
                                room.name === `Classroom ${room.code.replace(/\D+/g, '')}`);
 
+        const loc = getRoomLocationMeta(room.code);
+
         return `
           <article class="room-card ${cardStyleClass} ${themeClass}" data-room-code="${escapeHtml(room.code)}">
             <div class="card-header room-card-header">
               <div class="card-title-group">
                 <div class="card-room-code">${escapeHtml(room.code)}</div>
                 ${(!isGenericName && room.name) ? `<div class="card-room-name">${escapeHtml(room.name)}</div>` : ''}
+                <div class="card-room-loc-badge" title="${escapeHtml(loc.wing)} (${escapeHtml(loc.landmark)})">
+                  <span class="card-loc-floor">${escapeHtml(loc.floor)}</span>
+                  <span class="card-loc-wing">• ${escapeHtml(loc.wing)}</span>
+                </div>
               </div>
               <div class="card-meta-badges">
                 <span class="badge-capacity">${escapeHtml(room.capacity)} Seats</span>
@@ -2418,6 +2430,109 @@ ${directRoomUrl}`;
 
     let currentModalRoomCode = null;
     let currentModalDay = 'Monday';
+    let campusMapDataCache = null;
+
+    async function loadCampusMapData() {
+      if (campusMapDataCache) return campusMapDataCache;
+      try {
+        const res = await fetch('campus_map_data.json');
+        campusMapDataCache = await res.json();
+        return campusMapDataCache;
+      } catch (e) {
+        console.warn('Could not load campus_map_data.json:', e);
+        return null;
+      }
+    }
+
+    function getRoomLocationMeta(roomCode) {
+      const code = String(roomCode || '').trim().toUpperCase();
+      let mapNode = null;
+      if (campusMapDataCache && campusMapDataCache.graphData) {
+        const nodes = campusMapDataCache.graphData.nodes || [];
+        mapNode = nodes.find(n => n.name && n.name.trim().toUpperCase() === code) ||
+                  nodes.find(n => n.name && n.name.trim().toUpperCase() === code.replace(/\s+/g, ''));
+      }
+
+      let floor = mapNode?.floor || 'Ground Floor';
+      let wing = 'Main Building Wing';
+      let landmark = 'Central Campus';
+
+      const numMatch = code.match(/\d+/);
+      const num = numMatch ? parseInt(numMatch[0], 10) : 0;
+
+      if (code.startsWith('R')) {
+        if (num >= 1 && num <= 10) {
+          floor = 'Ground Floor';
+          wing = 'Main Building (Front Wing)';
+          landmark = 'Near Principal Office & Central Lawns';
+        } else if (num >= 11 && num <= 25) {
+          floor = 'First Floor';
+          wing = 'Main Building (First Floor Corridor)';
+          landmark = 'Accessible via Main Heritage Stairs';
+        } else if (num >= 26 && num <= 32) {
+          floor = 'Ground Floor';
+          wing = 'New Classroom Wing';
+          landmark = 'Near Central Lawns & Main Auditorium';
+        } else if (num >= 33 && num <= 37) {
+          floor = 'First Floor';
+          wing = 'New Classroom Wing';
+          landmark = 'Near Computer Labs & North Corridor';
+        }
+      } else if (code.startsWith('T')) {
+        wing = 'Tutorial Block';
+        if (num >= 16) {
+          floor = 'First Floor';
+          landmark = 'Tutorial Block 1st Floor Corridor';
+        } else {
+          floor = 'Ground Floor';
+          landmark = 'Tutorial Lawns & Ground Floor Corridor';
+        }
+      } else if (code.startsWith('PB')) {
+        floor = 'Ground Floor';
+        wing = 'Principal Bungalow Heritage Wing';
+        landmark = 'Near Gate 1 & Green Lawns';
+      } else if (code.startsWith('SCR')) {
+        floor = 'Ground Floor';
+        wing = 'Sports Complex Block';
+        landmark = 'Near Sports Ground & Gymnasium';
+      } else if (code.startsWith('CL') || code === 'CLIB') {
+        floor = 'First Floor';
+        wing = 'Computer Center & Library Block';
+        landmark = 'Computer Center 1st Floor Corridor';
+      } else if (code === 'AUDI') {
+        floor = 'Ground Floor';
+        wing = 'Main Auditorium';
+        landmark = 'Near Front Entrance / Foyer';
+      } else if (code === 'GCR') {
+        floor = 'Ground Floor';
+        wing = 'Girls Common Room Wing';
+        landmark = 'Near Canteen Pathway';
+      } else if (code.includes('LIBRARY') || code.includes('LIB')) {
+        if (code.includes('FF') || code.includes('FIRST')) {
+          floor = 'First Floor';
+          wing = 'Main Library Block';
+          landmark = 'Upper Reading Hall';
+        } else {
+          floor = 'Ground Floor';
+          wing = 'Main Library Block';
+          landmark = 'Central Library Hall';
+        }
+      } else if (code.includes('PLAYGROUND') || code.includes('GROUND')) {
+        floor = 'Ground / Outdoor';
+        wing = 'Main Sports Ground';
+        landmark = 'Beside Gymnasium & Pavilion';
+      } else if (code.includes('PRINCIPAL')) {
+        floor = 'Ground Floor';
+        wing = 'Main Heritage Building';
+        landmark = 'Near Gate 1 Main Entrance';
+      } else if (code.includes('SEMINAR')) {
+        floor = 'Ground Floor';
+        wing = 'Main Seminar Hall Block';
+        landmark = 'Adjacent to Auditorium & Central Lawns';
+      }
+
+      return { code, floor, wing, landmark, mapNode };
+    }
 
     function openScheduleModal(roomCode, targetDay = null) {
       const room = findRoomByCodeOrName(roomCode);
@@ -2435,9 +2550,17 @@ ${directRoomUrl}`;
       currentModalDay = dayToUse;
 
       const sched = room.schedule[dayToUse] || { free_slots: [], occupied_slots: [], lunch_recess_free: true };
+      const loc = getRoomLocationMeta(room.code);
 
       if (modalRoomTitle) {
-        modalRoomTitle.innerHTML = `<span>${escapeHtml(room.code)}</span>`;
+        modalRoomTitle.textContent = room.code;
+      }
+      const modalRoomLocationBar = document.getElementById('modalRoomLocationBar');
+      if (modalRoomLocationBar) {
+        modalRoomLocationBar.innerHTML = `
+          <span class="room-loc-floor-badge">${escapeHtml(loc.floor)}</span>
+          <span class="room-loc-text">• ${escapeHtml(loc.wing)} (${escapeHtml(loc.landmark)})</span>
+        `;
       }
       if (modalRoomMeta) modalRoomMeta.textContent = `${room.category} · Capacity: ${room.capacity || 0} seats`;
 

@@ -8378,3 +8378,79 @@ body.dark-mode .tt-room-btn:hover,
   color: #16a34a;
 }
 
+/* Room Architectural Location Badge & Info Bar */
+.room-location-info-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 4px 0 8px 0;
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
+.room-loc-floor-badge {
+  display: inline-flex;
+  align-items: center;
+  background: #eef2ff;
+  color: #2563eb;
+  padding: 3px 9px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.01em;
+  border: 1px solid rgba(37, 99, 235, 0.15);
+}
+
+[data-theme="dark"] .room-loc-floor-badge {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.room-loc-text {
+  color: var(--text-secondary, #475569);
+  font-weight: 500;
+  font-size: 0.86rem;
+}
+
+[data-theme="dark"] .room-loc-text {
+  color: #cbd5e1;
+}
+
+/* Room Card Location Tag */
+.card-room-loc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 4px;
+  font-size: 0.76rem;
+  color: var(--text-muted, #64748b);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.card-loc-floor {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(37, 99, 235, 0.08);
+  color: #2563eb;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.72rem;
+}
+
+[data-theme="dark"] .card-loc-floor {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+}
+
+.card-loc-wing {
+  color: var(--text-secondary, #475569);
+  font-weight: 500;
+}
+
+
