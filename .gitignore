@@ -37,4 +37,6 @@ android_widget/app/build/
 *.apk
 !android_widget/app-debug.apk
 !web_app/app-debug.apk
+local.properties
+**/local.properties
 

@@ -992,6 +992,67 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     // ========================================================================
+    // ⏰ ACADEMIC PERIODS MAP & LOOKUP HELPER (GLOBAL)
+    // ========================================================================
+    const academicPeriodsMap = {
+      '8:30 AM to 9:30 AM': { num: 1, start: '8:30 AM', end: '9:30 AM' },
+      '8:30 AM – 9:30 AM': { num: 1, start: '8:30 AM', end: '9:30 AM' },
+      '8:30 AM - 9:30 AM': { num: 1, start: '8:30 AM', end: '9:30 AM' },
+      '9:30 AM to 10:30 AM': { num: 2, start: '9:30 AM', end: '10:30 AM' },
+      '9:30 AM – 10:30 AM': { num: 2, start: '9:30 AM', end: '10:30 AM' },
+      '9:30 AM - 10:30 AM': { num: 2, start: '9:30 AM', end: '10:30 AM' },
+      '10:30 AM to 11:30 AM': { num: 3, start: '10:30 AM', end: '11:30 AM' },
+      '10:30 AM – 11:30 AM': { num: 3, start: '10:30 AM', end: '11:30 AM' },
+      '10:30 AM - 11:30 AM': { num: 3, start: '10:30 AM', end: '11:30 AM' },
+      '11:30 AM to 12:30 PM': { num: 4, start: '11:30 AM', end: '12:30 PM' },
+      '11:30 AM – 12:30 PM': { num: 4, start: '11:30 AM', end: '12:30 PM' },
+      '11:30 AM - 12:30 PM': { num: 4, start: '11:30 AM', end: '12:30 PM' },
+      '12:30 PM to 1:30 PM': { num: 5, start: '12:30 PM', end: '1:30 PM' },
+      '12:30 PM – 1:30 PM': { num: 5, start: '12:30 PM', end: '1:30 PM' },
+      '12:30 PM - 1:30 PM': { num: 5, start: '12:30 PM', end: '1:30 PM' },
+      '1:00 PM to 2:00 PM': { num: 5, start: '12:30 PM', end: '1:30 PM' },
+      '2:00 PM to 3:00 PM': { num: 6, start: '2:00 PM', end: '3:00 PM' },
+      '2:00 PM – 3:00 PM': { num: 6, start: '2:00 PM', end: '3:00 PM' },
+      '2:00 PM - 3:00 PM': { num: 6, start: '2:00 PM', end: '3:00 PM' },
+      '3:00 PM to 4:00 PM': { num: 7, start: '3:00 PM', end: '4:00 PM' },
+      '3:00 PM – 4:00 PM': { num: 7, start: '3:00 PM', end: '4:00 PM' },
+      '3:00 PM - 4:00 PM': { num: 7, start: '3:00 PM', end: '4:00 PM' },
+      '4:00 PM to 5:00 PM': { num: 8, start: '4:00 PM', end: '5:00 PM' },
+      '4:00 PM – 5:00 PM': { num: 8, start: '4:00 PM', end: '5:00 PM' },
+      '4:00 PM - 5:00 PM': { num: 8, start: '4:00 PM', end: '5:00 PM' },
+      '5:00 PM to 6:00 PM': { num: 9, start: '5:00 PM', end: '6:00 PM' },
+      '5:00 PM – 6:00 PM': { num: 9, start: '5:00 PM', end: '6:00 PM' },
+      '5:00 PM - 6:00 PM': { num: 9, start: '5:00 PM', end: '6:00 PM' }
+    };
+
+    function getPeriodInfo(slotStr) {
+      if (!slotStr) return null;
+      const trimmed = String(slotStr).trim();
+      if (academicPeriodsMap[trimmed]) return academicPeriodsMap[trimmed];
+      const norm = trimmed.replace(/\s+/g, ' ');
+      if (academicPeriodsMap[norm]) return academicPeriodsMap[norm];
+      const m = norm.match(/(\d{1,2}):(\d{2})\s*(AM|PM)?/i);
+      if (m) {
+        let hr = parseInt(m[1], 10);
+        const ampm = (m[3] || '').toUpperCase();
+        if (ampm === 'PM' && hr < 12) hr += 12;
+        if (ampm === 'AM' && hr === 12) hr = 0;
+        if (hr === 8) return academicPeriodsMap['8:30 AM to 9:30 AM'];
+        if (hr === 9) return academicPeriodsMap['9:30 AM to 10:30 AM'];
+        if (hr === 10) return academicPeriodsMap['10:30 AM to 11:30 AM'];
+        if (hr === 11) return academicPeriodsMap['11:30 AM to 12:30 PM'];
+        if (hr === 12 || hr === 13) return academicPeriodsMap['12:30 PM to 1:30 PM'];
+        if (hr === 14) return academicPeriodsMap['2:00 PM to 3:00 PM'];
+        if (hr === 15) return academicPeriodsMap['3:00 PM to 4:00 PM'];
+        if (hr === 16) return academicPeriodsMap['4:00 PM to 5:00 PM'];
+        if (hr === 17) return academicPeriodsMap['5:00 PM to 6:00 PM'];
+      }
+      const parts = trimmed.split(/\s*(?:to|–|-)\s*/i);
+      return { num: 99, start: parts[0] || trimmed, end: parts[1] || '' };
+    }
+    window.getPeriodInfo = getPeriodInfo;
+
+    // ========================================================================
     // ⚡ CONSECUTIVE FREE WINDOWS ALGORITHM
     // ========================================================================
     function getConsecutiveFreeWindows(freeSlots, bonusSlots = []) {
@@ -4765,31 +4826,36 @@ ${directRoomUrl}`;
       // Build daily schedule for the active/tapped day
       const daySched = (teacher.schedule && teacher.schedule[activeDay]) || [];
       let daySchedText = '';
-      if (daySched.length > 0) {
-        const sorted = [...daySched].sort((a, b) => {
-          const pA = getPeriodInfo(a.slot)?.num || 99;
-          const pB = getPeriodInfo(b.slot)?.num || 99;
-          return pA - pB;
-        });
-        const classLines = sorted.map(c => {
-          const pInfo = getPeriodInfo(c.slot);
-          const timeStr = pInfo ? `${pInfo.start} – ${pInfo.end}` : (c.slot || '');
-          const subjName = c.subject_name || c.subject || 'Class';
-          const subjCode = (c.subject && c.subject !== subjName) ? ` (${c.subject})` : '';
-          const roomStr = c.room ? ` · Room ${c.room}` : '';
-          const typeStr = (c.type && c.type !== 'Lecture') ? ` · ${c.type}` : '';
-          let secStr = '';
-          if (c.section && c.section.toLowerCase() !== 'joint' && !c.section.toLowerCase().includes('reconciled')) {
-            secStr = ` · ${c.course ? c.course + ' ' : ''}${c.semester ? c.semester + ' ' : ''}${c.section}`;
-            if (c.batch) secStr += ` (Batch ${formatBatchCode(c.batch)})`;
-          } else if (c.semester && !c.semester.toLowerCase().includes('all sem')) {
-            secStr = ` · ${c.course ? c.course + ' ' : ''}${c.semester}`;
-          }
-          return `  • ${timeStr}: ${subjName}${subjCode}${roomStr}${typeStr}${secStr}`;
-        });
-        daySchedText = `📅 Schedule for ${activeDay}:\n${classLines.join('\n')}\n\n`;
-      } else {
-        daySchedText = `📅 Schedule for ${activeDay}: No lectures scheduled (Free Day)\n\n`;
+      try {
+        if (daySched.length > 0) {
+          const sorted = [...daySched].sort((a, b) => {
+            const pA = getPeriodInfo(a.slot)?.num || 99;
+            const pB = getPeriodInfo(b.slot)?.num || 99;
+            return pA - pB;
+          });
+          const classLines = sorted.map(c => {
+            const pInfo = getPeriodInfo(c.slot);
+            const timeStr = pInfo ? `${pInfo.start} – ${pInfo.end}` : (c.slot || '');
+            const subjName = c.subject_name || c.subject || 'Class';
+            const subjCode = (c.subject && c.subject !== subjName) ? ` (${c.subject})` : '';
+            const roomStr = c.room ? ` · Room ${c.room}` : '';
+            const typeStr = (c.type && c.type !== 'Lecture') ? ` · ${c.type}` : '';
+            let secStr = '';
+            if (c.section && c.section.toLowerCase() !== 'joint' && !c.section.toLowerCase().includes('reconciled')) {
+              secStr = ` · ${c.course ? c.course + ' ' : ''}${c.semester ? c.semester + ' ' : ''}${c.section}`;
+              if (c.batch) secStr += ` (Batch ${formatBatchCode(c.batch)})`;
+            } else if (c.semester && !c.semester.toLowerCase().includes('all sem')) {
+              secStr = ` · ${c.course ? c.course + ' ' : ''}${c.semester}`;
+            }
+            return `  • ${timeStr}: ${subjName}${subjCode}${roomStr}${typeStr}${secStr}`;
+          });
+          daySchedText = `📅 Schedule for ${activeDay}:\n${classLines.join('\n')}\n\n`;
+        } else {
+          daySchedText = `📅 Schedule for ${activeDay}: No lectures scheduled (Free Day)\n\n`;
+        }
+      } catch (errSched) {
+        console.warn('Error formatting schedule for share:', errSched);
+        daySchedText = `📅 Schedule for ${activeDay}: Please check online portal\n\n`;
       }
 
       const emailPart = teacher.email ? `✉️ Email: ${teacher.email}\n` : '';
