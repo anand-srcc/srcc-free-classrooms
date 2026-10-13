@@ -14,17 +14,22 @@ import edu.srcc.timetablewidget.data.WidgetFeedRepository
 import edu.srcc.timetablewidget.data.WidgetProfileRepository
 import edu.srcc.timetablewidget.model.DailySchedule
 import edu.srcc.timetablewidget.sync.WidgetSyncWorker
+import edu.srcc.timetablewidget.ui.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Calendar
 import java.util.TimeZone
 
-abstract class BaseTimetableWidgetProvider : AppWidgetProvider() {
+enum class WidgetType { W_4x1, W_4x2, W_4x4 }
+
+abstract class BaseTimetableWidgetProvider(private val widgetType: WidgetType) : AppWidgetProvider() {
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         WidgetSyncWorker.enqueuePeriodic(context)
-        updateAllWidgets(context)
+        for (id in appWidgetIds) {
+            updateWidgetDirect(context, appWidgetManager, id, widgetType)
+        }
     }
 
     override fun onReceive(context: Context, intent: Intent) {
@@ -38,24 +43,46 @@ abstract class BaseTimetableWidgetProvider : AppWidgetProvider() {
     companion object {
         const val ACTION_MANUAL_REFRESH = "edu.srcc.timetablewidget.ACTION_MANUAL_REFRESH"
 
-        fun updateWidget(context: Context, appWidgetId: Int) {
+        fun updateWidgetDirect(
+            context: Context,
+            appWidgetManager: AppWidgetManager,
+            appWidgetId: Int,
+            type: WidgetType
+        ) {
             if (appWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) return
-            val appWidgetManager = AppWidgetManager.getInstance(context)
             val profileRepo = WidgetProfileRepository(context)
             val feedRepo = WidgetFeedRepository(context)
 
-            CoroutineScope(Dispatchers.IO).launch {
+            // Step 1: Render fast cached view immediately so launcher never shows "Error loading widget"
+            try {
                 val profile = profileRepo.getProfile(appWidgetId)
-                val schedule = feedRepo.getDailySchedule(profile, forceRefresh = false)
-                val info = appWidgetManager.getAppWidgetInfo(appWidgetId)
-                val cls = info?.provider?.className ?: ""
-                val views = when {
-                    cls.contains("4x1") -> render4x1(context, schedule)
-                    cls.contains("4x4") -> render4x4(context, schedule)
-                    else -> render4x2(context, schedule)
-                }
-                appWidgetManager.updateAppWidget(appWidgetId, views)
+                val initialSchedule = feedRepo.getCachedSchedule(profile)
+                val initialViews = renderViews(context, initialSchedule, type)
+                appWidgetManager.updateAppWidget(appWidgetId, initialViews)
+            } catch (_: Exception) {}
+
+            // Step 2: In background, fetch fresh schedule and refresh
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    val profile = profileRepo.getProfile(appWidgetId)
+                    val schedule = feedRepo.getDailySchedule(profile, forceRefresh = false)
+                    val views = renderViews(context, schedule, type)
+                    appWidgetManager.updateAppWidget(appWidgetId, views)
+                } catch (_: Exception) {}
             }
+        }
+
+        fun updateWidget(context: Context, appWidgetId: Int) {
+            if (appWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) return
+            val appWidgetManager = AppWidgetManager.getInstance(context)
+            val info = appWidgetManager.getAppWidgetInfo(appWidgetId)
+            val cls = info?.provider?.className ?: ""
+            val type = when {
+                cls.contains("4x1") -> WidgetType.W_4x1
+                cls.contains("4x4") -> WidgetType.W_4x4
+                else -> WidgetType.W_4x2
+            }
+            updateWidgetDirect(context, appWidgetManager, appWidgetId, type)
         }
 
         fun updateAllWidgets(context: Context, forceRefresh: Boolean = false) {
@@ -64,29 +91,39 @@ abstract class BaseTimetableWidgetProvider : AppWidgetProvider() {
             val feedRepo = WidgetFeedRepository(context)
 
             CoroutineScope(Dispatchers.IO).launch {
-                val profile = profileRepo.getProfile()
-                val schedule = feedRepo.getDailySchedule(profile, forceRefresh)
+                try {
+                    val profile = profileRepo.getProfile()
+                    val schedule = feedRepo.getDailySchedule(profile, forceRefresh)
 
-                // 4x1
-                val ids4x1 = appWidgetManager.getAppWidgetIds(ComponentName(context, TimetableWidget4x1Provider::class.java))
-                for (id in ids4x1) {
-                    val views = render4x1(context, schedule)
-                    appWidgetManager.updateAppWidget(id, views)
-                }
+                    // 4x1
+                    val ids4x1 = appWidgetManager.getAppWidgetIds(ComponentName(context, TimetableWidget4x1Provider::class.java))
+                    for (id in ids4x1) {
+                        val views = render4x1(context, schedule)
+                        appWidgetManager.updateAppWidget(id, views)
+                    }
 
-                // 4x2
-                val ids4x2 = appWidgetManager.getAppWidgetIds(ComponentName(context, TimetableWidget4x2Provider::class.java))
-                for (id in ids4x2) {
-                    val views = render4x2(context, schedule)
-                    appWidgetManager.updateAppWidget(id, views)
-                }
+                    // 4x2
+                    val ids4x2 = appWidgetManager.getAppWidgetIds(ComponentName(context, TimetableWidget4x2Provider::class.java))
+                    for (id in ids4x2) {
+                        val views = render4x2(context, schedule)
+                        appWidgetManager.updateAppWidget(id, views)
+                    }
 
-                // 4x4
-                val ids4x4 = appWidgetManager.getAppWidgetIds(ComponentName(context, TimetableWidget4x4Provider::class.java))
-                for (id in ids4x4) {
-                    val views = render4x4(context, schedule)
-                    appWidgetManager.updateAppWidget(id, views)
-                }
+                    // 4x4
+                    val ids4x4 = appWidgetManager.getAppWidgetIds(ComponentName(context, TimetableWidget4x4Provider::class.java))
+                    for (id in ids4x4) {
+                        val views = render4x4(context, schedule)
+                        appWidgetManager.updateAppWidget(id, views)
+                    }
+                } catch (_: Exception) {}
+            }
+        }
+
+        private fun renderViews(context: Context, schedule: DailySchedule, type: WidgetType): RemoteViews {
+            return when (type) {
+                WidgetType.W_4x1 -> render4x1(context, schedule)
+                WidgetType.W_4x4 -> render4x4(context, schedule)
+                WidgetType.W_4x2 -> render4x2(context, schedule)
             }
         }
 
@@ -226,7 +263,7 @@ abstract class BaseTimetableWidgetProvider : AppWidgetProvider() {
         }
 
         private fun attachRefreshIntent(context: Context, views: RemoteViews, viewId: Int) {
-            val intent = Intent(context, TimetableWidget4x1Provider::class.java).apply {
+            val intent = Intent(context, TimetableWidget4x2Provider::class.java).apply {
                 action = ACTION_MANUAL_REFRESH
             }
             val pendingIntent = PendingIntent.getBroadcast(
@@ -237,11 +274,11 @@ abstract class BaseTimetableWidgetProvider : AppWidgetProvider() {
         }
 
         private fun attachAppClickIntent(context: Context, views: RemoteViews, viewId: Int) {
-            val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://srccroomfinder.netlify.app/widget.html")).apply {
+            val appIntent = Intent(context, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             }
             val pendingIntent = PendingIntent.getActivity(
-                context, 2002, webIntent,
+                context, 2002, appIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
             views.setOnClickPendingIntent(viewId, pendingIntent)
@@ -254,6 +291,6 @@ abstract class BaseTimetableWidgetProvider : AppWidgetProvider() {
     }
 }
 
-class TimetableWidget4x1Provider : BaseTimetableWidgetProvider()
-class TimetableWidget4x2Provider : BaseTimetableWidgetProvider()
-class TimetableWidget4x4Provider : BaseTimetableWidgetProvider()
+class TimetableWidget4x1Provider : BaseTimetableWidgetProvider(WidgetType.W_4x1)
+class TimetableWidget4x2Provider : BaseTimetableWidgetProvider(WidgetType.W_4x2)
+class TimetableWidget4x4Provider : BaseTimetableWidgetProvider(WidgetType.W_4x4)

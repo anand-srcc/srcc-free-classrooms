@@ -28,6 +28,13 @@ class WidgetFeedRepository(private val context: Context) {
 
     private val istZone = TimeZone.getTimeZone("Asia/Kolkata")
 
+    fun getCachedSchedule(profile: WidgetProfile): DailySchedule {
+        val jsonStr = if (cacheFile.exists()) {
+            try { cacheFile.readText() } catch (_: Exception) { null }
+        } else null
+        return parseSchedule(jsonStr, profile)
+    }
+
     suspend fun getDailySchedule(profile: WidgetProfile, forceRefresh: Boolean = false): DailySchedule {
         if (forceRefresh || !cacheFile.exists() || isCacheStale()) {
             fetchFeedRemote()

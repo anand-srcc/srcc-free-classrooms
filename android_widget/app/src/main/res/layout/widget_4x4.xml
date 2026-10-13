@@ -13,8 +13,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@drawable/widget_bg_navy"
-        android:paddingHorizontal="14dp"
-        android:paddingVertical="10dp"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:gravity="center_vertical">
 
         <LinearLayout
@@ -46,7 +48,7 @@
             android:id="@+id/btn_4x4_refresh"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:background="@android:color/transparent"
             android:src="@drawable/ic_refresh"
             android:contentDescription="Refresh Schedule" />
     </LinearLayout>
@@ -69,7 +71,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingVertical="3dp">
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp">
 
         <TextView
             android:id="@+id/tv_4x4_c1_time"
@@ -115,7 +118,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingVertical="3dp">
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp">
 
         <TextView
             android:id="@+id/tv_4x4_c2_time"
@@ -161,7 +165,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingVertical="3dp">
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp">
 
         <TextView
             android:id="@+id/tv_4x4_c3_time"
@@ -204,7 +209,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/widget_border"
-        android:layout_marginVertical="8dp" />
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp" />
 
     <!-- Faculty on Leave Section -->
     <TextView

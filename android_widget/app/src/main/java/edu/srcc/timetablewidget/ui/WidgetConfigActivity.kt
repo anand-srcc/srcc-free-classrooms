@@ -43,6 +43,13 @@ class WidgetConfigActivity : AppCompatActivity() {
             )
         }
 
+        if (appWidgetId != AppWidgetManager.INVALID_APPWIDGET_ID) {
+            val defaultResult = Intent().apply {
+                putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+            }
+            setResult(Activity.RESULT_OK, defaultResult)
+        }
+
         val spnCourse = findViewById<Spinner>(R.id.spn_config_course)
         val spnSem = findViewById<Spinner>(R.id.spn_config_sem)
         val spnSec = findViewById<Spinner>(R.id.spn_config_sec)
