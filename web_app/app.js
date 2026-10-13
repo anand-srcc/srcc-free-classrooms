@@ -3647,20 +3647,12 @@ ${directRoomUrl}`;
       };
     }
 
-    // Helper to get official faculty short code (primary timetable code only; never alias/secondary in student mode)
+    // Helper to get official faculty short code (primary timetable code only; never alias/reference code in student mode)
     function getDisplayShortCode(teacher) {
       if (!teacher) return '';
       let primary = (teacher.short_code || '').trim().toUpperCase();
-      if (!primary && teacher.ref_code) {
-        const tokens = teacher.ref_code.trim().toUpperCase().split(/[\s,/]+/);
-        for (const tok of tokens) {
-          if (!/^(cg|hg|csg|eg|mg|hgc)?\d+$/i.test(tok)) {
-            primary = tok;
-            break;
-          }
-        }
-      }
-      if (/^(cg|hg|csg|eg|mg|hgc)?\d+$/i.test(primary)) {
+      // Client-side rule: NEVER show reference codes, placeholder codes, or numeric tags to students
+      if (!primary || /\d/.test(primary) || /^(CG|HG|CSG|EG|MG|HGC|PSG|GUEST)\b/i.test(primary)) {
         return '';
       }
       return primary;
@@ -3672,7 +3664,8 @@ ${directRoomUrl}`;
         if (t && t.clean_name) return t.clean_name;
       }
       return String(rawName || '')
-        .replace(/\s*\((?:cg|hg|csg|eg|mg|hgc)?\d*\)/gi, '')
+        .replace(/\s*\([^)]*\)/g, '')
+        .replace(/\s*\b(?:cg|hg|csg|eg|mg|hgc|psg)?\d+\b/gi, '')
         .trim();
     }
 
@@ -5001,7 +4994,7 @@ ${directRoomUrl}`;
       }
       const raw = (leave.teacher_code || leave.teacherCode || '').trim();
       let primary = raw.includes('/') ? raw.split('/')[0].trim().toUpperCase() : raw.toUpperCase();
-      if (/^(cg|hg|csg|eg|mg|hgc)?\d+$/i.test(primary)) return '';
+      if (!primary || /\d/.test(primary) || /^(cg|hg|csg|eg|mg|hgc|psg|guest)\b/i.test(primary)) return '';
       return primary;
     }
 
@@ -5014,7 +5007,7 @@ ${directRoomUrl}`;
       }
       const lines = activeList.map((l, idx) => {
         const pCode = getClientDisplayCode(l);
-        const code = (pCode && !/^(cg|eg|mg|hg|hgc)\d*$/i.test(pCode)) ? ` [${pCode}]` : '';
+        const code = pCode ? ` [${pCode}]` : '';
         const dates = formatLeaveDates(l.start_date, l.end_date);
         const cName = getCleanStudentFacultyName(l.teacher_name, l.teacher_id);
         return `${idx + 1}. ${cName}${code} (${dates})`;
@@ -5052,18 +5045,19 @@ ${directRoomUrl}`;
         const e = leave.end_date || today;
         const isActiveToday = (today >= s && today <= e);
         const pCode = getClientDisplayCode(leave);
-        const code = (pCode && !/^(cg|eg|mg|hg|hgc)\d*$/i.test(pCode)) ? ` [${escapeHtml(pCode)}]` : '';
+        const code = pCode ? ` [${escapeHtml(pCode)}]` : '';
         const dateRangeDisplay = formatLeaveDates(s, e);
         const halfDayBadge = leave.isHalfDay ? `<span style="background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; font-size: 0.68rem; font-weight: 800; padding: 2px 7px; border-radius: 9999px;">½ DAY</span>` : '';
+        const cleanName = getCleanStudentFacultyName(leave.teacher_name, leave.teacher_id);
 
-        const singleLeaveMsg = `*SRCC Faculty Leave Update* 🏖️\n\n1. ${leave.teacher_name}${code} (${dateRangeDisplay})\n\n_Check free classrooms:_ ${shareSiteUrl}`;
+        const singleLeaveMsg = `*SRCC Faculty Leave Update* 🏖️\n\n1. ${cleanName}${code} (${dateRangeDisplay})\n\n_Check free classrooms:_ ${shareSiteUrl}`;
 
         return `
           <div class="leave-item-row" data-leave-id="${leave.id}">
             <span class="leave-item-num">${idx + 1}</span>
             <div class="leave-item-details">
               <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-                <span class="leave-item-teacher">${escapeHtml(leave.teacher_name)}${code}</span>
+                <span class="leave-item-teacher">${escapeHtml(cleanName)}${code}</span>
                 <span class="leave-item-dates">📅 ${dateRangeDisplay}</span>
                 ${halfDayBadge}
                 ${isActiveToday ? '<span style="background: #FEE2E2; color: #991B1B; border: 1px solid #FCA5A5; font-size: 0.68rem; font-weight: 800; padding: 2px 8px; border-radius: 9999px;">ACTIVE TODAY</span>' : ''}

@@ -518,9 +518,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (primary && alias && primary !== alias) {
-      return `${primary} / ${alias}`;
+      return `${primary} [Ref: ${alias}]`;
     }
-    return primary || alias || '';
+    return primary || (alias ? `[Ref: ${alias}]` : '') || '';
   }
 
   function getDisplayShortCode(teacher) {
