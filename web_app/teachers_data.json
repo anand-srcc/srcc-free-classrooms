@@ -3,10 +3,11 @@
     "college": "Shri Ram College of Commerce (SRCC)",
     "portal": "https://srcccollegetimetable.in/",
     "total_teachers": 210,
-    "last_synced": "12 Oct 2026, 09:33 PM",
+    "last_synced": "13 Oct 2026, 10:54 AM",
     "audit_reconciled": true,
     "tridiagonal_passes": 5,
-    "reverse_reconciled": true
+    "reverse_reconciled": true,
+    "emails_enriched": 115
   },
   "teachers": [
     {
@@ -117,7 +118,9 @@
             "type": "Practical/Lab"
           }
         ]
-      }
+      },
+      "email": "ayushisharmafbd@gmail.com",
+      "official_department": "Commerce Department"
     },
     {
       "id": "587",
@@ -312,7 +315,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "abhay.jain@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "711",
@@ -460,7 +465,8 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "553",
@@ -480,7 +486,9 @@
         "Thursday": [],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "email": "abhishek.khadgawat@srcc.du.ac.in",
+      "official_department": "Economics Department"
     },
     {
       "id": "509",
@@ -699,7 +707,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "abhishek.yadav@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "696",
@@ -967,7 +977,8 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "713",
@@ -1107,7 +1118,8 @@
         ],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "630",
@@ -1252,7 +1264,8 @@
             "type": "Tutorial"
           }
         ]
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "660",
@@ -1386,7 +1399,8 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "600",
@@ -1583,7 +1597,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "alka.goyale@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "570",
@@ -1778,7 +1794,9 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "email": "dralok.kumar@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "571",
@@ -1975,7 +1993,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "amanpreet.kaur@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "530",
@@ -2195,7 +2215,9 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "email": "amarjeet.singh@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "555",
@@ -2416,7 +2438,9 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "email": "amit.girdharwal@srcc.du.ac.in",
+      "official_department": "Economics Department"
     },
     {
       "id": "523",
@@ -2636,7 +2660,9 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "email": "amitkumar1@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "604",
@@ -2832,7 +2858,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "amit.sachdeva@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "508",
@@ -3063,7 +3091,9 @@
             "type": "Practical/Lab"
           }
         ]
-      }
+      },
+      "email": "anil.kumar1@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "636",
@@ -3566,7 +3596,8 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "569",
@@ -3759,7 +3790,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "anisha@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "618",
@@ -3919,7 +3952,8 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "644",
@@ -4261,7 +4295,9 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "email": "anju.verma@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "538",
@@ -4406,7 +4442,8 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "651",
@@ -4553,7 +4590,8 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "525",
@@ -4573,7 +4611,9 @@
         "Thursday": [],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "email": "ankita.tomar@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "693",
@@ -4719,7 +4759,8 @@
         ],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "505",
@@ -4950,7 +4991,9 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "email": "anubha.godara@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "527",
@@ -5158,7 +5201,9 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "email": "anuj.jatav@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "513",
@@ -5378,7 +5423,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "anuj.bhatia@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "519",
@@ -5597,7 +5644,9 @@
             "type": "Practical/Lab"
           }
         ]
-      }
+      },
+      "email": "anuradha.agarwal@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "554",
@@ -5816,7 +5865,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "anuradha.gulati@srcc.du.ac.in",
+      "official_department": "Economics Department"
     },
     {
       "id": "712",
@@ -6073,7 +6124,8 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "599",
@@ -6244,7 +6296,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "aruna.jha@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "541",
@@ -6464,7 +6518,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "asha.rani@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "658",
@@ -6586,7 +6642,8 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "556",
@@ -6806,7 +6863,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "ashwani.kumar@srcc.du.ac.in",
+      "official_department": "Economics Department"
     },
     {
       "id": "589",
@@ -7002,7 +7061,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "avinashkumar.jha@srcc.du.ac.in",
+      "official_department": "Economics Department"
     },
     {
       "id": "498",
@@ -7199,7 +7260,9 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "email": "kumar.sharma@srcc.du.ac.in",
+      "official_department": "Mathematics Department"
     },
     {
       "id": "551",
@@ -7419,7 +7482,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "bal.kishan@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "664",
@@ -7539,7 +7604,8 @@
         ],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "718",
@@ -7676,7 +7742,8 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "560",
@@ -7896,7 +7963,9 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "email": "chhavi.gautam@srcc.du.ac.in",
+      "official_department": "Economics Department"
     },
     {
       "id": "689",
@@ -7957,7 +8026,8 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "690",
@@ -7997,7 +8067,8 @@
         "Thursday": [],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "707",
@@ -8017,7 +8088,8 @@
         "Thursday": [],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "708",
@@ -8037,7 +8109,8 @@
         "Thursday": [],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "709",
@@ -8228,7 +8301,8 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "661",
@@ -8338,7 +8412,8 @@
         ],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "613",
@@ -8534,7 +8609,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "deepashree@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "535",
@@ -8754,7 +8831,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "dipika.bansal@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "526",
@@ -8975,7 +9054,9 @@
             "type": "Practical/Lab"
           }
         ]
-      }
+      },
+      "email": "dixit.yadav@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "667",
@@ -8995,7 +9076,8 @@
         "Thursday": [],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "682",
@@ -9015,7 +9097,8 @@
         "Thursday": [],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "657",
@@ -9035,7 +9118,8 @@
         "Thursday": [],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "669",
@@ -9055,7 +9139,8 @@
         "Thursday": [],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "675",
@@ -9090,7 +9175,8 @@
             "type": "Practical/Lab"
           }
         ]
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "617",
@@ -9261,7 +9347,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "esther.ngaihte@srcc.du.ac.in",
+      "official_department": "Economics Department"
     },
     {
       "id": "633",
@@ -9361,7 +9449,8 @@
             "type": "Practical/Lab"
           }
         ]
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "679",
@@ -9460,7 +9549,8 @@
             "type": "Practical/Lab"
           }
         ]
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "680",
@@ -9559,7 +9649,8 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "685",
@@ -9750,7 +9841,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "franky.varah@srcc.du.ac.in",
+      "official_department": "Environmental Science Department"
     },
     {
       "id": "521",
@@ -9969,7 +10062,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "gaurav.rana@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "546",
@@ -10080,7 +10175,8 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "623",
@@ -10214,7 +10310,8 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "583",
@@ -10433,7 +10530,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "hn.tiwari@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "549",
@@ -10653,7 +10752,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "harish.kumar@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "641",
@@ -10673,7 +10774,8 @@
         "Thursday": [],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "684",
@@ -10928,7 +11030,8 @@
             "type": "Tutorial"
           }
         ]
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "652",
@@ -11112,7 +11215,8 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "626",
@@ -11453,7 +11557,9 @@
             "type": "Tutorial"
           }
         ]
-      }
+      },
+      "email": "himanshi.aggarwal@srcc.du.ac.in",
+      "official_department": "Economics Department"
     },
     {
       "id": "565",
@@ -11584,7 +11690,8 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "654",
@@ -11720,7 +11827,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "xyzzyx121202@gmail.com",
+      "official_department": "Commerce"
     },
     {
       "id": "634",
@@ -11877,7 +11986,8 @@
         ],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "621",
@@ -12023,7 +12133,8 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "558",
@@ -12043,7 +12154,9 @@
         "Thursday": [],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "email": "jagadish@srcc.du.ac.in",
+      "official_department": "Economics Department"
     },
     {
       "id": "542",
@@ -12276,7 +12389,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "jaideep@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "677",
@@ -12399,7 +12514,8 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "540",
@@ -12619,7 +12735,9 @@
             "type": "Tutorial"
           }
         ]
-      }
+      },
+      "email": "jigmet.wangdus@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "515",
@@ -12838,7 +12956,9 @@
             "type": "Tutorial"
           }
         ]
-      }
+      },
+      "email": "kamaldeepkaur.sarna@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "497",
@@ -13048,7 +13168,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "kanika.gandhi@srcc.du.ac.in",
+      "official_department": "English Department"
     },
     {
       "id": "562",
@@ -13267,7 +13389,9 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "email": "kapildev.yadav@srcc.du.ac.in",
+      "official_department": "Economics Department"
     },
     {
       "id": "573",
@@ -13438,7 +13562,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "karuna@srcc.du.ac.in,",
+      "official_department": "Commerce Department"
     },
     {
       "id": "619",
@@ -13573,7 +13699,8 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "714",
@@ -13721,7 +13848,8 @@
         ],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "559",
@@ -13940,7 +14068,9 @@
             "type": "Tutorial"
           }
         ]
-      }
+      },
+      "email": "kaushal.kishore@srcc.du.ac.in",
+      "official_department": "Economics Department"
     },
     {
       "id": "575",
@@ -14123,7 +14253,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "kinneri.jain@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "656",
@@ -14268,7 +14400,8 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "511",
@@ -14488,7 +14621,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "krishan.kant@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "678",
@@ -14634,7 +14769,8 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "602",
@@ -14881,7 +15017,9 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "email": "kuljeet.kaur@srcc.du.ac.in",
+      "official_department": "Physical Education Department"
     },
     {
       "id": "503",
@@ -15101,7 +15239,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "latika.bajetha@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "577",
@@ -15298,7 +15438,9 @@
             "type": "Practical/Lab"
           }
         ]
-      }
+      },
+      "email": "linesh@srcc.du.ac.in",
+      "official_department": "Political Science Department"
     },
     {
       "id": "627",
@@ -15432,7 +15574,8 @@
             "type": "Practical/Lab"
           }
         ]
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "594",
@@ -15628,7 +15771,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "drmallika.kumar@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "676",
@@ -15773,7 +15918,8 @@
             "type": "Tutorial"
           }
         ]
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "683",
@@ -15919,7 +16065,8 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "547",
@@ -16114,7 +16261,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "manpreet.sharma@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "628",
@@ -16249,7 +16398,8 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "646",
@@ -16397,7 +16547,8 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "665",
@@ -16551,7 +16702,8 @@
         ],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "624",
@@ -16671,7 +16823,8 @@
         ],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "637",
@@ -16805,7 +16958,8 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "606",
@@ -17002,7 +17156,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "misha.govil@srcc.du.ac.in",
+      "official_department": "Mathematics Department"
     },
     {
       "id": "544",
@@ -17221,7 +17377,9 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "email": "mohd.hassan@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "572",
@@ -17241,7 +17399,9 @@
         "Thursday": [],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "email": "monika.bansal@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "557",
@@ -17583,7 +17743,9 @@
             "type": "Tutorial"
           }
         ]
-      }
+      },
+      "email": "monika.gaur@srcc.du.ac.in",
+      "official_department": "Economics Department"
     },
     {
       "id": "622",
@@ -17731,7 +17893,8 @@
             "type": "Tutorial"
           }
         ]
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "717",
@@ -17804,7 +17967,8 @@
         ],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "576",
@@ -17999,7 +18163,9 @@
             "type": "Practical/Lab"
           }
         ]
-      }
+      },
+      "email": "naveen.mittal@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "581",
@@ -18194,7 +18360,9 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "email": "nawang.gialchhen@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "697",
@@ -18310,7 +18478,9 @@
         "Thursday": [],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "email": "nidhi.gupta@srcc.du.ac.in",
+      "official_department": "Economics Department"
     },
     {
       "id": "691",
@@ -18434,7 +18604,8 @@
             "type": "Practical/Lab"
           }
         ]
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "510",
@@ -18654,7 +18825,9 @@
             "type": "Practical/Lab"
           }
         ]
-      }
+      },
+      "email": "nikunj.aggarwal@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "686",
@@ -18886,7 +19059,8 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "638",
@@ -19005,7 +19179,8 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "537",
@@ -19225,7 +19400,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "nisha.devi@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "584",
@@ -19420,7 +19597,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "padmeshwar.doley@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "716",
@@ -19569,7 +19748,8 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "520",
@@ -19789,7 +19969,9 @@
             "type": "Tutorial"
           }
         ]
-      }
+      },
+      "email": "palak.kanojia@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "670",
@@ -19809,7 +19991,8 @@
         "Thursday": [],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "672",
@@ -19829,7 +20012,8 @@
         "Thursday": [],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "673",
@@ -19977,7 +20161,8 @@
         ],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "699",
@@ -20100,7 +20285,8 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "700",
@@ -20120,7 +20306,8 @@
         "Thursday": [],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "701",
@@ -20140,7 +20327,8 @@
         "Thursday": [],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "702",
@@ -20160,7 +20348,8 @@
         "Thursday": [],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "703",
@@ -20180,7 +20369,8 @@
         "Thursday": [],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "698",
@@ -20329,7 +20519,8 @@
         "Thursday": [],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "493",
@@ -20552,7 +20743,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "prashasti.singh@srcc.du.ac.in",
+      "official_department": "Computer Science Department"
     },
     {
       "id": "662",
@@ -20686,7 +20879,8 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "534",
@@ -20906,7 +21100,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "prerana@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "514",
@@ -21125,7 +21321,9 @@
             "type": "Practical/Lab"
           }
         ]
-      }
+      },
+      "email": "priya.chaurasia@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "545",
@@ -21382,7 +21580,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "priyanka.aggarwal@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "663",
@@ -21440,7 +21640,8 @@
         ],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "591",
@@ -21611,7 +21812,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "priyanka.bhatia@srcc.du.ac.in",
+      "official_department": "Economics Department"
     },
     {
       "id": "603",
@@ -21806,7 +22009,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "drrachnajawa@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "568",
@@ -22075,7 +22280,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "rajkumar.sah@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "585",
@@ -22291,7 +22498,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "rajiv.jha@srcc.du.ac.in",
+      "official_department": "Economics Department"
     },
     {
       "id": "639",
@@ -22436,7 +22645,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "rajkumar.sah@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "582",
@@ -22631,7 +22842,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "rakesh.ranjan@srcc.du.ac.in",
+      "official_department": "Economics Department"
     },
     {
       "id": "635",
@@ -22766,7 +22979,8 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "566",
@@ -22965,7 +23179,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "ravi.kant@srcc.du.ac.in",
+      "official_department": "Economics Department"
     },
     {
       "id": "598",
@@ -23138,7 +23354,9 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "email": "ravi.sharma@srcc.du.ac.in",
+      "official_department": "Hindi Department"
     },
     {
       "id": "610",
@@ -23158,7 +23376,9 @@
         "Thursday": [],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "email": "reena.chadha@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "608",
@@ -23354,7 +23574,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "renu.agarwal@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "588",
@@ -23550,7 +23772,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "renu.bansal@srcc.du.ac.in",
+      "official_department": "Economics Department"
     },
     {
       "id": "496",
@@ -23746,7 +23970,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "rishabh.raj@srcc.du.ac.in",
+      "official_department": "Political Science Department"
     },
     {
       "id": "601",
@@ -23942,7 +24168,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "drrituranjan@srcc.du.ac.in",
+      "official_department": "Economics Department"
     },
     {
       "id": "564",
@@ -23962,7 +24190,8 @@
         "Thursday": [],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "593",
@@ -24135,7 +24364,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "drruchi.kaushik@srcc.du.ac.in",
+      "official_department": "English Department"
     },
     {
       "id": "517",
@@ -24155,7 +24386,9 @@
         "Thursday": [],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "email": "ruchika.choudhary@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "516",
@@ -24375,7 +24608,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "rutika.saini@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "710",
@@ -24522,7 +24757,8 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "620",
@@ -24668,7 +24904,8 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "592",
@@ -24864,7 +25101,9 @@
             "type": "Tutorial"
           }
         ]
-      }
+      },
+      "email": "santosh.kumar@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "645",
@@ -25057,7 +25296,9 @@
             "type": "Practical/Lab"
           }
         ]
-      }
+      },
+      "email": "shailesh.chawla@srcc.du.ac.in",
+      "official_department": "English Department"
     },
     {
       "id": "586",
@@ -25250,7 +25491,9 @@
             "type": "Practical/Lab"
           }
         ]
-      }
+      },
+      "email": "dr.santoshkumari@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "595",
@@ -25446,7 +25689,9 @@
             "type": "Practical/Lab"
           }
         ]
-      }
+      },
+      "email": "santosh.sabharwal@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "501",
@@ -25666,7 +25911,9 @@
             "type": "Practical/Lab"
           }
         ]
-      }
+      },
+      "email": "sapna.bansal@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "528",
@@ -25897,7 +26144,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "saroj.joshi@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "529",
@@ -25917,7 +26166,9 @@
         "Thursday": [],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "email": "satnam.singh@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "532",
@@ -26137,7 +26388,9 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "email": "saumya.aggarwal@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "533",
@@ -26357,7 +26610,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "saurabh.gupta@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "625",
@@ -26466,7 +26721,8 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "695",
@@ -26612,7 +26868,8 @@
         ],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "659",
@@ -26733,7 +26990,8 @@
         ],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "596",
@@ -27002,7 +27260,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "shailesh.chawla@srcc.du.ac.in",
+      "official_department": "English Department"
     },
     {
       "id": "552",
@@ -27234,7 +27494,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "shalini.aggarwal@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "536",
@@ -27454,7 +27716,9 @@
             "type": "Tutorial"
           }
         ]
-      }
+      },
+      "email": "shashank.singh@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "499",
@@ -27674,7 +27938,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "shefali.kapoor@srcc.du.ac.in",
+      "official_department": "Mathematics Department"
     },
     {
       "id": "506",
@@ -27893,7 +28159,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "shikha.gupta@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "502",
@@ -28113,7 +28381,9 @@
             "type": "Tutorial"
           }
         ]
-      }
+      },
+      "email": "shikha.rajput@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "655",
@@ -28259,7 +28529,8 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "504",
@@ -28479,7 +28750,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "shivangi.kaushik@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "563",
@@ -28698,7 +28971,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "shreya.shreedhar@srcc.du.ac.in",
+      "official_department": "Indian Economy & Macro"
     },
     {
       "id": "694",
@@ -28845,7 +29120,8 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "507",
@@ -29064,7 +29340,9 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "email": "shruti@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "648",
@@ -29198,7 +29476,8 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "616",
@@ -29233,7 +29512,8 @@
         ],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "609",
@@ -29428,7 +29708,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "snehlata.gupta@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "647",
@@ -29743,7 +30025,9 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "email": "skchoudhury@srcc.du.ac.in",
+      "official_department": "English Department"
     },
     {
       "id": "550",
@@ -29963,7 +30247,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "sudhanshu.yadav@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "522",
@@ -30184,7 +30470,9 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "email": "suman.si@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "681",
@@ -30331,7 +30619,8 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "494",
@@ -30538,7 +30827,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "sunil.kumar@srcc.du.ac.in",
+      "official_department": "Environmental Science Department"
     },
     {
       "id": "500",
@@ -30771,7 +31062,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "sunita.sharma@srcc.du.ac.in",
+      "official_department": "Mathematics Department"
     },
     {
       "id": "579",
@@ -30954,7 +31247,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "suryaprakash@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "642",
@@ -31102,7 +31397,8 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "629",
@@ -31220,7 +31516,8 @@
         ],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "719",
@@ -31450,7 +31747,8 @@
         ],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "580",
@@ -31645,7 +31943,9 @@
             "type": "Tutorial"
           }
         ]
-      }
+      },
+      "email": "tarun.manjhi@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "524",
@@ -31864,7 +32164,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "vaishali.chhokar@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "574",
@@ -32059,7 +32361,9 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "email": "drvandana.jain@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "543",
@@ -32079,7 +32383,9 @@
         "Thursday": [],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "email": "vartika.khandelwal@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "548",
@@ -32301,7 +32607,9 @@
             "type": "Lecture"
           }
         ]
-      }
+      },
+      "email": "vikki.sharma@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "649",
@@ -32423,7 +32731,8 @@
           }
         ],
         "Saturday": []
-      }
+      },
+      "official_department": "SRCC"
     },
     {
       "id": "539",
@@ -32643,7 +32952,9 @@
             "type": "Practical/Lab"
           }
         ]
-      }
+      },
+      "email": "yusra.naseem@srcc.du.ac.in",
+      "official_department": "Commerce Department"
     },
     {
       "id": "561",
@@ -32663,7 +32974,9 @@
         "Thursday": [],
         "Friday": [],
         "Saturday": []
-      }
+      },
+      "email": "yuthika.agarwal@srcc.du.ac.in",
+      "official_department": "Economics Department"
     }
   ]
 }
