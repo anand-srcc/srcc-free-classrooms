@@ -2283,15 +2283,16 @@ ${directRoomUrl}`;
               <div class="card-title-group">
                 <div class="card-room-code">${escapeHtml(room.code)}</div>
                 ${(!isGenericName && room.name) ? `<div class="card-room-name">${escapeHtml(room.name)}</div>` : ''}
-                <div class="card-room-loc-badge" title="${escapeHtml(loc.wing)} (${escapeHtml(loc.landmark)})">
-                  <span class="card-loc-floor">${escapeHtml(loc.floor)}</span>
-                  <span class="card-loc-wing">• ${escapeHtml(loc.wing)}</span>
-                </div>
               </div>
               <div class="card-meta-badges">
                 <span class="badge-capacity">${escapeHtml(room.capacity)} Seats</span>
                 ${unavailableBadgeHtml}
               </div>
+            </div>
+
+            <div class="card-room-loc-badge" title="${escapeHtml(loc.wing)} (${escapeHtml(loc.landmark)})">
+              <span class="card-loc-floor">${escapeHtml(loc.floor)}</span>
+              <span class="card-loc-wing">• ${escapeHtml(loc.wing)}</span>
             </div>
 
             ${unavailableCalloutHtml}
@@ -2443,6 +2444,8 @@ ${directRoomUrl}`;
         return null;
       }
     }
+
+    loadCampusMapData();
 
     function getRoomLocationMeta(roomCode) {
       const code = String(roomCode || '').trim().toUpperCase();

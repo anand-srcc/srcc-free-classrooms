@@ -816,6 +816,8 @@ body {
   flex-direction: column;
   align-items: flex-end;
   gap: 6px;
+  flex-shrink: 0;
+  min-width: fit-content;
 }
 
 .badge-capacity {
@@ -827,6 +829,7 @@ body {
   padding: 3px 8px;
   border-radius: var(--radius-sm);
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .badge-category {
@@ -2527,7 +2530,7 @@ body {
     padding: 0 4px;
   }
   .app-mode-switcher {
-    grid-template-columns: 1.48fr 0.8fr 1.0fr !important;
+    grid-template-columns: repeat(3, 1fr) !important;
     padding: 3px;
     gap: 4px;
     border-radius: 12px;
@@ -3290,19 +3293,19 @@ body {
   justify-content: center;
   margin: 4px auto 14px;
   width: 100%;
-  max-width: 560px;
+  max-width: 440px;
   padding: 0 8px;
 }
 
 .app-mode-switcher {
   display: grid;
-  grid-template-columns: 1.45fr 0.82fr 1.02fr !important;
+  grid-template-columns: repeat(3, 1fr) !important;
   width: 100%;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: 14px;
+  border-radius: 12px;
   padding: 4px;
-  gap: 5px;
+  gap: 4px;
   box-shadow: var(--shadow-sm);
   backdrop-filter: blur(12px);
 }
@@ -3311,15 +3314,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 5px;
   background: transparent;
   color: var(--text-secondary);
   border: 1.5px solid transparent;
-  border-radius: 10px;
-  padding: 7px 8px;
+  border-radius: 9px;
+  padding: 7px 10px;
   min-height: 38px;
   font-family: var(--font-display);
-  font-size: 0.83rem;
+  font-size: 0.84rem;
   font-weight: 600;
   cursor: pointer;
   transition: all var(--transition-fast);
@@ -3327,10 +3330,6 @@ body {
   min-width: 0;
   box-sizing: border-box;
   overflow: visible;
-}
-
-.mode-tab[data-mode="rooms"] {
-  padding: 7px 12px;
 }
 
 .mode-tab:hover {
@@ -6346,7 +6345,7 @@ body.modal-open {
 
 /* Mode Switcher 3-Column Layout */
 .app-mode-switcher {
-  grid-template-columns: 1.45fr 0.82fr 1.02fr !important;
+  grid-template-columns: repeat(3, 1fr) !important;
 }
 
 .mode-tab.active[data-mode="timetable"] {
@@ -7104,7 +7103,7 @@ body.dark-mode .tt-room-btn:hover,
 
 @media (max-width: 768px) {
   .app-mode-switcher {
-    grid-template-columns: 1.48fr 0.8fr 1.0fr !important;
+    grid-template-columns: repeat(3, 1fr) !important;
     border-radius: 12px;
     padding: 3px;
     gap: 4px;
@@ -8420,16 +8419,15 @@ body.dark-mode .tt-room-btn:hover,
 
 /* Room Card Location Tag */
 .card-room-loc-badge {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 5px;
-  margin-top: 4px;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: -6px;
+  margin-bottom: 2px;
   font-size: 0.76rem;
   color: var(--text-muted, #64748b);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
+  width: 100%;
 }
 
 .card-loc-floor {
@@ -8452,5 +8450,9 @@ body.dark-mode .tt-room-btn:hover,
   color: var(--text-secondary, #475569);
   font-weight: 500;
 }
+
+
+
+
 
 
