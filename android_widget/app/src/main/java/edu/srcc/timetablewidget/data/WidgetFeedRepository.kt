@@ -51,22 +51,23 @@ class WidgetFeedRepository(private val context: Context) {
     }
 
     private fun fetchFeedRemote() {
-        try {
-            val request = Request.Builder()
-                .url(FEED_URL)
-                .header("User-Agent", "SRCC-Timetable-Widget-Android/1.0")
-                .build()
+        for (url in listOf(FEED_URL, FALLBACK_FEED_URL)) {
+            try {
+                val request = Request.Builder()
+                    .url(url)
+                    .header("User-Agent", "SRCC-Timetable-Widget-Android/1.0")
+                    .build()
 
-            client.newCall(request).execute().use { response ->
-                if (response.isSuccessful) {
-                    val body = response.body?.string()
-                    if (!body.isNullOrEmpty()) {
-                        cacheFile.writeText(body)
+                client.newCall(request).execute().use { response ->
+                    if (response.isSuccessful) {
+                        val body = response.body?.string()
+                        if (!body.isNullOrEmpty()) {
+                            cacheFile.writeText(body)
+                            return
+                        }
                     }
                 }
-            }
-        } catch (_: Exception) {
-            // Keep existing cache on network failure
+            } catch (_: Exception) {}
         }
     }
 
@@ -221,6 +222,7 @@ class WidgetFeedRepository(private val context: Context) {
     }
 
     companion object {
-        const val FEED_URL = "https://srccroomfinder.netlify.app/widget_feed.json"
+        const val FEED_URL = "https://anand-srcc.github.io/srcc-free-classrooms/web_app/widget_feed.json"
+        const val FALLBACK_FEED_URL = "https://srccroomfinder.netlify.app/widget_feed.json"
     }
 }

@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnRetry: Button
 
     private var isUpdateBlocked = false
-    private val webPortalUrl = "https://srccroomfinder.netlify.app/"
+    private val webPortalUrl = "https://anand-srcc.github.io/srcc-free-classrooms/web_app/"
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
                 val url = request?.url?.toString() ?: return false
-                if (url.startsWith("https://srccroomfinder.netlify.app") || url.startsWith("file:///android_asset") || url.startsWith("http://") || url.startsWith("https://")) {
+                if (url.startsWith("https://anand-srcc.github.io") || url.startsWith("https://srccroomfinder.netlify.app") || url.startsWith("file:///android_asset") || url.startsWith("http://") || url.startsWith("https://")) {
                     return false
                 }
                 return try {

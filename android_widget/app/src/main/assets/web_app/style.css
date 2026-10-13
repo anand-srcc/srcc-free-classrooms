@@ -8590,3 +8590,47 @@ body.dark-mode .tt-room-btn:hover,
   font-weight: 600;
   text-decoration: none;
 }
+
+
+/* Sleek Top-Right Email Icon Button (Matches User Reference Image) */
+.btn-teacher-email-icon {
+  flex-shrink: 0;
+  margin-left: auto;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0;
+  outline: none;
+}
+
+.btn-teacher-email-icon:hover {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.14);
+}
+
+.btn-teacher-email-icon:active {
+  transform: scale(0.94);
+}
+
+.btn-teacher-email-icon.copied {
+  background: #ecfdf5 !important;
+  border-color: #a7f3d0 !important;
+  color: #059669 !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+/* Ensure Share Modal is ALWAYS above any other modal */
+#shareModal {
+  z-index: 9999 !important;
+}

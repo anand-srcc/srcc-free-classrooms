@@ -92,6 +92,12 @@ document.addEventListener('DOMContentLoaded', () => {
           if (typeof renderFacultyLeavesView === 'function' && document.getElementById('facultyLeavesView')?.style.display !== 'none') {
             try { renderFacultyLeavesView(); } catch (e) {}
           }
+          if (typeof renderFaculty === 'function') {
+            try { renderFaculty(); } catch (e) {}
+          }
+          if (typeof renderRooms === 'function') {
+            try { renderRooms(); } catch (e) {}
+          }
         }
 
       })
@@ -1844,9 +1850,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const freeSlotsFormatted = formatContinuousFreeSlots(sched.free_slots)
         .map(s => `  • ${s}`).join('\n');
 
-      const CANONICAL_SITE_URL = 'https://srccroomfinder.netlify.app';
-      const siteUrl = (window.location.hostname === 'srccroomfinder.netlify.app') ? window.location.origin : CANONICAL_SITE_URL;
-      const directRoomUrl = `${siteUrl}/?room=${encodeURIComponent(room.code)}`;
+      const currentSiteBase = (window.location.origin + window.location.pathname).replace(/\/+$/, '');
+      const directRoomUrl = `${currentSiteBase}/?room=${encodeURIComponent(room.code)}`;
       const activeDateStr = getDateForDay(state.activeDay);
       const dayAndDateDisplay = `${state.activeDay}, ${activeDateStr}`;
       const loc = getRoomLocationMeta(room.code);
@@ -4313,15 +4318,17 @@ ${directRoomUrl}`;
                   <div class="faculty-meta-row">
                     <span class="dept-badge ${deptTagCls}">${teacher.department || 'Faculty'}</span>
                     <span class="periods-count-badge">${teacher.total_teaching_periods || 0} periods/wk</span>
-                    ${teacher.email ? `
-                      <div class="faculty-email-chip" data-email="${escapeHtml(teacher.email)}" data-teacher-name="${escapeHtml(teacher.clean_name)}" title="Click to copy email: ${escapeHtml(teacher.email)}">
-                        <span class="email-icon">✉️</span>
-                        <span class="email-status-text">Email Available:</span>
-                        <span class="email-addr">${escapeHtml(teacher.email)}</span>
-                        <span class="email-copy-badge">📋 Copy</span>
-                      </div>` : ''}
                   </div>
                 </div>
+
+                ${teacher.email ? `
+                  <button type="button" class="btn-teacher-email-icon" data-email="${escapeHtml(teacher.email)}" data-teacher-name="${escapeHtml(teacher.clean_name)}" title="Prof. ${escapeHtml(teacher.clean_name)}: ${escapeHtml(teacher.email)} (Click to view/copy email)">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="2" y="4" width="20" height="16" rx="3"></rect>
+                      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                    </svg>
+                  </button>
+                ` : ''}
               </div>
 
               <!-- Subjects Taught Row -->
@@ -4366,31 +4373,43 @@ ${directRoomUrl}`;
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
           const tId = btn.dataset.teacherId;
-          const tObj = teachersData?.teachers?.find(t => t.id === tId);
-          if (tObj) shareTeacherProfile(tObj, facultyState.activeDay);
+          const allT = (window.SRCC_TEACHERS_DATA?.teachers || teachersData?.teachers || []);
+          const tObj = allT.find(t => String(t.id) === String(tId) || t.clean_name === tId);
+          if (tObj) {
+            shareTeacherProfile(tObj, facultyState.activeDay);
+          } else {
+            const card = btn.closest('.faculty-card');
+            const nameEl = card ? card.querySelector('.faculty-clean-name') : null;
+            const tName = nameEl ? nameEl.textContent.trim() : '';
+            const fallbackObj = allT.find(t => t.clean_name === tName || t.name === tName);
+            if (fallbackObj) {
+              shareTeacherProfile(fallbackObj, facultyState.activeDay);
+            } else {
+              showToast('📤 Opening share sheet...');
+            }
+          }
         });
       });
 
-      // 1-Tap Email Copy Listener
-      document.querySelectorAll('.faculty-email-chip').forEach(chip => {
-        chip.addEventListener('click', (e) => {
+      // Sleek Top-Right Email Icon Click Listener
+      document.querySelectorAll('.btn-teacher-email-icon').forEach(btn => {
+        btn.addEventListener('click', (e) => {
           e.stopPropagation();
-          const email = chip.dataset.email;
-          const tName = chip.dataset.teacherName || 'Faculty';
+          const email = btn.dataset.email;
+          const tName = btn.dataset.teacherName || 'Faculty';
           if (!email) return;
 
           copyToClipboard(email).then(() => {
-            chip.classList.add('copied');
-            const badge = chip.querySelector('.email-copy-badge');
-            const originalText = badge ? badge.textContent : '📋 Copy';
-            if (badge) badge.textContent = '✓ Copied!';
-            showToast(`📋 Copied Prof. ${tName}'s Email: ${email}`);
+            btn.classList.add('copied');
+            const originalSvg = btn.innerHTML;
+            btn.innerHTML = `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+            showToast(`✉️ Copied Prof. ${tName}'s Email: <strong>${escapeHtml(email)}</strong><br><a href="mailto:${escapeHtml(email)}" style="color: #93c5fd; text-decoration: underline; font-size: 0.75rem; margin-top: 4px; display: inline-block;">Send Email ↗</a>`);
             setTimeout(() => {
-              chip.classList.remove('copied');
-              if (badge) badge.textContent = originalText;
+              btn.classList.remove('copied');
+              btn.innerHTML = originalSvg;
             }, 2500);
           }).catch(() => {
-            showToast(`✉️ Email: ${email}`);
+            showToast(`✉️ Prof. ${tName}'s Email: ${email}`);
           });
         });
       });
@@ -4708,9 +4727,8 @@ ${directRoomUrl}`;
     // ========================================================================
     function shareTeacherProfile(teacher, targetDay = null) {
       if (!teacher) return;
-      const CANONICAL_SITE_URL = 'https://srccroomfinder.netlify.app';
-      const baseUrl = (window.location.hostname === 'srccroomfinder.netlify.app') ? window.location.origin : CANONICAL_SITE_URL;
-      const directFacultyUrl = `${baseUrl}/?faculty=${encodeURIComponent(teacher.clean_name)}`;
+      const currentSiteBase = (window.location.origin + window.location.pathname).replace(/\/+$/, '');
+      const directFacultyUrl = `${currentSiteBase}/?faculty=${encodeURIComponent(teacher.clean_name)}`;
       const activeDay = targetDay || facultyState.modalActiveDay || facultyState.activeDay || ((typeof getLiveDayName === 'function') ? getLiveDayName() : 'Monday');
       const displayCode = (typeof getDisplayShortCode === 'function') ? getDisplayShortCode(teacher) : (teacher.short_code || '');
       const shareTitle = `SRCC Faculty Timetable: Prof. ${teacher.clean_name}`;
