@@ -3775,9 +3775,10 @@ ${directRoomUrl}`;
       const code = (teacher.short_code || '').toLowerCase();
       const refCode = (teacher.ref_code || '').toLowerCase();
       const dept = (teacher.department || '').toLowerCase();
+      const email = (teacher.email || '').toLowerCase();
 
-      // Direct case-insensitive match on name, label, short code, ref code, department
-      if (name.includes(q) || label.includes(q) || code.includes(q) || refCode.includes(q) || dept.includes(q)) return true;
+      // Direct case-insensitive match on name, label, short code, ref code, department, email
+      if (name.includes(q) || label.includes(q) || code.includes(q) || refCode.includes(q) || dept.includes(q) || email.includes(q)) return true;
       if (name.replace(/[\s\-_]+/g, '').includes(qNorm) || label.replace(/[\s\-_]+/g, '').includes(qNorm)) return true;
 
       // Phonetic / spelling variant matching (e.g. "sefali" matches "Dr. Shefali Kapoor")
@@ -4058,6 +4059,7 @@ ${directRoomUrl}`;
                   <span class="faculty-compact-name">${escapeHtml(teacher.clean_name)}</span>
                   ${displayCode ? `<span class="faculty-code-tag">${displayCode}</span>` : ''}
                   <span class="dept-badge ${deptTagCls}">${teacher.department || 'Faculty'}</span>
+                  ${teacher.email ? `<a href="mailto:${escapeHtml(teacher.email)}" class="faculty-email-badge compact" title="Email: ${escapeHtml(teacher.email)}">✉️ ${escapeHtml(teacher.email)}</a>` : ''}
                 </div>
                 <div class="faculty-compact-meta">
                   <span>${daySched.length} classes on ${facultyState.activeDay} (${teacher.total_teaching_periods || 0} periods/wk)</span>
@@ -4136,6 +4138,7 @@ ${directRoomUrl}`;
                   <div class="faculty-meta-row">
                     <span class="dept-badge ${deptTagCls}">${teacher.department || 'Faculty'}</span>
                     <span class="periods-count-badge">${teacher.total_teaching_periods || 0} periods/wk</span>
+                    ${teacher.email ? `<a href="mailto:${escapeHtml(teacher.email)}" class="faculty-email-badge" title="Email: ${escapeHtml(teacher.email)}">✉️ ${escapeHtml(teacher.email)}</a>` : ''}
                   </div>
                 </div>
               </div>
@@ -4605,6 +4608,7 @@ ${directRoomUrl}`;
             <span class="th-chip th-dept">🏛️ ${escapeHtml(teacher.department || 'Faculty')}</span>
             ${displayCode ? `<span class="th-chip th-code">🏷️ Code: <strong>${escapeHtml(displayCode)}</strong></span>` : ''}
             <span class="th-chip th-load">📅 <strong>${periods}</strong> Weekly Classes</span>
+            ${teacher.email ? `<a href="mailto:${escapeHtml(teacher.email)}" class="th-chip th-email" title="Send email to ${escapeHtml(teacher.clean_name)}">✉️ <strong>${escapeHtml(teacher.email)}</strong></a>` : ''}
           </div>
         `;
       }
