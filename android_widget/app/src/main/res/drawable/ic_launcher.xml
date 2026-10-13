@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#000066"
+        android:pathData="M0,0h108v108h-108z"/>
+    <!-- Calendar Body -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M24,28h60c4.4,0 8,3.6 8,8v44c0,4.4 -3.6,8 -8,8H24c-4.4,0 -8,-3.6 -8,-8V36c0,-4.4 3.6,-8 8,-8z"/>
+    <!-- Calendar Top Bar -->
+    <path
+        android:fillColor="#D97706"
+        android:pathData="M16,36h76v12H16z"/>
+    <!-- Calendar Pins -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M32,22h8v12h-8z M68,22h8v12h-8z"/>
+    <!-- Schedule Grid Dots -->
+    <path
+        android:fillColor="#000066"
+        android:pathData="M28,58h12v10h-12z M48,58h12v10h-12z M68,58h12v10h-12z M28,74h12v10h-12z M48,74h12v10h-12z M68,74h12v10h-12z"/>
+</vector>

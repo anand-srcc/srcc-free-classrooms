@@ -30,3 +30,9 @@ srcc_data.json
 *.pdf
 map_feature_backup/
 *.code-workspace
+
+# Android Build artifacts
+android_widget/.gradle/
+android_widget/app/build/
+android_widget/*.apk
+*.apk
