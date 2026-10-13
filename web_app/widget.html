@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>SRCC Daily Schedule Widget | Offline Ready</title>
-  <meta name="description" content="Personalized standalone timetable widget for Shri Ram College of Commerce (SRCC) students and faculty. Works 100% offline on mobile homescreen." />
+  <title>SRCC Daily Schedule Widget | Shri Ram College of Commerce</title>
+  <meta name="description" content="Personalized standalone timetable widget for Shri Ram College of Commerce (SRCC) students and faculty. Clean white UI, 100% offline ready." />
 
   <!-- PWA & Homescreen Meta -->
   <link rel="manifest" href="widget_manifest.json" />
-  <meta name="theme-color" content="#000066" />
+  <meta name="theme-color" content="#ffffff" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="SRCC Timetable" />
   <link rel="icon" type="image/png" sizes="64x64" href="favicon.png" />
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
@@ -22,23 +22,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 
   <style>
+    /* Clean White Design System (Matching Main Website) */
     :root {
       --srcc-navy-deep: #000066;
       --srcc-navy-primary: #1e3a8a;
       --srcc-blue-accent: #2563eb;
       --srcc-blue-light: #eff6ff;
-      --srcc-gold: #f59e0b;
-      --srcc-gold-bg: #fffbeb;
-      --srcc-green: #10b981;
+      --srcc-gold: #d97706;
+      --srcc-gold-bg: #fef3c7;
+      --srcc-green: #059669;
       --srcc-green-bg: #ecfdf5;
-      --srcc-red: #ef4444;
+      --srcc-red: #dc2626;
       --srcc-red-bg: #fef2f2;
       
       --bg-page: #f8fafc;
       --bg-card: #ffffff;
       --bg-subtle: #f1f5f9;
       --border-color: #e2e8f0;
-      --border-subtle: #f8fafc;
+      --border-focus: #2563eb;
       
       --text-main: #0f172a;
       --text-secondary: #334155;
@@ -51,29 +52,14 @@
       --widget-blue-hover: #0842a0;
 
       --radius-widget: 28px;
-      --radius-card: 20px;
+      --radius-card: 18px;
       --radius-pill: 9999px;
-      --shadow-widget: 0 8px 24px rgba(0, 0, 102, 0.08), 0 2px 6px rgba(0,0,0,0.04);
+      --shadow-widget: 0 6px 20px rgba(0, 0, 102, 0.06), 0 2px 6px rgba(0,0,0,0.03);
+      --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04);
       --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
     }
 
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg-page: #0b0f19;
-        --bg-card: #151b28;
-        --bg-subtle: #1e2638;
-        --border-color: #273248;
-        --border-subtle: #1c2436;
-        --text-main: #f8fafc;
-        --text-secondary: #cbd5e1;
-        --text-muted: #94a3b8;
-        --widget-tint-bg: #1e293b;
-        --widget-tint-border: #334155;
-        --widget-blue: #60a5fa;
-        --widget-blue-hover: #93c5fd;
-      }
-    }
-
+    /* Force Clean White UI always, matching main website */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -89,24 +75,24 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 12px 12px 40px;
+      padding: 14px 14px 44px;
       -webkit-font-smoothing: antialiased;
     }
 
     .widget-container {
       width: 100%;
-      max-width: 460px;
+      max-width: 480px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
     }
 
-    /* Top Brand Navigation Bar (Aligned with Main Website) */
+    /* Top Brand Navigation Bar (Clean White, Dual Logos) */
     .top-brand-bar {
       background: var(--bg-card);
-      border-radius: 18px;
+      border-radius: 20px;
       border: 1px solid var(--border-color);
-      padding: 10px 14px;
+      padding: 12px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -116,7 +102,7 @@
     .brand-left {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .brand-logos {
@@ -126,7 +112,7 @@
     }
 
     .brand-logo-img {
-      height: 28px;
+      height: 30px;
       width: auto;
       object-fit: contain;
     }
@@ -134,14 +120,14 @@
     .brand-separator {
       color: var(--border-color);
       font-weight: 300;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
     }
 
     .brand-title-wrap h1 {
-      font-size: 0.92rem;
+      font-size: 0.95rem;
       font-weight: 800;
       color: var(--srcc-navy-primary);
-      line-height: 1.1;
+      line-height: 1.15;
     }
 
     .brand-status-chip {
@@ -169,34 +155,34 @@
     }
 
     .btn-main-site {
-      font-size: 0.76rem;
+      font-size: 0.78rem;
       font-weight: 700;
-      color: var(--text-secondary);
-      background: var(--bg-subtle);
-      border: 1px solid var(--border-color);
-      padding: 6px 10px;
+      color: var(--srcc-navy-primary);
+      background: var(--srcc-blue-light);
+      border: 1px solid #bfdbfe;
+      padding: 6px 12px;
       border-radius: var(--radius-pill);
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
       transition: all 0.15s ease;
     }
 
     .btn-main-site:hover {
-      background: var(--border-color);
+      background: #dbeafe;
     }
 
-    /* Core Material You Widget Card (Matches User's Photo) */
+    /* Core Material You Widget Card (Clean White, User Screenshot Style) */
     .widget-hero-card {
       background: var(--bg-card);
       border-radius: var(--radius-widget);
       border: 1px solid var(--border-color);
-      padding: 20px 18px 18px;
+      padding: 22px 20px 20px;
       box-shadow: var(--shadow-widget);
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 16px;
       position: relative;
     }
 
@@ -212,7 +198,7 @@
     }
 
     .widget-day-title {
-      font-size: 2.15rem;
+      font-size: 2.25rem;
       font-weight: 800;
       color: var(--text-main);
       line-height: 1.05;
@@ -220,16 +206,16 @@
     }
 
     .widget-date-subtitle {
-      font-size: 0.84rem;
+      font-size: 0.86rem;
       font-weight: 600;
       color: var(--text-muted);
-      margin-top: 3px;
+      margin-top: 4px;
     }
 
     /* Circular Blue FAB Button (+) from user's photo */
     .widget-action-fab {
-      width: 44px;
-      height: 44px;
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
       background: #0b57d0;
       color: #ffffff;
@@ -237,7 +223,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 26px;
+      font-size: 28px;
       font-weight: 400;
       line-height: 1;
       cursor: pointer;
@@ -260,28 +246,30 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: var(--bg-subtle);
-      border: 1px solid var(--border-color);
+      background: #f8fafc;
+      border: 1.5px solid var(--border-color);
       border-radius: var(--radius-pill);
-      padding: 6px 12px;
-      font-size: 0.82rem;
+      padding: 7px 14px;
+      font-size: 0.84rem;
+      gap: 8px;
     }
 
     .pinned-profile-left {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       overflow: hidden;
+      flex: 1;
     }
 
     .profile-tag {
-      font-size: 0.68rem;
+      font-size: 0.7rem;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      padding: 2px 7px;
+      padding: 2.5px 8px;
       border-radius: var(--radius-pill);
-      background: var(--srcc-blue-accent);
+      background: var(--srcc-navy-primary);
       color: #ffffff;
       flex-shrink: 0;
     }
@@ -292,6 +280,7 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      font-size: 0.86rem;
     }
 
     .btn-edit-profile {
@@ -299,22 +288,25 @@
       border: none;
       color: var(--srcc-blue-accent);
       font-weight: 700;
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       cursor: pointer;
-      padding: 2px 4px;
-      border-radius: 4px;
+      padding: 2px 6px;
+      border-radius: 6px;
       flex-shrink: 0;
+    }
+    .btn-edit-profile:hover {
+      text-decoration: underline;
     }
 
     /* Center Status Bubble: "Nothing scheduled" or Ongoing Class */
     .widget-status-bubble {
       background: var(--widget-tint-bg);
       border: 1.5px solid var(--widget-tint-border);
-      border-radius: var(--radius-card);
-      padding: 16px 16px 14px;
+      border-radius: 22px;
+      padding: 18px 18px 16px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
       transition: all 0.2s ease;
     }
 
@@ -354,17 +346,17 @@
     }
 
     .bubble-headline {
-      font-size: 1.32rem;
+      font-size: 1.35rem;
       font-weight: 800;
       color: var(--widget-blue);
       line-height: 1.25;
     }
 
     .bubble-subtext {
-      font-size: 0.86rem;
+      font-size: 0.88rem;
       font-weight: 500;
       color: var(--text-secondary);
-      line-height: 1.35;
+      line-height: 1.4;
     }
 
     .bubble-pills-row {
@@ -378,7 +370,7 @@
     .bubble-pill {
       font-size: 0.78rem;
       font-weight: 700;
-      padding: 4px 9px;
+      padding: 4px 10px;
       border-radius: 8px;
       display: inline-flex;
       align-items: center;
@@ -386,7 +378,7 @@
     }
 
     .bubble-pill-room {
-      background: var(--bg-card);
+      background: #ffffff;
       border: 1.5px solid var(--widget-tint-border);
       color: var(--widget-blue);
     }
@@ -398,28 +390,30 @@
 
     .bubble-pill-batch {
       background: var(--srcc-gold-bg);
-      border: 1px solid rgba(245, 158, 11, 0.3);
+      border: 1px solid rgba(217, 119, 6, 0.3);
       color: #92400e;
     }
 
+    /* Prominent Leave Warning Alert */
     .bubble-leave-alert {
       background: var(--srcc-red-bg);
-      border: 1px solid rgba(239, 68, 68, 0.3);
+      border: 1.5px solid #fca5a5;
       color: #991b1b;
-      padding: 8px 12px;
-      border-radius: 10px;
-      font-size: 0.8rem;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.82rem;
       font-weight: 700;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+      box-shadow: 0 2px 6px rgba(220, 38, 38, 0.08);
     }
 
     .widget-footer-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-top: 8px;
+      padding-top: 10px;
       border-top: 1px dashed var(--border-color);
     }
 
@@ -431,11 +425,12 @@
 
     .widget-clock-pill {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.76rem;
+      font-size: 0.78rem;
       font-weight: 700;
       color: var(--text-muted);
       background: var(--bg-subtle);
-      padding: 3px 8px;
+      border: 1px solid var(--border-color);
+      padding: 3px 9px;
       border-radius: var(--radius-pill);
     }
 
@@ -444,7 +439,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 4px;
+      gap: 5px;
       background: var(--bg-card);
       border-radius: var(--radius-pill);
       padding: 4px;
@@ -454,13 +449,13 @@
 
     .weekday-pill-btn {
       flex: 1;
-      padding: 8px 2px;
+      padding: 9px 3px;
       text-align: center;
       border: none;
       background: none;
       border-radius: var(--radius-pill);
       font-family: inherit;
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       font-weight: 700;
       color: var(--text-muted);
       cursor: pointer;
@@ -478,63 +473,65 @@
       box-shadow: 0 2px 8px rgba(30, 58, 138, 0.25);
     }
 
-    /* Full Day Timeline */
+    /* Full Day Timeline Section */
     .timeline-container-card {
       background: var(--bg-card);
       border-radius: var(--radius-card);
-      padding: 16px;
+      padding: 18px 16px;
       border: 1px solid var(--border-color);
-      box-shadow: var(--shadow-sm);
+      box-shadow: var(--shadow-card);
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
     .timeline-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-bottom: 8px;
+      padding-bottom: 10px;
       border-bottom: 1px solid var(--border-color);
     }
 
     .timeline-header h2 {
-      font-size: 0.96rem;
+      font-size: 0.98rem;
       font-weight: 800;
       color: var(--text-main);
     }
 
     .timeline-count-badge {
-      font-size: 0.75rem;
+      font-size: 0.76rem;
       font-weight: 700;
       color: var(--srcc-blue-accent);
       background: var(--srcc-blue-light);
-      padding: 3px 9px;
+      padding: 3px 10px;
       border-radius: var(--radius-pill);
     }
 
     .timeline-items-list {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
     }
 
+    /* Clean, Well-Spaced Period Slot Card */
     .period-slot-card {
-      background: var(--bg-subtle);
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      padding: 12px 14px;
+      background: #ffffff;
+      border: 1.5px solid var(--border-color);
+      border-radius: 16px;
+      padding: 14px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      gap: 12px;
       transition: all 0.15s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
     }
 
     .period-slot-card.is-live {
       background: #eff6ff;
-      border-color: #93c5fd;
-      box-shadow: 0 2px 10px rgba(37, 99, 235, 0.15);
+      border-color: #60a5fa;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12);
     }
 
     .period-slot-card.is-past {
@@ -542,66 +539,87 @@
     }
 
     .period-slot-card.has-leave {
-      background: var(--srcc-red-bg);
+      background: #fff5f5;
       border-color: #fca5a5;
     }
 
     .slot-time-col {
       display: flex;
       flex-direction: column;
-      gap: 2px;
-      min-width: 82px;
+      gap: 3px;
+      min-width: 86px;
       flex-shrink: 0;
     }
 
     .slot-time-text {
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       font-weight: 800;
       color: var(--text-main);
       white-space: nowrap;
     }
 
     .slot-period-num {
-      font-size: 0.68rem;
+      font-size: 0.7rem;
       font-weight: 700;
       color: var(--text-muted);
       text-transform: uppercase;
+      letter-spacing: 0.3px;
     }
 
     .slot-info-col {
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 4px;
       overflow: hidden;
     }
 
     .slot-subject-title {
-      font-size: 0.9rem;
+      font-size: 0.94rem;
       font-weight: 800;
       color: var(--text-main);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      line-height: 1.25;
+      word-break: break-word;
     }
 
     .slot-details-sub {
-      font-size: 0.76rem;
+      font-size: 0.78rem;
       font-weight: 600;
-      color: var(--text-muted);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      color: var(--srcc-navy-primary);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .slot-badge-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      padding: 1.5px 6px;
+      border-radius: 6px;
+    }
+
+    .slot-leave-pill {
+      font-size: 0.72rem;
+      font-weight: 800;
+      background: #fee2e2;
+      border: 1px solid #fca5a5;
+      color: #b91c1c;
+      padding: 2px 7px;
+      border-radius: 6px;
     }
 
     .slot-room-pill {
-      font-size: 0.84rem;
+      font-size: 0.88rem;
       font-weight: 800;
       color: var(--srcc-navy-primary);
-      background: var(--bg-card);
-      border: 1.5px solid var(--border-color);
-      padding: 5px 9px;
-      border-radius: 10px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      padding: 6px 12px;
+      border-radius: 11px;
       white-space: nowrap;
       flex-shrink: 0;
     }
@@ -615,7 +633,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      box-shadow: 0 8px 24px rgba(0, 0, 102, 0.2);
+      box-shadow: 0 8px 24px rgba(0, 0, 102, 0.15);
     }
 
     .pwa-header-strip {
@@ -675,7 +693,7 @@
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.7);
+      background: rgba(15, 23, 42, 0.65);
       backdrop-filter: blur(8px);
       display: flex;
       align-items: center;
@@ -691,17 +709,17 @@
     }
 
     .setup-dialog {
-      background: var(--bg-card);
+      background: #ffffff;
       border-radius: var(--radius-widget);
       width: 100%;
-      max-width: 430px;
+      max-width: 440px;
       max-height: 90vh;
       overflow-y: auto;
-      padding: 22px 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      padding: 24px 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 16px;
       border: 1px solid var(--border-color);
     }
 
@@ -738,7 +756,7 @@
 
     .role-tab-btn {
       flex: 1;
-      padding: 9px 12px;
+      padding: 10px 12px;
       border: none;
       background: none;
       border-radius: var(--radius-pill);
@@ -779,7 +797,7 @@
       padding: 11px 12px;
       border-radius: 12px;
       border: 1.5px solid var(--border-color);
-      background: var(--bg-card);
+      background: #ffffff;
       color: var(--text-main);
       font-family: inherit;
       font-size: 0.92rem;
@@ -801,7 +819,7 @@
       font-size: 0.95rem;
       font-weight: 800;
       cursor: pointer;
-      box-shadow: 0 4px 14px rgba(0, 0, 102, 0.3);
+      box-shadow: 0 4px 14px rgba(0, 0, 102, 0.25);
       transition: all 0.18s ease;
       margin-top: 6px;
     }
@@ -823,7 +841,7 @@
 
   <main class="widget-container">
 
-    <!-- Top Brand Strip (Aligned with Main Website) -->
+    <!-- Top Brand Strip (Clean White, Dual Logos) -->
     <header class="top-brand-bar">
       <div class="brand-left">
         <div class="brand-logos">
@@ -844,7 +862,7 @@
       </a>
     </header>
 
-    <!-- Core Material You Widget Card (Matches User's Photo) -->
+    <!-- Core Material You Widget Card (Clean White, User Screenshot Style) -->
     <section class="widget-hero-card" id="widgetHeroCard">
 
       <!-- Top Row: Date & Action FAB (+) -->
@@ -863,7 +881,7 @@
           <span class="profile-tag" id="profileRoleTag">STUDENT</span>
           <span class="profile-title-text" id="profileTitleText">Loading profile...</span>
         </div>
-        <button type="button" class="btn-edit-profile" id="btnQuickEdit">⚙️ Edit</button>
+        <button type="button" class="btn-edit-profile" id="btnQuickEdit">⚙️ Change</button>
       </div>
 
       <!-- Status Bubble: "Nothing scheduled" or Live Class -->
@@ -996,17 +1014,32 @@
         </div>
       </div>
 
-      <!-- Faculty Fields -->
+      <!-- Faculty Fields with Department Filter (Commerce, Eco, etc.) -->
       <div id="facultyFormBox" style="display: none;">
         <div class="field-group">
-          <label class="field-label">Search Professor</label>
-          <input type="text" class="field-input" id="inputFacultySearch" placeholder="Type professor name or department..." autocomplete="off" />
+          <label class="field-label">Department Filter</label>
+          <select class="field-select" id="selFacultyDept">
+            <option value="ALL">🏢 All Departments (210 Professors)</option>
+            <option value="Commerce">📈 Commerce (152 Professors)</option>
+            <option value="Economics">📊 Economics (27 Professors)</option>
+            <option value="Mathematics">📐 Mathematics (11 Professors)</option>
+            <option value="Computer Science">💻 Computer Science (8 Professors)</option>
+            <option value="English">📚 English (3 Professors)</option>
+            <option value="Hindi">✍️ Hindi (4 Professors)</option>
+            <option value="Political Science">🏛️ Political Science (4 Professors)</option>
+            <option value="Physical Education">🏃 Physical Education (1 Professor)</option>
+          </select>
         </div>
 
         <div class="field-group" style="margin-top: 10px;">
-          <label class="field-label">Select Faculty Member (210 Teachers)</label>
+          <label class="field-label">Search Professor</label>
+          <input type="text" class="field-input" id="inputFacultySearch" placeholder="Type professor name..." autocomplete="off" />
+        </div>
+
+        <div class="field-group" style="margin-top: 10px;">
+          <label class="field-label" id="facultyListLabel">Select Professor</label>
           <select class="field-select" id="selFacultyTeacher" size="6" style="height: 180px;">
-            <!-- Dynamically populated from teachers_data.js -->
+            <!-- Dynamically filtered based on department & search -->
           </select>
         </div>
       </div>
@@ -1018,15 +1051,15 @@
   </div>
 
   <!-- Load Core Data Files -->
-  <script src="data.js?v=66"></script>
-  <script src="classes_data.js?v=66"></script>
-  <script src="teachers_data.js?v=66"></script>
-  <script src="faculty_leaves.js?v=66"></script>
+  <script src="data.js?v=68"></script>
+  <script src="classes_data.js?v=68"></script>
+  <script src="teachers_data.js?v=68"></script>
+  <script src="faculty_leaves.js?v=68"></script>
 
   <script>
     (function() {
-      const STORAGE_KEY = 'srcc_widget_user_profile_v3';
-      const CACHE_SCHEDULE_KEY = 'srcc_offline_weekly_schedule_v3';
+      const STORAGE_KEY = 'srcc_widget_user_profile_v4';
+      const CACHE_SCHEDULE_KEY = 'srcc_offline_weekly_schedule_v4';
       let selectedDay = getTodayName();
       let deferredInstallPrompt = null;
       let activeMode = 'student';
@@ -1125,6 +1158,48 @@
         }
       }
 
+      // Live Faculty Leaves Detection (supports status: "On Leave" and date ranges)
+      function getActiveFacultyLeaves() {
+        let list = [];
+        if (window.SRCC_FACULTY_LEAVES && Array.isArray(window.SRCC_FACULTY_LEAVES.leaves)) {
+          list = window.SRCC_FACULTY_LEAVES.leaves;
+        }
+        try {
+          const localStored = localStorage.getItem('srcc_faculty_leaves_v2');
+          if (localStored) {
+            const parsed = JSON.parse(localStored);
+            if (Array.isArray(parsed) && parsed.length > 0) list = parsed;
+          }
+        } catch(e) {}
+
+        const todayIso = getIstTime().toISOString().split('T')[0]; // "2026-10-13"
+
+        return list.filter(l => {
+          if (l.status === 'On Leave' || l.status === 'Absent' || l.active === true) {
+            if (l.start_date && l.end_date) {
+              return todayIso >= l.start_date && todayIso <= l.end_date;
+            }
+            return true;
+          }
+          return false;
+        });
+      }
+
+      function isTeacherOnLeave(teacherId, teacherName, teacherCode, activeLeaves) {
+        if (!activeLeaves || activeLeaves.length === 0) return false;
+        const cleanName = (teacherName || '').toLowerCase().trim();
+
+        return activeLeaves.some(l => {
+          if (teacherId && l.teacher_id && String(l.teacher_id) === String(teacherId)) return true;
+          if (teacherCode && l.teacher_code && l.teacher_code.toUpperCase() === teacherCode.toUpperCase()) return true;
+          if (cleanName && l.teacher_name) {
+            const lName = l.teacher_name.toLowerCase().trim();
+            if (cleanName === lName || cleanName.includes(lName) || lName.includes(cleanName)) return true;
+          }
+          return false;
+        });
+      }
+
       // Precompute and store complete Monday-Saturday timetable in localStorage for 100% offline access
       function cacheEntireWeekSchedule(profile) {
         const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -1150,7 +1225,7 @@
       function computeStudentSchedule(profile, dayName) {
         const coursesData = window.SRCC_CLASSES_DATA?.courses || {};
         const teachersData = window.SRCC_TEACHERS_DATA?.teachers || [];
-        const activeLeaves = (window.SRCC_FACULTY_LEAVES?.leaves || []).filter(l => l.active);
+        const activeLeaves = getActiveFacultyLeaves();
         const list = [];
 
         const course = profile.course;
@@ -1193,16 +1268,10 @@
         return list;
       }
 
-      // Precise Matcher: A class is for this student if:
-      // 1. It is a Whole Section lecture (no batch specified, or ALL)
-      // 2. OR it is their specific tutorial/practical group (e.g. J1, A1, SEC6)
       function isClassApplicableToBatch(c, chosenBatch) {
         if (!chosenBatch || chosenBatch === 'ALL') return true;
-
         const rawBatch = (c.batch || '').trim();
-        // If class has no batch, it's a whole-section lecture attended by everyone in the section!
-        if (!rawBatch) return true;
-
+        if (!rawBatch) return true; // Whole section lecture
         const batchTokens = rawBatch.split(',').map(s => s.trim().toUpperCase());
         return batchTokens.includes(chosenBatch.toUpperCase());
       }
@@ -1210,30 +1279,37 @@
       // Faculty Timetable Computation
       function computeFacultySchedule(profile, dayName) {
         const teachersData = window.SRCC_TEACHERS_DATA?.teachers || [];
-        const activeLeaves = (window.SRCC_FACULTY_LEAVES?.leaves || []).filter(l => l.active);
+        const activeLeaves = getActiveFacultyLeaves();
         const list = [];
 
         const teacher = teachersData.find(t => t.id === profile.teacherId || t.name === profile.teacherName || t.clean_name === profile.teacherName);
         if (!teacher) return list;
 
         const teacherName = teacher.clean_name || teacher.name || 'Faculty';
-        const isOnLeave = activeLeaves.some(l => l.teacher_id === teacher.id || l.teacher_name?.toLowerCase() === teacherName.toLowerCase());
+        const onLeave = isTeacherOnLeave(teacher.id, teacherName, teacher.short_code, activeLeaves);
 
         const daySlots = teacher.schedule?.[dayName] || [];
         daySlots.forEach(s => {
           const pInfo = ACADEMIC_PERIODS[s.slot] || { num: 1, startMin: 510, endMin: 570 };
-          const classDesc = `${s.course || ''} ${s.semester || ''} ${s.section || ''} ${s.batch ? '(' + s.batch + ')' : ''}`.trim() || 'Class';
+          const classDesc = `${s.course || ''} ${s.semester || ''} ${s.section || ''}`.trim() || 'Class';
+          
+          let displayBatch = s.batch ? `Group ${s.batch}` : 'Full Class';
+          let fullSubj = s.subject_name || s.subject || 'Lecture';
+          if (s.subject && s.subject_name && s.subject !== s.subject_name) {
+            fullSubj = `${s.subject_name} (${s.subject})`;
+          }
+
           list.push({
             slot: s.slot,
             periodNum: pInfo.num,
             startMin: pInfo.startMin,
             endMin: pInfo.endMin,
-            subject: s.subject_name || s.subject || 'Lecture',
+            subject: fullSubj,
             room: s.room || 'TBA',
             subDetail: classDesc,
             type: s.type || 'Lecture',
-            batchTag: s.batch ? s.batch : 'Full Class',
-            isOnLeave: isOnLeave
+            batchTag: displayBatch,
+            isOnLeave: onLeave
           });
         });
 
@@ -1243,14 +1319,16 @@
 
       function formatClassItem(c, activeLeaves, chosenBatch) {
         const pInfo = ACADEMIC_PERIODS[c.slot] || { num: 1, startMin: 510, endMin: 570 };
-        const isOnLeave = activeLeaves.some(l => 
-          (c.teacher_id && l.teacher_id === c.teacher_id) || 
-          (c.teacher_name && l.teacher_name && l.teacher_name.toLowerCase() === c.teacher_name.toLowerCase())
-        );
+        const onLeave = isTeacherOnLeave(c.teacher_id, c.teacher_name, c.teacher_code, activeLeaves);
 
         let batchTag = 'Whole Section';
         if (c.batch) {
           batchTag = `Group ${c.batch}`;
+        }
+
+        let fullSubj = c.subject_name || c.subject || 'Class';
+        if (c.subject && c.subject_name && c.subject !== c.subject_name) {
+          fullSubj = `${c.subject_name} (${c.subject})`;
         }
 
         return {
@@ -1258,31 +1336,36 @@
           periodNum: pInfo.num,
           startMin: pInfo.startMin,
           endMin: pInfo.endMin,
-          subject: c.subject_name || c.subject || 'Class',
+          subject: fullSubj,
           room: c.room || 'TBA',
-          subDetail: c.teacher_name || 'Faculty',
+          subDetail: c.teacher_name ? `👨‍🏫 ${c.teacher_name}` : 'Faculty',
           type: c.type || 'Lecture',
           batchTag: batchTag,
-          isOnLeave: isOnLeave
+          isOnLeave: onLeave
         };
       }
 
       function formatTeacherSlotForStudent(s, t, activeLeaves, chosenBatch) {
         const pInfo = ACADEMIC_PERIODS[s.slot] || { num: 1, startMin: 510, endMin: 570 };
         const teacherName = t.clean_name || t.name || 'Faculty';
-        const isOnLeave = activeLeaves.some(l => l.teacher_id === t.id || l.teacher_name?.toLowerCase() === teacherName.toLowerCase());
+        const onLeave = isTeacherOnLeave(t.id, teacherName, t.short_code, activeLeaves);
+
+        let fullSubj = s.subject_name || s.subject || 'Class';
+        if (s.subject && s.subject_name && s.subject !== s.subject_name) {
+          fullSubj = `${s.subject_name} (${s.subject})`;
+        }
 
         return {
           slot: s.slot,
           periodNum: pInfo.num,
           startMin: pInfo.startMin,
           endMin: pInfo.endMin,
-          subject: s.subject_name || s.subject || 'Class',
+          subject: fullSubj,
           room: s.room || 'TBA',
-          subDetail: teacherName,
+          subDetail: `👨‍🏫 ${teacherName}`,
           type: s.type || 'Lecture',
           batchTag: s.batch ? `Group ${s.batch}` : 'Whole Section',
-          isOnLeave: isOnLeave
+          isOnLeave: onLeave
         };
       }
 
@@ -1336,7 +1419,7 @@
         if (profile.type === 'faculty') {
           roleTag.textContent = 'FACULTY';
           roleTag.style.background = 'var(--srcc-navy-primary)';
-          titleText.textContent = `${profile.teacherName} · ${profile.department || 'SRCC'}`;
+          titleText.textContent = `${profile.teacherName} · ${profile.department || 'Commerce'}`;
         } else {
           roleTag.textContent = 'STUDENT';
           roleTag.style.background = 'var(--srcc-green)';
@@ -1344,26 +1427,19 @@
           titleText.textContent = `${profile.course} · ${profile.sem} ${profile.sec ? '· ' + profile.sec : ''}${batchDesc}`;
         }
 
-        // 2. Fetch Classes from Live or Offline Precomputed Cache
+        // 2. Fetch Classes (Live or Pre-Cached)
         let classes = [];
         let todayClasses = [];
 
-        // Check if offline precomputed cache exists
-        const offlineWeek = getCachedWeekSchedule();
-        if (offlineWeek && offlineWeek[selectedDay]) {
-          classes = offlineWeek[selectedDay];
-          todayClasses = offlineWeek[getTodayName()] || [];
-        } else {
-          classes = (profile.type === 'faculty') 
-            ? computeFacultySchedule(profile, selectedDay) 
-            : computeStudentSchedule(profile, selectedDay);
+        classes = (profile.type === 'faculty') 
+          ? computeFacultySchedule(profile, selectedDay) 
+          : computeStudentSchedule(profile, selectedDay);
 
-          todayClasses = (profile.type === 'faculty')
-            ? computeFacultySchedule(profile, getTodayName())
-            : computeStudentSchedule(profile, getTodayName());
-        }
+        todayClasses = (profile.type === 'faculty')
+          ? computeFacultySchedule(profile, getTodayName())
+          : computeStudentSchedule(profile, getTodayName());
 
-        // 3. Render Status Bubble (Material You Google Calendar Widget aesthetic)
+        // 3. Render Status Bubble
         const bubbleHeadline = document.getElementById('bubbleHeadline');
         const bubbleSubtext = document.getElementById('bubbleSubtext');
         const bubbleStatusLabel = document.getElementById('bubbleStatusLabel');
@@ -1410,6 +1486,9 @@
             bubbleBatchPill.textContent = liveClass.batchTag || liveClass.type || 'Lecture';
             bubblePillsRow.style.display = 'flex';
             bubbleLeaveAlert.style.display = liveClass.isOnLeave ? 'flex' : 'none';
+            if (liveClass.isOnLeave) {
+              bubbleLeaveAlert.innerHTML = `<span>🏖️ Professor on Leave Today · Class Suspended!</span>`;
+            }
             footerNext.textContent = `In Session: Period ${liveClass.periodNum}`;
           } else if (upcomingClass) {
             bubbleStatusLabel.textContent = 'NEXT UPCOMING';
@@ -1428,6 +1507,9 @@
             bubbleBatchPill.textContent = upcomingClass.batchTag || upcomingClass.type || 'Lecture';
             bubblePillsRow.style.display = 'flex';
             bubbleLeaveAlert.style.display = upcomingClass.isOnLeave ? 'flex' : 'none';
+            if (upcomingClass.isOnLeave) {
+              bubbleLeaveAlert.innerHTML = `<span>🏖️ Notice: Professor on Leave Today · Class Suspended</span>`;
+            }
             footerNext.textContent = `Next: ${upcomingClass.room} at ${upcomingClass.slot.split(' to ')[0]}`;
           } else {
             // Nothing scheduled (Matches exact user's photo!)
@@ -1460,7 +1542,7 @@
         headerTitle.textContent = isToday ? "Today's Schedule" : `${selectedDay}'s Schedule`;
         countBadge.textContent = `${classes.length} Period${classes.length === 1 ? '' : 's'}`;
 
-        // 6. Render Timeline Cards
+        // 6. Render Timeline Cards with clear distinction and spacing
         const listContainer = document.getElementById('timelineItemsList');
         if (classes.length === 0) {
           listContainer.innerHTML = `
@@ -1481,13 +1563,16 @@
               <div class="${cardClass}">
                 <div class="slot-time-col">
                   <span class="slot-time-text">${c.slot.split(' to ')[0]}</span>
-                  <span class="slot-period-num">P${c.periodNum} · ${c.type}</span>
+                  <span class="slot-period-num">Period ${c.periodNum}</span>
                 </div>
                 <div class="slot-info-col">
-                  <span class="slot-subject-title">${c.subject}</span>
-                  <span class="slot-details-sub">
-                    ${c.subDetail} · <strong style="color: var(--srcc-gold);">${c.batchTag}</strong> ${c.isOnLeave ? '· <strong style="color: var(--srcc-red);">🏖️ Leave</strong>' : ''}
-                  </span>
+                  <div class="slot-subject-title">${c.subject}</div>
+                  <div class="slot-details-sub">
+                    <span>${c.subDetail}</span>
+                    <span class="slot-badge-tag">${c.batchTag}</span>
+                    <span class="slot-badge-tag">${c.type}</span>
+                    ${c.isOnLeave ? '<span class="slot-leave-pill">🏖️ On Leave · Cancelled</span>' : ''}
+                  </div>
                 </div>
                 <span class="slot-room-pill">🏛️ ${c.room}</span>
               </div>
@@ -1496,39 +1581,64 @@
         }
       }
 
-      // Initialize Modal Data with Dynamic J1, J2, J3, etc. Batches
+      // Initialize Modal Data with Department Selector & Dynamic J1, J2, J3 Batches
       function initModalData() {
         const coursesData = window.SRCC_CLASSES_DATA?.courses || {};
         const teachersData = window.SRCC_TEACHERS_DATA?.teachers || [];
 
-        // 1. Populate Faculty List
+        // 1. Department Filtering for Faculty
+        const selDept = document.getElementById('selFacultyDept');
         const selTeacher = document.getElementById('selFacultyTeacher');
-        selTeacher.innerHTML = '';
-
-        const sortedTeachers = [...teachersData].sort((a, b) => {
-          const nameA = (a.clean_name || a.name || '').toLowerCase();
-          const nameB = (b.clean_name || b.name || '').toLowerCase();
-          return nameA.localeCompare(nameB);
-        });
-
-        sortedTeachers.forEach(t => {
-          const opt = document.createElement('option');
-          opt.value = t.id;
-          opt.textContent = `${t.clean_name || t.name} (${t.department || 'Commerce'})`;
-          opt.dataset.cleanName = t.clean_name || t.name;
-          opt.dataset.dept = t.department || '';
-          selTeacher.appendChild(opt);
-        });
-
-        // Faculty live search filter
         const inputSearch = document.getElementById('inputFacultySearch');
-        inputSearch.oninput = () => {
-          const q = inputSearch.value.trim().toLowerCase();
-          Array.from(selTeacher.options).forEach(opt => {
-            const txt = opt.textContent.toLowerCase();
-            opt.style.display = txt.includes(q) ? '' : 'none';
+        const facultyListLabel = document.getElementById('facultyListLabel');
+
+        function populateFacultyList() {
+          const chosenDept = selDept.value;
+          const searchQ = (inputSearch.value || '').trim().toLowerCase();
+
+          selTeacher.innerHTML = '';
+
+          let filtered = [...teachersData];
+          if (chosenDept !== 'ALL') {
+            filtered = filtered.filter(t => t.department === chosenDept);
+          }
+
+          if (searchQ) {
+            filtered = filtered.filter(t => {
+              const name = (t.clean_name || t.name || '').toLowerCase();
+              const dept = (t.department || '').toLowerCase();
+              return name.includes(searchQ) || dept.includes(searchQ);
+            });
+          }
+
+          // Sort alphabetically
+          filtered.sort((a, b) => {
+            const nameA = (a.clean_name || a.name || '').toLowerCase();
+            const nameB = (b.clean_name || b.name || '').toLowerCase();
+            return nameA.localeCompare(nameB);
           });
-        };
+
+          if (facultyListLabel) {
+            facultyListLabel.textContent = `Select Professor (${filtered.length} Available)`;
+          }
+
+          filtered.forEach(t => {
+            const opt = document.createElement('option');
+            opt.value = t.id;
+            opt.textContent = `${t.clean_name || t.name} — ${t.department || 'Commerce'}`;
+            opt.dataset.cleanName = t.clean_name || t.name;
+            opt.dataset.dept = t.department || '';
+            selTeacher.appendChild(opt);
+          });
+
+          if (filtered.length > 0) {
+            selTeacher.selectedIndex = 0;
+          }
+        }
+
+        selDept.onchange = populateFacultyList;
+        inputSearch.oninput = populateFacultyList;
+        populateFacultyList();
 
         // 2. Student Dynamic Selectors: Course -> Semester -> Section -> Real Batches (J1, J2, J3, etc.)
         const selCourse = document.getElementById('selCourse');
@@ -1630,7 +1740,12 @@
         if (saved) {
           if (saved.type === 'faculty') {
             switchRoleMode('faculty');
+            const selDept = document.getElementById('selFacultyDept');
             const selTeacher = document.getElementById('selFacultyTeacher');
+            if (selDept && saved.department) {
+              selDept.value = saved.department;
+              selDept.dispatchEvent(new Event('change'));
+            }
             if (selTeacher && saved.teacherId) selTeacher.value = saved.teacherId;
           } else {
             switchRoleMode('student');
@@ -1712,7 +1827,7 @@
           const prof = {
             type: 'faculty',
             teacherId: opt.value,
-            teacherName: opt.dataset.cleanName || opt.textContent.split(' (')[0],
+            teacherName: opt.dataset.cleanName || opt.textContent.split(' — ')[0],
             department: opt.dataset.dept || 'Commerce'
           };
           saveProfile(prof);
@@ -1754,6 +1869,26 @@
         }
       });
 
+      // Fetch live leaves daily in background
+      function syncLiveLeavesDaily() {
+        fetch('faculty_leaves.json?t=' + Date.now())
+          .then(res => res.json())
+          .then(data => {
+            if (data && Array.isArray(data.leaves)) {
+              if (window.SRCC_FACULTY_LEAVES) {
+                window.SRCC_FACULTY_LEAVES.leaves = data.leaves;
+              } else {
+                window.SRCC_FACULTY_LEAVES = data;
+              }
+              try {
+                localStorage.setItem('srcc_faculty_leaves_v2', JSON.stringify(data.leaves));
+              } catch(e) {}
+              renderApp();
+            }
+          })
+          .catch(() => {});
+      }
+
       // Periodically refresh (every 30s)
       setInterval(renderApp, 30000);
       setInterval(updateLiveHeaderClock, 1000);
@@ -1761,6 +1896,7 @@
       // Start App
       initModalData();
       renderApp();
+      syncLiveLeavesDaily();
 
     })();
   </script>
