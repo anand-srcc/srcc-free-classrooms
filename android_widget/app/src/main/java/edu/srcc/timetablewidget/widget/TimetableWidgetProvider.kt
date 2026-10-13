@@ -153,12 +153,20 @@ abstract class BaseTimetableWidgetProvider(private val widgetType: WidgetType) :
                     } else {
                         views.setViewVisibility(R.id.tv_4x1_leave_tag, View.GONE)
                     }
-                } else {
-                    views.setTextViewText(R.id.tv_4x1_time, "Done")
-                    views.setTextViewText(R.id.tv_4x1_period, "Today")
-                    views.setTextViewText(R.id.tv_4x1_subject, if (schedule.classes.isEmpty()) "No classes today" else "All classes completed")
+                } else if (schedule.classes.isNotEmpty()) {
+                    val firstClass = schedule.classes.first()
+                    views.setTextViewText(R.id.tv_4x1_time, firstClass.slot.split(" to ").firstOrNull() ?: firstClass.slot)
+                    views.setTextViewText(R.id.tv_4x1_period, "DONE")
+                    views.setTextViewText(R.id.tv_4x1_subject, "Classes ended for today ✨")
                     views.setTextViewText(R.id.tv_4x1_teacher, schedule.profile.toDisplayString())
-                    views.setTextViewText(R.id.tv_4x1_room, "✨")
+                    views.setTextViewText(R.id.tv_4x1_room, firstClass.room)
+                    views.setViewVisibility(R.id.tv_4x1_leave_tag, View.GONE)
+                } else {
+                    views.setTextViewText(R.id.tv_4x1_time, "SRCC")
+                    views.setTextViewText(R.id.tv_4x1_period, "TODAY")
+                    views.setTextViewText(R.id.tv_4x1_subject, "No classes scheduled today 🎉")
+                    views.setTextViewText(R.id.tv_4x1_teacher, schedule.profile.toDisplayString())
+                    views.setTextViewText(R.id.tv_4x1_room, "—")
                     views.setViewVisibility(R.id.tv_4x1_leave_tag, View.GONE)
                 }
             }
@@ -217,38 +225,53 @@ abstract class BaseTimetableWidgetProvider(private val widgetType: WidgetType) :
             attachRefreshIntent(context, views, R.id.btn_4x4_refresh)
             attachAppClickIntent(context, views, R.id.widget_4x4_root)
 
-            // Classes 1, 2, 3
-            val c1 = schedule.classes.getOrNull(0)
-            if (c1 != null) {
-                views.setViewVisibility(R.id.row_4x4_class1, View.VISIBLE)
-                views.setTextViewText(R.id.tv_4x4_c1_time, c1.slot.split(" to ").firstOrNull() ?: "")
-                views.setTextViewText(R.id.tv_4x4_c1_sub, c1.subject)
-                views.setTextViewText(R.id.tv_4x4_c1_room, c1.getDisplayRoom())
-                views.setViewVisibility(R.id.tv_4x4_c1_leave, if (c1.isOnLeave) View.VISIBLE else View.GONE)
-            } else {
+            if (schedule.isCollegeClosed || schedule.classes.isEmpty()) {
+                views.setViewVisibility(R.id.tv_4x4_empty, View.VISIBLE)
+                views.setTextViewText(R.id.tv_4x4_empty, if (schedule.isCollegeClosed) "College is closed today (Sunday)" else "No classes scheduled for today 🎉")
                 views.setViewVisibility(R.id.row_4x4_class1, View.GONE)
-            }
-
-            val c2 = schedule.classes.getOrNull(1)
-            if (c2 != null) {
-                views.setViewVisibility(R.id.row_4x4_class2, View.VISIBLE)
-                views.setTextViewText(R.id.tv_4x4_c2_time, c2.slot.split(" to ").firstOrNull() ?: "")
-                views.setTextViewText(R.id.tv_4x4_c2_sub, c2.subject)
-                views.setTextViewText(R.id.tv_4x4_c2_room, c2.getDisplayRoom())
-                views.setViewVisibility(R.id.tv_4x4_c2_leave, if (c2.isOnLeave) View.VISIBLE else View.GONE)
-            } else {
                 views.setViewVisibility(R.id.row_4x4_class2, View.GONE)
-            }
-
-            val c3 = schedule.classes.getOrNull(2)
-            if (c3 != null) {
-                views.setViewVisibility(R.id.row_4x4_class3, View.VISIBLE)
-                views.setTextViewText(R.id.tv_4x4_c3_time, c3.slot.split(" to ").firstOrNull() ?: "")
-                views.setTextViewText(R.id.tv_4x4_c3_sub, c3.subject)
-                views.setTextViewText(R.id.tv_4x4_c3_room, c3.getDisplayRoom())
-                views.setViewVisibility(R.id.tv_4x4_c3_leave, if (c3.isOnLeave) View.VISIBLE else View.GONE)
-            } else {
                 views.setViewVisibility(R.id.row_4x4_class3, View.GONE)
+            } else {
+                views.setViewVisibility(R.id.tv_4x4_empty, View.GONE)
+
+                // Class 1
+                val c1 = schedule.classes.getOrNull(0)
+                if (c1 != null) {
+                    views.setViewVisibility(R.id.row_4x4_class1, View.VISIBLE)
+                    views.setTextViewText(R.id.tv_4x4_c1_time, c1.slot.split(" to ").firstOrNull() ?: "")
+                    views.setTextViewText(R.id.tv_4x4_c1_sub, c1.subject)
+                    views.setTextViewText(R.id.tv_4x4_c1_prof, c1.teacher)
+                    views.setTextViewText(R.id.tv_4x4_c1_room, c1.getDisplayRoom())
+                    views.setViewVisibility(R.id.tv_4x4_c1_leave, if (c1.isOnLeave) View.VISIBLE else View.GONE)
+                } else {
+                    views.setViewVisibility(R.id.row_4x4_class1, View.GONE)
+                }
+
+                // Class 2
+                val c2 = schedule.classes.getOrNull(1)
+                if (c2 != null) {
+                    views.setViewVisibility(R.id.row_4x4_class2, View.VISIBLE)
+                    views.setTextViewText(R.id.tv_4x4_c2_time, c2.slot.split(" to ").firstOrNull() ?: "")
+                    views.setTextViewText(R.id.tv_4x4_c2_sub, c2.subject)
+                    views.setTextViewText(R.id.tv_4x4_c2_prof, c2.teacher)
+                    views.setTextViewText(R.id.tv_4x4_c2_room, c2.getDisplayRoom())
+                    views.setViewVisibility(R.id.tv_4x4_c2_leave, if (c2.isOnLeave) View.VISIBLE else View.GONE)
+                } else {
+                    views.setViewVisibility(R.id.row_4x4_class2, View.GONE)
+                }
+
+                // Class 3
+                val c3 = schedule.classes.getOrNull(2)
+                if (c3 != null) {
+                    views.setViewVisibility(R.id.row_4x4_class3, View.VISIBLE)
+                    views.setTextViewText(R.id.tv_4x4_c3_time, c3.slot.split(" to ").firstOrNull() ?: "")
+                    views.setTextViewText(R.id.tv_4x4_c3_sub, c3.subject)
+                    views.setTextViewText(R.id.tv_4x4_c3_prof, c3.teacher)
+                    views.setTextViewText(R.id.tv_4x4_c3_room, c3.getDisplayRoom())
+                    views.setViewVisibility(R.id.tv_4x4_c3_leave, if (c3.isOnLeave) View.VISIBLE else View.GONE)
+                } else {
+                    views.setViewVisibility(R.id.row_4x4_class3, View.GONE)
+                }
             }
 
             // Faculty on leave summary
@@ -263,11 +286,11 @@ abstract class BaseTimetableWidgetProvider(private val widgetType: WidgetType) :
         }
 
         private fun attachRefreshIntent(context: Context, views: RemoteViews, viewId: Int) {
-            val intent = Intent(context, TimetableWidget4x2Provider::class.java).apply {
-                action = ACTION_MANUAL_REFRESH
+            val intent = Intent(ACTION_MANUAL_REFRESH).apply {
+                setPackage(context.packageName)
             }
             val pendingIntent = PendingIntent.getBroadcast(
-                context, 1001, intent,
+                context, viewId, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
             views.setOnClickPendingIntent(viewId, pendingIntent)

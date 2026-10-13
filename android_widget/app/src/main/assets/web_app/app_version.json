@@ -1,16 +1,17 @@
 {
-  "version_code": 2,
-  "version_name": "1.1.0",
-  "min_supported_version_code": 2,
+  "version_code": 3,
+  "version_name": "2.0.0",
+  "min_supported_version_code": 3,
   "force_update": true,
-  "update_title": "⚠️ Update Required",
-  "update_message": "A new version of SRCC Timetable is required to continue. It includes updated room locations (R32, R35, R36, T17-18, T37+ 2nd floor) and real-time timetable sync. Please update to continue.",
+  "update_title": "🚀 SRCC App 2.0 Major Update",
+  "update_message": "Upgraded to full interactive App + Home Screen Widget with corrected classroom locations (R32, R35, R36, T17-18, T37+, R26-28). Please update now.",
   "apk_download_url": "https://srccroomfinder.netlify.app/app-debug.apk",
   "backup_download_url": "https://github.com/anand-srcc/srcc-free-classrooms/raw/main/android_widget/app-debug.apk",
   "release_date": "2026-10-13",
   "changelog": [
-    "Corrected classroom floor locations: R32 (1st floor), R35 (Canteen), R36 (Near Canteen), T17-18 (Ground floor), T37+ (2nd floor), R26-28 (Ground floor)",
-    "Mandatory auto-update blocker",
-    "Real-time live sync with Web App"
+    "Complete Web Portal integrated as Full Android App with smooth pull-to-refresh & offline support",
+    "Fixed Home-Screen Widget loading error on all Android launchers",
+    "1-Tap 'Pin Widget to Home Screen' action",
+    "Accurate room locations: R32 (1st floor), R35 (Canteen), R36 (Near Canteen), T17-18 (Ground floor), T37+ (2nd floor), R26-28 (Ground floor)"
   ]
 }

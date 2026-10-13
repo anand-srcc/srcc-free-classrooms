@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var offlineLayout: LinearLayout
     private lateinit var btnRetry: Button
-    private lateinit var btnSetupWidget: Button
 
     private var isUpdateBlocked = false
     private val webPortalUrl = "https://srccroomfinder.netlify.app/"
@@ -55,7 +54,6 @@ class MainActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.web_progress_bar)
         offlineLayout = findViewById(R.id.offline_layout)
         btnRetry = findViewById(R.id.btn_retry_network)
-        btnSetupWidget = findViewById(R.id.btn_setup_widget)
 
         setupWebView()
         setupListeners()
@@ -137,10 +135,6 @@ class MainActivity : AppCompatActivity() {
         btnRetry.setOnClickListener {
             offlineLayout.visibility = View.GONE
             loadPortal()
-        }
-
-        btnSetupWidget.setOnClickListener {
-            showWidgetActionDialog()
         }
     }
 
