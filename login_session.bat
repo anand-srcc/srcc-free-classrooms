@@ -1,20 +1,19 @@
 @echo off
-title SRCC Student Assist Login & Session Saver
+title SRCC Student Assist Login
 echo ==============================================================
-echo   SRCC FACULTY LEAVE SCRAPER - 1-CLICK AUTHENTICATION
+echo   SRCC STUDENT ASSIST - REAL CHROME DATA EXTRACTOR
 echo ==============================================================
 echo.
-echo This tool will open a browser window to connect to
-echo https://www.studentassistsrcc.app/ and automatically save
-echo the authenticated session to playwright_state.json.
+echo Launching official Google Chrome...
+echo Pre-filling Roll No: 25BC070
 echo.
-echo If Cloudflare verification appears, simply click it in the browser!
+echo Please complete the Cloudflare checkbox and click Login in Chrome!
+echo The script will automatically detect the login and extract all data.
 echo.
 cd /d "%~dp0"
-python sync_leaves.py --interactive
+python cdp_login_and_scrape.py
 echo.
 echo ==============================================================
-echo   Authentication finished.
-echo   playwright_state.json is ready for automated runs.
+echo   Process finished.
 echo ==============================================================
 pause
