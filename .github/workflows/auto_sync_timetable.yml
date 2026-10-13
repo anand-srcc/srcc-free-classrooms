@@ -41,6 +41,7 @@ jobs:
           ALERT_RECEIVER_EMAIL: ${{ secrets.ALERT_RECEIVER_EMAIL }}
         run: |
           python auto_sync_timetable.py
+          python generate_widget_feed.py
 
       - name: Commit & Push changes (Triggers Netlify Auto-Deploy)
         run: |

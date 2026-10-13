@@ -44,6 +44,7 @@ jobs:
           PLAYWRIGHT_STATE: ${{ secrets.PLAYWRIGHT_STATE }}
         run: |
           xvfb-run --auto-servernum python sync_leaves.py --headed
+          python generate_widget_feed.py
 
       - name: Dispatch Closed-Browser Web Push Notifications (Hourly Device Alerts)
         run: |
