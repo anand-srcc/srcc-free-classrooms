@@ -24,6 +24,8 @@ data class ClassCard(
     val slot: String,
     val subject: String,
     val room: String,
+    val roomFloor: String = "",
+    val roomLocation: String = "",
     val teacher: String,
     val teacherCode: String = "",
     val teacherId: String = "",
@@ -36,6 +38,10 @@ data class ClassCard(
     fun isOngoing(currentMin: Int): Boolean = currentMin in startMin..endMin
     fun isUpcoming(currentMin: Int): Boolean = currentMin < startMin
     fun isFinished(currentMin: Int): Boolean = currentMin > endMin
+
+    fun getDisplayRoom(): String {
+        return if (roomFloor.isNotEmpty()) "$room ($roomFloor)" else room
+    }
 }
 
 data class LeaveInfo(

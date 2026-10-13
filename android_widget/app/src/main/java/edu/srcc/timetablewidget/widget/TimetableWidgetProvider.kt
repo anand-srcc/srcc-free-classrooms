@@ -109,7 +109,7 @@ abstract class BaseTimetableWidgetProvider : AppWidgetProvider() {
                     views.setTextViewText(R.id.tv_4x1_period, if (isOngoing) "LIVE NOW" else "NEXT UP")
                     views.setTextViewText(R.id.tv_4x1_subject, nextClass.subject)
                     views.setTextViewText(R.id.tv_4x1_teacher, nextClass.teacher)
-                    views.setTextViewText(R.id.tv_4x1_room, nextClass.room)
+                    views.setTextViewText(R.id.tv_4x1_room, nextClass.getDisplayRoom())
 
                     if (nextClass.isOnLeave) {
                         views.setViewVisibility(R.id.tv_4x1_leave_tag, View.VISIBLE)
@@ -151,7 +151,7 @@ abstract class BaseTimetableWidgetProvider : AppWidgetProvider() {
                     views.setTextViewText(R.id.tv_4x2_c1_time, c1.slot.split(" to ").firstOrNull() ?: "")
                     views.setTextViewText(R.id.tv_4x2_c1_sub, c1.subject)
                     views.setTextViewText(R.id.tv_4x2_c1_prof, c1.teacher)
-                    views.setTextViewText(R.id.tv_4x2_c1_room, c1.room)
+                    views.setTextViewText(R.id.tv_4x2_c1_room, c1.getDisplayRoom())
                     views.setViewVisibility(R.id.tv_4x2_c1_leave, if (c1.isOnLeave) View.VISIBLE else View.GONE)
                 } else {
                     views.setViewVisibility(R.id.row_4x2_class1, View.GONE)
@@ -163,7 +163,7 @@ abstract class BaseTimetableWidgetProvider : AppWidgetProvider() {
                     views.setTextViewText(R.id.tv_4x2_c2_time, c2.slot.split(" to ").firstOrNull() ?: "")
                     views.setTextViewText(R.id.tv_4x2_c2_sub, c2.subject)
                     views.setTextViewText(R.id.tv_4x2_c2_prof, c2.teacher)
-                    views.setTextViewText(R.id.tv_4x2_c2_room, c2.room)
+                    views.setTextViewText(R.id.tv_4x2_c2_room, c2.getDisplayRoom())
                     views.setViewVisibility(R.id.tv_4x2_c2_leave, if (c2.isOnLeave) View.VISIBLE else View.GONE)
                 } else {
                     views.setViewVisibility(R.id.row_4x2_class2, View.GONE)
@@ -186,7 +186,7 @@ abstract class BaseTimetableWidgetProvider : AppWidgetProvider() {
                 views.setViewVisibility(R.id.row_4x4_class1, View.VISIBLE)
                 views.setTextViewText(R.id.tv_4x4_c1_time, c1.slot.split(" to ").firstOrNull() ?: "")
                 views.setTextViewText(R.id.tv_4x4_c1_sub, c1.subject)
-                views.setTextViewText(R.id.tv_4x4_c1_room, c1.room)
+                views.setTextViewText(R.id.tv_4x4_c1_room, c1.getDisplayRoom())
                 views.setViewVisibility(R.id.tv_4x4_c1_leave, if (c1.isOnLeave) View.VISIBLE else View.GONE)
             } else {
                 views.setViewVisibility(R.id.row_4x4_class1, View.GONE)
@@ -197,7 +197,7 @@ abstract class BaseTimetableWidgetProvider : AppWidgetProvider() {
                 views.setViewVisibility(R.id.row_4x4_class2, View.VISIBLE)
                 views.setTextViewText(R.id.tv_4x4_c2_time, c2.slot.split(" to ").firstOrNull() ?: "")
                 views.setTextViewText(R.id.tv_4x4_c2_sub, c2.subject)
-                views.setTextViewText(R.id.tv_4x4_c2_room, c2.room)
+                views.setTextViewText(R.id.tv_4x4_c2_room, c2.getDisplayRoom())
                 views.setViewVisibility(R.id.tv_4x4_c2_leave, if (c2.isOnLeave) View.VISIBLE else View.GONE)
             } else {
                 views.setViewVisibility(R.id.row_4x4_class2, View.GONE)
@@ -208,7 +208,7 @@ abstract class BaseTimetableWidgetProvider : AppWidgetProvider() {
                 views.setViewVisibility(R.id.row_4x4_class3, View.VISIBLE)
                 views.setTextViewText(R.id.tv_4x4_c3_time, c3.slot.split(" to ").firstOrNull() ?: "")
                 views.setTextViewText(R.id.tv_4x4_c3_sub, c3.subject)
-                views.setTextViewText(R.id.tv_4x4_c3_room, c3.room)
+                views.setTextViewText(R.id.tv_4x4_c3_room, c3.getDisplayRoom())
                 views.setViewVisibility(R.id.tv_4x4_c3_leave, if (c3.isOnLeave) View.VISIBLE else View.GONE)
             } else {
                 views.setViewVisibility(R.id.row_4x4_class3, View.GONE)

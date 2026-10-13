@@ -55,6 +55,77 @@ def load_json_or_js(json_path, js_path, window_var_regex=r'window\.\w+\s*=\s*({[
             print(f"Error parsing {js_path}: {e}")
     return None
 
+def get_room_location_meta(room_code):
+    code = str(room_code or '').strip().upper()
+    num_match = re.search(r'\d+', code)
+    num = int(num_match.group(0)) if num_match else 0
+
+    floor = "Ground Floor"
+    wing = "Main Building"
+    landmark = "Central Campus"
+
+    if code.startswith('R'):
+        if num == 32:
+            floor = "1st Floor"
+            wing = "New Building (1st Floor)"
+            landmark = "Near Room 33 (R-33)"
+        elif num == 35:
+            floor = "Ground Floor"
+            wing = "Canteen Area"
+            landmark = "Canteen Building"
+        elif num == 36:
+            floor = "Ground Floor"
+            wing = "Near Canteen"
+            landmark = "Ground Floor (Near Canteen)"
+        elif 26 <= num <= 28:
+            floor = "Ground Floor"
+            wing = "New Building (Ground Floor)"
+            landmark = "Near Tutorial Rooms"
+        elif 1 <= num <= 10:
+            floor = "Ground Floor"
+            wing = "Main Building (Front Wing)"
+            landmark = "Near Principal Office"
+        elif 11 <= num <= 25:
+            floor = "1st Floor"
+            wing = "Main Building (Heritage Wing)"
+            landmark = "Heritage Stairs"
+        elif 29 <= num <= 31:
+            floor = "Ground Floor"
+            wing = "New Classroom Wing"
+            landmark = "Near Central Lawns"
+        elif 33 <= num <= 37:
+            floor = "1st Floor"
+            wing = "New Classroom Wing"
+            landmark = "Near Computer Labs"
+    elif code.startswith('T'):
+        wing = "Tutorial Block"
+        if num >= 37:
+            floor = "2nd Floor"
+            landmark = "Tutorial Block 2nd Floor Corridor"
+        elif num in (17, 18):
+            floor = "Ground Floor"
+            landmark = "Tutorial Lawns"
+        elif num >= 19:
+            floor = "1st Floor"
+            landmark = "Tutorial Block 1st Floor Corridor"
+        else:
+            floor = "Ground Floor"
+            landmark = "Tutorial Lawns"
+    elif code.startswith('PB'):
+        floor = "Ground Floor"
+        wing = "Principal Bungalow"
+        landmark = "Near Gate 1"
+    elif code.startswith('SCR'):
+        floor = "Ground Floor"
+        wing = "Sports Complex"
+        landmark = "Sports Ground"
+    elif code.startswith('CL'):
+        floor = "1st Floor"
+        wing = "Computer Labs"
+        landmark = "Computer Center"
+
+    return {"floor": floor, "wing": wing, "landmark": landmark}
+
 def normalize_key(course, sem, sec):
     def clean(s):
         s = (s or '').lower().strip()
@@ -90,8 +161,8 @@ def generate_feed():
 
     # Build schedules map
     # Key: normalized "course_sem_sec"
-    # Content: { "meta": { "course": ..., "sem": ..., "sec": ... }, "schedule": { day: [ { slot, sub, r, t, tc, tid, b, tp } ] } }
     groups = {}
+    all_rooms_meta = {}
 
     for t in teachers_list:
         t_name = t.get('clean_name', t.get('label', ''))
@@ -120,10 +191,18 @@ def generate_feed():
                 # Check if teacher is currently on leave
                 on_leave = (t_id in leaves_by_id) or (t_code.upper() in leaves_by_code)
 
+                r_code = s.get('room', '')
+                r_loc = get_room_location_meta(r_code)
+                if r_code and r_code not in all_rooms_meta:
+                    all_rooms_meta[r_code] = r_loc
+
                 slot_entry = {
                     's': s.get('slot', ''),
                     'sub': s.get('subject', s.get('subject_name', '')),
-                    'r': s.get('room', ''),
+                    'r': r_code,
+                    'rf': r_loc['floor'],
+                    'rw': r_loc['wing'],
+                    'rl': r_loc['landmark'],
                     't': t_name,
                     'tc': t_code,
                     'tid': t_id,
@@ -154,6 +233,7 @@ def generate_feed():
             "total_leaves": len(leaves_list)
         },
         "leaves": leaves_list,
+        "rooms_meta": all_rooms_meta,
         "groups": groups
     }
 

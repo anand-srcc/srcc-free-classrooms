@@ -152,11 +152,17 @@ class WidgetFeedRepository(private val context: Context) {
                         val isTeacherOnLeave = obj.optBoolean("leave", false) ||
                                 leavesList.any { it.teacherId == tId || (it.teacherCode.isNotEmpty() && it.teacherCode.equals(tCode, ignoreCase = true)) }
 
+                        val rCode = obj.optString("r")
+                        val rFloor = obj.optString("rf", "")
+                        val rLoc = obj.optString("rl", "")
+
                         classCards.add(
                             ClassCard(
                                 slot = slot,
                                 subject = obj.optString("sub"),
-                                room = obj.optString("r"),
+                                room = rCode,
+                                roomFloor = rFloor,
+                                roomLocation = rLoc,
                                 teacher = obj.optString("t"),
                                 teacherCode = tCode,
                                 teacherId = tId,

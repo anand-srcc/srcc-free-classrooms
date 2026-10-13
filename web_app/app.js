@@ -2464,7 +2464,23 @@ ${directRoomUrl}`;
       const num = numMatch ? parseInt(numMatch[0], 10) : 0;
 
       if (code.startsWith('R')) {
-        if (num >= 1 && num <= 10) {
+        if (num === 32) {
+          floor = 'First Floor';
+          wing = 'New Building (1st Floor)';
+          landmark = 'Near Room 33 (R-33)';
+        } else if (num === 35) {
+          floor = 'Ground Floor';
+          wing = 'Canteen Area';
+          landmark = 'Canteen Building';
+        } else if (num === 36) {
+          floor = 'Ground Floor';
+          wing = 'Near Canteen';
+          landmark = 'Ground Floor (Near Canteen)';
+        } else if (num >= 26 && num <= 28) {
+          floor = 'Ground Floor';
+          wing = 'New Building (Ground Floor)';
+          landmark = 'Near Tutorial Rooms';
+        } else if (num >= 1 && num <= 10) {
           floor = 'Ground Floor';
           wing = 'Main Building (Front Wing)';
           landmark = 'Near Principal Office & Central Lawns';
@@ -2472,7 +2488,7 @@ ${directRoomUrl}`;
           floor = 'First Floor';
           wing = 'Main Building (First Floor Corridor)';
           landmark = 'Accessible via Main Heritage Stairs';
-        } else if (num >= 26 && num <= 32) {
+        } else if (num >= 29 && num <= 31) {
           floor = 'Ground Floor';
           wing = 'New Classroom Wing';
           landmark = 'Near Central Lawns & Main Auditorium';
@@ -2483,7 +2499,13 @@ ${directRoomUrl}`;
         }
       } else if (code.startsWith('T')) {
         wing = 'Tutorial Block';
-        if (num >= 16) {
+        if (num >= 37) {
+          floor = 'Second Floor';
+          landmark = 'Tutorial Block 2nd Floor Corridor';
+        } else if (num === 17 || num === 18) {
+          floor = 'Ground Floor';
+          landmark = 'Tutorial Lawns & Ground Floor Corridor';
+        } else if (num >= 19) {
           floor = 'First Floor';
           landmark = 'Tutorial Block 1st Floor Corridor';
         } else {

@@ -1299,6 +1299,81 @@
             fullSubj = `${s.subject_name} (${s.subject})`;
           }
 
+      function getRoomLocationMeta(roomCode) {
+        const code = String(roomCode || '').trim().toUpperCase();
+        const numMatch = code.match(/\d+/);
+        const num = numMatch ? parseInt(numMatch[0], 10) : 0;
+
+        let floor = 'Ground Floor';
+        let wing = 'Main Building';
+        let landmark = 'Central Campus';
+
+        if (code.startsWith('R')) {
+          if (num === 32) {
+            floor = '1st Floor';
+            wing = 'New Building (1st Floor)';
+            landmark = 'Near Room 33 (R-33)';
+          } else if (num === 35) {
+            floor = 'Ground Floor';
+            wing = 'Canteen Area';
+            landmark = 'Canteen Building';
+          } else if (num === 36) {
+            floor = 'Ground Floor';
+            wing = 'Near Canteen';
+            landmark = 'Ground Floor (Near Canteen)';
+          } else if (num >= 26 && num <= 28) {
+            floor = 'Ground Floor';
+            wing = 'New Building (Ground Floor)';
+            landmark = 'Near Tutorial Rooms';
+          } else if (num >= 1 && num <= 10) {
+            floor = 'Ground Floor';
+            wing = 'Main Building (Front Wing)';
+            landmark = 'Near Principal Office & Central Lawns';
+          } else if (num >= 11 && num <= 25) {
+            floor = '1st Floor';
+            wing = 'Main Building (Heritage Wing)';
+            landmark = 'Accessible via Main Heritage Stairs';
+          } else if (num >= 29 && num <= 31) {
+            floor = 'Ground Floor';
+            wing = 'New Classroom Wing';
+            landmark = 'Near Central Lawns & Main Auditorium';
+          } else if (num >= 33 && num <= 37) {
+            floor = '1st Floor';
+            wing = 'New Classroom Wing';
+            landmark = 'Near Computer Labs & North Corridor';
+          }
+        } else if (code.startsWith('T')) {
+          wing = 'Tutorial Block';
+          if (num >= 37) {
+            floor = '2nd Floor';
+            landmark = 'Tutorial Block 2nd Floor Corridor';
+          } else if (num === 17 || num === 18) {
+            floor = 'Ground Floor';
+            landmark = 'Tutorial Lawns & Ground Floor Corridor';
+          } else if (num >= 19) {
+            floor = '1st Floor';
+            landmark = 'Tutorial Block 1st Floor Corridor';
+          } else {
+            floor = 'Ground Floor';
+            landmark = 'Tutorial Lawns & Ground Floor Corridor';
+          }
+        } else if (code.startsWith('PB')) {
+          floor = 'Ground Floor';
+          wing = 'Principal Bungalow';
+          landmark = 'Near Gate 1';
+        } else if (code.startsWith('SCR')) {
+          floor = 'Ground Floor';
+          wing = 'Sports Complex';
+          landmark = 'Near Sports Ground';
+        } else if (code.startsWith('CL')) {
+          floor = '1st Floor';
+          wing = 'Computer Center';
+          landmark = 'Computer Lab Block';
+        }
+        return { code, floor, wing, landmark };
+      }
+
+          const rLoc = getRoomLocationMeta(s.room);
           list.push({
             slot: s.slot,
             periodNum: pInfo.num,
@@ -1306,6 +1381,9 @@
             endMin: pInfo.endMin,
             subject: fullSubj,
             room: s.room || 'TBA',
+            roomFloor: rLoc.floor,
+            roomWing: rLoc.wing,
+            roomLandmark: rLoc.landmark,
             subDetail: classDesc,
             type: s.type || 'Lecture',
             batchTag: displayBatch,
@@ -1331,6 +1409,7 @@
           fullSubj = `${c.subject_name} (${c.subject})`;
         }
 
+        const rLoc = getRoomLocationMeta(c.room);
         return {
           slot: c.slot,
           periodNum: pInfo.num,
@@ -1338,6 +1417,9 @@
           endMin: pInfo.endMin,
           subject: fullSubj,
           room: c.room || 'TBA',
+          roomFloor: rLoc.floor,
+          roomWing: rLoc.wing,
+          roomLandmark: rLoc.landmark,
           subDetail: c.teacher_name ? `👨‍🏫 ${c.teacher_name}` : 'Faculty',
           type: c.type || 'Lecture',
           batchTag: batchTag,
@@ -1355,6 +1437,7 @@
           fullSubj = `${s.subject_name} (${s.subject})`;
         }
 
+        const rLoc = getRoomLocationMeta(s.room);
         return {
           slot: s.slot,
           periodNum: pInfo.num,
@@ -1362,6 +1445,9 @@
           endMin: pInfo.endMin,
           subject: fullSubj,
           room: s.room || 'TBA',
+          roomFloor: rLoc.floor,
+          roomWing: rLoc.wing,
+          roomLandmark: rLoc.landmark,
           subDetail: `👨‍🏫 ${teacherName}`,
           type: s.type || 'Lecture',
           batchTag: s.batch ? `Group ${s.batch}` : 'Whole Section',
@@ -1481,7 +1567,7 @@
             bubbleHeadline.textContent = liveClass.subject;
             bubbleSubtext.textContent = `${liveClass.subDetail} · Period ${liveClass.periodNum} (${liveClass.endMin - curMin}m left)`;
             
-            bubbleRoomPill.textContent = `🏛️ Room ${liveClass.room}`;
+            bubbleRoomPill.textContent = `🏛️ Room ${liveClass.room}${liveClass.roomFloor ? ' (' + liveClass.roomFloor + ')' : ''}`;
             bubbleTimePill.textContent = `🕒 ${liveClass.slot.replace(' to ', ' – ')}`;
             bubbleBatchPill.textContent = liveClass.batchTag || liveClass.type || 'Lecture';
             bubblePillsRow.style.display = 'flex';
@@ -1502,7 +1588,7 @@
             bubbleHeadline.textContent = upcomingClass.subject;
             bubbleSubtext.textContent = `${upcomingClass.subDetail} · Starts ${timeDesc} (${upcomingClass.slot.split(' to ')[0]})`;
             
-            bubbleRoomPill.textContent = `🏛️ Room ${upcomingClass.room}`;
+            bubbleRoomPill.textContent = `🏛️ Room ${upcomingClass.room}${upcomingClass.roomFloor ? ' (' + upcomingClass.roomFloor + ')' : ''}`;
             bubbleTimePill.textContent = `🕒 ${upcomingClass.slot.replace(' to ', ' – ')}`;
             bubbleBatchPill.textContent = upcomingClass.batchTag || upcomingClass.type || 'Lecture';
             bubblePillsRow.style.display = 'flex';
@@ -1559,6 +1645,7 @@
             if (isPast) cardClass += ' is-past';
             if (c.isOnLeave) cardClass += ' has-leave';
 
+            const roomText = c.roomFloor ? `${c.room} · ${c.roomFloor}` : c.room;
             return `
               <div class="${cardClass}">
                 <div class="slot-time-col">
@@ -1574,7 +1661,7 @@
                     ${c.isOnLeave ? '<span class="slot-leave-pill">🏖️ On Leave · Cancelled</span>' : ''}
                   </div>
                 </div>
-                <span class="slot-room-pill">🏛️ ${c.room}</span>
+                <span class="slot-room-pill" title="${c.roomWing ? c.roomWing + ' (' + c.roomLandmark + ')' : ''}">🏛️ ${roomText}</span>
               </div>
             `;
           }).join('');

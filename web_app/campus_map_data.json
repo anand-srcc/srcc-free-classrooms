@@ -364,7 +364,7 @@
       {
         "name": "R26",
         "category": "Room",
-        "description": "",
+        "description": "New Building (Near Tutorial Rooms)",
         "floor": "Ground Floor",
         "x": 367,
         "y": 219,
@@ -376,7 +376,7 @@
       {
         "name": "R27",
         "category": "Room",
-        "description": "",
+        "description": "New Building (Near Tutorial Rooms)",
         "floor": "Ground Floor",
         "x": 261,
         "y": 213,
@@ -388,7 +388,7 @@
       {
         "name": "R28",
         "category": "Room",
-        "description": "",
+        "description": "New Building (Near Tutorial Rooms)",
         "floor": "Ground Floor",
         "x": 165,
         "y": 217,
@@ -485,7 +485,7 @@
         "name": "T19",
         "category": "Room",
         "description": "",
-        "floor": "Ground Floor",
+        "floor": "First Floor",
         "x": 195,
         "y": 346,
         "isLandmark": false,
@@ -496,7 +496,7 @@
       {
         "name": "T18",
         "category": "Room",
-        "description": "",
+        "description": "Tutorial Block Ground Floor",
         "floor": "Ground Floor",
         "x": 195,
         "y": 369,
@@ -544,7 +544,7 @@
       {
         "name": "T17",
         "category": "Room",
-        "description": "",
+        "description": "Tutorial Block Ground Floor",
         "floor": "Ground Floor",
         "x": 192,
         "y": 386,
@@ -1937,7 +1937,7 @@
         "name": "Tut Block 2nd Floor",
         "category": "Junction",
         "description": "",
-        "floor": "First Floor",
+        "floor": "Ground Floor",
         "x": 218,
         "y": 420,
         "isLandmark": false,
@@ -1985,7 +1985,7 @@
         "name": "Tut Block 3rd Floor",
         "category": "Junction",
         "description": "",
-        "floor": "Second Floor",
+        "floor": "Ground Floor",
         "x": 215,
         "y": 421,
         "isLandmark": false,
@@ -2020,8 +2020,8 @@
       {
         "name": "R35",
         "category": "Room",
-        "description": "",
-        "floor": "First Floor",
+        "description": "Canteen Area",
+        "floor": "Ground Floor",
         "x": 448,
         "y": 451,
         "isLandmark": false,
@@ -2128,7 +2128,7 @@
       {
         "name": "R36",
         "category": "Room",
-        "description": "",
+        "description": "Near Canteen",
         "floor": "Ground Floor",
         "x": 1106,
         "y": 221,
@@ -2160,6 +2160,16 @@
         "id": "NBQPZ37",
         "createdAt": "2026-06-24T16:26:42.919Z",
         "updatedAt": "2026-06-24T16:26:42.920Z"
+      },
+      {
+        "name": "R32",
+        "category": "Room",
+        "description": "New Building 1st Floor (Near R-33)",
+        "floor": "First Floor",
+        "x": 600,
+        "y": 500,
+        "isLandmark": false,
+        "id": "NR32_NEW"
       }
     ],
     "edges": [
