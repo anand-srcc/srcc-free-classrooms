@@ -56,16 +56,6 @@
             <span class="toggle-status-text" id="toggleStatusText">OFF</span>
           </button>
         </div>
-        <!-- Widget Feature Button (Header) -->
-        <button id="btnOpenWidgetModal" class="btn-widget-header" title="Daily Timetable Widget & Android App">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="7" height="9" rx="2"></rect>
-            <rect x="14" y="3" width="7" height="5" rx="2"></rect>
-            <rect x="14" y="12" width="7" height="9" rx="2"></rect>
-            <rect x="3" y="16" width="7" height="5" rx="2"></rect>
-          </svg>
-          <span>Widget</span>
-        </button>
         <!-- WiFi Directory Button (Header) -->
         <button id="btnOpenWifiModal" class="btn-wifi-header" title="Campus WiFi Networks & Passwords Directory">
           <svg class="wifi-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -477,7 +467,10 @@
           <span class="tt-widget-badge">📱 WIDGET READY</span>
           <span>Pin your section's live schedule to your phone home screen!</span>
         </div>
-        <button type="button" class="btn-tt-widget-open" id="btnOpenWidgetFromTt">Launch Widget ↗</button>
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+          <a href="widget.html" target="_blank" class="btn-tt-widget-open" id="btnOpenWidgetFromTt" style="text-decoration: none;">Launch Widget ↗</a>
+          <a href="app-debug.apk" download class="btn-tt-widget-apk" style="text-decoration: none; background: #16a34a; color: #ffffff; font-size: 0.8rem; font-weight: 700; padding: 7px 12px; border-radius: 8px; display: inline-flex; align-items: center; gap: 4px;">⬇️ App APK</a>
+        </div>
       </div>
 
       <!-- Controls Panel (100% Native App UX/UI) -->
@@ -1119,9 +1112,9 @@
   <script src="data.js?v=70"></script>
   <script src="wifi_data.js?v=70"></script>
   <script src="cloud_config.js?v=70"></script>
-  <script src="faculty_leaves.js?v=72"></script>
-  <script src="teachers_data.js?v=72"></script>
-  <script src="classes_data.js?v=72"></script>
-  <script src="app.js?v=72"></script>
+  <script src="faculty_leaves.js?v=73"></script>
+  <script src="teachers_data.js?v=73"></script>
+  <script src="classes_data.js?v=73"></script>
+  <script src="app.js?v=73"></script>
 </body>
 </html>

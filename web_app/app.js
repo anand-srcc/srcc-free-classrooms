@@ -4965,21 +4965,20 @@ ${directRoomUrl}`;
             ${displayCode ? `<span class="th-chip th-code">🏷️ Code: <strong>${escapeHtml(displayCode)}</strong></span>` : ''}
             <span class="th-chip th-load">📅 <strong>${periods}</strong> Weekly Classes</span>
             ${teacher.email ? `
-              <div class="modal-email-chip">
-                <span>✉️ <strong>${escapeHtml(teacher.email)}</strong></span>
-                <button type="button" class="btn-copy-email-action" id="btnModalCopyTeacherEmail" title="Click to copy email">📋 Copy Email</button>
-                <a href="mailto:${escapeHtml(teacher.email)}" class="btn-mail-action" title="Send email">↗ Mail</a>
-              </div>` : ''}
+              <button type="button" class="th-chip th-email-copy-chip" id="btnModalCopyTeacherEmail" title="Copy teacher email" style="cursor: pointer; background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; border-radius: 999px; padding: 2px 10px; font-size: 0.76rem; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
+                ✉️ Copy Email
+              </button>` : ''}
           </div>
         `;
 
         const btnCopyEmail = document.getElementById('btnModalCopyTeacherEmail');
         if (btnCopyEmail && teacher.email) {
-          btnCopyEmail.addEventListener('click', () => {
+          btnCopyEmail.addEventListener('click', (e) => {
+            e.stopPropagation();
             copyToClipboard(teacher.email).then(() => {
               btnCopyEmail.textContent = '✓ Copied!';
-              showToast(`📋 Copied email: ${teacher.email} (${teacher.clean_name})`);
-              setTimeout(() => { btnCopyEmail.textContent = '📋 Copy Email'; }, 2500);
+              showToast(`📋 Copied email for Prof. ${teacher.clean_name}`);
+              setTimeout(() => { btnCopyEmail.textContent = '✉️ Copy Email'; }, 2000);
             });
           });
         }
