@@ -809,6 +809,7 @@ document.addEventListener('DOMContentLoaded', () => {
       statusFilter: 'ALL', // 'ALL' | 'TEACHING_NOW' | 'FREE_NOW' | 'ON_LEAVE'
       sortBy: 'NAME_ASC', // 'NAME_ASC' | 'NAME_DESC' | 'CLASSES_DESC' | 'DEPT_ASC'
       viewMode: 'grid', // 'grid' | 'compact'
+      showEmails: false,
       modalActiveTeacher: null,
       modalActiveDay: initialDay
     };
@@ -3626,7 +3627,7 @@ ${directRoomUrl}`;
             type: 'FREE_NOW',
             badgeClass: 'status-free',
             dotClass: 'dot-free',
-            text: `☕ Available (No class scheduled in this slot)`,
+            text: '',
             isTeachingNow: false,
             isOnLeave: false,
             isFreeNow: true,
@@ -3916,6 +3917,34 @@ ${directRoomUrl}`;
       if (metricFacultyFreeNow) metricFacultyFreeNow.textContent = state.currentLiveSlot ? `${freeCount} Faculty` : 'Off-Hours';
       if (metricFacultyOnLeave) metricFacultyOnLeave.textContent = leaveCount;
 
+      const metricFacultyEmailTile = document.getElementById('metricFacultyEmailTile');
+      const metricFacultyEmailCount = document.getElementById('metricFacultyEmailCount');
+      const metricEmailStatusTag = document.getElementById('metricEmailStatusTag');
+
+      if (metricFacultyEmailCount) {
+        const countWithEmail = allTeachers.filter(t => Boolean(t.email)).length;
+        metricFacultyEmailCount.textContent = countWithEmail;
+      }
+
+      if (metricFacultyEmailTile) {
+        metricFacultyEmailTile.classList.toggle('active', facultyState.showEmails);
+        if (metricEmailStatusTag) {
+          metricEmailStatusTag.textContent = facultyState.showEmails ? '(Shown)' : '(Off)';
+        }
+        if (!metricFacultyEmailTile._listenerAttached) {
+          metricFacultyEmailTile._listenerAttached = true;
+          metricFacultyEmailTile.onclick = () => {
+            facultyState.showEmails = !facultyState.showEmails;
+            metricFacultyEmailTile.classList.toggle('active', facultyState.showEmails);
+            if (metricEmailStatusTag) {
+              metricEmailStatusTag.textContent = facultyState.showEmails ? '(Shown)' : '(Off)';
+            }
+            renderFaculty();
+            showToast(facultyState.showEmails ? '✉️ Faculty emails displayed on cards' : '✉️ Faculty emails hidden');
+          };
+        }
+      }
+
       if (headerLeavePill) {
         if (leaveCount > 0) {
           headerLeavePill.textContent = `${leaveCount} on leave • View`;
@@ -4052,7 +4081,7 @@ ${directRoomUrl}`;
                   <span class="faculty-compact-name">${escapeHtml(teacher.clean_name)}</span>
                   ${displayCode ? `<span class="faculty-code-tag">${displayCode}</span>` : ''}
                   <span class="dept-badge ${deptTagCls}">${teacher.department || 'Faculty'}</span>
-                  ${teacher.email ? `<a href="mailto:${escapeHtml(teacher.email)}" class="faculty-email-badge compact" title="Email: ${escapeHtml(teacher.email)}">✉️ ${escapeHtml(teacher.email)}</a>` : ''}
+                  ${(facultyState.showEmails && teacher.email) ? `<a href="mailto:${escapeHtml(teacher.email)}" class="faculty-email-badge compact" title="Email: ${escapeHtml(teacher.email)}">✉️ ${escapeHtml(teacher.email)}</a>` : ''}
                 </div>
                 <div class="faculty-compact-meta">
                   <span>${daySched.length} classes on ${facultyState.activeDay} (${teacher.total_teaching_periods || 0} periods/wk)</span>
@@ -4131,7 +4160,7 @@ ${directRoomUrl}`;
                   <div class="faculty-meta-row">
                     <span class="dept-badge ${deptTagCls}">${teacher.department || 'Faculty'}</span>
                     <span class="periods-count-badge">${teacher.total_teaching_periods || 0} periods/wk</span>
-                    ${teacher.email ? `<a href="mailto:${escapeHtml(teacher.email)}" class="faculty-email-badge" title="Email: ${escapeHtml(teacher.email)}">✉️ ${escapeHtml(teacher.email)}</a>` : ''}
+                    ${(facultyState.showEmails && teacher.email) ? `<a href="mailto:${escapeHtml(teacher.email)}" class="faculty-email-badge" title="Email: ${escapeHtml(teacher.email)}">✉️ ${escapeHtml(teacher.email)}</a>` : ''}
                   </div>
                 </div>
               </div>

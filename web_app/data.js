@@ -3,7 +3,7 @@ window.SRCC_DATA = {
     "college": "Shri Ram College of Commerce (SRCC)",
     "portal": "https://srcccollegetimetable.in/",
     "total_rooms": 96,
-    "last_synced": "13 Oct 2026, 10:54 AM",
+    "last_synced": "12 Oct 2026, 06:00 PM",
     "last_synced_iso": "2026-10-12T18:00:10.433612",
     "academic_periods": [
       "8:30 AM to 9:30 AM",
@@ -33,8 +33,7 @@ window.SRCC_DATA = {
       "Classrooms (R)",
       "Computer Labs (CL)",
       "Library & Other Facilities"
-    ],
-    "reconciled_with_bootstrap": true
+    ]
   },
   "rooms": [
     {
@@ -5112,11 +5111,10 @@ window.SRCC_DATA = {
         },
         "Wednesday": {
           "free_slots": [
-            "3:00 PM to 4:00 PM",
             "4:00 PM to 5:00 PM",
             "5:00 PM to 6:00 PM"
           ],
-          "free_hours": 3,
+          "free_hours": 2,
           "lunch_recess_free": true,
           "occupied_slots": [
             {
@@ -5141,6 +5139,10 @@ window.SRCC_DATA = {
             },
             {
               "slot": "2:00 PM to 3:00 PM",
+              "class": "LAB-JOINT-SEM IIIMaths-VM III-MG2-VAC27"
+            },
+            {
+              "slot": "3:00 PM to 4:00 PM",
               "class": "LAB-JOINT-SEM IIIMaths-VM III-MG2-VAC27"
             }
           ]
@@ -8141,14 +8143,13 @@ window.SRCC_DATA = {
         "Monday": {
           "free_slots": [
             "9:30 AM to 10:30 AM",
-            "11:30 AM to 12:30 PM",
             "12:30 PM to 1:30 PM",
             "2:00 PM to 3:00 PM",
             "3:00 PM to 4:00 PM",
             "4:00 PM to 5:00 PM",
             "5:00 PM to 6:00 PM"
           ],
-          "free_hours": 7,
+          "free_hours": 6,
           "lunch_recess_free": true,
           "occupied_slots": [
             {
@@ -8158,6 +8159,10 @@ window.SRCC_DATA = {
             {
               "slot": "10:30 AM to 11:30 AM",
               "class": "T-BCH-C-SEM ICommerce-BLAW-HGC-C3"
+            },
+            {
+              "slot": "11:30 AM to 12:30 PM",
+              "class": "T-MCOM-A-SEM IIICommerce-CFCR-MKG"
             }
           ]
         },
@@ -10549,17 +10554,23 @@ window.SRCC_DATA = {
         },
         "Thursday": {
           "free_slots": [
-            "8:30 AM to 9:30 AM",
-            "9:30 AM to 10:30 AM",
             "12:30 PM to 1:30 PM",
             "2:00 PM to 3:00 PM",
             "3:00 PM to 4:00 PM",
             "4:00 PM to 5:00 PM",
             "5:00 PM to 6:00 PM"
           ],
-          "free_hours": 7,
+          "free_hours": 5,
           "lunch_recess_free": true,
           "occupied_slots": [
+            {
+              "slot": "8:30 AM to 9:30 AM",
+              "class": "LAB-MCOM-A-SEM IIICommerce-TR-MKG<----------------------->"
+            },
+            {
+              "slot": "9:30 AM to 10:30 AM",
+              "class": "LAB-MCOM-A-SEM IIICommerce-TR-MKG<----------------------->"
+            },
             {
               "slot": "10:30 AM to 11:30 AM",
               "class": "LAB-BCH-E-SEM IIICommerce-BMATH-AUV-EP3"
@@ -16036,10 +16047,12 @@ window.SRCC_DATA = {
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "10:30 AM to 11:30 AM",
+            "2:00 PM to 3:00 PM",
+            "3:00 PM to 4:00 PM",
             "4:00 PM to 5:00 PM",
             "5:00 PM to 6:00 PM"
           ],
-          "free_hours": 4,
+          "free_hours": 6,
           "lunch_recess_free": true,
           "occupied_slots": [
             {
@@ -16143,14 +16156,21 @@ window.SRCC_DATA = {
             "10:30 AM to 11:30 AM",
             "11:30 AM to 12:30 PM",
             "12:30 PM to 1:30 PM",
-            "2:00 PM to 3:00 PM",
-            "3:00 PM to 4:00 PM",
             "4:00 PM to 5:00 PM",
             "5:00 PM to 6:00 PM"
           ],
-          "free_hours": 9,
+          "free_hours": 7,
           "lunch_recess_free": true,
-          "occupied_slots": []
+          "occupied_slots": [
+            {
+              "slot": "2:00 PM to 3:00 PM",
+              "class": "L-BCH-A-SEM VIIPhy.Ed-IST-KTK"
+            },
+            {
+              "slot": "3:00 PM to 4:00 PM",
+              "class": "L-BCH-A-SEM VIIPhy.Ed-IST-KTK"
+            }
+          ]
         }
       }
     },
@@ -16395,12 +16415,13 @@ window.SRCC_DATA = {
             "8:30 AM to 9:30 AM",
             "10:30 AM to 11:30 AM",
             "11:30 AM to 12:30 PM",
+            "12:30 PM to 1:30 PM",
             "2:00 PM to 3:00 PM",
             "3:00 PM to 4:00 PM",
             "4:00 PM to 5:00 PM",
             "5:00 PM to 6:00 PM"
           ],
-          "free_hours": 7,
+          "free_hours": 8,
           "lunch_recess_free": true,
           "occupied_slots": [
             {
@@ -16415,11 +16436,12 @@ window.SRCC_DATA = {
             "10:30 AM to 11:30 AM",
             "11:30 AM to 12:30 PM",
             "12:30 PM to 1:30 PM",
+            "2:00 PM to 3:00 PM",
             "3:00 PM to 4:00 PM",
             "4:00 PM to 5:00 PM",
             "5:00 PM to 6:00 PM"
           ],
-          "free_hours": 7,
+          "free_hours": 8,
           "lunch_recess_free": true,
           "occupied_slots": [
             {
@@ -16464,6 +16486,7 @@ window.SRCC_DATA = {
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
+            "10:30 AM to 11:30 AM",
             "11:30 AM to 12:30 PM",
             "12:30 PM to 1:30 PM",
             "2:00 PM to 3:00 PM",
@@ -16471,7 +16494,7 @@ window.SRCC_DATA = {
             "4:00 PM to 5:00 PM",
             "5:00 PM to 6:00 PM"
           ],
-          "free_hours": 8,
+          "free_hours": 9,
           "lunch_recess_free": true,
           "occupied_slots": []
         }
@@ -16516,11 +16539,9 @@ window.SRCC_DATA = {
         },
         "Tuesday": {
           "free_slots": [
-            "11:30 AM to 12:30 PM",
-            "2:00 PM to 3:00 PM",
-            "3:00 PM to 4:00 PM"
+            "11:30 AM to 12:30 PM"
           ],
-          "free_hours": 3,
+          "free_hours": 1,
           "lunch_recess_free": true,
           "occupied_slots": [
             {
@@ -16538,6 +16559,14 @@ window.SRCC_DATA = {
             {
               "slot": "12:30 PM to 1:30 PM",
               "class": "L-BCH-J-SEM III-EVS-II-FYV"
+            },
+            {
+              "slot": "2:00 PM to 3:00 PM",
+              "class": "LAB-JOINT-SEM VCommerce-BIT-CC-SEC11<----------------------->"
+            },
+            {
+              "slot": "3:00 PM to 4:00 PM",
+              "class": "LAB-JOINT-SEM VCommerce-BIT-CC-SEC11<----------------------->"
             },
             {
               "slot": "4:00 PM to 5:00 PM",

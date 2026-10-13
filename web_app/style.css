@@ -8346,3 +8346,35 @@ body.dark-mode .tt-room-btn:hover,
   border-color: #2563eb;
 }
 
+/* Faculty Email Metric Tile Interactive Styles */
+#metricFacultyEmailTile {
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+#metricFacultyEmailTile:hover {
+  transform: translateY(-2px);
+  border-color: rgba(37, 99, 235, 0.4);
+}
+
+#metricFacultyEmailTile.active {
+  background: rgba(37, 99, 235, 0.12) !important;
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 1.5px #2563eb;
+}
+
+#metricFacultyEmailTile.active .metric-num {
+  color: #2563eb !important;
+}
+
+#metricFacultyEmailTile .metric-sub-status {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-left: 2px;
+}
+
+#metricFacultyEmailTile.active .metric-sub-status {
+  color: #16a34a;
+}
+
