@@ -46,20 +46,42 @@ class WidgetConfigActivity : AppCompatActivity() {
         // Setup spinners
         val courses = arrayOf("B.Com (Hons)", "B.A. (Hons) Economics", "SEC", "VAC")
         val sems = arrayOf("Sem I", "Sem III", "Sem V", "Sem VII")
-        val secs = arrayOf("Sec A", "Sec B", "Sec C", "Sec D", "Sec E", "Sec F", "Sec G", "Sec H", "Sec I", "Sec J", "Sec K", "Sec L", "Sec M", "Sec N")
         val batches = arrayOf("ALL", "Batch 1", "Batch 2", "Batch 3", "Batch 4")
+
+        fun getSectionsForCourse(course: String): Array<String> {
+            return when (course) {
+                "B.A. (Hons) Economics" -> arrayOf("Sec A", "Sec B", "Sec C", "Sec D")
+                "SEC" -> arrayOf("Joint", "Sec 1", "Sec 2", "Sec 3", "Sec 6", "Sec 7", "Sec 8", "Sec 9", "Sec 10", "Sec 11", "Sec 12", "Sec 13", "Sec 14", "Sec 15", "Sec 16", "Sec 17", "Sec 18", "Sec 19", "Sec 20", "Sec 22")
+                "VAC" -> arrayOf("Joint", "VAC 16", "VAC 17", "VAC 20")
+                else -> arrayOf("Sec A", "Sec B", "Sec C", "Sec D", "Sec E", "Sec F", "Sec G", "Sec H", "Sec I", "Sec J", "Sec K", "Sec L", "Sec M", "Sec N")
+            }
+        }
 
         spnCourse.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, courses)
         spnSem.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, sems)
-        spnSec.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, secs)
         spnBatch.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, batches)
 
         // Preload default
-        val cur = profileRepo.getProfile()
-        spnCourse.setSelection(courses.indexOf(cur.course).coerceAtLeast(0))
+        val cur = profileRepo.getProfile(if (appWidgetId > 0) appWidgetId else null)
+        val initialCourseIdx = courses.indexOf(cur.course).coerceAtLeast(0)
+        spnCourse.setSelection(initialCourseIdx)
         spnSem.setSelection(sems.indexOf(cur.sem).coerceAtLeast(0))
-        spnSec.setSelection(secs.indexOf(cur.sec).coerceAtLeast(0))
+
+        val initialSecs = getSectionsForCourse(courses[initialCourseIdx])
+        spnSec.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, initialSecs)
+        spnSec.setSelection(initialSecs.indexOf(cur.sec).coerceAtLeast(0))
         spnBatch.setSelection(batches.indexOf(cur.batch).coerceAtLeast(0))
+
+        spnCourse.onItemSelectedListener = object : android.widget.AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: android.widget.AdapterView<*>?, view: android.view.View?, position: Int, id: Long) {
+                val selectedCourse = courses[position]
+                val secList = getSectionsForCourse(selectedCourse)
+                val curSec = spnSec.selectedItem?.toString()
+                spnSec.adapter = ArrayAdapter(this@WidgetConfigActivity, android.R.layout.simple_spinner_dropdown_item, secList)
+                spnSec.setSelection(secList.indexOf(curSec).coerceAtLeast(0))
+            }
+            override fun onNothingSelected(parent: android.widget.AdapterView<*>?) {}
+        }
 
         btnSave.setOnClickListener {
             val rawCode = etCode.text.toString().trim()
@@ -76,6 +98,9 @@ class WidgetConfigActivity : AppCompatActivity() {
             }
 
             profileRepo.saveProfile(profile, appWidgetId)
+            if (appWidgetId > 0) {
+                BaseTimetableWidgetProvider.updateWidget(this, appWidgetId)
+            }
             BaseTimetableWidgetProvider.updateAllWidgets(this, forceRefresh = true)
 
             val resultValue = Intent().apply {

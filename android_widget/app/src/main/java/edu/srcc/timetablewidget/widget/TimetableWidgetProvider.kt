@@ -38,6 +38,26 @@ abstract class BaseTimetableWidgetProvider : AppWidgetProvider() {
     companion object {
         const val ACTION_MANUAL_REFRESH = "edu.srcc.timetablewidget.ACTION_MANUAL_REFRESH"
 
+        fun updateWidget(context: Context, appWidgetId: Int) {
+            if (appWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) return
+            val appWidgetManager = AppWidgetManager.getInstance(context)
+            val profileRepo = WidgetProfileRepository(context)
+            val feedRepo = WidgetFeedRepository(context)
+
+            CoroutineScope(Dispatchers.IO).launch {
+                val profile = profileRepo.getProfile(appWidgetId)
+                val schedule = feedRepo.getDailySchedule(profile, forceRefresh = false)
+                val info = appWidgetManager.getAppWidgetInfo(appWidgetId)
+                val cls = info?.provider?.className ?: ""
+                val views = when {
+                    cls.contains("4x1") -> render4x1(context, schedule)
+                    cls.contains("4x4") -> render4x4(context, schedule)
+                    else -> render4x2(context, schedule)
+                }
+                appWidgetManager.updateAppWidget(appWidgetId, views)
+            }
+        }
+
         fun updateAllWidgets(context: Context, forceRefresh: Boolean = false) {
             val appWidgetManager = AppWidgetManager.getInstance(context)
             val profileRepo = WidgetProfileRepository(context)
@@ -217,7 +237,9 @@ abstract class BaseTimetableWidgetProvider : AppWidgetProvider() {
         }
 
         private fun attachAppClickIntent(context: Context, views: RemoteViews, viewId: Int) {
-            val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://srccroomfinder.netlify.app/widget.html"))
+            val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://srccroomfinder.netlify.app/widget.html")).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            }
             val pendingIntent = PendingIntent.getActivity(
                 context, 2002, webIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE

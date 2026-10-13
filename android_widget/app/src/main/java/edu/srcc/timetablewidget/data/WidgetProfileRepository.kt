@@ -13,7 +13,7 @@ class WidgetProfileRepository(context: Context) {
         context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
     fun getProfile(widgetId: Int? = null): WidgetProfile {
-        val key = if (widgetId != null && widgetId != 0) "profile_$widgetId" else KEY_DEFAULT_PROFILE
+        val key = if (widgetId != null && widgetId > 0) "profile_$widgetId" else KEY_DEFAULT_PROFILE
         val raw = prefs.getString(key, null) ?: prefs.getString(KEY_DEFAULT_PROFILE, null)
         if (raw != null) {
             try {
@@ -38,7 +38,7 @@ class WidgetProfileRepository(context: Context) {
         }
         prefs.edit().apply {
             putString(KEY_DEFAULT_PROFILE, json.toString())
-            if (widgetId != null && widgetId != 0) {
+            if (widgetId != null && widgetId > 0) {
                 putString("profile_$widgetId", json.toString())
             }
             apply()
