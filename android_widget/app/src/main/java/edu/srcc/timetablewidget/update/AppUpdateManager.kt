@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit
 object AppUpdateManager {
 
     private const val UPDATE_CONFIG_URL = "https://srccroomfinder.netlify.app/app_version.json"
+    private const val GITHUB_CONFIG_URL = "https://raw.githubusercontent.com/anand-srcc/srcc-free-classrooms/main/web_app/app_version.json"
 
     data class UpdateInfo(
         val minSupportedVersionCode: Int,
@@ -33,28 +34,37 @@ object AppUpdateManager {
             .readTimeout(5, TimeUnit.SECONDS)
             .build()
 
-        try {
-            val request = Request.Builder()
-                .url("$UPDATE_CONFIG_URL?t=${System.currentTimeMillis()}")
-                .header("User-Agent", "SRCC-Timetable-Widget-Android/${BuildConfig.VERSION_NAME}")
-                .build()
+        val urls = listOf(
+            "$UPDATE_CONFIG_URL?t=${System.currentTimeMillis()}",
+            "$GITHUB_CONFIG_URL?t=${System.currentTimeMillis()}"
+        )
 
-            client.newCall(request).execute().use { response ->
-                if (response.isSuccessful) {
-                    val body = response.body?.string() ?: return@withContext null
-                    val json = JSONObject(body)
-                    return@withContext UpdateInfo(
-                        minSupportedVersionCode = json.optInt("min_supported_version_code", 1),
-                        latestVersionCode = json.optInt("version_code", 1),
-                        latestVersionName = json.optString("version_name", "1.0.0"),
-                        forceUpdate = json.optBoolean("force_update", true),
-                        updateTitle = json.optString("update_title", "⚠️ Update Required"),
-                        updateMessage = json.optString("update_message", "A new version of SRCC Timetable is required to continue. Please update the app to proceed."),
-                        downloadUrl = json.optString("apk_download_url", "https://srccroomfinder.netlify.app/app-debug.apk")
-                    )
+        for (url in urls) {
+            try {
+                val request = Request.Builder()
+                    .url(url)
+                    .header("User-Agent", "SRCC-Timetable-Widget-Android/${BuildConfig.VERSION_NAME}")
+                    .build()
+
+                client.newCall(request).execute().use { response ->
+                    if (response.isSuccessful) {
+                        val body = response.body?.string()
+                        if (!body.isNullOrEmpty()) {
+                            val json = JSONObject(body)
+                            return@withContext UpdateInfo(
+                                minSupportedVersionCode = json.optInt("min_supported_version_code", 1),
+                                latestVersionCode = json.optInt("version_code", 1),
+                                latestVersionName = json.optString("version_name", "1.0.0"),
+                                forceUpdate = json.optBoolean("force_update", true),
+                                updateTitle = json.optString("update_title", "⚠️ Update Required"),
+                                updateMessage = json.optString("update_message", "A new version of SRCC Timetable is required to continue. Please update the app to proceed."),
+                                downloadUrl = json.optString("apk_download_url", "https://srccroomfinder.netlify.app/app-debug.apk")
+                            )
+                        }
+                    }
                 }
-            }
-        } catch (_: Exception) {}
+            } catch (_: Exception) {}
+        }
         null
     }
 
