@@ -1844,8 +1844,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const freeSlotsFormatted = formatContinuousFreeSlots(sched.free_slots)
         .map(s => `  • ${s}`).join('\n');
 
-      const siteUrl = window.location.origin + window.location.pathname.replace(/\/index\.html$/i, '');
-      const directRoomUrl = `${siteUrl}${siteUrl.endsWith('/') ? '' : '/'}?room=${encodeURIComponent(room.code)}`;
+      const CANONICAL_SITE_URL = 'https://srccroomfinder.netlify.app';
+      const siteUrl = (window.location.hostname === 'srccroomfinder.netlify.app') ? window.location.origin : CANONICAL_SITE_URL;
+      const directRoomUrl = `${siteUrl}/?room=${encodeURIComponent(room.code)}`;
       const activeDateStr = getDateForDay(state.activeDay);
       const dayAndDateDisplay = `${state.activeDay}, ${activeDateStr}`;
       const loc = getRoomLocationMeta(room.code);
@@ -4229,7 +4230,11 @@ ${directRoomUrl}`;
                   <span class="faculty-compact-name">${escapeHtml(teacher.clean_name)}</span>
                   ${displayCode ? `<span class="faculty-code-tag">${displayCode}</span>` : ''}
                   <span class="dept-badge ${deptTagCls}">${teacher.department || 'Faculty'}</span>
-                  ${(facultyState.showEmails && teacher.email) ? `<a href="mailto:${escapeHtml(teacher.email)}" class="faculty-email-badge compact" title="Email: ${escapeHtml(teacher.email)}">✉️ ${escapeHtml(teacher.email)}</a>` : ''}
+                  ${teacher.email ? `
+                    <div class="faculty-email-chip compact" data-email="${escapeHtml(teacher.email)}" data-teacher-name="${escapeHtml(teacher.clean_name)}" title="Click to copy email: ${escapeHtml(teacher.email)}">
+                      <span>✉️ ${escapeHtml(teacher.email)}</span>
+                      <span class="email-copy-badge">📋</span>
+                    </div>` : ''}
                 </div>
                 <div class="faculty-compact-meta">
                   <span>${daySched.length} classes on ${facultyState.activeDay} (${teacher.total_teaching_periods || 0} periods/wk)</span>
@@ -4308,7 +4313,13 @@ ${directRoomUrl}`;
                   <div class="faculty-meta-row">
                     <span class="dept-badge ${deptTagCls}">${teacher.department || 'Faculty'}</span>
                     <span class="periods-count-badge">${teacher.total_teaching_periods || 0} periods/wk</span>
-                    ${(facultyState.showEmails && teacher.email) ? `<a href="mailto:${escapeHtml(teacher.email)}" class="faculty-email-badge" title="Email: ${escapeHtml(teacher.email)}">✉️ ${escapeHtml(teacher.email)}</a>` : ''}
+                    ${teacher.email ? `
+                      <div class="faculty-email-chip" data-email="${escapeHtml(teacher.email)}" data-teacher-name="${escapeHtml(teacher.clean_name)}" title="Click to copy email: ${escapeHtml(teacher.email)}">
+                        <span class="email-icon">✉️</span>
+                        <span class="email-status-text">Email Available:</span>
+                        <span class="email-addr">${escapeHtml(teacher.email)}</span>
+                        <span class="email-copy-badge">📋 Copy</span>
+                      </div>` : ''}
                   </div>
                 </div>
               </div>
@@ -4357,6 +4368,30 @@ ${directRoomUrl}`;
           const tId = btn.dataset.teacherId;
           const tObj = teachersData?.teachers?.find(t => t.id === tId);
           if (tObj) shareTeacherProfile(tObj, facultyState.activeDay);
+        });
+      });
+
+      // 1-Tap Email Copy Listener
+      document.querySelectorAll('.faculty-email-chip').forEach(chip => {
+        chip.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const email = chip.dataset.email;
+          const tName = chip.dataset.teacherName || 'Faculty';
+          if (!email) return;
+
+          copyToClipboard(email).then(() => {
+            chip.classList.add('copied');
+            const badge = chip.querySelector('.email-copy-badge');
+            const originalText = badge ? badge.textContent : '📋 Copy';
+            if (badge) badge.textContent = '✓ Copied!';
+            showToast(`📋 Copied Prof. ${tName}'s Email: ${email}`);
+            setTimeout(() => {
+              chip.classList.remove('copied');
+              if (badge) badge.textContent = originalText;
+            }, 2500);
+          }).catch(() => {
+            showToast(`✉️ Email: ${email}`);
+          });
         });
       });
 
@@ -4673,7 +4708,9 @@ ${directRoomUrl}`;
     // ========================================================================
     function shareTeacherProfile(teacher, targetDay = null) {
       if (!teacher) return;
-      const url = `${window.location.origin}${window.location.pathname}?faculty=${encodeURIComponent(teacher.clean_name)}`;
+      const CANONICAL_SITE_URL = 'https://srccroomfinder.netlify.app';
+      const baseUrl = (window.location.hostname === 'srccroomfinder.netlify.app') ? window.location.origin : CANONICAL_SITE_URL;
+      const directFacultyUrl = `${baseUrl}/?faculty=${encodeURIComponent(teacher.clean_name)}`;
       const activeDay = targetDay || facultyState.modalActiveDay || facultyState.activeDay || ((typeof getLiveDayName === 'function') ? getLiveDayName() : 'Monday');
       const displayCode = (typeof getDisplayShortCode === 'function') ? getDisplayShortCode(teacher) : (teacher.short_code || '');
       const shareTitle = `SRCC Faculty Timetable: Prof. ${teacher.clean_name}`;
@@ -4701,39 +4738,75 @@ ${directRoomUrl}`;
           } else if (c.semester && !c.semester.toLowerCase().includes('all sem')) {
             secStr = ` · ${c.course ? c.course + ' ' : ''}${c.semester}`;
           }
-          return `• *${timeStr}:* ${subjName}${subjCode}${roomStr}${typeStr}${secStr}`;
+          return `  • ${timeStr}: ${subjName}${subjCode}${roomStr}${typeStr}${secStr}`;
         });
-        daySchedText = `📅 *Schedule for ${activeDay}:*\n${classLines.join('\n')}\n\n`;
+        daySchedText = `📅 Schedule for ${activeDay}:\n${classLines.join('\n')}\n\n`;
       } else {
-        daySchedText = `📅 *Schedule for ${activeDay}:* No classes scheduled (Free Day)\n\n`;
+        daySchedText = `📅 Schedule for ${activeDay}: No lectures scheduled (Free Day)\n\n`;
       }
 
-      const shareText = `👨‍🏫 *SRCC Faculty Schedule & Timetable*\n\n` +
-        `👤 *Prof. ${teacher.clean_name}* ${displayCode ? `(${displayCode})` : ''}\n` +
-        `🏛️ *Department:* ${teacher.department || 'Faculty'}\n\n` +
-        daySchedText +
-        `🔗 *View Complete Timetable & Classroom Locations:*\n${url}`;
+      const emailPart = teacher.email ? `✉️ Email: ${teacher.email}\n` : '';
 
-      if (navigator.share && navigator.canShare && navigator.canShare({ title: shareTitle, text: shareText })) {
+      const cleanMessage = `👨‍🏫 SRCC Faculty Schedule & Timetable\n\n` +
+        `👤 Prof. ${teacher.clean_name} ${displayCode ? `(${displayCode})` : ''}\n` +
+        `🏛️ Department: ${teacher.department || 'Faculty'}\n` +
+        emailPart + `\n` +
+        daySchedText +
+        `🔗 View Full Timetable & Classroom Locations:\n${directFacultyUrl}`;
+
+      const whatsappMessage = `👨‍🏫 *SRCC Faculty Schedule & Timetable*\n\n` +
+        `👤 *Prof. ${teacher.clean_name}* ${displayCode ? `(${displayCode})` : ''}\n` +
+        `🏛️ *Department:* ${teacher.department || 'Faculty'}\n` +
+        emailPart + `\n` +
+        daySchedText +
+        `🔗 *View Full Timetable & Classroom Locations:*\n${directFacultyUrl}`;
+
+      const emailSubject = `SRCC Faculty Timetable: Prof. ${teacher.clean_name} (${activeDay})`;
+
+      // Prepare unified Share Modal contents
+      currentShareMessage = cleanMessage;
+      if (shareModalTitle) shareModalTitle.textContent = `📤 Share Prof. ${teacher.clean_name} (${activeDay})`;
+      if (sharePreviewText) sharePreviewText.textContent = cleanMessage;
+
+      const encodedWaMsg = encodeURIComponent(whatsappMessage);
+      const encodedCleanMsg = encodeURIComponent(cleanMessage);
+      const encodedUrl = encodeURIComponent(directFacultyUrl);
+
+      if (shareBtnWhatsapp) {
+        shareBtnWhatsapp.href = `https://api.whatsapp.com/send?text=${encodedWaMsg}`;
+      }
+      if (shareBtnGmail) {
+        shareBtnGmail.href = `https://mail.google.com/mail/?view=cm&fs=1&su=${encodeURIComponent(emailSubject)}&body=${encodedCleanMsg}`;
+      }
+      if (shareBtnX) {
+        shareBtnX.href = `https://x.com/intent/tweet?text=${encodeURIComponent(`👨‍🏫 SRCC Faculty Schedule: Prof. ${teacher.clean_name} (${activeDay})`)}&url=${encodedUrl}`;
+      }
+      if (shareBtnTelegram) {
+        shareBtnTelegram.href = `https://t.me/share/url?text=${encodedCleanMsg}&url=${encodedUrl}`;
+      }
+
+      // Check mobile native share sheet
+      const isMobileDevice = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || (window.innerWidth <= 768);
+      if (isMobileDevice && navigator.share) {
         navigator.share({
           title: shareTitle,
-          text: shareText
+          text: whatsappMessage
         }).then(() => {
           showToast(`📤 Shared schedule for Prof. ${teacher.clean_name} (${activeDay})!`);
-        }).catch(err => {
-          if (err.name !== 'AbortError') {
-            copyToClipboard(url).then(() => {
-              showToast(`📋 Copied timetable link for Prof. ${teacher.clean_name}!`);
-            });
+        }).catch((err) => {
+          if (err.name !== 'AbortError' && shareModal) {
+            openAppModal(shareModal);
           }
         });
+        return;
+      }
+
+      // On Laptop/Desktop or fallback: IMMEDIATELY open Share Modal with WhatsApp, Gmail, Telegram, Copy Link
+      if (shareModal) {
+        openAppModal(shareModal);
       } else {
-        const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
-        copyToClipboard(shareText).then(() => {
-          showToast(`📋 Copied schedule for Prof. ${teacher.clean_name}! Opening WhatsApp...`);
-          setTimeout(() => window.open(waUrl, '_blank'), 600);
-        }).catch(() => {
-          window.open(waUrl, '_blank');
+        copyToClipboard(cleanMessage).then(() => {
+          showToast(`📋 Copied schedule for Prof. ${teacher.clean_name}!`);
         });
       }
     }
@@ -4778,9 +4851,25 @@ ${directRoomUrl}`;
             <span class="th-chip th-dept">🏛️ ${escapeHtml(teacher.department || 'Faculty')}</span>
             ${displayCode ? `<span class="th-chip th-code">🏷️ Code: <strong>${escapeHtml(displayCode)}</strong></span>` : ''}
             <span class="th-chip th-load">📅 <strong>${periods}</strong> Weekly Classes</span>
-            ${teacher.email ? `<a href="mailto:${escapeHtml(teacher.email)}" class="th-chip th-email" title="Send email to ${escapeHtml(teacher.clean_name)}">✉️ <strong>${escapeHtml(teacher.email)}</strong></a>` : ''}
+            ${teacher.email ? `
+              <div class="modal-email-chip">
+                <span>✉️ <strong>${escapeHtml(teacher.email)}</strong></span>
+                <button type="button" class="btn-copy-email-action" id="btnModalCopyTeacherEmail" title="Click to copy email">📋 Copy Email</button>
+                <a href="mailto:${escapeHtml(teacher.email)}" class="btn-mail-action" title="Send email">↗ Mail</a>
+              </div>` : ''}
           </div>
         `;
+
+        const btnCopyEmail = document.getElementById('btnModalCopyTeacherEmail');
+        if (btnCopyEmail && teacher.email) {
+          btnCopyEmail.addEventListener('click', () => {
+            copyToClipboard(teacher.email).then(() => {
+              btnCopyEmail.textContent = '✓ Copied!';
+              showToast(`📋 Copied email: ${teacher.email} (${teacher.clean_name})`);
+              setTimeout(() => { btnCopyEmail.textContent = '📋 Copy Email'; }, 2500);
+            });
+          });
+        }
       }
 
       renderTeacherModalDaySchedule();
@@ -8011,22 +8100,53 @@ window.SRCC_FACULTY_LEAVES = {
           if (matchFac && matchFac[1]) facultyParam = decodeURIComponent(matchFac[1]);
         }
 
-        if (facultyParam && window.SRCC_TEACHERS_DATA && window.SRCC_TEACHERS_DATA.teachers) {
-          const query = facultyParam.trim().toLowerCase();
-          const matchedTeacher = window.SRCC_TEACHERS_DATA.teachers.find(t => 
-            (t.id && t.id.toLowerCase() === query) ||
-            (t.short_code && t.short_code.toLowerCase() === query) ||
-            (t.clean_name && t.clean_name.toLowerCase().includes(query))
-          );
-          if (matchedTeacher) {
+        if (facultyParam) {
+          const rawQuery = facultyParam.trim();
+          const query = rawQuery.toLowerCase();
+
+          // Direct Faculty List tab link (?faculty=all or ?faculty=list)
+          if (query === 'all' || query === 'list') {
             setAppMode('faculty', true);
-            if (facultySearchInput) facultySearchInput.value = matchedTeacher.clean_name;
             renderFaculty();
-            setTimeout(() => {
-              openTeacherModal(matchedTeacher.id);
-              showToast(`👨‍🏫 Loaded Faculty Profile for Prof. ${matchedTeacher.clean_name}`);
-            }, 300);
             return;
+          }
+
+          const allTeachers = (window.SRCC_TEACHERS_DATA && window.SRCC_TEACHERS_DATA.teachers) || (teachersData && teachersData.teachers) || [];
+          if (allTeachers.length > 0) {
+            const cleanQuery = query.replace(/^(?:prof\.?|dr\.?|mr\.?|ms\.?|mrs\.?)\s+/i, '').trim();
+            const matchedTeacher = allTeachers.find(t => {
+              const tId = (t.id || '').toLowerCase();
+              const tCode = (t.short_code || '').toLowerCase();
+              const tClean = (t.clean_name || '').toLowerCase();
+              const tRaw = (t.name || '').toLowerCase();
+              const strippedName = tClean.replace(/^(?:prof\.?|dr\.?|mr\.?|ms\.?|mrs\.?)\s+/i, '').trim();
+
+              return tId === query ||
+                     tCode === query ||
+                     tClean === query ||
+                     tClean === cleanQuery ||
+                     strippedName === cleanQuery ||
+                     tClean.includes(cleanQuery) ||
+                     tRaw.includes(cleanQuery) ||
+                     (cleanQuery.length >= 3 && strippedName.includes(cleanQuery));
+            });
+
+            if (matchedTeacher) {
+              setAppMode('faculty', true);
+              if (facultySearchInput) facultySearchInput.value = matchedTeacher.clean_name;
+              renderFaculty();
+              setTimeout(() => {
+                openTeacherModal(matchedTeacher.id);
+                showToast(`👨‍🏫 Loaded Faculty Profile for Prof. ${matchedTeacher.clean_name}`);
+              }, 250);
+              return;
+            } else {
+              setAppMode('faculty', true);
+              if (facultySearchInput) facultySearchInput.value = rawQuery;
+              facultyState.searchQuery = rawQuery;
+              renderFaculty();
+              return;
+            }
           }
         }
 
@@ -8295,6 +8415,7 @@ window.SRCC_FACULTY_LEAVES = {
     initOfflineDetection();
     handleUrlDeepLinks();
     window.addEventListener('hashchange', () => handleUrlDeepLinks());
+    window.addEventListener('popstate', () => handleUrlDeepLinks());
     syncLeavesFromCloud(false);
     setInterval(() => syncLeavesFromCloud(false), 45000);
     // Periodically refresh active notices
