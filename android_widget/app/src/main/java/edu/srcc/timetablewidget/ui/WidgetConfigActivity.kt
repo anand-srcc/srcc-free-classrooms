@@ -13,17 +13,24 @@ import androidx.appcompat.app.AppCompatActivity
 import edu.srcc.timetablewidget.R
 import edu.srcc.timetablewidget.data.WidgetProfileRepository
 import edu.srcc.timetablewidget.model.WidgetProfile
+import edu.srcc.timetablewidget.update.AppUpdateManager
 import edu.srcc.timetablewidget.widget.BaseTimetableWidgetProvider
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class WidgetConfigActivity : AppCompatActivity() {
 
     private var appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID
     private lateinit var profileRepo: WidgetProfileRepository
+    private var isUpdateBlocked = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setResult(Activity.RESULT_CANCELED)
         setContentView(R.layout.activity_widget_config)
+
+        checkAppUpdate()
 
         profileRepo = WidgetProfileRepository(this)
 
@@ -121,5 +128,26 @@ class WidgetConfigActivity : AppCompatActivity() {
             sec = sec.selectedItem?.toString() ?: "Sec A",
             batch = b.selectedItem?.toString() ?: "ALL"
         )
+    }
+
+    private fun checkAppUpdate() {
+        CoroutineScope(Dispatchers.Main).launch {
+            val updateInfo = AppUpdateManager.checkUpdate(this@WidgetConfigActivity)
+            if (updateInfo != null && AppUpdateManager.isUpdateRequired(updateInfo)) {
+                isUpdateBlocked = true
+                findViewById<Button>(R.id.btn_save_config)?.isEnabled = false
+                AppUpdateManager.showForceUpdateDialog(this@WidgetConfigActivity, updateInfo)
+            }
+        }
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        if (isUpdateBlocked) {
+            finishAffinity()
+        } else {
+            @Suppress("DEPRECATION")
+            super.onBackPressed()
+        }
     }
 }

@@ -34,5 +34,7 @@ map_feature_backup/
 # Android Build artifacts
 android_widget/.gradle/
 android_widget/app/build/
-android_widget/*.apk
 *.apk
+!android_widget/app-debug.apk
+!web_app/app-debug.apk
+
