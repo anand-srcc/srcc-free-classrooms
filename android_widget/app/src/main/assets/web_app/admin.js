@@ -231,6 +231,85 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================================
+  // 📜 ADMIN AUDIT LOG & REVERT SYSTEM
+  // ==========================================================================
+  const AUDIT_LOG_KEY = 'srcc_admin_audit_log_v1';
+
+  function getAuditLogs() {
+    try {
+      const data = localStorage.getItem(AUDIT_LOG_KEY);
+      return data ? JSON.parse(data) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function addAuditLog(action, details) {
+    try {
+      const logs = getAuditLogs();
+      const activeUser = getActiveSessionUser();
+      const entry = {
+        id: 'log_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+        action: action,
+        details: details,
+        user: activeUser.fullName || activeUser.username || 'Admin',
+        timestamp: new Date().toISOString()
+      };
+      logs.unshift(entry);
+      if (logs.length > 50) logs.pop();
+      localStorage.setItem(AUDIT_LOG_KEY, JSON.stringify(logs));
+      renderAuditLog();
+    } catch (e) {}
+  }
+
+  function renderAuditLog() {
+    const container = document.getElementById('adminAuditLogContainer');
+    const countEl = document.getElementById('adminAuditLogCount');
+    if (!container) return;
+
+    const logs = getAuditLogs();
+    if (countEl) countEl.textContent = logs.length;
+
+    if (logs.length === 0) {
+      container.innerHTML = '<div style="text-align: center; color: var(--text-muted); padding: 12px;">No activity logged yet.</div>';
+      return;
+    }
+
+    container.innerHTML = logs.map(l => {
+      const d = new Date(l.timestamp);
+      const timeStr = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const dateStr = d.toLocaleDateString([], { day: '2-digit', month: 'short' });
+
+      let badgeBg = '#e2e8f0';
+      let badgeColor = '#334155';
+      if (l.action.includes('LEAVE')) { badgeBg = '#fef3c7'; badgeColor = '#92400e'; }
+      else if (l.action.includes('LOCK')) { badgeBg = '#fee2e2'; badgeColor = '#b91c1c'; }
+      else if (l.action.includes('NOTICE')) { badgeBg = '#fef9c3'; badgeColor = '#854d0e'; }
+      else if (l.action.includes('ROOM')) { badgeBg = '#e0f2fe'; badgeColor = '#0369a1'; }
+      else if (l.action.includes('WIFI')) { badgeBg = '#ccfbf1'; badgeColor = '#115e59'; }
+
+      return `
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 7px 10px; border-bottom: 1px solid var(--border-subtle); flex-wrap: wrap;">
+          <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+            <span style="font-size: 0.68rem; font-weight: 800; padding: 2px 6px; border-radius: 4px; background: ${badgeBg}; color: ${badgeColor}; flex-shrink: 0;">
+              ${escapeHtml(l.action)}
+            </span>
+            <span style="font-size: 0.8rem; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+              ${escapeHtml(l.details)}
+            </span>
+            <span style="font-size: 0.72rem; color: var(--text-muted); flex-shrink: 0;">
+              (${escapeHtml(l.user)})
+            </span>
+          </div>
+          <span style="font-size: 0.7rem; color: var(--text-muted); flex-shrink: 0;">
+            ${dateStr}, ${timeStr}
+          </span>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // ==========================================================================
   // 🔐 USER MANAGEMENT & AUTHENTICATION
   // ==========================================================================
   function getStoredUsers() {
@@ -951,16 +1030,108 @@ document.addEventListener('DOMContentLoaded', () => {
     showToast(`🔓 Classroom <strong>${target ? target.room : ''}</strong> unlocked successfully.`);
   };
 
+  function checkLockConflictBanner() {
+    const banner = document.getElementById('adminLockConflictBanner');
+    if (!banner) return;
+    const room = (document.getElementById('adminLockRoomSelect')?.value || '').trim();
+    const slot = (document.getElementById('adminLockSlot')?.value || 'ALL_DAY').trim();
+    const date = (document.getElementById('adminLockDate')?.value || getTodayIsoDate()).trim();
+
+    if (!room) {
+      banner.style.display = 'none';
+      return;
+    }
+
+    const targetDay = getDayOfWeekFromIso(date);
+    const roomObj = appData?.rooms?.find(r => r.code === room);
+    const daySchedule = roomObj?.schedule ? roomObj.schedule[targetDay] : null;
+
+    let conflictMsg = '';
+
+    // Check if regular class scheduled in this slot
+    if (daySchedule && Array.isArray(daySchedule.occupied_slots)) {
+      const matchedOccupied = daySchedule.occupied_slots.filter(occ => slot === 'ALL_DAY' || occ.slot === slot);
+      if (matchedOccupied.length > 0) {
+        const classesList = matchedOccupied.map(m => `<strong>${escapeHtml(m.slot)}</strong>: ${escapeHtml(m.class || 'Regular Timetable Class')}`).join('; ');
+        conflictMsg += `⚠️ <strong>Notice:</strong> Room ${room} has scheduled lecture(s) on ${targetDay}: ${classesList}. Pushing this lock/extra class will mark this room as occupied.`;
+      }
+    }
+
+    // Check if existing active lock overlaps
+    const locks = getRoomLocksList();
+    const existingLock = locks.find(l => {
+      if (l.id === editingLockId) return false;
+      if (l.room !== room) return false;
+      if (l.slot !== 'ALL_DAY' && slot !== 'ALL_DAY' && l.slot !== slot) return false;
+      if (l.recurrence === 'daily') return true;
+      if (l.recurrence === 'once') return l.date === date;
+      if (l.recurrence === 'weekly') {
+        const rDays = l.recurring_days || [];
+        return rDays.includes(targetDay);
+      }
+      return false;
+    });
+
+    if (existingLock) {
+      if (conflictMsg) conflictMsg += '<br/>';
+      conflictMsg += `🔒 <strong>Overlap Alert:</strong> Room ${room} already has a lock: "<em>${escapeHtml(existingLock.title)}</em>" (${existingLock.slot}).`;
+    }
+
+    if (conflictMsg) {
+      banner.innerHTML = conflictMsg;
+      banner.style.display = 'block';
+    } else {
+      banner.style.display = 'none';
+    }
+  }
+
   function initRoomLocksListeners() {
     const btnAddLock = document.getElementById('btnAdminAddLock');
     const btnCancelLock = document.getElementById('btnAdminCancelLockEdit');
     const recurrenceSelect = document.getElementById('adminLockRecurrence');
     const daysGroup = document.getElementById('adminLockDaysGroup');
     const dateFieldGroup = document.getElementById('adminLockDateFieldGroup');
+    const templateSelect = document.getElementById('adminLockTemplate');
+    const roomSelect = document.getElementById('adminLockRoomSelect');
+    const lockSlot = document.getElementById('adminLockSlot');
+    const lockDate = document.getElementById('adminLockDate');
+
+    if (templateSelect) {
+      templateSelect.addEventListener('change', () => {
+        const tmpl = templateSelect.value;
+        const lockType = document.getElementById('adminLockType');
+        const lockTitle = document.getElementById('adminLockTitle');
+        if (tmpl === 'audition') {
+          if (lockType) lockType.value = 'lock';
+          if (lockTitle) lockTitle.value = '🎭 Society Auditions & Rehearsals';
+        } else if (tmpl === 'seminar') {
+          if (lockType) lockType.value = 'lock';
+          if (lockTitle) lockTitle.value = '🎤 Department Seminar / Guest Lecture';
+        } else if (tmpl === 'exam') {
+          if (lockType) lockType.value = 'lock';
+          if (lockTitle) lockTitle.value = '📝 Internal Assessment & Exam Seating';
+        } else if (tmpl === 'extra_class') {
+          if (lockType) lockType.value = 'extra_class';
+          if (lockTitle) lockTitle.value = '📚 Remedial / Extra Class';
+        } else if (tmpl === 'maintenance') {
+          if (lockType) lockType.value = 'lock';
+          if (lockTitle) lockTitle.value = '🛠️ Audio-Visual & Maintenance Work';
+        } else if (tmpl === 'society_meeting') {
+          if (lockType) lockType.value = 'lock';
+          if (lockTitle) lockTitle.value = '👥 Society General Body Meeting (GBM)';
+        }
+        checkLockConflictBanner();
+      });
+    }
+
+    if (roomSelect) roomSelect.addEventListener('change', checkLockConflictBanner);
+    if (lockSlot) lockSlot.addEventListener('change', checkLockConflictBanner);
+    if (lockDate) lockDate.addEventListener('change', checkLockConflictBanner);
 
     if (btnCancelLock) {
       btnCancelLock.addEventListener('click', () => {
         resetRoomLockForm();
+        checkLockConflictBanner();
         showToast('Cancelled room lock edit.');
       });
     }
@@ -971,15 +1142,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (daysGroup) {
           daysGroup.style.display = (val === 'weekly') ? 'block' : 'none';
         }
+        checkLockConflictBanner();
       });
     }
 
     if (btnAddLock) {
       btnAddLock.addEventListener('click', () => {
-        const roomSelect = document.getElementById('adminLockRoomSelect');
         const lockType = document.getElementById('adminLockType');
-        const lockSlot = document.getElementById('adminLockSlot');
-        const lockDate = document.getElementById('adminLockDate');
         const lockTitle = document.getElementById('adminLockTitle');
 
         const room = (roomSelect ? roomSelect.value : '').trim();
@@ -1030,7 +1199,9 @@ document.addEventListener('DOMContentLoaded', () => {
             renderLocksTable();
             updateKpis();
             syncRoomLocksToCloud(locks, true);
+            addAuditLog('LOCK_UPDATED', `Updated lock on Room ${room} (${slot})`);
             resetRoomLockForm();
+            checkLockConflictBanner();
             showToast(`💾 <strong>Room ${room}</strong> lock updated successfully!`);
             return;
           }
@@ -1054,7 +1225,9 @@ document.addEventListener('DOMContentLoaded', () => {
         renderLocksTable();
         updateKpis();
         syncRoomLocksToCloud(locks, true);
+        addAuditLog('ROOM_LOCKED', `Locked Room ${room} (${slot}, ${recurrence})`);
         resetRoomLockForm();
+        checkLockConflictBanner();
 
         showToast(`🔒 <strong>Room ${room}</strong> locked successfully (${recurrence === 'once' ? 'One-time' : recurrence})! Live for all students.`);
       });
@@ -1068,7 +1241,9 @@ document.addEventListener('DOMContentLoaded', () => {
           renderLocksTable();
           updateKpis();
           syncRoomLocksToCloud([], false);
+          addAuditLog('LOCKS_CLEARED', 'Cleared all classroom locks');
           resetRoomLockForm();
+          checkLockConflictBanner();
           showToast('🔓 All classrooms unlocked and notices cleared.');
         }
       });
@@ -1091,7 +1266,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const stored = localStorage.getItem(CAMPUS_NOTICES_STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed)) return parsed;
+        if (Array.isArray(parsed)) {
+          return parsed.sort((a, b) => {
+            if (Boolean(b.is_pinned) !== Boolean(a.is_pinned)) {
+              return b.is_pinned ? 1 : -1;
+            }
+            return new Date(b.created_at || 0) - new Date(a.created_at || 0);
+          });
+        }
       }
     } catch (e) {
       console.error('Error reading campus notices:', e);
@@ -1181,19 +1363,22 @@ document.addEventListener('DOMContentLoaded', () => {
       elections: '<span class="campus-notice-badge badge-notice-elections">🗳️ Student Elections</span>',
       circular: '<span class="campus-notice-badge badge-notice-circular">📢 Circular</span>',
       societies: '<span class="campus-notice-badge badge-notice-societies">🏆 Societies</span>',
-      urgent: '<span class="campus-notice-badge badge-notice-urgent">📌 Urgent Alert</span>'
+      urgent: '<span class="campus-notice-badge badge-notice-urgent">📌 Urgent Alert</span>',
+      timetable_change: '<span class="campus-notice-badge" style="background:#fee2e2; color:#b91c1c; border:1px solid #fca5a5;">⚠️ Timetable Notice</span>'
     };
 
     container.innerHTML = notices.map(n => {
       const catBadge = categoryBadges[n.category] || categoryBadges.circular;
       const eventBadge = n.event_date ? `<span class="campus-notice-event-date">🗓️ Event: ${escapeHtml(n.event_date)}</span>` : '';
       const expiryText = n.expiry_date ? `📅 Expires: ${escapeHtml(n.expiry_date)}` : '📅 No Expiry';
+      const pinBadge = n.is_pinned ? `<span style="background: #fef08a; color: #854d0e; padding: 2px 7px; border-radius: 9999px; font-size: 0.68rem; font-weight: 800; border: 1px solid #fde047;">📌 PINNED</span>` : '';
       const hasAttachment = n.attachment && n.attachment.dataUrl;
 
       return `
-        <div class="leave-item-row" style="border-left: 4px solid #d97706;">
+        <div class="leave-item-row" style="border-left: 4px solid ${n.is_pinned ? '#eab308' : '#d97706'};">
           <div class="leave-item-details" style="width: 100%;">
             <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px;">
+              ${pinBadge}
               ${catBadge}
               ${eventBadge}
               <span style="font-weight: 800; font-size: 0.95rem; color: var(--text-primary);">${escapeHtml(n.title)}</span>
@@ -1235,6 +1420,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const expiryInput = document.getElementById('adminNoticeExpiry');
     const titleInput = document.getElementById('adminNoticeTitle');
     const bodyInput = document.getElementById('adminNoticeBody');
+    const pinnedInput = document.getElementById('adminNoticePinned');
     const btnPublish = document.getElementById('btnAdminPublishNotice');
     const btnCancel = document.getElementById('btnAdminCancelNoticeEdit');
     const previewText = document.getElementById('noticeFilePreviewText');
@@ -1245,6 +1431,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (expiryInput) expiryInput.value = notice.expiry_date || '';
     if (titleInput) titleInput.value = notice.title || '';
     if (bodyInput) bodyInput.value = notice.body || '';
+    if (pinnedInput) pinnedInput.checked = Boolean(notice.is_pinned);
 
     if (notice.attachment) {
       pendingNoticeAttachment = notice.attachment;
@@ -1277,6 +1464,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const expiryInput = document.getElementById('adminNoticeExpiry');
     const titleInput = document.getElementById('adminNoticeTitle');
     const bodyInput = document.getElementById('adminNoticeBody');
+    const pinnedInput = document.getElementById('adminNoticePinned');
     const fileInput = document.getElementById('adminNoticeFileInput');
     const previewText = document.getElementById('noticeFilePreviewText');
     const btnClearFile = document.getElementById('btnClearNoticeFile');
@@ -1287,6 +1475,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (expiryInput) expiryInput.value = '';
     if (titleInput) titleInput.value = '';
     if (bodyInput) bodyInput.value = '';
+    if (pinnedInput) pinnedInput.checked = false;
     if (fileInput) fileInput.value = '';
     if (previewText) previewText.style.display = 'none';
     if (btnClearFile) btnClearFile.style.display = 'none';
@@ -1412,6 +1601,57 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnPublish = document.getElementById('btnAdminPublishNotice');
     const btnCancel = document.getElementById('btnAdminCancelNoticeEdit');
     const btnClearAll = document.getElementById('btnAdminClearAllNotices');
+    const btnPreviewNotice = document.getElementById('btnAdminPreviewNotice');
+    const previewModal = document.getElementById('noticePreviewModal');
+    const btnCloseNoticePreview = document.getElementById('btnCloseNoticePreviewModal');
+
+    if (btnCloseNoticePreview && previewModal) {
+      btnCloseNoticePreview.addEventListener('click', () => { previewModal.style.display = 'none'; });
+      previewModal.addEventListener('click', (e) => {
+        if (e.target === previewModal) previewModal.style.display = 'none';
+      });
+    }
+
+    if (btnPreviewNotice) {
+      btnPreviewNotice.addEventListener('click', () => {
+        const catSelect = document.getElementById('adminNoticeCategory');
+        const eventDateInput = document.getElementById('adminNoticeEventDate');
+        const expiryInput = document.getElementById('adminNoticeExpiry');
+        const titleInput = document.getElementById('adminNoticeTitle');
+        const bodyInput = document.getElementById('adminNoticeBody');
+
+        const title = (titleInput?.value || '').trim() || 'Sample Notice Headline';
+        const body = (bodyInput?.value || '').trim() || 'Notice details, schedules, and instructions for Shri Ram College of Commerce students.';
+        const cat = catSelect?.value || 'circular';
+        const eventDate = (eventDateInput?.value || '').trim();
+        const expiry = (expiryInput?.value || '').trim();
+
+        const previewBox = document.getElementById('noticePreviewBannerContainer');
+        if (previewBox) {
+          previewBox.innerHTML = `
+            <div style="background: linear-gradient(135deg, #1e293b, #0f172a); border: 2px solid #f59e0b; border-radius: 12px; padding: 18px; color: #ffffff;">
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; flex-wrap: wrap;">
+                <span style="background: #f59e0b; color: #070d18; font-size: 0.72rem; font-weight: 800; padding: 3px 9px; border-radius: 9999px; text-transform: uppercase;">
+                  ${cat.replace('_', ' ')}
+                </span>
+                <span style="font-size: 0.74rem; color: #94a3b8;">
+                  📅 Issued: ${formatShortDate(getTodayIsoDate())} ${expiry ? `• ⏳ Valid till: ${formatShortDate(expiry)}` : ''}
+                </span>
+              </div>
+              <h4 style="margin: 0 0 6px 0; font-size: 1.05rem; font-weight: 800; color: #fbbf24; font-family: var(--font-display);">
+                ${escapeHtml(title)}
+              </h4>
+              <p style="margin: 0 0 10px 0; font-size: 0.86rem; color: #e2e8f0; line-height: 1.45;">
+                ${escapeHtml(body)}
+              </p>
+              ${eventDate ? `<div style="font-size: 0.78rem; font-weight: 700; color: #38bdf8; margin-bottom: 8px;">🗓️ Schedule: ${escapeHtml(eventDate)}</div>` : ''}
+              ${pendingNoticeAttachment ? `<div style="font-size: 0.76rem; color: #34d399; font-weight: 600;">📎 Attached: ${escapeHtml(pendingNoticeAttachment.name)}</div>` : ''}
+            </div>
+          `;
+        }
+        if (previewModal) previewModal.style.display = 'flex';
+      });
+    }
 
     if (btnCancel) {
       btnCancel.addEventListener('click', () => {
@@ -1430,27 +1670,69 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
 
-        if (file.size > 3.8 * 1024 * 1024) {
-          showToast('⚠️ File is larger than 3.5MB. Please choose a smaller compressed image or PDF.', false);
+        const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+
+        if (isPdf && file.size > 2 * 1024 * 1024) {
+          showToast('⚠️ PDF file is larger than 2MB. Please attach a compressed document.', false);
           fileInput.value = '';
           return;
         }
 
-        const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
         const reader = new FileReader();
         reader.onload = function(evt) {
-          pendingNoticeAttachment = {
-            name: file.name,
-            type: isPdf ? 'pdf' : 'image',
-            size: file.size,
-            dataUrl: evt.target.result
-          };
-          if (previewText) {
-            const kb = Math.round(file.size / 1024);
-            previewText.textContent = `📎 Ready to attach: ${file.name} (${kb} KB, ${isPdf ? 'PDF' : 'Image'})`;
-            previewText.style.display = 'block';
+          const rawDataUrl = evt.target.result;
+
+          // If image is larger than 400KB, compress via HTML5 canvas
+          if (!isPdf && file.size > 400 * 1024) {
+            const img = new Image();
+            img.onload = function() {
+              const canvas = document.createElement('canvas');
+              const maxDim = 1200;
+              let width = img.width;
+              let height = img.height;
+              if (width > maxDim || height > maxDim) {
+                if (width > height) {
+                  height = Math.round((height * maxDim) / width);
+                  width = maxDim;
+                } else {
+                  width = Math.round((width * maxDim) / height);
+                  height = maxDim;
+                }
+              }
+              canvas.width = width;
+              canvas.height = height;
+              const ctx = canvas.getContext('2d');
+              ctx.drawImage(img, 0, 0, width, height);
+              const compressedUrl = canvas.toDataURL('image/jpeg', 0.8);
+
+              pendingNoticeAttachment = {
+                name: file.name.replace(/\.[^.]+$/, '.jpg'),
+                type: 'image',
+                size: Math.round(compressedUrl.length * 0.75),
+                dataUrl: compressedUrl
+              };
+              if (previewText) {
+                const kb = Math.round(pendingNoticeAttachment.size / 1024);
+                previewText.textContent = `📎 Compressed & Ready: ${pendingNoticeAttachment.name} (${kb} KB, Image)`;
+                previewText.style.display = 'block';
+              }
+              if (btnClearFile) btnClearFile.style.display = 'inline-block';
+            };
+            img.src = rawDataUrl;
+          } else {
+            pendingNoticeAttachment = {
+              name: file.name,
+              type: isPdf ? 'pdf' : 'image',
+              size: file.size,
+              dataUrl: rawDataUrl
+            };
+            if (previewText) {
+              const kb = Math.round(file.size / 1024);
+              previewText.textContent = `📎 Ready to attach: ${file.name} (${kb} KB, ${isPdf ? 'PDF' : 'Image'})`;
+              previewText.style.display = 'block';
+            }
+            if (btnClearFile) btnClearFile.style.display = 'inline-block';
           }
-          if (btnClearFile) btnClearFile.style.display = 'inline-block';
         };
         reader.readAsDataURL(file);
       });
@@ -1472,12 +1754,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const expiryInput = document.getElementById('adminNoticeExpiry');
         const titleInput = document.getElementById('adminNoticeTitle');
         const bodyInput = document.getElementById('adminNoticeBody');
+        const pinnedInput = document.getElementById('adminNoticePinned');
 
         const category = (catSelect ? catSelect.value : 'circular').trim();
         const eventDate = (eventDateInput ? eventDateInput.value : '').trim();
         const expiry = (expiryInput ? expiryInput.value : '').trim();
         const title = (titleInput ? titleInput.value : '').trim();
         const body = (bodyInput ? bodyInput.value : '').trim();
+        const isPinned = Boolean(pinnedInput?.checked);
 
         if (!title) {
           showToast('⚠️ Please enter a notice title or headline.', false);
@@ -1498,6 +1782,7 @@ document.addEventListener('DOMContentLoaded', () => {
               expiry_date: expiry,
               title: title,
               body: body,
+              is_pinned: isPinned,
               attachment: pendingNoticeAttachment || notices[idx].attachment || null,
               updated_by: activeUser.fullName || 'Admin',
               updated_at: new Date().toISOString()
@@ -1505,6 +1790,7 @@ document.addEventListener('DOMContentLoaded', () => {
             saveCampusNoticesList(notices);
             renderCampusNoticesTable();
             syncCampusNoticesToCloud(notices, true);
+            addAuditLog('NOTICE_UPDATED', `Updated: "${title}"`);
             resetCampusNoticeForm();
             showToast(`📢 <strong>Notice updated!</strong> "${title}" is live.`);
 
@@ -1522,6 +1808,7 @@ document.addEventListener('DOMContentLoaded', () => {
           title: title,
           body: body,
           expiry_date: expiry,
+          is_pinned: isPinned,
           attachment: pendingNoticeAttachment || null,
           published_by: activeUser.fullName || 'Admin',
           created_at: new Date().toISOString()
@@ -1531,6 +1818,7 @@ document.addEventListener('DOMContentLoaded', () => {
         saveCampusNoticesList(notices);
         renderCampusNoticesTable();
         syncCampusNoticesToCloud(notices, true);
+        addAuditLog('NOTICE_PUBLISHED', `Published: "${title}" (${category}${isPinned ? ', Pinned' : ''})`);
         resetCampusNoticeForm();
 
         showToast(`📢 <strong>Notice published!</strong> "${title}" is now live on student screens.`);
@@ -1547,6 +1835,7 @@ document.addEventListener('DOMContentLoaded', () => {
           saveCampusNoticesList([]);
           renderCampusNoticesTable();
           syncCampusNoticesToCloud([], false);
+          addAuditLog('NOTICES_CLEARED', 'Cleared all campus notices');
           resetCampusNoticeForm();
           showToast('🗑️ All campus notices cleared.');
         }
@@ -1645,6 +1934,8 @@ document.addEventListener('DOMContentLoaded', () => {
     renderWifiTable();
     updateKpis();
     updateCodePreview();
+    updateRecycleBinBadge();
+    renderAuditLog();
     setupAdminTabs();
     initRoomLocksListeners();
     initCampusNoticesListeners();
@@ -1652,6 +1943,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initWifiListeners();
     initPrintSheets();
     initAttachmentModal();
+    initSystemBackupRestore();
     fetchCloudRoomLocks();
     fetchCloudCampusNotices();
     fetchCloudRoomOverrides();
@@ -1824,6 +2116,52 @@ document.addEventListener('DOMContentLoaded', () => {
     showToast('↩️ <strong>Undone!</strong> The leaves have been removed.');
   };
 
+  // Half day checkbox listener
+  const adminHalfDayLeaveCb = document.getElementById('adminHalfDayLeave');
+  const adminHalfDaySlotWrapper = document.getElementById('adminHalfDaySlotWrapper');
+  if (adminHalfDayLeaveCb && adminHalfDaySlotWrapper) {
+    adminHalfDayLeaveCb.addEventListener('change', () => {
+      adminHalfDaySlotWrapper.style.display = adminHalfDayLeaveCb.checked ? 'flex' : 'none';
+    });
+  }
+
+  // Extend leave by 1 day
+  window.extendLeaveByOneDay = function(leaveId) {
+    const current = getLeavesList();
+    const idx = current.findIndex(l => l.id === leaveId);
+    if (idx === -1) return;
+
+    const leave = current[idx];
+    const curEnd = leave.end_date || leave.start_date || getTodayIsoDate();
+    const d = new Date(curEnd + 'T00:00:00');
+    d.setDate(d.getDate() + 1);
+    const newEnd = d.toISOString().split('T')[0];
+
+    leave.end_date = newEnd;
+    current[idx] = leave;
+    saveLeavesList(current);
+    renderLeavesTable();
+    updateKpis();
+    updateCodePreview();
+    syncLeavesToCloud(current, false);
+    addAuditLog('LEAVE_EXTENDED', `Extended ${leave.teacher_name} leave to ${formatLeaveDates(leave.start_date, newEnd)}`);
+    showToast(`📅 Extended <strong>${escapeHtml(leave.teacher_name)}</strong>'s leave till ${formatShortDate(newEnd)}.`);
+  };
+
+  // Undo Clear Leaves
+  let clearedLeavesBackup = null;
+  window.undoClearLeaves = function() {
+    if (!clearedLeavesBackup || clearedLeavesBackup.length === 0) return;
+    saveLeavesList(clearedLeavesBackup);
+    renderLeavesTable();
+    updateKpis();
+    updateCodePreview();
+    syncLeavesToCloud(clearedLeavesBackup, false);
+    addAuditLog('LEAVES_RESTORED', `Restored ${clearedLeavesBackup.length} leaves via Undo`);
+    clearedLeavesBackup = null;
+    showToast('↩️ <strong>Restored!</strong> All cleared leaves have been brought back.');
+  };
+
   // Add Leave Handler
   if (btnAdminAddLeave) {
     btnAdminAddLeave.addEventListener('click', () => {
@@ -1836,7 +2174,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const sDate = adminStartDate ? adminStartDate.value : getTodayIsoDate();
       const eDate = adminEndDate ? adminEndDate.value : sDate;
       const reason = (adminLeaveReason && adminLeaveReason.value.trim()) || 'Faculty Leave';
-      const isHalfDay = document.getElementById('adminHalfDayLeave') && document.getElementById('adminHalfDayLeave').checked;
+      const isHalfDay = Boolean(document.getElementById('adminHalfDayLeave')?.checked);
+      const halfDaySlot = isHalfDay ? (document.getElementById('adminHalfDaySlot')?.value || 'morning') : null;
+      const substitute = (document.getElementById('adminLeaveSubstitute')?.value || '').trim();
       const activeUser = getActiveSessionUser();
       const addedBy = activeUser ? activeUser.fullName : 'Admin';
 
@@ -1873,6 +2213,8 @@ document.addEventListener('DOMContentLoaded', () => {
           reason: reason,
           added_at: new Date().toISOString(),
           isHalfDay: isHalfDay,
+          half_day_slot: halfDaySlot,
+          substitute: substitute || null,
           addedBy: addedBy
         };
         
@@ -1890,10 +2232,13 @@ document.addEventListener('DOMContentLoaded', () => {
       updateCodePreview();
 
       const namesStr = names.length > 2 ? `${names.length} professors` : names.join(' & ');
+      addAuditLog('LEAVE_RECORDED', `Marked ${namesStr} on leave (${formatLeaveDates(sDate, eDate)}${isHalfDay ? ` [½ ${halfDaySlot}]` : ''})`);
       showToast(`🏖️ Marked <strong>${escapeHtml(namesStr)}</strong> on leave! <button onclick="undoLastLeaves()" style="margin-left:8px; padding:2px 8px; border-radius:4px; border:none; background:#070D18; color:#fff; cursor:pointer; font-size:0.75rem;">Undo</button>`, true, 6000);
       
       if (adminLeaveReason) adminLeaveReason.value = '';
       if (document.getElementById('adminHalfDayLeave')) document.getElementById('adminHalfDayLeave').checked = false;
+      if (adminHalfDaySlotWrapper) adminHalfDaySlotWrapper.style.display = 'none';
+      if (document.getElementById('adminLeaveSubstitute')) document.getElementById('adminLeaveSubstitute').value = '';
       
       // Reset selected checkboxes
       selectedTeacherIds.clear();
@@ -1933,7 +2278,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const dispCode = getLeaveDisplayCode(l);
       const code = dispCode ? ` [${dispCode}]` : '';
       const dates = formatLeaveDates(l.start_date, l.end_date);
-      return `${idx + 1}. ${l.teacher_name}${code} (${dates})`;
+      const subInfo = l.substitute ? ` (Sub: ${l.substitute})` : '';
+      const halfInfo = l.isHalfDay ? ` [½ Day ${l.half_day_slot === 'afternoon' ? 'Afternoon' : 'Morning'}]` : '';
+      return `${idx + 1}. ${l.teacher_name}${code}${halfInfo}${subInfo} (${dates})`;
     });
 
     return `*SRCC Faculty Leave Update (${leavesList.length})* 🏖️\n\n${lines.join('\n')}\n\n_Check free classrooms:_ https://anand-srcc.github.io/srcc-free-classrooms/`;
@@ -1956,6 +2303,7 @@ document.addEventListener('DOMContentLoaded', () => {
           (l.teacher_code && l.teacher_code.toLowerCase().includes(q)) ||
           dCode.includes(q) ||
           (l.addedBy && l.addedBy.toLowerCase().includes(q)) ||
+          (l.substitute && l.substitute.toLowerCase().includes(q)) ||
           (l.reason && l.reason.toLowerCase().includes(q));
       });
     }
@@ -1976,10 +2324,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const dispCode = getLeaveDisplayCode(leave);
       const code = dispCode ? ` [${escapeHtml(dispCode)}]` : '';
       const dateRangeDisplay = formatLeaveDates(s, e);
-      const halfDayBadge = leave.isHalfDay ? `<span style="background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; font-size: 0.68rem; font-weight: 800; padding: 2px 7px; border-radius: 9999px;">½ DAY</span>` : '';
+      const halfDayBadge = leave.isHalfDay ? `<span style="background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; font-size: 0.68rem; font-weight: 800; padding: 2px 7px; border-radius: 9999px;">½ DAY (${(leave.half_day_slot || 'morning') === 'afternoon' ? 'Afternoon P5–P9' : 'Morning P1–P4'})</span>` : '';
+      const subBadge = leave.substitute ? `<span style="background: #E0E7FF; color: #3730A3; border: 1px solid #C7D2FE; font-size: 0.68rem; font-weight: 700; padding: 2px 7px; border-radius: 9999px;">🤝 Sub: ${escapeHtml(leave.substitute)}</span>` : '';
       const addedByBadge = leave.addedBy ? `<span style="font-size: 0.72rem; color: #64748B; margin-left: 6px;">(By: ${escapeHtml(leave.addedBy)})</span>` : '';
 
-      const singleLeaveMsg = `*SRCC Faculty Leave Update* 🏖️\n\n1. ${leave.teacher_name}${code} (${dateRangeDisplay})\n\n_Check free classrooms:_ https://anand-srcc.github.io/srcc-free-classrooms/`;
+      const singleLeaveMsg = `*SRCC Faculty Leave Update* 🏖️\n\n1. ${leave.teacher_name}${code} (${dateRangeDisplay})${leave.substitute ? `\nSubstitute: ${leave.substitute}` : ''}\n\n_Check free classrooms:_ https://anand-srcc.github.io/srcc-free-classrooms/`;
 
       return `
         <div class="leave-item-row" data-leave-id="${leave.id}">
@@ -1990,6 +2339,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="leave-item-teacher">${escapeHtml(leave.teacher_name)}${code}</span>
                 <span class="leave-item-dates">📅 ${dateRangeDisplay}</span>
                 ${halfDayBadge}
+                ${subBadge}
                 ${isActiveToday ? '<span style="background: #FEE2E2; color: #991B1B; border: 1px solid #FCA5A5; font-size: 0.68rem; font-weight: 800; padding: 2px 8px; border-radius: 9999px;">ACTIVE TODAY</span>' : ''}
                 ${addedByBadge}
               </div>
@@ -1997,10 +2347,13 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
           </div>
           <div class="leave-item-actions">
+            <button class="btn-extend-leave" data-leave-id="${leave.id}" style="background: #f0fdf4; border: 1px solid #86efac; color: #15803d; padding: 6px 10px; border-radius: 6px; font-size: 0.76rem; font-weight: 700; cursor: pointer;" title="Extend leave by 1 day">
+              +1 Day
+            </button>
             <a href="https://wa.me/?text=${encodeURIComponent(singleLeaveMsg)}" target="_blank" class="btn-share-wa" title="Share on WhatsApp">
               💬 Share
             </a>
-            <button class="btn-edit-leave" data-leave-id="${leave.id}" data-teacher-id="${leave.teacher_id || ''}" data-teacher-name="${escapeHtml(leave.teacher_name || '')}" data-start="${s}" data-end="${e}" data-reason="${escapeHtml(leave.reason || '')}" data-halfday="${leave.isHalfDay ? '1' : '0'}" style="background: #e0f2fe; border: 1px solid #7dd3fc; color: #0369a1; padding: 6px 12px; border-radius: 6px; font-size: 0.76rem; font-weight: 700; cursor: pointer; transition: all 0.15s ease;" title="Edit leave dates or reason">
+            <button class="btn-edit-leave" data-leave-id="${leave.id}" data-teacher-id="${leave.teacher_id || ''}" data-teacher-name="${escapeHtml(leave.teacher_name || '')}" data-start="${s}" data-end="${e}" data-reason="${escapeHtml(leave.reason || '')}" data-halfday="${leave.isHalfDay ? '1' : '0'}" data-slot="${leave.half_day_slot || 'morning'}" data-sub="${escapeHtml(leave.substitute || '')}" style="background: #e0f2fe; border: 1px solid #7dd3fc; color: #0369a1; padding: 6px 12px; border-radius: 6px; font-size: 0.76rem; font-weight: 700; cursor: pointer; transition: all 0.15s ease;" title="Edit leave dates or reason">
               ✏️ Edit
             </button>
             <button class="btn-delete-leave" data-leave-id="${leave.id}" title="Remove leave and restore scheduled classes">
@@ -2011,6 +2364,12 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
     }).join('');
 
+    adminLeavesListContainer.querySelectorAll('.btn-extend-leave').forEach(btn => {
+      btn.addEventListener('click', () => {
+        extendLeaveByOneDay(btn.dataset.leaveId);
+      });
+    });
+
     adminLeavesListContainer.querySelectorAll('.btn-edit-leave').forEach(btn => {
       btn.addEventListener('click', () => {
         const tId = btn.dataset.teacherId;
@@ -2019,11 +2378,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const e = btn.dataset.end;
         const reason = btn.dataset.reason;
         const isHalfDay = btn.dataset.halfday === '1';
+        const slot = btn.dataset.slot || 'morning';
+        const sub = btn.dataset.sub || '';
 
         if (adminStartDate) adminStartDate.value = s;
         if (adminEndDate) adminEndDate.value = e;
         if (adminLeaveReason) adminLeaveReason.value = reason;
         if (document.getElementById('adminHalfDayLeave')) document.getElementById('adminHalfDayLeave').checked = isHalfDay;
+        if (adminHalfDaySlotWrapper) adminHalfDaySlotWrapper.style.display = isHalfDay ? 'flex' : 'none';
+        if (document.getElementById('adminHalfDaySlot')) document.getElementById('adminHalfDaySlot').value = slot;
+        if (document.getElementById('adminLeaveSubstitute')) document.getElementById('adminLeaveSubstitute').value = sub;
 
         if (tId) {
           selectedTeacherIds.clear();
@@ -2042,12 +2406,14 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.addEventListener('click', () => {
         const id = btn.dataset.leaveId;
         const current = getLeavesList();
+        const target = current.find(l => l.id === id);
         const updated = current.filter(l => l.id !== id);
         saveLeavesList(updated);
 
         renderLeavesTable();
         updateKpis();
         updateCodePreview();
+        addAuditLog('LEAVE_DELETED', `Removed leave for ${target ? target.teacher_name : id}`);
         showToast('🗑️ Faculty leave removed. Scheduled rooms restored to timetable.');
 
         // Auto-sync to Cloud DB if configured
@@ -2056,19 +2422,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Clear all custom leaves
+  // Clear all custom leaves with 10-second Undo toast
   if (btnAdminClearAllLeaves) {
     btnAdminClearAllLeaves.addEventListener('click', () => {
-      if (confirm('Are you sure you want to reset all custom faculty leaves to college default?')) {
-        localStorage.removeItem(LEAVES_STORAGE_KEY);
-        renderLeavesTable();
-        updateKpis();
-        updateCodePreview();
-        showToast('🔄 Custom faculty leaves cleared and reset to default.');
-
-        // Auto-sync empty leaves to Cloud DB
-        syncLeavesToCloud([], false);
+      const current = getLeavesList();
+      if (current.length === 0) {
+        showToast('ℹ️ No active leaves to clear.');
+        return;
       }
+      clearedLeavesBackup = [...current];
+      localStorage.removeItem(LEAVES_STORAGE_KEY);
+      renderLeavesTable();
+      updateKpis();
+      updateCodePreview();
+      addAuditLog('LEAVES_CLEARED', `Cleared ${current.length} faculty leaves`);
+      showToast(`🔄 Faculty leaves cleared. <button onclick="undoClearLeaves()" style="margin-left:8px; padding:3px 10px; border-radius:4px; border:none; background:#070D18; color:#fff; cursor:pointer; font-size:0.75rem; font-weight:700;">↩️ Undo (10s)</button>`, true, 10000);
+
+      // Auto-sync empty leaves to Cloud DB
+      syncLeavesToCloud([], false);
     });
   }
 
@@ -3275,6 +3646,87 @@ document.addEventListener('DOMContentLoaded', () => {
         deleteRoom(btn.dataset.code);
       });
     });
+
+    updateRecycleBinBadge();
+  }
+
+  function getDeletedRooms() {
+    const overrides = getRoomOverridesMap();
+    return Object.values(overrides).filter(r => r && r.status === 'DELETED');
+  }
+
+  function updateRecycleBinBadge() {
+    const badge = document.getElementById('adminRecycleBinCount');
+    if (badge) {
+      const count = getDeletedRooms().length;
+      badge.textContent = count;
+      badge.style.display = count > 0 ? 'inline-block' : 'none';
+    }
+  }
+
+  function renderRecycleBinModal() {
+    const container = document.getElementById('recycleBinListContainer');
+    if (!container) return;
+
+    const deleted = getDeletedRooms();
+    if (deleted.length === 0) {
+      container.innerHTML = `
+        <div style="text-align: center; padding: 32px 16px; color: var(--text-muted);">
+          <div style="font-size: 2.2rem; margin-bottom: 8px;">♻️</div>
+          <p style="margin: 0; font-weight: 700; color: var(--text-primary);">Recycle Bin is empty.</p>
+          <p style="margin: 4px 0 0 0; font-size: 0.8rem;">No classrooms have been deleted or deactivated.</p>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = `
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        ${deleted.map(r => {
+          const delDate = r.deleted_at ? new Date(r.deleted_at).toLocaleDateString([], { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) : 'Recently';
+          return `
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 14px; background: #fff1f2; border: 1px solid #fecaca; border-radius: 8px;">
+              <div>
+                <div style="font-weight: 800; font-family: var(--font-display); color: #991b1b; font-size: 0.95rem;">
+                  🏛️ Room ${escapeHtml(r.code)}
+                  <span style="font-size: 0.75rem; font-weight: 500; color: #64748b; margin-left: 6px;">(${escapeHtml(r.wing || 'Main Building')}, Cap: ${escapeHtml(r.capacity || '60')})</span>
+                </div>
+                <div style="font-size: 0.74rem; color: #7f1d1d; margin-top: 2px;">
+                  Deactivated: ${delDate} ${r.updated_by ? `by ${escapeHtml(r.updated_by)}` : ''}
+                </div>
+              </div>
+              <button type="button" class="btn-restore-room" data-code="${escapeHtml(r.code)}" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; font-size: 0.78rem; font-weight: 800; border-radius: 6px; border: 1px solid #16a34a; background: #16a34a; color: #ffffff; cursor: pointer;">
+                ♻️ Restore
+              </button>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+
+    container.querySelectorAll('.btn-restore-room').forEach(btn => {
+      btn.addEventListener('click', () => {
+        restoreRoom(btn.dataset.code);
+      });
+    });
+  }
+
+  function restoreRoom(code) {
+    const overrides = getRoomOverridesMap();
+    if (overrides[code]) {
+      overrides[code].status = 'AVAILABLE';
+      overrides[code].restored_at = new Date().toISOString();
+      overrides[code].updated_by = getActiveSessionUser().fullName || 'Admin';
+      delete overrides[code].reason;
+      delete overrides[code].duration;
+    }
+    saveRoomOverridesMap(overrides);
+    renderRoomsTable();
+    updateRecycleBinBadge();
+    renderRecycleBinModal();
+    syncRoomOverridesToCloud(overrides);
+    addAuditLog('ROOM_RESTORED', `Restored room ${code} from Recycle Bin`);
+    showToast(`♻️ Room <strong>${code}</strong> restored successfully! Active in student schedule.`);
   }
 
   function toggleRoomAvailability(code) {
@@ -3286,10 +3738,13 @@ document.addEventListener('DOMContentLoaded', () => {
       delete current.status;
       delete current.reason;
       delete current.duration;
+      current.updated_at = new Date().toISOString();
+      current.updated_by = getActiveSessionUser().fullName || 'Admin';
       overrides[code] = current;
       saveRoomOverridesMap(overrides);
       renderRoomsTable();
       syncRoomOverridesToCloud(overrides);
+      addAuditLog('ROOM_AVAILABLE', `Marked room ${code} as Available`);
       showToast(`✅ Room <strong>${code}</strong> is now marked Available!`);
     } else {
       const reason = prompt(`Enter reason why Room ${code} is unavailable (e.g., AC Maintenance, Ceiling repair, Exam):`, 'Under Maintenance');
@@ -3306,6 +3761,7 @@ document.addEventListener('DOMContentLoaded', () => {
       saveRoomOverridesMap(overrides);
       renderRoomsTable();
       syncRoomOverridesToCloud(overrides);
+      addAuditLog('ROOM_MAINTENANCE', `Marked room ${code} Unavailable: ${reason.trim() || 'Maintenance'}`);
       showToast(`🛠️ Room <strong>${code}</strong> marked Temporarily Unavailable.`);
     }
   }
@@ -3357,19 +3813,22 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function deleteRoom(code) {
-    if (!confirm(`Are you sure you want to delete or de-activate Room "${code}"? Students will not see this room in the app.`)) return;
+    if (!confirm(`Are you sure you want to de-activate Room "${code}"? It will be moved to the Room Recycle Bin and can be restored anytime.`)) return;
     const overrides = getRoomOverridesMap();
     overrides[code] = {
       ...(overrides[code] || {}),
       code: code,
       status: 'DELETED',
+      deleted_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
       updated_by: getActiveSessionUser().fullName || 'Admin'
     };
     saveRoomOverridesMap(overrides);
     renderRoomsTable();
+    updateRecycleBinBadge();
     syncRoomOverridesToCloud(overrides);
-    showToast(`🗑️ Room <strong>${code}</strong> has been deactivated.`);
+    addAuditLog('ROOM_DELETED', `Moved room ${code} to Recycle Bin`);
+    showToast(`🗑️ Room <strong>${code}</strong> moved to Recycle Bin.`);
   }
 
   function initRoomsListeners() {
@@ -3392,6 +3851,19 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
 
+        const overrides = getRoomOverridesMap();
+        const existing = overrides[code] || {};
+
+        // Duplicate code validation when creating new room
+        if (!editingRoomId) {
+          const allRooms = getAllManagedRooms();
+          const duplicate = allRooms.find(r => r.code === code && r.status !== 'DELETED');
+          if (duplicate) {
+            showToast(`⚠️ Classroom <strong>${code}</strong> already exists in the campus directory.`, false);
+            return;
+          }
+        }
+
         const name = (document.getElementById('adminRoomName')?.value || '').trim();
         const wing = document.getElementById('adminRoomWing')?.value || 'Main Building';
         const capacity = (document.getElementById('adminRoomCapacity')?.value || '').trim() || '60';
@@ -3399,8 +3871,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const reason = (document.getElementById('adminRoomUnavailableReason')?.value || '').trim();
         const duration = (document.getElementById('adminRoomUnavailableDuration')?.value || '').trim();
 
-        const overrides = getRoomOverridesMap();
-        const existing = overrides[code] || {};
+        if (isUnavailable && !reason) {
+          showToast('⚠️ Please enter a reason for marking the room unavailable (e.g., AC Repair, Ceiling Work).', false);
+          document.getElementById('adminRoomUnavailableReason')?.focus();
+          return;
+        }
 
         overrides[code] = {
           ...existing,
@@ -3418,7 +3893,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         saveRoomOverridesMap(overrides);
         renderRoomsTable();
+        updateRecycleBinBadge();
         syncRoomOverridesToCloud(overrides);
+        addAuditLog(editingRoomId ? 'ROOM_UPDATED' : 'ROOM_CREATED', `Saved classroom ${code} (${isUnavailable ? 'Unavailable' : 'Available'})`);
         resetRoomForm();
         showToast(`💾 Room <strong>${code}</strong> details saved successfully!`);
       });
@@ -3437,6 +3914,56 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterStatus = document.getElementById('adminRoomFilterStatus');
     if (filterStatus) {
       filterStatus.addEventListener('change', renderRoomsTable);
+    }
+
+    // Room Recycle Bin Modal Listeners
+    const btnOpenRecycleBin = document.getElementById('btnOpenRoomRecycleBin');
+    const modalRecycleBin = document.getElementById('roomRecycleBinModal');
+    const btnCloseRecycleBin = document.getElementById('btnCloseRecycleBinModal');
+
+    if (btnOpenRecycleBin && modalRecycleBin) {
+      btnOpenRecycleBin.addEventListener('click', () => {
+        renderRecycleBinModal();
+        modalRecycleBin.style.display = 'flex';
+      });
+    }
+
+    if (btnCloseRecycleBin && modalRecycleBin) {
+      btnCloseRecycleBin.addEventListener('click', () => {
+        modalRecycleBin.style.display = 'none';
+      });
+      modalRecycleBin.addEventListener('click', (e) => {
+        if (e.target === modalRecycleBin) modalRecycleBin.style.display = 'none';
+      });
+    }
+
+    // Export Rooms Directory to CSV
+    const btnExportCSV = document.getElementById('btnExportRoomsCSV');
+    if (btnExportCSV) {
+      btnExportCSV.addEventListener('click', () => {
+        const rooms = getAllManagedRooms().filter(r => r.status !== 'DELETED');
+        let csv = 'Room Code,Room Name,Wing/Category,Capacity,Status,Maintenance Reason,Duration\n';
+        rooms.forEach(r => {
+          const code = `"${(r.code || '').replace(/"/g, '""')}"`;
+          const name = `"${(r.name || '').replace(/"/g, '""')}"`;
+          const wing = `"${(r.wing || '').replace(/"/g, '""')}"`;
+          const cap = `"${(r.capacity || '60').replace(/"/g, '""')}"`;
+          const status = `"${(r.status || 'AVAILABLE').replace(/"/g, '""')}"`;
+          const reason = `"${(r.reason || '').replace(/"/g, '""')}"`;
+          const dur = `"${(r.duration || '').replace(/"/g, '""')}"`;
+          csv += `${code},${name},${wing},${cap},${status},${reason},${dur}\n`;
+        });
+
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `srcc_classrooms_directory_${getTodayIsoDate()}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        showToast('⬇️ Classroom Directory CSV exported successfully!');
+      });
     }
   }
 
@@ -3566,13 +4093,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="wifi-band-badge ${bandClass}">${escapeHtml(w.band || 'Dual')}</span>
                   </td>
                   <td style="padding: 10px 12px;">
-                    <code style="background: #f1f5f9; padding: 3px 6px; border-radius: 4px; font-weight: 700;">${escapeHtml(w.password)}</code>
+                    <div style="display: inline-flex; align-items: center; gap: 6px;">
+                      <code class="wifi-password-display" data-real-pwd="${escapeHtml(w.password)}" data-masked="true" style="background: #f1f5f9; padding: 3px 8px; border-radius: 4px; font-weight: 700; font-family: monospace; letter-spacing: 2px;">••••••••</code>
+                      <button type="button" class="btn-toggle-pwd-visibility" style="border: none; background: transparent; cursor: pointer; padding: 2px 4px; font-size: 0.85rem;" title="Show / Hide Password">👁️</button>
+                    </div>
                   </td>
                   <td style="padding: 10px 12px; color: var(--text-secondary);">
                     ${escapeHtml(w.location || '')}
                     <div style="font-size: 0.72rem; color: #94a3b8;">${escapeHtml(w.wing || '')}</div>
                   </td>
                   <td style="padding: 10px 12px; text-align: right; white-space: nowrap;">
+                    <button type="button" class="btn-qr-admin-wifi" data-ssid="${escapeHtml(w.ssid)}" data-pwd="${escapeHtml(w.password)}" style="padding: 4px 8px; font-size: 0.74rem; font-weight: 800; border-radius: 6px; border: 1px solid #6366f1; background: rgba(99, 102, 241, 0.1); color: #4f46e5; cursor: pointer; margin-right: 4px;" title="Generate QR Code">
+                      📱 QR
+                    </button>
                     <button type="button" class="btn-copy-admin-wifi" data-pwd="${escapeHtml(w.password)}" style="padding: 4px 8px; font-size: 0.74rem; font-weight: 700; border-radius: 6px; border: 1px solid #0891b2; background: rgba(8, 145, 178, 0.1); color: #0891b2; cursor: pointer; margin-right: 4px;">
                       📋 Copy
                     </button>
@@ -3590,6 +4123,34 @@ document.addEventListener('DOMContentLoaded', () => {
         </table>
       </div>
     `;
+
+    // Toggle password visibility
+    container.querySelectorAll('.btn-toggle-pwd-visibility').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const row = e.target.closest('tr');
+        const codeEl = row ? row.querySelector('.wifi-password-display') : null;
+        if (!codeEl) return;
+        const isMasked = codeEl.dataset.masked === 'true';
+        if (isMasked) {
+          codeEl.textContent = codeEl.dataset.realPwd;
+          codeEl.dataset.masked = 'false';
+          codeEl.style.letterSpacing = 'normal';
+          btn.textContent = '🙈';
+        } else {
+          codeEl.textContent = '••••••••';
+          codeEl.dataset.masked = 'true';
+          codeEl.style.letterSpacing = '2px';
+          btn.textContent = '👁️';
+        }
+      });
+    });
+
+    // QR Code modal trigger
+    container.querySelectorAll('.btn-qr-admin-wifi').forEach(btn => {
+      btn.addEventListener('click', () => {
+        openWifiQrModal(btn.dataset.ssid, btn.dataset.pwd);
+      });
+    });
 
     container.querySelectorAll('.btn-copy-admin-wifi').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -3610,6 +4171,30 @@ document.addEventListener('DOMContentLoaded', () => {
         deleteWifi(btn.dataset.id);
       });
     });
+  }
+
+  function openWifiQrModal(ssid, password) {
+    const modal = document.getElementById('wifiQrModal');
+    const titleEl = document.getElementById('wifiQrModalTitle');
+    const container = document.getElementById('wifiQrCodeWrapper');
+    const detailsEl = document.getElementById('wifiQrDetailsText');
+    if (!modal || !container) return;
+
+    if (titleEl) titleEl.textContent = `📶 WiFi QR: ${ssid}`;
+    if (detailsEl) {
+      detailsEl.innerHTML = `SSID: <strong>${escapeHtml(ssid)}</strong><br>Password: <code style="background:#f1f5f9; padding:2px 6px; border-radius:4px; font-weight:700;">${escapeHtml(password)}</code>`;
+    }
+
+    const qrPayload = `WIFI:S:${ssid};T:WPA;P:${password};;`;
+    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=8&data=${encodeURIComponent(qrPayload)}`;
+
+    container.innerHTML = `
+      <div style="background: #ffffff; padding: 12px; border-radius: 12px; border: 2px solid var(--border-color); display: inline-block; box-shadow: 0 4px 12px rgba(0,0,0,0.06);">
+        <img src="${qrUrl}" alt="WiFi QR Code" style="width: 200px; height: 200px; display: block;" onerror="this.onerror=null; this.parentElement.innerHTML='<div style=\\'padding:30px; font-size:0.85rem; color:#64748b; font-weight:600;\\'>Connect with SSID: <strong>${escapeHtml(ssid)}</strong><br>Password: <strong>${escapeHtml(password)}</strong></div>';" />
+      </div>
+    `;
+
+    modal.style.display = 'flex';
   }
 
   function startEditingWifi(id) {
@@ -3654,6 +4239,7 @@ document.addEventListener('DOMContentLoaded', () => {
     saveWifiNetworksList(list);
     renderWifiTable();
     syncWifiNetworksToCloud(list);
+    addAuditLog('WIFI_DELETED', `Deleted WiFi network ${item.ssid}`);
     showToast(`🗑️ WiFi network <strong>${item.ssid}</strong> deleted.`);
   }
 
@@ -3703,6 +4289,7 @@ document.addEventListener('DOMContentLoaded', () => {
         saveWifiNetworksList(list);
         renderWifiTable();
         syncWifiNetworksToCloud(list);
+        addAuditLog(editingWifiId ? 'WIFI_UPDATED' : 'WIFI_ADDED', `Saved WiFi network ${ssid} (${band})`);
         resetWifiForm();
         showToast(`💾 WiFi network <strong>${ssid}</strong> saved!`);
       });
@@ -3721,6 +4308,7 @@ document.addEventListener('DOMContentLoaded', () => {
           saveWifiNetworksList(defaults);
           renderWifiTable();
           syncWifiNetworksToCloud(defaults);
+          addAuditLog('WIFI_RESET', 'Reset WiFi directory to 24 official campus networks');
           showToast('🔄 WiFi directory restored to official 24 campus networks.');
         }
       });
@@ -3729,6 +4317,127 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('adminWifiSearchInput');
     if (searchInput) {
       searchInput.addEventListener('input', renderWifiTable);
+    }
+
+    // WiFi QR Code Modal Listeners
+    const modal = document.getElementById('wifiQrModal');
+    const btnClose = document.getElementById('btnCloseWifiQrModal');
+    if (btnClose && modal) {
+      btnClose.addEventListener('click', () => { modal.style.display = 'none'; });
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.style.display = 'none';
+      });
+    }
+  }
+
+  // ==========================================================================
+  // 💾 FULL SYSTEM JSON BACKUP & RESTORE + AUDIT LOG CONTROLS
+  // ==========================================================================
+  function initSystemBackupRestore() {
+    const btnExport = document.getElementById('btnExportFullBackupJson');
+    const inputImport = document.getElementById('btnImportFullBackupFile');
+    const btnClearAudit = document.getElementById('btnClearAuditLog');
+
+    if (btnExport) {
+      btnExport.addEventListener('click', () => {
+        const fullBackup = {
+          export_version: '1.0',
+          exported_at: new Date().toISOString(),
+          exported_by: getActiveSessionUser().fullName || 'Admin',
+          campus: 'Shri Ram College of Commerce (SRCC)',
+          leaves: getLeavesList(),
+          room_locks: getRoomLocksList(),
+          campus_notices: getCampusNoticesList(),
+          room_overrides: getRoomOverridesMap(),
+          campus_wifi: getWifiNetworksList(),
+          audit_log: getAuditLogs()
+        };
+
+        const jsonStr = JSON.stringify(fullBackup, null, 2);
+        const blob = new Blob([jsonStr], { type: 'application/json;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `srcc_system_full_backup_${getTodayIsoDate()}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        addAuditLog('SYSTEM_BACKUP', 'Exported full system JSON backup');
+        showToast('💾 <strong>Full System Backup Downloaded!</strong> Contains leaves, locks, notices, rooms, and WiFi.');
+      });
+    }
+
+    if (inputImport) {
+      inputImport.addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+          try {
+            const data = JSON.parse(evt.target.result);
+            if (!data || typeof data !== 'object') throw new Error('Invalid JSON format.');
+
+            if (!confirm(`Are you sure you want to restore the SRCC Admin Portal from "${file.name}"?\nExported at: ${data.exported_at || 'Unknown'}\nExisting records will be updated.`)) {
+              inputImport.value = '';
+              return;
+            }
+
+            if (Array.isArray(data.leaves)) {
+              saveLeavesList(data.leaves);
+              syncLeavesToCloud(data.leaves, false);
+            }
+            if (Array.isArray(data.room_locks)) {
+              saveRoomLocksList(data.room_locks);
+              syncRoomLocksToCloud(data.room_locks, false);
+            }
+            if (Array.isArray(data.campus_notices)) {
+              saveCampusNoticesList(data.campus_notices);
+              syncCampusNoticesToCloud(data.campus_notices, false);
+            }
+            if (data.room_overrides && typeof data.room_overrides === 'object') {
+              saveRoomOverridesMap(data.room_overrides);
+              syncRoomOverridesToCloud(data.room_overrides, false);
+            }
+            if (Array.isArray(data.campus_wifi)) {
+              saveWifiNetworksList(data.campus_wifi);
+              syncWifiNetworksToCloud(data.campus_wifi, false);
+            }
+            if (Array.isArray(data.audit_log)) {
+              localStorage.setItem(AUDIT_LOG_KEY, JSON.stringify(data.audit_log));
+            }
+
+            renderLeavesTable();
+            renderLocksTable();
+            renderCampusNoticesTable();
+            renderRoomsTable();
+            renderWifiTable();
+            renderAuditLog();
+            updateKpis();
+            updateRecycleBinBadge();
+
+            addAuditLog('SYSTEM_RESTORE', `Restored system from backup file: ${file.name}`);
+            showToast('✅ <strong>System restored from backup successfully!</strong> All modules synced.');
+          } catch (err) {
+            console.error('Backup restore error:', err);
+            showToast('⚠️ Failed to restore backup file: Invalid JSON format.', false);
+          } finally {
+            inputImport.value = '';
+          }
+        };
+        reader.readAsText(file);
+      });
+    }
+
+    if (btnClearAudit) {
+      btnClearAudit.addEventListener('click', () => {
+        if (confirm('Clear admin activity log? This cannot be undone.')) {
+          localStorage.removeItem(AUDIT_LOG_KEY);
+          renderAuditLog();
+          showToast('🧹 Admin activity log cleared.');
+        }
+      });
     }
   }
 
@@ -3884,6 +4593,15 @@ document.addEventListener('DOMContentLoaded', () => {
       return String(n || '').toLowerCase().replace(/^(dr\.|prof\.|mr\.|ms\.)\s*/i, '').replace(/\s+/g, ' ').trim();
     }
 
+    function isSlotCoveredByLeave(leave, slot) {
+      if (!leave.isHalfDay && !leave.half_day) return true;
+      const isMorningSlot = slot.includes('8:30') || slot.includes('9:30') || slot.includes('10:30') || slot.includes('11:30') || slot.includes('12:30');
+      const halfSlot = leave.half_day_slot || 'morning';
+      if (halfSlot === 'morning') return isMorningSlot;
+      if (halfSlot === 'afternoon') return !isMorningSlot;
+      return true;
+    }
+
     // Map: slot -> Set of room codes freed by active faculty leaves
     const leaveFreedRoomsBySlot = {};
     // Map: leave -> Array of { room, slot } vacated by that teacher on selectedDate
@@ -3912,7 +4630,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // A. Check teacher's schedule for dayName
       if (matchedTeacher && matchedTeacher.schedule && Array.isArray(matchedTeacher.schedule[dayName])) {
         matchedTeacher.schedule[dayName].forEach(p => {
-          if (p.room && p.slot) {
+          if (p.room && p.slot && isSlotCoveredByLeave(l, p.slot)) {
             const rNorm = p.room.trim().toUpperCase();
             if (!leaveFreedRoomsBySlot[p.slot]) leaveFreedRoomsBySlot[p.slot] = new Set();
             leaveFreedRoomsBySlot[p.slot].add(rNorm);
@@ -3939,7 +4657,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (sched && Array.isArray(sched.occupied_slots)) {
             sched.occupied_slots.forEach(occ => {
               const cls = occ.class || '';
-              if (regex.test(cls)) {
+              if (regex.test(cls) && isSlotCoveredByLeave(l, occ.slot)) {
                 const rNorm = r.code.toUpperCase();
                 if (!leaveFreedRoomsBySlot[occ.slot]) leaveFreedRoomsBySlot[occ.slot] = new Set();
                 leaveFreedRoomsBySlot[occ.slot].add(rNorm);
@@ -3955,9 +4673,14 @@ document.addEventListener('DOMContentLoaded', () => {
       teacherVacatedMap.set(l, vacatedList);
     });
 
+    const roomOverridesMap = getRoomOverridesMap();
+
     // Helper: is room locked on selectedDate & dayName & slot
     function isRoomLocked(rCode, slot) {
       const rUpper = rCode.toUpperCase();
+      if (roomOverridesMap[rUpper]?.status === 'UNAVAILABLE' || roomOverridesMap[rUpper]?.status === 'DELETED') {
+        return true;
+      }
       return currentLocks.some(lock => {
         const lockRoom = String(lock.room || lock.room_code || lock.roomCode || '').toUpperCase().trim();
         if (lockRoom !== rUpper) return false;

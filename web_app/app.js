@@ -490,15 +490,25 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========================================================================
     // 🔒 ROOM LOCKS & EXTRA CLASSES HELPERS (Includes Recurring Locks & Weekend Batches)
     // ========================================================================
-    function getRoomActiveLocks(roomCode, checkDateStr) {
-      const targetDate = checkDateStr || getTodayIsoDate();
+    function getDateForDayName(targetDayName) {
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const now = new Date();
+      const currentDayIdx = now.getDay();
+      const targetIdx = days.indexOf(targetDayName);
+      if (targetIdx === -1) return getTodayIsoDate();
+      const diff = targetIdx - currentDayIdx;
+      const targetDate = new Date(now);
+      targetDate.setDate(now.getDate() + diff);
+      const y = targetDate.getFullYear();
+      const m = String(targetDate.getMonth() + 1).padStart(2, '0');
+      const d = String(targetDate.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
+    }
+
+    function getRoomActiveLocks(roomCode, checkDateStr, checkDayName) {
+      const targetDayName = checkDayName || (state && state.activeDay) || (typeof getTodayDayName === 'function' ? getTodayDayName() : 'Monday');
+      const targetDate = checkDateStr || getDateForDayName(targetDayName);
       const targetRoom = (roomCode || '').trim().toUpperCase();
-      const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-      let targetDayName = 'Monday';
-      try {
-        const d = new Date(targetDate + 'T00:00:00');
-        targetDayName = daysOfWeek[d.getDay()];
-      } catch (e) {}
 
       return (roomLocksList || []).filter(lock => {
         const lockRoom = (lock.room || '').trim().toUpperCase();
@@ -509,7 +519,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const recurrence = lock.recurrence || 'once';
         let isActive = false;
         if (recurrence === 'once') {
-          isActive = (lock.date === targetDate);
+          if (lock.date === targetDate) {
+            isActive = true;
+          } else if (lock.date) {
+            try {
+              const lockDateObj = new Date(lock.date + 'T00:00:00');
+              const lockDay = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][lockDateObj.getDay()];
+              if (lockDay === targetDayName && (!checkDateStr || lock.date === targetDate)) {
+                isActive = true;
+              }
+            } catch (e) {}
+          }
         } else if (recurrence === 'weekend') {
           isActive = (targetDayName === 'Saturday' || targetDayName === 'Sunday');
         } else if (recurrence === 'daily') {
@@ -520,8 +540,7 @@ document.addEventListener('DOMContentLoaded', () => {
           isActive = (lock.date === targetDate);
         }
 
-        // If an effective date is given, don't trigger prior to that starting date
-        if (isActive && lock.date && targetDate < lock.date) {
+        if (isActive && lock.date && recurrence !== 'once' && targetDate < lock.date) {
           return false;
         }
 
@@ -573,18 +592,21 @@ document.addEventListener('DOMContentLoaded', () => {
         urgent: '<span class="campus-notice-badge badge-notice-urgent">📌 Urgent Alert</span>'
       };
 
-      const catBadge = categoryBadges[notice.category] || categoryBadges.circular;
-      const hasAttachment = notice.attachment && notice.attachment.dataUrl;
+      const issueDateStr = notice.created_at ? notice.created_at.slice(0, 10) : todayIso;
+      const formattedIssueDate = (typeof formatIsoToDdMmYyyy === 'function') ? formatIsoToDdMmYyyy(issueDateStr) : issueDateStr;
+      const formattedExpiryDate = notice.expiry_date ? ((typeof formatIsoToDdMmYyyy === 'function') ? formatIsoToDdMmYyyy(notice.expiry_date) : notice.expiry_date) : '';
 
       container.innerHTML = `
-        <div class="campus-notice-card">
-          <button type="button" class="btn-notice-dismiss" id="btnDismissCampusNotice" title="Dismiss notice for this session (Admin notices remain active)">✕</button>
-          <div class="campus-notice-header">
+        <div class="campus-notice-card ${notice.pinned ? 'is-pinned-notice' : ''}">
+          <div class="campus-notice-header" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
             ${catBadge}
-            ${notice.event_date ? `<span class="campus-notice-event-date">🗓️ Event Date: ${escapeHtml(notice.event_date)}</span>` : ''}
-            ${notice.expiry_date ? `<span style="font-size: 0.72rem; color: #64748b; font-weight: 600;">Valid till: ${formatIsoToDdMmYyyy(notice.expiry_date)}</span>` : ''}
+            <span class="campus-notice-issue-date" style="font-size: 0.74rem; color: #475569; font-weight: 700; background: rgba(0,0,0,0.04); padding: 2px 7px; border-radius: 6px;">
+              📅 Issued: ${formattedIssueDate}
+            </span>
+            ${notice.event_date ? `<span class="campus-notice-event-date" style="font-size: 0.74rem; font-weight: 600; color: #0369a1;">🗓️ Event: ${escapeHtml(notice.event_date)}</span>` : ''}
+            ${formattedExpiryDate ? `<span class="campus-notice-expiry-date" style="font-size: 0.72rem; color: #64748b; font-weight: 600; margin-left: auto;">⏳ Valid till: ${formattedExpiryDate}</span>` : ''}
           </div>
-          <h3 class="campus-notice-title">${escapeHtml(notice.title)}</h3>
+          <h3 class="campus-notice-title" style="margin-top: 8px;">${escapeHtml(notice.title)}</h3>
           ${notice.body ? `<p class="campus-notice-body">${escapeHtml(notice.body)}</p>` : ''}
           <div class="campus-notice-actions">
             ${hasAttachment ? `
@@ -596,14 +618,6 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       `;
       container.style.display = 'block';
-
-      const btnDismiss = document.getElementById('btnDismissCampusNotice');
-      if (btnDismiss) {
-        btnDismiss.addEventListener('click', () => {
-          sessionStorage.setItem('srcc_dismissed_notice_id', notice.id);
-          container.style.display = 'none';
-        });
-      }
 
       const btnAttachment = document.getElementById('btnViewNoticeAttachment');
       if (btnAttachment && hasAttachment) {
@@ -703,7 +717,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return false;
     }
 
-    function isTeacherOnLeave(teacher, checkDateStr) {
+    function isTeacherOnLeave(teacher, checkDateStr, checkSlotStr) {
       if (!teacher) return null;
       const targetDate = checkDateStr || getTodayIsoDate();
       const allLeaves = getLeavesList();
@@ -720,7 +734,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 1. Direct ID match
         const matchId = (lId && tId && lId === tId);
 
-        // 2. Short code match (check both leave.teacher_code and leave.teacher_id since StudentAssist uses short_code as id)
+        // 2. Short code match
         const matchCode = (tCode && (
           lCode === tCode ||
           lId.toLowerCase() === tCode ||
@@ -728,14 +742,26 @@ document.addEventListener('DOMContentLoaded', () => {
           (lId && lId.toLowerCase().split(/\s*[\/,]\s*/).includes(tCode))
         ));
 
-        // 3. Normalized Name match (ignoring Dr., Ms., Mr., etc.)
+        // 3. Normalized Name match
         const matchName = (lClean && tClean && (lClean === tClean || lClean.includes(tClean) || tClean.includes(lClean)));
 
         if (matchId || matchCode || matchName) {
           if (!leave.start_date && !leave.end_date) return true;
           const s = leave.start_date || '2000-01-01';
           const e = leave.end_date || '2099-12-31';
-          return (targetDate >= s && targetDate <= e);
+          const inRange = (targetDate >= s && targetDate <= e);
+          if (!inRange) return false;
+
+          // Check half-day restrictions if slot is provided
+          if (checkSlotStr && (leave.half_day || leave.isHalfDay)) {
+            const pInfo = typeof getPeriodInfo === 'function' ? getPeriodInfo(checkSlotStr) : null;
+            const periodNum = pInfo ? pInfo.num : 1;
+            const halfSlot = String(leave.half_day_slot || 'morning').toLowerCase();
+            if (halfSlot === 'morning' && periodNum > 4) return false;
+            if (halfSlot === 'afternoon' && periodNum <= 4) return false;
+          }
+
+          return true;
         }
         return false;
       }) || null;
@@ -766,7 +792,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Reverse lookup map: given a room and a time slot on active day, find teacher and if on leave
     function getRoomScheduledTeacherLeave(roomCode, day, slot) {
       if (!teachersData || !teachersData.teachers) return null;
-      const todayDate = getTodayIsoDate();
+      const todayDate = getDateForDayName(day);
 
       for (const t of teachersData.teachers) {
         const daySched = t.schedule ? t.schedule[day] : null;
@@ -781,7 +807,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (matchingClass) {
-          const leave = isTeacherOnLeave(t, todayDate);
+          const leave = isTeacherOnLeave(t, todayDate, slot);
           if (leave) {
             return {
               teacher: t,
@@ -2220,8 +2246,8 @@ ${directRoomUrl}`;
         });
 
         // Check if this room has active locks / extra classes pushed by admin
-        const todayIso = getTodayIsoDate();
-        const activeRoomLocks = getRoomActiveLocks(room.code, todayIso);
+        const activeDate = getDateForDayName(state.activeDay);
+        const activeRoomLocks = getRoomActiveLocks(room.code, activeDate, state.activeDay);
         const isFullDayLocked = activeRoomLocks.some(l => l.slot === 'ALL_DAY');
         const lockedSlotsSet = new Set(activeRoomLocks.filter(l => l.slot !== 'ALL_DAY').map(l => l.slot));
 
@@ -2708,8 +2734,8 @@ ${directRoomUrl}`;
         '5:00 PM to 6:00 PM'
       ];
 
-      const todayIso = getTodayIsoDate();
-      const activeRoomLocks = getRoomActiveLocks(room.code, todayIso);
+      const activeDate = getDateForDayName(state.activeDay);
+      const activeRoomLocks = getRoomActiveLocks(room.code, activeDate, state.activeDay);
       const roomOv = getRoomOverride(room.code);
       const isUnavailable = (roomOv && roomOv.status === 'UNAVAILABLE');
       const modalUnavailableBanner = isUnavailable
@@ -4481,28 +4507,80 @@ ${directRoomUrl}`;
         });
       });
 
-      // Sleek Top-Right Email Icon Click Listener
-      document.querySelectorAll('.btn-teacher-email-icon').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const email = btn.dataset.email;
-          const tName = btn.dataset.teacherName || 'Faculty';
-          if (!email) return;
+    function openFacultyEmailModal(teacher) {
+      if (!teacher) return;
+      const modal = document.getElementById('facultyEmailModal');
+      if (!modal) return;
 
+      const avatarEl = document.getElementById('facultyEmailModalAvatar');
+      const nameEl = document.getElementById('facultyEmailModalName');
+      const deptEl = document.getElementById('facultyEmailModalDept');
+      const codeEl = document.getElementById('facultyEmailModalCode');
+      const addrEl = document.getElementById('facultyEmailModalAddress');
+      const copyBtn = document.getElementById('btnFacultyEmailModalCopy');
+      const copyText = document.getElementById('facultyEmailModalCopyText');
+      const mailtoBtn = document.getElementById('btnFacultyEmailModalMailto');
+      const closeBtn = document.getElementById('btnFacultyEmailModalClose');
+
+      const cleanName = teacher.clean_name || teacher.name || 'Faculty Member';
+      const initials = teacher.initials || cleanName.slice(0, 2).toUpperCase();
+      const deptAvatarCls = (typeof getDeptAvatarClass === 'function') ? getDeptAvatarClass(teacher.department) : 'dept-avatar-commerce';
+      const displayCode = (typeof getDisplayShortCode === 'function') ? getDisplayShortCode(teacher) : (teacher.short_code || '');
+
+      if (avatarEl) {
+        avatarEl.className = `faculty-initials-avatar ${deptAvatarCls}`;
+        avatarEl.textContent = initials;
+      }
+      if (nameEl) nameEl.textContent = `Prof. ${cleanName}`;
+      if (deptEl) deptEl.textContent = teacher.department || 'Faculty';
+      if (codeEl) {
+        if (displayCode) {
+          codeEl.textContent = displayCode;
+          codeEl.style.display = 'inline-block';
+        } else {
+          codeEl.style.display = 'none';
+        }
+      }
+
+      const email = teacher.email || 'srcc@srcc.du.ac.in';
+      if (addrEl) addrEl.textContent = email;
+      if (mailtoBtn) mailtoBtn.href = `mailto:${encodeURIComponent(email)}`;
+
+      if (copyBtn) {
+        copyBtn.onclick = () => {
           copyToClipboard(email).then(() => {
-            btn.classList.add('copied');
-            const originalSvg = btn.innerHTML;
-            btn.innerHTML = `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
-            showToast(`✉️ Copied Prof. ${tName}'s Email: <strong>${escapeHtml(email)}</strong><br><a href="mailto:${escapeHtml(email)}" style="color: #93c5fd; text-decoration: underline; font-size: 0.75rem; margin-top: 4px; display: inline-block;">Send Email ↗</a>`);
-            setTimeout(() => {
-              btn.classList.remove('copied');
-              btn.innerHTML = originalSvg;
-            }, 2500);
-          }).catch(() => {
-            showToast(`✉️ Prof. ${tName}'s Email: ${email}`);
+            if (copyText) copyText.textContent = '✓ Copied!';
+            showToast(`📋 Copied email for Prof. ${cleanName}`);
+            setTimeout(() => { if (copyText) copyText.textContent = 'Copy Email'; }, 2000);
           });
-        });
+        };
+      }
+
+      if (closeBtn) {
+        closeBtn.onclick = () => { closeAppModal(modal); };
+      }
+      modal.onclick = (e) => {
+        if (e.target === modal) closeAppModal(modal);
+      };
+
+      openAppModal(modal);
+    }
+    window.openFacultyEmailModal = openFacultyEmailModal;
+
+    // Sleek Top-Right Email Icon & Chip Click Handlers (Student Assist SRCC Style)
+    document.querySelectorAll('.btn-teacher-email-icon, .faculty-email-chip').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const card = btn.closest('.faculty-card, .faculty-compact-card');
+        const tId = card ? card.dataset.teacherId : null;
+        const allT = (window.SRCC_TEACHERS_DATA?.teachers || teachersData?.teachers || []);
+        const teacher = allT.find(t => String(t.id) === String(tId) || t.clean_name === tId) || {
+          clean_name: btn.dataset.teacherName,
+          email: btn.dataset.email
+        };
+        openFacultyEmailModal(teacher);
       });
+    });
 
       // Clicking subject pill filters teacher search (with 1-tap toggle to clear)
       document.querySelectorAll('.subject-pill').forEach(pill => {
