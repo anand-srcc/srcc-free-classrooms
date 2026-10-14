@@ -8864,3 +8864,27 @@ body.dark-mode .tt-room-btn:hover,
 #widgetModal {
   z-index: 9999 !important;
 }
+
+
+/* Elegant Room TBA badge for classes with unscheduled/unassigned rooms */
+.room-pill-tba {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(245, 158, 11, 0.12);
+  color: #b45309;
+  border: 1px dashed rgba(245, 158, 11, 0.45);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  letter-spacing: 0.3px;
+  user-select: none;
+}
+
+body.dark-mode .room-pill-tba,
+[data-theme="dark"] .room-pill-tba {
+  background: rgba(245, 158, 11, 0.18);
+  color: #fbbf24;
+  border-color: rgba(245, 158, 11, 0.5);
+}

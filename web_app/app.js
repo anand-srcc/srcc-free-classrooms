@@ -4547,11 +4547,11 @@ ${directRoomUrl}`;
                     ${(sec || batch) ? `<span style="opacity: 0.8; font-size: 0.7rem; margin-left: 4px;">[${sec ? escapeHtml(sec) : ''}${batch ? ` · ${escapeHtml(batch)}` : ''}]</span>` : ''}
                   </span>
                 </div>
-                ${roomCode !== 'TBD' ? `
+                ${(roomCode && roomCode !== 'TBD' && roomCode !== 'TBA') ? `
                   <button class="room-badge-link" data-room="${escapeHtml(getTargetRoomJumpCode(roomCode))}" title="Jump to Room ${escapeHtml(getTargetRoomJumpCode(roomCode))} in Free Classroom Finder">
                     🏛️ ${escapeHtml(getDisplayRoomName(roomCode))} ↗
                   </button>
-                ` : `<span style="font-size: 0.72rem; color: var(--text-muted);">No Room</span>`}
+                ` : `<span class="room-pill-tba" title="Room not specified in official college timetable">🏛️ Room TBA</span>`}
               </div>
             `;
           }).join('');
@@ -5502,11 +5502,11 @@ ${directRoomUrl}`;
             </div>
             <div class="m-tt-meta-row" style="display: flex; justify-content: flex-end; align-items: center;">
               <div>
-                ${roomCode !== 'TBD' ? `
+                ${(roomCode && roomCode !== 'TBD' && roomCode !== 'TBA') ? `
                   <button class="m-tt-room-btn modal-room-jump" data-room="${escapeHtml(getTargetRoomJumpCode(roomCode))}" title="View room in Free Classroom Finder">
                     🏛️ Room ${escapeHtml(getDisplayRoomName(roomCode))} ↗
                   </button>
-                ` : `<span style="color: var(--text-muted); font-size: 0.78rem;">Room TBD</span>`}
+                ` : `<span class="room-pill-tba" title="Room not specified in official college timetable">🏛️ Room TBA</span>`}
               </div>
             </div>
           </div>
@@ -6895,9 +6895,10 @@ window.SRCC_FACULTY_LEAVES = {
 
         const targetRoom = getTargetRoomJumpCode(session.room);
         const displayRoom = getDisplayRoomName(session.room);
-        const roomButtonHtml = session.room 
+        const isRoomTba = !session.room || session.room.toUpperCase() === 'TBA' || session.room_tba || session.room === 'TBD';
+        const roomButtonHtml = !isRoomTba 
           ? `<button type="button" class="room-badge-link tt-room-btn btn-jump-room" data-room="${escapeHtml(targetRoom)}" title="Click to view room in campus room finder">🏛️ ${escapeHtml(displayRoom)} <span class="tt-room-arrow">↗</span></button>` 
-          : `<span style="font-size: 0.8rem; color: var(--text-muted);">Room TBD</span>`;
+          : `<span class="room-pill-tba" title="Room not specified in official college timetable">🏛️ Room TBA</span>`;
 
         const leaveCardCls = session.isOnLeave ? ' is-faculty-leave' : '';
         const displaySubject = session.subjectName || session.subject || 'Subject';
