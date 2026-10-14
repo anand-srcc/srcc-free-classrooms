@@ -724,7 +724,7 @@ window.SRCC_TEACHERS_DATA = {
         "SEC IT SKILLS AND DATA ANALYSIS I)",
         "SEC-ADVANCED SPREADSHEET)"
       ],
-      "total_teaching_periods": 20,
+      "total_teaching_periods": 10,
       "schedule": {
         "Monday": [
           {
@@ -750,30 +750,6 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Advanced Spreadsheet",
             "room": "Library FF",
             "type": "Practical/Lab"
-          },
-          {
-            "slot": "11:30 AM to 12:30 PM",
-            "raw": "LAB- 5. Economics-ITSA I-R27-A21-SEC17",
-            "course": "SEC",
-            "semester": "Sem V",
-            "section": "Joint",
-            "batch": "SEC17",
-            "subject": "ITSA I",
-            "subject_name": "IT Skills and Data Analysis I",
-            "room": "R27",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "12:30 PM to 1:30 PM",
-            "raw": "LAB-JOINT-SEM VEconomics-ITSA I-A21-SEC17<----------------------->",
-            "course": "SEC",
-            "semester": "Sem V",
-            "section": "SEC-17",
-            "batch": "",
-            "subject": "ITSA I",
-            "subject_name": "ITSA I",
-            "room": "R27",
-            "type": "Practical/Lab"
           }
         ],
         "Tuesday": [
@@ -790,18 +766,6 @@ window.SRCC_TEACHERS_DATA = {
             "type": "Practical/Lab"
           },
           {
-            "slot": "2:00 PM to 3:00 PM",
-            "raw": "LAB- 10. Economics-ITSA I-CL2-A21-SEC16",
-            "course": "SEC",
-            "semester": "Sem V",
-            "section": "Joint",
-            "batch": "SEC16",
-            "subject": "ITSA I",
-            "subject_name": "IT Skills and Data Analysis I",
-            "room": "CL2",
-            "type": "Practical/Lab"
-          },
-          {
             "slot": "3:00 PM to 4:00 PM",
             "raw": "LAB- 9. Economics-AS-CL1-AK24-SEC20",
             "course": "SEC",
@@ -814,18 +778,6 @@ window.SRCC_TEACHERS_DATA = {
             "type": "Practical/Lab"
           },
           {
-            "slot": "3:00 PM to 4:00 PM",
-            "raw": "LAB- 10. Economics-ITSA I-CL2-A21-SEC16",
-            "course": "SEC",
-            "semester": "Sem V",
-            "section": "Joint",
-            "batch": "SEC16",
-            "subject": "ITSA I",
-            "subject_name": "IT Skills and Data Analysis I",
-            "room": "CL2",
-            "type": "Practical/Lab"
-          },
-          {
             "slot": "4:00 PM to 5:00 PM",
             "raw": "LAB- 8. Economics-AS-CL1-AK24-SEC20",
             "course": "SEC",
@@ -835,18 +787,6 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "AS",
             "subject_name": "Advanced Spreadsheet",
             "room": "CL1",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "4:00 PM to 5:00 PM",
-            "raw": "LAB- 9. Economics-ITSA I-CL2-A21-SEC16",
-            "course": "SEC",
-            "semester": "Sem V",
-            "section": "Joint",
-            "batch": "SEC16",
-            "subject": "ITSA I",
-            "subject_name": "IT Skills and Data Analysis I",
-            "room": "CL2",
             "type": "Practical/Lab"
           },
           {
@@ -860,46 +800,9 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Advanced Spreadsheet",
             "room": "CL1",
             "type": "Practical/Lab"
-          },
-          {
-            "slot": "5:00 PM to 6:00 PM",
-            "raw": "LAB- 9. Economics-ITSA I-CL2-A21-SEC16",
-            "course": "SEC",
-            "semester": "Sem V",
-            "section": "Joint",
-            "batch": "SEC16",
-            "subject": "ITSA I",
-            "subject_name": "IT Skills and Data Analysis I",
-            "room": "CL2",
-            "type": "Practical/Lab"
           }
         ],
-        "Wednesday": [
-          {
-            "slot": "2:00 PM to 3:00 PM",
-            "raw": "LAB- 9. Economics-ITSA I-R37-A21-SEC20",
-            "course": "SEC",
-            "semester": "Sem I",
-            "section": "Joint",
-            "batch": "SEC20",
-            "subject": "ITSA I",
-            "subject_name": "IT Skills and Data Analysis I",
-            "room": "R37",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "3:00 PM to 4:00 PM",
-            "raw": "LAB- 10. Economics-ITSA I-R37-A21-SEC20",
-            "course": "SEC",
-            "semester": "Sem I",
-            "section": "Joint",
-            "batch": "SEC20",
-            "subject": "ITSA I",
-            "subject_name": "IT Skills and Data Analysis I",
-            "room": "R37",
-            "type": "Practical/Lab"
-          }
-        ],
+        "Wednesday": [],
         "Thursday": [
           {
             "slot": "2:00 PM to 3:00 PM",
@@ -950,6 +853,126 @@ window.SRCC_TEACHERS_DATA = {
             "type": "Practical/Lab"
           }
         ],
+        "Friday": [],
+        "Saturday": []
+      },
+      "official_department": "SRCC"
+    },
+    {
+      "id": "713",
+      "label": "Aditi Khanna (24)",
+      "name": "Aditi Khanna",
+      "clean_name": "Aditi Khanna",
+      "short_code": "24",
+      "ref_code": "24",
+      "initials": "AK",
+      "department": "Commerce",
+      "subjects_taught": [],
+      "total_teaching_periods": 10,
+      "schedule": {
+        "Monday": [
+          {
+            "slot": "11:30 AM to 12:30 PM",
+            "raw": "LAB- 5. Economics-ITSA I-R27-A21-SEC17",
+            "course": "SEC",
+            "semester": "Sem V",
+            "section": "Joint",
+            "batch": "SEC17",
+            "subject": "ITSA I",
+            "subject_name": "IT Skills and Data Analysis I",
+            "room": "R27",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "12:30 PM to 1:30 PM",
+            "raw": "LAB-JOINT-SEM VEconomics-ITSA I-A21-SEC17<----------------------->",
+            "course": "SEC",
+            "semester": "Sem V",
+            "section": "SEC-17",
+            "batch": "",
+            "subject": "ITSA I",
+            "subject_name": "ITSA I",
+            "room": "R27",
+            "type": "Practical/Lab"
+          }
+        ],
+        "Tuesday": [
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- 10. Economics-ITSA I-CL2-A21-SEC16",
+            "course": "SEC",
+            "semester": "Sem V",
+            "section": "Joint",
+            "batch": "SEC16",
+            "subject": "ITSA I",
+            "subject_name": "IT Skills and Data Analysis I",
+            "room": "CL2",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB- 10. Economics-ITSA I-CL2-A21-SEC16",
+            "course": "SEC",
+            "semester": "Sem V",
+            "section": "Joint",
+            "batch": "SEC16",
+            "subject": "ITSA I",
+            "subject_name": "IT Skills and Data Analysis I",
+            "room": "CL2",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "LAB- 9. Economics-ITSA I-CL2-A21-SEC16",
+            "course": "SEC",
+            "semester": "Sem V",
+            "section": "Joint",
+            "batch": "SEC16",
+            "subject": "ITSA I",
+            "subject_name": "IT Skills and Data Analysis I",
+            "room": "CL2",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "5:00 PM to 6:00 PM",
+            "raw": "LAB- 9. Economics-ITSA I-CL2-A21-SEC16",
+            "course": "SEC",
+            "semester": "Sem V",
+            "section": "Joint",
+            "batch": "SEC16",
+            "subject": "ITSA I",
+            "subject_name": "IT Skills and Data Analysis I",
+            "room": "CL2",
+            "type": "Practical/Lab"
+          }
+        ],
+        "Wednesday": [
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- 9. Economics-ITSA I-R37-A21-SEC20",
+            "course": "SEC",
+            "semester": "Sem I",
+            "section": "Joint",
+            "batch": "SEC20",
+            "subject": "ITSA I",
+            "subject_name": "IT Skills and Data Analysis I",
+            "room": "R37",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB- 10. Economics-ITSA I-R37-A21-SEC20",
+            "course": "SEC",
+            "semester": "Sem I",
+            "section": "Joint",
+            "batch": "SEC20",
+            "subject": "ITSA I",
+            "subject_name": "IT Skills and Data Analysis I",
+            "room": "R37",
+            "type": "Practical/Lab"
+          }
+        ],
+        "Thursday": [],
         "Friday": [
           {
             "slot": "2:00 PM to 3:00 PM",
@@ -976,27 +999,6 @@ window.SRCC_TEACHERS_DATA = {
             "type": "Practical/Lab"
           }
         ],
-        "Saturday": []
-      },
-      "official_department": "SRCC"
-    },
-    {
-      "id": "713",
-      "label": "Aditi Khanna (24)",
-      "name": "Aditi Khanna",
-      "clean_name": "Aditi Khanna",
-      "short_code": "24",
-      "ref_code": "24",
-      "initials": "AK",
-      "department": "Commerce",
-      "subjects_taught": [],
-      "total_teaching_periods": 0,
-      "schedule": {
-        "Monday": [],
-        "Tuesday": [],
-        "Wednesday": [],
-        "Thursday": [],
-        "Friday": [],
         "Saturday": []
       }
     },
@@ -2874,7 +2876,7 @@ window.SRCC_TEACHERS_DATA = {
       "subjects_taught": [
         "FINANCIAL MANAGEMENT)"
       ],
-      "total_teaching_periods": 17,
+      "total_teaching_periods": 16,
       "schedule": {
         "Monday": [
           {
@@ -2991,18 +2993,6 @@ window.SRCC_TEACHERS_DATA = {
             "type": "Practical/Lab"
           },
           {
-            "slot": "10:30 AM to 11:30 AM",
-            "raw": "LAB- Commerce-TA-T43-ALK",
-            "course": "M.Com",
-            "semester": "Sem III",
-            "section": "Sec A",
-            "batch": "",
-            "subject": "TA",
-            "subject_name": "Taxation & Accounting",
-            "room": "T43",
-            "type": "Practical/Lab"
-          },
-          {
             "slot": "11:30 AM to 12:30 PM",
             "raw": "LAB-MCOM-A-SEM IIICommerce-TA-ALK",
             "course": "M.Com",
@@ -3114,7 +3104,7 @@ window.SRCC_TEACHERS_DATA = {
         "VAC DIGITAL EMPOWERMENT)",
         "VAC ETHICS AND CULTURE)"
       ],
-      "total_teaching_periods": 21,
+      "total_teaching_periods": 9,
       "schedule": {
         "Monday": [
           {
@@ -3152,30 +3142,6 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Ethics and Culture",
             "room": "R32",
             "type": "Lecture"
-          },
-          {
-            "slot": "8:30 AM to 9:30 AM",
-            "raw": "L- Commerce-POM-R18-ASA",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec B",
-            "batch": "",
-            "subject": "POM",
-            "subject_name": "Principles of Marketing",
-            "room": "R18",
-            "type": "Lecture"
-          },
-          {
-            "slot": "9:30 AM to 10:30 AM",
-            "raw": "L- Commerce-POM-R21-ASA",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec H",
-            "batch": "",
-            "subject": "POM",
-            "subject_name": "Principles of Marketing",
-            "room": "R21",
-            "type": "Lecture"
           }
         ],
         "Tuesday": [
@@ -3202,54 +3168,6 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Business Intelligence and Data Visualisation",
             "room": "R23",
             "type": "Practical/Lab"
-          },
-          {
-            "slot": "8:30 AM to 9:30 AM",
-            "raw": "L- Commerce-POM-R18-ASA",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec H",
-            "batch": "",
-            "subject": "POM",
-            "subject_name": "Principles of Marketing",
-            "room": "R18",
-            "type": "Lecture"
-          },
-          {
-            "slot": "8:30 AM to 9:30 AM",
-            "raw": "L- Commerce-IMC-R16-NC",
-            "course": "B.Com (Hons)",
-            "semester": "Sem VII",
-            "section": "Sec A",
-            "batch": "",
-            "subject": "IMC",
-            "subject_name": "Integrated Marketing Communication",
-            "room": "R16",
-            "type": "Lecture"
-          },
-          {
-            "slot": "9:30 AM to 10:30 AM",
-            "raw": "L- 1. Commerce-IMC-SCR4-NC",
-            "course": "B.Com (Hons)",
-            "semester": "Sem VII",
-            "section": "Sec A",
-            "batch": "",
-            "subject": "IMC",
-            "subject_name": "Integrated Marketing Communication",
-            "room": "SCR4",
-            "type": "Lecture"
-          },
-          {
-            "slot": "11:30 AM to 12:30 PM",
-            "raw": "L- 2. Commerce-GE- MFB-R29-NC",
-            "course": "B.A. (Hons) Economics",
-            "semester": "Sem I",
-            "section": "Sec C",
-            "batch": "",
-            "subject": "GE",
-            "subject_name": "GE",
-            "room": "R29",
-            "type": "Lecture"
           }
         ],
         "Wednesday": [
@@ -3276,72 +3194,10 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Ethics and Culture",
             "room": "PB3",
             "type": "Practical/Lab"
-          },
-          {
-            "slot": "8:30 AM to 9:30 AM",
-            "raw": "L- Commerce-POM-R18-ASA",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec B",
-            "batch": "",
-            "subject": "POM",
-            "subject_name": "Principles of Marketing",
-            "room": "R18",
-            "type": "Lecture"
-          },
-          {
-            "slot": "12:30 PM to 1:30 PM",
-            "raw": "L- Commerce-GE- MFB-R29-NC",
-            "course": "B.A. (Hons) Economics",
-            "semester": "Sem I",
-            "section": "Sec C",
-            "batch": "",
-            "subject": "GE",
-            "subject_name": "GE",
-            "room": "R29",
-            "type": "Lecture"
           }
         ],
-        "Thursday": [
-          {
-            "slot": "8:30 AM to 9:30 AM",
-            "raw": "L- Commerce-POM-R18-ASA",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec H",
-            "batch": "",
-            "subject": "POM",
-            "subject_name": "Principles of Marketing",
-            "room": "R18",
-            "type": "Lecture"
-          }
-        ],
-        "Friday": [
-          {
-            "slot": "8:30 AM to 9:30 AM",
-            "raw": "L- Commerce-POM-R2-ASA",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec B",
-            "batch": "",
-            "subject": "POM",
-            "subject_name": "Principles of Marketing",
-            "room": "R2",
-            "type": "Lecture"
-          },
-          {
-            "slot": "9:30 AM to 10:30 AM",
-            "raw": "L- Commerce-GE- MFB-PB4-NC",
-            "course": "B.A. (Hons) Economics",
-            "semester": "Sem I",
-            "section": "Sec C",
-            "batch": "",
-            "subject": "GE",
-            "subject_name": "GE",
-            "room": "PB4",
-            "type": "Lecture"
-          }
-        ],
+        "Thursday": [],
+        "Friday": [],
         "Saturday": [
           {
             "slot": "11:30 AM to 12:30 PM",
@@ -3366,18 +3222,6 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Business Intelligence and Data Visualisation",
             "room": "R31",
             "type": "Practical/Lab"
-          },
-          {
-            "slot": "10:30 AM to 11:30 AM",
-            "raw": "L- Commerce-IMC-PB4-NC",
-            "course": "B.Com (Hons)",
-            "semester": "Sem VII",
-            "section": "Sec A",
-            "batch": "",
-            "subject": "IMC",
-            "subject_name": "Integrated Marketing Communication",
-            "room": "PB4",
-            "type": "Lecture"
           }
         ]
       },
@@ -3753,34 +3597,9 @@ window.SRCC_TEACHERS_DATA = {
         "PEOPLE MANAGEMENT)",
         "VAC-EMOTIONAL INTELLIGENCE"
       ],
-      "total_teaching_periods": 26,
+      "total_teaching_periods": 16,
       "schedule": {
-        "Monday": [
-          {
-            "slot": "2:00 PM to 3:00 PM",
-            "raw": "LAB- 6. Commerce-EI-R15-AJC-VAC16",
-            "course": "VAC",
-            "semester": "Sem I",
-            "section": "VAC-16",
-            "batch": "",
-            "subject": "EI",
-            "subject_name": "EI",
-            "room": "R15",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "3:00 PM to 4:00 PM",
-            "raw": "LAB- 5. Commerce-EI-R15-AJC-VAC16",
-            "course": "VAC",
-            "semester": "Sem I",
-            "section": "VAC-16",
-            "batch": "",
-            "subject": "EI",
-            "subject_name": "EI",
-            "room": "R15",
-            "type": "Practical/Lab"
-          }
-        ],
+        "Monday": [],
         "Tuesday": [
           {
             "slot": "9:30 AM to 10:30 AM",
@@ -3829,18 +3648,6 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Strategic Human Resource Management",
             "room": "T31",
             "type": "Tutorial"
-          },
-          {
-            "slot": "2:00 PM to 3:00 PM",
-            "raw": "L- 10. Commerce-EI-R14-AJC-VAC20",
-            "course": "VAC",
-            "semester": "Sem I",
-            "section": "VAC-20",
-            "batch": "",
-            "subject": "EI",
-            "subject_name": "EI",
-            "room": "R14",
-            "type": "Lecture"
           }
         ],
         "Wednesday": [
@@ -3879,54 +3686,6 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Business Mathematics",
             "room": "CL2",
             "type": "Lecture"
-          },
-          {
-            "slot": "2:00 PM to 3:00 PM",
-            "raw": "LAB- 14. Commerce-IE-PB4-AJC-SEC9",
-            "course": "SEC",
-            "semester": "Sem I",
-            "section": "SEC-9",
-            "batch": "",
-            "subject": "IE",
-            "subject_name": "IE",
-            "room": "PB4",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "3:00 PM to 4:00 PM",
-            "raw": "LAB- 15. Commerce-IE-PB4-AJC-SEC9",
-            "course": "SEC",
-            "semester": "Sem I",
-            "section": "SEC-9",
-            "batch": "",
-            "subject": "IE",
-            "subject_name": "IE",
-            "room": "PB4",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "4:00 PM to 5:00 PM",
-            "raw": "LAB- 9. Commerce-IE-PB4-AJC-SEC9",
-            "course": "SEC",
-            "semester": "Sem I",
-            "section": "SEC-9",
-            "batch": "",
-            "subject": "IE",
-            "subject_name": "IE",
-            "room": "PB4",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "5:00 PM to 6:00 PM",
-            "raw": "LAB- 8. Commerce-IE-PB4-AJC-SEC9",
-            "course": "SEC",
-            "semester": "Sem I",
-            "section": "SEC-9",
-            "batch": "",
-            "subject": "IE",
-            "subject_name": "IE",
-            "room": "PB4",
-            "type": "Practical/Lab"
           }
         ],
         "Thursday": [
@@ -3952,30 +3711,6 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "BMATH",
             "subject_name": "Business Mathematics",
             "room": "R13",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "2:00 PM to 3:00 PM",
-            "raw": "LAB- 7. Commerce-EI-R23-AJC-VAC20",
-            "course": "VAC",
-            "semester": "Sem I",
-            "section": "VAC-20",
-            "batch": "",
-            "subject": "EI",
-            "subject_name": "EI",
-            "room": "R23",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "3:00 PM to 4:00 PM",
-            "raw": "LAB- 7. Commerce-EI-R23-AJC-VAC20",
-            "course": "VAC",
-            "semester": "Sem I",
-            "section": "VAC-20",
-            "batch": "",
-            "subject": "EI",
-            "subject_name": "EI",
-            "room": "R23",
             "type": "Practical/Lab"
           }
         ],
@@ -4039,18 +3774,6 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Project Management",
             "room": "T25",
             "type": "Tutorial"
-          },
-          {
-            "slot": "2:00 PM to 3:00 PM",
-            "raw": "L- 2. Commerce-EI-R21-AJC-VAC16",
-            "course": "VAC",
-            "semester": "Sem I",
-            "section": "VAC-16",
-            "batch": "",
-            "subject": "EI",
-            "subject_name": "EI",
-            "room": "R21",
-            "type": "Lecture"
           }
         ],
         "Saturday": [
@@ -4093,7 +3816,7 @@ window.SRCC_TEACHERS_DATA = {
       "initials": "AV",
       "department": "Commerce",
       "subjects_taught": [],
-      "total_teaching_periods": 10,
+      "total_teaching_periods": 20,
       "schedule": {
         "Monday": [
           {
@@ -4119,6 +3842,30 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Emotional Intelligence",
             "room": "R15",
             "type": "Practical/Lab"
+          },
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- 6. Commerce-EI-R15-AJC-VAC16",
+            "course": "VAC",
+            "semester": "Sem I",
+            "section": "VAC-16",
+            "batch": "",
+            "subject": "EI",
+            "subject_name": "EI",
+            "room": "R15",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB- 5. Commerce-EI-R15-AJC-VAC16",
+            "course": "VAC",
+            "semester": "Sem I",
+            "section": "VAC-16",
+            "batch": "",
+            "subject": "EI",
+            "subject_name": "EI",
+            "room": "R15",
+            "type": "Practical/Lab"
           }
         ],
         "Tuesday": [
@@ -4131,6 +3878,18 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC20",
             "subject": "EI",
             "subject_name": "Emotional Intelligence",
+            "room": "R14",
+            "type": "Lecture"
+          },
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "L- 10. Commerce-EI-R14-AJC-VAC20",
+            "course": "VAC",
+            "semester": "Sem I",
+            "section": "VAC-20",
+            "batch": "",
+            "subject": "EI",
+            "subject_name": "EI",
             "room": "R14",
             "type": "Lecture"
           }
@@ -4183,6 +3942,54 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Innovation and Entrepreneurship",
             "room": "PB4",
             "type": "Practical/Lab"
+          },
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- 14. Commerce-IE-PB4-AJC-SEC9",
+            "course": "SEC",
+            "semester": "Sem I",
+            "section": "SEC-9",
+            "batch": "",
+            "subject": "IE",
+            "subject_name": "IE",
+            "room": "PB4",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB- 15. Commerce-IE-PB4-AJC-SEC9",
+            "course": "SEC",
+            "semester": "Sem I",
+            "section": "SEC-9",
+            "batch": "",
+            "subject": "IE",
+            "subject_name": "IE",
+            "room": "PB4",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "LAB- 9. Commerce-IE-PB4-AJC-SEC9",
+            "course": "SEC",
+            "semester": "Sem I",
+            "section": "SEC-9",
+            "batch": "",
+            "subject": "IE",
+            "subject_name": "IE",
+            "room": "PB4",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "5:00 PM to 6:00 PM",
+            "raw": "LAB- 8. Commerce-IE-PB4-AJC-SEC9",
+            "course": "SEC",
+            "semester": "Sem I",
+            "section": "SEC-9",
+            "batch": "",
+            "subject": "IE",
+            "subject_name": "IE",
+            "room": "PB4",
+            "type": "Practical/Lab"
           }
         ],
         "Thursday": [
@@ -4209,6 +4016,30 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Emotional Intelligence",
             "room": "R23",
             "type": "Practical/Lab"
+          },
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- 7. Commerce-EI-R23-AJC-VAC20",
+            "course": "VAC",
+            "semester": "Sem I",
+            "section": "VAC-20",
+            "batch": "",
+            "subject": "EI",
+            "subject_name": "EI",
+            "room": "R23",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB- 7. Commerce-EI-R23-AJC-VAC20",
+            "course": "VAC",
+            "semester": "Sem I",
+            "section": "VAC-20",
+            "batch": "",
+            "subject": "EI",
+            "subject_name": "EI",
+            "room": "R23",
+            "type": "Practical/Lab"
           }
         ],
         "Friday": [
@@ -4221,6 +4052,18 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "VAC16",
             "subject": "EI",
             "subject_name": "Emotional Intelligence",
+            "room": "R21",
+            "type": "Lecture"
+          },
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "L- 2. Commerce-EI-R21-AJC-VAC16",
+            "course": "VAC",
+            "semester": "Sem I",
+            "section": "VAC-16",
+            "batch": "",
+            "subject": "EI",
+            "subject_name": "EI",
             "room": "R21",
             "type": "Lecture"
           }
@@ -10538,12 +10381,87 @@ window.SRCC_TEACHERS_DATA = {
       "initials": "HG",
       "department": "Commerce",
       "subjects_taught": [],
-      "total_teaching_periods": 0,
+      "total_teaching_periods": 6,
       "schedule": {
-        "Monday": [],
-        "Tuesday": [],
+        "Monday": [
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "T- 2. Commerce-BLAW-T5-HGC-C3",
+            "course": "B.Com (Hons)",
+            "semester": "Sem I",
+            "section": "Sec C",
+            "batch": "C3",
+            "subject": "BLAW",
+            "subject_name": "Business Law",
+            "room": "T5",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "8:30 AM to 9:30 AM",
+            "raw": "L- Commerce-BLAW-R10-HGC",
+            "course": "B.Com (Hons)",
+            "semester": "Sem I",
+            "section": "Sec F",
+            "batch": "",
+            "subject": "BLAW",
+            "subject_name": "Business Law",
+            "room": "R10",
+            "type": "Lecture"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "T- 2. Commerce-BLAW-T17-HGC-K3",
+            "course": "B.Com (Hons)",
+            "semester": "Sem I",
+            "section": "Sec K",
+            "batch": "K3",
+            "subject": "BLAW",
+            "subject_name": "Business Law",
+            "room": "T17",
+            "type": "Tutorial"
+          }
+        ],
+        "Tuesday": [
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "T- 2. Commerce-BLAW-T17-HGC-E3",
+            "course": "B.Com (Hons)",
+            "semester": "Sem I",
+            "section": "Sec E",
+            "batch": "E3",
+            "subject": "BLAW",
+            "subject_name": "Business Law",
+            "room": "T17",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "8:30 AM to 9:30 AM",
+            "raw": "L- Commerce-BLAW-R10-HGC",
+            "course": "B.Com (Hons)",
+            "semester": "Sem I",
+            "section": "Sec F",
+            "batch": "",
+            "subject": "BLAW",
+            "subject_name": "Business Law",
+            "room": "R10",
+            "type": "Lecture"
+          }
+        ],
         "Wednesday": [],
-        "Thursday": [],
+        "Thursday": [
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "L- Commerce-BLAW-R3-HGC",
+            "course": "B.Com (Hons)",
+            "semester": "Sem I",
+            "section": "Sec F",
+            "batch": "",
+            "subject": "BLAW",
+            "subject_name": "Business Law",
+            "room": "R3",
+            "type": "Lecture"
+          }
+        ],
         "Friday": [],
         "Saturday": []
       },
@@ -10562,7 +10480,7 @@ window.SRCC_TEACHERS_DATA = {
         "ADVANCED MATHEMATICAL METHODS FORECONOMICS)",
         "SEC PERSONAL FINANCIAL PLANNING)"
       ],
-      "total_teaching_periods": 19,
+      "total_teaching_periods": 25,
       "schedule": {
         "Monday": [],
         "Tuesday": [
@@ -10699,6 +10617,30 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Advanced Mathematical Methods for Economics",
             "room": "R26",
             "type": "Lecture"
+          },
+          {
+            "slot": "12:30 PM to 1:30 PM",
+            "raw": "L- Economics-Adv MME-R24-HC",
+            "course": "B.A. (Hons) Eco",
+            "semester": "Sem I",
+            "section": "Main Section",
+            "batch": "",
+            "subject": "Adv MME",
+            "subject_name": "Adv MME",
+            "room": "R24",
+            "type": "Lecture"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "L- Economics-Adv MME-R26-HC",
+            "course": "B.A. (Hons) Eco",
+            "semester": "Sem I",
+            "section": "Main Section",
+            "batch": "",
+            "subject": "Adv MME",
+            "subject_name": "Adv MME",
+            "room": "R26",
+            "type": "Lecture"
           }
         ],
         "Thursday": [],
@@ -10750,6 +10692,30 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Advanced Mathematical Methods for Economics",
             "room": "R24",
             "type": "Lecture"
+          },
+          {
+            "slot": "11:30 AM to 12:30 PM",
+            "raw": "L- Economics-Adv MME-R24-HC",
+            "course": "B.A. (Hons) Eco",
+            "semester": "Sem I",
+            "section": "Main Section",
+            "batch": "",
+            "subject": "Adv MME",
+            "subject_name": "Adv MME",
+            "room": "R24",
+            "type": "Lecture"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "L- Economics-Adv MME-PB4-HC",
+            "course": "B.A. (Hons) Eco",
+            "semester": "Sem I",
+            "section": "Main Section",
+            "batch": "",
+            "subject": "Adv MME",
+            "subject_name": "Adv MME",
+            "room": "PB4",
+            "type": "Lecture"
           }
         ],
         "Saturday": [
@@ -10800,6 +10766,30 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Advanced Mathematical Methods for Economics",
             "room": "T16",
             "type": "Tutorial"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "L- Economics-Adv MME-R7-HC",
+            "course": "B.A. (Hons) Eco",
+            "semester": "Sem I",
+            "section": "Main Section",
+            "batch": "",
+            "subject": "Adv MME",
+            "subject_name": "Adv MME",
+            "room": "R7",
+            "type": "Lecture"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "L- Economics-Adv MME-R25-HC",
+            "course": "B.A. (Hons) Eco",
+            "semester": "Sem I",
+            "section": "Main Section",
+            "batch": "",
+            "subject": "Adv MME",
+            "subject_name": "Adv MME",
+            "room": "R25",
+            "type": "Lecture"
           }
         ]
       },
@@ -10818,71 +10808,10 @@ window.SRCC_TEACHERS_DATA = {
         "BUSINESS LAWS)",
         "INCOME TAX LAW AND PRACTICE)"
       ],
-      "total_teaching_periods": 13,
+      "total_teaching_periods": 7,
       "schedule": {
-        "Monday": [
-          {
-            "slot": "10:30 AM to 11:30 AM",
-            "raw": "T- 2. Commerce-BLAW-T5-HGC-C3",
-            "course": "B.Com (Hons)",
-            "semester": "Sem I",
-            "section": "Sec C",
-            "batch": "C3",
-            "subject": "BLAW",
-            "subject_name": "Business Law",
-            "room": "T5",
-            "type": "Tutorial"
-          },
-          {
-            "slot": "8:30 AM to 9:30 AM",
-            "raw": "L- Commerce-BLAW-R10-HGC",
-            "course": "B.Com (Hons)",
-            "semester": "Sem I",
-            "section": "Sec F",
-            "batch": "",
-            "subject": "BLAW",
-            "subject_name": "Business Law",
-            "room": "R10",
-            "type": "Lecture"
-          },
-          {
-            "slot": "9:30 AM to 10:30 AM",
-            "raw": "T- 2. Commerce-BLAW-T17-HGC-K3",
-            "course": "B.Com (Hons)",
-            "semester": "Sem I",
-            "section": "Sec K",
-            "batch": "K3",
-            "subject": "BLAW",
-            "subject_name": "Business Law",
-            "room": "T17",
-            "type": "Tutorial"
-          }
-        ],
+        "Monday": [],
         "Tuesday": [
-          {
-            "slot": "9:30 AM to 10:30 AM",
-            "raw": "T- 2. Commerce-BLAW-T17-HGC-E3",
-            "course": "B.Com (Hons)",
-            "semester": "Sem I",
-            "section": "Sec E",
-            "batch": "E3",
-            "subject": "BLAW",
-            "subject_name": "Business Law",
-            "room": "T17",
-            "type": "Tutorial"
-          },
-          {
-            "slot": "8:30 AM to 9:30 AM",
-            "raw": "L- Commerce-BLAW-R10-HGC",
-            "course": "B.Com (Hons)",
-            "semester": "Sem I",
-            "section": "Sec F",
-            "batch": "",
-            "subject": "BLAW",
-            "subject_name": "Business Law",
-            "room": "R10",
-            "type": "Lecture"
-          },
           {
             "slot": "8:30 AM to 9:30 AM",
             "raw": "LAB- 1. Commerce-ITLP-R29-HGC-BP1",
@@ -10946,20 +10875,7 @@ window.SRCC_TEACHERS_DATA = {
             "type": "Practical/Lab"
           }
         ],
-        "Thursday": [
-          {
-            "slot": "10:30 AM to 11:30 AM",
-            "raw": "L- Commerce-BLAW-R3-HGC",
-            "course": "B.Com (Hons)",
-            "semester": "Sem I",
-            "section": "Sec F",
-            "batch": "",
-            "subject": "BLAW",
-            "subject_name": "Business Law",
-            "room": "R3",
-            "type": "Lecture"
-          }
-        ],
+        "Thursday": [],
         "Friday": [],
         "Saturday": [
           {
@@ -11003,7 +10919,7 @@ window.SRCC_TEACHERS_DATA = {
         "DIGITALISATION AND DEVELOPMENT)",
         "PRINCIPLES OF MICROECONOMICS-I)"
       ],
-      "total_teaching_periods": 22,
+      "total_teaching_periods": 16,
       "schedule": {
         "Monday": [
           {
@@ -11129,30 +11045,6 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Principles of Microeconomics I",
             "room": "CL2",
             "type": "Lecture"
-          },
-          {
-            "slot": "12:30 PM to 1:30 PM",
-            "raw": "L- Economics-Adv MME-R24-HC",
-            "course": "B.A. (Hons) Eco",
-            "semester": "Sem I",
-            "section": "Main Section",
-            "batch": "",
-            "subject": "Adv MME",
-            "subject_name": "Adv MME",
-            "room": "R24",
-            "type": "Lecture"
-          },
-          {
-            "slot": "10:30 AM to 11:30 AM",
-            "raw": "L- Economics-Adv MME-R26-HC",
-            "course": "B.A. (Hons) Eco",
-            "semester": "Sem I",
-            "section": "Main Section",
-            "batch": "",
-            "subject": "Adv MME",
-            "subject_name": "Adv MME",
-            "room": "R26",
-            "type": "Lecture"
           }
         ],
         "Thursday": [
@@ -11229,58 +11121,9 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Principles of Microeconomics I",
             "room": "R1",
             "type": "Lecture"
-          },
-          {
-            "slot": "11:30 AM to 12:30 PM",
-            "raw": "L- Economics-Adv MME-R24-HC",
-            "course": "B.A. (Hons) Eco",
-            "semester": "Sem I",
-            "section": "Main Section",
-            "batch": "",
-            "subject": "Adv MME",
-            "subject_name": "Adv MME",
-            "room": "R24",
-            "type": "Lecture"
-          },
-          {
-            "slot": "10:30 AM to 11:30 AM",
-            "raw": "L- Economics-Adv MME-PB4-HC",
-            "course": "B.A. (Hons) Eco",
-            "semester": "Sem I",
-            "section": "Main Section",
-            "batch": "",
-            "subject": "Adv MME",
-            "subject_name": "Adv MME",
-            "room": "PB4",
-            "type": "Lecture"
           }
         ],
-        "Saturday": [
-          {
-            "slot": "10:30 AM to 11:30 AM",
-            "raw": "L- Economics-Adv MME-R7-HC",
-            "course": "B.A. (Hons) Eco",
-            "semester": "Sem I",
-            "section": "Main Section",
-            "batch": "",
-            "subject": "Adv MME",
-            "subject_name": "Adv MME",
-            "room": "R7",
-            "type": "Lecture"
-          },
-          {
-            "slot": "9:30 AM to 10:30 AM",
-            "raw": "L- Economics-Adv MME-R25-HC",
-            "course": "B.A. (Hons) Eco",
-            "semester": "Sem I",
-            "section": "Main Section",
-            "batch": "",
-            "subject": "Adv MME",
-            "subject_name": "Adv MME",
-            "room": "R25",
-            "type": "Lecture"
-          }
-        ]
+        "Saturday": []
       },
       "email": "himanshi.aggarwal@srcc.du.ac.in",
       "official_department": "Economics Department"
@@ -13796,7 +13639,7 @@ window.SRCC_TEACHERS_DATA = {
       "subjects_taught": [
         "BUSINESS LAWS)"
       ],
-      "total_teaching_periods": 13,
+      "total_teaching_periods": 12,
       "schedule": {
         "Monday": [
           {
@@ -13912,18 +13755,6 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Business Law",
             "room": "R1",
             "type": "Lecture"
-          },
-          {
-            "slot": "11:30 AM to 12:30 PM",
-            "raw": "T- Commerce-BSC-T27-KIJ",
-            "course": "M.Com",
-            "semester": "Sem I",
-            "section": "Sec A",
-            "batch": "",
-            "subject": "BSC",
-            "subject_name": "Business Communication",
-            "room": "T27",
-            "type": "Tutorial"
           },
           {
             "slot": "12:30 PM to 1:30 PM",
@@ -15646,7 +15477,7 @@ window.SRCC_TEACHERS_DATA = {
         "ADVANCED MATHEMATICAL METHODS",
         "ADVANCED MATHEMATICAL METHODS FORECONOMICS)"
       ],
-      "total_teaching_periods": 10,
+      "total_teaching_periods": 20,
       "schedule": {
         "Monday": [],
         "Tuesday": [],
@@ -15685,6 +15516,42 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "Adv MME",
             "subject_name": "Advanced Mathematical Methods for Economics",
             "room": "R26",
+            "type": "Lecture"
+          },
+          {
+            "slot": "11:30 AM to 12:30 PM",
+            "raw": "L- Economics-Adv MME-R26-MG 15",
+            "course": "B.A. (Hons) Eco",
+            "semester": "Sem I",
+            "section": "Main Section",
+            "batch": "",
+            "subject": "Adv MME",
+            "subject_name": "Adv MME",
+            "room": "R26",
+            "type": "Lecture"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "T- 3. Economics-Adv MME-R37-MG 15-B2",
+            "course": "B.A. (Hons) Eco",
+            "semester": "Sem I",
+            "section": "Main Section",
+            "batch": "",
+            "subject": "Adv MME",
+            "subject_name": "Adv MME",
+            "room": "R37",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "L- Economics-Adv MME-PB4-MG 15",
+            "course": "B.A. (Hons) Eco",
+            "semester": "Sem I",
+            "section": "Main Section",
+            "batch": "",
+            "subject": "Adv MME",
+            "subject_name": "Adv MME",
+            "room": "PB4",
             "type": "Lecture"
           }
         ],
@@ -15737,6 +15604,54 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Advanced Mathematical Methods for Economics",
             "room": "R24",
             "type": "Lecture"
+          },
+          {
+            "slot": "12:30 PM to 1:30 PM",
+            "raw": "L- Economics-Adv MME-R24-MG 15",
+            "course": "B.A. (Hons) Eco",
+            "semester": "Sem I",
+            "section": "Main Section",
+            "batch": "",
+            "subject": "Adv MME",
+            "subject_name": "Adv MME",
+            "room": "R24",
+            "type": "Lecture"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "L- Economics-Adv MME-R24-MG 15",
+            "course": "B.A. (Hons) Eco",
+            "semester": "Sem I",
+            "section": "Main Section",
+            "batch": "",
+            "subject": "Adv MME",
+            "subject_name": "Adv MME",
+            "room": "R24",
+            "type": "Lecture"
+          },
+          {
+            "slot": "11:30 AM to 12:30 PM",
+            "raw": "T- 2. Economics-Adv MME-T3-MG 15-B1",
+            "course": "B.A. (Hons) Eco",
+            "semester": "Sem I",
+            "section": "Main Section",
+            "batch": "",
+            "subject": "Adv MME",
+            "subject_name": "Adv MME",
+            "room": "T3",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "T- 1. Economics-Adv MME-T49-MG 15-D2",
+            "course": "B.A. (Hons) Eco",
+            "semester": "Sem I",
+            "section": "Main Section",
+            "batch": "",
+            "subject": "Adv MME",
+            "subject_name": "Adv MME",
+            "room": "T49",
+            "type": "Tutorial"
           }
         ],
         "Saturday": [
@@ -15775,6 +15690,42 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Advanced Mathematical Methods for Economics",
             "room": "R23",
             "type": "Lecture"
+          },
+          {
+            "slot": "11:30 AM to 12:30 PM",
+            "raw": "L- Economics-Adv MME-R23-MG 15",
+            "course": "B.A. (Hons) Eco",
+            "semester": "Sem I",
+            "section": "Main Section",
+            "batch": "",
+            "subject": "Adv MME",
+            "subject_name": "Adv MME",
+            "room": "R23",
+            "type": "Lecture"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "L- Economics-Adv MME-R24-MG 15",
+            "course": "B.A. (Hons) Eco",
+            "semester": "Sem I",
+            "section": "Main Section",
+            "batch": "",
+            "subject": "Adv MME",
+            "subject_name": "Adv MME",
+            "room": "R24",
+            "type": "Lecture"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "T- 2. Economics-Adv MME-T3-MG 15-D1",
+            "course": "B.A. (Hons) Eco",
+            "semester": "Sem I",
+            "section": "Main Section",
+            "batch": "",
+            "subject": "Adv MME",
+            "subject_name": "Adv MME",
+            "room": "T3",
+            "type": "Tutorial"
           }
         ]
       },
@@ -17129,7 +17080,7 @@ window.SRCC_TEACHERS_DATA = {
         "DIGITALISATION AND DEVELOPMENT)",
         "GE-ESSENTIALS OF ECONOMICS)"
       ],
-      "total_teaching_periods": 26,
+      "total_teaching_periods": 16,
       "schedule": {
         "Monday": [
           {
@@ -17243,42 +17194,6 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Digitalisation and Development",
             "room": "T54",
             "type": "Tutorial"
-          },
-          {
-            "slot": "11:30 AM to 12:30 PM",
-            "raw": "L- Economics-Adv MME-R26-MG 15",
-            "course": "B.A. (Hons) Eco",
-            "semester": "Sem I",
-            "section": "Main Section",
-            "batch": "",
-            "subject": "Adv MME",
-            "subject_name": "Adv MME",
-            "room": "R26",
-            "type": "Lecture"
-          },
-          {
-            "slot": "10:30 AM to 11:30 AM",
-            "raw": "T- 3. Economics-Adv MME-R37-MG 15-B2",
-            "course": "B.A. (Hons) Eco",
-            "semester": "Sem I",
-            "section": "Main Section",
-            "batch": "",
-            "subject": "Adv MME",
-            "subject_name": "Adv MME",
-            "room": "R37",
-            "type": "Tutorial"
-          },
-          {
-            "slot": "9:30 AM to 10:30 AM",
-            "raw": "L- Economics-Adv MME-PB4-MG 15",
-            "course": "B.A. (Hons) Eco",
-            "semester": "Sem I",
-            "section": "Main Section",
-            "batch": "",
-            "subject": "Adv MME",
-            "subject_name": "Adv MME",
-            "room": "PB4",
-            "type": "Lecture"
           }
         ],
         "Thursday": [
@@ -17367,94 +17282,9 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Digitalisation and Development",
             "room": "T54",
             "type": "Tutorial"
-          },
-          {
-            "slot": "12:30 PM to 1:30 PM",
-            "raw": "L- Economics-Adv MME-R24-MG 15",
-            "course": "B.A. (Hons) Eco",
-            "semester": "Sem I",
-            "section": "Main Section",
-            "batch": "",
-            "subject": "Adv MME",
-            "subject_name": "Adv MME",
-            "room": "R24",
-            "type": "Lecture"
-          },
-          {
-            "slot": "10:30 AM to 11:30 AM",
-            "raw": "L- Economics-Adv MME-R24-MG 15",
-            "course": "B.A. (Hons) Eco",
-            "semester": "Sem I",
-            "section": "Main Section",
-            "batch": "",
-            "subject": "Adv MME",
-            "subject_name": "Adv MME",
-            "room": "R24",
-            "type": "Lecture"
-          },
-          {
-            "slot": "11:30 AM to 12:30 PM",
-            "raw": "T- 2. Economics-Adv MME-T3-MG 15-B1",
-            "course": "B.A. (Hons) Eco",
-            "semester": "Sem I",
-            "section": "Main Section",
-            "batch": "",
-            "subject": "Adv MME",
-            "subject_name": "Adv MME",
-            "room": "T3",
-            "type": "Tutorial"
-          },
-          {
-            "slot": "9:30 AM to 10:30 AM",
-            "raw": "T- 1. Economics-Adv MME-T49-MG 15-D2",
-            "course": "B.A. (Hons) Eco",
-            "semester": "Sem I",
-            "section": "Main Section",
-            "batch": "",
-            "subject": "Adv MME",
-            "subject_name": "Adv MME",
-            "room": "T49",
-            "type": "Tutorial"
           }
         ],
-        "Saturday": [
-          {
-            "slot": "11:30 AM to 12:30 PM",
-            "raw": "L- Economics-Adv MME-R23-MG 15",
-            "course": "B.A. (Hons) Eco",
-            "semester": "Sem I",
-            "section": "Main Section",
-            "batch": "",
-            "subject": "Adv MME",
-            "subject_name": "Adv MME",
-            "room": "R23",
-            "type": "Lecture"
-          },
-          {
-            "slot": "10:30 AM to 11:30 AM",
-            "raw": "L- Economics-Adv MME-R24-MG 15",
-            "course": "B.A. (Hons) Eco",
-            "semester": "Sem I",
-            "section": "Main Section",
-            "batch": "",
-            "subject": "Adv MME",
-            "subject_name": "Adv MME",
-            "room": "R24",
-            "type": "Lecture"
-          },
-          {
-            "slot": "9:30 AM to 10:30 AM",
-            "raw": "T- 2. Economics-Adv MME-T3-MG 15-D1",
-            "course": "B.A. (Hons) Eco",
-            "semester": "Sem I",
-            "section": "Main Section",
-            "batch": "",
-            "subject": "Adv MME",
-            "subject_name": "Adv MME",
-            "room": "T3",
-            "type": "Tutorial"
-          }
-        ]
+        "Saturday": []
       },
       "email": "monika.gaur@srcc.du.ac.in",
       "official_department": "Economics Department"
@@ -20954,7 +20784,7 @@ window.SRCC_TEACHERS_DATA = {
         "MANAGEMENT PRINCIPLES AND APPLICATIONS)",
         "PERFOMANCE MANAGEMENT)"
       ],
-      "total_teaching_periods": 19,
+      "total_teaching_periods": 16,
       "schedule": {
         "Monday": [
           {
@@ -21017,18 +20847,6 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "FA",
             "subject_name": "Financial Accounting",
             "room": "R22",
-            "type": "Lecture"
-          },
-          {
-            "slot": "10:30 AM to 11:30 AM",
-            "raw": "L- Commerce-PM-R37-PKC",
-            "course": "B.Com (Hons)",
-            "semester": "Sem VII",
-            "section": "Sec A",
-            "batch": "",
-            "subject": "PM",
-            "subject_name": "Project Management",
-            "room": "R37",
             "type": "Lecture"
           }
         ],
@@ -21118,30 +20936,6 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Financial Accounting",
             "room": "T8",
             "type": "Practical/Lab"
-          },
-          {
-            "slot": "9:30 AM to 10:30 AM",
-            "raw": "L- Commerce-PM-R30-PKC",
-            "course": "B.Com (Hons)",
-            "semester": "Sem VII",
-            "section": "Sec A",
-            "batch": "",
-            "subject": "PM",
-            "subject_name": "Project Management",
-            "room": "R30",
-            "type": "Lecture"
-          },
-          {
-            "slot": "10:30 AM to 11:30 AM",
-            "raw": "L- Commerce-PM-R4-PKC",
-            "course": "B.Com (Hons)",
-            "semester": "Sem VII",
-            "section": "Sec A",
-            "batch": "",
-            "subject": "PM",
-            "subject_name": "Project Management",
-            "room": "R4",
-            "type": "Lecture"
           }
         ],
         "Friday": [
@@ -21209,7 +21003,7 @@ window.SRCC_TEACHERS_DATA = {
       "initials": "PA",
       "department": "Commerce",
       "subjects_taught": [],
-      "total_teaching_periods": 3,
+      "total_teaching_periods": 6,
       "schedule": {
         "Monday": [],
         "Tuesday": [
@@ -21222,6 +21016,18 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "subject": "PM",
             "subject_name": "PM",
+            "room": "R37",
+            "type": "Lecture"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "L- Commerce-PM-R37-PKC",
+            "course": "B.Com (Hons)",
+            "semester": "Sem VII",
+            "section": "Sec A",
+            "batch": "",
+            "subject": "PM",
+            "subject_name": "Project Management",
             "room": "R37",
             "type": "Lecture"
           }
@@ -21250,6 +21056,30 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "PM",
             "subject_name": "PM",
             "room": "R30",
+            "type": "Lecture"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "L- Commerce-PM-R30-PKC",
+            "course": "B.Com (Hons)",
+            "semester": "Sem VII",
+            "section": "Sec A",
+            "batch": "",
+            "subject": "PM",
+            "subject_name": "Project Management",
+            "room": "R30",
+            "type": "Lecture"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "L- Commerce-PM-R4-PKC",
+            "course": "B.Com (Hons)",
+            "semester": "Sem VII",
+            "section": "Sec A",
+            "batch": "",
+            "subject": "PM",
+            "subject_name": "Project Management",
+            "room": "R4",
             "type": "Lecture"
           }
         ],
@@ -21642,7 +21472,7 @@ window.SRCC_TEACHERS_DATA = {
         "HINDI-A)",
         "HINDI-B)"
       ],
-      "total_teaching_periods": 20,
+      "total_teaching_periods": 14,
       "schedule": {
         "Monday": [
           {
@@ -21683,30 +21513,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ],
         "Tuesday": [
-          {
-            "slot": "10:30 AM to 11:30 AM",
-            "raw": "L- Hindi-HB-R15-RKS",
-            "course": "B.Com (Hons)",
-            "semester": "Sem I",
-            "section": "Sec D",
-            "batch": "",
-            "subject": "HB",
-            "subject_name": "Hindi-B",
-            "room": "R15",
-            "type": "Lecture"
-          },
-          {
-            "slot": "11:30 AM to 12:30 PM",
-            "raw": "L- Hindi-HB-R15-RKS",
-            "course": "B.Com (Hons)",
-            "semester": "Sem I",
-            "section": "Sec D",
-            "batch": "",
-            "subject": "HB",
-            "subject_name": "Hindi-B",
-            "room": "R15",
-            "type": "Lecture"
-          },
           {
             "slot": "9:30 AM to 10:30 AM",
             "raw": "LAB- 1. Commerce-FA-CL2-RKS-CP1",
@@ -21768,30 +21574,6 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Financial Accounting",
             "room": "T35",
             "type": "Practical/Lab"
-          },
-          {
-            "slot": "8:30 AM to 9:30 AM",
-            "raw": "L- Hindi-HB-R30-RKS",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec C",
-            "batch": "",
-            "subject": "HB",
-            "subject_name": "Hindi-B",
-            "room": "R30",
-            "type": "Lecture"
-          },
-          {
-            "slot": "9:30 AM to 10:30 AM",
-            "raw": "L- Hindi-HB-SCR1-RKS",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec C",
-            "batch": "",
-            "subject": "HB",
-            "subject_name": "Hindi-B",
-            "room": "SCR1",
-            "type": "Lecture"
           }
         ],
         "Thursday": [
@@ -21818,30 +21600,6 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Financial Accounting",
             "room": "T36",
             "type": "Practical/Lab"
-          },
-          {
-            "slot": "10:30 AM to 11:30 AM",
-            "raw": "L- Hindi-HB-R26-RKS",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec B",
-            "batch": "",
-            "subject": "HB",
-            "subject_name": "Hindi-B",
-            "room": "R26",
-            "type": "Lecture"
-          },
-          {
-            "slot": "12:30 PM to 1:30 PM",
-            "raw": "L- Hindi-HB-R30-RKS",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec B",
-            "batch": "",
-            "subject": "HB",
-            "subject_name": "Hindi-B",
-            "room": "R30",
-            "type": "Lecture"
           }
         ],
         "Friday": [
@@ -22127,7 +21885,7 @@ window.SRCC_TEACHERS_DATA = {
       "initials": "RS",
       "department": "Commerce",
       "subjects_taught": [],
-      "total_teaching_periods": 10,
+      "total_teaching_periods": 16,
       "schedule": {
         "Monday": [
           {
@@ -22179,6 +21937,30 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "HB",
             "room": "R15",
             "type": "Lecture"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "L- Hindi-HB-R15-RKS",
+            "course": "B.Com (Hons)",
+            "semester": "Sem I",
+            "section": "Sec D",
+            "batch": "",
+            "subject": "HB",
+            "subject_name": "Hindi-B",
+            "room": "R15",
+            "type": "Lecture"
+          },
+          {
+            "slot": "11:30 AM to 12:30 PM",
+            "raw": "L- Hindi-HB-R15-RKS",
+            "course": "B.Com (Hons)",
+            "semester": "Sem I",
+            "section": "Sec D",
+            "batch": "",
+            "subject": "HB",
+            "subject_name": "Hindi-B",
+            "room": "R15",
+            "type": "Lecture"
           }
         ],
         "Wednesday": [
@@ -22205,6 +21987,30 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "HB",
             "room": "SCR1",
             "type": "Lecture"
+          },
+          {
+            "slot": "8:30 AM to 9:30 AM",
+            "raw": "L- Hindi-HB-R30-RKS",
+            "course": "B.Com (Hons)",
+            "semester": "Sem III",
+            "section": "Sec C",
+            "batch": "",
+            "subject": "HB",
+            "subject_name": "Hindi-B",
+            "room": "R30",
+            "type": "Lecture"
+          },
+          {
+            "slot": "9:30 AM to 10:30 AM",
+            "raw": "L- Hindi-HB-SCR1-RKS",
+            "course": "B.Com (Hons)",
+            "semester": "Sem III",
+            "section": "Sec C",
+            "batch": "",
+            "subject": "HB",
+            "subject_name": "Hindi-B",
+            "room": "SCR1",
+            "type": "Lecture"
           }
         ],
         "Thursday": [
@@ -22229,6 +22035,30 @@ window.SRCC_TEACHERS_DATA = {
             "batch": "",
             "subject": "HB",
             "subject_name": "HB",
+            "room": "R30",
+            "type": "Lecture"
+          },
+          {
+            "slot": "10:30 AM to 11:30 AM",
+            "raw": "L- Hindi-HB-R26-RKS",
+            "course": "B.Com (Hons)",
+            "semester": "Sem III",
+            "section": "Sec B",
+            "batch": "",
+            "subject": "HB",
+            "subject_name": "Hindi-B",
+            "room": "R26",
+            "type": "Lecture"
+          },
+          {
+            "slot": "12:30 PM to 1:30 PM",
+            "raw": "L- Hindi-HB-R30-RKS",
+            "course": "B.Com (Hons)",
+            "semester": "Sem III",
+            "section": "Sec B",
+            "batch": "",
+            "subject": "HB",
+            "subject_name": "Hindi-B",
             "room": "R30",
             "type": "Lecture"
           }
@@ -24730,9 +24560,34 @@ window.SRCC_TEACHERS_DATA = {
       "initials": "SK",
       "department": "Commerce",
       "subjects_taught": [],
-      "total_teaching_periods": 3,
+      "total_teaching_periods": 7,
       "schedule": {
-        "Monday": [],
+        "Monday": [
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- 7. Commerce-DE-R22-SKC-VAC18",
+            "course": "VAC",
+            "semester": "Sem I",
+            "section": "Joint",
+            "batch": "VAC18",
+            "subject": "DE",
+            "subject_name": "Digital Empowerment",
+            "room": "R22",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB- 6. Commerce-DE-R22-SKC-VAC18",
+            "course": "VAC",
+            "semester": "Sem I",
+            "section": "Joint",
+            "batch": "VAC18",
+            "subject": "DE",
+            "subject_name": "Digital Empowerment",
+            "room": "R22",
+            "type": "Practical/Lab"
+          }
+        ],
         "Tuesday": [],
         "Wednesday": [
           {
@@ -24748,7 +24603,32 @@ window.SRCC_TEACHERS_DATA = {
             "type": "Lecture"
           }
         ],
-        "Thursday": [],
+        "Thursday": [
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB- 8. Commerce-DE-R24-SKC-VAC18",
+            "course": "VAC",
+            "semester": "Sem I",
+            "section": "Joint",
+            "batch": "VAC18",
+            "subject": "DE",
+            "subject_name": "Digital Empowerment",
+            "room": "R24",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB- 8. Commerce-DE-R24-SKC-VAC18",
+            "course": "VAC",
+            "semester": "Sem I",
+            "section": "Joint",
+            "batch": "VAC18",
+            "subject": "DE",
+            "subject_name": "Digital Empowerment",
+            "room": "R24",
+            "type": "Practical/Lab"
+          }
+        ],
         "Friday": [
           {
             "slot": "11:30 AM to 12:30 PM",
@@ -26476,33 +26356,9 @@ window.SRCC_TEACHERS_DATA = {
         "READING INDIAN FICTION IN ENGLISH)",
         "VAC DIGITAL EMPOWERMENT)"
       ],
-      "total_teaching_periods": 20,
+      "total_teaching_periods": 15,
       "schedule": {
         "Monday": [
-          {
-            "slot": "2:00 PM to 3:00 PM",
-            "raw": "LAB- 7. Commerce-DE-R22-SKC-VAC18",
-            "course": "VAC",
-            "semester": "Sem I",
-            "section": "Joint",
-            "batch": "VAC18",
-            "subject": "DE",
-            "subject_name": "Digital Empowerment",
-            "room": "R22",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "3:00 PM to 4:00 PM",
-            "raw": "LAB- 6. Commerce-DE-R22-SKC-VAC18",
-            "course": "VAC",
-            "semester": "Sem I",
-            "section": "Joint",
-            "batch": "VAC18",
-            "subject": "DE",
-            "subject_name": "Digital Empowerment",
-            "room": "R22",
-            "type": "Practical/Lab"
-          },
           {
             "slot": "12:30 PM to 1:30 PM",
             "raw": "L- 10. English-RIFE-R20-SKC-VAC30",
@@ -26618,30 +26474,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Thursday": [
           {
-            "slot": "2:00 PM to 3:00 PM",
-            "raw": "LAB- 8. Commerce-DE-R24-SKC-VAC18",
-            "course": "VAC",
-            "semester": "Sem I",
-            "section": "Joint",
-            "batch": "VAC18",
-            "subject": "DE",
-            "subject_name": "Digital Empowerment",
-            "room": "R24",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "3:00 PM to 4:00 PM",
-            "raw": "LAB- 8. Commerce-DE-R24-SKC-VAC18",
-            "course": "VAC",
-            "semester": "Sem I",
-            "section": "Joint",
-            "batch": "VAC18",
-            "subject": "DE",
-            "subject_name": "Digital Empowerment",
-            "room": "R24",
-            "type": "Practical/Lab"
-          },
-          {
             "slot": "12:30 PM to 1:30 PM",
             "raw": "L- 1. English-GF-R14-SKC",
             "course": "B.Com (Hons)",
@@ -26676,18 +26508,6 @@ window.SRCC_TEACHERS_DATA = {
             "subject_name": "Global Finance",
             "room": "T2",
             "type": "Tutorial"
-          },
-          {
-            "slot": "3:00 PM to 4:00 PM",
-            "raw": "LAB- Commerce-BRM-T1-SKC",
-            "course": "M.Com",
-            "semester": "Sem I",
-            "section": "Sec A",
-            "batch": "",
-            "subject": "BRM",
-            "subject_name": "Brand Management",
-            "room": "T1",
-            "type": "Practical/Lab"
           }
         ],
         "Friday": [
@@ -29216,34 +29036,9 @@ window.SRCC_TEACHERS_DATA = {
         "SEC COMMUNICATION IN PROFESSIONAL LIFE)",
         "VAC DIGITAL EMPOWERMENT"
       ],
-      "total_teaching_periods": 22,
+      "total_teaching_periods": 12,
       "schedule": {
-        "Monday": [
-          {
-            "slot": "2:00 PM to 3:00 PM",
-            "raw": "LAB- 8. Commerce-DE-PB3-SOC-VAC21",
-            "course": "VAC",
-            "semester": "Sem I",
-            "section": "Joint",
-            "batch": "VAC21",
-            "subject": "DE",
-            "subject_name": "Digital Empowerment",
-            "room": "PB3",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "3:00 PM to 4:00 PM",
-            "raw": "LAB- 7. Commerce-DE-PB3-SOC-VAC21",
-            "course": "VAC",
-            "semester": "Sem I",
-            "section": "Joint",
-            "batch": "VAC21",
-            "subject": "DE",
-            "subject_name": "Digital Empowerment",
-            "room": "PB3",
-            "type": "Practical/Lab"
-          }
-        ],
+        "Monday": [],
         "Tuesday": [
           {
             "slot": "2:00 PM to 3:00 PM",
@@ -29270,30 +29065,6 @@ window.SRCC_TEACHERS_DATA = {
             "type": "Practical/Lab"
           },
           {
-            "slot": "2:00 PM to 3:00 PM",
-            "raw": "LAB- 9. Commerce-DE-R35-SOC-VAC17",
-            "course": "VAC",
-            "semester": "Sem I",
-            "section": "Joint",
-            "batch": "VAC17",
-            "subject": "DE",
-            "subject_name": "Digital Empowerment",
-            "room": "R35",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "3:00 PM to 4:00 PM",
-            "raw": "LAB- 8. Commerce-DE-R35-SOC-VAC17",
-            "course": "VAC",
-            "semester": "Sem I",
-            "section": "Joint",
-            "batch": "VAC17",
-            "subject": "DE",
-            "subject_name": "Digital Empowerment",
-            "room": "R35",
-            "type": "Practical/Lab"
-          },
-          {
             "slot": "12:30 PM to 1:30 PM",
             "raw": "L- 3. English-RIDL-R4-SOC",
             "course": "B.Com (Hons)",
@@ -29307,54 +29078,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ],
         "Wednesday": [
-          {
-            "slot": "2:00 PM to 3:00 PM",
-            "raw": "LAB- 4. Commerce-BIDV-R32-SOC-SEC11",
-            "course": "SEC",
-            "semester": "Sem I",
-            "section": "Joint",
-            "batch": "SEC11",
-            "subject": "BIDV",
-            "subject_name": "Business Intelligence and Data Visualisation",
-            "room": "R32",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "3:00 PM to 4:00 PM",
-            "raw": "LAB- 5. Commerce-BIDV-R32-SOC-SEC11",
-            "course": "SEC",
-            "semester": "Sem I",
-            "section": "Joint",
-            "batch": "SEC11",
-            "subject": "BIDV",
-            "subject_name": "Business Intelligence and Data Visualisation",
-            "room": "R32",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "4:00 PM to 5:00 PM",
-            "raw": "LAB- 1. Commerce-BIDV-R32-SOC-SEC11",
-            "course": "SEC",
-            "semester": "Sem I",
-            "section": "Joint",
-            "batch": "SEC11",
-            "subject": "BIDV",
-            "subject_name": "Business Intelligence and Data Visualisation",
-            "room": "R32",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "5:00 PM to 6:00 PM",
-            "raw": "LAB- 1. Commerce-BIDV-R32-SOC-SEC11",
-            "course": "SEC",
-            "semester": "Sem I",
-            "section": "Joint",
-            "batch": "SEC11",
-            "subject": "BIDV",
-            "subject_name": "Business Intelligence and Data Visualisation",
-            "room": "R32",
-            "type": "Practical/Lab"
-          },
           {
             "slot": "2:00 PM to 3:00 PM",
             "raw": "L- 16. English-VAC SEL-R6-SOC-VAC21",
@@ -29381,30 +29104,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ],
         "Thursday": [
-          {
-            "slot": "2:00 PM to 3:00 PM",
-            "raw": "LAB- 9. Commerce-DE-PB3-SOC-VAC21",
-            "course": "VAC",
-            "semester": "Sem I",
-            "section": "Joint",
-            "batch": "VAC21",
-            "subject": "DE",
-            "subject_name": "Digital Empowerment",
-            "room": "PB3",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "3:00 PM to 4:00 PM",
-            "raw": "LAB- 9. Commerce-DE-PB3-SOC-VAC21",
-            "course": "VAC",
-            "semester": "Sem I",
-            "section": "Joint",
-            "batch": "VAC21",
-            "subject": "DE",
-            "subject_name": "Digital Empowerment",
-            "room": "PB3",
-            "type": "Practical/Lab"
-          },
           {
             "slot": "12:30 PM to 1:30 PM",
             "raw": "T- 2. English-RIDL-T1-SOC",
@@ -30547,7 +30246,7 @@ window.SRCC_TEACHERS_DATA = {
       "subjects_taught": [
         "PRINCIPLES OF MARKETING)"
       ],
-      "total_teaching_periods": 13,
+      "total_teaching_periods": 12,
       "schedule": {
         "Monday": [
           {
@@ -30662,18 +30361,6 @@ window.SRCC_TEACHERS_DATA = {
             "subject": "POM",
             "subject_name": "Principles of Marketing",
             "room": "T14",
-            "type": "Tutorial"
-          },
-          {
-            "slot": "9:30 AM to 10:30 AM",
-            "raw": "T- Commerce-DM-T13-SAP",
-            "course": "M.Com",
-            "semester": "Sem I",
-            "section": "Sec A",
-            "batch": "",
-            "subject": "DM",
-            "subject_name": "Digital Marketing",
-            "room": "T13",
             "type": "Tutorial"
           },
           {
