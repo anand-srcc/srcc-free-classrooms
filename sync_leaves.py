@@ -404,6 +404,23 @@ window.SRCC_FACULTY_LEAVES = {json.dumps(payload, indent=2, ensure_ascii=False)}
         f.write(js_content)
 
     print(f"\n[SUCCESS] Saved {len(processed_leaves)} active leaves to web_app/faculty_leaves.json and faculty_leaves.js!")
+
+    # Mirror to preview_web_app
+    preview_dir = os.path.join(BASE_DIR, "preview_web_app")
+    if os.path.exists(preview_dir):
+        import shutil
+        shutil.copyfile(LEAVES_JSON, os.path.join(preview_dir, "faculty_leaves.json"))
+        shutil.copyfile(LEAVES_JS, os.path.join(preview_dir, "faculty_leaves.js"))
+        print("[SUCCESS] Mirrored faculty leaves to preview_web_app!")
+
+    # Mirror to android_widget assets
+    android_assets_dir = os.path.join(BASE_DIR, "android_widget", "app", "src", "main", "assets", "web_app")
+    if os.path.exists(android_assets_dir):
+        import shutil
+        shutil.copyfile(LEAVES_JSON, os.path.join(android_assets_dir, "faculty_leaves.json"))
+        shutil.copyfile(LEAVES_JS, os.path.join(android_assets_dir, "faculty_leaves.js"))
+        print("[SUCCESS] Mirrored faculty leaves to android_widget assets!")
+
     try:
         from generate_widget_feed import generate_feed
         generate_feed()

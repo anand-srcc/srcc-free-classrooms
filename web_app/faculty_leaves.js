@@ -1,19 +1,29 @@
 // SRCC Official Faculty Leaves Data
 // Auto-synced from studentassistsrcc.app & Firebase Cloud DB
-// Last Updated: 13 Oct 2026, 05:31 AM
+// Last Updated: 14 Oct 2026, 11:36 AM
 window.SRCC_FACULTY_LEAVES = {
-  "last_updated": "13 Oct 2026, 05:31 AM",
-  "last_synced_iso": "2026-10-13T05:31:28.807959",
+  "last_updated": "14 Oct 2026, 11:36 AM",
+  "last_synced_iso": "2026-10-14T11:36:36.305013",
   "total_on_leave": 6,
   "source": "https://studentassistsrcc.app / Firebase Cloud DB",
   "leaves": [
     {
-      "teacher_id": "513",
-      "teacher_name": "Anuj Vijay Bhatia",
-      "teacher_code": "AVB",
+      "teacher_id": "504",
+      "teacher_name": "Shivangi Kaushik",
+      "teacher_code": "SVK",
       "department": "Commerce",
-      "start_date": "2026-10-13",
-      "end_date": "2026-10-13",
+      "start_date": "2026-10-14",
+      "end_date": "2026-10-14",
+      "reason": "Faculty Leave",
+      "status": "On Leave"
+    },
+    {
+      "teacher_id": "538",
+      "teacher_name": "Anju Verma",
+      "teacher_code": "AJC",
+      "department": "Commerce",
+      "start_date": "2026-10-14",
+      "end_date": "2026-10-14",
       "reason": "Faculty Leave",
       "status": "On Leave"
     },
@@ -54,16 +64,6 @@ window.SRCC_FACULTY_LEAVES = {
       "department": "Commerce",
       "start_date": "2026-10-12",
       "end_date": "2026-10-14",
-      "reason": "Faculty Leave",
-      "status": "On Leave"
-    },
-    {
-      "teacher_id": "548",
-      "teacher_name": "Vikki Sharma",
-      "teacher_code": "VIS",
-      "department": "Commerce",
-      "start_date": "2026-10-13",
-      "end_date": "2026-10-13",
       "reason": "Faculty Leave",
       "status": "On Leave"
     }

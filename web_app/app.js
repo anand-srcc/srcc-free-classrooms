@@ -812,19 +812,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const lCode = String(leave.teacher_code || '').toLowerCase().trim();
         const lClean = String(leave.clean_name || leave.teacher_name || '').replace(/^(?:(?:dr|prof|mr|ms|mrs|ca|cma)\.?\s+)/i, '').toLowerCase().trim();
 
-        // 1. Direct ID match
-        const matchId = (lId && tId && lId === tId);
+        // If both have explicit IDs and they differ, they CANNOT be the same teacher
+        if (lId && tId && lId !== tId) {
+          return false;
+        }
 
-        // 2. Short code match
-        const matchCode = (tCode && (
+        // 1. Direct ID match
+        const matchId = Boolean(lId && tId && lId === tId);
+
+        // 2. Short code match (only if codes match and IDs don't conflict)
+        const matchCode = Boolean(tCode && lCode && (
           lCode === tCode ||
-          lId.toLowerCase() === tCode ||
-          (lCode && lCode.split(/\s*[\/,]\s*/).includes(tCode)) ||
-          (lId && lId.toLowerCase().split(/\s*[\/,]\s*/).includes(tCode))
+          (lCode && lCode.split(/\s*[\/,]\s*/).includes(tCode))
         ));
 
-        // 3. Normalized Name match
-        const matchName = (lClean && tClean && (lClean === tClean || lClean.includes(tClean) || tClean.includes(lClean)));
+        // 3. Strict Normalized Name match (avoid loose substrings like "Anju" matching "Anju Verma")
+        const matchName = Boolean(lClean && tClean && lClean === tClean);
 
         if (matchId || matchCode || matchName) {
           if (!leave.start_date && !leave.end_date) return true;

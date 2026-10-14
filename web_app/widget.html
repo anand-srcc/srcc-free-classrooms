@@ -1187,15 +1187,19 @@
 
       function isTeacherOnLeave(teacherId, teacherName, teacherCode, activeLeaves) {
         if (!activeLeaves || activeLeaves.length === 0) return false;
-        const cleanName = (teacherName || '').toLowerCase().trim();
+        const cleanName = (teacherName || '').replace(/^(?:(?:dr|prof|mr|ms|mrs|ca|cma)\.?\s+)/i, '').toLowerCase().trim();
+        const tId = teacherId ? String(teacherId).trim() : '';
+        const tCode = teacherCode ? String(teacherCode).toLowerCase().trim() : '';
 
         return activeLeaves.some(l => {
-          if (teacherId && l.teacher_id && String(l.teacher_id) === String(teacherId)) return true;
-          if (teacherCode && l.teacher_code && l.teacher_code.toUpperCase() === teacherCode.toUpperCase()) return true;
-          if (cleanName && l.teacher_name) {
-            const lName = l.teacher_name.toLowerCase().trim();
-            if (cleanName === lName || cleanName.includes(lName) || lName.includes(cleanName)) return true;
-          }
+          const lId = l.teacher_id ? String(l.teacher_id).trim() : '';
+          const lCode = l.teacher_code ? String(l.teacher_code).toLowerCase().trim() : '';
+          const lName = (l.clean_name || l.teacher_name || '').replace(/^(?:(?:dr|prof|mr|ms|mrs|ca|cma)\.?\s+)/i, '').toLowerCase().trim();
+
+          if (lId && tId && lId !== tId) return false;
+          if (lId && tId && lId === tId) return true;
+          if (tCode && lCode && lCode === tCode) return true;
+          if (cleanName && lName && cleanName === lName) return true;
           return false;
         });
       }
