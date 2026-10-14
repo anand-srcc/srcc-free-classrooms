@@ -105,6 +105,10 @@ OFFICIAL_CODE_UPDATES = {
     '681': ('STK', 'Suneet Kumar (Hg2 Hindi)'),
     '710': ('SS', 'Sakshi Sharma (Hg3 Hindi)'),
     '711': ('AB', 'Abhilash (Hg4 Hindi)'),
+    '683': ('MG 15', 'Manasvi Chowdhury (Guest 15)'),
+    '684': ('HC', 'Harshita Chechani (Economics)'),
+    '713': ('A21', 'Aditi (Cg21 Commerce)'),
+    '696': ('AK24', 'Aditi (AK24 Economics)'),
 }
 
 updated_codes_count = 0
@@ -117,22 +121,73 @@ for t in teachers_list:
 
 print(f"  ✓ Harmonized {updated_codes_count} faculty codes with official PDF abbreviations.")
 
-# Index teachers (primary short code and aliases)
-teacher_by_code = {}
-for t in teachers_list:
-    sc = (t.get('short_code') or '').strip().upper()
-    if sc:
-        teacher_by_code[sc] = t
+# Disambiguating resolver for room occupancy -> faculty
+def resolve_teacher_for_class(cls_text):
+    cls_upper = cls_text.upper()
     
-    # Check aliases for guest/SEC faculty codes (e.g. A21 for Aditi Khanna)
-    tid = str(t.get('id', ''))
-    if tid == '696': # Aditi (21)
-        teacher_by_code['A21'] = t
-    
-    ref = (t.get('ref_code') or '').strip().upper()
-    for token in ref.split():
-        if len(token) >= 2 and token not in teacher_by_code:
-            teacher_by_code[token] = t
+    # 1. Specialized overrides for duplicate/shared codes
+    if 'MG 15' in cls_upper or 'MG15' in cls_upper:
+        t = next((x for x in teachers_list if str(x.get('id')) == '683'), None)
+        if t: return [t]
+    if re.search(r'(^|[-_/\s])RKS([-_/\s]|$)', cls_upper):
+        if 'HINDI' in cls_upper or 'HB' in cls_upper:
+            t = next((x for x in teachers_list if str(x.get('id')) == '639'), None)
+            if t: return [t]
+        else:
+            t = next((x for x in teachers_list if str(x.get('id')) == '568'), None)
+            if t: return [t]
+    if re.search(r'(^|[-_/\s])HGC([-_/\s]|$)', cls_upper):
+        if 'BLAW' in cls_upper:
+            t = next((x for x in teachers_list if str(x.get('id')) == '641'), None)
+            if t: return [t]
+        else:
+            t = next((x for x in teachers_list if str(x.get('id')) == '652'), None)
+            if t: return [t]
+    if re.search(r'(^|[-_/\s])SKC([-_/\s]|$)', cls_upper):
+        if 'ENGLISH' in cls_upper or 'GF' in cls_upper:
+            t = next((x for x in teachers_list if str(x.get('id')) == '596'), None)
+            if t: return [t]
+        else:
+            t = next((x for x in teachers_list if str(x.get('id')) == '645'), None)
+            if t: return [t]
+    if re.search(r'(^|[-_/\s])HC([-_/\s]|$)', cls_upper):
+        if 'ADV MME' in cls_upper or 'ECONOMICS' in cls_upper:
+            t = next((x for x in teachers_list if str(x.get('id')) == '684'), None)
+            if t: return [t]
+        else:
+            t = next((x for x in teachers_list if str(x.get('id')) == '565'), None)
+            if t: return [t]
+    if re.search(r'(^|[-_/\s])A21([-_/\s]|$)', cls_upper):
+        t = next((x for x in teachers_list if str(x.get('id')) == '713'), None)
+        if t: return [t]
+    if re.search(r'(^|[-_/\s])AK24([-_/\s]|$)', cls_upper):
+        t = next((x for x in teachers_list if str(x.get('id')) == '696'), None)
+        if t: return [t]
+    if re.search(r'(^|[-_/\s])AJC([-_/\s]|$)', cls_upper):
+        t = next((x for x in teachers_list if str(x.get('id')) == '538'), None)
+        if t: return [t]
+    if re.search(r'(^|[-_/\s])PKC([-_/\s]|$)', cls_upper):
+        t = next((x for x in teachers_list if str(x.get('id')) == '663'), None)
+        if t: return [t]
+    if re.search(r'(^|[-_/\s])PAA([-_/\s]|$)', cls_upper):
+        t = next((x for x in teachers_list if str(x.get('id')) == '545'), None)
+        if t: return [t]
+    if re.search(r'(^|[-_/\s])ASA([-_/\s]|$)', cls_upper):
+        t = next((x for x in teachers_list if str(x.get('id')) == '569'), None)
+        if t: return [t]
+    if re.search(r'(^|[-_/\s])ANC([-_/\s]|$)', cls_upper):
+        t = next((x for x in teachers_list if str(x.get('id')) == '636'), None)
+        if t: return [t]
+
+    # 2. General short code lookup
+    matched_teachers = []
+    for t in teachers_list:
+        sc = (t.get('short_code') or '').strip().upper()
+        if not sc or len(sc) < 2: continue
+        if re.search(rf'(^|[-_/\s]){re.escape(sc)}([-_/\s]|$)', cls_upper):
+            matched_teachers.append(t)
+            
+    return matched_teachers
 
 # Index rooms
 rooms_map = {r['code']: r for r in rooms_list}
@@ -150,33 +205,36 @@ for r_code, r_obj in rooms_map.items():
             slot = occ.get('slot')
             cls_text = occ.get('class', '')
             
-            # Find matching teacher code in cls_text
-            for t_code, t_obj in teacher_by_code.items():
-                if re.search(rf'(^|[-_/\s]){re.escape(t_code)}([-_/\s]|$)', cls_text):
-                    t_day_sched = t_obj['schedule'].setdefault(day, [])
-                    # Check if already present
-                    if not any(p['slot'] == slot and p.get('room') == r_code for p in t_day_sched):
-                        # Extract course and subject if possible
-                        m_subj = re.search(r'^(?:(LAB|L|T|PRAC)-\s*)?(?:\d+\.\s*)?(?:Commerce|Economics|Hindi|English|Mathematics|Maths|EVS|Political\s*Science)\s*-\s*(.+?)\s*-\s*(R\d+|PB\d+|T\d+|CL\d+|SCR\d+|LAB\d+|LIBRARY|AUDI)\b', cls_text, re.IGNORECASE)
-                        if m_subj:
-                            subj = m_subj.group(2).strip()
-                        else:
-                            parts = cls_text.split('-')
-                            subj = parts[1].strip() if len(parts) > 1 else 'Lecture'
-                        t_day_sched.append({
-                            'slot': slot,
-                            'raw': cls_text,
-                            'course': 'Timetable Reconciled',
-                            'semester': 'All Sem',
-                            'section': 'Reconciled',
-                            'batch': '',
-                            'subject': subj,
-                            'subject_name': subj,
-                            'room': r_code,
-                            'type': 'Practical/Lab' if 'LAB' in cls_text else ('Tutorial' if 'T-' in cls_text else 'Lecture')
-                        })
-                        t_obj['total_teaching_periods'] = t_obj.get('total_teaching_periods', 0) + 1
-                        periods_added_to_teachers += 1
+            # Find matching teacher(s) in cls_text
+            candidates = resolve_teacher_for_class(cls_text)
+            for t_obj in candidates:
+                t_day_sched = t_obj['schedule'].setdefault(day, [])
+                # Do NOT double-book teacher if already scheduled at this slot in another room
+                if any(p['slot'] == slot and p.get('room') != r_code for p in t_day_sched):
+                    continue
+                # Check if already present
+                if not any(p['slot'] == slot and p.get('room') == r_code for p in t_day_sched):
+                    # Extract course and subject if possible
+                    m_subj = re.search(r'^(?:(LAB|L|T|PRAC)-\s*)?(?:\d+\.\s*)?(?:Commerce|Economics|Hindi|English|Mathematics|Maths|EVS|Political\s*Science)\s*-\s*(.+?)\s*-\s*(R\d+|PB\d+|T\d+|CL\d+|SCR\d+|LAB\d+|LIBRARY|AUDI)\b', cls_text, re.IGNORECASE)
+                    if m_subj:
+                        subj = m_subj.group(2).strip()
+                    else:
+                        parts = cls_text.split('-')
+                        subj = parts[1].strip() if len(parts) > 1 else 'Lecture'
+                    t_day_sched.append({
+                        'slot': slot,
+                        'raw': cls_text,
+                        'course': 'Timetable Reconciled',
+                        'semester': 'All Sem',
+                        'section': 'Reconciled',
+                        'batch': '',
+                        'subject': subj,
+                        'subject_name': subj,
+                        'room': r_code,
+                        'type': 'Practical/Lab' if 'LAB' in cls_text else ('Tutorial' if 'T-' in cls_text else 'Lecture')
+                    })
+                    t_obj['total_teaching_periods'] = t_obj.get('total_teaching_periods', 0) + 1
+                    periods_added_to_teachers += 1
 
 print(f"  ✓ Reverse Pass Complete: Added {periods_added_to_teachers} previously unlinked teaching periods to faculty profiles.")
 
@@ -186,7 +244,8 @@ print(f"  ✓ Reverse Pass Complete: Added {periods_added_to_teachers} previousl
 print("\n[STEP 3] Reverse Reconciling Faculty Timetables -> Room Occupancy...")
 room_occupancy_added = 0
 
-for t_code, t_obj in teacher_by_code.items():
+for t_obj in teachers_list:
+    t_code = t_obj.get('short_code', '')
     for day in DAYS:
         for p in t_obj['schedule'].get(day, []):
             slot = p.get('slot')
@@ -236,7 +295,7 @@ print("\n[STEP 5] Performing Bidirectional Symmetry & Integrity Checks...")
 
 # Check A: Zero Free Room Clashes with Teachers
 free_teacher_clashes = 0
-for t_code, t_obj in teacher_by_code.items():
+for t_obj in teachers_list:
     for day in DAYS:
         for p in t_obj['schedule'].get(day, []):
             r = p.get('room', '').strip()
@@ -269,11 +328,11 @@ for r_code, r_obj in rooms_map.items():
             s = occ['slot']
             cls_text = occ.get('class', '')
             found = False
-            for t_code, t_obj in teacher_by_code.items():
-                if re.search(rf'(^|[-_/\s]){re.escape(t_code)}([-_/\s]|$)', cls_text):
-                    if any(p['slot'] == s for p in t_obj['schedule'].get(day, [])):
-                        found = True
-                        break
+            candidates = resolve_teacher_for_class(cls_text)
+            for t_obj in candidates:
+                if any(p['slot'] == s for p in t_obj['schedule'].get(day, [])):
+                    found = True
+                    break
             if found:
                 matched_occ_after += 1
             else:
@@ -375,6 +434,21 @@ try:
     print("  ✓ Symmetrically Reconciled Excel workbooks saved.")
 except Exception as e:
     print(f"  Warning generating Excel: {e}")
+
+# Mirror to Android assets
+android_assets_dir = os.path.join(BASE_DIR, 'android_widget', 'app', 'src', 'main', 'assets', 'web_app')
+if os.path.exists(android_assets_dir):
+    for fn in ['teachers_data.json', 'teachers_data.js', 'srcc_data.json', 'data.js', 'classes_data.json', 'classes_data.js']:
+        shutil.copyfile(os.path.join(WEB_APP_DIR, fn), os.path.join(android_assets_dir, fn))
+    print("  ✓ Mirrored updated datasets to Android assets.")
+
+# Regenerate widget feed
+try:
+    import subprocess
+    subprocess.run([sys.executable, os.path.join(BASE_DIR, 'generate_widget_feed.py')], check=True)
+    print("  ✓ Regenerated widget_feed.json successfully.")
+except Exception as ge:
+    print(f"  Warning generating widget feed: {ge}")
 
 print("\n" + "=" * 72)
 print("REVERSE RECONCILIATION COMPLETED SUCCESSFULLY WITH 100% SYMMETRY!")

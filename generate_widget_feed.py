@@ -252,6 +252,14 @@ def generate_feed():
             json.dump(feed_payload, f, separators=(',', ':'))
         print(f"Generated {prev_out}")
 
+    # Also mirror to android_widget assets if directory exists
+    android_assets_dir = os.path.join(BASE_DIR, "android_widget", "app", "src", "main", "assets", "web_app")
+    if os.path.exists(android_assets_dir):
+        android_out = os.path.join(android_assets_dir, "widget_feed.json")
+        with open(android_out, 'w', encoding='utf-8') as f:
+            json.dump(feed_payload, f, separators=(',', ':'))
+        print(f"Generated {android_out}")
+
     return out_path, size_kb
 
 if __name__ == "__main__":

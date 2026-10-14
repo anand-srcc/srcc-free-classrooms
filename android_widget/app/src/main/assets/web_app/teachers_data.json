@@ -3,7 +3,7 @@
     "college": "Shri Ram College of Commerce (SRCC)",
     "portal": "https://srcccollegetimetable.in/",
     "total_teachers": 210,
-    "last_synced": "13 Oct 2026, 10:54 AM",
+    "last_synced": "14 Oct 2026, 11:28 AM",
     "audit_reconciled": true,
     "tridiagonal_passes": 5,
     "reverse_reconciled": true,
@@ -863,7 +863,7 @@
       "label": "Aditi Khanna (24)",
       "name": "Aditi Khanna",
       "clean_name": "Aditi Khanna",
-      "short_code": "24",
+      "short_code": "A21",
       "ref_code": "24",
       "initials": "AK",
       "department": "Commerce",
@@ -11138,9 +11138,34 @@
       "initials": "HA",
       "department": "Commerce",
       "subjects_taught": [],
-      "total_teaching_periods": 9,
+      "total_teaching_periods": 12,
       "schedule": {
-        "Monday": [],
+        "Monday": [
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "L-JOINT-SEM IIIHindi-AEC-HC-STK",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R10",
+            "type": "Tutorial"
+          },
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "L-JOINT-SEM IIIHindi-AEC-HC-STK",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R10",
+            "type": "Tutorial"
+          }
+        ],
         "Tuesday": [
           {
             "slot": "2:00 PM to 3:00 PM",
@@ -11254,6 +11279,18 @@
             "subject_name": "SRG",
             "room": "R20",
             "type": "Practical/Lab"
+          },
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "L-JOINT-SEM IHindi-AEC-HC-STK",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R22",
+            "type": "Tutorial"
           }
         ],
         "Saturday": []
@@ -24560,7 +24597,7 @@
       "initials": "SK",
       "department": "Commerce",
       "subjects_taught": [],
-      "total_teaching_periods": 7,
+      "total_teaching_periods": 11,
       "schedule": {
         "Monday": [
           {
@@ -24588,7 +24625,56 @@
             "type": "Practical/Lab"
           }
         ],
-        "Tuesday": [],
+        "Tuesday": [
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB-JOINT-SEM VCommerce-BIT-SKC-SEC10<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R4",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB-JOINT-SEM VCommerce-BIT-SKC-SEC10<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R4",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "LAB-JOINT-SEM VCommerce-BIT-SKC-SEC10<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R29",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "5:00 PM to 6:00 PM",
+            "raw": "LAB-JOINT-SEM VCommerce-BIT-SKC-SEC10<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R29",
+            "type": "Practical/Lab"
+          }
+        ],
         "Wednesday": [
           {
             "slot": "11:30 AM to 12:30 PM",
@@ -29036,9 +29122,34 @@
         "SEC COMMUNICATION IN PROFESSIONAL LIFE)",
         "VAC DIGITAL EMPOWERMENT"
       ],
-      "total_teaching_periods": 12,
+      "total_teaching_periods": 19,
       "schedule": {
-        "Monday": [],
+        "Monday": [
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB-JOINT-SEM ICommerce-DE-SOC-VAC21<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "PB3",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB-JOINT-SEM ICommerce-DE-SOC-VAC21<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "PB3",
+            "type": "Practical/Lab"
+          }
+        ],
         "Tuesday": [
           {
             "slot": "2:00 PM to 3:00 PM",
@@ -29101,6 +29212,42 @@
             "subject_name": "Readings in Indian Democratic Literature",
             "room": "R4",
             "type": "Lecture"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB-JOINT-SEM ICommerce-BIDV-SOC-SEC11<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R32",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "4:00 PM to 5:00 PM",
+            "raw": "LAB-JOINT-SEM ICommerce-BIDV-SOC-SEC11",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R32",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "5:00 PM to 6:00 PM",
+            "raw": "LAB-JOINT-SEM ICommerce-BIDV-SOC-SEC11",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "R32",
+            "type": "Practical/Lab"
           }
         ],
         "Thursday": [
@@ -29115,6 +29262,30 @@
             "subject_name": "Readings in Indian Democratic Literature",
             "room": "T1",
             "type": "Tutorial"
+          },
+          {
+            "slot": "2:00 PM to 3:00 PM",
+            "raw": "LAB-JOINT-SEM ICommerce-DE-SOC-VAC21<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "PB3",
+            "type": "Practical/Lab"
+          },
+          {
+            "slot": "3:00 PM to 4:00 PM",
+            "raw": "LAB-JOINT-SEM ICommerce-DE-SOC-VAC21<----------------------->",
+            "course": "Timetable Reconciled",
+            "semester": "All Sem",
+            "section": "Reconciled",
+            "batch": "",
+            "subject": "JOINT",
+            "subject_name": "JOINT",
+            "room": "PB3",
+            "type": "Practical/Lab"
           }
         ],
         "Friday": [
