@@ -58,6 +58,8 @@ courses_data = classes_payload.get('courses', {})
 
 print(f"Loaded {len(teachers_list)} teachers, {len(rooms_list)} rooms, {len(courses_data)} courses.")
 
+DEFAULT_VACANT_ROOMS = {'R36', 'CL3', 'SCR2', 'SCR3', 'SEMINAR ROOM', 'PRINCIPAL OFFICE'}
+
 # ------------------------------------------------------------------------------
 # STEP 1: HARMONIZE OFFICIAL ABBREVIATIONS & SHORT CODES
 # ------------------------------------------------------------------------------
@@ -251,6 +253,8 @@ for t_obj in teachers_list:
             slot = p.get('slot')
             r_code = p.get('room', '').strip()
             if r_code and r_code in rooms_map:
+                if r_code.upper() in DEFAULT_VACANT_ROOMS:
+                    continue
                 r_sched = rooms_map[r_code]['schedule'].setdefault(day, {'occupied_slots': [], 'free_slots': []})
                 # Check if already in occupied_slots
                 if not any(occ['slot'] == slot for occ in r_sched['occupied_slots']):
@@ -271,6 +275,18 @@ total_reconciled_free = 0
 total_reconciled_occ = 0
 
 for r_code, r_obj in rooms_map.items():
+    if r_code.upper() in DEFAULT_VACANT_ROOMS:
+        r_obj['has_classes'] = False
+        for day in DAYS:
+            r_obj['schedule'][day] = {
+                'occupied_slots': [],
+                'free_slots': list(STANDARD_PERIODS),
+                'free_hours': len(STANDARD_PERIODS),
+                'lunch_recess_free': True
+            }
+            total_reconciled_free += len(STANDARD_PERIODS)
+        continue
+
     for day in DAYS:
         sched = r_obj['schedule'][day]
         occupied_slots_set = set(occ['slot'] for occ in sched['occupied_slots'])

@@ -3,7 +3,7 @@
     "college": "Shri Ram College of Commerce (SRCC)",
     "portal": "https://srcccollegetimetable.in/",
     "total_rooms": 96,
-    "last_synced": "14 Oct 2026, 11:28 AM",
+    "last_synced": "14 Oct 2026, 01:11 PM",
     "last_synced_iso": "2026-10-12T18:00:10.433612",
     "academic_periods": [
       "8:30 AM to 9:30 AM",
@@ -7180,6 +7180,7 @@
       "has_classes": false,
       "schedule": {
         "Monday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -7192,10 +7193,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Tuesday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -7208,10 +7209,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Wednesday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -7224,10 +7225,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Thursday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -7240,10 +7241,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Friday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -7256,10 +7257,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Saturday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -7272,8 +7273,7 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         }
       }
     },
@@ -15916,6 +15916,7 @@
       "has_classes": false,
       "schedule": {
         "Monday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -15928,10 +15929,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Tuesday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -15944,10 +15945,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Wednesday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -15960,10 +15961,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Thursday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -15976,10 +15977,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Friday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -15992,10 +15993,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Saturday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -16008,8 +16009,7 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         }
       }
     },
@@ -16414,6 +16414,7 @@
       "has_classes": false,
       "schedule": {
         "Monday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -16426,10 +16427,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Tuesday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -16442,10 +16443,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Wednesday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -16458,10 +16459,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Thursday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -16474,10 +16475,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Friday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -16490,10 +16491,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Saturday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -16506,8 +16507,7 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         }
       }
     },
@@ -16520,6 +16520,7 @@
       "has_classes": false,
       "schedule": {
         "Monday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -16532,10 +16533,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Tuesday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -16548,10 +16549,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Wednesday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -16564,10 +16565,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Thursday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -16580,10 +16581,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Friday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -16596,10 +16597,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Saturday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -16612,8 +16613,7 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         }
       }
     },
@@ -17045,6 +17045,7 @@
       "has_classes": false,
       "schedule": {
         "Monday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -17057,10 +17058,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Tuesday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -17073,10 +17074,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Wednesday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -17089,10 +17090,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Thursday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -17105,10 +17106,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Friday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -17121,10 +17122,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Saturday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -17137,8 +17138,7 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         }
       }
     },
@@ -17151,6 +17151,7 @@
       "has_classes": false,
       "schedule": {
         "Monday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -17163,10 +17164,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Tuesday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -17179,10 +17180,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Wednesday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -17195,10 +17196,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Thursday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -17211,10 +17212,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Friday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -17227,10 +17228,10 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         },
         "Saturday": {
+          "occupied_slots": [],
           "free_slots": [
             "8:30 AM to 9:30 AM",
             "9:30 AM to 10:30 AM",
@@ -17243,8 +17244,7 @@
             "5:00 PM to 6:00 PM"
           ],
           "free_hours": 9,
-          "lunch_recess_free": true,
-          "occupied_slots": []
+          "lunch_recess_free": true
         }
       }
     }
