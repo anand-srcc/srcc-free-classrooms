@@ -3114,7 +3114,7 @@
         "VAC DIGITAL EMPOWERMENT)",
         "VAC ETHICS AND CULTURE)"
       ],
-      "total_teaching_periods": 39,
+      "total_teaching_periods": 21,
       "schedule": {
         "Monday": [
           {
@@ -3143,30 +3143,6 @@
           },
           {
             "slot": "2:00 PM to 3:00 PM",
-            "raw": "LAB- 5. Commerce-DE-R14-NC-VAC17",
-            "course": "VAC",
-            "semester": "Sem I",
-            "section": "Joint",
-            "batch": "VAC17",
-            "subject": "DE",
-            "subject_name": "Digital Empowerment",
-            "room": "R14",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "3:00 PM to 4:00 PM",
-            "raw": "LAB- 4. Commerce-DE-R14-NC-VAC17",
-            "course": "VAC",
-            "semester": "Sem I",
-            "section": "Joint",
-            "batch": "VAC17",
-            "subject": "DE",
-            "subject_name": "Digital Empowerment",
-            "room": "R14",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "2:00 PM to 3:00 PM",
             "raw": "L- 6. Commerce-EC-R32-ANC-VAC13",
             "course": "VAC",
             "semester": "Sem III",
@@ -3188,18 +3164,6 @@
             "subject_name": "Principles of Marketing",
             "room": "R18",
             "type": "Lecture"
-          },
-          {
-            "slot": "10:30 AM to 11:30 AM",
-            "raw": "T- 1. Commerce-POM-T8-ASA-F2",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec F",
-            "batch": "F2",
-            "subject": "POM",
-            "subject_name": "Principles of Marketing",
-            "room": "T8",
-            "type": "Tutorial"
           },
           {
             "slot": "9:30 AM to 10:30 AM",
@@ -3228,18 +3192,6 @@
             "type": "Practical/Lab"
           },
           {
-            "slot": "2:00 PM to 3:00 PM",
-            "raw": "LAB- 8. Economics-BIT-R26-TAC-SEC12",
-            "course": "SEC",
-            "semester": "Sem V",
-            "section": "Joint",
-            "batch": "SEC12",
-            "subject": "BIT",
-            "subject_name": "Basic IT Tools",
-            "room": "R26",
-            "type": "Practical/Lab"
-          },
-          {
             "slot": "3:00 PM to 4:00 PM",
             "raw": "LAB- 5. Commerce-BIDV-R23-ANC-SEC9",
             "course": "SEC",
@@ -3252,54 +3204,6 @@
             "type": "Practical/Lab"
           },
           {
-            "slot": "3:00 PM to 4:00 PM",
-            "raw": "LAB- 8. Economics-BIT-R26-TAC-SEC12",
-            "course": "SEC",
-            "semester": "Sem V",
-            "section": "Joint",
-            "batch": "SEC12",
-            "subject": "BIT",
-            "subject_name": "Basic IT Tools",
-            "room": "R26",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "4:00 PM to 5:00 PM",
-            "raw": "LAB- 7. Economics-BIT-R31-TAC-SEC12",
-            "course": "SEC",
-            "semester": "Sem V",
-            "section": "Joint",
-            "batch": "SEC12",
-            "subject": "BIT",
-            "subject_name": "Basic IT Tools",
-            "room": "R31",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "5:00 PM to 6:00 PM",
-            "raw": "LAB- 7. Economics-BIT-R31-TAC-SEC12",
-            "course": "SEC",
-            "semester": "Sem V",
-            "section": "Joint",
-            "batch": "SEC12",
-            "subject": "BIT",
-            "subject_name": "Basic IT Tools",
-            "room": "R31",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "9:30 AM to 10:30 AM",
-            "raw": "T- 2. Commerce-MPA-T8-ASA-D3",
-            "course": "B.Com (Hons)",
-            "semester": "Sem I",
-            "section": "Sec D",
-            "batch": "D3",
-            "subject": "MPA",
-            "subject_name": "Management Principles and Applications",
-            "room": "T8",
-            "type": "Tutorial"
-          },
-          {
             "slot": "8:30 AM to 9:30 AM",
             "raw": "L- Commerce-POM-R18-ASA",
             "course": "B.Com (Hons)",
@@ -3310,18 +3214,6 @@
             "subject_name": "Principles of Marketing",
             "room": "R18",
             "type": "Lecture"
-          },
-          {
-            "slot": "10:30 AM to 11:30 AM",
-            "raw": "T- 3. Commerce-POM-T8-ASA-K3",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec K",
-            "batch": "K3",
-            "subject": "POM",
-            "subject_name": "Principles of Marketing",
-            "room": "T8",
-            "type": "Tutorial"
           },
           {
             "slot": "8:30 AM to 9:30 AM",
@@ -3386,18 +3278,6 @@
             "type": "Practical/Lab"
           },
           {
-            "slot": "9:30 AM to 10:30 AM",
-            "raw": "T- 2. Commerce-MPA-T8-ASA-D2",
-            "course": "B.Com (Hons)",
-            "semester": "Sem I",
-            "section": "Sec D",
-            "batch": "D2",
-            "subject": "MPA",
-            "subject_name": "Management Principles and Applications",
-            "room": "T8",
-            "type": "Tutorial"
-          },
-          {
             "slot": "8:30 AM to 9:30 AM",
             "raw": "L- Commerce-POM-R18-ASA",
             "course": "B.Com (Hons)",
@@ -3408,30 +3288,6 @@
             "subject_name": "Principles of Marketing",
             "room": "R18",
             "type": "Lecture"
-          },
-          {
-            "slot": "10:30 AM to 11:30 AM",
-            "raw": "T- 2. Commerce-POM-T27-ASA-F1",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec F",
-            "batch": "F1",
-            "subject": "POM",
-            "subject_name": "Principles of Marketing",
-            "room": "T27",
-            "type": "Tutorial"
-          },
-          {
-            "slot": "11:30 AM to 12:30 PM",
-            "raw": "T- 3. Commerce-GE- MFB-T16-NC-C3",
-            "course": "B.A. (Hons) Economics",
-            "semester": "Sem I",
-            "section": "Sec C",
-            "batch": "C3",
-            "subject": "GE",
-            "subject_name": "GE",
-            "room": "T16",
-            "type": "Tutorial"
           },
           {
             "slot": "12:30 PM to 1:30 PM",
@@ -3448,54 +3304,6 @@
         ],
         "Thursday": [
           {
-            "slot": "2:00 PM to 3:00 PM",
-            "raw": "LAB- 5. Economics-BIT-R29-TAC-SEC10",
-            "course": "SEC",
-            "semester": "Sem III",
-            "section": "Joint",
-            "batch": "SEC10",
-            "subject": "BIT",
-            "subject_name": "Basic IT Tools",
-            "room": "R29",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "3:00 PM to 4:00 PM",
-            "raw": "LAB- 6. Economics-BIT-R29-TAC-SEC10",
-            "course": "SEC",
-            "semester": "Sem III",
-            "section": "Joint",
-            "batch": "SEC10",
-            "subject": "BIT",
-            "subject_name": "Basic IT Tools",
-            "room": "R29",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "4:00 PM to 5:00 PM",
-            "raw": "LAB- 5. Economics-BIT-R29-TAC-SEC10",
-            "course": "SEC",
-            "semester": "Sem III",
-            "section": "Joint",
-            "batch": "SEC10",
-            "subject": "BIT",
-            "subject_name": "Basic IT Tools",
-            "room": "R29",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "9:30 AM to 10:30 AM",
-            "raw": "T- 1. Commerce-POM-T8-ASA-F3",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec F",
-            "batch": "F3",
-            "subject": "POM",
-            "subject_name": "Principles of Marketing",
-            "room": "T8",
-            "type": "Tutorial"
-          },
-          {
             "slot": "8:30 AM to 9:30 AM",
             "raw": "L- Commerce-POM-R18-ASA",
             "course": "B.Com (Hons)",
@@ -3510,18 +3318,6 @@
         ],
         "Friday": [
           {
-            "slot": "10:30 AM to 11:30 AM",
-            "raw": "T- 2. Commerce-POM-T31-ASA-D1",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec D",
-            "batch": "D1",
-            "subject": "POM",
-            "subject_name": "Principles of Marketing",
-            "room": "T31",
-            "type": "Tutorial"
-          },
-          {
             "slot": "8:30 AM to 9:30 AM",
             "raw": "L- Commerce-POM-R2-ASA",
             "course": "B.Com (Hons)",
@@ -3532,18 +3328,6 @@
             "subject_name": "Principles of Marketing",
             "room": "R2",
             "type": "Lecture"
-          },
-          {
-            "slot": "9:30 AM to 10:30 AM",
-            "raw": "T- 2. Commerce-POM-T8-ASA-K1",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec K",
-            "batch": "K1",
-            "subject": "POM",
-            "subject_name": "Principles of Marketing",
-            "room": "T8",
-            "type": "Tutorial"
           },
           {
             "slot": "9:30 AM to 10:30 AM",
@@ -9361,7 +9145,7 @@
       "initials": "EG",
       "department": "Commerce",
       "subjects_taught": [
-        "ENVIRONMENTAL SCIENCE: THEORY INTO PRACTICE \u2013II)",
+        "ENVIRONMENTAL SCIENCE: THEORY INTO PRACTICE –II)",
         "ENVIRONMENTAL SCIENCE: THEORY INTO PRACTICE-I)"
       ],
       "total_teaching_periods": 6,
@@ -9462,7 +9246,7 @@
       "initials": "EG",
       "department": "Commerce",
       "subjects_taught": [
-        "ENVIRONMENTAL SCIENCE: THEORY INTO PRACTICE \u2013II)",
+        "ENVIRONMENTAL SCIENCE: THEORY INTO PRACTICE –II)",
         "ENVIRONMENTAL SCIENCE: THEORY INTO PRACTICE-I)"
       ],
       "total_teaching_periods": 6,
@@ -9562,7 +9346,7 @@
       "initials": "EG",
       "department": "Commerce",
       "subjects_taught": [
-        "ENVIRONMENTAL SCIENCE: THEORY INTO PRACTICE \u2013II)",
+        "ENVIRONMENTAL SCIENCE: THEORY INTO PRACTICE –II)",
         "ENVIRONMENTAL SCIENCE: THEORY INTO PRACTICE-I)"
       ],
       "total_teaching_periods": 6,
@@ -9682,7 +9466,7 @@
       "initials": "FV",
       "department": "Commerce",
       "subjects_taught": [
-        "ENVIRONMENTAL SCIENCE: THEORY INTO PRACTICE \u2013II)"
+        "ENVIRONMENTAL SCIENCE: THEORY INTO PRACTICE –II)"
       ],
       "total_teaching_periods": 12,
       "schedule": {
@@ -10325,7 +10109,7 @@
       "subjects_taught": [
         "FINANCIAL ACCOUNTING)"
       ],
-      "total_teaching_periods": 16,
+      "total_teaching_periods": 15,
       "schedule": {
         "Monday": [
           {
@@ -10392,18 +10176,6 @@
           }
         ],
         "Wednesday": [
-          {
-            "slot": "9:30 AM to 10:30 AM",
-            "raw": "L- Commerce-FA-R1-HNT",
-            "course": "B.Com (Hons)",
-            "semester": "Sem I",
-            "section": "Sec G",
-            "batch": "",
-            "subject": "FA",
-            "subject_name": "Financial Accounting",
-            "room": "R1",
-            "type": "Lecture"
-          },
           {
             "slot": "9:30 AM to 10:30 AM",
             "raw": "L- Commerce-FM-R8-HNT",
@@ -11231,7 +11003,7 @@
         "DIGITALISATION AND DEVELOPMENT)",
         "PRINCIPLES OF MICROECONOMICS-I)"
       ],
-      "total_teaching_periods": 26,
+      "total_teaching_periods": 22,
       "schedule": {
         "Monday": [
           {
@@ -11381,30 +11153,6 @@
             "subject_name": "Adv MME",
             "room": "R26",
             "type": "Lecture"
-          },
-          {
-            "slot": "11:30 AM to 12:30 PM",
-            "raw": "T- 3. Economics-Adv MME-PB2-HC-C1",
-            "course": "B.A. (Hons) Eco",
-            "semester": "Sem I",
-            "section": "Main Section",
-            "batch": "",
-            "subject": "Adv MME",
-            "subject_name": "Adv MME",
-            "room": "PB2",
-            "type": "Tutorial"
-          },
-          {
-            "slot": "9:30 AM to 10:30 AM",
-            "raw": "T- 1. Economics-Adv MME-T51-HC-C2",
-            "course": "B.A. (Hons) Eco",
-            "semester": "Sem I",
-            "section": "Main Section",
-            "batch": "",
-            "subject": "Adv MME",
-            "subject_name": "Adv MME",
-            "room": "T51",
-            "type": "Tutorial"
           }
         ],
         "Thursday": [
@@ -11531,30 +11279,6 @@
             "subject_name": "Adv MME",
             "room": "R25",
             "type": "Lecture"
-          },
-          {
-            "slot": "8:30 AM to 9:30 AM",
-            "raw": "T- Economics-Adv MME-T2-HC-C3",
-            "course": "B.A. (Hons) Eco",
-            "semester": "Sem I",
-            "section": "Main Section",
-            "batch": "",
-            "subject": "Adv MME",
-            "subject_name": "Adv MME",
-            "room": "T2",
-            "type": "Tutorial"
-          },
-          {
-            "slot": "11:30 AM to 12:30 PM",
-            "raw": "T- Economics-Adv MME-T16-HC-A1",
-            "course": "B.A. (Hons) Eco",
-            "semester": "Sem I",
-            "section": "Main Section",
-            "batch": "",
-            "subject": "Adv MME",
-            "subject_name": "Adv MME",
-            "room": "T16",
-            "type": "Tutorial"
           }
         ]
       },
@@ -12172,7 +11896,7 @@
         "GE - MARKETING FOR BEGINERS)",
         "PRINCIPLES OF MARKETING)"
       ],
-      "total_teaching_periods": 17,
+      "total_teaching_periods": 16,
       "schedule": {
         "Monday": [
           {
@@ -12198,18 +11922,6 @@
             "subject_name": "Principles of Marketing",
             "room": "T39",
             "type": "Tutorial"
-          },
-          {
-            "slot": "9:30 AM to 10:30 AM",
-            "raw": "L- Commerce-POM-CL2-JDP",
-            "course": "B.Com (Hons)",
-            "semester": "Sem III",
-            "section": "Sec M",
-            "batch": "",
-            "subject": "POM",
-            "subject_name": "Principles of Marketing",
-            "room": "CL2",
-            "type": "Lecture"
           },
           {
             "slot": "10:30 AM to 11:30 AM",
@@ -18841,7 +18553,7 @@
       "subjects_taught": [
         "SEC SUSTAINABLE ECO TOURISM AND ENT)"
       ],
-      "total_teaching_periods": 17,
+      "total_teaching_periods": 9,
       "schedule": {
         "Monday": [
           {
@@ -18870,30 +18582,6 @@
           }
         ],
         "Tuesday": [
-          {
-            "slot": "2:00 PM to 3:00 PM",
-            "raw": "LAB- 7. Commerce-SET-R16-NBC-SEC19",
-            "course": "SEC",
-            "semester": "Sem III",
-            "section": "Joint",
-            "batch": "SEC19",
-            "subject": "SET",
-            "subject_name": "Sustainable Eco Tourism and Entrepreneurship",
-            "room": "R16",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "3:00 PM to 4:00 PM",
-            "raw": "LAB- 7. Commerce-SET-R16-NBC-SEC19",
-            "course": "SEC",
-            "semester": "Sem III",
-            "section": "Joint",
-            "batch": "SEC19",
-            "subject": "SET",
-            "subject_name": "Sustainable Eco Tourism and Entrepreneurship",
-            "room": "R16",
-            "type": "Practical/Lab"
-          },
           {
             "slot": "8:30 AM to 9:30 AM",
             "raw": "L- Commerce-IMC-R16-NC",
@@ -18957,81 +18645,8 @@
             "type": "Tutorial"
           }
         ],
-        "Thursday": [
-          {
-            "slot": "2:00 PM to 3:00 PM",
-            "raw": "LAB- 10. Commerce-SET-R16-NBC-SEC19",
-            "course": "SEC",
-            "semester": "Sem III",
-            "section": "Joint",
-            "batch": "SEC19",
-            "subject": "SET",
-            "subject_name": "Sustainable Eco Tourism and Entrepreneurship",
-            "room": "R16",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "3:00 PM to 4:00 PM",
-            "raw": "LAB- 11. Commerce-SET-R16-NBC-SEC19",
-            "course": "SEC",
-            "semester": "Sem III",
-            "section": "Joint",
-            "batch": "SEC19",
-            "subject": "SET",
-            "subject_name": "Sustainable Eco Tourism and Entrepreneurship",
-            "room": "R16",
-            "type": "Practical/Lab"
-          }
-        ],
+        "Thursday": [],
         "Friday": [
-          {
-            "slot": "2:00 PM to 3:00 PM",
-            "raw": "LAB- 3. Commerce-BIT-R30-NBC-SEC15",
-            "course": "SEC",
-            "semester": "Sem V",
-            "section": "Joint",
-            "batch": "SEC15",
-            "subject": "BIT",
-            "subject_name": "Basic IT Tools",
-            "room": "R30",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "3:00 PM to 4:00 PM",
-            "raw": "LAB- 3. Commerce-BIT-R30-NBC-SEC15",
-            "course": "SEC",
-            "semester": "Sem V",
-            "section": "Joint",
-            "batch": "SEC15",
-            "subject": "BIT",
-            "subject_name": "Basic IT Tools",
-            "room": "R30",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "4:00 PM to 5:00 PM",
-            "raw": "LAB- 3. Commerce-BIT-R30-NBC-SEC15",
-            "course": "SEC",
-            "semester": "Sem V",
-            "section": "Joint",
-            "batch": "SEC15",
-            "subject": "BIT",
-            "subject_name": "Basic IT Tools",
-            "room": "R30",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "5:00 PM to 6:00 PM",
-            "raw": "LAB- 3. Commerce-BIT-R30-NBC-SEC15",
-            "course": "SEC",
-            "semester": "Sem V",
-            "section": "Joint",
-            "batch": "SEC15",
-            "subject": "BIT",
-            "subject_name": "Basic IT Tools",
-            "room": "R30",
-            "type": "Practical/Lab"
-          },
           {
             "slot": "9:30 AM to 10:30 AM",
             "raw": "L- Commerce-GE- MFB-PB4-NC",
@@ -19646,7 +19261,7 @@
         ],
         "Wednesday": [
           {
-            "slot": "11:30 AM to 12:30 PM",
+            "slot": "12:30 PM to 1:30 PM",
             "raw": "L- Economics-PME-I-R5-PB27",
             "course": "B.Com (Hons)",
             "semester": "Sem I",
@@ -25115,60 +24730,11 @@
       "initials": "SK",
       "department": "Commerce",
       "subjects_taught": [],
-      "total_teaching_periods": 14,
+      "total_teaching_periods": 3,
       "schedule": {
         "Monday": [],
-        "Tuesday": [
-          {
-            "slot": "2:00 PM to 3:00 PM",
-            "raw": "LAB- 1. Commerce-DM-R15-SHK-SEC3",
-            "course": "SEC",
-            "semester": "Sem III",
-            "section": "Joint",
-            "batch": "SEC3",
-            "subject": "DM",
-            "subject_name": "Digital Marketing",
-            "room": "R15",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "3:00 PM to 4:00 PM",
-            "raw": "LAB- 1. Commerce-DM-R15-SHK-SEC3",
-            "course": "SEC",
-            "semester": "Sem III",
-            "section": "Joint",
-            "batch": "SEC3",
-            "subject": "DM",
-            "subject_name": "Digital Marketing",
-            "room": "R15",
-            "type": "Practical/Lab"
-          }
-        ],
+        "Tuesday": [],
         "Wednesday": [
-          {
-            "slot": "2:00 PM to 3:00 PM",
-            "raw": "LAB- 2. Commerce-DM-R21-SHK-SEC2",
-            "course": "SEC",
-            "semester": "Sem I",
-            "section": "Joint",
-            "batch": "SEC2",
-            "subject": "DM",
-            "subject_name": "Digital Marketing",
-            "room": "R21",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "3:00 PM to 4:00 PM",
-            "raw": "LAB- 2. Commerce-DM-R21-SHK-SEC2",
-            "course": "SEC",
-            "semester": "Sem I",
-            "section": "Joint",
-            "batch": "SEC2",
-            "subject": "DM",
-            "subject_name": "Digital Marketing",
-            "room": "R21",
-            "type": "Practical/Lab"
-          },
           {
             "slot": "11:30 AM to 12:30 PM",
             "raw": "L- Commerce-BRM-R27-SHK",
@@ -25180,46 +24746,9 @@
             "subject_name": "Brand Management",
             "room": "R27",
             "type": "Lecture"
-          },
-          {
-            "slot": "12:30 PM to 1:30 PM",
-            "raw": "LAB- 1. Commerce-BRM-R18-SHK-AP2",
-            "course": "B.Com (Hons)",
-            "semester": "Sem VII",
-            "section": "Sec A",
-            "batch": "AP2",
-            "subject": "BRM",
-            "subject_name": "Brand Management",
-            "room": "R18",
-            "type": "Practical/Lab"
           }
         ],
-        "Thursday": [
-          {
-            "slot": "2:00 PM to 3:00 PM",
-            "raw": "LAB- 13. Commerce-DM-R13-SHK-SEC3",
-            "course": "SEC",
-            "semester": "Sem III",
-            "section": "Joint",
-            "batch": "SEC3",
-            "subject": "DM",
-            "subject_name": "Digital Marketing",
-            "room": "R13",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "3:00 PM to 4:00 PM",
-            "raw": "LAB- 14. Commerce-DM-R13-SHK-SEC3",
-            "course": "SEC",
-            "semester": "Sem III",
-            "section": "Joint",
-            "batch": "SEC3",
-            "subject": "DM",
-            "subject_name": "Digital Marketing",
-            "room": "R13",
-            "type": "Practical/Lab"
-          }
-        ],
+        "Thursday": [],
         "Friday": [
           {
             "slot": "11:30 AM to 12:30 PM",
@@ -25232,45 +24761,9 @@
             "subject_name": "Brand Management",
             "room": "R1",
             "type": "Lecture"
-          },
-          {
-            "slot": "12:30 PM to 1:30 PM",
-            "raw": "LAB- 1. Commerce-BRM-R27-SHK-AP1",
-            "course": "B.Com (Hons)",
-            "semester": "Sem VII",
-            "section": "Sec A",
-            "batch": "AP1",
-            "subject": "BRM",
-            "subject_name": "Brand Management",
-            "room": "R27",
-            "type": "Practical/Lab"
-          },
-          {
-            "slot": "2:00 PM to 3:00 PM",
-            "raw": "LAB- Commerce-BRM-R4-SHK-AP3",
-            "course": "B.Com (Hons)",
-            "semester": "Sem VII",
-            "section": "Sec A",
-            "batch": "AP3",
-            "subject": "BRM",
-            "subject_name": "Brand Management",
-            "room": "R4",
-            "type": "Practical/Lab"
           }
         ],
         "Saturday": [
-          {
-            "slot": "2:00 PM to 3:00 PM",
-            "raw": "LAB- 2. Commerce-DM-R4-SHK-SEC2",
-            "course": "SEC",
-            "semester": "Sem I",
-            "section": "Joint",
-            "batch": "SEC2",
-            "subject": "DM",
-            "subject_name": "Digital Marketing",
-            "room": "R4",
-            "type": "Practical/Lab"
-          },
           {
             "slot": "11:30 AM to 12:30 PM",
             "raw": "L- Commerce-BRM-R2-SHK",
@@ -25282,18 +24775,6 @@
             "subject_name": "Brand Management",
             "room": "R2",
             "type": "Lecture"
-          },
-          {
-            "slot": "12:30 PM to 1:30 PM",
-            "raw": "LAB- 1. Commerce-BRM-R21-SHK-AP1",
-            "course": "B.Com (Hons)",
-            "semester": "Sem VII",
-            "section": "Sec A",
-            "batch": "AP1, AP2, AP3",
-            "subject": "BRM",
-            "subject_name": "Brand Management",
-            "room": "R21",
-            "type": "Practical/Lab"
           }
         ]
       },
@@ -25927,21 +25408,9 @@
       "subjects_taught": [
         "CONSUMER AFFAIRS AND SOVEREIGNTY)"
       ],
-      "total_teaching_periods": 17,
+      "total_teaching_periods": 16,
       "schedule": {
         "Monday": [
-          {
-            "slot": "9:30 AM to 10:30 AM",
-            "raw": "LAB- 1. Commerce-FA-CL1-SJJ-LP1",
-            "course": "B.Com (Hons)",
-            "semester": "Sem I",
-            "section": "Sec L",
-            "batch": "LP1, LP2, LP3",
-            "subject": "FA",
-            "subject_name": "Financial Accounting",
-            "room": "CL1",
-            "type": "Practical/Lab"
-          },
           {
             "slot": "9:30 AM to 10:30 AM",
             "raw": "L- Commerce-FA-R34-SJJ",

@@ -4910,6 +4910,31 @@ ${directRoomUrl}`;
           });
         }
       }
+
+      // If multiple teachers matched this room slot, validate against the room's official scheduled class
+      if (matches.length > 1 && appData && Array.isArray(appData.rooms)) {
+        const roomObj = appData.rooms.find(r => (r.code || '').trim().toUpperCase() === targetRoom);
+        const daySched = roomObj && roomObj.schedule ? roomObj.schedule[day] : null;
+        const occ = daySched && Array.isArray(daySched.occupied_slots) ? daySched.occupied_slots.find(o => o.slot === slot) : null;
+        if (occ && occ.class) {
+          const occClassUpper = occ.class.toUpperCase();
+          const filteredMatches = matches.filter(m => {
+            const sc = (m.teacher.short_code || '').trim().toUpperCase();
+            if (sc && new RegExp('(^|[-_\\/\\s])' + sc.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '([-_\\/\\s]|$)', 'i').test(occClassUpper)) {
+              return true;
+            }
+            const cleanNameUpper = (m.teacher.clean_name || '').toUpperCase();
+            if (cleanNameUpper && occClassUpper.includes(cleanNameUpper)) {
+              return true;
+            }
+            return false;
+          });
+          if (filteredMatches.length > 0) {
+            return filteredMatches;
+          }
+        }
+      }
+
       return matches;
     }
 
