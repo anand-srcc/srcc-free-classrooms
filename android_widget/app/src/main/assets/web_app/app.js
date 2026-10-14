@@ -300,7 +300,86 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function escapeHtml(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+  window.escapeHtml = escapeHtml;
+
+  const academicPeriodsMap = {
+    '8:30 AM to 9:30 AM': { num: 1, start: '8:30 AM', end: '9:30 AM' },
+    '8:30 AM – 9:30 AM': { num: 1, start: '8:30 AM', end: '9:30 AM' },
+    '8:30 AM - 9:30 AM': { num: 1, start: '8:30 AM', end: '9:30 AM' },
+    '9:30 AM to 10:30 AM': { num: 2, start: '9:30 AM', end: '10:30 AM' },
+    '9:30 AM – 10:30 AM': { num: 2, start: '9:30 AM', end: '10:30 AM' },
+    '9:30 AM - 10:30 AM': { num: 2, start: '9:30 AM', end: '10:30 AM' },
+    '10:30 AM to 11:30 AM': { num: 3, start: '10:30 AM', end: '11:30 AM' },
+    '10:30 AM – 11:30 AM': { num: 3, start: '10:30 AM', end: '11:30 AM' },
+    '10:30 AM - 11:30 AM': { num: 3, start: '10:30 AM', end: '11:30 AM' },
+    '11:30 AM to 12:30 PM': { num: 4, start: '11:30 AM', end: '12:30 PM' },
+    '11:30 AM – 12:30 PM': { num: 4, start: '11:30 AM', end: '12:30 PM' },
+    '11:30 AM - 12:30 PM': { num: 4, start: '11:30 AM', end: '12:30 PM' },
+    '12:30 PM to 1:30 PM': { num: 5, start: '12:30 PM', end: '1:30 PM' },
+    '12:30 PM – 1:30 PM': { num: 5, start: '12:30 PM', end: '1:30 PM' },
+    '12:30 PM - 1:30 PM': { num: 5, start: '12:30 PM', end: '1:30 PM' },
+    '1:00 PM to 2:00 PM': { num: 5, start: '12:30 PM', end: '1:30 PM' },
+    '2:00 PM to 3:00 PM': { num: 6, start: '2:00 PM', end: '3:00 PM' },
+    '2:00 PM – 3:00 PM': { num: 6, start: '2:00 PM', end: '3:00 PM' },
+    '2:00 PM - 3:00 PM': { num: 6, start: '2:00 PM', end: '3:00 PM' },
+    '3:00 PM to 4:00 PM': { num: 7, start: '3:00 PM', end: '4:00 PM' },
+    '3:00 PM – 4:00 PM': { num: 7, start: '3:00 PM', end: '4:00 PM' },
+    '3:00 PM - 4:00 PM': { num: 7, start: '3:00 PM', end: '4:00 PM' },
+    '4:00 PM to 5:00 PM': { num: 8, start: '4:00 PM', end: '5:00 PM' },
+    '4:00 PM – 5:00 PM': { num: 8, start: '4:00 PM', end: '5:00 PM' },
+    '4:00 PM - 5:00 PM': { num: 8, start: '4:00 PM', end: '5:00 PM' },
+    '5:00 PM to 6:00 PM': { num: 9, start: '5:00 PM', end: '6:00 PM' },
+    '5:00 PM – 6:00 PM': { num: 9, start: '5:00 PM', end: '6:00 PM' },
+    '5:00 PM - 6:00 PM': { num: 9, start: '5:00 PM', end: '6:00 PM' }
+  };
+
+  function getPeriodInfo(slotStr) {
+    if (!slotStr) return null;
+    const trimmed = String(slotStr).trim();
+    if (academicPeriodsMap[trimmed]) return academicPeriodsMap[trimmed];
+    const norm = trimmed.replace(/\s+/g, ' ');
+    if (academicPeriodsMap[norm]) return academicPeriodsMap[norm];
+    const m = norm.match(/(\d{1,2}):(\d{2})\s*(AM|PM)?/i);
+    if (m) {
+      let hr = parseInt(m[1], 10);
+      const ampm = (m[3] || '').toUpperCase();
+      if (ampm === 'PM' && hr < 12) hr += 12;
+      if (ampm === 'AM' && hr === 12) hr = 0;
+      if (hr === 8) return academicPeriodsMap['8:30 AM to 9:30 AM'];
+      if (hr === 9) return academicPeriodsMap['9:30 AM to 10:30 AM'];
+      if (hr === 10) return academicPeriodsMap['10:30 AM to 11:30 AM'];
+      if (hr === 11) return academicPeriodsMap['11:30 AM to 12:30 PM'];
+      if (hr === 12 || hr === 13) return academicPeriodsMap['12:30 PM to 1:30 PM'];
+      if (hr === 14) return academicPeriodsMap['2:00 PM to 3:00 PM'];
+      if (hr === 15) return academicPeriodsMap['3:00 PM to 4:00 PM'];
+      if (hr === 16) return academicPeriodsMap['4:00 PM to 5:00 PM'];
+      if (hr === 17) return academicPeriodsMap['5:00 PM to 6:00 PM'];
+    }
+    const parts = trimmed.split(/\s*(?:to|–|-)\s*/i);
+    return { num: 99, start: parts[0] || trimmed, end: parts[1] || '' };
+  }
+  window.getPeriodInfo = getPeriodInfo;
+
   function initApp() {
+    if (!appData && window.SRCC_DATA) {
+      appData = window.SRCC_DATA;
+    }
+    if (!teachersData && window.SRCC_TEACHERS_DATA) {
+      teachersData = window.SRCC_TEACHERS_DATA;
+    }
+    if (!leavesData && window.SRCC_FACULTY_LEAVES) {
+      leavesData = window.SRCC_FACULTY_LEAVES;
+    }
+
     if (loadingStateEl) loadingStateEl.style.display = 'none';
 
     if (!appData || !appData.rooms) {
@@ -595,6 +674,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const issueDateStr = notice.created_at ? notice.created_at.slice(0, 10) : todayIso;
       const formattedIssueDate = (typeof formatIsoToDdMmYyyy === 'function') ? formatIsoToDdMmYyyy(issueDateStr) : issueDateStr;
       const formattedExpiryDate = notice.expiry_date ? ((typeof formatIsoToDdMmYyyy === 'function') ? formatIsoToDdMmYyyy(notice.expiry_date) : notice.expiry_date) : '';
+      const catBadge = categoryBadges[notice.category] || categoryBadges.circular;
+      const hasAttachment = !!(notice.attachment && notice.attachment.dataUrl);
 
       container.innerHTML = `
         <div class="campus-notice-card ${notice.pinned ? 'is-pinned-notice' : ''}">
@@ -6003,15 +6084,53 @@ window.SRCC_FACULTY_LEAVES = {
 
       const validCourses = ['B.A. (Hons) Economics', 'B.Com (Hons)', 'SEC', 'VAC'];
       let savedCourse = localStorage.getItem('srcc_my_tt_course');
-      if (savedCourse === 'SEC_VAC' || savedCourse === 'SEC / VAC' || savedCourse === 'M.Com' || savedCourse === 'GBO') {
-        savedCourse = 'B.Com (Hons)';
-      }
       let savedSem = localStorage.getItem('srcc_my_tt_sem');
       let savedSec = localStorage.getItem('srcc_my_tt_sec');
       let savedBatch = localStorage.getItem('srcc_my_tt_batch') || 'ALL';
 
+      // Fallback from widget preference if timetable storage isn't set yet
+      try {
+        const widgetPrefRaw = localStorage.getItem('srcc_my_batch_widget_pref_v1');
+        if (widgetPrefRaw) {
+          const wp = JSON.parse(widgetPrefRaw);
+          if (wp) {
+            if (!savedCourse && wp.course) savedCourse = wp.course;
+            if (!savedSem && wp.sem) savedSem = wp.sem;
+            if (!savedSec && wp.sec) savedSec = wp.sec;
+            if ((!savedBatch || savedBatch === 'ALL') && wp.batch) savedBatch = wp.batch;
+          }
+        }
+      } catch (e) {}
+
+      // Normalize Semester
+      if (savedSem) {
+        const sClean = String(savedSem).trim();
+        if (sClean === '1' || /^(?:sem(?:ester)?\s*)?1$/i.test(sClean) || /^sem\s*i$/i.test(sClean)) savedSem = 'Sem I';
+        else if (sClean === '3' || /^(?:sem(?:ester)?\s*)?3$/i.test(sClean) || /^sem\s*iii$/i.test(sClean)) savedSem = 'Sem III';
+        else if (sClean === '5' || /^(?:sem(?:ester)?\s*)?5$/i.test(sClean) || /^sem\s*v$/i.test(sClean)) savedSem = 'Sem V';
+        else if (sClean === '7' || /^(?:sem(?:ester)?\s*)?7$/i.test(sClean) || /^sem\s*vii$/i.test(sClean)) savedSem = 'Sem VII';
+      }
+
+      // Normalize Section (e.g., "J" -> "Sec J", "Section J" -> "Sec J")
+      if (savedSec) {
+        const secClean = String(savedSec).trim();
+        const m = secClean.match(/^(?:sec(?:tion)?\s*)?([A-Za-z])$/i);
+        if (m) {
+          savedSec = `Sec ${m[1].toUpperCase()}`;
+        }
+      }
+
+      // Auto-resolve course if section is between E and N (Only B.Com (Hons) has Sec E through N at SRCC)
+      if (savedSec && ['Sec E', 'Sec F', 'Sec G', 'Sec H', 'Sec I', 'Sec J', 'Sec K', 'Sec L', 'Sec M', 'Sec N'].includes(savedSec)) {
+        savedCourse = 'B.Com (Hons)';
+      }
+
+      if (savedCourse === 'SEC_VAC' || savedCourse === 'SEC / VAC' || savedCourse === 'M.Com' || savedCourse === 'GBO') {
+        savedCourse = 'B.Com (Hons)';
+      }
+
       if (!savedCourse || !validCourses.includes(savedCourse)) {
-        savedCourse = 'B.A. (Hons) Economics';
+        savedCourse = 'B.Com (Hons)';
       }
       if (!savedSem) {
         savedSem = 'Sem I';
@@ -7622,6 +7741,7 @@ window.SRCC_FACULTY_LEAVES = {
       // Populate initial values
       updateSectionsAndBatches(false);
       syncControlPills();
+      renderMainTimetableView();
       renderMyBatchDailyWidget();
       initWidgetSetupModal();
     }
@@ -8643,7 +8763,7 @@ window._triggerDeferredPwaPrompt = function(delayMs = 3000) {
 // Register Service Worker with robust relative path and periodic sync
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    const swUrl = './sw.js?v=36';
+    const swUrl = './sw.js?v=77';
     navigator.serviceWorker.register(swUrl, { scope: './' }).then(async (registration) => {
       console.log('[SW] Registered successfully with scope:', registration.scope);
 
