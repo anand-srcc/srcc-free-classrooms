@@ -3,7 +3,7 @@
     "college": "Shri Ram College of Commerce (SRCC)",
     "portal": "https://srcccollegetimetable.in/",
     "last_synced": "14 Oct 2026, 11:28 AM",
-    "total_classes_recorded": 2485,
+    "total_classes_recorded": 2351,
     "audit_reconciled": true,
     "tridiagonal_passes": 5,
     "reverse_reconciled": true,
@@ -8381,22 +8381,6 @@
             "teacher_code": "RUA",
             "teacher_id": "608",
             "raw": "T- 2. Commerce-MPA-T9-RUA-A1"
-          },
-          {
-            "day": "Thursday",
-            "slot": "11:30 AM to 12:30 PM",
-            "course": "B.Com (Hons)",
-            "semester": "Sem I",
-            "section": "Sec A",
-            "batch": "A2",
-            "subject": "PME-I",
-            "subject_name": "Principles of Microeconomics I",
-            "type": "Tutorial",
-            "room": "Principal Office",
-            "teacher_name": "Prof. Simrit Kaur",
-            "teacher_code": "PRI",
-            "teacher_id": "616",
-            "raw": "T- 3. Economics-PME-I-Principal Office-PRI-A2"
           },
           {
             "day": "Friday",

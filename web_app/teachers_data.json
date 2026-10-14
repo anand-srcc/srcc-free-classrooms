@@ -28866,25 +28866,12 @@
       "subjects_taught": [
         "PRINCIPLES OF MICROECONOMICS-I)"
       ],
-      "total_teaching_periods": 1,
+      "total_teaching_periods": 0,
       "schedule": {
         "Monday": [],
         "Tuesday": [],
         "Wednesday": [],
-        "Thursday": [
-          {
-            "slot": "11:30 AM to 12:30 PM",
-            "raw": "T- 3. Economics-PME-I-Principal Office-PRI-A2",
-            "course": "B.Com (Hons)",
-            "semester": "Sem I",
-            "section": "Sec A",
-            "batch": "A2",
-            "subject": "PME-I",
-            "subject_name": "Principles of Microeconomics I",
-            "room": "Principal Office",
-            "type": "Tutorial"
-          }
-        ],
+        "Thursday": [],
         "Friday": [],
         "Saturday": []
       },
