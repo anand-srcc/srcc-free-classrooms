@@ -1333,9 +1333,46 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ========================================================================
+    // 📱 MOBILE NAVIGATION & MODAL MANAGEMENT HELPERS
+    // ========================================================================
+    function updateBottomNavActiveState() {
+      const isRoomsStandard = (state.activeMode === 'rooms') && !state.freeNowActive;
+      if (bnavRooms) bnavRooms.classList.toggle('active', isRoomsStandard);
+      if (bnavFaculty) bnavFaculty.classList.toggle('active', state.activeMode === 'faculty');
+      if (bnavTimetable) bnavTimetable.classList.toggle('active', state.activeMode === 'timetable');
+      if (bnavFreeNow) bnavFreeNow.classList.toggle('active', state.activeMode === 'rooms' && state.freeNowActive);
+      if (bnavWifi) bnavWifi.classList.remove('active');
+    }
+    window._updateBottomNavActiveState = updateBottomNavActiveState;
+
+    function closeAllPopups() {
+      const popups = [
+        document.getElementById('wifiModal'),
+        document.getElementById('facultyEmailModal'),
+        document.getElementById('scheduleModal'),
+        document.getElementById('teacherModal'),
+        document.getElementById('shareModal'),
+        document.getElementById('calendarReminderModal'),
+        document.getElementById('studentAttachmentModal'),
+        document.getElementById('leaveManagerModal'),
+        document.getElementById('reportIssueModal')
+      ];
+      popups.forEach(m => {
+        if (m) m.style.display = 'none';
+      });
+      document.body.classList.remove('modal-open');
+      document.body.classList.remove('print-room-modal-active');
+      document.body.classList.remove('print-teacher-modal-active');
+      updateBottomNavActiveState();
+    }
+    window._closeAllPopups = closeAllPopups;
+
+    // ========================================================================
     // 🔀 MULTI-MODE SWITCHING (ROOMS ⇄ FACULTY ⇄ TIMETABLE)
     // ========================================================================
     function setAppMode(mode, preserveFilters = false) {
+      // Dismiss any open popups/modals whenever navigating or switching tabs
+      closeAllPopups();
       if (mode === 'leaves') {
         openFacultyLeavesView();
         return;
@@ -1464,24 +1501,44 @@ document.addEventListener('DOMContentLoaded', () => {
     if (tabModeWifiBtn) tabModeWifiBtn.addEventListener('click', () => setAppMode('wifi'));
     if (bnavRooms) {
       bnavRooms.addEventListener('click', () => {
+        closeAllPopups();
         if (state.freeNowActive) {
           setFreeNowState(false);
         }
         setAppMode('rooms');
       });
     }
-    if (bnavFaculty) bnavFaculty.addEventListener('click', () => setAppMode('faculty'));
-    if (bnavTimetable) bnavTimetable.addEventListener('click', () => setAppMode('timetable'));
+    if (bnavFaculty) {
+      bnavFaculty.addEventListener('click', () => {
+        closeAllPopups();
+        setAppMode('faculty');
+      });
+    }
+    if (bnavTimetable) {
+      bnavTimetable.addEventListener('click', () => {
+        closeAllPopups();
+        setAppMode('timetable');
+      });
+    }
     if (bnavWifi) {
-      bnavWifi.addEventListener('click', () => {
-        const btnOpenHeader = document.getElementById('btnOpenWifiModal');
-        if (btnOpenHeader) {
-          btnOpenHeader.click();
+      bnavWifi.addEventListener('click', (e) => {
+        e.preventDefault();
+        const wifiModal = document.getElementById('wifiModal');
+        if (wifiModal && wifiModal.style.display === 'flex') {
+          if (typeof window._closeWifiModal === 'function') {
+            window._closeWifiModal();
+          } else {
+            wifiModal.style.display = 'none';
+            document.body.classList.remove('modal-open');
+            updateBottomNavActiveState();
+          }
         } else {
-          const wifiModal = document.getElementById('wifiModal');
-          if (wifiModal) {
-            wifiModal.style.display = 'flex';
-            if (typeof window._renderWifiDirectory === 'function') window._renderWifiDirectory('wifiModalGrid');
+          if (typeof window._openWifiModal === 'function') {
+            window._openWifiModal();
+          } else {
+            const btnOpenHeader = document.getElementById('btnOpenWifiModal');
+            if (btnOpenHeader) btnOpenHeader.click();
+            else if (wifiModal) wifiModal.style.display = 'flex';
           }
         }
       });
@@ -1653,6 +1710,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (bnavFreeNow) {
       bnavFreeNow.addEventListener('click', () => {
+        closeAllPopups();
         if (state.activeMode !== 'rooms') {
           setAppMode('rooms', true);
           setFreeNowState(true);
@@ -1761,7 +1819,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } else if (modalEl === teacherModal) {
         document.body.classList.remove('print-teacher-modal-active');
       }
-      const anyOpen = [scheduleModal, shareModal, teacherModal, leaveManagerModal, reportIssueModal].some(m => m && m.style.display === 'flex');
+      const anyOpen = [scheduleModal, shareModal, teacherModal, leaveManagerModal, reportIssueModal, document.getElementById('facultyEmailModal'), document.getElementById('wifiModal')].some(m => m && m.style.display === 'flex');
       if (!anyOpen) {
         document.body.classList.remove('modal-open');
         document.body.classList.remove('print-room-modal-active');
@@ -8668,23 +8726,61 @@ window.SRCC_FACULTY_LEAVES = {
         });
       };
 
+      // Coordinated WiFi Modal Open / Close Handlers
+      function openWifiModal() {
+        if (typeof window._closeAllPopups === 'function') {
+          window._closeAllPopups();
+        }
+        if (!wifiModal) return;
+        wifiModal.style.display = 'flex';
+        document.body.classList.add('modal-open');
+        window._renderWifiDirectory('wifiModalGrid', '', currentModalBand);
+        const bnavWifi = document.getElementById('bnavWifi');
+        const bnavRooms = document.getElementById('bnavRooms');
+        const bnavFaculty = document.getElementById('bnavFaculty');
+        const bnavTimetable = document.getElementById('bnavTimetable');
+        const bnavFreeNow = document.getElementById('bnavFreeNow');
+        if (bnavRooms) bnavRooms.classList.remove('active');
+        if (bnavFaculty) bnavFaculty.classList.remove('active');
+        if (bnavTimetable) bnavTimetable.classList.remove('active');
+        if (bnavFreeNow) bnavFreeNow.classList.remove('active');
+        if (bnavWifi) bnavWifi.classList.add('active');
+      }
+      window._openWifiModal = openWifiModal;
+
+      function closeWifiModal() {
+        if (!wifiModal) return;
+        wifiModal.style.display = 'none';
+        document.body.classList.remove('modal-open');
+        if (typeof window._updateBottomNavActiveState === 'function') {
+          window._updateBottomNavActiveState();
+        }
+      }
+      window._closeWifiModal = closeWifiModal;
+
       // Header button
       if (btnOpenHeader && wifiModal) {
-        btnOpenHeader.addEventListener('click', () => {
-          wifiModal.style.display = 'flex';
-          window._renderWifiDirectory('wifiModalGrid', '', currentModalBand);
+        btnOpenHeader.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (wifiModal.style.display === 'flex') {
+            closeWifiModal();
+          } else {
+            openWifiModal();
+          }
         });
       }
 
       if (btnCloseModal && wifiModal) {
         btnCloseModal.addEventListener('click', () => {
-          wifiModal.style.display = 'none';
+          closeWifiModal();
         });
       }
 
       if (wifiModal) {
         wifiModal.addEventListener('click', (e) => {
-          if (e.target === wifiModal) wifiModal.style.display = 'none';
+          if (e.target === wifiModal) {
+            closeWifiModal();
+          }
         });
       }
 
