@@ -5200,11 +5200,7 @@ ${directRoomUrl}`;
       const roomsToday = [...new Set(daySched.map(c => (c.room ? c.room.trim() : '')).filter(Boolean))];
       const isToday = (facultyState.modalActiveDay === ((typeof getLiveDayName === 'function') ? getLiveDayName() : initialDay));
 
-      const leaveInfo = (leavesData?.leaves || []).find(l => {
-        const nameMatch = l.teacher_name && (teacher.clean_name.toLowerCase().includes(l.teacher_name.toLowerCase()) || l.teacher_name.toLowerCase().includes(teacher.clean_name.toLowerCase()));
-        const dayMatch = l.day === facultyState.modalActiveDay || !l.day;
-        return nameMatch && dayMatch;
-      });
+      const leaveInfo = isTeacherOnLeave(teacher);
 
       const overviewStripHtml = `
         <div class="teacher-overview-banner">
@@ -6606,11 +6602,8 @@ window.SRCC_FACULTY_LEAVES = {
               if (!slotInfo) return;
 
               const tName = getCleanStudentFacultyName(s.teacher_name || s.teacher || 'Faculty', s.teacher_id);
-              const leaveRecord = (typeof isTeacherOnLeave === 'function' ? isTeacherOnLeave({ clean_name: tName, name: tName, id: s.teacher_id }) : null) || activeLeaves.find(l => {
-                const nameMatch = l.teacher_name && (tName.toLowerCase().includes(l.teacher_name.toLowerCase()) || l.teacher_name.toLowerCase().includes(tName.toLowerCase()));
-                const dayMatch = l.day === targetDay || !l.day;
-                return nameMatch && dayMatch;
-              });
+              const teacherObj = (teachersData && teachersData.teachers) ? teachersData.teachers.find(tch => String(tch.id) === String(s.teacher_id)) : null;
+              const leaveRecord = isTeacherOnLeave(teacherObj || { clean_name: tName, name: tName, id: s.teacher_id });
 
               rawList.push({
                 slot: s.slot,
@@ -6712,11 +6705,7 @@ window.SRCC_FACULTY_LEAVES = {
               if (!slotInfo) return;
 
               const subjInfo = getSubjectDetails(s.subject, s.subject_name, isVac);
-              const leaveRecord = (typeof isTeacherOnLeave === 'function' ? isTeacherOnLeave(t) : null) || activeLeaves.find(l => {
-                const nameMatch = l.teacher_name && (tName.toLowerCase().includes(l.teacher_name.toLowerCase()) || l.teacher_name.toLowerCase().includes(tName.toLowerCase()));
-                const dayMatch = l.day === targetDay || !l.day;
-                return nameMatch && dayMatch;
-              });
+              const leaveRecord = isTeacherOnLeave(t);
 
               rawList.push({
                 slot: s.slot,
@@ -7021,11 +7010,7 @@ window.SRCC_FACULTY_LEAVES = {
                   const isSec = isSecSlot(s);
                   const isVac = isVacSlot(s);
                   const subjInfo = getSubjectDetails(s.subject, s.subject_name, isVac);
-                  const leaveRecord = (typeof isTeacherOnLeave === 'function' ? isTeacherOnLeave(t) : null) || activeLeaves.find(l => {
-                    const nameMatch = l.teacher_name && (tName.toLowerCase().includes(l.teacher_name.toLowerCase()) || l.teacher_name.toLowerCase().includes(tName.toLowerCase()));
-                    const dayMatch = l.day === dayName || !l.day;
-                    return nameMatch && dayMatch;
-                  });
+                  const leaveRecord = isTeacherOnLeave(t);
 
                   const candidateSession = {
                     slot: s.slot,
