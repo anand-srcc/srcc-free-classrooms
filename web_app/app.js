@@ -776,15 +776,25 @@ document.addEventListener('DOMContentLoaded', () => {
         bodyEl.appendChild(imgWrap);
       }
 
-      modal.style.display = 'flex';
+      if (typeof openAppModal === 'function') {
+        openAppModal(modal);
+      } else {
+        modal.style.display = 'flex';
+      }
     }
 
     const btnCloseStudentModal = document.getElementById('btnCloseStudentAttachmentModal');
     const studentModal = document.getElementById('studentAttachmentModal');
     if (btnCloseStudentModal && studentModal) {
-      btnCloseStudentModal.addEventListener('click', () => { studentModal.style.display = 'none'; });
+      btnCloseStudentModal.addEventListener('click', () => {
+        if (typeof closeAppModal === 'function') closeAppModal(studentModal);
+        else studentModal.style.display = 'none';
+      });
       studentModal.addEventListener('click', (e) => {
-        if (e.target === studentModal) studentModal.style.display = 'none';
+        if (e.target === studentModal) {
+          if (typeof closeAppModal === 'function') closeAppModal(studentModal);
+          else studentModal.style.display = 'none';
+        }
       });
     }
 
@@ -1345,7 +1355,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     window._updateBottomNavActiveState = updateBottomNavActiveState;
 
-    function closeAllPopups() {
+    let _modalHistoryDepth = 0;
+    let _lastPopStateTime = 0;
+
+    function getCurrentlyOpenModal() {
+      const popups = [
+        document.getElementById('scheduleModal'),
+        document.getElementById('teacherModal'),
+        document.getElementById('wifiModal'),
+        document.getElementById('leaveManagerModal'),
+        document.getElementById('reportIssueModal'),
+        document.getElementById('widgetModal'),
+        document.getElementById('facultyEmailModal'),
+        document.getElementById('shareModal'),
+        document.getElementById('calendarReminderModal'),
+        document.getElementById('studentAttachmentModal'),
+        document.getElementById('pwaInstallModal')
+      ];
+      return popups.find(m => m && (m.style.display === 'flex' || m.style.display === 'block'));
+    }
+
+    function closeAllPopups(options = {}) {
       const popups = [
         document.getElementById('wifiModal'),
         document.getElementById('facultyEmailModal'),
@@ -1355,7 +1385,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('calendarReminderModal'),
         document.getElementById('studentAttachmentModal'),
         document.getElementById('leaveManagerModal'),
-        document.getElementById('reportIssueModal')
+        document.getElementById('reportIssueModal'),
+        document.getElementById('widgetModal'),
+        document.getElementById('pwaInstallModal')
       ];
       popups.forEach(m => {
         if (m) m.style.display = 'none';
@@ -1364,15 +1396,28 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.classList.remove('print-room-modal-active');
       document.body.classList.remove('print-teacher-modal-active');
       updateBottomNavActiveState();
+      if (!options.fromPopState) {
+        _modalHistoryDepth = 0;
+      }
     }
     window._closeAllPopups = closeAllPopups;
 
     // ========================================================================
     // 🔀 MULTI-MODE SWITCHING (ROOMS ⇄ FACULTY ⇄ TIMETABLE)
     // ========================================================================
-    function setAppMode(mode, preserveFilters = false) {
+    function setAppMode(mode, preserveFilters = false, options = {}) {
+      const isBackNav = Boolean(options && options.isBackNav);
+      const isInitial = Boolean(options && options.isInitial);
+      const replace = Boolean(options && options.replace);
+
+      // If already in this mode and not a back nav, scroll to top and return
+      if (state.activeMode === mode && !isBackNav && !options.force) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
       // Dismiss any open popups/modals whenever navigating or switching tabs
-      closeAllPopups();
+      closeAllPopups({ fromPopState: isBackNav });
       if (mode === 'leaves') {
         openFacultyLeavesView();
         return;
@@ -1383,6 +1428,22 @@ document.addEventListener('DOMContentLoaded', () => {
       const isTimetable = (mode === 'timetable');
       const isDirectory = (mode === 'directory');
       const isWifi = (mode === 'wifi');
+
+      // Update browser history & URL hash for smooth mobile back navigation
+      const targetHash = '#' + mode;
+      const stateObj = { type: 'tab', mode: mode };
+
+      if (replace || isInitial) {
+        try {
+          window.history.replaceState(stateObj, '', targetHash);
+        } catch (e) {}
+      } else if (!isBackNav) {
+        if (window.location.hash !== targetHash) {
+          try {
+            window.history.pushState(stateObj, '', targetHash);
+          } catch (e) {}
+        }
+      }
 
       const tabModeWifi = document.getElementById('tabModeWifi');
       const viewWifiSection = document.getElementById('viewWifiSection');
@@ -1493,6 +1554,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+    window.setAppMode = setAppMode;
 
     if (tabModeRooms) tabModeRooms.addEventListener('click', () => setAppMode('rooms'));
     if (tabModeFaculty) tabModeFaculty.addEventListener('click', () => setAppMode('faculty'));
@@ -1798,7 +1860,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Modal Helpers with Mobile Scroll Lock (body.modal-open) & Print Context Tracker
-    function openAppModal(modalEl) {
+    function openAppModal(modalEl, options = {}) {
       if (!modalEl) return;
       modalEl.style.display = 'flex';
       document.body.classList.add('modal-open');
@@ -1809,9 +1871,37 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.add('print-teacher-modal-active');
         document.body.classList.remove('print-room-modal-active');
       }
-    }
 
-    function closeAppModal(modalEl) {
+      // History Management: Push modal state so mobile back button closes the modal cleanly!
+      if (!options.fromPopState && !options.noHistory) {
+        let modalHash = '#' + (modalEl.id || 'modal');
+        if (modalEl === scheduleModal && currentModalRoomCode) {
+          modalHash = '#room-' + encodeURIComponent(currentModalRoomCode);
+        } else if (modalEl === teacherModal && facultyState.modalActiveTeacher) {
+          modalHash = '#faculty-' + encodeURIComponent(facultyState.modalActiveTeacher.id || facultyState.modalActiveTeacher.clean_name);
+        } else if (modalEl.id === 'wifiModal') {
+          modalHash = '#wifi';
+        }
+
+        const stateObj = {
+          type: 'modal',
+          modalId: modalEl.id,
+          roomCode: currentModalRoomCode || null,
+          teacherId: facultyState?.modalActiveTeacher?.id || null,
+          mode: state.activeMode
+        };
+
+        if (window.location.hash !== modalHash) {
+          try {
+            window.history.pushState(stateObj, '', modalHash);
+            _modalHistoryDepth++;
+          } catch (e) {}
+        }
+      }
+    }
+    window.openAppModal = openAppModal;
+
+    function closeAppModal(modalEl, options = {}) {
       if (!modalEl) return;
       modalEl.style.display = 'none';
       if (modalEl === scheduleModal) {
@@ -1819,13 +1909,37 @@ document.addEventListener('DOMContentLoaded', () => {
       } else if (modalEl === teacherModal) {
         document.body.classList.remove('print-teacher-modal-active');
       }
-      const anyOpen = [scheduleModal, shareModal, teacherModal, leaveManagerModal, reportIssueModal, document.getElementById('facultyEmailModal'), document.getElementById('wifiModal')].some(m => m && m.style.display === 'flex');
+      const anyOpen = [
+        scheduleModal, shareModal, teacherModal, leaveManagerModal,
+        reportIssueModal, document.getElementById('facultyEmailModal'),
+        document.getElementById('wifiModal'), widgetModal, installModal,
+        document.getElementById('calendarReminderModal'),
+        document.getElementById('studentAttachmentModal')
+      ].some(m => m && (m.style.display === 'flex' || m.style.display === 'block'));
+
       if (!anyOpen) {
         document.body.classList.remove('modal-open');
         document.body.classList.remove('print-room-modal-active');
         document.body.classList.remove('print-teacher-modal-active');
       }
+
+      // If user closed modal via UI ('X' button or backdrop) and we pushed history for it, pop via history.back()
+      if (!options.fromPopState && _modalHistoryDepth > 0) {
+        _modalHistoryDepth--;
+        try {
+          window.history.back();
+        } catch (e) {}
+      } else if (!options.fromPopState && _modalHistoryDepth === 0) {
+        // Direct link or initial load: restore clean tab hash without exiting site
+        const tabHash = '#' + (state.activeMode || 'rooms');
+        if (window.location.hash !== tabHash) {
+          try {
+            window.history.replaceState({ type: 'tab', mode: state.activeMode || 'rooms' }, '', tabHash);
+          } catch (e) {}
+        }
+      }
     }
+    window.closeAppModal = closeAppModal;
 
     // Modal Close Handlers
     if (btnModalClose) btnModalClose.addEventListener('click', () => { closeAppModal(scheduleModal); });
@@ -5705,7 +5819,7 @@ ${directRoomUrl}`;
       }
 
       renderActiveLeavesList();
-      if (leaveManagerModal) leaveManagerModal.style.display = 'flex';
+      if (leaveManagerModal) openAppModal(leaveManagerModal);
     }
 
     if (btnOpenLeaveManager) {
@@ -8434,7 +8548,7 @@ window.SRCC_FACULTY_LEAVES = {
     // 🔗 URL DEEP-LINKING & HASH NAVIGATION HANDLER
     // Supports: ?room=R2, #room=R2, #R2, ?faculty=Name, #faculty=..., ?tab=..., #timetable, #wifi
     // ========================================================================
-    function handleUrlDeepLinks() {
+    function handleUrlDeepLinks(options = {}) {
       try {
         const searchParams = new URLSearchParams(window.location.search);
         const hash = window.location.hash || '';
@@ -8461,7 +8575,7 @@ window.SRCC_FACULTY_LEAVES = {
             return c === rawCode || c === `R${rawCode}` || rawCode === `R${c}`;
           });
           if (found) {
-            setAppMode('rooms', true);
+            setAppMode('rooms', true, { isInitial: options.isInitial });
             state.activeCategory = 'ALL';
             state.searchQuery = found.code;
             if (searchInput) searchInput.value = found.code;
@@ -8488,7 +8602,7 @@ window.SRCC_FACULTY_LEAVES = {
 
           // Direct Faculty List tab link (?faculty=all or ?faculty=list)
           if (query === 'all' || query === 'list') {
-            setAppMode('faculty', true);
+            setAppMode('faculty', true, { isInitial: options.isInitial });
             renderFaculty();
             return;
           }
@@ -8514,7 +8628,7 @@ window.SRCC_FACULTY_LEAVES = {
             });
 
             if (matchedTeacher) {
-              setAppMode('faculty', true);
+              setAppMode('faculty', true, { isInitial: options.isInitial });
               if (facultySearchInput) facultySearchInput.value = matchedTeacher.clean_name;
               renderFaculty();
               setTimeout(() => {
@@ -8523,7 +8637,7 @@ window.SRCC_FACULTY_LEAVES = {
               }, 250);
               return;
             } else {
-              setAppMode('faculty', true);
+              setAppMode('faculty', true, { isInitial: options.isInitial });
               if (facultySearchInput) facultySearchInput.value = rawQuery;
               facultyState.searchQuery = rawQuery;
               renderFaculty();
@@ -8535,17 +8649,78 @@ window.SRCC_FACULTY_LEAVES = {
         // 3. Tab deep link: ?tab=timetable | ?tab=wifi | ?tab=rooms | ?tab=faculty or #timetable etc.
         const tabParam = searchParams.get('tab') || '';
         if (tabParam === 'timetable' || hash.includes('#timetable')) {
-          setAppMode('timetable');
+          setAppMode('timetable', false, { isInitial: options.isInitial });
         } else if (tabParam === 'wifi' || hash.includes('#wifi')) {
-          setAppMode('wifi');
+          setAppMode('wifi', false, { isInitial: options.isInitial });
         } else if (tabParam === 'faculty' || hash.includes('#faculty')) {
-          setAppMode('faculty');
+          setAppMode('faculty', false, { isInitial: options.isInitial });
         } else if (searchParams.get('free') === '1' || searchParams.get('freenow') === '1' || hash.includes('#freenow')) {
-          setAppMode('rooms', true);
+          setAppMode('rooms', true, { isInitial: options.isInitial });
           setFreeNowState(true);
+        } else if (tabParam === 'rooms' || hash.includes('#rooms') || (!hash && !roomParam && !facultyParam)) {
+          setAppMode('rooms', true, { isInitial: options.isInitial, replace: true });
         }
       } catch (e) {
         console.warn('URL deep link handler note:', e);
+      }
+    }
+
+    // ========================================================================
+    // 📱 MOBILE SYSTEM BACK BUTTON & HISTORY POPSTATE HANDLER
+    // Ensures mobile gesture / hardware back button navigates to previous tab
+    // or closes open modal/drawer instead of exiting the entire website!
+    // ========================================================================
+    function handlePopState(e) {
+      _lastPopStateTime = Date.now();
+      const openModal = getCurrentlyOpenModal();
+      const stateObj = e && e.state;
+
+      // 1. If any modal is currently open in DOM:
+      if (openModal) {
+        if (!stateObj || stateObj.type !== 'modal' || stateObj.modalId !== openModal.id) {
+          closeAppModal(openModal, { fromPopState: true });
+          _modalHistoryDepth = Math.max(0, _modalHistoryDepth - 1);
+
+          // If the state we popped to is another modal (e.g. going back from teacher modal to room modal)
+          if (stateObj && stateObj.type === 'modal' && stateObj.modalId) {
+            if (stateObj.modalId === 'scheduleModal' && stateObj.roomCode) {
+              openScheduleModal(stateObj.roomCode);
+            } else if (stateObj.modalId === 'teacherModal' && stateObj.teacherId) {
+              openTeacherModal(stateObj.teacherId);
+            } else {
+              const targetModal = document.getElementById(stateObj.modalId);
+              if (targetModal) openAppModal(targetModal, { fromPopState: true });
+            }
+            return;
+          }
+
+          if (stateObj && stateObj.mode && stateObj.mode !== state.activeMode) {
+            setAppMode(stateObj.mode, true, { isBackNav: true });
+          }
+          return;
+        }
+      }
+
+      // 2. Tab Navigation from state object
+      if (stateObj && stateObj.mode) {
+        if (stateObj.mode !== state.activeMode) {
+          setAppMode(stateObj.mode, true, { isBackNav: true });
+        }
+        return;
+      }
+
+      // 3. Fallback based on URL hash
+      const rawHash = (window.location.hash || '').toLowerCase();
+      if (rawHash.includes('#faculty')) {
+        if (state.activeMode !== 'faculty') setAppMode('faculty', true, { isBackNav: true });
+      } else if (rawHash.includes('#timetable')) {
+        if (state.activeMode !== 'timetable') setAppMode('timetable', true, { isBackNav: true });
+      } else if (rawHash.includes('#wifi')) {
+        if (state.activeMode !== 'wifi') setAppMode('wifi', true, { isBackNav: true });
+      } else if (rawHash === '' || rawHash === '#' || rawHash.includes('#rooms')) {
+        if (state.activeMode !== 'rooms') setAppMode('rooms', true, { isBackNav: true });
+      } else {
+        handleUrlDeepLinks({ fromPopState: true });
       }
     }
 
@@ -8728,13 +8903,12 @@ window.SRCC_FACULTY_LEAVES = {
       };
 
       // Coordinated WiFi Modal Open / Close Handlers
-      function openWifiModal() {
+      function openWifiModal(options = {}) {
         if (typeof window._closeAllPopups === 'function') {
-          window._closeAllPopups();
+          window._closeAllPopups({ noHistory: true });
         }
         if (!wifiModal) return;
-        wifiModal.style.display = 'flex';
-        document.body.classList.add('modal-open');
+        openAppModal(wifiModal, options);
         window._renderWifiDirectory('wifiModalGrid', '', currentModalBand);
         const bnavWifi = document.getElementById('bnavWifi');
         const bnavRooms = document.getElementById('bnavRooms');
@@ -8749,10 +8923,9 @@ window.SRCC_FACULTY_LEAVES = {
       }
       window._openWifiModal = openWifiModal;
 
-      function closeWifiModal() {
+      function closeWifiModal(options = {}) {
         if (!wifiModal) return;
-        wifiModal.style.display = 'none';
-        document.body.classList.remove('modal-open');
+        closeAppModal(wifiModal, options);
         if (typeof window._updateBottomNavActiveState === 'function') {
           window._updateBottomNavActiveState();
         }
@@ -8833,9 +9006,18 @@ window.SRCC_FACULTY_LEAVES = {
     initLeaveNotificationSystem();
     initDeviceWakeupListeners();
     initOfflineDetection();
-    handleUrlDeepLinks();
-    window.addEventListener('hashchange', () => handleUrlDeepLinks());
-    window.addEventListener('popstate', () => handleUrlDeepLinks());
+    handleUrlDeepLinks({ isInitial: true });
+    try {
+      const initMode = state.activeMode || 'rooms';
+      const initHash = window.location.hash || ('#' + initMode);
+      window.history.replaceState({ type: 'tab', mode: initMode, isBase: true }, '', initHash);
+    } catch (e) {}
+
+    window.addEventListener('popstate', (e) => handlePopState(e));
+    window.addEventListener('hashchange', (e) => {
+      if (Date.now() - _lastPopStateTime < 120) return;
+      handlePopState(e);
+    });
     syncLeavesFromCloud(false);
     setInterval(() => syncLeavesFromCloud(false), 45000);
     // Periodically refresh active notices
