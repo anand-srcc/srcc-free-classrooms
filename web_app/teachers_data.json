@@ -401,7 +401,7 @@
       "department": "Economics",
       "subjects_taught": [
         "Digital Empowerment",
-        "FP"
+        "Financial Planning"
       ],
       "total_teaching_periods": 16,
       "schedule": {
@@ -488,7 +488,7 @@
             "section": "Sec A",
             "batch": "A1",
             "subject": "FP",
-            "subject_name": "FP",
+            "subject_name": "Financial Planning",
             "room": "T12",
             "type": "Practical/Lab"
           },
@@ -500,7 +500,7 @@
             "section": "Sec A",
             "batch": "A1",
             "subject": "FP",
-            "subject_name": "FP",
+            "subject_name": "Financial Planning",
             "room": "T17",
             "type": "Practical/Lab"
           }
@@ -2082,7 +2082,7 @@
       "initials": "AG",
       "department": "Commerce",
       "subjects_taught": [
-        "International Marketing",
+        "Introductory Microeconomics",
         "Open Elective Management",
         "Principles of Microeconomics I"
       ],
@@ -2098,7 +2098,7 @@
             "section": "Sec B",
             "batch": "",
             "subject": "IM",
-            "subject_name": "International Marketing",
+            "subject_name": "Introductory Microeconomics",
             "room": "R25",
             "type": "Lecture"
           },
@@ -2110,7 +2110,7 @@
             "section": "Sec B",
             "batch": "B1",
             "subject": "IM",
-            "subject_name": "International Marketing",
+            "subject_name": "Introductory Microeconomics",
             "room": "T30",
             "type": "Tutorial"
           },
@@ -2198,7 +2198,7 @@
             "section": "Sec A",
             "batch": "A2",
             "subject": "IM",
-            "subject_name": "International Marketing",
+            "subject_name": "Introductory Microeconomics",
             "room": "T54",
             "type": "Tutorial"
           },
@@ -2210,7 +2210,7 @@
             "section": "Sec B",
             "batch": "",
             "subject": "IM",
-            "subject_name": "International Marketing",
+            "subject_name": "Introductory Microeconomics",
             "room": "PB4",
             "type": "Lecture"
           },
@@ -2222,7 +2222,7 @@
             "section": "Sec B",
             "batch": "B3",
             "subject": "IM",
-            "subject_name": "International Marketing",
+            "subject_name": "Introductory Microeconomics",
             "room": "T54",
             "type": "Tutorial"
           }
@@ -2236,7 +2236,7 @@
             "section": "Sec B",
             "batch": "B2",
             "subject": "IM",
-            "subject_name": "International Marketing",
+            "subject_name": "Introductory Microeconomics",
             "room": "T30",
             "type": "Tutorial"
           },
@@ -2274,7 +2274,7 @@
             "section": "Sec A",
             "batch": "A1",
             "subject": "IM",
-            "subject_name": "International Marketing",
+            "subject_name": "Introductory Microeconomics",
             "room": "T30",
             "type": "Tutorial"
           },
@@ -2286,7 +2286,7 @@
             "section": "Sec B",
             "batch": "",
             "subject": "IM",
-            "subject_name": "International Marketing",
+            "subject_name": "Introductory Microeconomics",
             "room": "R23",
             "type": "Lecture"
           }
@@ -2951,8 +2951,8 @@
         "Business Intelligence and Data Visualisation",
         "Digital Empowerment",
         "Ethics and Culture",
-        "GE",
-        "Integrated Marketing Communication"
+        "Integrated Marketing Communication",
+        "Marketing for Beginners"
       ],
       "total_teaching_periods": 25,
       "schedule": {
@@ -3122,8 +3122,8 @@
             "semester": "Sem I",
             "section": "Sec C",
             "batch": "",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "MFB",
+            "subject_name": "Marketing for Beginners",
             "room": "R29",
             "type": "Lecture"
           }
@@ -3160,8 +3160,8 @@
             "semester": "Sem I",
             "section": "Sec C",
             "batch": "C3",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "MFB",
+            "subject_name": "Marketing for Beginners",
             "room": "T16",
             "type": "Tutorial"
           },
@@ -3172,8 +3172,8 @@
             "semester": "Sem I",
             "section": "Sec C",
             "batch": "",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "MFB",
+            "subject_name": "Marketing for Beginners",
             "room": "R29",
             "type": "Lecture"
           }
@@ -3224,8 +3224,8 @@
             "semester": "Sem I",
             "section": "Sec C",
             "batch": "",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "MFB",
+            "subject_name": "Marketing for Beginners",
             "room": "PB4",
             "type": "Lecture"
           }
@@ -4907,7 +4907,7 @@
       "initials": "AA",
       "department": "Commerce",
       "subjects_taught": [
-        "BADS",
+        "Business Analytics & Data Science",
         "Income Tax Law and Practice"
       ],
       "total_teaching_periods": 16,
@@ -4958,7 +4958,7 @@
             "section": "Sec A",
             "batch": "A1",
             "subject": "BADS",
-            "subject_name": "BADS",
+            "subject_name": "Business Analytics & Data Science",
             "room": "T48",
             "type": "Tutorial"
           }
@@ -5008,7 +5008,7 @@
             "section": "Sec A",
             "batch": "A2",
             "subject": "BADS",
-            "subject_name": "BADS",
+            "subject_name": "Business Analytics & Data Science",
             "room": "T48",
             "type": "Tutorial"
           }
@@ -6128,7 +6128,7 @@
       "initials": "AK",
       "department": "Commerce",
       "subjects_taught": [
-        "International Marketing",
+        "Introductory Microeconomics",
         "Principles of Microeconomics I"
       ],
       "total_teaching_periods": 16,
@@ -6142,7 +6142,7 @@
             "section": "Sec C",
             "batch": "C2",
             "subject": "IM",
-            "subject_name": "International Marketing",
+            "subject_name": "Introductory Microeconomics",
             "room": "T30",
             "type": "Tutorial"
           },
@@ -6154,7 +6154,7 @@
             "section": "Sec C",
             "batch": "",
             "subject": "IM",
-            "subject_name": "International Marketing",
+            "subject_name": "Introductory Microeconomics",
             "room": "R24",
             "type": "Lecture"
           },
@@ -6166,7 +6166,7 @@
             "section": "Sec D",
             "batch": "D3",
             "subject": "IM",
-            "subject_name": "International Marketing",
+            "subject_name": "Introductory Microeconomics",
             "room": "T30",
             "type": "Tutorial"
           }
@@ -6192,7 +6192,7 @@
             "section": "Sec C",
             "batch": "",
             "subject": "IM",
-            "subject_name": "International Marketing",
+            "subject_name": "Introductory Microeconomics",
             "room": "R23",
             "type": "Lecture"
           },
@@ -6204,7 +6204,7 @@
             "section": "Sec D",
             "batch": "",
             "subject": "IM",
-            "subject_name": "International Marketing",
+            "subject_name": "Introductory Microeconomics",
             "room": "R26",
             "type": "Lecture"
           }
@@ -6218,7 +6218,7 @@
             "section": "Sec C",
             "batch": "C1",
             "subject": "IM",
-            "subject_name": "International Marketing",
+            "subject_name": "Introductory Microeconomics",
             "room": "T30",
             "type": "Tutorial"
           },
@@ -6230,7 +6230,7 @@
             "section": "Sec D",
             "batch": "",
             "subject": "IM",
-            "subject_name": "International Marketing",
+            "subject_name": "Introductory Microeconomics",
             "room": "R23",
             "type": "Lecture"
           }
@@ -6256,7 +6256,7 @@
             "section": "Sec C",
             "batch": "",
             "subject": "IM",
-            "subject_name": "International Marketing",
+            "subject_name": "Introductory Microeconomics",
             "room": "R25",
             "type": "Lecture"
           },
@@ -6268,7 +6268,7 @@
             "section": "Sec D",
             "batch": "D2",
             "subject": "IM",
-            "subject_name": "International Marketing",
+            "subject_name": "Introductory Microeconomics",
             "room": "T24",
             "type": "Tutorial"
           },
@@ -6280,7 +6280,7 @@
             "section": "Sec D",
             "batch": "D1",
             "subject": "IM",
-            "subject_name": "International Marketing",
+            "subject_name": "Introductory Microeconomics",
             "room": "T17",
             "type": "Tutorial"
           }
@@ -6318,7 +6318,7 @@
             "section": "Sec C",
             "batch": "C3",
             "subject": "IM",
-            "subject_name": "International Marketing",
+            "subject_name": "Introductory Microeconomics",
             "room": "T3",
             "type": "Tutorial"
           },
@@ -6330,7 +6330,7 @@
             "section": "Sec D",
             "batch": "",
             "subject": "IM",
-            "subject_name": "International Marketing",
+            "subject_name": "Introductory Microeconomics",
             "room": "PB4",
             "type": "Lecture"
           }
@@ -6548,7 +6548,7 @@
       "initials": "AK",
       "department": "Economics",
       "subjects_taught": [
-        "Digital Empowerment",
+        "Differential Equations",
         "Numerical Methods"
       ],
       "total_teaching_periods": 14,
@@ -6563,7 +6563,7 @@
             "section": "Sec M",
             "batch": "M3",
             "subject": "DE",
-            "subject_name": "Digital Empowerment",
+            "subject_name": "Differential Equations",
             "room": "T41",
             "type": "Tutorial"
           },
@@ -6575,7 +6575,7 @@
             "section": "Sec M",
             "batch": "",
             "subject": "DE",
-            "subject_name": "Digital Empowerment",
+            "subject_name": "Differential Equations",
             "room": "R26",
             "type": "Lecture"
           },
@@ -6587,7 +6587,7 @@
             "section": "Sec A",
             "batch": "A2",
             "subject": "DE",
-            "subject_name": "Digital Empowerment",
+            "subject_name": "Differential Equations",
             "room": "T41",
             "type": "Tutorial"
           }
@@ -6601,7 +6601,7 @@
             "section": "Sec M",
             "batch": "",
             "subject": "DE",
-            "subject_name": "Digital Empowerment",
+            "subject_name": "Differential Equations",
             "room": "R26",
             "type": "Lecture"
           },
@@ -6637,7 +6637,7 @@
             "section": "Sec B",
             "batch": "B3",
             "subject": "DE",
-            "subject_name": "Digital Empowerment",
+            "subject_name": "Differential Equations",
             "room": "T42",
             "type": "Tutorial"
           },
@@ -6649,7 +6649,7 @@
             "section": "Sec A",
             "batch": "",
             "subject": "DE",
-            "subject_name": "Digital Empowerment",
+            "subject_name": "Differential Equations",
             "room": "R29",
             "type": "Lecture"
           }
@@ -6663,7 +6663,7 @@
             "section": "Sec M",
             "batch": "",
             "subject": "DE",
-            "subject_name": "Digital Empowerment",
+            "subject_name": "Differential Equations",
             "room": "R25",
             "type": "Lecture"
           },
@@ -6675,7 +6675,7 @@
             "section": "Sec A",
             "batch": "A1",
             "subject": "DE",
-            "subject_name": "Digital Empowerment",
+            "subject_name": "Differential Equations",
             "room": "T45",
             "type": "Tutorial"
           },
@@ -6687,7 +6687,7 @@
             "section": "Sec A",
             "batch": "A3",
             "subject": "DE",
-            "subject_name": "Digital Empowerment",
+            "subject_name": "Differential Equations",
             "room": "T45",
             "type": "Tutorial"
           }
@@ -6701,7 +6701,7 @@
             "section": "Sec B",
             "batch": "B2",
             "subject": "DE",
-            "subject_name": "Digital Empowerment",
+            "subject_name": "Differential Equations",
             "room": "T8",
             "type": "Tutorial"
           },
@@ -6713,7 +6713,7 @@
             "section": "Sec A",
             "batch": "",
             "subject": "DE",
-            "subject_name": "Digital Empowerment",
+            "subject_name": "Differential Equations",
             "room": "PB4",
             "type": "Lecture"
           }
@@ -6727,7 +6727,7 @@
             "section": "Sec A",
             "batch": "",
             "subject": "DE",
-            "subject_name": "Digital Empowerment",
+            "subject_name": "Differential Equations",
             "room": "R26",
             "type": "Lecture"
           }
@@ -7077,7 +7077,7 @@
       "initials": "C",
       "department": "Economics",
       "subjects_taught": [
-        "BDE",
+        "Basic Development Economics",
         "Principles of Microeconomics",
         "Principles of Microeconomics I"
       ],
@@ -7104,7 +7104,7 @@
             "section": "Sec M",
             "batch": "",
             "subject": "BDE",
-            "subject_name": "BDE",
+            "subject_name": "Basic Development Economics",
             "room": "R14",
             "type": "Lecture"
           }
@@ -7145,7 +7145,7 @@
             "section": "Sec M",
             "batch": "",
             "subject": "BDE",
-            "subject_name": "BDE",
+            "subject_name": "Basic Development Economics",
             "room": "R6",
             "type": "Lecture"
           }
@@ -7197,7 +7197,7 @@
             "section": "Sec M",
             "batch": "",
             "subject": "BDE",
-            "subject_name": "BDE",
+            "subject_name": "Basic Development Economics",
             "room": "R1",
             "type": "Lecture"
           }
@@ -7216,7 +7216,7 @@
       "department": "Commerce",
       "subjects_taught": [
         "Corporate Financial Decisions",
-        "International Marketing"
+        "Introductory Microeconomics"
       ],
       "total_teaching_periods": 16,
       "schedule": {
@@ -7266,7 +7266,7 @@
             "section": "Sec A",
             "batch": "",
             "subject": "IM",
-            "subject_name": "International Marketing",
+            "subject_name": "Introductory Microeconomics",
             "room": "R25",
             "type": "Lecture"
           }
@@ -7316,7 +7316,7 @@
             "section": "Sec A",
             "batch": "",
             "subject": "IM",
-            "subject_name": "International Marketing",
+            "subject_name": "Introductory Microeconomics",
             "room": "R25",
             "type": "Lecture"
           }
@@ -7354,7 +7354,7 @@
             "section": "Sec A",
             "batch": "A3",
             "subject": "IM",
-            "subject_name": "International Marketing",
+            "subject_name": "Introductory Microeconomics",
             "room": "T35",
             "type": "Tutorial"
           }
@@ -7418,7 +7418,7 @@
             "section": "Sec A",
             "batch": "",
             "subject": "IM",
-            "subject_name": "International Marketing",
+            "subject_name": "Introductory Microeconomics",
             "room": "R25",
             "type": "Lecture"
           }
@@ -7437,7 +7437,7 @@
       "initials": "CG",
       "department": "Commerce",
       "subjects_taught": [
-        "ECom"
+        "E-Commerce"
       ],
       "total_teaching_periods": 3,
       "schedule": {
@@ -7451,7 +7451,7 @@
             "section": "Sec A",
             "batch": "",
             "subject": "ECom",
-            "subject_name": "ECom",
+            "subject_name": "E-Commerce",
             "room": "PB3",
             "type": "Lecture"
           }
@@ -7466,7 +7466,7 @@
             "section": "Sec A",
             "batch": "",
             "subject": "ECom",
-            "subject_name": "ECom",
+            "subject_name": "E-Commerce",
             "room": "PB2",
             "type": "Lecture"
           }
@@ -7480,7 +7480,7 @@
             "section": "Sec A",
             "batch": "",
             "subject": "ECom",
-            "subject_name": "ECom",
+            "subject_name": "E-Commerce",
             "room": "PB3",
             "type": "Lecture"
           }
@@ -10987,7 +10987,7 @@
       "initials": "HT",
       "department": "Commerce",
       "subjects_taught": [
-        "BDE",
+        "Basic Development Economics",
         "Money and Banking",
         "Theory of Public Finance"
       ],
@@ -11029,7 +11029,7 @@
             "section": "Sec M",
             "batch": "M1",
             "subject": "BDE",
-            "subject_name": "BDE",
+            "subject_name": "Basic Development Economics",
             "room": "T29",
             "type": "Tutorial"
           },
@@ -11145,7 +11145,7 @@
       "initials": "HC",
       "department": "Commerce",
       "subjects_taught": [
-        "BDE",
+        "Basic Development Economics",
         "Principles of Microeconomics",
         "Statistics with R"
       ],
@@ -11247,7 +11247,7 @@
             "section": "Sec N",
             "batch": "N2",
             "subject": "BDE",
-            "subject_name": "BDE",
+            "subject_name": "Basic Development Economics",
             "room": "T51",
             "type": "Tutorial"
           }
@@ -11450,8 +11450,8 @@
       "initials": "J",
       "department": "Commerce",
       "subjects_taught": [
-        "ECom",
-        "GE",
+        "E-Commerce",
+        "Marketing for Beginners",
         "Principles of Marketing"
       ],
       "total_teaching_periods": 16,
@@ -11539,7 +11539,7 @@
             "section": "Sec A",
             "batch": "A1",
             "subject": "ECom",
-            "subject_name": "ECom",
+            "subject_name": "E-Commerce",
             "room": "PB2",
             "type": "Tutorial"
           }
@@ -11626,8 +11626,8 @@
             "semester": "Sem I",
             "section": "Sec C",
             "batch": "C2",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "MFB",
+            "subject_name": "Marketing for Beginners",
             "room": "T39",
             "type": "Tutorial"
           }
@@ -12021,7 +12021,7 @@
       "department": "Commerce",
       "subjects_taught": [
         "Auditing and Corporate Governance",
-        "ITL"
+        "Income Tax Law"
       ],
       "total_teaching_periods": 16,
       "schedule": {
@@ -12223,7 +12223,7 @@
             "section": "Sec A",
             "batch": "",
             "subject": "ITL",
-            "subject_name": "ITL",
+            "subject_name": "Income Tax Law",
             "room": "T44",
             "type": "Tutorial"
           }
@@ -12243,7 +12243,7 @@
       "department": "English",
       "subjects_taught": [
         "Creative Writing",
-        "DEC",
+        "Delhi through the Ages",
         "Public Speaking in English Language and Leadership",
         "Readings in Indian Democratic Literature",
         "Social and Emotional Learning"
@@ -12383,7 +12383,7 @@
             "section": "Sec L",
             "batch": "",
             "subject": "DEC",
-            "subject_name": "DEC",
+            "subject_name": "Delhi through the Ages",
             "room": "R4",
             "type": "Lecture"
           },
@@ -12395,7 +12395,7 @@
             "section": "Sec L",
             "batch": "L2",
             "subject": "DEC",
-            "subject_name": "DEC",
+            "subject_name": "Delhi through the Ages",
             "room": "T34",
             "type": "Tutorial"
           }
@@ -14047,8 +14047,7 @@
       "department": "Physical Education",
       "subjects_taught": [
         "Health, Fitness & Physical Education",
-        "Information Systems and Technology",
-        "Open Elective",
+        "Introduction to Sports Training",
         "Open Elective (Physical Education)"
       ],
       "total_teaching_periods": 21,
@@ -14062,7 +14061,7 @@
             "section": "Sec K",
             "batch": "",
             "subject": "OE",
-            "subject_name": "Open Elective",
+            "subject_name": "Open Elective (Physical Education)",
             "room": "SCR1",
             "type": "Lecture"
           },
@@ -14074,7 +14073,7 @@
             "section": "Sec K",
             "batch": "",
             "subject": "OE",
-            "subject_name": "Open Elective",
+            "subject_name": "Open Elective (Physical Education)",
             "room": "SCR1",
             "type": "Lecture"
           }
@@ -14088,7 +14087,7 @@
             "section": "Sec L",
             "batch": "",
             "subject": "OE",
-            "subject_name": "Open Elective",
+            "subject_name": "Open Elective (Physical Education)",
             "room": "SCR1",
             "type": "Lecture"
           },
@@ -14112,7 +14111,7 @@
             "section": "Sec A",
             "batch": "",
             "subject": "IST",
-            "subject_name": "Information Systems and Technology",
+            "subject_name": "Introduction to Sports Training",
             "room": "PLAYGROUND",
             "type": "Practical/Lab"
           }
@@ -14126,7 +14125,7 @@
             "section": "Sec K",
             "batch": "",
             "subject": "OE",
-            "subject_name": "Open Elective",
+            "subject_name": "Open Elective (Physical Education)",
             "room": "SCR1",
             "type": "Lecture"
           },
@@ -14162,7 +14161,7 @@
             "section": "Sec A",
             "batch": "",
             "subject": "IST",
-            "subject_name": "Information Systems and Technology",
+            "subject_name": "Introduction to Sports Training",
             "room": "SCR1",
             "type": "Lecture"
           },
@@ -14174,7 +14173,7 @@
             "section": "",
             "batch": "",
             "subject": "IST",
-            "subject_name": "Information Systems and Technology",
+            "subject_name": "Introduction to Sports Training",
             "room": "PLAYGROUND",
             "type": "Practical/Lab"
           },
@@ -14200,7 +14199,7 @@
             "section": "Sec L",
             "batch": "",
             "subject": "OE",
-            "subject_name": "Open Elective",
+            "subject_name": "Open Elective (Physical Education)",
             "room": "SCR1",
             "type": "Lecture"
           },
@@ -14212,7 +14211,7 @@
             "section": "Sec L",
             "batch": "",
             "subject": "OE",
-            "subject_name": "Open Elective",
+            "subject_name": "Open Elective (Physical Education)",
             "room": "SCR1",
             "type": "Lecture"
           },
@@ -14262,7 +14261,7 @@
             "section": "Sec K",
             "batch": "",
             "subject": "OE",
-            "subject_name": "Open Elective",
+            "subject_name": "Open Elective (Physical Education)",
             "room": "PLAYGROUND",
             "type": "Practical/Lab"
           },
@@ -14274,7 +14273,7 @@
             "section": "Sec K",
             "batch": "",
             "subject": "OE",
-            "subject_name": "Open Elective",
+            "subject_name": "Open Elective (Physical Education)",
             "room": "PLAYGROUND",
             "type": "Practical/Lab"
           },
@@ -14286,7 +14285,7 @@
             "section": "Sec L",
             "batch": "",
             "subject": "OE",
-            "subject_name": "Open Elective",
+            "subject_name": "Open Elective (Physical Education)",
             "room": "PLAYGROUND",
             "type": "Practical/Lab"
           }
@@ -14300,7 +14299,7 @@
             "section": "Sec A",
             "batch": "",
             "subject": "IST",
-            "subject_name": "Information Systems and Technology",
+            "subject_name": "Introduction to Sports Training",
             "room": "SCR1",
             "type": "Lecture"
           },
@@ -14312,7 +14311,7 @@
             "section": "Sec A",
             "batch": "",
             "subject": "IST",
-            "subject_name": "Information Systems and Technology",
+            "subject_name": "Introduction to Sports Training",
             "room": "SCR1",
             "type": "Lecture"
           }
@@ -16250,9 +16249,9 @@
       "initials": "MG",
       "department": "Commerce",
       "subjects_taught": [
-        "Digital Empowerment",
-        "FC",
-        "GE"
+        "Differential Equations",
+        "Fundamentals of Calculus",
+        "Fundamentals of Computing"
       ],
       "total_teaching_periods": 17,
       "schedule": {
@@ -16265,7 +16264,7 @@
             "section": "Sec M",
             "batch": "",
             "subject": "FC",
-            "subject_name": "FC",
+            "subject_name": "Fundamentals of Calculus",
             "room": "R24",
             "type": "Lecture"
           },
@@ -16276,8 +16275,8 @@
             "semester": "Sem I",
             "section": "Sec A",
             "batch": "A1",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "FOC",
+            "subject_name": "Fundamentals of Computing",
             "room": "T18",
             "type": "Tutorial"
           },
@@ -16288,8 +16287,8 @@
             "semester": "Sem I",
             "section": "Sec B",
             "batch": "",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "FOC",
+            "subject_name": "Fundamentals of Computing",
             "room": "R24",
             "type": "Lecture"
           }
@@ -16302,8 +16301,8 @@
             "semester": "Sem I",
             "section": "Sec A",
             "batch": "",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "FOC",
+            "subject_name": "Fundamentals of Computing",
             "room": "R7",
             "type": "Lecture"
           },
@@ -16314,8 +16313,8 @@
             "semester": "Sem I",
             "section": "Sec B",
             "batch": "B2",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "FOC",
+            "subject_name": "Fundamentals of Computing",
             "room": "T18",
             "type": "Tutorial"
           },
@@ -16327,7 +16326,7 @@
             "section": "Sec B",
             "batch": "B1",
             "subject": "DE",
-            "subject_name": "Digital Empowerment",
+            "subject_name": "Differential Equations",
             "room": "T18",
             "type": "Tutorial"
           }
@@ -16341,7 +16340,7 @@
             "section": "Sec M",
             "batch": "",
             "subject": "FC",
-            "subject_name": "FC",
+            "subject_name": "Fundamentals of Calculus",
             "room": "R25",
             "type": "Lecture"
           },
@@ -16353,7 +16352,7 @@
             "section": "Sec M",
             "batch": "M3",
             "subject": "FC",
-            "subject_name": "FC",
+            "subject_name": "Fundamentals of Calculus",
             "room": "T18",
             "type": "Tutorial"
           },
@@ -16364,8 +16363,8 @@
             "semester": "Sem I",
             "section": "Sec A",
             "batch": "A2",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "FOC",
+            "subject_name": "Fundamentals of Computing",
             "room": "T18",
             "type": "Tutorial"
           },
@@ -16376,8 +16375,8 @@
             "semester": "Sem I",
             "section": "Sec B",
             "batch": "",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "FOC",
+            "subject_name": "Fundamentals of Computing",
             "room": "R25",
             "type": "Lecture"
           }
@@ -16391,7 +16390,7 @@
             "section": "Sec M",
             "batch": "",
             "subject": "FC",
-            "subject_name": "FC",
+            "subject_name": "Fundamentals of Calculus",
             "room": "R7",
             "type": "Lecture"
           },
@@ -16402,8 +16401,8 @@
             "semester": "Sem I",
             "section": "Sec A",
             "batch": "",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "FOC",
+            "subject_name": "Fundamentals of Computing",
             "room": "R7",
             "type": "Lecture"
           },
@@ -16414,8 +16413,8 @@
             "semester": "Sem I",
             "section": "Sec B",
             "batch": "",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "FOC",
+            "subject_name": "Fundamentals of Computing",
             "room": "R7",
             "type": "Lecture"
           },
@@ -16426,8 +16425,8 @@
             "semester": "Sem I",
             "section": "Sec B",
             "batch": "B3",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "FOC",
+            "subject_name": "Fundamentals of Computing",
             "room": "T18",
             "type": "Tutorial"
           },
@@ -16439,7 +16438,7 @@
             "section": "Sec A",
             "batch": "A2",
             "subject": "DE",
-            "subject_name": "Digital Empowerment",
+            "subject_name": "Differential Equations",
             "room": "T18",
             "type": "Tutorial"
           }
@@ -16452,8 +16451,8 @@
             "semester": "Sem I",
             "section": "Sec A",
             "batch": "",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "FOC",
+            "subject_name": "Fundamentals of Computing",
             "room": "R25",
             "type": "Lecture"
           },
@@ -16464,8 +16463,8 @@
             "semester": "Sem I",
             "section": "Sec B",
             "batch": "B1",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "FOC",
+            "subject_name": "Fundamentals of Computing",
             "room": "T18",
             "type": "Tutorial"
           }
@@ -16953,7 +16952,7 @@
       "initials": "MK",
       "department": "Commerce",
       "subjects_taught": [
-        "BDE"
+        "Basic Development Economics"
       ],
       "total_teaching_periods": 10,
       "schedule": {
@@ -16967,7 +16966,7 @@
             "section": "Sec I",
             "batch": "",
             "subject": "BDE",
-            "subject_name": "BDE",
+            "subject_name": "Basic Development Economics",
             "room": "R19",
             "type": "Lecture"
           }
@@ -16981,7 +16980,7 @@
             "section": "Sec F",
             "batch": "F1",
             "subject": "BDE",
-            "subject_name": "BDE",
+            "subject_name": "Basic Development Economics",
             "room": "T27",
             "type": "Tutorial"
           },
@@ -16993,7 +16992,7 @@
             "section": "Sec F",
             "batch": "",
             "subject": "BDE",
-            "subject_name": "BDE",
+            "subject_name": "Basic Development Economics",
             "room": "R3",
             "type": "Lecture"
           },
@@ -17005,7 +17004,7 @@
             "section": "Sec I",
             "batch": "",
             "subject": "BDE",
-            "subject_name": "BDE",
+            "subject_name": "Basic Development Economics",
             "room": "PB3",
             "type": "Lecture"
           },
@@ -17017,7 +17016,7 @@
             "section": "Sec L",
             "batch": "L1",
             "subject": "BDE",
-            "subject_name": "BDE",
+            "subject_name": "Basic Development Economics",
             "room": "T54",
             "type": "Tutorial"
           }
@@ -17031,7 +17030,7 @@
             "section": "Sec F",
             "batch": "",
             "subject": "BDE",
-            "subject_name": "BDE",
+            "subject_name": "Basic Development Economics",
             "room": "R10",
             "type": "Lecture"
           },
@@ -17043,7 +17042,7 @@
             "section": "Sec I",
             "batch": "I1",
             "subject": "BDE",
-            "subject_name": "BDE",
+            "subject_name": "Basic Development Economics",
             "room": "T49",
             "type": "Tutorial"
           },
@@ -17055,7 +17054,7 @@
             "section": "Sec I",
             "batch": "",
             "subject": "BDE",
-            "subject_name": "BDE",
+            "subject_name": "Basic Development Economics",
             "room": "PB3",
             "type": "Lecture"
           }
@@ -17070,7 +17069,7 @@
             "section": "Sec F",
             "batch": "",
             "subject": "BDE",
-            "subject_name": "BDE",
+            "subject_name": "Basic Development Economics",
             "room": "R4",
             "type": "Lecture"
           },
@@ -17082,7 +17081,7 @@
             "section": "Sec F",
             "batch": "F3",
             "subject": "BDE",
-            "subject_name": "BDE",
+            "subject_name": "Basic Development Economics",
             "room": "T54",
             "type": "Tutorial"
           }
@@ -19332,7 +19331,7 @@
       "initials": "PG",
       "department": "Computer Science",
       "subjects_taught": [
-        "DMS",
+        "Database Management Systems",
         "Operating Systems",
         "Programming Using Python"
       ],
@@ -19347,7 +19346,7 @@
             "section": "Sec N",
             "batch": "",
             "subject": "DMS",
-            "subject_name": "DMS",
+            "subject_name": "Database Management Systems",
             "room": "R29",
             "type": "Practical/Lab"
           },
@@ -19480,7 +19479,7 @@
       "initials": "PS",
       "department": "Computer Science",
       "subjects_taught": [
-        "DMS",
+        "Database Management Systems",
         "Operating Systems",
         "Programming Using Python"
       ],
@@ -19495,7 +19494,7 @@
             "section": "Sec N",
             "batch": "",
             "subject": "DMS",
-            "subject_name": "DMS",
+            "subject_name": "Database Management Systems",
             "room": "R30",
             "type": "Practical/Lab"
           },
@@ -19595,7 +19594,7 @@
             "section": "Sec N",
             "batch": "",
             "subject": "DMS",
-            "subject_name": "DMS",
+            "subject_name": "Database Management Systems",
             "room": "CL1",
             "type": "Lecture"
           },
@@ -19645,7 +19644,7 @@
             "section": "Sec N",
             "batch": "",
             "subject": "DMS",
-            "subject_name": "DMS",
+            "subject_name": "Database Management Systems",
             "room": "CL2",
             "type": "Lecture"
           },
@@ -19681,7 +19680,7 @@
             "section": "Sec D",
             "batch": "D2",
             "subject": "DMS",
-            "subject_name": "DMS",
+            "subject_name": "Database Management Systems",
             "room": "R29",
             "type": "Practical/Lab"
           }
@@ -19719,7 +19718,7 @@
             "section": "Sec N",
             "batch": "",
             "subject": "DMS",
-            "subject_name": "DMS",
+            "subject_name": "Database Management Systems",
             "room": "CL2",
             "type": "Lecture"
           }
@@ -20097,7 +20096,7 @@
       "initials": "PC",
       "department": "Commerce",
       "subjects_taught": [
-        "DA",
+        "Data Analysis",
         "Financial Accounting"
       ],
       "total_teaching_periods": 16,
@@ -20174,7 +20173,7 @@
             "section": "Sec A",
             "batch": "",
             "subject": "DA",
-            "subject_name": "DA",
+            "subject_name": "Data Analysis",
             "room": "T42",
             "type": "Practical/Lab"
           },
@@ -20186,7 +20185,7 @@
             "section": "Sec A",
             "batch": "",
             "subject": "DA",
-            "subject_name": "DA",
+            "subject_name": "Data Analysis",
             "room": "T27",
             "type": "Practical/Lab"
           }
@@ -22811,7 +22810,7 @@
       "initials": "RR",
       "department": "Economics",
       "subjects_taught": [
-        "BDE",
+        "Basic Development Economics",
         "Issues in Development Economics"
       ],
       "total_teaching_periods": 14,
@@ -22851,7 +22850,7 @@
             "section": "Sec M",
             "batch": "M2",
             "subject": "BDE",
-            "subject_name": "BDE",
+            "subject_name": "Basic Development Economics",
             "room": "T2",
             "type": "Tutorial"
           },
@@ -22965,7 +22964,7 @@
             "section": "Sec F",
             "batch": "F2",
             "subject": "BDE",
-            "subject_name": "BDE",
+            "subject_name": "Basic Development Economics",
             "room": "T2",
             "type": "Tutorial"
           },
@@ -23031,7 +23030,7 @@
       "department": "English",
       "subjects_taught": [
         "Communication in Everyday Life",
-        "DEC",
+        "Delhi through the Ages",
         "Social and Emotional Learning"
       ],
       "total_teaching_periods": 12,
@@ -23133,7 +23132,7 @@
             "section": "Sec L",
             "batch": "L3",
             "subject": "DEC",
-            "subject_name": "DEC",
+            "subject_name": "Delhi through the Ages",
             "room": "T14",
             "type": "Tutorial"
           }
@@ -23185,7 +23184,7 @@
             "section": "Sec L",
             "batch": "",
             "subject": "DEC",
-            "subject_name": "DEC",
+            "subject_name": "Delhi through the Ages",
             "room": "R19",
             "type": "Lecture"
           }
@@ -24473,8 +24472,8 @@
       "initials": "SB",
       "department": "Commerce",
       "subjects_taught": [
-        "DTHRS",
-        "ITPD",
+        "Design Thinking & HR Systems",
+        "IT for Professional Development",
         "Principles of Microeconomics I",
         "Public Administration and Business"
       ],
@@ -24514,7 +24513,7 @@
             "section": "Sec A",
             "batch": "",
             "subject": "DTHRS",
-            "subject_name": "DTHRS",
+            "subject_name": "Design Thinking & HR Systems",
             "room": "T40",
             "type": "Tutorial"
           }
@@ -24628,7 +24627,7 @@
             "section": "Sec A",
             "batch": "",
             "subject": "ITPD",
-            "subject_name": "ITPD",
+            "subject_name": "IT for Professional Development",
             "room": "T35",
             "type": "Tutorial"
           }
@@ -25753,7 +25752,7 @@
       "initials": "SK",
       "department": "English",
       "subjects_taught": [
-        "Global Finance",
+        "Genre Fiction",
         "Reading Indian Fiction in English"
       ],
       "total_teaching_periods": 11,
@@ -25781,7 +25780,7 @@
             "section": "Sec L",
             "batch": "L3",
             "subject": "GF",
-            "subject_name": "Global Finance",
+            "subject_name": "Genre Fiction",
             "room": "T34",
             "type": "Tutorial"
           },
@@ -25793,7 +25792,7 @@
             "section": "Sec L",
             "batch": "",
             "subject": "GF",
-            "subject_name": "Global Finance",
+            "subject_name": "Genre Fiction",
             "room": "R14",
             "type": "Lecture"
           }
@@ -25807,7 +25806,7 @@
             "section": "Sec L",
             "batch": "",
             "subject": "GF",
-            "subject_name": "Global Finance",
+            "subject_name": "Genre Fiction",
             "room": "R14",
             "type": "Lecture"
           },
@@ -25819,7 +25818,7 @@
             "section": "Sec N",
             "batch": "",
             "subject": "GF",
-            "subject_name": "Global Finance",
+            "subject_name": "Genre Fiction",
             "room": "T3",
             "type": "Lecture"
           }
@@ -25833,7 +25832,7 @@
             "section": "Sec L",
             "batch": "",
             "subject": "GF",
-            "subject_name": "Global Finance",
+            "subject_name": "Genre Fiction",
             "room": "R14",
             "type": "Lecture"
           },
@@ -25845,7 +25844,7 @@
             "section": "Sec N",
             "batch": "",
             "subject": "GF",
-            "subject_name": "Global Finance",
+            "subject_name": "Genre Fiction",
             "room": "R7",
             "type": "Lecture"
           },
@@ -25857,7 +25856,7 @@
             "section": "Sec N",
             "batch": "N2",
             "subject": "GF",
-            "subject_name": "Global Finance",
+            "subject_name": "Genre Fiction",
             "room": "T2",
             "type": "Tutorial"
           }
@@ -25895,7 +25894,7 @@
             "section": "Sec N",
             "batch": "",
             "subject": "GF",
-            "subject_name": "Global Finance",
+            "subject_name": "Genre Fiction",
             "room": "T3",
             "type": "Lecture"
           }
@@ -27174,7 +27173,7 @@
       "department": "Commerce",
       "subjects_taught": [
         "Digital Empowerment",
-        "GE",
+        "Information Systems Management",
         "Organisational Behaviour"
       ],
       "total_teaching_periods": 16,
@@ -27211,8 +27210,8 @@
             "semester": "Sem III",
             "section": "Sec C",
             "batch": "",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "ISM",
+            "subject_name": "Information Systems Management",
             "room": "PB4",
             "type": "Lecture"
           }
@@ -27237,8 +27236,8 @@
             "semester": "Sem III",
             "section": "Sec C",
             "batch": "",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "ISM",
+            "subject_name": "Information Systems Management",
             "room": "R24",
             "type": "Lecture"
           },
@@ -27249,8 +27248,8 @@
             "semester": "Sem III",
             "section": "Sec C",
             "batch": "C2",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "ISM",
+            "subject_name": "Information Systems Management",
             "room": "T45",
             "type": "Tutorial"
           }
@@ -27299,8 +27298,8 @@
             "semester": "Sem III",
             "section": "Sec C",
             "batch": "C3",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "ISM",
+            "subject_name": "Information Systems Management",
             "room": "T46",
             "type": "Tutorial"
           }
@@ -27325,8 +27324,8 @@
             "semester": "Sem III",
             "section": "Sec C",
             "batch": "C1",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "ISM",
+            "subject_name": "Information Systems Management",
             "room": "T54",
             "type": "Tutorial"
           }
@@ -27375,8 +27374,8 @@
             "semester": "Sem III",
             "section": "Sec C",
             "batch": "",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "ISM",
+            "subject_name": "Information Systems Management",
             "room": "R29",
             "type": "Lecture"
           }
@@ -27974,7 +27973,7 @@
       "initials": "S",
       "department": "Commerce",
       "subjects_taught": [
-        "GE"
+        "Accounting for Everyone"
       ],
       "total_teaching_periods": 9,
       "schedule": {
@@ -27987,8 +27986,8 @@
             "semester": "Sem I",
             "section": "Sec C",
             "batch": "",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "AFE",
+            "subject_name": "Accounting for Everyone",
             "room": "R7",
             "type": "Lecture"
           },
@@ -27999,8 +27998,8 @@
             "semester": "Sem I",
             "section": "Sec D",
             "batch": "D2",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "AFE",
+            "subject_name": "Accounting for Everyone",
             "room": "T42",
             "type": "Practical/Lab"
           }
@@ -28013,8 +28012,8 @@
             "semester": "Sem I",
             "section": "Sec D",
             "batch": "D3",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "AFE",
+            "subject_name": "Accounting for Everyone",
             "room": "T2",
             "type": "Practical/Lab"
           },
@@ -28025,8 +28024,8 @@
             "semester": "Sem I",
             "section": "Sec D",
             "batch": "D3",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "AFE",
+            "subject_name": "Accounting for Everyone",
             "room": "T23",
             "type": "Practical/Lab"
           }
@@ -28039,8 +28038,8 @@
             "semester": "Sem I",
             "section": "Sec C",
             "batch": "C1",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "AFE",
+            "subject_name": "Accounting for Everyone",
             "room": "T2",
             "type": "Practical/Lab"
           },
@@ -28051,8 +28050,8 @@
             "semester": "Sem I",
             "section": "Sec C",
             "batch": "",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "AFE",
+            "subject_name": "Accounting for Everyone",
             "room": "PB4",
             "type": "Lecture"
           },
@@ -28063,8 +28062,8 @@
             "semester": "Sem I",
             "section": "Sec D",
             "batch": "D2",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "AFE",
+            "subject_name": "Accounting for Everyone",
             "room": "T49",
             "type": "Practical/Lab"
           }
@@ -28077,8 +28076,8 @@
             "semester": "Sem I",
             "section": "Sec C",
             "batch": "C1",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "AFE",
+            "subject_name": "Accounting for Everyone",
             "room": "T1",
             "type": "Practical/Lab"
           },
@@ -28089,8 +28088,8 @@
             "semester": "Sem I",
             "section": "Sec C",
             "batch": "",
-            "subject": "GE",
-            "subject_name": "GE",
+            "subject": "AFE",
+            "subject_name": "Accounting for Everyone",
             "room": "R23",
             "type": "Lecture"
           }
@@ -28350,9 +28349,8 @@
         "Business Intelligence and Data Visualisation",
         "Communication in Professional Life",
         "Creative Writing",
-        "DEC",
+        "Delhi through the Ages",
         "Digital Empowerment",
-        "R4",
         "Readings in Indian Democratic Literature",
         "Social and Emotional Learning"
       ],
@@ -28452,8 +28450,8 @@
             "semester": "Sem V",
             "section": "Sec B",
             "batch": "",
-            "subject": "R4",
-            "subject_name": "R4",
+            "subject": "RIDL",
+            "subject_name": "Readings in Indian Democratic Literature",
             "room": "R4",
             "type": "Lecture"
           }
@@ -28538,8 +28536,8 @@
             "semester": "Sem V",
             "section": "Sec B",
             "batch": "",
-            "subject": "R4",
-            "subject_name": "R4",
+            "subject": "RIDL",
+            "subject_name": "Readings in Indian Democratic Literature",
             "room": "R4",
             "type": "Lecture"
           }
@@ -28653,7 +28651,7 @@
             "section": "Sec L",
             "batch": "",
             "subject": "DEC",
-            "subject_name": "DEC",
+            "subject_name": "Delhi through the Ages",
             "room": "R5",
             "type": "Lecture"
           }
@@ -30441,7 +30439,7 @@
       "initials": "VC",
       "department": "Commerce",
       "subjects_taught": [
-        "FP",
+        "Financial Planning",
         "Management Accounting"
       ],
       "total_teaching_periods": 16,
@@ -30517,7 +30515,7 @@
             "section": "Sec A",
             "batch": "A2",
             "subject": "FP",
-            "subject_name": "FP",
+            "subject_name": "Financial Planning",
             "room": "T41",
             "type": "Practical/Lab"
           },
@@ -30529,7 +30527,7 @@
             "section": "Sec A",
             "batch": "A2",
             "subject": "FP",
-            "subject_name": "FP",
+            "subject_name": "Financial Planning",
             "room": "T41",
             "type": "Practical/Lab"
           }

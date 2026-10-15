@@ -94,6 +94,9 @@ SUBJECT_MAP = {
     'CFD': 'Corporate Financial Decisions',
     'CFCR': 'Corporate Finance & Restructuring',
     'DnD': 'Digitalisation and Development',
+    'IM': 'Introductory Microeconomics',
+    'IME': 'Introductory Microeconomics',
+    'Intro Micro': 'Introductory Microeconomics',
     'Intro MME': 'Introductory Mathematical Methods for Economics',
     'Adv MME': 'Advanced Mathematical Methods for Economics',
     'IMA I': 'Intermediate Macroeconomics I',
@@ -134,10 +137,10 @@ SUBJECT_MAP = {
     'BFIM': 'Banking, Financial Institutions & Markets',
     'BM': 'Business Management',
     'BSC': 'Business Communication',
-    'GF': 'Global Finance',
+    'DE': 'Differential Equations',
+    'GF': 'Genre Fiction',
     'IF': 'International Finance',
     'IBS': 'International Business Strategy',
-    'IM': 'International Marketing',
     'ME': 'Managerial Economics',
     'MFB': 'Marketing for Beginners',
     'MFD': 'Macro Financial Dynamics',
@@ -146,6 +149,19 @@ SUBJECT_MAP = {
     'TA': 'Taxation & Accounting',
     'TR': 'Tools for Research',
     'WM': 'Wealth Management',
+    'FOC': 'Fundamentals of Computing',
+    'BDE': 'Basic Development Economics',
+    'DEC': 'Delhi through the Ages',
+    'FC': 'Fundamentals of Calculus',
+    'DMS': 'Database Management Systems',
+    'ECom': 'E-Commerce',
+    'DA': 'Data Analysis',
+    'DTHRS': 'Design Thinking & HR Systems',
+    'FP': 'Financial Planning',
+    'ITL': 'Income Tax Law',
+    'BADS': 'Business Analytics & Data Science',
+    'ITPD': 'IT for Professional Development',
+    'ISM': 'Information Systems Management',
 
     # Skill Enhancement Courses (SEC)
     'IE': 'Innovation and Entrepreneurship',
@@ -172,7 +188,6 @@ SUBJECT_MAP = {
     # Value Addition Courses (VAC)
     'EI': 'Emotional Intelligence',
     'ABH': 'The Art of Being Happy',
-    'DE': 'Digital Empowerment',
     'CVFD': 'Constitutional Values and Fundamental Duties',
     'VM I': 'Vedic Mathematics-I',
     'VM II': 'Vedic Mathematics-II',
@@ -211,6 +226,23 @@ def normalize_room_code(text):
 
 def resolve_subject_name(subj_code, raw_context=''):
     if not subj_code: return ''
+    raw_u = (raw_context or '').upper()
+    if 'VAC' in raw_u:
+        if subj_code == 'DE': return 'Digital Empowerment'
+        if subj_code == 'EC': return 'Ethics and Culture'
+        if subj_code == 'EI': return 'Emotional Intelligence'
+    if 'MATHS' in raw_u:
+        if subj_code == 'DE': return 'Differential Equations'
+        if subj_code == 'FC': return 'Fundamentals of Calculus'
+        if subj_code == 'FOC': return 'Fundamentals of Computing'
+    if 'ENGLISH' in raw_u:
+        if subj_code == 'GF': return 'Genre Fiction'
+        if subj_code == 'DEC': return 'Delhi through the Ages'
+        if subj_code in ('RIDL', 'R4'): return 'Readings in Indian Democratic Literature'
+    if 'PHY.ED' in raw_u or 'PLAYGROUND' in raw_u or 'SCR1' in raw_u:
+        if subj_code == 'IST': return 'Introduction to Sports Training'
+        if subj_code == 'OE': return 'Open Elective (Physical Education)'
+
     if subj_code in SUBJECT_MAP:
         return SUBJECT_MAP[subj_code]
     clean_c = subj_code.upper().strip()
@@ -386,6 +418,11 @@ def parse_class_cell_item(item_str, default_course='', default_sem='', default_s
         # In tokens[1], it might be MPA, FA, BLAW, PME-I, etc.
         if len(tokens) >= 3 and tokens[1].upper() in ('PME', 'IMA', 'VM', 'EVS', 'ITSA'):
             subject = f"{tokens[1]}-{tokens[2]}"
+        elif tokens[1].upper() == 'GE' and len(tokens) >= 3:
+            subject = tokens[2]
+        elif dept.upper() == 'ENGLISH' and tokens[1].upper() == 'R4':
+            subject = 'RIDL'
+            room = 'R4'
         else:
             subject = tokens[1]
 

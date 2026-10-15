@@ -4892,148 +4892,177 @@ ${directRoomUrl}`;
     // 📚 COMPREHENSIVE SRCC & DU SUBJECT ABBREVIATIONS TO FULL NAMES MAP
     // ========================================================================
     const SRCC_SUBJECT_MAP = {
+      // Core B.Com (Hons) DSC / DSE
       'BLAW': 'Business Law',
       'FA': 'Financial Accounting',
-      'MPA': 'Management Principles & Applications',
+      'MPA': 'Management Principles and Applications',
       'BECON': 'Business Economics',
       'POM': 'Principles of Marketing',
-      'AUD': 'Auditing & Corporate Governance',
-      'FMI': 'Financial Markets & Institutions',
+      'AUD': 'Auditing and Corporate Governance',
+      'FMI': 'Financial Markets and Institutions',
       'EOE': 'Principles of Microeconomics',
       'EoE': 'Principles of Microeconomics',
       'EoE1': 'Principles of Microeconomics I',
       'BMATH': 'Business Mathematics',
-      'ITLP': 'Income Tax Law & Practice',
+      'ITLP': 'Income Tax Law and Practice',
       'MA': 'Management Accounting',
       'ED': 'Entrepreneurship Development',
-      'MB': 'Money & Banking',
+      'MB': 'Money and Banking',
       'FM': 'Financial Management',
       'EVS': 'Environmental Studies',
-      'EVS-I': 'Environmental Studies I (Theory into Practice)',
-      'EVS-II': 'Environmental Studies II (Theory into Practice)',
+      'EVS-I': 'Environmental Science: Theory into Practice-I',
+      'EVS-II': 'Environmental Science: Theory into Practice-II',
       'PME-I': 'Principles of Microeconomics I',
       'PME': 'Principles of Microeconomics',
       'PMEE': 'Principles of Microeconomics',
+      'BRM': 'Brand Management',
+      'CAS': 'Computerized Accounting System',
+      'CFD': 'Corporate Financial Decisions',
+      'CFCR': 'Corporate Finance & Restructuring',
+      'DnD': 'Digitalisation and Development',
+      'IF': 'International Finance',
+      'ODI': 'Organisational Dynamics & Intervention',
+      'OB': 'Organisational Behaviour',
+      'PAB': 'Public Administration and Business',
 
+      // Core B.A. (Hons) Economics DSC / DSE
+      'IM': 'Introductory Microeconomics',
+      'IME': 'Introductory Microeconomics',
+      'Intro Micro': 'Introductory Microeconomics',
       'Intro MME': 'Introductory Mathematical Methods for Economics',
       'Adv MME': 'Advanced Mathematical Methods for Economics',
       'IMA I': 'Intermediate Macroeconomics I',
-      'IMIC1': 'Intermediate Microeconomics I',
+      'IMIC1': 'Intermediate Microeconomics 1',
       'ISME': 'Introductory Statistics for Economics',
-      'DE': 'Development Economics',
+      'DE': 'Differential Equations',
       'EHI': 'Economic History of India',
       'IDE': 'Issues in Development Economics',
-      'GT': 'Game Theory',
+      'GT': 'Game Theory and Strategic Interactions',
       'PE': 'Political Economy',
       'PM': 'Project Management',
       'RM': 'Research Methodology',
       'GBS': 'Global Business Strategy',
       'OEM': 'Open Elective Management',
       'AdTrix': 'Advanced Econometrics',
-      'IIPT': 'Indian Political Thought',
-      'NL': 'Nationalism in India',
-      'NII': 'Nationalism & Indian Identity',
-      'UIR': 'Understanding International Relations',
-      'GIC': 'Global Institutions & Commerce',
-      'IGT': 'Interactive Game Theory',
-      'IMC': 'Integrated Marketing Communication',
-      'IST': 'Information Systems & Technology',
-      'RIDL': 'Readings in Indian Democratic Literature',
 
-      'AS': 'Applied Statistics',
-      'BIT': 'Business Information Technologies',
-      'ITSA I': 'Introduction to Statistics & Analysis I',
-      'ITSA II': 'Introduction to Statistics & Analysis II',
-      'BIDV': 'Business Intelligence & Data Visualization',
-      'BADS': 'Business Analytics & Data Science',
-      'BDE': 'Business Data Ecosystem',
-      'DEC': 'Digital Economy & E-Commerce',
-      'EC': 'E-Commerce',
-      'ECom': 'E-Commerce',
-      'DA': 'Data Analysis',
-      'DM': 'Digital Marketing',
-      'DMS': 'Database Management Systems',
-      'CAS': 'Computerized Accounting System',
-      'CFD': 'Corporate Financial Decisions',
-      'CFCR': 'Corporate Finance & Restructuring',
-      'CIEL': 'Communication in Everyday Life',
-      'CPL': 'Communication in Professional Life',
-      'CVFD': 'Constitutional Values and Fundamental Duties',
-      'DnD': 'Digitalization and Development',
-      'EI': 'Economics of Industry',
-      'EP': 'Economic Policy',
-      'FC': 'Finance for Everyone',
+      // Generic Electives (GE) across B.Com & Eco Hons
       'FOC': 'Fundamentals of Computing',
-      'FP': 'Financial Planning',
-      'PFP': 'Personal Financial Planning',
-      'GF': 'Global Finance',
-      'IF': 'International Finance',
-      'IE': 'International Economics',
-      'IBS': 'International Business Strategy',
-      'IM': 'International Marketing',
-      'ISM': 'Information Systems Management',
-      'ITL': 'Income Tax Law',
-      'ITPD': 'IT for Professional Development',
-      'ME': 'Managerial Economics',
+      'AFE': 'Accounting for Everyone',
       'MFB': 'Marketing for Beginners',
-      'MFD': 'Macro Financial Dynamics',
+      'ISM': 'Information Systems Management',
+      'BDE': 'Basic Development Economics',
+      'DEC': 'Delhi through the Ages',
+      'FC': 'Fundamentals of Calculus',
+      'DMS': 'Database Management Systems',
+      'ECom': 'E-Commerce',
+      'GF': 'Genre Fiction',
+      'RIDL': 'Readings in Indian Democratic Literature',
       'NM': 'Numerical Methods',
-      'OB': 'Organizational Behavior',
-      'ODI': 'Organizational Dynamics & Intervention',
-      'OE': 'Open Elective',
+      'OS': 'Operating Systems',
       'OOPUP': 'Programming Using Python',
       'OPUP': 'Programming Using Python',
       'PUP': 'Programming Using Python',
-      'OS': 'Operating Systems',
-      'PAB': 'Public Administration & Business',
-      'PSEL': 'Professional Skills in English Language',
-      'PSELL': 'Professional Skills in English Language',
-      'RIFE': 'Reading Indian Fiction in English',
-      'SET': 'Statistical Economics & Techniques',
-      'SHRM': 'Strategic Human Resource Management',
-      'SM': 'Strategic Management',
-      'SMM': 'Social Media Marketing',
-      'SRG': 'Social Responsibility & Governance',
-      'SWR': 'Statistics with R',
-      'TA': 'Taxation & Accounting',
-      'TGNLC': 'The Gita for Navigating Life Challenges',
+      'IIPT': 'Indian Political Thought',
+      'NII': 'Nationalism in India',
+      'UIR': 'Understanding International Relations',
+      'GIC': 'Global Institutions and Commerce',
+      'IGT': 'Interactive Game Theory',
+      'IMC': 'Integrated Marketing Communication',
+      'IST': 'Introduction to Sports Training',
+      'OE': 'Open Elective (Physical Education)',
       'TPF': 'Theory of Public Finance',
-      'TR': 'Tools for Research',
-      'VAC SEL': 'Value Addition Course Elective',
-      'VM I': 'Vedic Mathematics I',
-      'VM II': 'Vedic Mathematics II',
-      'VM III': 'Vedic Mathematics III',
-      'WM': 'Wealth Management',
+      'HFPE': 'Health, Fitness & Physical Education',
+
+      // Skill Enhancement Courses (SEC)
+      'AS': 'Advanced Spreadsheet',
+      'BIT': 'Basic IT Tools',
+      'ITSA I': 'IT Skills and Data Analysis I',
+      'ITSA II': 'IT Skills and Data Analysis II',
+      'BIDV': 'Business Intelligence and Data Visualisation',
+      'CIEL': 'Communication in Everyday Life',
+      'CPL': 'Communication in Professional Life',
+      'CW': 'Creative Writing',
+      'DM': 'Digital Marketing',
+      'EP': 'Essentials of Python',
+      'IE': 'Innovation and Entrepreneurship',
+      'NL': 'Negotiation and Leadership',
+      'PFP': 'Personal Financial Planning',
+      'PSEL': 'Public Speaking in English Language and Leadership',
+      'PSELL': 'Public Speaking in English Language and Leadership',
+      'SET': 'Sustainable Eco Tourism and Entrepreneurship',
+      'SMM': 'Social Media Marketing',
+      'SRG': 'Sustainability Reporting',
+      'SWR': 'Statistics with R',
+
+      // Value Addition Courses (VAC)
+      'ABH': 'The Art of Being Happy',
+      'CVFD': 'Constitutional Values and Fundamental Duties',
+      'EC': 'Ethics and Culture',
+      'EI': 'Emotional Intelligence',
+      'RIFE': 'Reading Indian Fiction in English',
+      'TGNLC': 'The Gita: Navigating Life Challenges',
+      'VAC SEL': 'Social and Emotional Learning',
+      'SEL': 'Social and Emotional Learning',
+      'VM I': 'Vedic Mathematics-I',
+      'VM II': 'Vedic Mathematics-II',
+      'VM III': 'Vedic Mathematics-III',
+
+      // M.Com Courses
+      'ACPA': 'Advanced Cost and Performance Analysis',
+      'ACR': 'Accounting for Corporate Restructuring',
+      'AIS': 'Accounting Information Systems',
+      'BADS': 'Business Analytics & Data Science',
       'BF': 'Behavioral Finance',
       'BFIM': 'Banking, Financial Institutions & Markets',
       'BM': 'Business Management',
-      'BRM': 'Brand Management',
       'BSC': 'Business Communication',
-      'CW': 'Creative Writing',
+      'DA': 'Data Analysis',
       'DTHRS': 'Design Thinking & HR Systems',
-      'HFPE': 'Health, Fitness & Physical Education',
+      'FP': 'Financial Planning',
+      'IBS': 'International Business Strategy',
+      'ITL': 'Income Tax Law',
+      'ITPD': 'IT for Professional Development',
+      'ME': 'Managerial Economics',
+      'MFD': 'Macro Financial Dynamics',
+      'SHRM': 'Strategic Human Resource Management',
+      'SM': 'Strategic Management',
+      'TA': 'Taxation & Accounting',
+      'TR': 'Tools for Research',
+      'WM': 'Wealth Management',
+
+      // AEC / Languages
       'HA': 'Hindi Cinema aur Uska Adhyayan (Hindi A)',
-      'HB': 'Hindi Gadhya (Hindi B)',
+      'HB': 'Hindi-B',
+      'H B': 'Hindi-B',
       'HC': 'Hindi Bhasha aur Sahitya (Hindi C)',
       'HD': 'Hindi Gadhy: Udbhav aur Vikas (Hindi D)',
       'HE': 'Hindi Sahitya (Hindi E)',
-      'H B': 'Hindi B',
-      'ABH': 'The Art of Being Happy',
-      'ACPA': 'Advanced Cost and Performance Analysis',
-      'ACR': 'Accounting for Corporate Restructuring',
-      'AFE': 'Accounting for Everyone',
-      'AIS': 'Accounting Information Systems',
       'English': 'English'
     };
 
-    function getSubjectDetails(code, givenFullName, isVac) {
+    function getSubjectDetails(code, givenFullName, isVac, deptOrRaw) {
       const cleanCode = (code || '').trim();
       let fullName = (givenFullName || '').trim();
-      if (isVac) {
+      const rawUpper = (deptOrRaw || '').toUpperCase();
+
+      if (isVac || rawUpper.includes('VAC')) {
         if (cleanCode === 'DE') fullName = 'Digital Empowerment';
         else if (cleanCode === 'EC') fullName = 'Ethics and Culture';
         else if (cleanCode === 'EI') fullName = 'Emotional Intelligence';
         else if (cleanCode === 'FC') fullName = 'Financial Literacy';
+      } else {
+        if (cleanCode === 'DE' && (rawUpper.includes('MATH') || !fullName || fullName === 'DE' || fullName === 'Digital Empowerment' || fullName === 'Development Economics')) {
+          fullName = 'Differential Equations';
+        }
+      }
+      if (cleanCode === 'GF' && (rawUpper.includes('ENGLISH') || !fullName || fullName === 'GF' || fullName === 'Global Finance')) {
+        fullName = 'Genre Fiction';
+      }
+      if (cleanCode === 'IST' && (rawUpper.includes('PHY.ED') || rawUpper.includes('PLAYGROUND') || rawUpper.includes('SCR1') || !fullName || fullName === 'IST' || fullName === 'Information Systems and Technology')) {
+        fullName = 'Introduction to Sports Training';
+      }
+      if (cleanCode === 'R4' || (rawUpper.includes('ENGLISH') && rawUpper.includes('R4'))) {
+        fullName = 'Readings in Indian Democratic Literature';
       }
       if (!fullName || fullName.toLowerCase() === cleanCode.toLowerCase() ||
           fullName === 'Business Research Management' || fullName === 'Corporate Valuation & Financial Decisions' ||
@@ -5045,11 +5074,12 @@ ${directRoomUrl}`;
           fullName === 'Banking & Finance' || fullName === 'Banking & Financial Institutions Management' ||
           fullName === 'Anuvad: Vyavahar aur Siddhant' || fullName === 'Accounting & Auditing' ||
           fullName === 'Academic & Creative Research' || fullName === 'Accounting for Financial Entities' ||
-          fullName === 'English Literature') {
+          fullName === 'English Literature' || fullName === 'GE' || fullName === 'R4' ||
+          fullName === 'Business Data Ecosystem' || fullName === 'Digital Economy & E-Commerce') {
         fullName = SRCC_SUBJECT_MAP[cleanCode] || SRCC_SUBJECT_MAP[cleanCode.toUpperCase()] || fullName || cleanCode;
       }
       return {
-        code: cleanCode,
+        code: (cleanCode === 'R4' ? 'RIDL' : cleanCode),
         fullName: fullName || cleanCode || 'Subject',
         hasFull: Boolean(fullName && fullName.toLowerCase() !== cleanCode.toLowerCase())
       };
@@ -5074,7 +5104,7 @@ ${directRoomUrl}`;
 
         if (classItem) {
           const leave = isTeacherOnLeave(t);
-          const subjInfo = getSubjectDetails(classItem.subject, classItem.subject_name);
+          const subjInfo = getSubjectDetails(classItem.subject, classItem.subject_name, classItem.course === 'VAC', classItem.raw || classItem.dept || classItem.course);
           matches.push({
             teacher: t,
             classInfo: classItem,

@@ -638,9 +638,9 @@ WEB_00636,B.Com (Hons),Sem I,Sec L,Wednesday,9:30 AM to 10:30 AM,Tutorial,BLAW,B
 WEB_00637,B.Com (Hons),Sem I,Sec L,Wednesday,9:30 AM to 10:30 AM,Tutorial,BLAW,Business Law,T17,AHC,Ashima (Cg25),L2,web_app/classes_data.json
 WEB_00638,B.Com (Hons),Sem I,Sec L,Wednesday,10:30 AM to 11:30 AM,Lecture,FA,Financial Accounting,R33,SJJ,Dr. Saroj Joshi,,web_app/classes_data.json
 WEB_00639,B.Com (Hons),Sem I,Sec L,Wednesday,11:30 AM to 12:30 PM,Lecture,OPUP,Programming Using Python,R31,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
-WEB_00640,B.Com (Hons),Sem I,Sec L,Wednesday,11:30 AM to 12:30 PM,Lecture,DEC,DEC,R4,KAG,Dr. Kanika Gandhi,,web_app/classes_data.json
-WEB_00641,B.Com (Hons),Sem I,Sec L,Wednesday,12:30 PM to 1:30 PM,Tutorial,DEC,DEC,T14,RUK,Prof. Ruchi Kaushik,L3,web_app/classes_data.json
-WEB_00642,B.Com (Hons),Sem I,Sec L,Wednesday,12:30 PM to 1:30 PM,Tutorial,DEC,DEC,T34,KAG,Dr. Kanika Gandhi,L2,web_app/classes_data.json
+WEB_00640,B.Com (Hons),Sem I,Sec L,Wednesday,11:30 AM to 12:30 PM,Lecture,DEC,Delhi through the Ages,R4,KAG,Dr. Kanika Gandhi,,web_app/classes_data.json
+WEB_00641,B.Com (Hons),Sem I,Sec L,Wednesday,12:30 PM to 1:30 PM,Tutorial,DEC,Delhi through the Ages,T14,RUK,Prof. Ruchi Kaushik,L3,web_app/classes_data.json
+WEB_00642,B.Com (Hons),Sem I,Sec L,Wednesday,12:30 PM to 1:30 PM,Tutorial,DEC,Delhi through the Ages,T34,KAG,Dr. Kanika Gandhi,L2,web_app/classes_data.json
 WEB_00643,B.Com (Hons),Sem I,Sec L,Thursday,8:30 AM to 9:30 AM,Lecture,OPUP,Programming Using Python,R31,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
 WEB_00644,B.Com (Hons),Sem I,Sec L,Thursday,9:30 AM to 10:30 AM,Lecture,FA,Financial Accounting,R3,SJJ,Dr. Saroj Joshi,,web_app/classes_data.json
 WEB_00645,B.Com (Hons),Sem I,Sec L,Thursday,10:30 AM to 11:30 AM,Practical/Lab,FA,Financial Accounting,T36,SJJ,Dr. Saroj Joshi,LP1,web_app/classes_data.json
@@ -653,10 +653,10 @@ WEB_00651,B.Com (Hons),Sem I,Sec L,Friday,9:30 AM to 10:30 AM,Lecture,MPA,Manage
 WEB_00652,B.Com (Hons),Sem I,Sec L,Friday,10:30 AM to 11:30 AM,Practical/Lab,OPUP,Programming Using Python,R30,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
 WEB_00653,B.Com (Hons),Sem I,Sec L,Friday,10:30 AM to 11:30 AM,Tutorial,MPA,Management Principles and Applications,T12,SVP,Dr. Shashank Vikram Pratap Singh,L3,web_app/classes_data.json
 WEB_00654,B.Com (Hons),Sem I,Sec L,Friday,11:30 AM to 12:30 PM,Practical/Lab,OPUP,Programming Using Python,R30,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
-WEB_00655,B.Com (Hons),Sem I,Sec L,Friday,12:30 PM to 1:30 PM,Lecture,DEC,DEC,R19,RUK,Prof. Ruchi Kaushik,,web_app/classes_data.json
+WEB_00655,B.Com (Hons),Sem I,Sec L,Friday,12:30 PM to 1:30 PM,Lecture,DEC,Delhi through the Ages,R19,RUK,Prof. Ruchi Kaushik,,web_app/classes_data.json
 WEB_00656,B.Com (Hons),Sem I,Sec L,Saturday,8:30 AM to 9:30 AM,Lecture,MPA,Management Principles and Applications,R2,SVP,Dr. Shashank Vikram Pratap Singh,,web_app/classes_data.json
 WEB_00657,B.Com (Hons),Sem I,Sec L,Saturday,9:30 AM to 10:30 AM,Lecture,BLAW,Business Law,R17,AAG,Ms. Anubha Godara,,web_app/classes_data.json
-WEB_00658,B.Com (Hons),Sem I,Sec L,Saturday,10:30 AM to 11:30 AM,Lecture,DEC,DEC,R5,SOC,Mr. Soumitra Kumar Choudhary,,web_app/classes_data.json
+WEB_00658,B.Com (Hons),Sem I,Sec L,Saturday,10:30 AM to 11:30 AM,Lecture,DEC,Delhi through the Ages,R5,SOC,Mr. Soumitra Kumar Choudhary,,web_app/classes_data.json
 WEB_00659,B.Com (Hons),Sem I,Sec L,Monday,9:30 AM to 10:30 AM,Practical/Lab,EVS-I,Environmental Science: Theory into Practice-I,R6,EVSG3,Evs Guest 3,,web_app/classes_data.json
 WEB_00660,B.Com (Hons),Sem I,Sec N,Monday,8:30 AM to 9:30 AM,Lecture,MPA,Management Principles and Applications,R5,LKB,Ms. Latika Bajetha,,web_app/classes_data.json
 WEB_00661,B.Com (Hons),Sem I,Sec N,Monday,9:30 AM to 10:30 AM,Tutorial,MPA,Management Principles and Applications,T43,LKB,Ms. Latika Bajetha,N1,web_app/classes_data.json
@@ -781,8 +781,8 @@ WEB_00779,B.Com (Hons),Sem I,Sec J,Saturday,10:30 AM to 11:30 AM,Lecture,BLAW,Bu
 WEB_00780,B.Com (Hons),Sem I,Sec K,Monday,9:30 AM to 10:30 AM,Tutorial,BLAW,Business Law,T31,AGC,Ankita Garg (Cg23),K1,web_app/classes_data.json
 WEB_00781,B.Com (Hons),Sem I,Sec K,Monday,9:30 AM to 10:30 AM,Tutorial,BLAW,Business Law,T17,HGC,Harshita Gupta (Cg24),K3,web_app/classes_data.json
 WEB_00782,B.Com (Hons),Sem I,Sec K,Monday,10:30 AM to 11:30 AM,Lecture,BLAW,Business Law,R22,SUY,Mr. Sudhanshu Yadav,,web_app/classes_data.json
-WEB_00783,B.Com (Hons),Sem I,Sec K,Monday,11:30 AM to 12:30 PM,Lecture,OE,Open Elective,SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
-WEB_00784,B.Com (Hons),Sem I,Sec K,Monday,12:30 PM to 1:30 PM,Lecture,OE,Open Elective,SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
+WEB_00783,B.Com (Hons),Sem I,Sec K,Monday,11:30 AM to 12:30 PM,Lecture,OE,Open Elective (Physical Education),SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
+WEB_00784,B.Com (Hons),Sem I,Sec K,Monday,12:30 PM to 1:30 PM,Lecture,OE,Open Elective (Physical Education),SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
 WEB_00785,B.Com (Hons),Sem I,Sec K,Tuesday,8:30 AM to 9:30 AM,Lecture,MPA,Management Principles and Applications,R35,SVP,Dr. Shashank Vikram Pratap Singh,,web_app/classes_data.json
 WEB_00786,B.Com (Hons),Sem I,Sec K,Tuesday,9:30 AM to 10:30 AM,Lecture,FA,Financial Accounting,R17,PAA,Priyanka Aggarwal (Cg26),,web_app/classes_data.json
 WEB_00787,B.Com (Hons),Sem I,Sec K,Tuesday,10:30 AM to 11:30 AM,Practical/Lab,FA,Financial Accounting,T38,PAA,Priyanka Aggarwal (Cg26),KP1,web_app/classes_data.json
@@ -792,7 +792,7 @@ WEB_00790,B.Com (Hons),Sem I,Sec K,Wednesday,8:30 AM to 9:30 AM,Lecture,MPA,Mana
 WEB_00791,B.Com (Hons),Sem I,Sec K,Wednesday,9:30 AM to 10:30 AM,Practical/Lab,EVS-I,Environmental Science: Theory into Practice-I,R17,SLK,Mr. Sunil Kumar,,web_app/classes_data.json
 WEB_00792,B.Com (Hons),Sem I,Sec K,Wednesday,10:30 AM to 11:30 AM,Practical/Lab,EVS-I,Environmental Science: Theory into Practice-I,R17,SLK,Mr. Sunil Kumar,,web_app/classes_data.json
 WEB_00793,B.Com (Hons),Sem I,Sec K,Wednesday,11:30 AM to 12:30 PM,Practical/Lab,FA,Financial Accounting,T31,PAA,Priyanka Aggarwal (Cg26),KP3,web_app/classes_data.json
-WEB_00794,B.Com (Hons),Sem I,Sec K,Wednesday,11:30 AM to 12:30 PM,Lecture,OE,Open Elective,SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
+WEB_00794,B.Com (Hons),Sem I,Sec K,Wednesday,11:30 AM to 12:30 PM,Lecture,OE,Open Elective (Physical Education),SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
 WEB_00795,B.Com (Hons),Sem I,Sec K,Wednesday,11:30 AM to 12:30 PM,Tutorial,EoE,Principles of Microeconomics,T50,HC26,Hritika Chauhan (26),K2,web_app/classes_data.json
 WEB_00796,B.Com (Hons),Sem I,Sec K,Wednesday,12:30 PM to 1:30 PM,Tutorial,MPA,Management Principles and Applications,T43,NAD,Dr. Nisha Devi,K1,web_app/classes_data.json
 WEB_00797,B.Com (Hons),Sem I,Sec K,Thursday,8:30 AM to 9:30 AM,Lecture,MPA,Management Principles and Applications,R34,SVP,Dr. Shashank Vikram Pratap Singh,,web_app/classes_data.json
@@ -808,13 +808,13 @@ WEB_00806,B.Com (Hons),Sem I,Sec K,Friday,11:30 AM to 12:30 PM,Practical/Lab,FA,
 WEB_00807,B.Com (Hons),Sem I,Sec K,Friday,11:30 AM to 12:30 PM,Practical/Lab,FA,Financial Accounting,CL2,PAA,Priyanka Aggarwal (Cg26),KP1,web_app/classes_data.json
 WEB_00808,B.Com (Hons),Sem I,Sec K,Friday,11:30 AM to 12:30 PM,Practical/Lab,FA,Financial Accounting,CL2,PAA,Priyanka Aggarwal (Cg26),KP3,web_app/classes_data.json
 WEB_00809,B.Com (Hons),Sem I,Sec K,Friday,12:30 PM to 1:30 PM,Tutorial,MPA,Management Principles and Applications,T44,NAD,Dr. Nisha Devi,K3,web_app/classes_data.json
-WEB_00810,B.Com (Hons),Sem I,Sec K,Friday,2:00 PM to 3:00 PM,Practical/Lab,OE,Open Elective,PLAYGROUND,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
-WEB_00811,B.Com (Hons),Sem I,Sec K,Friday,3:00 PM to 4:00 PM,Practical/Lab,OE,Open Elective,PLAYGROUND,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
+WEB_00810,B.Com (Hons),Sem I,Sec K,Friday,2:00 PM to 3:00 PM,Practical/Lab,OE,Open Elective (Physical Education),PLAYGROUND,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
+WEB_00811,B.Com (Hons),Sem I,Sec K,Friday,3:00 PM to 4:00 PM,Practical/Lab,OE,Open Elective (Physical Education),PLAYGROUND,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
 WEB_00812,B.Com (Hons),Sem I,Sec K,Saturday,9:30 AM to 10:30 AM,Lecture,EOE,Principles of Microeconomics,R20,CB29,Chandrabhushan (29),,web_app/classes_data.json
 WEB_00813,B.Com (Hons),Sem I,Sec K,Saturday,10:30 AM to 11:30 AM,Lecture,EOE,Principles of Microeconomics,R20,CB29,Chandrabhushan (29),,web_app/classes_data.json
 WEB_00814,B.Com (Hons),Sem I,Sec M,Monday,8:30 AM to 9:30 AM,Lecture,EVS-I,Environmental Science: Theory into Practice-I,R34,SLK,Mr. Sunil Kumar,,web_app/classes_data.json
-WEB_00815,B.Com (Hons),Sem I,Sec M,Monday,9:30 AM to 10:30 AM,Lecture,BDE,BDE,R14,CB29,Chandrabhushan (29),,web_app/classes_data.json
-WEB_00816,B.Com (Hons),Sem I,Sec M,Monday,9:30 AM to 10:30 AM,Lecture,FC,FC,R24,MIG,Dr. Misha Govil,,web_app/classes_data.json
+WEB_00815,B.Com (Hons),Sem I,Sec M,Monday,9:30 AM to 10:30 AM,Lecture,BDE,Basic Development Economics,R14,CB29,Chandrabhushan (29),,web_app/classes_data.json
+WEB_00816,B.Com (Hons),Sem I,Sec M,Monday,9:30 AM to 10:30 AM,Lecture,FC,Fundamentals of Calculus,R24,MIG,Dr. Misha Govil,,web_app/classes_data.json
 WEB_00817,B.Com (Hons),Sem I,Sec M,Monday,10:30 AM to 11:30 AM,Lecture,MPA,Management Principles and Applications,R34,LKB,Ms. Latika Bajetha,,web_app/classes_data.json
 WEB_00818,B.Com (Hons),Sem I,Sec M,Tuesday,8:30 AM to 9:30 AM,Practical/Lab,FA,Financial Accounting,CL2,AOK,Dr. Alok Kumar,MP1,web_app/classes_data.json
 WEB_00819,B.Com (Hons),Sem I,Sec M,Tuesday,8:30 AM to 9:30 AM,Practical/Lab,FA,Financial Accounting,CL2,AOK,Dr. Alok Kumar,MP2,web_app/classes_data.json
@@ -822,21 +822,21 @@ WEB_00820,B.Com (Hons),Sem I,Sec M,Tuesday,8:30 AM to 9:30 AM,Practical/Lab,FA,F
 WEB_00821,B.Com (Hons),Sem I,Sec M,Tuesday,10:30 AM to 11:30 AM,Lecture,MPA,Management Principles and Applications,R33,LKB,Ms. Latika Bajetha,,web_app/classes_data.json
 WEB_00822,B.Com (Hons),Sem I,Sec M,Tuesday,11:30 AM to 12:30 PM,Lecture,BLAW,Business Law,R28,SUY,Mr. Sudhanshu Yadav,,web_app/classes_data.json
 WEB_00823,B.Com (Hons),Sem I,Sec M,Tuesday,12:30 PM to 1:30 PM,Tutorial,BLAW,Business Law,T8,SUY,Mr. Sudhanshu Yadav,M1,web_app/classes_data.json
-WEB_00824,B.Com (Hons),Sem I,Sec M,Tuesday,12:30 PM to 1:30 PM,Tutorial,BDE,BDE,T2,RUR,Prof. Ritu Ranjan,M2,web_app/classes_data.json
+WEB_00824,B.Com (Hons),Sem I,Sec M,Tuesday,12:30 PM to 1:30 PM,Tutorial,BDE,Basic Development Economics,T2,RUR,Prof. Ritu Ranjan,M2,web_app/classes_data.json
 WEB_00825,B.Com (Hons),Sem I,Sec M,Tuesday,12:30 PM to 1:30 PM,Lecture,NII,Nationalism in India,R6,LVV,Dr. Linesh V. V.,,web_app/classes_data.json
 WEB_00826,B.Com (Hons),Sem I,Sec M,Wednesday,8:30 AM to 9:30 AM,Lecture,FA,Financial Accounting,R17,AOK,Dr. Alok Kumar,,web_app/classes_data.json
 WEB_00827,B.Com (Hons),Sem I,Sec M,Wednesday,9:30 AM to 10:30 AM,Practical/Lab,FA,Financial Accounting,T40,AOK,Dr. Alok Kumar,MP1,web_app/classes_data.json
 WEB_00828,B.Com (Hons),Sem I,Sec M,Wednesday,9:30 AM to 10:30 AM,Tutorial,MPA,Management Principles and Applications,T14,SVP,Dr. Shashank Vikram Pratap Singh,M2,web_app/classes_data.json
-WEB_00829,B.Com (Hons),Sem I,Sec M,Wednesday,9:30 AM to 10:30 AM,Lecture,FC,FC,R25,MIG,Dr. Misha Govil,,web_app/classes_data.json
+WEB_00829,B.Com (Hons),Sem I,Sec M,Wednesday,9:30 AM to 10:30 AM,Lecture,FC,Fundamentals of Calculus,R25,MIG,Dr. Misha Govil,,web_app/classes_data.json
 WEB_00830,B.Com (Hons),Sem I,Sec M,Wednesday,10:30 AM to 11:30 AM,Lecture,BLAW,Business Law,R28,SUY,Mr. Sudhanshu Yadav,,web_app/classes_data.json
-WEB_00831,B.Com (Hons),Sem I,Sec M,Wednesday,11:30 AM to 12:30 PM,Tutorial,FC,FC,T18,MIG,Dr. Misha Govil,M3,web_app/classes_data.json
-WEB_00832,B.Com (Hons),Sem I,Sec M,Wednesday,11:30 AM to 12:30 PM,Tutorial,BDE,BDE,T29,HT5,Himanshu Takia (5),M1,web_app/classes_data.json
+WEB_00831,B.Com (Hons),Sem I,Sec M,Wednesday,11:30 AM to 12:30 PM,Tutorial,FC,Fundamentals of Calculus,T18,MIG,Dr. Misha Govil,M3,web_app/classes_data.json
+WEB_00832,B.Com (Hons),Sem I,Sec M,Wednesday,11:30 AM to 12:30 PM,Tutorial,BDE,Basic Development Economics,T29,HT5,Himanshu Takia (5),M1,web_app/classes_data.json
 WEB_00833,B.Com (Hons),Sem I,Sec M,Wednesday,12:30 PM to 1:30 PM,Lecture,NII,Nationalism in India,R6,LVV,Dr. Linesh V. V.,,web_app/classes_data.json
 WEB_00834,B.Com (Hons),Sem I,Sec M,Thursday,8:30 AM to 9:30 AM,Lecture,BLAW,Business Law,R28,SUY,Mr. Sudhanshu Yadav,,web_app/classes_data.json
 WEB_00835,B.Com (Hons),Sem I,Sec M,Thursday,9:30 AM to 10:30 AM,Tutorial,MPA,Management Principles and Applications,T5,SVP,Dr. Shashank Vikram Pratap Singh,M3,web_app/classes_data.json
 WEB_00836,B.Com (Hons),Sem I,Sec M,Thursday,9:30 AM to 10:30 AM,Tutorial,BLAW,Business Law,T11,AYJ,Prof. Abhay Jain,M2,web_app/classes_data.json
-WEB_00837,B.Com (Hons),Sem I,Sec M,Thursday,10:30 AM to 11:30 AM,Lecture,BDE,BDE,R6,CB29,Chandrabhushan (29),,web_app/classes_data.json
-WEB_00838,B.Com (Hons),Sem I,Sec M,Thursday,10:30 AM to 11:30 AM,Lecture,FC,FC,R7,MIG,Dr. Misha Govil,,web_app/classes_data.json
+WEB_00837,B.Com (Hons),Sem I,Sec M,Thursday,10:30 AM to 11:30 AM,Lecture,BDE,Basic Development Economics,R6,CB29,Chandrabhushan (29),,web_app/classes_data.json
+WEB_00838,B.Com (Hons),Sem I,Sec M,Thursday,10:30 AM to 11:30 AM,Lecture,FC,Fundamentals of Calculus,R7,MIG,Dr. Misha Govil,,web_app/classes_data.json
 WEB_00839,B.Com (Hons),Sem I,Sec M,Thursday,11:30 AM to 12:30 PM,Lecture,MPA,Management Principles and Applications,R29,LKB,Ms. Latika Bajetha,,web_app/classes_data.json
 WEB_00840,B.Com (Hons),Sem I,Sec M,Thursday,12:30 PM to 1:30 PM,Lecture,NII,Nationalism in India,R6,LVV,Dr. Linesh V. V.,,web_app/classes_data.json
 WEB_00841,B.Com (Hons),Sem I,Sec M,Friday,8:30 AM to 9:30 AM,Lecture,FA,Financial Accounting,R17,AOK,Dr. Alok Kumar,,web_app/classes_data.json
@@ -845,7 +845,7 @@ WEB_00843,B.Com (Hons),Sem I,Sec M,Friday,9:30 AM to 10:30 AM,Tutorial,BLAW,Busi
 WEB_00844,B.Com (Hons),Sem I,Sec M,Friday,10:30 AM to 11:30 AM,Practical/Lab,EVS-I,Environmental Science: Theory into Practice-I,R4,SLK,Mr. Sunil Kumar,,web_app/classes_data.json
 WEB_00845,B.Com (Hons),Sem I,Sec M,Friday,11:30 AM to 12:30 PM,Practical/Lab,EVS-I,Environmental Science: Theory into Practice-I,CL1,SLK,Mr. Sunil Kumar,,web_app/classes_data.json
 WEB_00846,B.Com (Hons),Sem I,Sec M,Friday,12:30 PM to 1:30 PM,Tutorial,NII,Nationalism in India,T4,LVV,Dr. Linesh V. V.,M3,web_app/classes_data.json
-WEB_00847,B.Com (Hons),Sem I,Sec M,Saturday,8:30 AM to 9:30 AM,Lecture,BDE,BDE,R1,CB29,Chandrabhushan (29),,web_app/classes_data.json
+WEB_00847,B.Com (Hons),Sem I,Sec M,Saturday,8:30 AM to 9:30 AM,Lecture,BDE,Basic Development Economics,R1,CB29,Chandrabhushan (29),,web_app/classes_data.json
 WEB_00848,B.Com (Hons),Sem I,Sec M,Saturday,9:30 AM to 10:30 AM,Practical/Lab,FA,Financial Accounting,T40,AOK,Dr. Alok Kumar,MP3,web_app/classes_data.json
 WEB_00849,B.Com (Hons),Sem I,Sec M,Saturday,9:30 AM to 10:30 AM,Tutorial,MPA,Management Principles and Applications,T14,SVP,Dr. Shashank Vikram Pratap Singh,M1,web_app/classes_data.json
 WEB_00850,B.Com (Hons),Sem I,Sec M,Saturday,10:30 AM to 11:30 AM,Lecture,FA,Financial Accounting,R18,AOK,Dr. Alok Kumar,,web_app/classes_data.json
@@ -1181,31 +1181,31 @@ WEB_01179,B.Com (Hons),Sem III,Sec L,Tuesday,9:30 AM to 10:30 AM,Lecture,FM,Fina
 WEB_01180,B.Com (Hons),Sem III,Sec L,Tuesday,10:30 AM to 11:30 AM,Practical/Lab,FM,Financial Management,T29,AVB,Mr. Anuj Vijay Bhatia,LP2,web_app/classes_data.json
 WEB_01181,B.Com (Hons),Sem III,Sec L,Tuesday,10:30 AM to 11:30 AM,Practical/Lab,BMATH,Business Mathematics,T1,NJA,Dr. Nikunj Aggarwal,LP1,web_app/classes_data.json
 WEB_01182,B.Com (Hons),Sem III,Sec L,Tuesday,10:30 AM to 11:30 AM,Tutorial,POM,Principles of Marketing,T35,JDP,Dr. Jaideep,L3,web_app/classes_data.json
-WEB_01183,B.Com (Hons),Sem III,Sec L,Tuesday,11:30 AM to 12:30 PM,Tutorial,GF,Global Finance,T34,SKC,Mr. Shailesh Kumar Chawla,L3,web_app/classes_data.json
-WEB_01184,B.Com (Hons),Sem III,Sec L,Tuesday,11:30 AM to 12:30 PM,Lecture,OE,Open Elective,SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
-WEB_01185,B.Com (Hons),Sem III,Sec L,Tuesday,12:30 PM to 1:30 PM,Lecture,GF,Global Finance,R14,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
+WEB_01183,B.Com (Hons),Sem III,Sec L,Tuesday,11:30 AM to 12:30 PM,Tutorial,GF,Genre Fiction,T34,SKC,Mr. Shailesh Kumar Chawla,L3,web_app/classes_data.json
+WEB_01184,B.Com (Hons),Sem III,Sec L,Tuesday,11:30 AM to 12:30 PM,Lecture,OE,Open Elective (Physical Education),SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
+WEB_01185,B.Com (Hons),Sem III,Sec L,Tuesday,12:30 PM to 1:30 PM,Lecture,GF,Genre Fiction,R14,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
 WEB_01186,B.Com (Hons),Sem III,Sec L,Wednesday,8:30 AM to 9:30 AM,Lecture,BMATH,Business Mathematics,R8,NJA,Dr. Nikunj Aggarwal,,web_app/classes_data.json
 WEB_01187,B.Com (Hons),Sem III,Sec L,Wednesday,9:30 AM to 10:30 AM,Lecture,FM,Financial Management,PB3,AVB,Mr. Anuj Vijay Bhatia,,web_app/classes_data.json
 WEB_01188,B.Com (Hons),Sem III,Sec L,Wednesday,10:30 AM to 11:30 AM,Lecture,POM,Principles of Marketing,R27,JDP,Dr. Jaideep,,web_app/classes_data.json
 WEB_01189,B.Com (Hons),Sem III,Sec L,Wednesday,11:30 AM to 12:30 PM,Practical/Lab,BMATH,Business Mathematics,T1,NJA,Dr. Nikunj Aggarwal,LP2,web_app/classes_data.json
 WEB_01190,B.Com (Hons),Sem III,Sec L,Wednesday,11:30 AM to 12:30 PM,Tutorial,POM,Principles of Marketing,T45,ATK,Dr. Amit Kumar,L1,web_app/classes_data.json
-WEB_01191,B.Com (Hons),Sem III,Sec L,Wednesday,12:30 PM to 1:30 PM,Lecture,GF,Global Finance,R14,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
+WEB_01191,B.Com (Hons),Sem III,Sec L,Wednesday,12:30 PM to 1:30 PM,Lecture,GF,Genre Fiction,R14,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
 WEB_01192,B.Com (Hons),Sem III,Sec L,Thursday,8:30 AM to 9:30 AM,Lecture,POM,Principles of Marketing,R27,JDP,Dr. Jaideep,,web_app/classes_data.json
 WEB_01193,B.Com (Hons),Sem III,Sec L,Thursday,9:30 AM to 10:30 AM,Practical/Lab,BMATH,Business Mathematics,CL1,NJA,Dr. Nikunj Aggarwal,LP1,web_app/classes_data.json
 WEB_01194,B.Com (Hons),Sem III,Sec L,Thursday,9:30 AM to 10:30 AM,Practical/Lab,BMATH,Business Mathematics,CL1,NJA,Dr. Nikunj Aggarwal,LP2,web_app/classes_data.json
 WEB_01195,B.Com (Hons),Sem III,Sec L,Thursday,9:30 AM to 10:30 AM,Practical/Lab,BMATH,Business Mathematics,CL1,NJA,Dr. Nikunj Aggarwal,LP3,web_app/classes_data.json
-WEB_01196,B.Com (Hons),Sem III,Sec L,Thursday,10:30 AM to 11:30 AM,Lecture,OE,Open Elective,SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
+WEB_01196,B.Com (Hons),Sem III,Sec L,Thursday,10:30 AM to 11:30 AM,Lecture,OE,Open Elective (Physical Education),SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
 WEB_01197,B.Com (Hons),Sem III,Sec L,Thursday,10:30 AM to 11:30 AM,Practical/Lab,BMATH,Business Mathematics,T14,NJA,Dr. Nikunj Aggarwal,LP3,web_app/classes_data.json
 WEB_01198,B.Com (Hons),Sem III,Sec L,Thursday,11:30 AM to 12:30 PM,Practical/Lab,FM,Financial Management,T29,AVB,Mr. Anuj Vijay Bhatia,LP3,web_app/classes_data.json
-WEB_01199,B.Com (Hons),Sem III,Sec L,Thursday,11:30 AM to 12:30 PM,Lecture,OE,Open Elective,SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
-WEB_01200,B.Com (Hons),Sem III,Sec L,Thursday,12:30 PM to 1:30 PM,Lecture,GF,Global Finance,R14,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
+WEB_01199,B.Com (Hons),Sem III,Sec L,Thursday,11:30 AM to 12:30 PM,Lecture,OE,Open Elective (Physical Education),SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
+WEB_01200,B.Com (Hons),Sem III,Sec L,Thursday,12:30 PM to 1:30 PM,Lecture,GF,Genre Fiction,R14,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
 WEB_01201,B.Com (Hons),Sem III,Sec L,Thursday,12:30 PM to 1:30 PM,Tutorial,POM,Principles of Marketing,T12,VIS,Mr. Vikki Sharma,L2,web_app/classes_data.json
 WEB_01202,B.Com (Hons),Sem III,Sec L,Friday,8:30 AM to 9:30 AM,Lecture,BMATH,Business Mathematics,R8,NJA,Dr. Nikunj Aggarwal,,web_app/classes_data.json
 WEB_01203,B.Com (Hons),Sem III,Sec L,Friday,9:30 AM to 10:30 AM,Lecture,EVS-II,Environmental Science: Theory into Practice-II,Library FF,FYV,Dr. Franky Varah,,web_app/classes_data.json
 WEB_01204,B.Com (Hons),Sem III,Sec L,Friday,10:30 AM to 11:30 AM,Practical/Lab,FM,Financial Management,CL2,AVB,Mr. Anuj Vijay Bhatia,LP3,web_app/classes_data.json
 WEB_01205,B.Com (Hons),Sem III,Sec L,Friday,10:30 AM to 11:30 AM,Practical/Lab,FM,Financial Management,CL2,AVB,Mr. Anuj Vijay Bhatia,LP1,web_app/classes_data.json
 WEB_01206,B.Com (Hons),Sem III,Sec L,Friday,10:30 AM to 11:30 AM,Practical/Lab,FM,Financial Management,CL2,AVB,Mr. Anuj Vijay Bhatia,LP2,web_app/classes_data.json
-WEB_01207,B.Com (Hons),Sem III,Sec L,Friday,11:30 AM to 12:30 PM,Practical/Lab,OE,Open Elective,PLAYGROUND,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
+WEB_01207,B.Com (Hons),Sem III,Sec L,Friday,11:30 AM to 12:30 PM,Practical/Lab,OE,Open Elective (Physical Education),PLAYGROUND,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
 WEB_01208,B.Com (Hons),Sem III,Sec L,Saturday,8:30 AM to 9:30 AM,Lecture,BMATH,Business Mathematics,R8,NJA,Dr. Nikunj Aggarwal,,web_app/classes_data.json
 WEB_01209,B.Com (Hons),Sem III,Sec L,Saturday,9:30 AM to 10:30 AM,Practical/Lab,EVS-II,Environmental Science: Theory into Practice-II,R14,EVSG1,Evs Guest 1,,web_app/classes_data.json
 WEB_01210,B.Com (Hons),Sem III,Sec L,Thursday,3:00 PM to 4:00 PM,Practical/Lab,OE,Open Elective (Physical Education),PLAYGROUND,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
@@ -1247,9 +1247,9 @@ WEB_01245,B.Com (Hons),Sem III,Sec I,Friday,12:30 PM to 1:30 PM,Lecture,BRM,Bran
 WEB_01246,B.Com (Hons),Sem III,Sec I,Saturday,8:30 AM to 9:30 AM,Practical/Lab,EVS-II,Environmental Science: Theory into Practice-II,R6,EVSG2,Evs Guest 2,,web_app/classes_data.json
 WEB_01247,B.Com (Hons),Sem III,Sec I,Saturday,9:30 AM to 10:30 AM,Practical/Lab,EVS-II,Environmental Science: Theory into Practice-II,R6,EVSG2,Evs Guest 2,,web_app/classes_data.json
 WEB_01248,B.Com (Hons),Sem III,Sec N,Monday,8:30 AM to 9:30 AM,Lecture,BMATH,Business Mathematics,CL1,SAG,Dr. Shikha Gupta,,web_app/classes_data.json
-WEB_01249,B.Com (Hons),Sem III,Sec N,Monday,9:30 AM to 10:30 AM,Practical/Lab,DMS,DMS,R29,PG,Prachi Goel(Csg1),,web_app/classes_data.json
+WEB_01249,B.Com (Hons),Sem III,Sec N,Monday,9:30 AM to 10:30 AM,Practical/Lab,DMS,Database Management Systems,R29,PG,Prachi Goel(Csg1),,web_app/classes_data.json
 WEB_01250,B.Com (Hons),Sem III,Sec N,Monday,9:30 AM to 10:30 AM,Practical/Lab,BMATH,Business Mathematics,T48,SAG,Dr. Shikha Gupta,NP3,web_app/classes_data.json
-WEB_01251,B.Com (Hons),Sem III,Sec N,Monday,10:30 AM to 11:30 AM,Practical/Lab,DMS,DMS,R30,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
+WEB_01251,B.Com (Hons),Sem III,Sec N,Monday,10:30 AM to 11:30 AM,Practical/Lab,DMS,Database Management Systems,R30,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
 WEB_01252,B.Com (Hons),Sem III,Sec N,Tuesday,8:30 AM to 9:30 AM,Practical/Lab,FM,Financial Management,Library FF,SIM,Dr. Shruti Mallik,NP1,web_app/classes_data.json
 WEB_01253,B.Com (Hons),Sem III,Sec N,Tuesday,8:30 AM to 9:30 AM,Practical/Lab,FM,Financial Management,Library FF,SIM,Dr. Shruti Mallik,NP2,web_app/classes_data.json
 WEB_01254,B.Com (Hons),Sem III,Sec N,Tuesday,8:30 AM to 9:30 AM,Practical/Lab,FM,Financial Management,Library FF,SIM,Dr. Shruti Mallik,NP3,web_app/classes_data.json
@@ -1265,20 +1265,20 @@ WEB_01263,B.Com (Hons),Sem III,Sec N,Wednesday,9:30 AM to 10:30 AM,Tutorial,POM,
 WEB_01264,B.Com (Hons),Sem III,Sec N,Wednesday,9:30 AM to 10:30 AM,Practical/Lab,FM,Financial Management,T41,SIM,Dr. Shruti Mallik,NP3,web_app/classes_data.json
 WEB_01265,B.Com (Hons),Sem III,Sec N,Wednesday,10:30 AM to 11:30 AM,Practical/Lab,EVS-II,Environmental Science: Theory into Practice-II,SCR1,FYV,Dr. Franky Varah,,web_app/classes_data.json
 WEB_01266,B.Com (Hons),Sem III,Sec N,Wednesday,11:30 AM to 12:30 PM,Lecture,POM,Principles of Marketing,R10,MDH,Mr. Mohd. Hassan,,web_app/classes_data.json
-WEB_01267,B.Com (Hons),Sem III,Sec N,Wednesday,12:30 PM to 1:30 PM,Lecture,DMS,DMS,CL1,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
+WEB_01267,B.Com (Hons),Sem III,Sec N,Wednesday,12:30 PM to 1:30 PM,Lecture,DMS,Database Management Systems,CL1,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
 WEB_01268,B.Com (Hons),Sem III,Sec N,Thursday,8:30 AM to 9:30 AM,Lecture,FM,Financial Management,R32,SIM,Dr. Shruti Mallik,,web_app/classes_data.json
 WEB_01269,B.Com (Hons),Sem III,Sec N,Thursday,9:30 AM to 10:30 AM,Practical/Lab,EVS-II,Environmental Science: Theory into Practice-II,Library FF,FYV,Dr. Franky Varah,,web_app/classes_data.json
 WEB_01270,B.Com (Hons),Sem III,Sec N,Thursday,10:30 AM to 11:30 AM,Lecture,UIR,Understanding International Relations,R16,RHR,Mr. Rishabh Raj,,web_app/classes_data.json
 WEB_01271,B.Com (Hons),Sem III,Sec N,Thursday,10:30 AM to 11:30 AM,Practical/Lab,FM,Financial Management,T41,SIM,Dr. Shruti Mallik,NP2,web_app/classes_data.json
 WEB_01272,B.Com (Hons),Sem III,Sec N,Thursday,11:30 AM to 12:30 PM,Tutorial,UIR,Understanding International Relations,T4,RHR,Mr. Rishabh Raj,N3,web_app/classes_data.json
 WEB_01273,B.Com (Hons),Sem III,Sec N,Thursday,11:30 AM to 12:30 PM,Practical/Lab,FM,Financial Management,T40,SIM,Dr. Shruti Mallik,NP1,web_app/classes_data.json
-WEB_01274,B.Com (Hons),Sem III,Sec N,Thursday,12:30 PM to 1:30 PM,Lecture,DMS,DMS,CL2,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
+WEB_01274,B.Com (Hons),Sem III,Sec N,Thursday,12:30 PM to 1:30 PM,Lecture,DMS,Database Management Systems,CL2,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
 WEB_01275,B.Com (Hons),Sem III,Sec N,Friday,8:30 AM to 9:30 AM,Lecture,FM,Financial Management,R34,SIM,Dr. Shruti Mallik,,web_app/classes_data.json
 WEB_01276,B.Com (Hons),Sem III,Sec N,Friday,9:30 AM to 10:30 AM,Practical/Lab,BMATH,Business Mathematics,T48,SAG,Dr. Shikha Gupta,NP2,web_app/classes_data.json
 WEB_01277,B.Com (Hons),Sem III,Sec N,Friday,9:30 AM to 10:30 AM,Tutorial,POM,Principles of Marketing,T37,SNS,Dr. Suman Si,N1,web_app/classes_data.json
 WEB_01278,B.Com (Hons),Sem III,Sec N,Friday,10:30 AM to 11:30 AM,Lecture,BMATH,Business Mathematics,Library FF,SAG,Dr. Shikha Gupta,,web_app/classes_data.json
 WEB_01279,B.Com (Hons),Sem III,Sec N,Friday,11:30 AM to 12:30 PM,Lecture,POM,Principles of Marketing,R21,MDH,Mr. Mohd. Hassan,,web_app/classes_data.json
-WEB_01280,B.Com (Hons),Sem III,Sec N,Friday,12:30 PM to 1:30 PM,Lecture,DMS,DMS,CL2,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
+WEB_01280,B.Com (Hons),Sem III,Sec N,Friday,12:30 PM to 1:30 PM,Lecture,DMS,Database Management Systems,CL2,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
 WEB_01281,B.Com (Hons),Sem III,Sec N,Friday,12:30 PM to 1:30 PM,Tutorial,POM,Principles of Marketing,T14,SAP,Prof. Surya Prakash,N3,web_app/classes_data.json
 WEB_01282,B.Com (Hons),Sem III,Sec N,Saturday,9:30 AM to 10:30 AM,Lecture,POM,Principles of Marketing,R33,MDH,Mr. Mohd. Hassan,,web_app/classes_data.json
 WEB_01283,B.Com (Hons),Sem III,Sec N,Saturday,10:30 AM to 11:30 AM,Lecture,FM,Financial Management,R32,SIM,Dr. Shruti Mallik,,web_app/classes_data.json
@@ -1287,17 +1287,17 @@ WEB_01285,B.Com (Hons),Sem III,Sec M,Monday,9:30 AM to 10:30 AM,Lecture,POM,Prin
 WEB_01286,B.Com (Hons),Sem III,Sec M,Tuesday,8:30 AM to 9:30 AM,Lecture,FM,Financial Management,R34,BLK,Dr. Bal Kishan,,web_app/classes_data.json
 WEB_01287,B.Com (Hons),Sem III,Sec M,Tuesday,9:30 AM to 10:30 AM,Lecture,BMATH,Business Mathematics,R8,NJA,Dr. Nikunj Aggarwal,,web_app/classes_data.json
 WEB_01288,B.Com (Hons),Sem III,Sec M,Tuesday,10:30 AM to 11:30 AM,Lecture,EVS-II,Environmental Science: Theory into Practice-II,R20,EVSG2,Evs Guest 2,,web_app/classes_data.json
-WEB_01289,B.Com (Hons),Sem III,Sec M,Tuesday,11:30 AM to 12:30 PM,Tutorial,DE,Digital Empowerment,T41,AKS,Dr. Avnish Kumar Sharma,M3,web_app/classes_data.json
+WEB_01289,B.Com (Hons),Sem III,Sec M,Tuesday,11:30 AM to 12:30 PM,Tutorial,DE,Differential Equations,T41,AKS,Dr. Avnish Kumar Sharma,M3,web_app/classes_data.json
 WEB_01290,B.Com (Hons),Sem III,Sec M,Tuesday,11:30 AM to 12:30 PM,Practical/Lab,BMATH,Business Mathematics,T1,NJA,Dr. Nikunj Aggarwal,MP1,web_app/classes_data.json
 WEB_01291,B.Com (Hons),Sem III,Sec M,Tuesday,12:30 PM to 1:30 PM,Lecture,MB,Money and Banking,R27,KG1,Kashish Gupta (1),,web_app/classes_data.json
-WEB_01292,B.Com (Hons),Sem III,Sec M,Tuesday,12:30 PM to 1:30 PM,Lecture,DE,Digital Empowerment,R26,AKS,Dr. Avnish Kumar Sharma,,web_app/classes_data.json
+WEB_01292,B.Com (Hons),Sem III,Sec M,Tuesday,12:30 PM to 1:30 PM,Lecture,DE,Differential Equations,R26,AKS,Dr. Avnish Kumar Sharma,,web_app/classes_data.json
 WEB_01293,B.Com (Hons),Sem III,Sec M,Wednesday,9:30 AM to 10:30 AM,Lecture,BMATH,Business Mathematics,R3,NJA,Dr. Nikunj Aggarwal,,web_app/classes_data.json
 WEB_01294,B.Com (Hons),Sem III,Sec M,Wednesday,10:30 AM to 11:30 AM,Practical/Lab,BMATH,Business Mathematics,T5,NJA,Dr. Nikunj Aggarwal,MP2,web_app/classes_data.json
 WEB_01295,B.Com (Hons),Sem III,Sec M,Wednesday,10:30 AM to 11:30 AM,Practical/Lab,FM,Financial Management,T1,BLK,Dr. Bal Kishan,MP1,web_app/classes_data.json
 WEB_01296,B.Com (Hons),Sem III,Sec M,Wednesday,10:30 AM to 11:30 AM,Tutorial,POM,Principles of Marketing,T12,SAP,Prof. Surya Prakash,M3,web_app/classes_data.json
 WEB_01297,B.Com (Hons),Sem III,Sec M,Wednesday,11:30 AM to 12:30 PM,Tutorial,MB,Money and Banking,T23,DA,David A Longkumer (10),M1,web_app/classes_data.json
 WEB_01298,B.Com (Hons),Sem III,Sec M,Wednesday,12:30 PM to 1:30 PM,Lecture,MB,Money and Banking,R27,KG1,Kashish Gupta (1),,web_app/classes_data.json
-WEB_01299,B.Com (Hons),Sem III,Sec M,Wednesday,12:30 PM to 1:30 PM,Lecture,DE,Digital Empowerment,R26,AKS,Dr. Avnish Kumar Sharma,,web_app/classes_data.json
+WEB_01299,B.Com (Hons),Sem III,Sec M,Wednesday,12:30 PM to 1:30 PM,Lecture,DE,Differential Equations,R26,AKS,Dr. Avnish Kumar Sharma,,web_app/classes_data.json
 WEB_01300,B.Com (Hons),Sem III,Sec M,Thursday,8:30 AM to 9:30 AM,Lecture,FM,Financial Management,R33,BLK,Dr. Bal Kishan,,web_app/classes_data.json
 WEB_01301,B.Com (Hons),Sem III,Sec M,Thursday,9:30 AM to 10:30 AM,Practical/Lab,FM,Financial Management,R31,BLK,Dr. Bal Kishan,MP1,web_app/classes_data.json
 WEB_01302,B.Com (Hons),Sem III,Sec M,Thursday,9:30 AM to 10:30 AM,Practical/Lab,FM,Financial Management,R31,BLK,Dr. Bal Kishan,MP2,web_app/classes_data.json
@@ -1306,7 +1306,7 @@ WEB_01304,B.Com (Hons),Sem III,Sec M,Thursday,10:30 AM to 11:30 AM,Lecture,POM,P
 WEB_01305,B.Com (Hons),Sem III,Sec M,Thursday,11:30 AM to 12:30 PM,Practical/Lab,FM,Financial Management,T1,BLK,Dr. Bal Kishan,MP3,web_app/classes_data.json
 WEB_01306,B.Com (Hons),Sem III,Sec M,Thursday,11:30 AM to 12:30 PM,Tutorial,POM,Principles of Marketing,T48,ATK,Dr. Amit Kumar,M2,web_app/classes_data.json
 WEB_01307,B.Com (Hons),Sem III,Sec M,Thursday,12:30 PM to 1:30 PM,Lecture,MB,Money and Banking,R27,KG1,Kashish Gupta (1),,web_app/classes_data.json
-WEB_01308,B.Com (Hons),Sem III,Sec M,Thursday,12:30 PM to 1:30 PM,Lecture,DE,Digital Empowerment,R25,AKS,Dr. Avnish Kumar Sharma,,web_app/classes_data.json
+WEB_01308,B.Com (Hons),Sem III,Sec M,Thursday,12:30 PM to 1:30 PM,Lecture,DE,Differential Equations,R25,AKS,Dr. Avnish Kumar Sharma,,web_app/classes_data.json
 WEB_01309,B.Com (Hons),Sem III,Sec M,Friday,8:30 AM to 9:30 AM,Lecture,POM,Principles of Marketing,R1,JDP,Dr. Jaideep,,web_app/classes_data.json
 WEB_01310,B.Com (Hons),Sem III,Sec M,Friday,9:30 AM to 10:30 AM,Practical/Lab,BMATH,Business Mathematics,T4,NJA,Dr. Nikunj Aggarwal,MP3,web_app/classes_data.json
 WEB_01311,B.Com (Hons),Sem III,Sec M,Friday,9:30 AM to 10:30 AM,Tutorial,POM,Principles of Marketing,T39,JDP,Dr. Jaideep,M1,web_app/classes_data.json
@@ -1445,11 +1445,11 @@ WEB_01443,B.Com (Hons),Sem V,Sec F,Wednesday,9:30 AM to 10:30 AM,Lecture,ITLP,In
 WEB_01444,B.Com (Hons),Sem V,Sec F,Wednesday,10:30 AM to 11:30 AM,Practical/Lab,MA,Management Accounting,R16,DTY,Dr. Dixit Yadav,FP1,web_app/classes_data.json
 WEB_01445,B.Com (Hons),Sem V,Sec F,Wednesday,10:30 AM to 11:30 AM,Practical/Lab,MA,Management Accounting,R16,DTY,Dr. Dixit Yadav,FP2,web_app/classes_data.json
 WEB_01446,B.Com (Hons),Sem V,Sec F,Wednesday,10:30 AM to 11:30 AM,Practical/Lab,MA,Management Accounting,R16,DTY,Dr. Dixit Yadav,FP3,web_app/classes_data.json
-WEB_01447,B.Com (Hons),Sem V,Sec F,Wednesday,11:30 AM to 12:30 PM,Tutorial,BDE,BDE,T27,MK4,Mugdha Khandelwal (4),F1,web_app/classes_data.json
+WEB_01447,B.Com (Hons),Sem V,Sec F,Wednesday,11:30 AM to 12:30 PM,Tutorial,BDE,Basic Development Economics,T27,MK4,Mugdha Khandelwal (4),F1,web_app/classes_data.json
 WEB_01448,B.Com (Hons),Sem V,Sec F,Wednesday,11:30 AM to 12:30 PM,Tutorial,BECON,Business Economics,T15,DPE,Prof. Deepashree,F2,web_app/classes_data.json
 WEB_01449,B.Com (Hons),Sem V,Sec F,Wednesday,11:30 AM to 12:30 PM,Tutorial,AUD,Auditing and Corporate Governance,T32,PRA,Dr. Prerana,F3,web_app/classes_data.json
 WEB_01450,B.Com (Hons),Sem V,Sec F,Wednesday,12:30 PM to 1:30 PM,Lecture,AUD,Auditing and Corporate Governance,R10,AAJ,Prof. Aruna Jha,,web_app/classes_data.json
-WEB_01451,B.Com (Hons),Sem V,Sec F,Wednesday,2:00 PM to 3:00 PM,Lecture,BDE,BDE,R3,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
+WEB_01451,B.Com (Hons),Sem V,Sec F,Wednesday,2:00 PM to 3:00 PM,Lecture,BDE,Basic Development Economics,R3,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
 WEB_01452,B.Com (Hons),Sem V,Sec F,Thursday,8:30 AM to 9:30 AM,Lecture,BECON,Business Economics,R17,TNM,Prof. Tarun Manjhi,,web_app/classes_data.json
 WEB_01453,B.Com (Hons),Sem V,Sec F,Thursday,9:30 AM to 10:30 AM,Lecture,MA,Management Accounting,R8,DTY,Dr. Dixit Yadav,,web_app/classes_data.json
 WEB_01454,B.Com (Hons),Sem V,Sec F,Thursday,10:30 AM to 11:30 AM,Practical/Lab,ITLP,Income Tax Law and Practice,R30,AAA,Dr. Anuradha Aggarwal,FP1,web_app/classes_data.json
@@ -1457,18 +1457,18 @@ WEB_01455,B.Com (Hons),Sem V,Sec F,Thursday,10:30 AM to 11:30 AM,Practical/Lab,I
 WEB_01456,B.Com (Hons),Sem V,Sec F,Thursday,10:30 AM to 11:30 AM,Practical/Lab,ITLP,Income Tax Law and Practice,R30,AAA,Dr. Anuradha Aggarwal,FP3,web_app/classes_data.json
 WEB_01457,B.Com (Hons),Sem V,Sec F,Thursday,11:30 AM to 12:30 PM,Lecture,AUD,Auditing and Corporate Governance,R1,AAJ,Prof. Aruna Jha,,web_app/classes_data.json
 WEB_01458,B.Com (Hons),Sem V,Sec F,Thursday,12:30 PM to 1:30 PM,Practical/Lab,ITLP,Income Tax Law and Practice,T24,AAA,Dr. Anuradha Aggarwal,FP1,web_app/classes_data.json
-WEB_01459,B.Com (Hons),Sem V,Sec F,Thursday,2:00 PM to 3:00 PM,Lecture,BDE,BDE,R10,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
+WEB_01459,B.Com (Hons),Sem V,Sec F,Thursday,2:00 PM to 3:00 PM,Lecture,BDE,Basic Development Economics,R10,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
 WEB_01460,B.Com (Hons),Sem V,Sec F,Friday,9:30 AM to 10:30 AM,Lecture,ITLP,Income Tax Law and Practice,R14,AAA,Dr. Anuradha Aggarwal,,web_app/classes_data.json
 WEB_01461,B.Com (Hons),Sem V,Sec F,Friday,10:30 AM to 11:30 AM,Practical/Lab,ITLP,Income Tax Law and Practice,T48,AAA,Dr. Anuradha Aggarwal,FP3,web_app/classes_data.json
 WEB_01462,B.Com (Hons),Sem V,Sec F,Friday,10:30 AM to 11:30 AM,Tutorial,AUD,Auditing and Corporate Governance,T32,PRA,Dr. Prerana,F2,web_app/classes_data.json
 WEB_01463,B.Com (Hons),Sem V,Sec F,Friday,11:30 AM to 12:30 PM,Practical/Lab,MA,Management Accounting,T27,DTY,Dr. Dixit Yadav,FP2,web_app/classes_data.json
 WEB_01464,B.Com (Hons),Sem V,Sec F,Friday,11:30 AM to 12:30 PM,Tutorial,BECON,Business Economics,T36,SNK,Dr. Santosh Kumar,F1,web_app/classes_data.json
-WEB_01465,B.Com (Hons),Sem V,Sec F,Friday,12:30 PM to 1:30 PM,Tutorial,BDE,BDE,T2,RUR,Prof. Ritu Ranjan,F2,web_app/classes_data.json
+WEB_01465,B.Com (Hons),Sem V,Sec F,Friday,12:30 PM to 1:30 PM,Tutorial,BDE,Basic Development Economics,T2,RUR,Prof. Ritu Ranjan,F2,web_app/classes_data.json
 WEB_01466,B.Com (Hons),Sem V,Sec F,Friday,12:30 PM to 1:30 PM,Practical/Lab,MA,Management Accounting,T27,DTY,Dr. Dixit Yadav,FP1,web_app/classes_data.json
 WEB_01467,B.Com (Hons),Sem V,Sec F,Saturday,8:30 AM to 9:30 AM,Lecture,BECON,Business Economics,R18,TNM,Prof. Tarun Manjhi,,web_app/classes_data.json
 WEB_01468,B.Com (Hons),Sem V,Sec F,Saturday,9:30 AM to 10:30 AM,Lecture,MA,Management Accounting,R13,DTY,Dr. Dixit Yadav,,web_app/classes_data.json
-WEB_01469,B.Com (Hons),Sem V,Sec F,Saturday,10:30 AM to 11:30 AM,Lecture,BDE,BDE,R4,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
-WEB_01470,B.Com (Hons),Sem V,Sec F,Saturday,11:30 AM to 12:30 PM,Tutorial,BDE,BDE,T54,MK4,Mugdha Khandelwal (4),F3,web_app/classes_data.json
+WEB_01469,B.Com (Hons),Sem V,Sec F,Saturday,10:30 AM to 11:30 AM,Lecture,BDE,Basic Development Economics,R4,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
+WEB_01470,B.Com (Hons),Sem V,Sec F,Saturday,11:30 AM to 12:30 PM,Tutorial,BDE,Basic Development Economics,T54,MK4,Mugdha Khandelwal (4),F3,web_app/classes_data.json
 WEB_01471,B.Com (Hons),Sem V,Sec F,Saturday,12:30 PM to 1:30 PM,Tutorial,BECON,Business Economics,T36,SNK,Dr. Santosh Kumar,F3,web_app/classes_data.json
 WEB_01472,B.Com (Hons),Sem V,Sec D,Monday,8:30 AM to 9:30 AM,Lecture,MA,Management Accounting,R16,ATS,Dr. Amarjeet Singh,,web_app/classes_data.json
 WEB_01473,B.Com (Hons),Sem V,Sec D,Monday,9:30 AM to 10:30 AM,Lecture,ITLP,Income Tax Law and Practice,R22,NNM,Prof. Naveen Mittal,,web_app/classes_data.json
@@ -1666,7 +1666,7 @@ WEB_01664,B.Com (Hons),Sem V,Sec I,Tuesday,10:30 AM to 11:30 AM,Practical/Lab,MA
 WEB_01665,B.Com (Hons),Sem V,Sec I,Tuesday,10:30 AM to 11:30 AM,Practical/Lab,ITLP,Income Tax Law and Practice,T49,MKG,Mayank Goel (Cg34),IP2,web_app/classes_data.json
 WEB_01666,B.Com (Hons),Sem V,Sec I,Tuesday,10:30 AM to 11:30 AM,Tutorial,BECON,Business Economics,T24,PRD,Prof. Padmeshwar Doley,I1,web_app/classes_data.json
 WEB_01667,B.Com (Hons),Sem V,Sec I,Tuesday,11:30 AM to 12:30 PM,Lecture,AUD,Auditing and Corporate Governance,R4,AVB,Mr. Anuj Vijay Bhatia,,web_app/classes_data.json
-WEB_01668,B.Com (Hons),Sem V,Sec I,Tuesday,12:30 PM to 1:30 PM,Lecture,BDE,BDE,R19,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
+WEB_01668,B.Com (Hons),Sem V,Sec I,Tuesday,12:30 PM to 1:30 PM,Lecture,BDE,Basic Development Economics,R19,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
 WEB_01669,B.Com (Hons),Sem V,Sec I,Tuesday,12:30 PM to 1:30 PM,Practical/Lab,ITLP,Income Tax Law and Practice,T40,MKG,Mayank Goel (Cg34),IP3,web_app/classes_data.json
 WEB_01670,B.Com (Hons),Sem V,Sec I,Wednesday,8:30 AM to 9:30 AM,Lecture,ITLP,Income Tax Law and Practice,R34,MKG,Mayank Goel (Cg34),,web_app/classes_data.json
 WEB_01671,B.Com (Hons),Sem V,Sec I,Wednesday,9:30 AM to 10:30 AM,Practical/Lab,MA,Management Accounting,T32,PRA,Dr. Prerana,IP1,web_app/classes_data.json
@@ -1675,7 +1675,7 @@ WEB_01673,B.Com (Hons),Sem V,Sec I,Wednesday,10:30 AM to 11:30 AM,Practical/Lab,
 WEB_01674,B.Com (Hons),Sem V,Sec I,Wednesday,10:30 AM to 11:30 AM,Practical/Lab,ITLP,Income Tax Law and Practice,CLIB,MKG,Mayank Goel (Cg34),IP2,web_app/classes_data.json
 WEB_01675,B.Com (Hons),Sem V,Sec I,Wednesday,10:30 AM to 11:30 AM,Practical/Lab,ITLP,Income Tax Law and Practice,CLIB,MKG,Mayank Goel (Cg34),IP3,web_app/classes_data.json
 WEB_01676,B.Com (Hons),Sem V,Sec I,Wednesday,11:30 AM to 12:30 PM,Lecture,AUD,Auditing and Corporate Governance,R13,AVB,Mr. Anuj Vijay Bhatia,,web_app/classes_data.json
-WEB_01677,B.Com (Hons),Sem V,Sec I,Wednesday,12:30 PM to 1:30 PM,Lecture,BDE,BDE,PB3,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
+WEB_01677,B.Com (Hons),Sem V,Sec I,Wednesday,12:30 PM to 1:30 PM,Lecture,BDE,Basic Development Economics,PB3,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
 WEB_01678,B.Com (Hons),Sem V,Sec I,Wednesday,12:30 PM to 1:30 PM,Tutorial,DnD,Digitalisation and Development,T54,IT3,Ishika Tiwar (3),I2,web_app/classes_data.json
 WEB_01679,B.Com (Hons),Sem V,Sec I,Wednesday,12:30 PM to 1:30 PM,Tutorial,AUD,Auditing and Corporate Governance,T44,KKS,Dr. Kamaldeep Kaur Sarna,I3,web_app/classes_data.json
 WEB_01680,B.Com (Hons),Sem V,Sec I,Wednesday,2:00 PM to 3:00 PM,Lecture,DnD,Digitalisation and Development,R13,SK2,Samiksha Kapoor,,web_app/classes_data.json
@@ -1685,8 +1685,8 @@ WEB_01683,B.Com (Hons),Sem V,Sec I,Thursday,8:30 AM to 9:30 AM,Practical/Lab,MA,
 WEB_01684,B.Com (Hons),Sem V,Sec I,Thursday,9:30 AM to 10:30 AM,Lecture,BECON,Business Economics,R14,PRD,Prof. Padmeshwar Doley,,web_app/classes_data.json
 WEB_01685,B.Com (Hons),Sem V,Sec I,Thursday,10:30 AM to 11:30 AM,Lecture,ITLP,Income Tax Law and Practice,R33,MKG,Mayank Goel (Cg34),,web_app/classes_data.json
 WEB_01686,B.Com (Hons),Sem V,Sec I,Thursday,11:30 AM to 12:30 PM,Lecture,DnD,Digitalisation and Development,R28,SK2,Samiksha Kapoor,,web_app/classes_data.json
-WEB_01687,B.Com (Hons),Sem V,Sec I,Thursday,11:30 AM to 12:30 PM,Tutorial,BDE,BDE,T49,MK4,Mugdha Khandelwal (4),I1,web_app/classes_data.json
-WEB_01688,B.Com (Hons),Sem V,Sec I,Thursday,12:30 PM to 1:30 PM,Lecture,BDE,BDE,PB3,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
+WEB_01687,B.Com (Hons),Sem V,Sec I,Thursday,11:30 AM to 12:30 PM,Tutorial,BDE,Basic Development Economics,T49,MK4,Mugdha Khandelwal (4),I1,web_app/classes_data.json
+WEB_01688,B.Com (Hons),Sem V,Sec I,Thursday,12:30 PM to 1:30 PM,Lecture,BDE,Basic Development Economics,PB3,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
 WEB_01689,B.Com (Hons),Sem V,Sec I,Friday,8:30 AM to 9:30 AM,Lecture,MA,Management Accounting,R21,PRA,Dr. Prerana,,web_app/classes_data.json
 WEB_01690,B.Com (Hons),Sem V,Sec I,Friday,9:30 AM to 10:30 AM,Lecture,AUD,Auditing and Corporate Governance,R33,AVB,Mr. Anuj Vijay Bhatia,,web_app/classes_data.json
 WEB_01691,B.Com (Hons),Sem V,Sec I,Friday,10:30 AM to 11:30 AM,Tutorial,BECON,Business Economics,T24,PRD,Prof. Padmeshwar Doley,I2,web_app/classes_data.json
@@ -1761,7 +1761,7 @@ WEB_01759,B.Com (Hons),Sem V,Sec L,Tuesday,11:30 AM to 12:30 PM,Practical/Lab,IT
 WEB_01760,B.Com (Hons),Sem V,Sec L,Tuesday,11:30 AM to 12:30 PM,Practical/Lab,OS,Operating Systems,R30,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
 WEB_01761,B.Com (Hons),Sem V,Sec L,Tuesday,11:30 AM to 12:30 PM,Tutorial,DnD,Digitalisation and Development,T2,MG,Dr. Monika Gaur,L2,web_app/classes_data.json
 WEB_01762,B.Com (Hons),Sem V,Sec L,Tuesday,12:30 PM to 1:30 PM,Lecture,ED,Entrepreneurship Development,R16,RK,Dr. Ravi Kant,,web_app/classes_data.json
-WEB_01763,B.Com (Hons),Sem V,Sec L,Tuesday,12:30 PM to 1:30 PM,Lecture,BDE,BDE,R19,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
+WEB_01763,B.Com (Hons),Sem V,Sec L,Tuesday,12:30 PM to 1:30 PM,Lecture,BDE,Basic Development Economics,R19,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
 WEB_01764,B.Com (Hons),Sem V,Sec L,Tuesday,12:30 PM to 1:30 PM,Lecture,MB,Money and Banking,PB3,HT5,Himanshu Takia (5),,web_app/classes_data.json
 WEB_01765,B.Com (Hons),Sem V,Sec L,Tuesday,12:30 PM to 1:30 PM,Lecture,TPF,Theory of Public Finance,R17,KD,Dr. Kapil Dev Yadav,,web_app/classes_data.json
 WEB_01766,B.Com (Hons),Sem V,Sec L,Tuesday,12:30 PM to 1:30 PM,Practical/Lab,OS,Operating Systems,R30,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
@@ -1769,13 +1769,13 @@ WEB_01767,B.Com (Hons),Sem V,Sec L,Tuesday,12:30 PM to 1:30 PM,Lecture,HFPE,"Hea
 WEB_01768,B.Com (Hons),Sem V,Sec L,Wednesday,8:30 AM to 9:30 AM,Lecture,BECON,Business Economics,R1,AJJ,Dr. Anuj Jatav,,web_app/classes_data.json
 WEB_01769,B.Com (Hons),Sem V,Sec L,Wednesday,9:30 AM to 10:30 AM,Practical/Lab,MA,Management Accounting,T43,SAR,Dr. Shikha Rajput,LP3,web_app/classes_data.json
 WEB_01770,B.Com (Hons),Sem V,Sec L,Wednesday,9:30 AM to 10:30 AM,Tutorial,BECON,Business Economics,T12,TNM,Prof. Tarun Manjhi,L2,web_app/classes_data.json
-WEB_01771,B.Com (Hons),Sem V,Sec L,Wednesday,9:30 AM to 10:30 AM,Tutorial,BDE,BDE,T54,MK4,Mugdha Khandelwal (4),L1,web_app/classes_data.json
+WEB_01771,B.Com (Hons),Sem V,Sec L,Wednesday,9:30 AM to 10:30 AM,Tutorial,BDE,Basic Development Economics,T54,MK4,Mugdha Khandelwal (4),L1,web_app/classes_data.json
 WEB_01772,B.Com (Hons),Sem V,Sec L,Wednesday,10:30 AM to 11:30 AM,Lecture,ITLP,Income Tax Law and Practice,R19,KNK,Mr. Krishan Kant,,web_app/classes_data.json
 WEB_01773,B.Com (Hons),Sem V,Sec L,Wednesday,11:30 AM to 12:30 PM,Practical/Lab,ITLP,Income Tax Law and Practice,T49,KNK,Mr. Krishan Kant,LP2,web_app/classes_data.json
 WEB_01774,B.Com (Hons),Sem V,Sec L,Wednesday,11:30 AM to 12:30 PM,Tutorial,BECON,Business Economics,T36,SNK,Dr. Santosh Kumar,L1,web_app/classes_data.json
 WEB_01775,B.Com (Hons),Sem V,Sec L,Wednesday,11:30 AM to 12:30 PM,Tutorial,TPF,Theory of Public Finance,T54,KD,Dr. Kapil Dev Yadav,L3,web_app/classes_data.json
 WEB_01776,B.Com (Hons),Sem V,Sec L,Wednesday,12:30 PM to 1:30 PM,Lecture,ED,Entrepreneurship Development,R22,RK,Dr. Ravi Kant,,web_app/classes_data.json
-WEB_01777,B.Com (Hons),Sem V,Sec L,Wednesday,12:30 PM to 1:30 PM,Lecture,BDE,BDE,PB3,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
+WEB_01777,B.Com (Hons),Sem V,Sec L,Wednesday,12:30 PM to 1:30 PM,Lecture,BDE,Basic Development Economics,PB3,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
 WEB_01778,B.Com (Hons),Sem V,Sec L,Wednesday,12:30 PM to 1:30 PM,Lecture,MB,Money and Banking,R28,HT5,Himanshu Takia (5),,web_app/classes_data.json
 WEB_01779,B.Com (Hons),Sem V,Sec L,Wednesday,12:30 PM to 1:30 PM,Lecture,IIPT,Indian Political Thought,CLIB,RHR,Mr. Rishabh Raj,,web_app/classes_data.json
 WEB_01780,B.Com (Hons),Sem V,Sec L,Wednesday,12:30 PM to 1:30 PM,Lecture,HFPE,"Health, Fitness & Physical Education",SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
@@ -1790,7 +1790,7 @@ WEB_01788,B.Com (Hons),Sem V,Sec L,Thursday,10:30 AM to 11:30 AM,Lecture,ITLP,In
 WEB_01789,B.Com (Hons),Sem V,Sec L,Thursday,11:30 AM to 12:30 PM,Lecture,DnD,Digitalisation and Development,R6,IT3,Ishika Tiwar (3),,web_app/classes_data.json
 WEB_01790,B.Com (Hons),Sem V,Sec L,Thursday,11:30 AM to 12:30 PM,Lecture,OS,Operating Systems,R30,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
 WEB_01791,B.Com (Hons),Sem V,Sec L,Thursday,12:30 PM to 1:30 PM,Lecture,ED,Entrepreneurship Development,R20,RK,Dr. Ravi Kant,,web_app/classes_data.json
-WEB_01792,B.Com (Hons),Sem V,Sec L,Thursday,12:30 PM to 1:30 PM,Lecture,BDE,BDE,PB3,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
+WEB_01792,B.Com (Hons),Sem V,Sec L,Thursday,12:30 PM to 1:30 PM,Lecture,BDE,Basic Development Economics,PB3,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
 WEB_01793,B.Com (Hons),Sem V,Sec L,Thursday,12:30 PM to 1:30 PM,Lecture,MB,Money and Banking,CLIB,HT5,Himanshu Takia (5),,web_app/classes_data.json
 WEB_01794,B.Com (Hons),Sem V,Sec L,Thursday,12:30 PM to 1:30 PM,Lecture,IIPT,Indian Political Thought,R28,RHR,Mr. Rishabh Raj,,web_app/classes_data.json
 WEB_01795,B.Com (Hons),Sem V,Sec L,Thursday,12:30 PM to 1:30 PM,Lecture,HFPE,"Health, Fitness & Physical Education",SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
@@ -1823,7 +1823,7 @@ WEB_01821,B.Com (Hons),Sem V,Sec N,Tuesday,9:30 AM to 10:30 AM,Lecture,BECON,Bus
 WEB_01822,B.Com (Hons),Sem V,Sec N,Tuesday,10:30 AM to 11:30 AM,Lecture,MA,Management Accounting,R26,VIC,Ms. Vaishali Chhokar,,web_app/classes_data.json
 WEB_01823,B.Com (Hons),Sem V,Sec N,Tuesday,11:30 AM to 12:30 PM,Practical/Lab,OS,Operating Systems,R30,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
 WEB_01824,B.Com (Hons),Sem V,Sec N,Tuesday,11:30 AM to 12:30 PM,Tutorial,CAS,Computerized Accounting System,T27,SHG,Dr. Saurabh Gupta,N1,web_app/classes_data.json
-WEB_01825,B.Com (Hons),Sem V,Sec N,Tuesday,12:30 PM to 1:30 PM,Lecture,BDE,BDE,R19,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
+WEB_01825,B.Com (Hons),Sem V,Sec N,Tuesday,12:30 PM to 1:30 PM,Lecture,BDE,Basic Development Economics,R19,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
 WEB_01826,B.Com (Hons),Sem V,Sec N,Tuesday,12:30 PM to 1:30 PM,Lecture,MB,Money and Banking,PB3,HT5,Himanshu Takia (5),,web_app/classes_data.json
 WEB_01827,B.Com (Hons),Sem V,Sec N,Tuesday,12:30 PM to 1:30 PM,Lecture,TPF,Theory of Public Finance,R17,KD,Dr. Kapil Dev Yadav,,web_app/classes_data.json
 WEB_01828,B.Com (Hons),Sem V,Sec N,Tuesday,12:30 PM to 1:30 PM,Lecture,NM,Numerical Methods,R23,SAS,Dr. Sunita Sharma,,web_app/classes_data.json
@@ -1833,34 +1833,34 @@ WEB_01831,B.Com (Hons),Sem V,Sec N,Wednesday,9:30 AM to 10:30 AM,Lecture,MA,Mana
 WEB_01832,B.Com (Hons),Sem V,Sec N,Wednesday,10:30 AM to 11:30 AM,Lecture,BECON,Business Economics,R31,AJJ,Dr. Anuj Jatav,,web_app/classes_data.json
 WEB_01833,B.Com (Hons),Sem V,Sec N,Wednesday,11:30 AM to 12:30 PM,Practical/Lab,MA,Management Accounting,T41,VIC,Ms. Vaishali Chhokar,NP2,web_app/classes_data.json
 WEB_01834,B.Com (Hons),Sem V,Sec N,Wednesday,11:30 AM to 12:30 PM,Tutorial,BECON,Business Economics,T24,PRD,Prof. Padmeshwar Doley,N3,web_app/classes_data.json
-WEB_01835,B.Com (Hons),Sem V,Sec N,Wednesday,12:30 PM to 1:30 PM,Lecture,BDE,BDE,PB3,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
+WEB_01835,B.Com (Hons),Sem V,Sec N,Wednesday,12:30 PM to 1:30 PM,Lecture,BDE,Basic Development Economics,PB3,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
 WEB_01836,B.Com (Hons),Sem V,Sec N,Wednesday,12:30 PM to 1:30 PM,Lecture,MB,Money and Banking,R28,HT5,Himanshu Takia (5),,web_app/classes_data.json
 WEB_01837,B.Com (Hons),Sem V,Sec N,Wednesday,12:30 PM to 1:30 PM,Lecture,NM,Numerical Methods,R23,SAS,Dr. Sunita Sharma,,web_app/classes_data.json
 WEB_01838,B.Com (Hons),Sem V,Sec N,Wednesday,12:30 PM to 1:30 PM,Lecture,IIPT,Indian Political Thought,CLIB,RHR,Mr. Rishabh Raj,,web_app/classes_data.json
 WEB_01839,B.Com (Hons),Sem V,Sec N,Wednesday,12:30 PM to 1:30 PM,Lecture,HFPE,"Health, Fitness & Physical Education",SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
 WEB_01840,B.Com (Hons),Sem V,Sec N,Wednesday,12:30 PM to 1:30 PM,Lecture,TPF,Theory of Public Finance,R15,KD,Dr. Kapil Dev Yadav,,web_app/classes_data.json
 WEB_01841,B.Com (Hons),Sem V,Sec N,Wednesday,2:00 PM to 3:00 PM,Lecture,OS,Operating Systems,R30,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
-WEB_01842,B.Com (Hons),Sem V,Sec N,Wednesday,2:00 PM to 3:00 PM,Lecture,GF,Global Finance,T3,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
+WEB_01842,B.Com (Hons),Sem V,Sec N,Wednesday,2:00 PM to 3:00 PM,Lecture,GF,Genre Fiction,T3,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
 WEB_01843,B.Com (Hons),Sem V,Sec N,Wednesday,2:00 PM to 3:00 PM,Practical/Lab,HFPE,"Health, Fitness & Physical Education",PLAYGROUND,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
 WEB_01844,B.Com (Hons),Sem V,Sec N,Wednesday,2:00 PM to 3:00 PM,Tutorial,IIPT,Indian Political Thought,T4,RHR,Mr. Rishabh Raj,N3,web_app/classes_data.json
 WEB_01845,B.Com (Hons),Sem V,Sec N,Wednesday,2:00 PM to 3:00 PM,Practical/Lab,NM,Numerical Methods,R29,AKS,Dr. Avnish Kumar Sharma,,web_app/classes_data.json
-WEB_01846,B.Com (Hons),Sem V,Sec N,Wednesday,2:00 PM to 3:00 PM,Tutorial,BDE,BDE,T51,HC26,Hritika Chauhan (26),N2,web_app/classes_data.json
+WEB_01846,B.Com (Hons),Sem V,Sec N,Wednesday,2:00 PM to 3:00 PM,Tutorial,BDE,Basic Development Economics,T51,HC26,Hritika Chauhan (26),N2,web_app/classes_data.json
 WEB_01847,B.Com (Hons),Sem V,Sec N,Wednesday,3:00 PM to 4:00 PM,Practical/Lab,NM,Numerical Methods,R29,AKS,Dr. Avnish Kumar Sharma,,web_app/classes_data.json
 WEB_01848,B.Com (Hons),Sem V,Sec N,Thursday,8:30 AM to 9:30 AM,Lecture,ITLP,Income Tax Law and Practice,R15,AAIC,Aayushi (Cg16),,web_app/classes_data.json
 WEB_01849,B.Com (Hons),Sem V,Sec N,Thursday,9:30 AM to 10:30 AM,Lecture,MA,Management Accounting,R37,VIC,Ms. Vaishali Chhokar,,web_app/classes_data.json
 WEB_01850,B.Com (Hons),Sem V,Sec N,Thursday,10:30 AM to 11:30 AM,Tutorial,BECON,Business Economics,T24,PRD,Prof. Padmeshwar Doley,N2,web_app/classes_data.json
 WEB_01851,B.Com (Hons),Sem V,Sec N,Thursday,10:30 AM to 11:30 AM,Practical/Lab,ITLP,Income Tax Law and Practice,T38,AAIC,Aayushi (Cg16),NP3,web_app/classes_data.json
 WEB_01852,B.Com (Hons),Sem V,Sec N,Thursday,11:30 AM to 12:30 PM,Lecture,OS,Operating Systems,R30,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
-WEB_01853,B.Com (Hons),Sem V,Sec N,Thursday,11:30 AM to 12:30 PM,Lecture,GF,Global Finance,R7,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
+WEB_01853,B.Com (Hons),Sem V,Sec N,Thursday,11:30 AM to 12:30 PM,Lecture,GF,Genre Fiction,R7,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
 WEB_01854,B.Com (Hons),Sem V,Sec N,Thursday,11:30 AM to 12:30 PM,Tutorial,TPF,Theory of Public Finance,T50,HT5,Himanshu Takia (5),N3,web_app/classes_data.json
 WEB_01855,B.Com (Hons),Sem V,Sec N,Thursday,11:30 AM to 12:30 PM,Practical/Lab,ITLP,Income Tax Law and Practice,T12,AAIC,Aayushi (Cg16),NP1,web_app/classes_data.json
-WEB_01856,B.Com (Hons),Sem V,Sec N,Thursday,12:30 PM to 1:30 PM,Lecture,BDE,BDE,PB3,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
+WEB_01856,B.Com (Hons),Sem V,Sec N,Thursday,12:30 PM to 1:30 PM,Lecture,BDE,Basic Development Economics,PB3,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
 WEB_01857,B.Com (Hons),Sem V,Sec N,Thursday,12:30 PM to 1:30 PM,Lecture,MB,Money and Banking,CLIB,HT5,Himanshu Takia (5),,web_app/classes_data.json
 WEB_01858,B.Com (Hons),Sem V,Sec N,Thursday,12:30 PM to 1:30 PM,Lecture,NM,Numerical Methods,R23,SAS,Dr. Sunita Sharma,,web_app/classes_data.json
 WEB_01859,B.Com (Hons),Sem V,Sec N,Thursday,12:30 PM to 1:30 PM,Lecture,IIPT,Indian Political Thought,R28,RHR,Mr. Rishabh Raj,,web_app/classes_data.json
 WEB_01860,B.Com (Hons),Sem V,Sec N,Thursday,12:30 PM to 1:30 PM,Lecture,HFPE,"Health, Fitness & Physical Education",SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
 WEB_01861,B.Com (Hons),Sem V,Sec N,Thursday,2:00 PM to 3:00 PM,Practical/Lab,HFPE,"Health, Fitness & Physical Education",PLAYGROUND,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
-WEB_01862,B.Com (Hons),Sem V,Sec N,Thursday,2:00 PM to 3:00 PM,Tutorial,GF,Global Finance,T2,SKC,Mr. Shailesh Kumar Chawla,N2,web_app/classes_data.json
+WEB_01862,B.Com (Hons),Sem V,Sec N,Thursday,2:00 PM to 3:00 PM,Tutorial,GF,Genre Fiction,T2,SKC,Mr. Shailesh Kumar Chawla,N2,web_app/classes_data.json
 WEB_01863,B.Com (Hons),Sem V,Sec N,Thursday,2:00 PM to 3:00 PM,Tutorial,MB,Money and Banking,T23,DA,David A Longkumer (10),N1,web_app/classes_data.json
 WEB_01864,B.Com (Hons),Sem V,Sec N,Friday,8:30 AM to 9:30 AM,Lecture,ITLP,Income Tax Law and Practice,R35,AAIC,Aayushi (Cg16),,web_app/classes_data.json
 WEB_01865,B.Com (Hons),Sem V,Sec N,Friday,9:30 AM to 10:30 AM,Practical/Lab,MA,Management Accounting,CLIB,VIC,Ms. Vaishali Chhokar,NP1,web_app/classes_data.json
@@ -1871,7 +1871,7 @@ WEB_01869,B.Com (Hons),Sem V,Sec N,Friday,11:30 AM to 12:30 PM,Practical/Lab,MA,
 WEB_01870,B.Com (Hons),Sem V,Sec N,Friday,11:30 AM to 12:30 PM,Tutorial,BECON,Business Economics,T13,MAK,Prof. Mallika Kumar,N1,web_app/classes_data.json
 WEB_01871,B.Com (Hons),Sem V,Sec N,Friday,11:30 AM to 12:30 PM,Tutorial,CAS,Computerized Accounting System,T38,ATS,Dr. Amarjeet Singh,N2,web_app/classes_data.json
 WEB_01872,B.Com (Hons),Sem V,Sec N,Friday,12:30 PM to 1:30 PM,Lecture,IIPT,Indian Political Thought,CL1,RHR,Mr. Rishabh Raj,,web_app/classes_data.json
-WEB_01873,B.Com (Hons),Sem V,Sec N,Friday,12:30 PM to 1:30 PM,Lecture,GF,Global Finance,T3,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
+WEB_01873,B.Com (Hons),Sem V,Sec N,Friday,12:30 PM to 1:30 PM,Lecture,GF,Genre Fiction,T3,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
 WEB_01874,B.Com (Hons),Sem V,Sec N,Saturday,8:30 AM to 9:30 AM,Practical/Lab,ITLP,Income Tax Law and Practice,R30,AAIC,Aayushi (Cg16),NP1,web_app/classes_data.json
 WEB_01875,B.Com (Hons),Sem V,Sec N,Saturday,8:30 AM to 9:30 AM,Practical/Lab,ITLP,Income Tax Law and Practice,R30,AAIC,Aayushi (Cg16),NP2,web_app/classes_data.json
 WEB_01876,B.Com (Hons),Sem V,Sec N,Saturday,8:30 AM to 9:30 AM,Practical/Lab,ITLP,Income Tax Law and Practice,R30,AAIC,Aayushi (Cg16),NP3,web_app/classes_data.json
@@ -1896,7 +1896,7 @@ WEB_01894,B.Com (Hons),Sem V,Sec M,Tuesday,11:30 AM to 12:30 PM,Practical/Lab,OS
 WEB_01895,B.Com (Hons),Sem V,Sec M,Tuesday,11:30 AM to 12:30 PM,Tutorial,DnD,Digitalisation and Development,T2,MG,Dr. Monika Gaur,M3,web_app/classes_data.json
 WEB_01896,B.Com (Hons),Sem V,Sec M,Tuesday,11:30 AM to 12:30 PM,Tutorial,MB,Money and Banking,T50,HT5,Himanshu Takia (5),M1,web_app/classes_data.json
 WEB_01897,B.Com (Hons),Sem V,Sec M,Tuesday,12:30 PM to 1:30 PM,Lecture,ED,Entrepreneurship Development,R16,RK,Dr. Ravi Kant,,web_app/classes_data.json
-WEB_01898,B.Com (Hons),Sem V,Sec M,Tuesday,12:30 PM to 1:30 PM,Lecture,BDE,BDE,R19,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
+WEB_01898,B.Com (Hons),Sem V,Sec M,Tuesday,12:30 PM to 1:30 PM,Lecture,BDE,Basic Development Economics,R19,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
 WEB_01899,B.Com (Hons),Sem V,Sec M,Tuesday,12:30 PM to 1:30 PM,Lecture,MB,Money and Banking,PB3,HT5,Himanshu Takia (5),,web_app/classes_data.json
 WEB_01900,B.Com (Hons),Sem V,Sec M,Tuesday,12:30 PM to 1:30 PM,Lecture,TPF,Theory of Public Finance,R17,KD,Dr. Kapil Dev Yadav,,web_app/classes_data.json
 WEB_01901,B.Com (Hons),Sem V,Sec M,Tuesday,12:30 PM to 1:30 PM,Lecture,NM,Numerical Methods,R23,SAS,Dr. Sunita Sharma,,web_app/classes_data.json
@@ -1911,7 +1911,7 @@ WEB_01909,B.Com (Hons),Sem V,Sec M,Wednesday,11:30 AM to 12:30 PM,Practical/Lab,
 WEB_01910,B.Com (Hons),Sem V,Sec M,Wednesday,11:30 AM to 12:30 PM,Practical/Lab,MA,Management Accounting,R28,ATS,Dr. Amarjeet Singh,MP2,web_app/classes_data.json
 WEB_01911,B.Com (Hons),Sem V,Sec M,Wednesday,11:30 AM to 12:30 PM,Practical/Lab,MA,Management Accounting,R28,ATS,Dr. Amarjeet Singh,MP3,web_app/classes_data.json
 WEB_01912,B.Com (Hons),Sem V,Sec M,Wednesday,12:30 PM to 1:30 PM,Lecture,ED,Entrepreneurship Development,R22,RK,Dr. Ravi Kant,,web_app/classes_data.json
-WEB_01913,B.Com (Hons),Sem V,Sec M,Wednesday,12:30 PM to 1:30 PM,Lecture,BDE,BDE,PB3,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
+WEB_01913,B.Com (Hons),Sem V,Sec M,Wednesday,12:30 PM to 1:30 PM,Lecture,BDE,Basic Development Economics,PB3,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
 WEB_01914,B.Com (Hons),Sem V,Sec M,Wednesday,12:30 PM to 1:30 PM,Lecture,MB,Money and Banking,R28,HT5,Himanshu Takia (5),,web_app/classes_data.json
 WEB_01915,B.Com (Hons),Sem V,Sec M,Wednesday,12:30 PM to 1:30 PM,Lecture,NM,Numerical Methods,R23,SAS,Dr. Sunita Sharma,,web_app/classes_data.json
 WEB_01916,B.Com (Hons),Sem V,Sec M,Wednesday,12:30 PM to 1:30 PM,Lecture,IIPT,Indian Political Thought,CLIB,RHR,Mr. Rishabh Raj,,web_app/classes_data.json
@@ -1919,10 +1919,10 @@ WEB_01917,B.Com (Hons),Sem V,Sec M,Wednesday,12:30 PM to 1:30 PM,Lecture,HFPE,"H
 WEB_01918,B.Com (Hons),Sem V,Sec M,Wednesday,12:30 PM to 1:30 PM,Lecture,TPF,Theory of Public Finance,R15,KD,Dr. Kapil Dev Yadav,,web_app/classes_data.json
 WEB_01919,B.Com (Hons),Sem V,Sec M,Wednesday,2:00 PM to 3:00 PM,Lecture,DnD,Digitalisation and Development,R19,IT3,Ishika Tiwar (3),,web_app/classes_data.json
 WEB_01920,B.Com (Hons),Sem V,Sec M,Wednesday,2:00 PM to 3:00 PM,Lecture,OS,Operating Systems,R30,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
-WEB_01921,B.Com (Hons),Sem V,Sec M,Wednesday,2:00 PM to 3:00 PM,Lecture,GF,Global Finance,T3,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
+WEB_01921,B.Com (Hons),Sem V,Sec M,Wednesday,2:00 PM to 3:00 PM,Lecture,GF,Genre Fiction,T3,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
 WEB_01922,B.Com (Hons),Sem V,Sec M,Wednesday,2:00 PM to 3:00 PM,Practical/Lab,HFPE,"Health, Fitness & Physical Education",PLAYGROUND,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
 WEB_01923,B.Com (Hons),Sem V,Sec M,Wednesday,2:00 PM to 3:00 PM,Tutorial,IIPT,Indian Political Thought,T4,RHR,Mr. Rishabh Raj,M1,web_app/classes_data.json
-WEB_01924,B.Com (Hons),Sem V,Sec M,Wednesday,2:00 PM to 3:00 PM,Tutorial,BDE,BDE,T51,HC26,Hritika Chauhan (26),M2,web_app/classes_data.json
+WEB_01924,B.Com (Hons),Sem V,Sec M,Wednesday,2:00 PM to 3:00 PM,Tutorial,BDE,Basic Development Economics,T51,HC26,Hritika Chauhan (26),M2,web_app/classes_data.json
 WEB_01925,B.Com (Hons),Sem V,Sec M,Thursday,8:30 AM to 9:30 AM,Tutorial,BECON,Business Economics,T41,AJJ,Dr. Anuj Jatav,M3,web_app/classes_data.json
 WEB_01926,B.Com (Hons),Sem V,Sec M,Thursday,8:30 AM to 9:30 AM,Tutorial,IF,International Finance,T14,AGC,Ankita Garg (Cg23),M2,web_app/classes_data.json
 WEB_01927,B.Com (Hons),Sem V,Sec M,Thursday,8:30 AM to 9:30 AM,Tutorial,ODI,Organisational Dynamics & Intervention,T45,LKB,Ms. Latika Bajetha,M1,web_app/classes_data.json
@@ -1932,18 +1932,18 @@ WEB_01930,B.Com (Hons),Sem V,Sec M,Thursday,9:30 AM to 10:30 AM,Lecture,ODI,Orga
 WEB_01931,B.Com (Hons),Sem V,Sec M,Thursday,10:30 AM to 11:30 AM,Lecture,BECON,Business Economics,R20,JTW,Dr. Jigmet Wangdus,,web_app/classes_data.json
 WEB_01932,B.Com (Hons),Sem V,Sec M,Thursday,11:30 AM to 12:30 PM,Lecture,DnD,Digitalisation and Development,R6,IT3,Ishika Tiwar (3),,web_app/classes_data.json
 WEB_01933,B.Com (Hons),Sem V,Sec M,Thursday,11:30 AM to 12:30 PM,Lecture,OS,Operating Systems,R30,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
-WEB_01934,B.Com (Hons),Sem V,Sec M,Thursday,11:30 AM to 12:30 PM,Lecture,GF,Global Finance,R7,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
+WEB_01934,B.Com (Hons),Sem V,Sec M,Thursday,11:30 AM to 12:30 PM,Lecture,GF,Genre Fiction,R7,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
 WEB_01935,B.Com (Hons),Sem V,Sec M,Thursday,11:30 AM to 12:30 PM,Tutorial,TPF,Theory of Public Finance,T50,HT5,Himanshu Takia (5),M3,web_app/classes_data.json
 WEB_01936,B.Com (Hons),Sem V,Sec M,Thursday,11:30 AM to 12:30 PM,Practical/Lab,NM,Numerical Methods,,SAS,Dr. Sunita Sharma,,web_app/classes_data.json
 WEB_01937,B.Com (Hons),Sem V,Sec M,Thursday,12:30 PM to 1:30 PM,Lecture,ED,Entrepreneurship Development,R20,RK,Dr. Ravi Kant,,web_app/classes_data.json
-WEB_01938,B.Com (Hons),Sem V,Sec M,Thursday,12:30 PM to 1:30 PM,Lecture,BDE,BDE,PB3,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
+WEB_01938,B.Com (Hons),Sem V,Sec M,Thursday,12:30 PM to 1:30 PM,Lecture,BDE,Basic Development Economics,PB3,MK4,Mugdha Khandelwal (4),,web_app/classes_data.json
 WEB_01939,B.Com (Hons),Sem V,Sec M,Thursday,12:30 PM to 1:30 PM,Lecture,MB,Money and Banking,CLIB,HT5,Himanshu Takia (5),,web_app/classes_data.json
 WEB_01940,B.Com (Hons),Sem V,Sec M,Thursday,12:30 PM to 1:30 PM,Lecture,NM,Numerical Methods,R23,SAS,Dr. Sunita Sharma,,web_app/classes_data.json
 WEB_01941,B.Com (Hons),Sem V,Sec M,Thursday,12:30 PM to 1:30 PM,Lecture,IIPT,Indian Political Thought,R28,RHR,Mr. Rishabh Raj,,web_app/classes_data.json
 WEB_01942,B.Com (Hons),Sem V,Sec M,Thursday,12:30 PM to 1:30 PM,Lecture,HFPE,"Health, Fitness & Physical Education",SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
 WEB_01943,B.Com (Hons),Sem V,Sec M,Thursday,2:00 PM to 3:00 PM,Practical/Lab,HFPE,"Health, Fitness & Physical Education",PLAYGROUND,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
 WEB_01944,B.Com (Hons),Sem V,Sec M,Thursday,2:00 PM to 3:00 PM,Tutorial,ED,Entrepreneurship Development,T51,RK,Dr. Ravi Kant,M3,web_app/classes_data.json
-WEB_01945,B.Com (Hons),Sem V,Sec M,Thursday,2:00 PM to 3:00 PM,Tutorial,GF,Global Finance,T2,SKC,Mr. Shailesh Kumar Chawla,M1,web_app/classes_data.json
+WEB_01945,B.Com (Hons),Sem V,Sec M,Thursday,2:00 PM to 3:00 PM,Tutorial,GF,Genre Fiction,T2,SKC,Mr. Shailesh Kumar Chawla,M1,web_app/classes_data.json
 WEB_01946,B.Com (Hons),Sem V,Sec M,Friday,8:30 AM to 9:30 AM,Lecture,MA,Management Accounting,R6,ATS,Dr. Amarjeet Singh,,web_app/classes_data.json
 WEB_01947,B.Com (Hons),Sem V,Sec M,Friday,9:30 AM to 10:30 AM,Lecture,IF,International Finance,PB3,AGC,Ankita Garg (Cg23),,web_app/classes_data.json
 WEB_01948,B.Com (Hons),Sem V,Sec M,Friday,9:30 AM to 10:30 AM,Lecture,ODI,Organisational Dynamics & Intervention,R19,LKB,Ms. Latika Bajetha,,web_app/classes_data.json
@@ -1953,7 +1953,7 @@ WEB_01951,B.Com (Hons),Sem V,Sec M,Friday,10:30 AM to 11:30 AM,Practical/Lab,NM,
 WEB_01952,B.Com (Hons),Sem V,Sec M,Friday,11:30 AM to 12:30 PM,Lecture,BECON,Business Economics,R14,JTW,Dr. Jigmet Wangdus,,web_app/classes_data.json
 WEB_01953,B.Com (Hons),Sem V,Sec M,Friday,12:30 PM to 1:30 PM,Lecture,DnD,Digitalisation and Development,R20,IT3,Ishika Tiwar (3),,web_app/classes_data.json
 WEB_01954,B.Com (Hons),Sem V,Sec M,Friday,12:30 PM to 1:30 PM,Lecture,IIPT,Indian Political Thought,CL1,RHR,Mr. Rishabh Raj,,web_app/classes_data.json
-WEB_01955,B.Com (Hons),Sem V,Sec M,Friday,12:30 PM to 1:30 PM,Lecture,GF,Global Finance,T3,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
+WEB_01955,B.Com (Hons),Sem V,Sec M,Friday,12:30 PM to 1:30 PM,Lecture,GF,Genre Fiction,T3,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
 WEB_01956,B.Com (Hons),Sem V,Sec M,Saturday,8:30 AM to 9:30 AM,Lecture,ITLP,Income Tax Law and Practice,R15,TAMC,Tamanna (Cg15),,web_app/classes_data.json
 WEB_01957,B.Com (Hons),Sem V,Sec M,Saturday,9:30 AM to 10:30 AM,Lecture,TPF,Theory of Public Finance,R19,KD,Dr. Kapil Dev Yadav,,web_app/classes_data.json
 WEB_01958,B.Com (Hons),Sem V,Sec M,Saturday,10:30 AM to 11:30 AM,Lecture,BECON,Business Economics,R6,JTW,Dr. Jigmet Wangdus,,web_app/classes_data.json
@@ -1969,7 +1969,7 @@ WEB_01967,B.Com (Hons),Sem VII,Sec A,Tuesday,12:30 PM to 1:30 PM,Lecture,IGT,Int
 WEB_01968,B.Com (Hons),Sem VII,Sec A,Tuesday,12:30 PM to 1:30 PM,Lecture,RIDL,Readings in Indian Democratic Literature,R4,SOC,Mr. Soumitra Kumar Choudhary,,web_app/classes_data.json
 WEB_01969,B.Com (Hons),Sem VII,Sec A,Tuesday,12:30 PM to 1:30 PM,Lecture,CFD,Corporate Financial Decisions,R31,MSN28,Mukti Sri Narain(28),,web_app/classes_data.json
 WEB_01970,B.Com (Hons),Sem VII,Sec A,Tuesday,12:30 PM to 1:30 PM,Lecture,GIC,Global Institutions and Commerce,T3,PSG2,Pol Science Guest 2,,web_app/classes_data.json
-WEB_01971,B.Com (Hons),Sem VII,Sec A,Tuesday,2:00 PM to 3:00 PM,Practical/Lab,IST,Information Systems and Technology,PLAYGROUND,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
+WEB_01971,B.Com (Hons),Sem VII,Sec A,Tuesday,2:00 PM to 3:00 PM,Practical/Lab,IST,Introduction to Sports Training,PLAYGROUND,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
 WEB_01972,B.Com (Hons),Sem VII,Sec A,Wednesday,8:30 AM to 9:30 AM,Lecture,EoE1,Principles of Microeconomics I,R14,SPB,Dr. Sapna Bansal,,web_app/classes_data.json
 WEB_01973,B.Com (Hons),Sem VII,Sec A,Wednesday,9:30 AM to 10:30 AM,Practical/Lab,EoE1,Principles of Microeconomics I,R4,SPB,Dr. Sapna Bansal,AP1,web_app/classes_data.json
 WEB_01974,B.Com (Hons),Sem VII,Sec A,Wednesday,9:30 AM to 10:30 AM,Practical/Lab,EoE1,Principles of Microeconomics I,R4,SPB,Dr. Sapna Bansal,AP2,web_app/classes_data.json
@@ -1980,7 +1980,7 @@ WEB_01978,B.Com (Hons),Sem VII,Sec A,Wednesday,12:30 PM to 1:30 PM,Lecture,IGT,I
 WEB_01979,B.Com (Hons),Sem VII,Sec A,Wednesday,12:30 PM to 1:30 PM,Lecture,RIDL,Readings in Indian Democratic Literature,R4,SOC,Mr. Soumitra Kumar Choudhary,,web_app/classes_data.json
 WEB_01980,B.Com (Hons),Sem VII,Sec A,Wednesday,12:30 PM to 1:30 PM,Lecture,GIC,Global Institutions and Commerce,T3,PSG2,Pol Science Guest 2,,web_app/classes_data.json
 WEB_01981,B.Com (Hons),Sem VII,Sec A,Wednesday,2:00 PM to 3:00 PM,Lecture,ED,Entrepreneurship Development,R22,RK,Dr. Ravi Kant,,web_app/classes_data.json
-WEB_01982,B.Com (Hons),Sem VII,Sec A,Wednesday,3:00 PM to 4:00 PM,Lecture,IST,Information Systems and Technology,SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
+WEB_01982,B.Com (Hons),Sem VII,Sec A,Wednesday,3:00 PM to 4:00 PM,Lecture,IST,Introduction to Sports Training,SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
 WEB_01983,B.Com (Hons),Sem VII,Sec A,Thursday,9:30 AM to 10:30 AM,Lecture,PM,Project Management,R30,PKC,Priyanka Aggarwal (Cg26),,web_app/classes_data.json
 WEB_01984,B.Com (Hons),Sem VII,Sec A,Thursday,10:30 AM to 11:30 AM,Lecture,PM,Project Management,R4,PKC,Priyanka Aggarwal (Cg26),,web_app/classes_data.json
 WEB_01985,B.Com (Hons),Sem VII,Sec A,Thursday,11:30 AM to 12:30 PM,Lecture,ED,Entrepreneurship Development,R18,RK,Dr. Ravi Kant,,web_app/classes_data.json
@@ -2008,158 +2008,158 @@ WEB_02006,B.Com (Hons),Sem VII,Sec A,Saturday,11:30 AM to 12:30 PM,Lecture,BRM,B
 WEB_02007,B.Com (Hons),Sem VII,Sec A,Saturday,12:30 PM to 1:30 PM,Practical/Lab,BRM,Brand Management,R21,SHK,Dr. Santosh Kumar,AP1,web_app/classes_data.json
 WEB_02008,B.Com (Hons),Sem VII,Sec A,Saturday,12:30 PM to 1:30 PM,Practical/Lab,BRM,Brand Management,R21,SHK,Dr. Santosh Kumar,AP2,web_app/classes_data.json
 WEB_02009,B.Com (Hons),Sem VII,Sec A,Saturday,12:30 PM to 1:30 PM,Practical/Lab,BRM,Brand Management,R21,SHK,Dr. Santosh Kumar,AP3,web_app/classes_data.json
-WEB_02010,B.Com (Hons),Sem VII,Sec A,Saturday,2:00 PM to 3:00 PM,Lecture,IST,Information Systems and Technology,SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
-WEB_02011,B.Com (Hons),Sem VII,Sec A,Saturday,3:00 PM to 4:00 PM,Lecture,IST,Information Systems and Technology,SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
-WEB_02012,B.Com (Hons),Sem VII,Sec A,Wednesday,3:00 PM to 4:00 PM,Practical/Lab,IST,Information Systems and Technology,PLAYGROUND,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
+WEB_02010,B.Com (Hons),Sem VII,Sec A,Saturday,2:00 PM to 3:00 PM,Lecture,IST,Introduction to Sports Training,SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
+WEB_02011,B.Com (Hons),Sem VII,Sec A,Saturday,3:00 PM to 4:00 PM,Lecture,IST,Introduction to Sports Training,SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
+WEB_02012,B.Com (Hons),Sem VII,Sec A,Wednesday,3:00 PM to 4:00 PM,Practical/Lab,IST,Introduction to Sports Training,PLAYGROUND,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
 WEB_02013,B.A. (Hons) Economics,Sem I,Sec A,Monday,8:30 AM to 9:30 AM,Lecture,Intro MME,Introductory Mathematical Methods for Economics,R23,AG11,Akanksha Gupta (11),,web_app/classes_data.json
 WEB_02014,B.A. (Hons) Economics,Sem I,Sec A,Monday,9:30 AM to 10:30 AM,Lecture,ISME,Introductory Statistics for Economics,R25,PB,Ms. Priyanka Bhatia,,web_app/classes_data.json
 WEB_02015,B.A. (Hons) Economics,Sem I,Sec A,Monday,10:30 AM to 11:30 AM,Tutorial,ISME,Introductory Statistics for Economics,T17,PB,Ms. Priyanka Bhatia,A2,web_app/classes_data.json
-WEB_02016,B.A. (Hons) Economics,Sem I,Sec A,Monday,10:30 AM to 11:30 AM,Tutorial,GE,GE,T18,MIG,Dr. Misha Govil,A1,web_app/classes_data.json
+WEB_02016,B.A. (Hons) Economics,Sem I,Sec A,Monday,10:30 AM to 11:30 AM,Tutorial,FOC,Fundamentals of Computing,T18,MIG,Dr. Misha Govil,A1,web_app/classes_data.json
 WEB_02017,B.A. (Hons) Economics,Sem I,Sec A,Monday,12:30 PM to 1:30 PM,Tutorial,Intro MME,Introductory Mathematical Methods for Economics,T16,AG11,Akanksha Gupta (11),A1,web_app/classes_data.json
-WEB_02018,B.A. (Hons) Economics,Sem I,Sec A,Tuesday,9:30 AM to 10:30 AM,Lecture,GE,GE,R7,MIG,Dr. Misha Govil,,web_app/classes_data.json
+WEB_02018,B.A. (Hons) Economics,Sem I,Sec A,Tuesday,9:30 AM to 10:30 AM,Lecture,FOC,Fundamentals of Computing,R7,MIG,Dr. Misha Govil,,web_app/classes_data.json
 WEB_02019,B.A. (Hons) Economics,Sem I,Sec A,Tuesday,10:30 AM to 11:30 AM,Tutorial,ISME,Introductory Statistics for Economics,T17,PB,Ms. Priyanka Bhatia,A3,web_app/classes_data.json
-WEB_02020,B.A. (Hons) Economics,Sem I,Sec A,Tuesday,11:30 AM to 12:30 PM,Lecture,IM,International Marketing,R25,CG,Ms. Chhavi Gautam,,web_app/classes_data.json
+WEB_02020,B.A. (Hons) Economics,Sem I,Sec A,Tuesday,11:30 AM to 12:30 PM,Lecture,IM,Introductory Microeconomics,R25,CG,Ms. Chhavi Gautam,,web_app/classes_data.json
 WEB_02021,B.A. (Hons) Economics,Sem I,Sec A,Tuesday,12:30 PM to 1:30 PM,Lecture,NII,Nationalism in India,R6,LVV,Dr. Linesh V. V.,,web_app/classes_data.json
 WEB_02022,B.A. (Hons) Economics,Sem I,Sec A,Wednesday,8:30 AM to 9:30 AM,Lecture,Intro MME,Introductory Mathematical Methods for Economics,PB4,AG11,Akanksha Gupta (11),,web_app/classes_data.json
 WEB_02023,B.A. (Hons) Economics,Sem I,Sec A,Wednesday,9:30 AM to 10:30 AM,Lecture,ISME,Introductory Statistics for Economics,R26,PB,Ms. Priyanka Bhatia,,web_app/classes_data.json
-WEB_02024,B.A. (Hons) Economics,Sem I,Sec A,Wednesday,10:30 AM to 11:30 AM,Tutorial,GE,GE,T18,MIG,Dr. Misha Govil,A2,web_app/classes_data.json
+WEB_02024,B.A. (Hons) Economics,Sem I,Sec A,Wednesday,10:30 AM to 11:30 AM,Tutorial,FOC,Fundamentals of Computing,T18,MIG,Dr. Misha Govil,A2,web_app/classes_data.json
 WEB_02025,B.A. (Hons) Economics,Sem I,Sec A,Wednesday,10:30 AM to 11:30 AM,Tutorial,Intro MME,Introductory Mathematical Methods for Economics,T51,AG11,Akanksha Gupta (11),A3,web_app/classes_data.json
-WEB_02026,B.A. (Hons) Economics,Sem I,Sec A,Wednesday,11:30 AM to 12:30 PM,Lecture,IM,International Marketing,R25,CG,Ms. Chhavi Gautam,,web_app/classes_data.json
+WEB_02026,B.A. (Hons) Economics,Sem I,Sec A,Wednesday,11:30 AM to 12:30 PM,Lecture,IM,Introductory Microeconomics,R25,CG,Ms. Chhavi Gautam,,web_app/classes_data.json
 WEB_02027,B.A. (Hons) Economics,Sem I,Sec A,Wednesday,12:30 PM to 1:30 PM,Lecture,NII,Nationalism in India,R6,LVV,Dr. Linesh V. V.,,web_app/classes_data.json
-WEB_02028,B.A. (Hons) Economics,Sem I,Sec A,Thursday,9:30 AM to 10:30 AM,Lecture,GE,GE,R7,MIG,Dr. Misha Govil,,web_app/classes_data.json
-WEB_02029,B.A. (Hons) Economics,Sem I,Sec A,Thursday,10:30 AM to 11:30 AM,Tutorial,IM,International Marketing,T54,AG,Dr. Amit Girdharwal,A2,web_app/classes_data.json
-WEB_02030,B.A. (Hons) Economics,Sem I,Sec A,Thursday,10:30 AM to 11:30 AM,Tutorial,IM,International Marketing,T35,CG,Ms. Chhavi Gautam,A3,web_app/classes_data.json
+WEB_02028,B.A. (Hons) Economics,Sem I,Sec A,Thursday,9:30 AM to 10:30 AM,Lecture,FOC,Fundamentals of Computing,R7,MIG,Dr. Misha Govil,,web_app/classes_data.json
+WEB_02029,B.A. (Hons) Economics,Sem I,Sec A,Thursday,10:30 AM to 11:30 AM,Tutorial,IM,Introductory Microeconomics,T54,AG,Dr. Amit Girdharwal,A2,web_app/classes_data.json
+WEB_02030,B.A. (Hons) Economics,Sem I,Sec A,Thursday,10:30 AM to 11:30 AM,Tutorial,IM,Introductory Microeconomics,T35,CG,Ms. Chhavi Gautam,A3,web_app/classes_data.json
 WEB_02031,B.A. (Hons) Economics,Sem I,Sec A,Thursday,11:30 AM to 12:30 PM,Lecture,H B,Hindi-B,R23,RIS,Prof. Ravi Sharma,,web_app/classes_data.json
 WEB_02032,B.A. (Hons) Economics,Sem I,Sec A,Thursday,12:30 PM to 1:30 PM,Lecture,NII,Nationalism in India,R6,LVV,Dr. Linesh V. V.,,web_app/classes_data.json
 WEB_02033,B.A. (Hons) Economics,Sem I,Sec A,Friday,9:30 AM to 10:30 AM,Lecture,ISME,Introductory Statistics for Economics,R25,PB,Ms. Priyanka Bhatia,,web_app/classes_data.json
-WEB_02034,B.A. (Hons) Economics,Sem I,Sec A,Friday,10:30 AM to 11:30 AM,Lecture,GE,GE,R25,MIG,Dr. Misha Govil,,web_app/classes_data.json
+WEB_02034,B.A. (Hons) Economics,Sem I,Sec A,Friday,10:30 AM to 11:30 AM,Lecture,FOC,Fundamentals of Computing,R25,MIG,Dr. Misha Govil,,web_app/classes_data.json
 WEB_02035,B.A. (Hons) Economics,Sem I,Sec A,Friday,11:30 AM to 12:30 PM,Tutorial,ISME,Introductory Statistics for Economics,T17,RJ,Prof. Rajiv Jha,A1,web_app/classes_data.json
 WEB_02036,B.A. (Hons) Economics,Sem I,Sec A,Friday,11:30 AM to 12:30 PM,Tutorial,Intro MME,Introductory Mathematical Methods for Economics,T30,JK12,Jasmine Kaur (12),A2,web_app/classes_data.json
 WEB_02037,B.A. (Hons) Economics,Sem I,Sec A,Friday,11:30 AM to 12:30 PM,Tutorial,NII,Nationalism in India,T4,LVV,Dr. Linesh V. V.,A3,web_app/classes_data.json
 WEB_02038,B.A. (Hons) Economics,Sem I,Sec A,Friday,12:30 PM to 1:30 PM,Lecture,H B,Hindi-B,R7,RIS,Prof. Ravi Sharma,,web_app/classes_data.json
 WEB_02039,B.A. (Hons) Economics,Sem I,Sec A,Saturday,8:30 AM to 9:30 AM,Lecture,Intro MME,Introductory Mathematical Methods for Economics,R24,AG11,Akanksha Gupta (11),,web_app/classes_data.json
-WEB_02040,B.A. (Hons) Economics,Sem I,Sec A,Saturday,9:30 AM to 10:30 AM,Tutorial,IM,International Marketing,T30,AG,Dr. Amit Girdharwal,A1,web_app/classes_data.json
-WEB_02041,B.A. (Hons) Economics,Sem I,Sec A,Saturday,10:30 AM to 11:30 AM,Lecture,IM,International Marketing,R25,CG,Ms. Chhavi Gautam,,web_app/classes_data.json
-WEB_02042,B.A. (Hons) Economics,Sem I,Sec B,Monday,9:30 AM to 10:30 AM,Lecture,GE,GE,R24,MIG,Dr. Misha Govil,,web_app/classes_data.json
+WEB_02040,B.A. (Hons) Economics,Sem I,Sec A,Saturday,9:30 AM to 10:30 AM,Tutorial,IM,Introductory Microeconomics,T30,AG,Dr. Amit Girdharwal,A1,web_app/classes_data.json
+WEB_02041,B.A. (Hons) Economics,Sem I,Sec A,Saturday,10:30 AM to 11:30 AM,Lecture,IM,Introductory Microeconomics,R25,CG,Ms. Chhavi Gautam,,web_app/classes_data.json
+WEB_02042,B.A. (Hons) Economics,Sem I,Sec B,Monday,9:30 AM to 10:30 AM,Lecture,FOC,Fundamentals of Computing,R24,MIG,Dr. Misha Govil,,web_app/classes_data.json
 WEB_02043,B.A. (Hons) Economics,Sem I,Sec B,Monday,11:30 AM to 12:30 PM,Lecture,Intro MME,Introductory Mathematical Methods for Economics,R23,SS6,Shiuli Saha (6),,web_app/classes_data.json
-WEB_02044,B.A. (Hons) Economics,Sem I,Sec B,Tuesday,8:30 AM to 9:30 AM,Lecture,IM,International Marketing,R25,AG,Dr. Amit Girdharwal,,web_app/classes_data.json
-WEB_02045,B.A. (Hons) Economics,Sem I,Sec B,Tuesday,9:30 AM to 10:30 AM,Tutorial,IM,International Marketing,T30,AG,Dr. Amit Girdharwal,B1,web_app/classes_data.json
-WEB_02046,B.A. (Hons) Economics,Sem I,Sec B,Tuesday,10:30 AM to 11:30 AM,Tutorial,GE,GE,T18,MIG,Dr. Misha Govil,B2,web_app/classes_data.json
+WEB_02044,B.A. (Hons) Economics,Sem I,Sec B,Tuesday,8:30 AM to 9:30 AM,Lecture,IM,Introductory Microeconomics,R25,AG,Dr. Amit Girdharwal,,web_app/classes_data.json
+WEB_02045,B.A. (Hons) Economics,Sem I,Sec B,Tuesday,9:30 AM to 10:30 AM,Tutorial,IM,Introductory Microeconomics,T30,AG,Dr. Amit Girdharwal,B1,web_app/classes_data.json
+WEB_02046,B.A. (Hons) Economics,Sem I,Sec B,Tuesday,10:30 AM to 11:30 AM,Tutorial,FOC,Fundamentals of Computing,T18,MIG,Dr. Misha Govil,B2,web_app/classes_data.json
 WEB_02047,B.A. (Hons) Economics,Sem I,Sec B,Tuesday,10:30 AM to 11:30 AM,Tutorial,ISME,Introductory Statistics for Economics,T16,KG7,Kopal Gupta (7),B3,web_app/classes_data.json
 WEB_02048,B.A. (Hons) Economics,Sem I,Sec B,Tuesday,11:30 AM to 12:30 PM,Lecture,ISME,Introductory Statistics for Economics,R24,KG7,Kopal Gupta (7),,web_app/classes_data.json
 WEB_02049,B.A. (Hons) Economics,Sem I,Sec B,Tuesday,12:30 PM to 1:30 PM,Lecture,H B,Hindi-B,R25,RIS,Prof. Ravi Sharma,,web_app/classes_data.json
-WEB_02050,B.A. (Hons) Economics,Sem I,Sec B,Wednesday,9:30 AM to 10:30 AM,Lecture,GE,GE,R25,MIG,Dr. Misha Govil,,web_app/classes_data.json
+WEB_02050,B.A. (Hons) Economics,Sem I,Sec B,Wednesday,9:30 AM to 10:30 AM,Lecture,FOC,Fundamentals of Computing,R25,MIG,Dr. Misha Govil,,web_app/classes_data.json
 WEB_02051,B.A. (Hons) Economics,Sem I,Sec B,Wednesday,10:30 AM to 11:30 AM,Tutorial,ISME,Introductory Statistics for Economics,T44,KG7,Kopal Gupta (7),B1,web_app/classes_data.json
 WEB_02052,B.A. (Hons) Economics,Sem I,Sec B,Wednesday,11:30 AM to 12:30 PM,Lecture,ISME,Introductory Statistics for Economics,R24,KG7,Kopal Gupta (7),,web_app/classes_data.json
 WEB_02053,B.A. (Hons) Economics,Sem I,Sec B,Wednesday,12:30 PM to 1:30 PM,Lecture,H B,Hindi-B,R7,RIS,Prof. Ravi Sharma,,web_app/classes_data.json
-WEB_02054,B.A. (Hons) Economics,Sem I,Sec B,Thursday,8:30 AM to 9:30 AM,Lecture,IM,International Marketing,PB4,AG,Dr. Amit Girdharwal,,web_app/classes_data.json
-WEB_02055,B.A. (Hons) Economics,Sem I,Sec B,Thursday,9:30 AM to 10:30 AM,Tutorial,IM,International Marketing,T54,AG,Dr. Amit Girdharwal,B3,web_app/classes_data.json
+WEB_02054,B.A. (Hons) Economics,Sem I,Sec B,Thursday,8:30 AM to 9:30 AM,Lecture,IM,Introductory Microeconomics,PB4,AG,Dr. Amit Girdharwal,,web_app/classes_data.json
+WEB_02055,B.A. (Hons) Economics,Sem I,Sec B,Thursday,9:30 AM to 10:30 AM,Tutorial,IM,Introductory Microeconomics,T54,AG,Dr. Amit Girdharwal,B3,web_app/classes_data.json
 WEB_02056,B.A. (Hons) Economics,Sem I,Sec B,Thursday,9:30 AM to 10:30 AM,Tutorial,Intro MME,Introductory Mathematical Methods for Economics,T53,SS6,Shiuli Saha (6),B1,web_app/classes_data.json
-WEB_02057,B.A. (Hons) Economics,Sem I,Sec B,Thursday,10:30 AM to 11:30 AM,Lecture,GE,GE,R7,MIG,Dr. Misha Govil,,web_app/classes_data.json
-WEB_02058,B.A. (Hons) Economics,Sem I,Sec B,Thursday,11:30 AM to 12:30 PM,Tutorial,GE,GE,T18,MIG,Dr. Misha Govil,B3,web_app/classes_data.json
+WEB_02057,B.A. (Hons) Economics,Sem I,Sec B,Thursday,10:30 AM to 11:30 AM,Lecture,FOC,Fundamentals of Computing,R7,MIG,Dr. Misha Govil,,web_app/classes_data.json
+WEB_02058,B.A. (Hons) Economics,Sem I,Sec B,Thursday,11:30 AM to 12:30 PM,Tutorial,FOC,Fundamentals of Computing,T18,MIG,Dr. Misha Govil,B3,web_app/classes_data.json
 WEB_02059,B.A. (Hons) Economics,Sem I,Sec B,Thursday,11:30 AM to 12:30 PM,Tutorial,ISME,Introductory Statistics for Economics,T17,RJ,Prof. Rajiv Jha,B2,web_app/classes_data.json
-WEB_02060,B.A. (Hons) Economics,Sem I,Sec B,Friday,8:30 AM to 9:30 AM,Tutorial,IM,International Marketing,T30,AG,Dr. Amit Girdharwal,B2,web_app/classes_data.json
-WEB_02061,B.A. (Hons) Economics,Sem I,Sec B,Friday,9:30 AM to 10:30 AM,Tutorial,GE,GE,T18,MIG,Dr. Misha Govil,B1,web_app/classes_data.json
+WEB_02060,B.A. (Hons) Economics,Sem I,Sec B,Friday,8:30 AM to 9:30 AM,Tutorial,IM,Introductory Microeconomics,T30,AG,Dr. Amit Girdharwal,B2,web_app/classes_data.json
+WEB_02061,B.A. (Hons) Economics,Sem I,Sec B,Friday,9:30 AM to 10:30 AM,Tutorial,FOC,Fundamentals of Computing,T18,MIG,Dr. Misha Govil,B1,web_app/classes_data.json
 WEB_02062,B.A. (Hons) Economics,Sem I,Sec B,Friday,9:30 AM to 10:30 AM,Tutorial,Intro MME,Introductory Mathematical Methods for Economics,T23,SS6,Shiuli Saha (6),B2,web_app/classes_data.json
 WEB_02063,B.A. (Hons) Economics,Sem I,Sec B,Friday,9:30 AM to 10:30 AM,Tutorial,Intro MME,Introductory Mathematical Methods for Economics,T51,JK12,Jasmine Kaur (12),B3,web_app/classes_data.json
 WEB_02064,B.A. (Hons) Economics,Sem I,Sec B,Friday,10:30 AM to 11:30 AM,Lecture,Intro MME,Introductory Mathematical Methods for Economics,R23,SS6,Shiuli Saha (6),,web_app/classes_data.json
 WEB_02065,B.A. (Hons) Economics,Sem I,Sec B,Friday,11:30 AM to 12:30 PM,Lecture,ISME,Introductory Statistics for Economics,R23,KG7,Kopal Gupta (7),,web_app/classes_data.json
-WEB_02066,B.A. (Hons) Economics,Sem I,Sec B,Saturday,8:30 AM to 9:30 AM,Lecture,IM,International Marketing,R23,AG,Dr. Amit Girdharwal,,web_app/classes_data.json
+WEB_02066,B.A. (Hons) Economics,Sem I,Sec B,Saturday,8:30 AM to 9:30 AM,Lecture,IM,Introductory Microeconomics,R23,AG,Dr. Amit Girdharwal,,web_app/classes_data.json
 WEB_02067,B.A. (Hons) Economics,Sem I,Sec B,Saturday,10:30 AM to 11:30 AM,Lecture,Intro MME,Introductory Mathematical Methods for Economics,R23,SS6,Shiuli Saha (6),,web_app/classes_data.json
 WEB_02068,B.A. (Hons) Economics,Sem I,Sec C,Monday,9:30 AM to 10:30 AM,Lecture,Intro MME,Introductory Mathematical Methods for Economics,R26,AG11,Akanksha Gupta (11),,web_app/classes_data.json
-WEB_02069,B.A. (Hons) Economics,Sem I,Sec C,Monday,10:30 AM to 11:30 AM,Tutorial,IM,International Marketing,T30,AK,Mr. Ashwani Kumar,C2,web_app/classes_data.json
+WEB_02069,B.A. (Hons) Economics,Sem I,Sec C,Monday,10:30 AM to 11:30 AM,Tutorial,IM,Introductory Microeconomics,T30,AK,Mr. Ashwani Kumar,C2,web_app/classes_data.json
 WEB_02070,B.A. (Hons) Economics,Sem I,Sec C,Monday,10:30 AM to 11:30 AM,Tutorial,Intro MME,Introductory Mathematical Methods for Economics,T53,AG11,Akanksha Gupta (11),C1,web_app/classes_data.json
-WEB_02071,B.A. (Hons) Economics,Sem I,Sec C,Monday,11:30 AM to 12:30 PM,Lecture,IM,International Marketing,R24,AK,Mr. Ashwani Kumar,,web_app/classes_data.json
+WEB_02071,B.A. (Hons) Economics,Sem I,Sec C,Monday,11:30 AM to 12:30 PM,Lecture,IM,Introductory Microeconomics,R24,AK,Mr. Ashwani Kumar,,web_app/classes_data.json
 WEB_02072,B.A. (Hons) Economics,Sem I,Sec C,Tuesday,9:30 AM to 10:30 AM,Lecture,ISME,Introductory Statistics for Economics,R25,PB,Ms. Priyanka Bhatia,,web_app/classes_data.json
-WEB_02073,B.A. (Hons) Economics,Sem I,Sec C,Tuesday,10:30 AM to 11:30 AM,Lecture,IM,International Marketing,R23,AK,Mr. Ashwani Kumar,,web_app/classes_data.json
+WEB_02073,B.A. (Hons) Economics,Sem I,Sec C,Tuesday,10:30 AM to 11:30 AM,Lecture,IM,Introductory Microeconomics,R23,AK,Mr. Ashwani Kumar,,web_app/classes_data.json
 WEB_02074,B.A. (Hons) Economics,Sem I,Sec C,Tuesday,11:30 AM to 12:30 PM,Tutorial,ISME,Introductory Statistics for Economics,T17,PB,Ms. Priyanka Bhatia,C1,web_app/classes_data.json
-WEB_02075,B.A. (Hons) Economics,Sem I,Sec C,Tuesday,11:30 AM to 12:30 PM,Lecture,GE,GE,R29,NC,Tanisha (Cg29),,web_app/classes_data.json
-WEB_02076,B.A. (Hons) Economics,Sem I,Sec C,Tuesday,12:30 PM to 1:30 PM,Lecture,GE,GE,R7,SMRC,Simrah (Cg20),,web_app/classes_data.json
+WEB_02075,B.A. (Hons) Economics,Sem I,Sec C,Tuesday,11:30 AM to 12:30 PM,Lecture,MFB,Marketing for Beginners,R29,NC,Tanisha (Cg29),,web_app/classes_data.json
+WEB_02076,B.A. (Hons) Economics,Sem I,Sec C,Tuesday,12:30 PM to 1:30 PM,Lecture,AFE,Accounting for Everyone,R7,SMRC,Simrah (Cg20),,web_app/classes_data.json
 WEB_02077,B.A. (Hons) Economics,Sem I,Sec C,Wednesday,9:30 AM to 10:30 AM,Lecture,Intro MME,Introductory Mathematical Methods for Economics,R29,AG11,Akanksha Gupta (11),,web_app/classes_data.json
 WEB_02078,B.A. (Hons) Economics,Sem I,Sec C,Wednesday,10:30 AM to 11:30 AM,Lecture,ISME,Introductory Statistics for Economics,R24,PB,Ms. Priyanka Bhatia,,web_app/classes_data.json
-WEB_02079,B.A. (Hons) Economics,Sem I,Sec C,Wednesday,11:30 AM to 12:30 PM,Tutorial,IM,International Marketing,T30,AK,Mr. Ashwani Kumar,C1,web_app/classes_data.json
+WEB_02079,B.A. (Hons) Economics,Sem I,Sec C,Wednesday,11:30 AM to 12:30 PM,Tutorial,IM,Introductory Microeconomics,T30,AK,Mr. Ashwani Kumar,C1,web_app/classes_data.json
 WEB_02080,B.A. (Hons) Economics,Sem I,Sec C,Wednesday,11:30 AM to 12:30 PM,Tutorial,Intro MME,Introductory Mathematical Methods for Economics,T53,JK12,Jasmine Kaur (12),C2,web_app/classes_data.json
-WEB_02081,B.A. (Hons) Economics,Sem I,Sec C,Wednesday,11:30 AM to 12:30 PM,Tutorial,GE,GE,T16,NC,Tanisha (Cg29),C3,web_app/classes_data.json
-WEB_02082,B.A. (Hons) Economics,Sem I,Sec C,Wednesday,12:30 PM to 1:30 PM,Lecture,GE,GE,R29,NC,Tanisha (Cg29),,web_app/classes_data.json
+WEB_02081,B.A. (Hons) Economics,Sem I,Sec C,Wednesday,11:30 AM to 12:30 PM,Tutorial,MFB,Marketing for Beginners,T16,NC,Tanisha (Cg29),C3,web_app/classes_data.json
+WEB_02082,B.A. (Hons) Economics,Sem I,Sec C,Wednesday,12:30 PM to 1:30 PM,Lecture,MFB,Marketing for Beginners,R29,NC,Tanisha (Cg29),,web_app/classes_data.json
 WEB_02083,B.A. (Hons) Economics,Sem I,Sec C,Thursday,9:30 AM to 10:30 AM,Tutorial,ISME,Introductory Statistics for Economics,T17,PB,Ms. Priyanka Bhatia,C3,web_app/classes_data.json
-WEB_02084,B.A. (Hons) Economics,Sem I,Sec C,Thursday,9:30 AM to 10:30 AM,Practical/Lab,GE,GE,T2,SMRC,Simrah (Cg20),C1,web_app/classes_data.json
-WEB_02085,B.A. (Hons) Economics,Sem I,Sec C,Thursday,9:30 AM to 10:30 AM,Tutorial,GE,GE,T39,JDP,Dr. Jaideep,C2,web_app/classes_data.json
+WEB_02084,B.A. (Hons) Economics,Sem I,Sec C,Thursday,9:30 AM to 10:30 AM,Practical/Lab,AFE,Accounting for Everyone,T2,SMRC,Simrah (Cg20),C1,web_app/classes_data.json
+WEB_02085,B.A. (Hons) Economics,Sem I,Sec C,Thursday,9:30 AM to 10:30 AM,Tutorial,MFB,Marketing for Beginners,T39,JDP,Dr. Jaideep,C2,web_app/classes_data.json
 WEB_02086,B.A. (Hons) Economics,Sem I,Sec C,Thursday,10:30 AM to 11:30 AM,Lecture,ISME,Introductory Statistics for Economics,R23,PB,Ms. Priyanka Bhatia,,web_app/classes_data.json
-WEB_02087,B.A. (Hons) Economics,Sem I,Sec C,Thursday,11:30 AM to 12:30 PM,Lecture,IM,International Marketing,R25,AK,Mr. Ashwani Kumar,,web_app/classes_data.json
-WEB_02088,B.A. (Hons) Economics,Sem I,Sec C,Thursday,12:30 PM to 1:30 PM,Lecture,GE,GE,PB4,SMRC,Simrah (Cg20),,web_app/classes_data.json
-WEB_02089,B.A. (Hons) Economics,Sem I,Sec C,Friday,9:30 AM to 10:30 AM,Lecture,GE,GE,PB4,NC,Tanisha (Cg29),,web_app/classes_data.json
+WEB_02087,B.A. (Hons) Economics,Sem I,Sec C,Thursday,11:30 AM to 12:30 PM,Lecture,IM,Introductory Microeconomics,R25,AK,Mr. Ashwani Kumar,,web_app/classes_data.json
+WEB_02088,B.A. (Hons) Economics,Sem I,Sec C,Thursday,12:30 PM to 1:30 PM,Lecture,AFE,Accounting for Everyone,PB4,SMRC,Simrah (Cg20),,web_app/classes_data.json
+WEB_02089,B.A. (Hons) Economics,Sem I,Sec C,Friday,9:30 AM to 10:30 AM,Lecture,MFB,Marketing for Beginners,PB4,NC,Tanisha (Cg29),,web_app/classes_data.json
 WEB_02090,B.A. (Hons) Economics,Sem I,Sec C,Friday,10:30 AM to 11:30 AM,Tutorial,ISME,Introductory Statistics for Economics,T17,PB,Ms. Priyanka Bhatia,C2,web_app/classes_data.json
-WEB_02091,B.A. (Hons) Economics,Sem I,Sec C,Friday,10:30 AM to 11:30 AM,Tutorial,IM,International Marketing,T3,AK,Mr. Ashwani Kumar,C3,web_app/classes_data.json
-WEB_02092,B.A. (Hons) Economics,Sem I,Sec C,Friday,10:30 AM to 11:30 AM,Practical/Lab,GE,GE,T1,SMRC,Simrah (Cg20),C1,web_app/classes_data.json
+WEB_02091,B.A. (Hons) Economics,Sem I,Sec C,Friday,10:30 AM to 11:30 AM,Tutorial,IM,Introductory Microeconomics,T3,AK,Mr. Ashwani Kumar,C3,web_app/classes_data.json
+WEB_02092,B.A. (Hons) Economics,Sem I,Sec C,Friday,10:30 AM to 11:30 AM,Practical/Lab,AFE,Accounting for Everyone,T1,SMRC,Simrah (Cg20),C1,web_app/classes_data.json
 WEB_02093,B.A. (Hons) Economics,Sem I,Sec C,Friday,11:30 AM to 12:30 PM,Lecture,H B,Hindi-B,R29,RIS,Prof. Ravi Sharma,,web_app/classes_data.json
-WEB_02094,B.A. (Hons) Economics,Sem I,Sec C,Friday,12:30 PM to 1:30 PM,Lecture,GE,GE,R23,SMRC,Simrah (Cg20),,web_app/classes_data.json
+WEB_02094,B.A. (Hons) Economics,Sem I,Sec C,Friday,12:30 PM to 1:30 PM,Lecture,AFE,Accounting for Everyone,R23,SMRC,Simrah (Cg20),,web_app/classes_data.json
 WEB_02095,B.A. (Hons) Economics,Sem I,Sec C,Saturday,8:30 AM to 9:30 AM,Lecture,H B,Hindi-B,R22,RIS,Prof. Ravi Sharma,,web_app/classes_data.json
 WEB_02096,B.A. (Hons) Economics,Sem I,Sec C,Saturday,9:30 AM to 10:30 AM,Lecture,Intro MME,Introductory Mathematical Methods for Economics,R23,AG11,Akanksha Gupta (11),,web_app/classes_data.json
 WEB_02097,B.A. (Hons) Economics,Sem I,Sec C,Saturday,10:30 AM to 11:30 AM,Tutorial,Intro MME,Introductory Mathematical Methods for Economics,T3,AG11,Akanksha Gupta (11),C3,web_app/classes_data.json
 WEB_02098,B.A. (Hons) Economics,Sem I,Sec D,Monday,8:30 AM to 9:30 AM,Tutorial,Intro MME,Introductory Mathematical Methods for Economics,T23,SS6,Shiuli Saha (6),D2,web_app/classes_data.json
 WEB_02099,B.A. (Hons) Economics,Sem I,Sec D,Monday,9:30 AM to 10:30 AM,Tutorial,Intro MME,Introductory Mathematical Methods for Economics,T2,JK12,Jasmine Kaur (12),D1,web_app/classes_data.json
-WEB_02100,B.A. (Hons) Economics,Sem I,Sec D,Monday,9:30 AM to 10:30 AM,Tutorial,IM,International Marketing,T30,AK,Mr. Ashwani Kumar,D3,web_app/classes_data.json
+WEB_02100,B.A. (Hons) Economics,Sem I,Sec D,Monday,9:30 AM to 10:30 AM,Tutorial,IM,Introductory Microeconomics,T30,AK,Mr. Ashwani Kumar,D3,web_app/classes_data.json
 WEB_02101,B.A. (Hons) Economics,Sem I,Sec D,Monday,10:30 AM to 11:30 AM,Lecture,Intro MME,Introductory Mathematical Methods for Economics,R24,SS6,Shiuli Saha (6),,web_app/classes_data.json
 WEB_02102,B.A. (Hons) Economics,Sem I,Sec D,Monday,11:30 AM to 12:30 PM,Tutorial,ISME,Introductory Statistics for Economics,T17,PB,Ms. Priyanka Bhatia,D2,web_app/classes_data.json
 WEB_02103,B.A. (Hons) Economics,Sem I,Sec D,Monday,11:30 AM to 12:30 PM,Practical/Lab,OOPUP,Programming Using Python,CL1,PRS,Dr. Prashasti Singh,D1,web_app/classes_data.json
-WEB_02104,B.A. (Hons) Economics,Sem I,Sec D,Monday,11:30 AM to 12:30 PM,Lecture,OE,Open Elective,SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
+WEB_02104,B.A. (Hons) Economics,Sem I,Sec D,Monday,11:30 AM to 12:30 PM,Lecture,OE,Open Elective (Physical Education),SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
 WEB_02105,B.A. (Hons) Economics,Sem I,Sec D,Monday,12:30 PM to 1:30 PM,Practical/Lab,OOPUP,Programming Using Python,CL1,PRS,Dr. Prashasti Singh,D1,web_app/classes_data.json
-WEB_02106,B.A. (Hons) Economics,Sem I,Sec D,Monday,12:30 PM to 1:30 PM,Lecture,OE,Open Elective,SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
+WEB_02106,B.A. (Hons) Economics,Sem I,Sec D,Monday,12:30 PM to 1:30 PM,Lecture,OE,Open Elective (Physical Education),SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
 WEB_02107,B.A. (Hons) Economics,Sem I,Sec D,Tuesday,8:30 AM to 9:30 AM,Tutorial,ISME,Introductory Statistics for Economics,T2,KG7,Kopal Gupta (7),D1,web_app/classes_data.json
 WEB_02108,B.A. (Hons) Economics,Sem I,Sec D,Tuesday,9:30 AM to 10:30 AM,Lecture,ISME,Introductory Statistics for Economics,R29,KG7,Kopal Gupta (7),,web_app/classes_data.json
 WEB_02109,B.A. (Hons) Economics,Sem I,Sec D,Tuesday,10:30 AM to 11:30 AM,Lecture,OOPUP,Programming Using Python,R31,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
-WEB_02110,B.A. (Hons) Economics,Sem I,Sec D,Tuesday,10:30 AM to 11:30 AM,Practical/Lab,GE,GE,T42,SMRC,Simrah (Cg20),D2,web_app/classes_data.json
-WEB_02111,B.A. (Hons) Economics,Sem I,Sec D,Tuesday,11:30 AM to 12:30 PM,Lecture,IM,International Marketing,R26,AK,Mr. Ashwani Kumar,,web_app/classes_data.json
-WEB_02112,B.A. (Hons) Economics,Sem I,Sec D,Tuesday,12:30 PM to 1:30 PM,Lecture,GE,GE,R7,SMRC,Simrah (Cg20),,web_app/classes_data.json
+WEB_02110,B.A. (Hons) Economics,Sem I,Sec D,Tuesday,10:30 AM to 11:30 AM,Practical/Lab,AFE,Accounting for Everyone,T42,SMRC,Simrah (Cg20),D2,web_app/classes_data.json
+WEB_02111,B.A. (Hons) Economics,Sem I,Sec D,Tuesday,11:30 AM to 12:30 PM,Lecture,IM,Introductory Microeconomics,R26,AK,Mr. Ashwani Kumar,,web_app/classes_data.json
+WEB_02112,B.A. (Hons) Economics,Sem I,Sec D,Tuesday,12:30 PM to 1:30 PM,Lecture,AFE,Accounting for Everyone,R7,SMRC,Simrah (Cg20),,web_app/classes_data.json
 WEB_02113,B.A. (Hons) Economics,Sem I,Sec D,Wednesday,8:30 AM to 9:30 AM,Lecture,ISME,Introductory Statistics for Economics,R29,KG7,Kopal Gupta (7),,web_app/classes_data.json
 WEB_02114,B.A. (Hons) Economics,Sem I,Sec D,Wednesday,9:30 AM to 10:30 AM,Tutorial,ISME,Introductory Statistics for Economics,T23,KG7,Kopal Gupta (7),D3,web_app/classes_data.json
-WEB_02115,B.A. (Hons) Economics,Sem I,Sec D,Wednesday,10:30 AM to 11:30 AM,Lecture,IM,International Marketing,R23,AK,Mr. Ashwani Kumar,,web_app/classes_data.json
+WEB_02115,B.A. (Hons) Economics,Sem I,Sec D,Wednesday,10:30 AM to 11:30 AM,Lecture,IM,Introductory Microeconomics,R23,AK,Mr. Ashwani Kumar,,web_app/classes_data.json
 WEB_02116,B.A. (Hons) Economics,Sem I,Sec D,Wednesday,11:30 AM to 12:30 PM,Lecture,OOPUP,Programming Using Python,R31,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
-WEB_02117,B.A. (Hons) Economics,Sem I,Sec D,Wednesday,11:30 AM to 12:30 PM,Lecture,OE,Open Elective,SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
-WEB_02118,B.A. (Hons) Economics,Sem I,Sec D,Wednesday,11:30 AM to 12:30 PM,Lecture,DEC,DEC,R4,KAG,Dr. Kanika Gandhi,,web_app/classes_data.json
-WEB_02119,B.A. (Hons) Economics,Sem I,Sec D,Wednesday,11:30 AM to 12:30 PM,Practical/Lab,GE,GE,T2,SMRC,Simrah (Cg20),D3,web_app/classes_data.json
-WEB_02120,B.A. (Hons) Economics,Sem I,Sec D,Wednesday,12:30 PM to 1:30 PM,Tutorial,DEC,DEC,T14,RUK,Prof. Ruchi Kaushik,,web_app/classes_data.json
-WEB_02121,B.A. (Hons) Economics,Sem I,Sec D,Wednesday,12:30 PM to 1:30 PM,Practical/Lab,GE,GE,T23,SMRC,Simrah (Cg20),D3,web_app/classes_data.json
+WEB_02117,B.A. (Hons) Economics,Sem I,Sec D,Wednesday,11:30 AM to 12:30 PM,Lecture,OE,Open Elective (Physical Education),SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
+WEB_02118,B.A. (Hons) Economics,Sem I,Sec D,Wednesday,11:30 AM to 12:30 PM,Lecture,DEC,Delhi through the Ages,R4,KAG,Dr. Kanika Gandhi,,web_app/classes_data.json
+WEB_02119,B.A. (Hons) Economics,Sem I,Sec D,Wednesday,11:30 AM to 12:30 PM,Practical/Lab,AFE,Accounting for Everyone,T2,SMRC,Simrah (Cg20),D3,web_app/classes_data.json
+WEB_02120,B.A. (Hons) Economics,Sem I,Sec D,Wednesday,12:30 PM to 1:30 PM,Tutorial,DEC,Delhi through the Ages,T14,RUK,Prof. Ruchi Kaushik,,web_app/classes_data.json
+WEB_02121,B.A. (Hons) Economics,Sem I,Sec D,Wednesday,12:30 PM to 1:30 PM,Practical/Lab,AFE,Accounting for Everyone,T23,SMRC,Simrah (Cg20),D3,web_app/classes_data.json
 WEB_02122,B.A. (Hons) Economics,Sem I,Sec D,Thursday,8:30 AM to 9:30 AM,Lecture,OOPUP,Programming Using Python,R31,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
-WEB_02123,B.A. (Hons) Economics,Sem I,Sec D,Thursday,9:30 AM to 10:30 AM,Tutorial,IM,International Marketing,T24,AK,Mr. Ashwani Kumar,D2,web_app/classes_data.json
-WEB_02124,B.A. (Hons) Economics,Sem I,Sec D,Thursday,10:30 AM to 11:30 AM,Tutorial,IM,International Marketing,T17,AK,Mr. Ashwani Kumar,D1,web_app/classes_data.json
+WEB_02123,B.A. (Hons) Economics,Sem I,Sec D,Thursday,9:30 AM to 10:30 AM,Tutorial,IM,Introductory Microeconomics,T24,AK,Mr. Ashwani Kumar,D2,web_app/classes_data.json
+WEB_02124,B.A. (Hons) Economics,Sem I,Sec D,Thursday,10:30 AM to 11:30 AM,Tutorial,IM,Introductory Microeconomics,T17,AK,Mr. Ashwani Kumar,D1,web_app/classes_data.json
 WEB_02125,B.A. (Hons) Economics,Sem I,Sec D,Thursday,10:30 AM to 11:30 AM,Tutorial,Intro MME,Introductory Mathematical Methods for Economics,T26,SS6,Shiuli Saha (6),D3,web_app/classes_data.json
-WEB_02126,B.A. (Hons) Economics,Sem I,Sec D,Thursday,10:30 AM to 11:30 AM,Practical/Lab,GE,GE,T49,SMRC,Simrah (Cg20),D2,web_app/classes_data.json
+WEB_02126,B.A. (Hons) Economics,Sem I,Sec D,Thursday,10:30 AM to 11:30 AM,Practical/Lab,AFE,Accounting for Everyone,T49,SMRC,Simrah (Cg20),D2,web_app/classes_data.json
 WEB_02127,B.A. (Hons) Economics,Sem I,Sec D,Thursday,11:30 AM to 12:30 PM,Lecture,Intro MME,Introductory Mathematical Methods for Economics,R24,SS6,Shiuli Saha (6),,web_app/classes_data.json
-WEB_02128,B.A. (Hons) Economics,Sem I,Sec D,Thursday,12:30 PM to 1:30 PM,Lecture,GE,GE,PB4,SMRC,Simrah (Cg20),,web_app/classes_data.json
+WEB_02128,B.A. (Hons) Economics,Sem I,Sec D,Thursday,12:30 PM to 1:30 PM,Lecture,AFE,Accounting for Everyone,PB4,SMRC,Simrah (Cg20),,web_app/classes_data.json
 WEB_02129,B.A. (Hons) Economics,Sem I,Sec D,Friday,8:30 AM to 9:30 AM,Lecture,H B,Hindi-B,PB2,SS,Sakshi Sharma (Hg3),,web_app/classes_data.json
 WEB_02130,B.A. (Hons) Economics,Sem I,Sec D,Friday,9:30 AM to 10:30 AM,Lecture,ISME,Introductory Statistics for Economics,R26,KG7,Kopal Gupta (7),,web_app/classes_data.json
-WEB_02131,B.A. (Hons) Economics,Sem I,Sec D,Friday,11:30 AM to 12:30 PM,Lecture,IM,International Marketing,PB4,AK,Mr. Ashwani Kumar,,web_app/classes_data.json
-WEB_02132,B.A. (Hons) Economics,Sem I,Sec D,Friday,12:30 PM to 1:30 PM,Lecture,DEC,DEC,R19,RUK,Prof. Ruchi Kaushik,,web_app/classes_data.json
-WEB_02133,B.A. (Hons) Economics,Sem I,Sec D,Friday,12:30 PM to 1:30 PM,Lecture,GE,GE,R23,SMRC,Simrah (Cg20),,web_app/classes_data.json
-WEB_02134,B.A. (Hons) Economics,Sem I,Sec D,Friday,2:00 PM to 3:00 PM,Practical/Lab,OE,Open Elective,PLAYGROUND,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
+WEB_02131,B.A. (Hons) Economics,Sem I,Sec D,Friday,11:30 AM to 12:30 PM,Lecture,IM,Introductory Microeconomics,PB4,AK,Mr. Ashwani Kumar,,web_app/classes_data.json
+WEB_02132,B.A. (Hons) Economics,Sem I,Sec D,Friday,12:30 PM to 1:30 PM,Lecture,DEC,Delhi through the Ages,R19,RUK,Prof. Ruchi Kaushik,,web_app/classes_data.json
+WEB_02133,B.A. (Hons) Economics,Sem I,Sec D,Friday,12:30 PM to 1:30 PM,Lecture,AFE,Accounting for Everyone,R23,SMRC,Simrah (Cg20),,web_app/classes_data.json
+WEB_02134,B.A. (Hons) Economics,Sem I,Sec D,Friday,2:00 PM to 3:00 PM,Practical/Lab,OE,Open Elective (Physical Education),PLAYGROUND,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
 WEB_02135,B.A. (Hons) Economics,Sem I,Sec D,Saturday,8:30 AM to 9:30 AM,Lecture,H B,Hindi-B,PB4,SS,Sakshi Sharma (Hg3),,web_app/classes_data.json
 WEB_02136,B.A. (Hons) Economics,Sem I,Sec D,Saturday,9:30 AM to 10:30 AM,Lecture,Intro MME,Introductory Mathematical Methods for Economics,R24,SS6,Shiuli Saha (6),,web_app/classes_data.json
-WEB_02137,B.A. (Hons) Economics,Sem I,Sec D,Saturday,10:30 AM to 11:30 AM,Lecture,DEC,DEC,R5,SOC,Mr. Soumitra Kumar Choudhary,,web_app/classes_data.json
+WEB_02137,B.A. (Hons) Economics,Sem I,Sec D,Saturday,10:30 AM to 11:30 AM,Lecture,DEC,Delhi through the Ages,R5,SOC,Mr. Soumitra Kumar Choudhary,,web_app/classes_data.json
 WEB_02138,B.A. (Hons) Economics,Sem I,Sec D,Friday,3:00 PM to 4:00 PM,Practical/Lab,OE,Open Elective (Physical Education),PLAYGROUND,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
 WEB_02139,B.A. (Hons) Economics,Sem III,Sec C,Monday,9:30 AM to 10:30 AM,Tutorial,IMIC1,Intermediate Microeconomics 1,T3,KG,Kritika Gambhir (13),C1,web_app/classes_data.json
-WEB_02140,B.A. (Hons) Economics,Sem III,Sec C,Monday,10:30 AM to 11:30 AM,Lecture,GE,GE,PB4,SVK,Dr. Shivangi Kaushik,,web_app/classes_data.json
+WEB_02140,B.A. (Hons) Economics,Sem III,Sec C,Monday,10:30 AM to 11:30 AM,Lecture,ISM,Information Systems Management,PB4,SVK,Dr. Shivangi Kaushik,,web_app/classes_data.json
 WEB_02141,B.A. (Hons) Economics,Sem III,Sec C,Monday,11:30 AM to 12:30 PM,Lecture,IMIC1,Intermediate Microeconomics 1,PB4,KG,Kritika Gambhir (13),,web_app/classes_data.json
 WEB_02142,B.A. (Hons) Economics,Sem III,Sec C,Tuesday,9:30 AM to 10:30 AM,Lecture,IMA I,Intermediate Macroeconomics I,R24,RAK,Dr. Rakesh Ranjan,,web_app/classes_data.json
-WEB_02143,B.A. (Hons) Economics,Sem III,Sec C,Tuesday,10:30 AM to 11:30 AM,Lecture,GE,GE,R24,SVK,Dr. Shivangi Kaushik,,web_app/classes_data.json
+WEB_02143,B.A. (Hons) Economics,Sem III,Sec C,Tuesday,10:30 AM to 11:30 AM,Lecture,ISM,Information Systems Management,R24,SVK,Dr. Shivangi Kaushik,,web_app/classes_data.json
 WEB_02144,B.A. (Hons) Economics,Sem III,Sec C,Tuesday,11:30 AM to 12:30 PM,Tutorial,IMA I,Intermediate Macroeconomics I,T51,RAK,Dr. Rakesh Ranjan,C1,web_app/classes_data.json
-WEB_02145,B.A. (Hons) Economics,Sem III,Sec C,Tuesday,11:30 AM to 12:30 PM,Tutorial,GE,GE,T45,SVK,Dr. Shivangi Kaushik,C2,web_app/classes_data.json
+WEB_02145,B.A. (Hons) Economics,Sem III,Sec C,Tuesday,11:30 AM to 12:30 PM,Tutorial,ISM,Information Systems Management,T45,SVK,Dr. Shivangi Kaushik,C2,web_app/classes_data.json
 WEB_02146,B.A. (Hons) Economics,Sem III,Sec C,Wednesday,9:30 AM to 10:30 AM,Tutorial,Adv MME,Advanced Mathematical Methods for Economics,T51,HC,Harshita Chechani (16),C2,web_app/classes_data.json
 WEB_02147,B.A. (Hons) Economics,Sem III,Sec C,Wednesday,9:30 AM to 10:30 AM,Tutorial,IMIC1,Intermediate Microeconomics 1,T3,AKJ,Dr. Avinash Kumar Jha,C3,web_app/classes_data.json
 WEB_02148,B.A. (Hons) Economics,Sem III,Sec C,Wednesday,10:30 AM to 11:30 AM,Lecture,IMA I,Intermediate Macroeconomics I,R25,RAK,Dr. Rakesh Ranjan,,web_app/classes_data.json
 WEB_02149,B.A. (Hons) Economics,Sem III,Sec C,Wednesday,11:30 AM to 12:30 PM,Tutorial,IMA I,Intermediate Macroeconomics I,T51,RAK,Dr. Rakesh Ranjan,C2,web_app/classes_data.json
-WEB_02150,B.A. (Hons) Economics,Sem III,Sec C,Wednesday,11:30 AM to 12:30 PM,Tutorial,GE,GE,T46,SVK,Dr. Shivangi Kaushik,C3,web_app/classes_data.json
+WEB_02150,B.A. (Hons) Economics,Sem III,Sec C,Wednesday,11:30 AM to 12:30 PM,Tutorial,ISM,Information Systems Management,T46,SVK,Dr. Shivangi Kaushik,C3,web_app/classes_data.json
 WEB_02151,B.A. (Hons) Economics,Sem III,Sec C,Wednesday,11:30 AM to 12:30 PM,Tutorial,Adv MME,Advanced Mathematical Methods for Economics,PB2,HC,Harshita Chechani (16),C1,web_app/classes_data.json
 WEB_02152,B.A. (Hons) Economics,Sem III,Sec C,Wednesday,12:30 PM to 1:30 PM,Lecture,Adv MME,Advanced Mathematical Methods for Economics,R24,HC,Harshita Chechani (16),,web_app/classes_data.json
 WEB_02153,B.A. (Hons) Economics,Sem III,Sec C,Thursday,8:30 AM to 9:30 AM,Lecture,IMIC1,Intermediate Microeconomics 1,R26,KG,Kritika Gambhir (13),,web_app/classes_data.json
 WEB_02154,B.A. (Hons) Economics,Sem III,Sec C,Thursday,9:30 AM to 10:30 AM,Lecture,IMA I,Intermediate Macroeconomics I,R25,RAK,Dr. Rakesh Ranjan,,web_app/classes_data.json
 WEB_02155,B.A. (Hons) Economics,Sem III,Sec C,Thursday,11:30 AM to 12:30 PM,Tutorial,IMA I,Intermediate Macroeconomics I,T51,RAK,Dr. Rakesh Ranjan,C3,web_app/classes_data.json
-WEB_02156,B.A. (Hons) Economics,Sem III,Sec C,Thursday,11:30 AM to 12:30 PM,Tutorial,GE,GE,T54,SVK,Dr. Shivangi Kaushik,C1,web_app/classes_data.json
+WEB_02156,B.A. (Hons) Economics,Sem III,Sec C,Thursday,11:30 AM to 12:30 PM,Tutorial,ISM,Information Systems Management,T54,SVK,Dr. Shivangi Kaushik,C1,web_app/classes_data.json
 WEB_02157,B.A. (Hons) Economics,Sem III,Sec C,Friday,8:30 AM to 9:30 AM,Lecture,IMIC1,Intermediate Microeconomics 1,R23,KG,Kritika Gambhir (13),,web_app/classes_data.json
 WEB_02158,B.A. (Hons) Economics,Sem III,Sec C,Friday,9:30 AM to 10:30 AM,Tutorial,IMIC1,Intermediate Microeconomics 1,T2,KG,Kritika Gambhir (13),C2,web_app/classes_data.json
 WEB_02159,B.A. (Hons) Economics,Sem III,Sec C,Friday,10:30 AM to 11:30 AM,Lecture,Adv MME,Advanced Mathematical Methods for Economics,PB4,HC,Harshita Chechani (16),,web_app/classes_data.json
 WEB_02160,B.A. (Hons) Economics,Sem III,Sec C,Friday,11:30 AM to 12:30 PM,Lecture,H B,Hindi-B,R26,SS,Sakshi Sharma (Hg3),,web_app/classes_data.json
-WEB_02161,B.A. (Hons) Economics,Sem III,Sec C,Friday,12:30 PM to 1:30 PM,Lecture,GE,GE,R29,SVK,Dr. Shivangi Kaushik,,web_app/classes_data.json
+WEB_02161,B.A. (Hons) Economics,Sem III,Sec C,Friday,12:30 PM to 1:30 PM,Lecture,ISM,Information Systems Management,R29,SVK,Dr. Shivangi Kaushik,,web_app/classes_data.json
 WEB_02162,B.A. (Hons) Economics,Sem III,Sec C,Saturday,8:30 AM to 9:30 AM,Tutorial,Adv MME,Advanced Mathematical Methods for Economics,T2,HC,Harshita Chechani (16),C3,web_app/classes_data.json
 WEB_02163,B.A. (Hons) Economics,Sem III,Sec C,Saturday,9:30 AM to 10:30 AM,Lecture,Adv MME,Advanced Mathematical Methods for Economics,R25,HC,Harshita Chechani (16),,web_app/classes_data.json
 WEB_02164,B.A. (Hons) Economics,Sem III,Sec C,Saturday,10:30 AM to 11:30 AM,Lecture,H B,Hindi-B,R26,SS,Sakshi Sharma (Hg3),,web_app/classes_data.json
@@ -2170,20 +2170,20 @@ WEB_02168,B.A. (Hons) Economics,Sem III,Sec B,Monday,12:30 PM to 1:30 PM,Lecture
 WEB_02169,B.A. (Hons) Economics,Sem III,Sec B,Tuesday,8:30 AM to 9:30 AM,Lecture,IMA I,Intermediate Macroeconomics I,R24,KK,Dr. Kaushal Kishore,,web_app/classes_data.json
 WEB_02170,B.A. (Hons) Economics,Sem III,Sec B,Tuesday,9:30 AM to 10:30 AM,Lecture,IMIC1,Intermediate Microeconomics 1,PB4,MR,Mamoon Rasheed (14),,web_app/classes_data.json
 WEB_02171,B.A. (Hons) Economics,Sem III,Sec B,Tuesday,11:30 AM to 12:30 PM,Tutorial,IMIC1,Intermediate Microeconomics 1,T16,MR,Mamoon Rasheed (14),B3,web_app/classes_data.json
-WEB_02172,B.A. (Hons) Economics,Sem III,Sec B,Tuesday,11:30 AM to 12:30 PM,Tutorial,DE,Digital Empowerment,T18,MIG,Dr. Misha Govil,B1,web_app/classes_data.json
-WEB_02173,B.A. (Hons) Economics,Sem III,Sec B,Tuesday,12:30 PM to 1:30 PM,Lecture,DE,Digital Empowerment,R26,AKS,Dr. Avnish Kumar Sharma,,web_app/classes_data.json
+WEB_02172,B.A. (Hons) Economics,Sem III,Sec B,Tuesday,11:30 AM to 12:30 PM,Tutorial,DE,Differential Equations,T18,MIG,Dr. Misha Govil,B1,web_app/classes_data.json
+WEB_02173,B.A. (Hons) Economics,Sem III,Sec B,Tuesday,12:30 PM to 1:30 PM,Lecture,DE,Differential Equations,R26,AKS,Dr. Avnish Kumar Sharma,,web_app/classes_data.json
 WEB_02174,B.A. (Hons) Economics,Sem III,Sec B,Wednesday,9:30 AM to 10:30 AM,Lecture,Adv MME,Advanced Mathematical Methods for Economics,PB4,MG 15,Manasvi Chowdhury (15),,web_app/classes_data.json
 WEB_02175,B.A. (Hons) Economics,Sem III,Sec B,Wednesday,10:30 AM to 11:30 AM,Tutorial,IMA I,Intermediate Macroeconomics I,T54,KK,Dr. Kaushal Kishore,B1,web_app/classes_data.json
-WEB_02176,B.A. (Hons) Economics,Sem III,Sec B,Wednesday,10:30 AM to 11:30 AM,Tutorial,DE,Digital Empowerment,T42,AKS,Dr. Avnish Kumar Sharma,B3,web_app/classes_data.json
+WEB_02176,B.A. (Hons) Economics,Sem III,Sec B,Wednesday,10:30 AM to 11:30 AM,Tutorial,DE,Differential Equations,T42,AKS,Dr. Avnish Kumar Sharma,B3,web_app/classes_data.json
 WEB_02177,B.A. (Hons) Economics,Sem III,Sec B,Wednesday,10:30 AM to 11:30 AM,Tutorial,Adv MME,Advanced Mathematical Methods for Economics,R37,MG 15,Manasvi Chowdhury (15),B2,web_app/classes_data.json
-WEB_02178,B.A. (Hons) Economics,Sem III,Sec B,Wednesday,12:30 PM to 1:30 PM,Lecture,DE,Digital Empowerment,R26,AKS,Dr. Avnish Kumar Sharma,,web_app/classes_data.json
+WEB_02178,B.A. (Hons) Economics,Sem III,Sec B,Wednesday,12:30 PM to 1:30 PM,Lecture,DE,Differential Equations,R26,AKS,Dr. Avnish Kumar Sharma,,web_app/classes_data.json
 WEB_02179,B.A. (Hons) Economics,Sem III,Sec B,Thursday,8:30 AM to 9:30 AM,Lecture,IMA I,Intermediate Macroeconomics I,R25,KK,Dr. Kaushal Kishore,,web_app/classes_data.json
 WEB_02180,B.A. (Hons) Economics,Sem III,Sec B,Thursday,10:30 AM to 11:30 AM,Tutorial,IMA I,Intermediate Macroeconomics I,PB2,KK,Dr. Kaushal Kishore,B2,web_app/classes_data.json
-WEB_02181,B.A. (Hons) Economics,Sem III,Sec B,Thursday,12:30 PM to 1:30 PM,Lecture,DE,Digital Empowerment,R25,AKS,Dr. Avnish Kumar Sharma,,web_app/classes_data.json
+WEB_02181,B.A. (Hons) Economics,Sem III,Sec B,Thursday,12:30 PM to 1:30 PM,Lecture,DE,Differential Equations,R25,AKS,Dr. Avnish Kumar Sharma,,web_app/classes_data.json
 WEB_02182,B.A. (Hons) Economics,Sem III,Sec B,Friday,9:30 AM to 10:30 AM,Lecture,H B,Hindi-B,R16,SS,Sakshi Sharma (Hg3),,web_app/classes_data.json
 WEB_02183,B.A. (Hons) Economics,Sem III,Sec B,Friday,10:30 AM to 11:30 AM,Tutorial,IMA I,Intermediate Macroeconomics I,T53,KK,Dr. Kaushal Kishore,B3,web_app/classes_data.json
 WEB_02184,B.A. (Hons) Economics,Sem III,Sec B,Friday,10:30 AM to 11:30 AM,Tutorial,IMIC1,Intermediate Microeconomics 1,T51,RAK,Dr. Rakesh Ranjan,B2,web_app/classes_data.json
-WEB_02185,B.A. (Hons) Economics,Sem III,Sec B,Friday,11:30 AM to 12:30 PM,Tutorial,DE,Digital Empowerment,T8,AKS,Dr. Avnish Kumar Sharma,B2,web_app/classes_data.json
+WEB_02185,B.A. (Hons) Economics,Sem III,Sec B,Friday,11:30 AM to 12:30 PM,Tutorial,DE,Differential Equations,T8,AKS,Dr. Avnish Kumar Sharma,B2,web_app/classes_data.json
 WEB_02186,B.A. (Hons) Economics,Sem III,Sec B,Friday,11:30 AM to 12:30 PM,Tutorial,Adv MME,Advanced Mathematical Methods for Economics,T3,MG 15,Manasvi Chowdhury (15),B1,web_app/classes_data.json
 WEB_02187,B.A. (Hons) Economics,Sem III,Sec B,Friday,12:30 PM to 1:30 PM,Lecture,Adv MME,Advanced Mathematical Methods for Economics,R24,MG 15,Manasvi Chowdhury (15),,web_app/classes_data.json
 WEB_02188,B.A. (Hons) Economics,Sem III,Sec B,Saturday,8:30 AM to 9:30 AM,Lecture,IMA I,Intermediate Macroeconomics I,R25,KK,Dr. Kaushal Kishore,,web_app/classes_data.json
@@ -2195,61 +2195,61 @@ WEB_02193,B.A. (Hons) Economics,Sem III,Sec A,Monday,12:30 PM to 1:30 PM,Tutoria
 WEB_02194,B.A. (Hons) Economics,Sem III,Sec A,Tuesday,8:30 AM to 9:30 AM,Lecture,IMIC1,Intermediate Microeconomics 1,R7,KG,Kritika Gambhir (13),,web_app/classes_data.json
 WEB_02195,B.A. (Hons) Economics,Sem III,Sec A,Tuesday,9:30 AM to 10:30 AM,Tutorial,IMIC1,Intermediate Microeconomics 1,T51,KG,Kritika Gambhir (13),A3,web_app/classes_data.json
 WEB_02196,B.A. (Hons) Economics,Sem III,Sec A,Tuesday,10:30 AM to 11:30 AM,Tutorial,IMA I,Intermediate Macroeconomics I,T51,RAK,Dr. Rakesh Ranjan,A3,web_app/classes_data.json
-WEB_02197,B.A. (Hons) Economics,Sem III,Sec A,Tuesday,10:30 AM to 11:30 AM,Tutorial,DE,Digital Empowerment,T41,AKS,Dr. Avnish Kumar Sharma,A2,web_app/classes_data.json
+WEB_02197,B.A. (Hons) Economics,Sem III,Sec A,Tuesday,10:30 AM to 11:30 AM,Tutorial,DE,Differential Equations,T41,AKS,Dr. Avnish Kumar Sharma,A2,web_app/classes_data.json
 WEB_02198,B.A. (Hons) Economics,Sem III,Sec A,Tuesday,10:30 AM to 11:30 AM,Tutorial,IMIC1,Intermediate Microeconomics 1,PB2,KG,Kritika Gambhir (13),A1,web_app/classes_data.json
 WEB_02199,B.A. (Hons) Economics,Sem III,Sec A,Tuesday,11:30 AM to 12:30 PM,Lecture,H B,Hindi-B,R37,SS,Sakshi Sharma (Hg3),,web_app/classes_data.json
 WEB_02200,B.A. (Hons) Economics,Sem III,Sec A,Wednesday,9:30 AM to 10:30 AM,Lecture,IMA I,Intermediate Macroeconomics I,R24,RAK,Dr. Rakesh Ranjan,,web_app/classes_data.json
 WEB_02201,B.A. (Hons) Economics,Sem III,Sec A,Wednesday,10:30 AM to 11:30 AM,Lecture,Adv MME,Advanced Mathematical Methods for Economics,R26,HC,Harshita Chechani (16),,web_app/classes_data.json
-WEB_02202,B.A. (Hons) Economics,Sem III,Sec A,Wednesday,11:30 AM to 12:30 PM,Lecture,DE,Digital Empowerment,R29,AKS,Dr. Avnish Kumar Sharma,,web_app/classes_data.json
+WEB_02202,B.A. (Hons) Economics,Sem III,Sec A,Wednesday,11:30 AM to 12:30 PM,Lecture,DE,Differential Equations,R29,AKS,Dr. Avnish Kumar Sharma,,web_app/classes_data.json
 WEB_02203,B.A. (Hons) Economics,Sem III,Sec A,Wednesday,12:30 PM to 1:30 PM,Tutorial,IMIC1,Intermediate Microeconomics 1,T51,RAK,Dr. Rakesh Ranjan,A2,web_app/classes_data.json
 WEB_02204,B.A. (Hons) Economics,Sem III,Sec A,Thursday,9:30 AM to 10:30 AM,Lecture,IMIC1,Intermediate Microeconomics 1,R24,KG,Kritika Gambhir (13),,web_app/classes_data.json
 WEB_02205,B.A. (Hons) Economics,Sem III,Sec A,Thursday,10:30 AM to 11:30 AM,Tutorial,IMA I,Intermediate Macroeconomics I,T51,RAK,Dr. Rakesh Ranjan,A2,web_app/classes_data.json
-WEB_02206,B.A. (Hons) Economics,Sem III,Sec A,Thursday,10:30 AM to 11:30 AM,Tutorial,DE,Digital Empowerment,T45,AKS,Dr. Avnish Kumar Sharma,A1,web_app/classes_data.json
-WEB_02207,B.A. (Hons) Economics,Sem III,Sec A,Thursday,11:30 AM to 12:30 PM,Tutorial,DE,Digital Empowerment,T45,AKS,Dr. Avnish Kumar Sharma,A3,web_app/classes_data.json
+WEB_02206,B.A. (Hons) Economics,Sem III,Sec A,Thursday,10:30 AM to 11:30 AM,Tutorial,DE,Differential Equations,T45,AKS,Dr. Avnish Kumar Sharma,A1,web_app/classes_data.json
+WEB_02207,B.A. (Hons) Economics,Sem III,Sec A,Thursday,11:30 AM to 12:30 PM,Tutorial,DE,Differential Equations,T45,AKS,Dr. Avnish Kumar Sharma,A3,web_app/classes_data.json
 WEB_02208,B.A. (Hons) Economics,Sem III,Sec A,Thursday,11:30 AM to 12:30 PM,Tutorial,Adv MME,Advanced Mathematical Methods for Economics,T30,KA 25,Katyayani(25),A2,web_app/classes_data.json
 WEB_02209,B.A. (Hons) Economics,Sem III,Sec A,Thursday,12:30 PM to 1:30 PM,Tutorial,Adv MME,Advanced Mathematical Methods for Economics,T51,KA 25,Katyayani(25),A3,web_app/classes_data.json
-WEB_02210,B.A. (Hons) Economics,Sem III,Sec A,Thursday,12:30 PM to 1:30 PM,Tutorial,DE,Digital Empowerment,T18,MIG,Dr. Misha Govil,A2,web_app/classes_data.json
+WEB_02210,B.A. (Hons) Economics,Sem III,Sec A,Thursday,12:30 PM to 1:30 PM,Tutorial,DE,Differential Equations,T18,MIG,Dr. Misha Govil,A2,web_app/classes_data.json
 WEB_02211,B.A. (Hons) Economics,Sem III,Sec A,Friday,9:30 AM to 10:30 AM,Lecture,IMA I,Intermediate Macroeconomics I,R24,RAK,Dr. Rakesh Ranjan,,web_app/classes_data.json
 WEB_02212,B.A. (Hons) Economics,Sem III,Sec A,Friday,11:30 AM to 12:30 PM,Lecture,Adv MME,Advanced Mathematical Methods for Economics,R24,HC,Harshita Chechani (16),,web_app/classes_data.json
-WEB_02213,B.A. (Hons) Economics,Sem III,Sec A,Friday,12:30 PM to 1:30 PM,Lecture,DE,Digital Empowerment,PB4,AKS,Dr. Avnish Kumar Sharma,,web_app/classes_data.json
-WEB_02214,B.A. (Hons) Economics,Sem III,Sec A,Saturday,8:30 AM to 9:30 AM,Lecture,DE,Digital Empowerment,R26,AKS,Dr. Avnish Kumar Sharma,,web_app/classes_data.json
+WEB_02213,B.A. (Hons) Economics,Sem III,Sec A,Friday,12:30 PM to 1:30 PM,Lecture,DE,Differential Equations,PB4,AKS,Dr. Avnish Kumar Sharma,,web_app/classes_data.json
+WEB_02214,B.A. (Hons) Economics,Sem III,Sec A,Saturday,8:30 AM to 9:30 AM,Lecture,DE,Differential Equations,R26,AKS,Dr. Avnish Kumar Sharma,,web_app/classes_data.json
 WEB_02215,B.A. (Hons) Economics,Sem III,Sec A,Saturday,9:30 AM to 10:30 AM,Lecture,H B,Hindi-B,R26,SS,Sakshi Sharma (Hg3),,web_app/classes_data.json
 WEB_02216,B.A. (Hons) Economics,Sem III,Sec A,Saturday,10:30 AM to 11:30 AM,Lecture,Adv MME,Advanced Mathematical Methods for Economics,R7,HC,Harshita Chechani (16),,web_app/classes_data.json
 WEB_02217,B.A. (Hons) Economics,Sem III,Sec A,Saturday,11:30 AM to 12:30 PM,Tutorial,Adv MME,Advanced Mathematical Methods for Economics,T16,HC,Harshita Chechani (16),A1,web_app/classes_data.json
 WEB_02218,B.A. (Hons) Economics,Sem III,Sec D,Monday,9:30 AM to 10:30 AM,Tutorial,IMIC1,Intermediate Microeconomics 1,PB2,MR,Mamoon Rasheed (14),D3,web_app/classes_data.json
-WEB_02219,B.A. (Hons) Economics,Sem III,Sec D,Monday,9:30 AM to 10:30 AM,Practical/Lab,DMS,DMS,R29,PG,Prachi Goel(Csg1),,web_app/classes_data.json
+WEB_02219,B.A. (Hons) Economics,Sem III,Sec D,Monday,9:30 AM to 10:30 AM,Practical/Lab,DMS,Database Management Systems,R29,PG,Prachi Goel(Csg1),,web_app/classes_data.json
 WEB_02220,B.A. (Hons) Economics,Sem III,Sec D,Monday,10:30 AM to 11:30 AM,Lecture,IMIC1,Intermediate Microeconomics 1,R29,MR,Mamoon Rasheed (14),,web_app/classes_data.json
 WEB_02221,B.A. (Hons) Economics,Sem III,Sec D,Monday,11:30 AM to 12:30 PM,Lecture,H B,Hindi-B,R37,SS,Sakshi Sharma (Hg3),,web_app/classes_data.json
 WEB_02222,B.A. (Hons) Economics,Sem III,Sec D,Monday,12:30 PM to 1:30 PM,Tutorial,Adv MME,Advanced Mathematical Methods for Economics,T2,KA 25,Katyayani(25),D3,web_app/classes_data.json
 WEB_02223,B.A. (Hons) Economics,Sem III,Sec D,Tuesday,9:30 AM to 10:30 AM,Lecture,H B,Hindi-B,R37,SS,Sakshi Sharma (Hg3),,web_app/classes_data.json
 WEB_02224,B.A. (Hons) Economics,Sem III,Sec D,Tuesday,10:30 AM to 11:30 AM,Lecture,IMIC1,Intermediate Microeconomics 1,R25,MR,Mamoon Rasheed (14),,web_app/classes_data.json
-WEB_02225,B.A. (Hons) Economics,Sem III,Sec D,Tuesday,11:30 AM to 12:30 PM,Tutorial,GF,Global Finance,T34,SKC,Mr. Shailesh Kumar Chawla,D3,web_app/classes_data.json
-WEB_02226,B.A. (Hons) Economics,Sem III,Sec D,Tuesday,11:30 AM to 12:30 PM,Lecture,OE,Open Elective,SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
+WEB_02225,B.A. (Hons) Economics,Sem III,Sec D,Tuesday,11:30 AM to 12:30 PM,Tutorial,GF,Genre Fiction,T34,SKC,Mr. Shailesh Kumar Chawla,D3,web_app/classes_data.json
+WEB_02226,B.A. (Hons) Economics,Sem III,Sec D,Tuesday,11:30 AM to 12:30 PM,Lecture,OE,Open Elective (Physical Education),SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
 WEB_02227,B.A. (Hons) Economics,Sem III,Sec D,Tuesday,11:30 AM to 12:30 PM,Lecture,UIR,Understanding International Relations,R19,RHR,Mr. Rishabh Raj,,web_app/classes_data.json
 WEB_02228,B.A. (Hons) Economics,Sem III,Sec D,Tuesday,12:30 PM to 1:30 PM,Lecture,UIR,Understanding International Relations,CL1,RHR,Mr. Rishabh Raj,,web_app/classes_data.json
-WEB_02229,B.A. (Hons) Economics,Sem III,Sec D,Tuesday,12:30 PM to 1:30 PM,Lecture,GF,Global Finance,R14,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
+WEB_02229,B.A. (Hons) Economics,Sem III,Sec D,Tuesday,12:30 PM to 1:30 PM,Lecture,GF,Genre Fiction,R14,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
 WEB_02230,B.A. (Hons) Economics,Sem III,Sec D,Wednesday,8:30 AM to 9:30 AM,Lecture,IMA I,Intermediate Macroeconomics I,R24,KK,Dr. Kaushal Kishore,,web_app/classes_data.json
 WEB_02231,B.A. (Hons) Economics,Sem III,Sec D,Wednesday,9:30 AM to 10:30 AM,Tutorial,EHI,Economic History of India,T53,DA,David A Longkumer (10),D1,web_app/classes_data.json
 WEB_02232,B.A. (Hons) Economics,Sem III,Sec D,Wednesday,10:30 AM to 11:30 AM,Lecture,EHI,Economic History of India,R29,DA,David A Longkumer (10),,web_app/classes_data.json
 WEB_02233,B.A. (Hons) Economics,Sem III,Sec D,Wednesday,11:30 AM to 12:30 PM,Lecture,Adv MME,Advanced Mathematical Methods for Economics,R26,MG 15,Manasvi Chowdhury (15),,web_app/classes_data.json
-WEB_02234,B.A. (Hons) Economics,Sem III,Sec D,Wednesday,12:30 PM to 1:30 PM,Lecture,DMS,DMS,CL1,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
-WEB_02235,B.A. (Hons) Economics,Sem III,Sec D,Wednesday,12:30 PM to 1:30 PM,Lecture,GF,Global Finance,R14,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
+WEB_02234,B.A. (Hons) Economics,Sem III,Sec D,Wednesday,12:30 PM to 1:30 PM,Lecture,DMS,Database Management Systems,CL1,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
+WEB_02235,B.A. (Hons) Economics,Sem III,Sec D,Wednesday,12:30 PM to 1:30 PM,Lecture,GF,Genre Fiction,R14,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
 WEB_02236,B.A. (Hons) Economics,Sem III,Sec D,Thursday,9:30 AM to 10:30 AM,Lecture,IMA I,Intermediate Macroeconomics I,PB4,KK,Dr. Kaushal Kishore,,web_app/classes_data.json
 WEB_02237,B.A. (Hons) Economics,Sem III,Sec D,Thursday,10:30 AM to 11:30 AM,Lecture,EHI,Economic History of India,R24,DA,David A Longkumer (10),,web_app/classes_data.json
 WEB_02238,B.A. (Hons) Economics,Sem III,Sec D,Thursday,10:30 AM to 11:30 AM,Lecture,UIR,Understanding International Relations,R16,RHR,Mr. Rishabh Raj,,web_app/classes_data.json
-WEB_02239,B.A. (Hons) Economics,Sem III,Sec D,Thursday,10:30 AM to 11:30 AM,Lecture,OE,Open Elective,SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
-WEB_02240,B.A. (Hons) Economics,Sem III,Sec D,Thursday,10:30 AM to 11:30 AM,Practical/Lab,DMS,DMS,R29,PRS,Dr. Prashasti Singh,D2,web_app/classes_data.json
+WEB_02239,B.A. (Hons) Economics,Sem III,Sec D,Thursday,10:30 AM to 11:30 AM,Lecture,OE,Open Elective (Physical Education),SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
+WEB_02240,B.A. (Hons) Economics,Sem III,Sec D,Thursday,10:30 AM to 11:30 AM,Practical/Lab,DMS,Database Management Systems,R29,PRS,Dr. Prashasti Singh,D2,web_app/classes_data.json
 WEB_02241,B.A. (Hons) Economics,Sem III,Sec D,Thursday,11:30 AM to 12:30 PM,Tutorial,IMA I,Intermediate Macroeconomics I,T53,KK,Dr. Kaushal Kishore,D1,web_app/classes_data.json
 WEB_02242,B.A. (Hons) Economics,Sem III,Sec D,Thursday,11:30 AM to 12:30 PM,Tutorial,UIR,Understanding International Relations,T4,RHR,Mr. Rishabh Raj,D3,web_app/classes_data.json
-WEB_02243,B.A. (Hons) Economics,Sem III,Sec D,Thursday,11:30 AM to 12:30 PM,Lecture,OE,Open Elective,SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
-WEB_02244,B.A. (Hons) Economics,Sem III,Sec D,Thursday,12:30 PM to 1:30 PM,Lecture,DMS,DMS,CL2,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
-WEB_02245,B.A. (Hons) Economics,Sem III,Sec D,Thursday,12:30 PM to 1:30 PM,Lecture,GF,Global Finance,R14,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
+WEB_02243,B.A. (Hons) Economics,Sem III,Sec D,Thursday,11:30 AM to 12:30 PM,Lecture,OE,Open Elective (Physical Education),SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
+WEB_02244,B.A. (Hons) Economics,Sem III,Sec D,Thursday,12:30 PM to 1:30 PM,Lecture,DMS,Database Management Systems,CL2,PRS,Dr. Prashasti Singh,,web_app/classes_data.json
+WEB_02245,B.A. (Hons) Economics,Sem III,Sec D,Thursday,12:30 PM to 1:30 PM,Lecture,GF,Genre Fiction,R14,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
 WEB_02246,B.A. (Hons) Economics,Sem III,Sec D,Friday,8:30 AM to 9:30 AM,Lecture,IMA I,Intermediate Macroeconomics I,R24,KK,Dr. Kaushal Kishore,,web_app/classes_data.json
 WEB_02247,B.A. (Hons) Economics,Sem III,Sec D,Friday,9:30 AM to 10:30 AM,Tutorial,Adv MME,Advanced Mathematical Methods for Economics,T49,MG 15,Manasvi Chowdhury (15),D2,web_app/classes_data.json
 WEB_02248,B.A. (Hons) Economics,Sem III,Sec D,Friday,9:30 AM to 10:30 AM,Tutorial,IMIC1,Intermediate Microeconomics 1,T6,AKJ,Dr. Avinash Kumar Jha,D1,web_app/classes_data.json
 WEB_02249,B.A. (Hons) Economics,Sem III,Sec D,Friday,10:30 AM to 11:30 AM,Lecture,Adv MME,Advanced Mathematical Methods for Economics,R24,MG 15,Manasvi Chowdhury (15),,web_app/classes_data.json
 WEB_02250,B.A. (Hons) Economics,Sem III,Sec D,Friday,11:30 AM to 12:30 PM,Lecture,EHI,Economic History of India,R37,DA,David A Longkumer (10),,web_app/classes_data.json
-WEB_02251,B.A. (Hons) Economics,Sem III,Sec D,Friday,11:30 AM to 12:30 PM,Practical/Lab,OE,Open Elective,PLAYGROUND,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
+WEB_02251,B.A. (Hons) Economics,Sem III,Sec D,Friday,11:30 AM to 12:30 PM,Practical/Lab,OE,Open Elective (Physical Education),PLAYGROUND,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
 WEB_02252,B.A. (Hons) Economics,Sem III,Sec D,Saturday,8:30 AM to 9:30 AM,Lecture,IMIC1,Intermediate Microeconomics 1,R7,MR,Mamoon Rasheed (14),,web_app/classes_data.json
 WEB_02253,B.A. (Hons) Economics,Sem III,Sec D,Saturday,9:30 AM to 10:30 AM,Tutorial,IMA I,Intermediate Macroeconomics I,T23,KK,Dr. Kaushal Kishore,D2,web_app/classes_data.json
 WEB_02254,B.A. (Hons) Economics,Sem III,Sec D,Saturday,9:30 AM to 10:30 AM,Tutorial,Adv MME,Advanced Mathematical Methods for Economics,T3,MG 15,Manasvi Chowdhury (15),D1,web_app/classes_data.json
@@ -2355,7 +2355,7 @@ WEB_02353,B.A. (Hons) Economics,Sem V,Sec D,Wednesday,10:30 AM to 11:30 AM,Lectu
 WEB_02354,B.A. (Hons) Economics,Sem V,Sec D,Wednesday,11:30 AM to 12:30 PM,Lecture,IDE,Issues in Development Economics,R7,RUR,Prof. Ritu Ranjan,,web_app/classes_data.json
 WEB_02355,B.A. (Hons) Economics,Sem V,Sec D,Wednesday,12:30 PM to 1:30 PM,Lecture,IIPT,Indian Political Thought,CLIB,RHR,Mr. Rishabh Raj,,web_app/classes_data.json
 WEB_02356,B.A. (Hons) Economics,Sem V,Sec D,Wednesday,12:30 PM to 1:30 PM,Lecture,HFPE,"Health, Fitness & Physical Education",SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
-WEB_02357,B.A. (Hons) Economics,Sem V,Sec D,Wednesday,2:00 PM to 3:00 PM,Lecture,GF,Global Finance,T3,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
+WEB_02357,B.A. (Hons) Economics,Sem V,Sec D,Wednesday,2:00 PM to 3:00 PM,Lecture,GF,Genre Fiction,T3,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
 WEB_02358,B.A. (Hons) Economics,Sem V,Sec D,Wednesday,2:00 PM to 3:00 PM,Practical/Lab,HFPE,"Health, Fitness & Physical Education",PLAYGROUND,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
 WEB_02359,B.A. (Hons) Economics,Sem V,Sec D,Wednesday,3:00 PM to 4:00 PM,Tutorial,IIPT,Indian Political Thought,R25,RHR,Mr. Rishabh Raj,,web_app/classes_data.json
 WEB_02360,B.A. (Hons) Economics,Sem V,Sec D,Thursday,8:30 AM to 9:30 AM,Lecture,PE,Political Economy,R7,KD,Dr. Kapil Dev Yadav,,web_app/classes_data.json
@@ -2365,10 +2365,10 @@ WEB_02363,B.A. (Hons) Economics,Sem V,Sec D,Thursday,10:30 AM to 11:30 AM,Tutori
 WEB_02364,B.A. (Hons) Economics,Sem V,Sec D,Thursday,10:30 AM to 11:30 AM,Tutorial,PE,Political Economy,T30,KD,Dr. Kapil Dev Yadav,D1,web_app/classes_data.json
 WEB_02365,B.A. (Hons) Economics,Sem V,Sec D,Thursday,10:30 AM to 11:30 AM,Tutorial,IDE,Issues in Development Economics,T2,RUR,Prof. Ritu Ranjan,D3,web_app/classes_data.json
 WEB_02366,B.A. (Hons) Economics,Sem V,Sec D,Thursday,11:30 AM to 12:30 PM,Tutorial,IDE,Issues in Development Economics,T2,RUR,Prof. Ritu Ranjan,D1,web_app/classes_data.json
-WEB_02367,B.A. (Hons) Economics,Sem V,Sec D,Thursday,11:30 AM to 12:30 PM,Lecture,GF,Global Finance,R7,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
+WEB_02367,B.A. (Hons) Economics,Sem V,Sec D,Thursday,11:30 AM to 12:30 PM,Lecture,GF,Genre Fiction,R7,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
 WEB_02368,B.A. (Hons) Economics,Sem V,Sec D,Thursday,12:30 PM to 1:30 PM,Lecture,IIPT,Indian Political Thought,R28,RHR,Mr. Rishabh Raj,,web_app/classes_data.json
 WEB_02369,B.A. (Hons) Economics,Sem V,Sec D,Thursday,12:30 PM to 1:30 PM,Lecture,HFPE,"Health, Fitness & Physical Education",SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
-WEB_02370,B.A. (Hons) Economics,Sem V,Sec D,Thursday,2:00 PM to 3:00 PM,Tutorial,GF,Global Finance,T2,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
+WEB_02370,B.A. (Hons) Economics,Sem V,Sec D,Thursday,2:00 PM to 3:00 PM,Tutorial,GF,Genre Fiction,T2,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
 WEB_02371,B.A. (Hons) Economics,Sem V,Sec D,Thursday,2:00 PM to 3:00 PM,Practical/Lab,HFPE,"Health, Fitness & Physical Education",PLAYGROUND,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
 WEB_02372,B.A. (Hons) Economics,Sem V,Sec D,Friday,8:30 AM to 9:30 AM,Lecture,GT,Game Theory and Strategic Interactions,R7,AKJ,Dr. Avinash Kumar Jha,,web_app/classes_data.json
 WEB_02373,B.A. (Hons) Economics,Sem V,Sec D,Friday,9:30 AM to 10:30 AM,Lecture,PE,Political Economy,R7,KD,Dr. Kapil Dev Yadav,,web_app/classes_data.json
@@ -2376,7 +2376,7 @@ WEB_02374,B.A. (Hons) Economics,Sem V,Sec D,Friday,10:30 AM to 11:30 AM,Lecture,
 WEB_02375,B.A. (Hons) Economics,Sem V,Sec D,Friday,11:30 AM to 12:30 PM,Lecture,IDE,Issues in Development Economics,R7,RUR,Prof. Ritu Ranjan,,web_app/classes_data.json
 WEB_02376,B.A. (Hons) Economics,Sem V,Sec D,Friday,12:30 PM to 1:30 PM,Lecture,PM,Project Management,R26,SAR,Dr. Shikha Rajput,,web_app/classes_data.json
 WEB_02377,B.A. (Hons) Economics,Sem V,Sec D,Friday,12:30 PM to 1:30 PM,Lecture,IIPT,Indian Political Thought,CL1,RHR,Mr. Rishabh Raj,,web_app/classes_data.json
-WEB_02378,B.A. (Hons) Economics,Sem V,Sec D,Friday,12:30 PM to 1:30 PM,Lecture,GF,Global Finance,T3,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
+WEB_02378,B.A. (Hons) Economics,Sem V,Sec D,Friday,12:30 PM to 1:30 PM,Lecture,GF,Genre Fiction,T3,SKC,Mr. Shailesh Kumar Chawla,,web_app/classes_data.json
 WEB_02379,B.A. (Hons) Economics,Sem V,Sec B,Monday,8:30 AM to 9:30 AM,Lecture,IDE,Issues in Development Economics,R25,ENN,Dr. Esther Ngaihte,,web_app/classes_data.json
 WEB_02380,B.A. (Hons) Economics,Sem V,Sec B,Monday,9:30 AM to 10:30 AM,Tutorial,IDE,Issues in Development Economics,T23,ENN,Dr. Esther Ngaihte,B3,web_app/classes_data.json
 WEB_02381,B.A. (Hons) Economics,Sem V,Sec B,Monday,9:30 AM to 10:30 AM,Tutorial,GT,Game Theory and Strategic Interactions,T6,AKJ,Dr. Avinash Kumar Jha,B2,web_app/classes_data.json
@@ -2393,7 +2393,7 @@ WEB_02391,B.A. (Hons) Economics,Sem V,Sec B,Tuesday,11:30 AM to 12:30 PM,Lecture
 WEB_02392,B.A. (Hons) Economics,Sem V,Sec B,Tuesday,12:30 PM to 1:30 PM,Lecture,PM,Project Management,R24,SAR,Dr. Shikha Rajput,,web_app/classes_data.json
 WEB_02393,B.A. (Hons) Economics,Sem V,Sec B,Tuesday,12:30 PM to 1:30 PM,Lecture,NM,Numerical Methods,R23,SAS,Dr. Sunita Sharma,,web_app/classes_data.json
 WEB_02394,B.A. (Hons) Economics,Sem V,Sec B,Tuesday,12:30 PM to 1:30 PM,Lecture,HFPE,"Health, Fitness & Physical Education",SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
-WEB_02395,B.A. (Hons) Economics,Sem V,Sec B,Tuesday,12:30 PM to 1:30 PM,Lecture,R4,R4,R4,SOC,Mr. Soumitra Kumar Choudhary,,web_app/classes_data.json
+WEB_02395,B.A. (Hons) Economics,Sem V,Sec B,Tuesday,12:30 PM to 1:30 PM,Lecture,RIDL,Readings in Indian Democratic Literature,R4,SOC,Mr. Soumitra Kumar Choudhary,,web_app/classes_data.json
 WEB_02396,B.A. (Hons) Economics,Sem V,Sec B,Wednesday,8:30 AM to 9:30 AM,Lecture,OEM,Open Elective Management,R23,AG,Dr. Amit Girdharwal,,web_app/classes_data.json
 WEB_02397,B.A. (Hons) Economics,Sem V,Sec B,Wednesday,9:30 AM to 10:30 AM,Lecture,IDE,Issues in Development Economics,R7,ENN,Dr. Esther Ngaihte,,web_app/classes_data.json
 WEB_02398,B.A. (Hons) Economics,Sem V,Sec B,Wednesday,10:30 AM to 11:30 AM,Tutorial,OEM,Open Elective Management,T53,AG,Dr. Amit Girdharwal,B2,web_app/classes_data.json
@@ -2403,7 +2403,7 @@ WEB_02401,B.A. (Hons) Economics,Sem V,Sec B,Wednesday,11:30 AM to 12:30 PM,Tutor
 WEB_02402,B.A. (Hons) Economics,Sem V,Sec B,Wednesday,12:30 PM to 1:30 PM,Lecture,NM,Numerical Methods,R23,SAS,Dr. Sunita Sharma,,web_app/classes_data.json
 WEB_02403,B.A. (Hons) Economics,Sem V,Sec B,Wednesday,12:30 PM to 1:30 PM,Lecture,IIPT,Indian Political Thought,CLIB,RHR,Mr. Rishabh Raj,,web_app/classes_data.json
 WEB_02404,B.A. (Hons) Economics,Sem V,Sec B,Wednesday,12:30 PM to 1:30 PM,Lecture,HFPE,"Health, Fitness & Physical Education",SCR1,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
-WEB_02405,B.A. (Hons) Economics,Sem V,Sec B,Wednesday,12:30 PM to 1:30 PM,Lecture,R4,R4,R4,SOC,Mr. Soumitra Kumar Choudhary,,web_app/classes_data.json
+WEB_02405,B.A. (Hons) Economics,Sem V,Sec B,Wednesday,12:30 PM to 1:30 PM,Lecture,RIDL,Readings in Indian Democratic Literature,R4,SOC,Mr. Soumitra Kumar Choudhary,,web_app/classes_data.json
 WEB_02406,B.A. (Hons) Economics,Sem V,Sec B,Wednesday,2:00 PM to 3:00 PM,Practical/Lab,NM,Numerical Methods,R29,AKS,Dr. Avnish Kumar Sharma,B1,web_app/classes_data.json
 WEB_02407,B.A. (Hons) Economics,Sem V,Sec B,Wednesday,2:00 PM to 3:00 PM,Practical/Lab,NM,Numerical Methods,R29,AKS,Dr. Avnish Kumar Sharma,B3,web_app/classes_data.json
 WEB_02408,B.A. (Hons) Economics,Sem V,Sec B,Wednesday,2:00 PM to 3:00 PM,Practical/Lab,HFPE,"Health, Fitness & Physical Education",PLAYGROUND,KTK,Dr. Kuljeet Kaur,,web_app/classes_data.json
@@ -2430,11 +2430,11 @@ WEB_02428,B.A. (Hons) Economics,Sem V,Sec B,Friday,11:30 AM to 12:30 PM,Lecture,
 WEB_02429,B.A. (Hons) Economics,Sem V,Sec B,Friday,12:30 PM to 1:30 PM,Lecture,PM,Project Management,R26,SAR,Dr. Shikha Rajput,,web_app/classes_data.json
 WEB_02430,B.A. (Hons) Economics,Sem V,Sec B,Friday,12:30 PM to 1:30 PM,Lecture,IIPT,Indian Political Thought,CL1,RHR,Mr. Rishabh Raj,,web_app/classes_data.json
 WEB_02431,B.A. (Hons) Economics,Sem V,Sec B,Friday,12:30 PM to 1:30 PM,Lecture,RIDL,Readings in Indian Democratic Literature,R16,KAG,Dr. Kanika Gandhi,,web_app/classes_data.json
-WEB_02432,B.A. (Hons) Economics,Sem VII,Sec A,Tuesday,8:30 AM to 9:30 AM,Lecture,ECom,ECom,PB3,CG36,Commerce Guest 36,,web_app/classes_data.json
-WEB_02433,B.A. (Hons) Economics,Sem VII,Sec A,Tuesday,9:30 AM to 10:30 AM,Tutorial,ECom,ECom,PB2,JDP,Dr. Jaideep,A1,web_app/classes_data.json
+WEB_02432,B.A. (Hons) Economics,Sem VII,Sec A,Tuesday,8:30 AM to 9:30 AM,Lecture,ECom,E-Commerce,PB3,CG36,Commerce Guest 36,,web_app/classes_data.json
+WEB_02433,B.A. (Hons) Economics,Sem VII,Sec A,Tuesday,9:30 AM to 10:30 AM,Tutorial,ECom,E-Commerce,PB2,JDP,Dr. Jaideep,A1,web_app/classes_data.json
 WEB_02434,B.A. (Hons) Economics,Sem VII,Sec A,Tuesday,10:30 AM to 11:30 AM,Tutorial,OEM,Open Elective Management,T53,AG,Dr. Amit Girdharwal,A1,web_app/classes_data.json
 WEB_02435,B.A. (Hons) Economics,Sem VII,Sec A,Tuesday,11:30 AM to 12:30 PM,Lecture,OEM,Open Elective Management,PB4,AG,Dr. Amit Girdharwal,,web_app/classes_data.json
-WEB_02436,B.A. (Hons) Economics,Sem VII,Sec A,Tuesday,12:30 PM to 1:30 PM,Lecture,R4,R4,R4,SOC,Mr. Soumitra Kumar Choudhary,,web_app/classes_data.json
+WEB_02436,B.A. (Hons) Economics,Sem VII,Sec A,Tuesday,12:30 PM to 1:30 PM,Lecture,RIDL,Readings in Indian Democratic Literature,R4,SOC,Mr. Soumitra Kumar Choudhary,,web_app/classes_data.json
 WEB_02437,B.A. (Hons) Economics,Sem VII,Sec A,Tuesday,12:30 PM to 1:30 PM,Lecture,GIC,Global Institutions and Commerce,T3,PSG2,Pol Science Guest 2,,web_app/classes_data.json
 WEB_02438,B.A. (Hons) Economics,Sem VII,Sec A,Tuesday,12:30 PM to 1:30 PM,Lecture,IGT,Interactive Game Theory,R20,SFK,Dr. Shefali Kapoor,,web_app/classes_data.json
 WEB_02439,B.A. (Hons) Economics,Sem VII,Sec A,Tuesday,2:00 PM to 3:00 PM,Lecture,PM,Project Management,PB2,ASC,Akanksha Sehgal (Cg28),,web_app/classes_data.json
@@ -2442,10 +2442,10 @@ WEB_02440,B.A. (Hons) Economics,Sem VII,Sec A,Wednesday,8:30 AM to 9:30 AM,Lectu
 WEB_02441,B.A. (Hons) Economics,Sem VII,Sec A,Wednesday,9:30 AM to 10:30 AM,Tutorial,EHI,Economic History of India,T53,DA,David A Longkumer (10),A1,web_app/classes_data.json
 WEB_02442,B.A. (Hons) Economics,Sem VII,Sec A,Wednesday,10:30 AM to 11:30 AM,Lecture,EHI,Economic History of India,R29,DA,David A Longkumer (10),,web_app/classes_data.json
 WEB_02443,B.A. (Hons) Economics,Sem VII,Sec A,Wednesday,11:30 AM to 12:30 PM,Lecture,RM,Research Methodology,R37,KG1,Kashish Gupta (1),,web_app/classes_data.json
-WEB_02444,B.A. (Hons) Economics,Sem VII,Sec A,Wednesday,12:30 PM to 1:30 PM,Lecture,R4,R4,R4,SOC,Mr. Soumitra Kumar Choudhary,,web_app/classes_data.json
+WEB_02444,B.A. (Hons) Economics,Sem VII,Sec A,Wednesday,12:30 PM to 1:30 PM,Lecture,RIDL,Readings in Indian Democratic Literature,R4,SOC,Mr. Soumitra Kumar Choudhary,,web_app/classes_data.json
 WEB_02445,B.A. (Hons) Economics,Sem VII,Sec A,Wednesday,12:30 PM to 1:30 PM,Lecture,GIC,Global Institutions and Commerce,T3,PSG2,Pol Science Guest 2,,web_app/classes_data.json
 WEB_02446,B.A. (Hons) Economics,Sem VII,Sec A,Wednesday,12:30 PM to 1:30 PM,Lecture,IGT,Interactive Game Theory,R20,SFK,Dr. Shefali Kapoor,,web_app/classes_data.json
-WEB_02447,B.A. (Hons) Economics,Sem VII,Sec A,Thursday,8:30 AM to 9:30 AM,Lecture,ECom,ECom,PB2,CG36,Commerce Guest 36,,web_app/classes_data.json
+WEB_02447,B.A. (Hons) Economics,Sem VII,Sec A,Thursday,8:30 AM to 9:30 AM,Lecture,ECom,E-Commerce,PB2,CG36,Commerce Guest 36,,web_app/classes_data.json
 WEB_02448,B.A. (Hons) Economics,Sem VII,Sec A,Thursday,9:30 AM to 10:30 AM,Tutorial,RM,Research Methodology,PB2,KG1,Kashish Gupta (1),A1,web_app/classes_data.json
 WEB_02449,B.A. (Hons) Economics,Sem VII,Sec A,Thursday,10:30 AM to 11:30 AM,Lecture,EHI,Economic History of India,R24,DA,David A Longkumer (10),,web_app/classes_data.json
 WEB_02450,B.A. (Hons) Economics,Sem VII,Sec A,Thursday,11:30 AM to 12:30 PM,Lecture,RM,Research Methodology,PB4,KG1,Kashish Gupta (1),,web_app/classes_data.json
@@ -2453,7 +2453,7 @@ WEB_02451,B.A. (Hons) Economics,Sem VII,Sec A,Thursday,12:30 PM to 1:30 PM,Tutor
 WEB_02452,B.A. (Hons) Economics,Sem VII,Sec A,Thursday,12:30 PM to 1:30 PM,Tutorial,GIC,Global Institutions and Commerce,T3,PSG2,Pol Science Guest 2,A1,web_app/classes_data.json
 WEB_02453,B.A. (Hons) Economics,Sem VII,Sec A,Thursday,2:00 PM to 3:00 PM,Lecture,PM,Project Management,PB2,ASC,Akanksha Sehgal (Cg28),,web_app/classes_data.json
 WEB_02454,B.A. (Hons) Economics,Sem VII,Sec A,Thursday,3:00 PM to 4:00 PM,Lecture,PM,Project Management,PB2,ASC,Akanksha Sehgal (Cg28),,web_app/classes_data.json
-WEB_02455,B.A. (Hons) Economics,Sem VII,Sec A,Friday,8:30 AM to 9:30 AM,Lecture,ECom,ECom,PB3,CG36,Commerce Guest 36,,web_app/classes_data.json
+WEB_02455,B.A. (Hons) Economics,Sem VII,Sec A,Friday,8:30 AM to 9:30 AM,Lecture,ECom,E-Commerce,PB3,CG36,Commerce Guest 36,,web_app/classes_data.json
 WEB_02456,B.A. (Hons) Economics,Sem VII,Sec A,Friday,9:30 AM to 10:30 AM,Lecture,OEM,Open Elective Management,R29,AG,Dr. Amit Girdharwal,,web_app/classes_data.json
 WEB_02457,B.A. (Hons) Economics,Sem VII,Sec A,Friday,10:30 AM to 11:30 AM,Lecture,RM,Research Methodology,R26,KG1,Kashish Gupta (1),,web_app/classes_data.json
 WEB_02458,B.A. (Hons) Economics,Sem VII,Sec A,Friday,11:30 AM to 12:30 PM,Lecture,EHI,Economic History of India,R37,DA,David A Longkumer (10),,web_app/classes_data.json
@@ -2461,15 +2461,15 @@ WEB_02459,B.A. (Hons) Economics,Sem VII,Sec A,Friday,12:30 PM to 1:30 PM,Lecture
 WEB_02460,B.A. (Hons) Economics,Sem VII,Sec A,Friday,12:30 PM to 1:30 PM,Lecture,GIC,Global Institutions and Commerce,T51,PSG2,Pol Science Guest 2,,web_app/classes_data.json
 WEB_02461,B.A. (Hons) Economics,Sem VII,Sec A,Friday,12:30 PM to 1:30 PM,Lecture,IGT,Interactive Game Theory,R4,SFK,Dr. Shefali Kapoor,,web_app/classes_data.json
 WEB_02462,B.A. (Hons) Economics,Sem VII,Sec A,Friday,2:00 PM to 3:00 PM,Tutorial,PM,Project Management,T25,AUV,Ms. Anju Verma,A1,web_app/classes_data.json
-WEB_02463,M.Com,Sem I,Sec A,Tuesday,8:30 AM to 9:30 AM,Tutorial,DTHRS,DTHRS,T40,SPB,Dr. Sapna Bansal,,web_app/classes_data.json
-WEB_02464,M.Com,Sem I,Sec A,Tuesday,9:30 AM to 10:30 AM,Practical/Lab,FP,FP,T41,VIC,Ms. Vaishali Chhokar,A2,web_app/classes_data.json
-WEB_02465,M.Com,Sem I,Sec A,Tuesday,11:30 AM to 12:30 PM,Practical/Lab,FP,FP,T12,AKY,Mr. Abhishek Kumar Yadav,A1,web_app/classes_data.json
-WEB_02466,M.Com,Sem I,Sec A,Tuesday,12:30 PM to 1:30 PM,Practical/Lab,FP,FP,T17,AKY,Mr. Abhishek Kumar Yadav,A1,web_app/classes_data.json
-WEB_02467,M.Com,Sem I,Sec A,Tuesday,12:30 PM to 1:30 PM,Practical/Lab,FP,FP,T41,VIC,Ms. Vaishali Chhokar,A2,web_app/classes_data.json
+WEB_02463,M.Com,Sem I,Sec A,Tuesday,8:30 AM to 9:30 AM,Tutorial,DTHRS,Design Thinking & HR Systems,T40,SPB,Dr. Sapna Bansal,,web_app/classes_data.json
+WEB_02464,M.Com,Sem I,Sec A,Tuesday,9:30 AM to 10:30 AM,Practical/Lab,FP,Financial Planning,T41,VIC,Ms. Vaishali Chhokar,A2,web_app/classes_data.json
+WEB_02465,M.Com,Sem I,Sec A,Tuesday,11:30 AM to 12:30 PM,Practical/Lab,FP,Financial Planning,T12,AKY,Mr. Abhishek Kumar Yadav,A1,web_app/classes_data.json
+WEB_02466,M.Com,Sem I,Sec A,Tuesday,12:30 PM to 1:30 PM,Practical/Lab,FP,Financial Planning,T17,AKY,Mr. Abhishek Kumar Yadav,A1,web_app/classes_data.json
+WEB_02467,M.Com,Sem I,Sec A,Tuesday,12:30 PM to 1:30 PM,Practical/Lab,FP,Financial Planning,T41,VIC,Ms. Vaishali Chhokar,A2,web_app/classes_data.json
 WEB_02468,M.Com,Sem I,Sec A,Wednesday,8:30 AM to 9:30 AM,Tutorial,ME,Managerial Economics,T24,PRD,Prof. Padmeshwar Doley,A1,web_app/classes_data.json
-WEB_02469,M.Com,Sem I,Sec A,Wednesday,8:30 AM to 9:30 AM,Practical/Lab,DA,DA,T42,PAC,Dr. Priya Chaurasia,,web_app/classes_data.json
+WEB_02469,M.Com,Sem I,Sec A,Wednesday,8:30 AM to 9:30 AM,Practical/Lab,DA,Data Analysis,T42,PAC,Dr. Priya Chaurasia,,web_app/classes_data.json
 WEB_02470,M.Com,Sem I,Sec A,Wednesday,10:30 AM to 11:30 AM,Tutorial,ME,Managerial Economics,T13,TNM,Prof. Tarun Manjhi,A2,web_app/classes_data.json
-WEB_02471,M.Com,Sem I,Sec A,Wednesday,12:30 PM to 1:30 PM,Practical/Lab,DA,DA,T27,PAC,Dr. Priya Chaurasia,,web_app/classes_data.json
+WEB_02471,M.Com,Sem I,Sec A,Wednesday,12:30 PM to 1:30 PM,Practical/Lab,DA,Data Analysis,T27,PAC,Dr. Priya Chaurasia,,web_app/classes_data.json
 WEB_02472,M.Com,Sem I,Sec A,Thursday,8:30 AM to 9:30 AM,Practical/Lab,BRM,Brand Management,T48,SAG,Dr. Shikha Gupta,A1,web_app/classes_data.json
 WEB_02473,M.Com,Sem I,Sec A,Thursday,9:30 AM to 10:30 AM,Tutorial,DM,Digital Marketing,T13,SAP,Prof. Surya Prakash,,web_app/classes_data.json
 WEB_02474,M.Com,Sem I,Sec A,Thursday,11:30 AM to 12:30 PM,Tutorial,BSC,Business Communication,T27,KIJ,Prof. Kinneri Jain,,web_app/classes_data.json
@@ -2477,9 +2477,9 @@ WEB_02475,M.Com,Sem I,Sec A,Thursday,3:00 PM to 4:00 PM,Practical/Lab,BRM,Brand 
 WEB_02476,M.Com,Sem I,Sec A,Friday,12:30 PM to 1:30 PM,Tutorial,WM,Wealth Management,T50,JTW,Dr. Jigmet Wangdus,,web_app/classes_data.json
 WEB_02477,M.Com,Sem I,Sec A,Saturday,9:30 AM to 10:30 AM,Tutorial,ACPA,Advanced Cost and Performance Analysis,T43,SAR,Dr. Shikha Rajput,A1,web_app/classes_data.json
 WEB_02478,M.Com,Sem I,Sec A,Saturday,10:30 AM to 11:30 AM,Tutorial,ACPA,Advanced Cost and Performance Analysis,T43,SAR,Dr. Shikha Rajput,A2,web_app/classes_data.json
-WEB_02479,M.Com,Sem I,Sec A,Saturday,11:30 AM to 12:30 PM,Tutorial,ITL,ITL,T44,KKS,Dr. Kamaldeep Kaur Sarna,,web_app/classes_data.json
+WEB_02479,M.Com,Sem I,Sec A,Saturday,11:30 AM to 12:30 PM,Tutorial,ITL,Income Tax Law,T44,KKS,Dr. Kamaldeep Kaur Sarna,,web_app/classes_data.json
 WEB_02480,M.Com,Sem III,Sec A,Monday,11:30 AM to 12:30 PM,Tutorial,CFCR,Corporate Finance & Restructuring,T5,MKG,Mayank Goel (Cg34),,web_app/classes_data.json
-WEB_02481,M.Com,Sem III,Sec A,Tuesday,9:30 AM to 10:30 AM,Tutorial,BADS,BADS,T48,AAA,Dr. Anuradha Aggarwal,A1,web_app/classes_data.json
+WEB_02481,M.Com,Sem III,Sec A,Tuesday,9:30 AM to 10:30 AM,Tutorial,BADS,Business Analytics & Data Science,T48,AAA,Dr. Anuradha Aggarwal,A1,web_app/classes_data.json
 WEB_02482,M.Com,Sem III,Sec A,Tuesday,10:30 AM to 11:30 AM,Tutorial,SMM,Social Media Marketing,T50,RAS,Dr. Rutika Saini,A2,web_app/classes_data.json
 WEB_02483,M.Com,Sem III,Sec A,Tuesday,10:30 AM to 11:30 AM,Tutorial,SMM,Social Media Marketing,T7,SUY,Mr. Sudhanshu Yadav,A1,web_app/classes_data.json
 WEB_02484,M.Com,Sem III,Sec A,Tuesday,11:30 AM to 12:30 PM,Practical/Lab,MFD,Macro Financial Dynamics,T47,RPC,Ram Prakash (Cg6),,web_app/classes_data.json
@@ -2491,10 +2491,10 @@ WEB_02489,M.Com,Sem III,Sec A,Wednesday,8:30 AM to 9:30 AM,Practical/Lab,MFD,Mac
 WEB_02490,M.Com,Sem III,Sec A,Wednesday,10:30 AM to 11:30 AM,Tutorial,IBS,International Business Strategy,T25,MDH,Mr. Mohd. Hassan,,web_app/classes_data.json
 WEB_02491,M.Com,Sem III,Sec A,Wednesday,11:30 AM to 12:30 PM,Tutorial,BF,Behavioral Finance,T11,AYJ,Prof. Abhay Jain,,web_app/classes_data.json
 WEB_02492,M.Com,Sem III,Sec A,Wednesday,11:30 AM to 12:30 PM,Tutorial,BFIM,"Banking, Financial Institutions & Markets",T39,HHK,Mr. Harish Kumar,,web_app/classes_data.json
-WEB_02493,M.Com,Sem III,Sec A,Wednesday,12:30 PM to 1:30 PM,Tutorial,BADS,BADS,T48,AAA,Dr. Anuradha Aggarwal,A2,web_app/classes_data.json
+WEB_02493,M.Com,Sem III,Sec A,Wednesday,12:30 PM to 1:30 PM,Tutorial,BADS,Business Analytics & Data Science,T48,AAA,Dr. Anuradha Aggarwal,A2,web_app/classes_data.json
 WEB_02494,M.Com,Sem III,Sec A,Thursday,8:30 AM to 9:30 AM,Practical/Lab,TR,Tools for Research,T25,MKG,Mayank Goel (Cg34),,web_app/classes_data.json
 WEB_02495,M.Com,Sem III,Sec A,Thursday,10:30 AM to 11:30 AM,Practical/Lab,TA,Taxation & Accounting,T43,ALK,Mr. Anil Kumar,,web_app/classes_data.json
 WEB_02496,M.Com,Sem III,Sec A,Friday,8:30 AM to 9:30 AM,Tutorial,SM,Strategic Management,T35,MDH,Mr. Mohd. Hassan,,web_app/classes_data.json
 WEB_02497,M.Com,Sem III,Sec A,Friday,9:30 AM to 10:30 AM,Tutorial,PMEE,Principles of Microeconomics,T25,MDH,Mr. Mohd. Hassan,,web_app/classes_data.json
 WEB_02498,M.Com,Sem III,Sec A,Friday,11:30 AM to 12:30 PM,Practical/Lab,TA,Taxation & Accounting,T47,ALK,Mr. Anil Kumar,,web_app/classes_data.json
-WEB_02499,M.Com,Sem III,Sec A,Friday,12:30 PM to 1:30 PM,Tutorial,ITPD,ITPD,T35,SPB,Dr. Sapna Bansal,,web_app/classes_data.json
+WEB_02499,M.Com,Sem III,Sec A,Friday,12:30 PM to 1:30 PM,Tutorial,ITPD,IT for Professional Development,T35,SPB,Dr. Sapna Bansal,,web_app/classes_data.json

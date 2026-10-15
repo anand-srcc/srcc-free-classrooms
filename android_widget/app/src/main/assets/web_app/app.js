@@ -776,15 +776,25 @@ document.addEventListener('DOMContentLoaded', () => {
         bodyEl.appendChild(imgWrap);
       }
 
-      modal.style.display = 'flex';
+      if (typeof openAppModal === 'function') {
+        openAppModal(modal);
+      } else {
+        modal.style.display = 'flex';
+      }
     }
 
     const btnCloseStudentModal = document.getElementById('btnCloseStudentAttachmentModal');
     const studentModal = document.getElementById('studentAttachmentModal');
     if (btnCloseStudentModal && studentModal) {
-      btnCloseStudentModal.addEventListener('click', () => { studentModal.style.display = 'none'; });
+      btnCloseStudentModal.addEventListener('click', () => {
+        if (typeof closeAppModal === 'function') closeAppModal(studentModal);
+        else studentModal.style.display = 'none';
+      });
       studentModal.addEventListener('click', (e) => {
-        if (e.target === studentModal) studentModal.style.display = 'none';
+        if (e.target === studentModal) {
+          if (typeof closeAppModal === 'function') closeAppModal(studentModal);
+          else studentModal.style.display = 'none';
+        }
       });
     }
 
@@ -1333,9 +1343,81 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ========================================================================
+    // 📱 MOBILE NAVIGATION & MODAL MANAGEMENT HELPERS
+    // ========================================================================
+    function updateBottomNavActiveState() {
+      const isRoomsStandard = (state.activeMode === 'rooms') && !state.freeNowActive;
+      if (bnavRooms) bnavRooms.classList.toggle('active', isRoomsStandard);
+      if (bnavFaculty) bnavFaculty.classList.toggle('active', state.activeMode === 'faculty');
+      if (bnavTimetable) bnavTimetable.classList.toggle('active', state.activeMode === 'timetable');
+      if (bnavFreeNow) bnavFreeNow.classList.toggle('active', state.activeMode === 'rooms' && state.freeNowActive);
+      if (bnavWifi) bnavWifi.classList.remove('active');
+    }
+    window._updateBottomNavActiveState = updateBottomNavActiveState;
+
+    let _modalHistoryDepth = 0;
+    let _lastPopStateTime = 0;
+
+    function getCurrentlyOpenModal() {
+      const popups = [
+        document.getElementById('scheduleModal'),
+        document.getElementById('teacherModal'),
+        document.getElementById('wifiModal'),
+        document.getElementById('leaveManagerModal'),
+        document.getElementById('reportIssueModal'),
+        document.getElementById('widgetModal'),
+        document.getElementById('facultyEmailModal'),
+        document.getElementById('shareModal'),
+        document.getElementById('calendarReminderModal'),
+        document.getElementById('studentAttachmentModal'),
+        document.getElementById('pwaInstallModal')
+      ];
+      return popups.find(m => m && (m.style.display === 'flex' || m.style.display === 'block'));
+    }
+
+    function closeAllPopups(options = {}) {
+      const popups = [
+        document.getElementById('wifiModal'),
+        document.getElementById('facultyEmailModal'),
+        document.getElementById('scheduleModal'),
+        document.getElementById('teacherModal'),
+        document.getElementById('shareModal'),
+        document.getElementById('calendarReminderModal'),
+        document.getElementById('studentAttachmentModal'),
+        document.getElementById('leaveManagerModal'),
+        document.getElementById('reportIssueModal'),
+        document.getElementById('widgetModal'),
+        document.getElementById('pwaInstallModal')
+      ];
+      popups.forEach(m => {
+        if (m) m.style.display = 'none';
+      });
+      document.body.classList.remove('modal-open');
+      document.body.classList.remove('print-room-modal-active');
+      document.body.classList.remove('print-teacher-modal-active');
+      updateBottomNavActiveState();
+      if (!options.fromPopState) {
+        _modalHistoryDepth = 0;
+      }
+    }
+    window._closeAllPopups = closeAllPopups;
+
+    // ========================================================================
     // 🔀 MULTI-MODE SWITCHING (ROOMS ⇄ FACULTY ⇄ TIMETABLE)
     // ========================================================================
-    function setAppMode(mode, preserveFilters = false) {
+    function setAppMode(mode, preserveFilters = false, options = {}) {
+      const isBackNav = Boolean(options && options.isBackNav);
+      const isInitial = Boolean(options && options.isInitial);
+      const replace = Boolean(options && options.replace);
+
+      // If already in this mode and not a back nav, scroll to top and return
+      if (state.activeMode === mode && !isBackNav && !options.force) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
+      // Dismiss any open popups/modals whenever navigating or switching tabs
+      closeAllPopups({ fromPopState: isBackNav });
       if (mode === 'leaves') {
         openFacultyLeavesView();
         return;
@@ -1346,6 +1428,22 @@ document.addEventListener('DOMContentLoaded', () => {
       const isTimetable = (mode === 'timetable');
       const isDirectory = (mode === 'directory');
       const isWifi = (mode === 'wifi');
+
+      // Update browser history & URL hash for smooth mobile back navigation
+      const targetHash = '#' + mode;
+      const stateObj = { type: 'tab', mode: mode };
+
+      if (replace || isInitial) {
+        try {
+          window.history.replaceState(stateObj, '', targetHash);
+        } catch (e) {}
+      } else if (!isBackNav) {
+        if (window.location.hash !== targetHash) {
+          try {
+            window.history.pushState(stateObj, '', targetHash);
+          } catch (e) {}
+        }
+      }
 
       const tabModeWifi = document.getElementById('tabModeWifi');
       const viewWifiSection = document.getElementById('viewWifiSection');
@@ -1456,6 +1554,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+    window.setAppMode = setAppMode;
 
     if (tabModeRooms) tabModeRooms.addEventListener('click', () => setAppMode('rooms'));
     if (tabModeFaculty) tabModeFaculty.addEventListener('click', () => setAppMode('faculty'));
@@ -1464,24 +1563,44 @@ document.addEventListener('DOMContentLoaded', () => {
     if (tabModeWifiBtn) tabModeWifiBtn.addEventListener('click', () => setAppMode('wifi'));
     if (bnavRooms) {
       bnavRooms.addEventListener('click', () => {
+        closeAllPopups();
         if (state.freeNowActive) {
           setFreeNowState(false);
         }
         setAppMode('rooms');
       });
     }
-    if (bnavFaculty) bnavFaculty.addEventListener('click', () => setAppMode('faculty'));
-    if (bnavTimetable) bnavTimetable.addEventListener('click', () => setAppMode('timetable'));
+    if (bnavFaculty) {
+      bnavFaculty.addEventListener('click', () => {
+        closeAllPopups();
+        setAppMode('faculty');
+      });
+    }
+    if (bnavTimetable) {
+      bnavTimetable.addEventListener('click', () => {
+        closeAllPopups();
+        setAppMode('timetable');
+      });
+    }
     if (bnavWifi) {
-      bnavWifi.addEventListener('click', () => {
-        const btnOpenHeader = document.getElementById('btnOpenWifiModal');
-        if (btnOpenHeader) {
-          btnOpenHeader.click();
+      bnavWifi.addEventListener('click', (e) => {
+        e.preventDefault();
+        const wifiModal = document.getElementById('wifiModal');
+        if (wifiModal && wifiModal.style.display === 'flex') {
+          if (typeof window._closeWifiModal === 'function') {
+            window._closeWifiModal();
+          } else {
+            wifiModal.style.display = 'none';
+            document.body.classList.remove('modal-open');
+            updateBottomNavActiveState();
+          }
         } else {
-          const wifiModal = document.getElementById('wifiModal');
-          if (wifiModal) {
-            wifiModal.style.display = 'flex';
-            if (typeof window._renderWifiDirectory === 'function') window._renderWifiDirectory('wifiModalGrid');
+          if (typeof window._openWifiModal === 'function') {
+            window._openWifiModal();
+          } else {
+            const btnOpenHeader = document.getElementById('btnOpenWifiModal');
+            if (btnOpenHeader) btnOpenHeader.click();
+            else if (wifiModal) wifiModal.style.display = 'flex';
           }
         }
       });
@@ -1653,6 +1772,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (bnavFreeNow) {
       bnavFreeNow.addEventListener('click', () => {
+        closeAllPopups();
         if (state.activeMode !== 'rooms') {
           setAppMode('rooms', true);
           setFreeNowState(true);
@@ -1740,7 +1860,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Modal Helpers with Mobile Scroll Lock (body.modal-open) & Print Context Tracker
-    function openAppModal(modalEl) {
+    function openAppModal(modalEl, options = {}) {
       if (!modalEl) return;
       modalEl.style.display = 'flex';
       document.body.classList.add('modal-open');
@@ -1751,9 +1871,37 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.add('print-teacher-modal-active');
         document.body.classList.remove('print-room-modal-active');
       }
-    }
 
-    function closeAppModal(modalEl) {
+      // History Management: Push modal state so mobile back button closes the modal cleanly!
+      if (!options.fromPopState && !options.noHistory) {
+        let modalHash = '#' + (modalEl.id || 'modal');
+        if (modalEl === scheduleModal && currentModalRoomCode) {
+          modalHash = '#room-' + encodeURIComponent(currentModalRoomCode);
+        } else if (modalEl === teacherModal && facultyState.modalActiveTeacher) {
+          modalHash = '#faculty-' + encodeURIComponent(facultyState.modalActiveTeacher.id || facultyState.modalActiveTeacher.clean_name);
+        } else if (modalEl.id === 'wifiModal') {
+          modalHash = '#wifi';
+        }
+
+        const stateObj = {
+          type: 'modal',
+          modalId: modalEl.id,
+          roomCode: currentModalRoomCode || null,
+          teacherId: facultyState?.modalActiveTeacher?.id || null,
+          mode: state.activeMode
+        };
+
+        if (window.location.hash !== modalHash) {
+          try {
+            window.history.pushState(stateObj, '', modalHash);
+            _modalHistoryDepth++;
+          } catch (e) {}
+        }
+      }
+    }
+    window.openAppModal = openAppModal;
+
+    function closeAppModal(modalEl, options = {}) {
       if (!modalEl) return;
       modalEl.style.display = 'none';
       if (modalEl === scheduleModal) {
@@ -1761,13 +1909,37 @@ document.addEventListener('DOMContentLoaded', () => {
       } else if (modalEl === teacherModal) {
         document.body.classList.remove('print-teacher-modal-active');
       }
-      const anyOpen = [scheduleModal, shareModal, teacherModal, leaveManagerModal, reportIssueModal].some(m => m && m.style.display === 'flex');
+      const anyOpen = [
+        scheduleModal, shareModal, teacherModal, leaveManagerModal,
+        reportIssueModal, document.getElementById('facultyEmailModal'),
+        document.getElementById('wifiModal'), widgetModal, installModal,
+        document.getElementById('calendarReminderModal'),
+        document.getElementById('studentAttachmentModal')
+      ].some(m => m && (m.style.display === 'flex' || m.style.display === 'block'));
+
       if (!anyOpen) {
         document.body.classList.remove('modal-open');
         document.body.classList.remove('print-room-modal-active');
         document.body.classList.remove('print-teacher-modal-active');
       }
+
+      // If user closed modal via UI ('X' button or backdrop) and we pushed history for it, pop via history.back()
+      if (!options.fromPopState && _modalHistoryDepth > 0) {
+        _modalHistoryDepth--;
+        try {
+          window.history.back();
+        } catch (e) {}
+      } else if (!options.fromPopState && _modalHistoryDepth === 0) {
+        // Direct link or initial load: restore clean tab hash without exiting site
+        const tabHash = '#' + (state.activeMode || 'rooms');
+        if (window.location.hash !== tabHash) {
+          try {
+            window.history.replaceState({ type: 'tab', mode: state.activeMode || 'rooms' }, '', tabHash);
+          } catch (e) {}
+        }
+      }
     }
+    window.closeAppModal = closeAppModal;
 
     // Modal Close Handlers
     if (btnModalClose) btnModalClose.addEventListener('click', () => { closeAppModal(scheduleModal); });
@@ -4489,11 +4661,11 @@ ${directRoomUrl}`;
                     ${(sec || batch) ? `<span style="opacity: 0.8; font-size: 0.7rem; margin-left: 4px;">[${sec ? escapeHtml(sec) : ''}${batch ? ` · ${escapeHtml(batch)}` : ''}]</span>` : ''}
                   </span>
                 </div>
-                ${roomCode !== 'TBD' ? `
+                ${(roomCode && roomCode !== 'TBD' && roomCode !== 'TBA') ? `
                   <button class="room-badge-link" data-room="${escapeHtml(getTargetRoomJumpCode(roomCode))}" title="Jump to Room ${escapeHtml(getTargetRoomJumpCode(roomCode))} in Free Classroom Finder">
                     🏛️ ${escapeHtml(getDisplayRoomName(roomCode))} ↗
                   </button>
-                ` : `<span style="font-size: 0.72rem; color: var(--text-muted);">No Room</span>`}
+                ` : `<span class="room-pill-tba" title="Room not specified in official college timetable">🏛️ Room TBA</span>`}
               </div>
             `;
           }).join('');
@@ -4720,148 +4892,177 @@ ${directRoomUrl}`;
     // 📚 COMPREHENSIVE SRCC & DU SUBJECT ABBREVIATIONS TO FULL NAMES MAP
     // ========================================================================
     const SRCC_SUBJECT_MAP = {
+      // Core B.Com (Hons) DSC / DSE
       'BLAW': 'Business Law',
       'FA': 'Financial Accounting',
-      'MPA': 'Management Principles & Applications',
+      'MPA': 'Management Principles and Applications',
       'BECON': 'Business Economics',
       'POM': 'Principles of Marketing',
-      'AUD': 'Auditing & Corporate Governance',
-      'FMI': 'Financial Markets & Institutions',
+      'AUD': 'Auditing and Corporate Governance',
+      'FMI': 'Financial Markets and Institutions',
       'EOE': 'Principles of Microeconomics',
       'EoE': 'Principles of Microeconomics',
       'EoE1': 'Principles of Microeconomics I',
       'BMATH': 'Business Mathematics',
-      'ITLP': 'Income Tax Law & Practice',
+      'ITLP': 'Income Tax Law and Practice',
       'MA': 'Management Accounting',
       'ED': 'Entrepreneurship Development',
-      'MB': 'Money & Banking',
+      'MB': 'Money and Banking',
       'FM': 'Financial Management',
       'EVS': 'Environmental Studies',
-      'EVS-I': 'Environmental Studies I (Theory into Practice)',
-      'EVS-II': 'Environmental Studies II (Theory into Practice)',
+      'EVS-I': 'Environmental Science: Theory into Practice-I',
+      'EVS-II': 'Environmental Science: Theory into Practice-II',
       'PME-I': 'Principles of Microeconomics I',
       'PME': 'Principles of Microeconomics',
       'PMEE': 'Principles of Microeconomics',
+      'BRM': 'Brand Management',
+      'CAS': 'Computerized Accounting System',
+      'CFD': 'Corporate Financial Decisions',
+      'CFCR': 'Corporate Finance & Restructuring',
+      'DnD': 'Digitalisation and Development',
+      'IF': 'International Finance',
+      'ODI': 'Organisational Dynamics & Intervention',
+      'OB': 'Organisational Behaviour',
+      'PAB': 'Public Administration and Business',
 
+      // Core B.A. (Hons) Economics DSC / DSE
+      'IM': 'Introductory Microeconomics',
+      'IME': 'Introductory Microeconomics',
+      'Intro Micro': 'Introductory Microeconomics',
       'Intro MME': 'Introductory Mathematical Methods for Economics',
       'Adv MME': 'Advanced Mathematical Methods for Economics',
       'IMA I': 'Intermediate Macroeconomics I',
-      'IMIC1': 'Intermediate Microeconomics I',
+      'IMIC1': 'Intermediate Microeconomics 1',
       'ISME': 'Introductory Statistics for Economics',
-      'DE': 'Development Economics',
+      'DE': 'Differential Equations',
       'EHI': 'Economic History of India',
       'IDE': 'Issues in Development Economics',
-      'GT': 'Game Theory',
+      'GT': 'Game Theory and Strategic Interactions',
       'PE': 'Political Economy',
       'PM': 'Project Management',
       'RM': 'Research Methodology',
       'GBS': 'Global Business Strategy',
       'OEM': 'Open Elective Management',
       'AdTrix': 'Advanced Econometrics',
-      'IIPT': 'Indian Political Thought',
-      'NL': 'Nationalism in India',
-      'NII': 'Nationalism & Indian Identity',
-      'UIR': 'Understanding International Relations',
-      'GIC': 'Global Institutions & Commerce',
-      'IGT': 'Interactive Game Theory',
-      'IMC': 'Integrated Marketing Communication',
-      'IST': 'Information Systems & Technology',
-      'RIDL': 'Readings in Indian Democratic Literature',
 
-      'AS': 'Applied Statistics',
-      'BIT': 'Business Information Technologies',
-      'ITSA I': 'Introduction to Statistics & Analysis I',
-      'ITSA II': 'Introduction to Statistics & Analysis II',
-      'BIDV': 'Business Intelligence & Data Visualization',
-      'BADS': 'Business Analytics & Data Science',
-      'BDE': 'Business Data Ecosystem',
-      'DEC': 'Digital Economy & E-Commerce',
-      'EC': 'E-Commerce',
-      'ECom': 'E-Commerce',
-      'DA': 'Data Analysis',
-      'DM': 'Digital Marketing',
-      'DMS': 'Database Management Systems',
-      'CAS': 'Computerized Accounting System',
-      'CFD': 'Corporate Financial Decisions',
-      'CFCR': 'Corporate Finance & Restructuring',
-      'CIEL': 'Communication in Everyday Life',
-      'CPL': 'Communication in Professional Life',
-      'CVFD': 'Constitutional Values and Fundamental Duties',
-      'DnD': 'Digitalization and Development',
-      'EI': 'Economics of Industry',
-      'EP': 'Economic Policy',
-      'FC': 'Finance for Everyone',
+      // Generic Electives (GE) across B.Com & Eco Hons
       'FOC': 'Fundamentals of Computing',
-      'FP': 'Financial Planning',
-      'PFP': 'Personal Financial Planning',
-      'GF': 'Global Finance',
-      'IF': 'International Finance',
-      'IE': 'International Economics',
-      'IBS': 'International Business Strategy',
-      'IM': 'International Marketing',
-      'ISM': 'Information Systems Management',
-      'ITL': 'Income Tax Law',
-      'ITPD': 'IT for Professional Development',
-      'ME': 'Managerial Economics',
+      'AFE': 'Accounting for Everyone',
       'MFB': 'Marketing for Beginners',
-      'MFD': 'Macro Financial Dynamics',
+      'ISM': 'Information Systems Management',
+      'BDE': 'Basic Development Economics',
+      'DEC': 'Delhi through the Ages',
+      'FC': 'Fundamentals of Calculus',
+      'DMS': 'Database Management Systems',
+      'ECom': 'E-Commerce',
+      'GF': 'Genre Fiction',
+      'RIDL': 'Readings in Indian Democratic Literature',
       'NM': 'Numerical Methods',
-      'OB': 'Organizational Behavior',
-      'ODI': 'Organizational Dynamics & Intervention',
-      'OE': 'Open Elective',
+      'OS': 'Operating Systems',
       'OOPUP': 'Programming Using Python',
       'OPUP': 'Programming Using Python',
       'PUP': 'Programming Using Python',
-      'OS': 'Operating Systems',
-      'PAB': 'Public Administration & Business',
-      'PSEL': 'Professional Skills in English Language',
-      'PSELL': 'Professional Skills in English Language',
-      'RIFE': 'Reading Indian Fiction in English',
-      'SET': 'Statistical Economics & Techniques',
-      'SHRM': 'Strategic Human Resource Management',
-      'SM': 'Strategic Management',
-      'SMM': 'Social Media Marketing',
-      'SRG': 'Social Responsibility & Governance',
-      'SWR': 'Statistics with R',
-      'TA': 'Taxation & Accounting',
-      'TGNLC': 'The Gita for Navigating Life Challenges',
+      'IIPT': 'Indian Political Thought',
+      'NII': 'Nationalism in India',
+      'UIR': 'Understanding International Relations',
+      'GIC': 'Global Institutions and Commerce',
+      'IGT': 'Interactive Game Theory',
+      'IMC': 'Integrated Marketing Communication',
+      'IST': 'Introduction to Sports Training',
+      'OE': 'Open Elective (Physical Education)',
       'TPF': 'Theory of Public Finance',
-      'TR': 'Tools for Research',
-      'VAC SEL': 'Value Addition Course Elective',
-      'VM I': 'Vedic Mathematics I',
-      'VM II': 'Vedic Mathematics II',
-      'VM III': 'Vedic Mathematics III',
-      'WM': 'Wealth Management',
+      'HFPE': 'Health, Fitness & Physical Education',
+
+      // Skill Enhancement Courses (SEC)
+      'AS': 'Advanced Spreadsheet',
+      'BIT': 'Basic IT Tools',
+      'ITSA I': 'IT Skills and Data Analysis I',
+      'ITSA II': 'IT Skills and Data Analysis II',
+      'BIDV': 'Business Intelligence and Data Visualisation',
+      'CIEL': 'Communication in Everyday Life',
+      'CPL': 'Communication in Professional Life',
+      'CW': 'Creative Writing',
+      'DM': 'Digital Marketing',
+      'EP': 'Essentials of Python',
+      'IE': 'Innovation and Entrepreneurship',
+      'NL': 'Negotiation and Leadership',
+      'PFP': 'Personal Financial Planning',
+      'PSEL': 'Public Speaking in English Language and Leadership',
+      'PSELL': 'Public Speaking in English Language and Leadership',
+      'SET': 'Sustainable Eco Tourism and Entrepreneurship',
+      'SMM': 'Social Media Marketing',
+      'SRG': 'Sustainability Reporting',
+      'SWR': 'Statistics with R',
+
+      // Value Addition Courses (VAC)
+      'ABH': 'The Art of Being Happy',
+      'CVFD': 'Constitutional Values and Fundamental Duties',
+      'EC': 'Ethics and Culture',
+      'EI': 'Emotional Intelligence',
+      'RIFE': 'Reading Indian Fiction in English',
+      'TGNLC': 'The Gita: Navigating Life Challenges',
+      'VAC SEL': 'Social and Emotional Learning',
+      'SEL': 'Social and Emotional Learning',
+      'VM I': 'Vedic Mathematics-I',
+      'VM II': 'Vedic Mathematics-II',
+      'VM III': 'Vedic Mathematics-III',
+
+      // M.Com Courses
+      'ACPA': 'Advanced Cost and Performance Analysis',
+      'ACR': 'Accounting for Corporate Restructuring',
+      'AIS': 'Accounting Information Systems',
+      'BADS': 'Business Analytics & Data Science',
       'BF': 'Behavioral Finance',
       'BFIM': 'Banking, Financial Institutions & Markets',
       'BM': 'Business Management',
-      'BRM': 'Brand Management',
       'BSC': 'Business Communication',
-      'CW': 'Creative Writing',
+      'DA': 'Data Analysis',
       'DTHRS': 'Design Thinking & HR Systems',
-      'HFPE': 'Health, Fitness & Physical Education',
+      'FP': 'Financial Planning',
+      'IBS': 'International Business Strategy',
+      'ITL': 'Income Tax Law',
+      'ITPD': 'IT for Professional Development',
+      'ME': 'Managerial Economics',
+      'MFD': 'Macro Financial Dynamics',
+      'SHRM': 'Strategic Human Resource Management',
+      'SM': 'Strategic Management',
+      'TA': 'Taxation & Accounting',
+      'TR': 'Tools for Research',
+      'WM': 'Wealth Management',
+
+      // AEC / Languages
       'HA': 'Hindi Cinema aur Uska Adhyayan (Hindi A)',
-      'HB': 'Hindi Gadhya (Hindi B)',
+      'HB': 'Hindi-B',
+      'H B': 'Hindi-B',
       'HC': 'Hindi Bhasha aur Sahitya (Hindi C)',
       'HD': 'Hindi Gadhy: Udbhav aur Vikas (Hindi D)',
       'HE': 'Hindi Sahitya (Hindi E)',
-      'H B': 'Hindi B',
-      'ABH': 'The Art of Being Happy',
-      'ACPA': 'Advanced Cost and Performance Analysis',
-      'ACR': 'Accounting for Corporate Restructuring',
-      'AFE': 'Accounting for Everyone',
-      'AIS': 'Accounting Information Systems',
       'English': 'English'
     };
 
-    function getSubjectDetails(code, givenFullName, isVac) {
+    function getSubjectDetails(code, givenFullName, isVac, deptOrRaw) {
       const cleanCode = (code || '').trim();
       let fullName = (givenFullName || '').trim();
-      if (isVac) {
+      const rawUpper = (deptOrRaw || '').toUpperCase();
+
+      if (isVac || rawUpper.includes('VAC')) {
         if (cleanCode === 'DE') fullName = 'Digital Empowerment';
         else if (cleanCode === 'EC') fullName = 'Ethics and Culture';
         else if (cleanCode === 'EI') fullName = 'Emotional Intelligence';
         else if (cleanCode === 'FC') fullName = 'Financial Literacy';
+      } else {
+        if (cleanCode === 'DE' && (rawUpper.includes('MATH') || !fullName || fullName === 'DE' || fullName === 'Digital Empowerment' || fullName === 'Development Economics')) {
+          fullName = 'Differential Equations';
+        }
+      }
+      if (cleanCode === 'GF' && (rawUpper.includes('ENGLISH') || !fullName || fullName === 'GF' || fullName === 'Global Finance')) {
+        fullName = 'Genre Fiction';
+      }
+      if (cleanCode === 'IST' && (rawUpper.includes('PHY.ED') || rawUpper.includes('PLAYGROUND') || rawUpper.includes('SCR1') || !fullName || fullName === 'IST' || fullName === 'Information Systems and Technology')) {
+        fullName = 'Introduction to Sports Training';
+      }
+      if (cleanCode === 'R4' || (rawUpper.includes('ENGLISH') && rawUpper.includes('R4'))) {
+        fullName = 'Readings in Indian Democratic Literature';
       }
       if (!fullName || fullName.toLowerCase() === cleanCode.toLowerCase() ||
           fullName === 'Business Research Management' || fullName === 'Corporate Valuation & Financial Decisions' ||
@@ -4873,11 +5074,12 @@ ${directRoomUrl}`;
           fullName === 'Banking & Finance' || fullName === 'Banking & Financial Institutions Management' ||
           fullName === 'Anuvad: Vyavahar aur Siddhant' || fullName === 'Accounting & Auditing' ||
           fullName === 'Academic & Creative Research' || fullName === 'Accounting for Financial Entities' ||
-          fullName === 'English Literature') {
+          fullName === 'English Literature' || fullName === 'GE' || fullName === 'R4' ||
+          fullName === 'Business Data Ecosystem' || fullName === 'Digital Economy & E-Commerce') {
         fullName = SRCC_SUBJECT_MAP[cleanCode] || SRCC_SUBJECT_MAP[cleanCode.toUpperCase()] || fullName || cleanCode;
       }
       return {
-        code: cleanCode,
+        code: (cleanCode === 'R4' ? 'RIDL' : cleanCode),
         fullName: fullName || cleanCode || 'Subject',
         hasFull: Boolean(fullName && fullName.toLowerCase() !== cleanCode.toLowerCase())
       };
@@ -4902,7 +5104,7 @@ ${directRoomUrl}`;
 
         if (classItem) {
           const leave = isTeacherOnLeave(t);
-          const subjInfo = getSubjectDetails(classItem.subject, classItem.subject_name);
+          const subjInfo = getSubjectDetails(classItem.subject, classItem.subject_name, classItem.course === 'VAC', classItem.raw || classItem.dept || classItem.course);
           matches.push({
             teacher: t,
             classInfo: classItem,
@@ -5444,11 +5646,11 @@ ${directRoomUrl}`;
             </div>
             <div class="m-tt-meta-row" style="display: flex; justify-content: flex-end; align-items: center;">
               <div>
-                ${roomCode !== 'TBD' ? `
+                ${(roomCode && roomCode !== 'TBD' && roomCode !== 'TBA') ? `
                   <button class="m-tt-room-btn modal-room-jump" data-room="${escapeHtml(getTargetRoomJumpCode(roomCode))}" title="View room in Free Classroom Finder">
                     🏛️ Room ${escapeHtml(getDisplayRoomName(roomCode))} ↗
                   </button>
-                ` : `<span style="color: var(--text-muted); font-size: 0.78rem;">Room TBD</span>`}
+                ` : `<span class="room-pill-tba" title="Room not specified in official college timetable">🏛️ Room TBA</span>`}
               </div>
             </div>
           </div>
@@ -5647,7 +5849,7 @@ ${directRoomUrl}`;
       }
 
       renderActiveLeavesList();
-      if (leaveManagerModal) leaveManagerModal.style.display = 'flex';
+      if (leaveManagerModal) openAppModal(leaveManagerModal);
     }
 
     if (btnOpenLeaveManager) {
@@ -6837,9 +7039,10 @@ window.SRCC_FACULTY_LEAVES = {
 
         const targetRoom = getTargetRoomJumpCode(session.room);
         const displayRoom = getDisplayRoomName(session.room);
-        const roomButtonHtml = session.room 
+        const isRoomTba = !session.room || session.room.toUpperCase() === 'TBA' || session.room_tba || session.room === 'TBD';
+        const roomButtonHtml = !isRoomTba 
           ? `<button type="button" class="room-badge-link tt-room-btn btn-jump-room" data-room="${escapeHtml(targetRoom)}" title="Click to view room in campus room finder">🏛️ ${escapeHtml(displayRoom)} <span class="tt-room-arrow">↗</span></button>` 
-          : `<span style="font-size: 0.8rem; color: var(--text-muted);">Room TBD</span>`;
+          : `<span class="room-pill-tba" title="Room not specified in official college timetable">🏛️ Room TBA</span>`;
 
         const leaveCardCls = session.isOnLeave ? ' is-faculty-leave' : '';
         const displaySubject = session.subjectName || session.subject || 'Subject';
@@ -8375,7 +8578,7 @@ window.SRCC_FACULTY_LEAVES = {
     // 🔗 URL DEEP-LINKING & HASH NAVIGATION HANDLER
     // Supports: ?room=R2, #room=R2, #R2, ?faculty=Name, #faculty=..., ?tab=..., #timetable, #wifi
     // ========================================================================
-    function handleUrlDeepLinks() {
+    function handleUrlDeepLinks(options = {}) {
       try {
         const searchParams = new URLSearchParams(window.location.search);
         const hash = window.location.hash || '';
@@ -8402,7 +8605,7 @@ window.SRCC_FACULTY_LEAVES = {
             return c === rawCode || c === `R${rawCode}` || rawCode === `R${c}`;
           });
           if (found) {
-            setAppMode('rooms', true);
+            setAppMode('rooms', true, { isInitial: options.isInitial });
             state.activeCategory = 'ALL';
             state.searchQuery = found.code;
             if (searchInput) searchInput.value = found.code;
@@ -8429,7 +8632,7 @@ window.SRCC_FACULTY_LEAVES = {
 
           // Direct Faculty List tab link (?faculty=all or ?faculty=list)
           if (query === 'all' || query === 'list') {
-            setAppMode('faculty', true);
+            setAppMode('faculty', true, { isInitial: options.isInitial });
             renderFaculty();
             return;
           }
@@ -8455,7 +8658,7 @@ window.SRCC_FACULTY_LEAVES = {
             });
 
             if (matchedTeacher) {
-              setAppMode('faculty', true);
+              setAppMode('faculty', true, { isInitial: options.isInitial });
               if (facultySearchInput) facultySearchInput.value = matchedTeacher.clean_name;
               renderFaculty();
               setTimeout(() => {
@@ -8464,7 +8667,7 @@ window.SRCC_FACULTY_LEAVES = {
               }, 250);
               return;
             } else {
-              setAppMode('faculty', true);
+              setAppMode('faculty', true, { isInitial: options.isInitial });
               if (facultySearchInput) facultySearchInput.value = rawQuery;
               facultyState.searchQuery = rawQuery;
               renderFaculty();
@@ -8476,17 +8679,78 @@ window.SRCC_FACULTY_LEAVES = {
         // 3. Tab deep link: ?tab=timetable | ?tab=wifi | ?tab=rooms | ?tab=faculty or #timetable etc.
         const tabParam = searchParams.get('tab') || '';
         if (tabParam === 'timetable' || hash.includes('#timetable')) {
-          setAppMode('timetable');
+          setAppMode('timetable', false, { isInitial: options.isInitial });
         } else if (tabParam === 'wifi' || hash.includes('#wifi')) {
-          setAppMode('wifi');
+          setAppMode('wifi', false, { isInitial: options.isInitial });
         } else if (tabParam === 'faculty' || hash.includes('#faculty')) {
-          setAppMode('faculty');
+          setAppMode('faculty', false, { isInitial: options.isInitial });
         } else if (searchParams.get('free') === '1' || searchParams.get('freenow') === '1' || hash.includes('#freenow')) {
-          setAppMode('rooms', true);
+          setAppMode('rooms', true, { isInitial: options.isInitial });
           setFreeNowState(true);
+        } else if (tabParam === 'rooms' || hash.includes('#rooms') || (!hash && !roomParam && !facultyParam)) {
+          setAppMode('rooms', true, { isInitial: options.isInitial, replace: true });
         }
       } catch (e) {
         console.warn('URL deep link handler note:', e);
+      }
+    }
+
+    // ========================================================================
+    // 📱 MOBILE SYSTEM BACK BUTTON & HISTORY POPSTATE HANDLER
+    // Ensures mobile gesture / hardware back button navigates to previous tab
+    // or closes open modal/drawer instead of exiting the entire website!
+    // ========================================================================
+    function handlePopState(e) {
+      _lastPopStateTime = Date.now();
+      const openModal = getCurrentlyOpenModal();
+      const stateObj = e && e.state;
+
+      // 1. If any modal is currently open in DOM:
+      if (openModal) {
+        if (!stateObj || stateObj.type !== 'modal' || stateObj.modalId !== openModal.id) {
+          closeAppModal(openModal, { fromPopState: true });
+          _modalHistoryDepth = Math.max(0, _modalHistoryDepth - 1);
+
+          // If the state we popped to is another modal (e.g. going back from teacher modal to room modal)
+          if (stateObj && stateObj.type === 'modal' && stateObj.modalId) {
+            if (stateObj.modalId === 'scheduleModal' && stateObj.roomCode) {
+              openScheduleModal(stateObj.roomCode);
+            } else if (stateObj.modalId === 'teacherModal' && stateObj.teacherId) {
+              openTeacherModal(stateObj.teacherId);
+            } else {
+              const targetModal = document.getElementById(stateObj.modalId);
+              if (targetModal) openAppModal(targetModal, { fromPopState: true });
+            }
+            return;
+          }
+
+          if (stateObj && stateObj.mode && stateObj.mode !== state.activeMode) {
+            setAppMode(stateObj.mode, true, { isBackNav: true });
+          }
+          return;
+        }
+      }
+
+      // 2. Tab Navigation from state object
+      if (stateObj && stateObj.mode) {
+        if (stateObj.mode !== state.activeMode) {
+          setAppMode(stateObj.mode, true, { isBackNav: true });
+        }
+        return;
+      }
+
+      // 3. Fallback based on URL hash
+      const rawHash = (window.location.hash || '').toLowerCase();
+      if (rawHash.includes('#faculty')) {
+        if (state.activeMode !== 'faculty') setAppMode('faculty', true, { isBackNav: true });
+      } else if (rawHash.includes('#timetable')) {
+        if (state.activeMode !== 'timetable') setAppMode('timetable', true, { isBackNav: true });
+      } else if (rawHash.includes('#wifi')) {
+        if (state.activeMode !== 'wifi') setAppMode('wifi', true, { isBackNav: true });
+      } else if (rawHash === '' || rawHash === '#' || rawHash.includes('#rooms')) {
+        if (state.activeMode !== 'rooms') setAppMode('rooms', true, { isBackNav: true });
+      } else {
+        handleUrlDeepLinks({ fromPopState: true });
       }
     }
 
@@ -8668,23 +8932,59 @@ window.SRCC_FACULTY_LEAVES = {
         });
       };
 
+      // Coordinated WiFi Modal Open / Close Handlers
+      function openWifiModal(options = {}) {
+        if (typeof window._closeAllPopups === 'function') {
+          window._closeAllPopups({ noHistory: true });
+        }
+        if (!wifiModal) return;
+        openAppModal(wifiModal, options);
+        window._renderWifiDirectory('wifiModalGrid', '', currentModalBand);
+        const bnavWifi = document.getElementById('bnavWifi');
+        const bnavRooms = document.getElementById('bnavRooms');
+        const bnavFaculty = document.getElementById('bnavFaculty');
+        const bnavTimetable = document.getElementById('bnavTimetable');
+        const bnavFreeNow = document.getElementById('bnavFreeNow');
+        if (bnavRooms) bnavRooms.classList.remove('active');
+        if (bnavFaculty) bnavFaculty.classList.remove('active');
+        if (bnavTimetable) bnavTimetable.classList.remove('active');
+        if (bnavFreeNow) bnavFreeNow.classList.remove('active');
+        if (bnavWifi) bnavWifi.classList.add('active');
+      }
+      window._openWifiModal = openWifiModal;
+
+      function closeWifiModal(options = {}) {
+        if (!wifiModal) return;
+        closeAppModal(wifiModal, options);
+        if (typeof window._updateBottomNavActiveState === 'function') {
+          window._updateBottomNavActiveState();
+        }
+      }
+      window._closeWifiModal = closeWifiModal;
+
       // Header button
       if (btnOpenHeader && wifiModal) {
-        btnOpenHeader.addEventListener('click', () => {
-          wifiModal.style.display = 'flex';
-          window._renderWifiDirectory('wifiModalGrid', '', currentModalBand);
+        btnOpenHeader.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (wifiModal.style.display === 'flex') {
+            closeWifiModal();
+          } else {
+            openWifiModal();
+          }
         });
       }
 
       if (btnCloseModal && wifiModal) {
         btnCloseModal.addEventListener('click', () => {
-          wifiModal.style.display = 'none';
+          closeWifiModal();
         });
       }
 
       if (wifiModal) {
         wifiModal.addEventListener('click', (e) => {
-          if (e.target === wifiModal) wifiModal.style.display = 'none';
+          if (e.target === wifiModal) {
+            closeWifiModal();
+          }
         });
       }
 
@@ -8736,9 +9036,18 @@ window.SRCC_FACULTY_LEAVES = {
     initLeaveNotificationSystem();
     initDeviceWakeupListeners();
     initOfflineDetection();
-    handleUrlDeepLinks();
-    window.addEventListener('hashchange', () => handleUrlDeepLinks());
-    window.addEventListener('popstate', () => handleUrlDeepLinks());
+    handleUrlDeepLinks({ isInitial: true });
+    try {
+      const initMode = state.activeMode || 'rooms';
+      const initHash = window.location.hash || ('#' + initMode);
+      window.history.replaceState({ type: 'tab', mode: initMode, isBase: true }, '', initHash);
+    } catch (e) {}
+
+    window.addEventListener('popstate', (e) => handlePopState(e));
+    window.addEventListener('hashchange', (e) => {
+      if (Date.now() - _lastPopStateTime < 120) return;
+      handlePopState(e);
+    });
     syncLeavesFromCloud(false);
     setInterval(() => syncLeavesFromCloud(false), 45000);
     // Periodically refresh active notices
@@ -8776,7 +9085,7 @@ window._triggerDeferredPwaPrompt = function(delayMs = 3000) {
 // Register Service Worker with robust relative path and periodic sync
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    const swUrl = './sw.js?v=77';
+    const swUrl = './sw.js?v=80';
     navigator.serviceWorker.register(swUrl, { scope: './' }).then(async (registration) => {
       console.log('[SW] Registered successfully with scope:', registration.scope);
 

@@ -93,15 +93,19 @@ SUBJECT_MAP = {
     'PME': 'Principles of Microeconomics',
     'PMEE': 'Principles of Microeconomics',
     'BRM': 'Brand Management',
-    'DnD': 'Digitalization and Development',
+    'DnD': 'Digitalisation and Development',
+    'IM': 'Introductory Microeconomics',
+    'IME': 'Introductory Microeconomics',
+    'Intro Micro': 'Introductory Microeconomics',
     'Intro MME': 'Introductory Mathematical Methods for Economics',
     'Adv MME': 'Advanced Mathematical Methods for Economics',
     'IMA I': 'Intermediate Macroeconomics I',
-    'IMIC1': 'Intermediate Microeconomics I',
+    'IMIC1': 'Intermediate Microeconomics 1',
     'ISME': 'Introductory Statistics for Economics',
+    'DE': 'Differential Equations',
     'EHI': 'Economic History of India',
     'IDE': 'Issues in Development Economics',
-    'GT': 'Game Theory',
+    'GT': 'Game Theory and Strategic Interactions',
     'PE': 'Political Economy',
     'PM': 'Project Management',
     'RM': 'Research Methodology',
@@ -109,18 +113,19 @@ SUBJECT_MAP = {
     'OEM': 'Open Elective Management',
     'AdTrix': 'Advanced Econometrics',
     'IIPT': 'Indian Political Thought',
-    'NII': 'Nationalism and Indian Identity',
+    'NL': 'Negotiation and Leadership',
+    'NII': 'Nationalism in India',
     'UIR': 'Understanding International Relations',
     'GIC': 'Global Institutions and Commerce',
     'IGT': 'Interactive Game Theory',
     'IMC': 'Integrated Marketing Communication',
-    'IST': 'Information Systems and Technology',
+    'IST': 'Introduction to Sports Training',
     'RIDL': 'Readings in Indian Democratic Literature',
     'TPF': 'Theory of Public Finance',
     'NM': 'Numerical Methods',
-    'OB': 'Organizational Behavior',
-    'ODI': 'Organizational Dynamics & Intervention',
-    'OE': 'Open Elective',
+    'OB': 'Organisational Behaviour',
+    'ODI': 'Organisational Dynamics & Intervention',
+    'OE': 'Open Elective (Physical Education)',
     'OOPUP': 'Programming Using Python',
     'OPUP': 'Programming Using Python',
     'OS': 'Operating Systems',
@@ -136,10 +141,9 @@ SUBJECT_MAP = {
     'BSC': 'Business Communication',
     'CFD': 'Corporate Financial Decisions',
     'CFCR': 'Corporate Finance & Restructuring',
-    'GF': 'Global Finance',
+    'GF': 'Genre Fiction',
     'IF': 'International Finance',
     'IBS': 'International Business Strategy',
-    'IM': 'International Marketing',
     'ME': 'Managerial Economics',
     'MFB': 'Marketing for Beginners',
     'MFD': 'Macro Financial Dynamics',
@@ -148,6 +152,19 @@ SUBJECT_MAP = {
     'TA': 'Taxation & Accounting',
     'TR': 'Tools for Research',
     'WM': 'Wealth Management',
+    'FOC': 'Fundamentals of Computing',
+    'BDE': 'Basic Development Economics',
+    'DEC': 'Delhi through the Ages',
+    'FC': 'Fundamentals of Calculus',
+    'DMS': 'Database Management Systems',
+    'ECom': 'E-Commerce',
+    'DA': 'Data Analysis',
+    'DTHRS': 'Design Thinking & HR Systems',
+    'FP': 'Financial Planning',
+    'ITL': 'Income Tax Law',
+    'BADS': 'Business Analytics & Data Science',
+    'ITPD': 'IT for Professional Development',
+    'ISM': 'Information Systems Management',
 
     # Skill Enhancement Courses (SEC)
     'IE': 'Innovation and Entrepreneurship',
@@ -344,6 +361,20 @@ def resolve_subject_title(subj_code, context_str=''):
         if subj_code == 'ITSA I': return 'IT Skills and Data Analysis I'
         if subj_code == 'ITSA II': return 'IT Skills and Data Analysis II'
 
+    if 'MATHS' in raw_upper:
+        if subj_code == 'DE': return 'Differential Equations'
+        if subj_code == 'FC': return 'Fundamentals of Calculus'
+        if subj_code == 'FOC': return 'Fundamentals of Computing'
+
+    if 'ENGLISH' in raw_upper:
+        if subj_code == 'GF': return 'Genre Fiction'
+        if subj_code == 'DEC': return 'Delhi through the Ages'
+        if subj_code in ('RIDL', 'R4'): return 'Readings in Indian Democratic Literature'
+
+    if 'PHY.ED' in raw_upper or 'PLAYGROUND' in raw_upper or 'SCR1' in raw_upper:
+        if subj_code == 'IST': return 'Introduction to Sports Training'
+        if subj_code == 'OE': return 'Open Elective (Physical Education)'
+
     if subj_code.startswith('AEC-'):
         return SUBJECT_MAP.get(subj_code, subj_code)
 
@@ -496,7 +527,13 @@ def parse_session_entry(raw_str, default_course='', default_sem='', default_sec=
         if len(tokens) >= 1:
             dept = tokens[0]
         if len(tokens) >= 2:
-            subject = tokens[1]
+            if tokens[1].upper() == 'GE' and len(tokens) >= 3:
+                subject = tokens[2]
+            elif dept.upper() == 'ENGLISH' and tokens[1].upper() == 'R4':
+                subject = 'RIDL'
+                room = 'R4'
+            else:
+                subject = tokens[1]
 
     if room:
         after_r = body.split(room)[-1]
