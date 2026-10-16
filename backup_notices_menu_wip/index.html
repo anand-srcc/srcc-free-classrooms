@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SRCC Free Classroom Finder | Group Discussion & Study</title>
+  <meta name="description" content="Find vacant classrooms, tutorial rooms, Principal Bungalow (PB), Sports Complex (SCR) and labs for Group Discussion (GD) at Shri Ram College of Commerce (SRCC)." />
+  
+  <!-- Security Enhancements -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline';">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  
+  <!-- PWA Manifest & Theme Color -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#ffffff" />
+
+  <!-- Website URL Logo / Favicon (Transparent 100 Years Centenary Logo) -->
+  <link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=3" />
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?v=3" />
+  <link rel="apple-touch-icon" href="assets/srcc_100years.png?v=3" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <link rel="stylesheet" href="style.css?v=81" />
+</head>
+<body>
+  <!-- Header / Navigation (Slim Single-Line Strip) -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-group">
+        <div class="brand-logos-wrapper">
+          <!-- 2nd Image on the left: SRCC Crest -->
+          <img src="assets/srcc_crest.png" onerror="this.onerror=null; this.src='srcc_crest.png';" alt="SRCC Crest - Shri Ram College of Commerce" class="brand-logo-img logo-crest" />
+          <!-- Vertical Separator | -->
+          <span class="brand-logo-separator" aria-hidden="true">|</span>
+          <!-- 1st Image: 100 Years Centenary Logo -->
+          <img src="assets/srcc_100years.png" onerror="this.onerror=null; this.src='srcc_100years.png';" alt="SRCC 100 Years Centenary Logo" class="brand-logo-img logo-100years" />
+        </div>
+        <div class="brand-titles">
+          <h1>SRCC Free Classroom Finder</h1>
+          <div class="header-last-updated" id="headerLastUpdatedWrap">
+            <span class="sync-dot-live"></span>
+            <span>College Timetable Synced: <strong id="lastUpdatedHeader">Today (Daily Verified)</strong></span>
+          </div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <!-- Free Right Now with ON / OFF Switch -->
+        <div class="toggle-freenow-wrapper" id="toggleFreeNowWrapper" title="Toggle rooms vacant right now">
+          <span class="freenow-label">⚡ Free Right Now</span>
+          <button class="toggle-freenow-btn" id="btnFreeNow" role="switch" aria-checked="false">
+            <span class="toggle-switch-track">
+              <span class="toggle-switch-thumb"></span>
+            </span>
+            <span class="toggle-status-text" id="toggleStatusText">OFF</span>
+          </button>
+        </div>
+        <!-- WiFi Directory Button (Header) - Temporarily hidden pending administrative permission -->
+        <button id="btnOpenWifiModal" class="btn-wifi-header" title="Campus WiFi Networks & Passwords Directory" style="display: none !important;">
+          <svg class="wifi-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+            <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+            <circle cx="12" cy="20" r="1.3" fill="currentColor"></circle>
+          </svg>
+          <span>WiFi</span>
+        </button>
+        <!-- Report Issue Button (Header) -->
+        <button id="btnReportIssue" class="btn-report-header" title="Report wrong timetable data or present faculty marked absent">
+          <span>⚠️ Report</span>
+        </button>
+        <!-- WhatsApp Community Button (Header) -->
+        <a href="https://chat.whatsapp.com/H6qxq6fGSDVJNPCEtzQgjf" target="_blank" rel="noopener noreferrer" class="btn-community-header" title="Join SRCC WhatsApp Community">
+          <svg class="whatsapp-header-icon" width="16" height="16" viewBox="0 0 24 24">
+            <path fill="#25D366" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/>
+            <path fill="#FFF" d="M17.47 14.38c-.28-.14-1.67-.82-1.93-.91-.26-.1-.45-.14-.64.14-.19.28-.73.91-.89 1.1-.16.18-.33.21-.61.07-.28-.14-1.18-.44-2.25-1.39-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.46.1-.19.05-.35-.02-.49-.07-.14-.64-1.54-.88-2.11-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.49.07-.75.35-.26.28-1 1-1 2.43 0 1.44 1.03 2.82 1.18 3.01.14.19 2.03 3.1 4.93 4.35.69.3 1.23.48 1.65.61.69.22 1.32.19 1.81.12.55-.08 1.67-.68 1.91-1.34.23-.65.23-1.22.16-1.34-.07-.11-.26-.18-.54-.32z"/>
+          </svg>
+          <span>Community</span>
+        </a>
+        <!-- Three-Line Campus Navigation Menu Button (Student Assist Style) -->
+        <button id="btnThreeLineMenu" class="btn-three-line" aria-label="Open Navigation Menu" title="Campus Menu (Notices, Classrooms, Directory)">
+          <span class="three-line-bar"></span>
+          <span class="three-line-bar"></span>
+          <span class="three-line-bar"></span>
+          <span class="three-line-badge-dot" id="threeLineBadgeDot" title="Notices & Active Deadlines Available"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- One-Time Campus Notification Opt-in Prompt Banner -->
+  <aside id="leaveNotificationPromptBanner" class="leave-notif-banner" style="display: none;" role="region" aria-label="Campus Notifications">
+    <div class="leave-notif-banner-content">
+      <div class="leave-notif-icon-col">
+        <svg class="leave-notif-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+        </svg>
+      </div>
+      <div class="leave-notif-text">
+        <strong>Campus Notifications</strong>
+        <span>Enable real-time updates for classroom vacancies and schedule changes.</span>
+      </div>
+      <div class="leave-notif-actions">
+        <button id="btnAllowLeaveNotif" class="btn-notif-allow" type="button">Enable Alerts</button>
+        <button id="btnDismissLeaveNotif" class="btn-notif-dismiss" type="button" aria-label="Dismiss">Not Now</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Container -->
+  <main class="main-container">
+    
+    <!-- ⚡ Sticky Offline Indicator Banner -->
+    <div id="offlineIndicatorBanner" class="offline-indicator-banner" style="display: none;" role="status" aria-live="polite">
+      <div class="offline-banner-content">
+        <span class="offline-pulse-dot"></span>
+        <span><strong>Offline Mode</strong> — College network weak or offline. Showing last synced timetable.</span>
+      </div>
+      <span class="offline-cache-badge">Offline Cached</span>
+    </div>
+
+    <!-- Campus Notice & Banner Container (Shows ONLY when Admin pushes a notice, e.g. Freshers / Elections / Circulars) -->
+    <div id="campusNoticeBannerContainer" style="display: none;"></div>
+
+    <!-- Top Mode Switcher: Classrooms vs Faculty vs Timetable -->
+    <div class="app-mode-switcher-container">
+      <div class="app-mode-switcher" role="tablist">
+        <button class="mode-tab active" id="tabModeRooms" role="tab" aria-selected="true" data-mode="rooms">
+          <span class="mode-tab-icon">🏛️</span>
+          <span class="mode-tab-text">Classrooms</span>
+        </button>
+        <button class="mode-tab" id="tabModeFaculty" role="tab" aria-selected="false" data-mode="faculty">
+          <span class="mode-tab-icon">👨‍🏫</span>
+          <span class="mode-tab-text">Faculty</span>
+        </button>
+        <button class="mode-tab" id="tabModeTimetable" role="tab" aria-selected="false" data-mode="timetable">
+          <span class="mode-tab-icon">📅</span>
+          <span class="mode-tab-text">Timetable</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         VIEW SECTION 1: FREE CLASSROOM FINDER
+         ==================================================================== -->
+    <div id="viewRoomsSection" class="app-view-section">
+      <!-- Controls Section: Day Picker, Categories, Slot & Search -->
+      <section class="controls-panel">
+        <!-- 1. Day Picker -->
+        <div class="control-row">
+          <span class="row-label">Select Day:</span>
+          <div class="day-picker" id="dayPicker">
+            <button class="day-btn" data-day="Monday">Monday</button>
+            <button class="day-btn" data-day="Tuesday">Tuesday</button>
+            <button class="day-btn" data-day="Wednesday">Wednesday</button>
+            <button class="day-btn" data-day="Thursday">Thursday</button>
+            <button class="day-btn" data-day="Friday">Friday</button>
+            <button class="day-btn" data-day="Saturday">Saturday</button>
+          </div>
+        </div>
+
+        <!-- 2. Room Category Filter -->
+        <div class="control-row">
+          <span class="row-label">Category:</span>
+          <div class="category-pills" id="categoryPills">
+            <button class="cat-pill active" data-cat="ALL">All Rooms (96)</button>
+            <button class="cat-pill" data-cat="PB">Principal Bungalow (PB)</button>
+            <button class="cat-pill" data-cat="T">Tutorial Rooms (T)</button>
+            <button class="cat-pill" data-cat="SCR">Sports Complex (SCR)</button>
+            <button class="cat-pill" data-cat="R">Classrooms (R)</button>
+            <button class="cat-pill" data-cat="CL">Computer Labs (CL)</button>
+            <button class="cat-pill" data-cat="OTHER">Library & Other</button>
+          </div>
+        </div>
+
+        <!-- 3. Search & Time Slot Filters -->
+        <div class="filter-bar">
+          <div class="search-box-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Search room no (e.g. PB3, R2, SCR1, T14)..." autocomplete="off" />
+            <button id="btnClearSearch" class="btn-clear-search" style="display: none;">✕</button>
+          </div>
+
+          <div class="slot-select-wrapper">
+            <label for="slotSelect">Time Slot:</label>
+            <select id="slotSelect">
+              <option value="ALL">All Periods Today (Overview)</option>
+              <option value="8:30 AM to 9:30 AM">Period 1 (8:30 AM – 9:30 AM)</option>
+              <option value="9:30 AM to 10:30 AM">Period 2 (9:30 AM – 10:30 AM)</option>
+              <option value="10:30 AM to 11:30 AM">Period 3 (10:30 AM – 11:30 AM)</option>
+              <option value="11:30 AM to 12:30 PM">Period 4 (11:30 AM – 12:30 PM)</option>
+              <option value="12:30 PM to 1:30 PM">Period 5 (12:30 PM – 1:30 PM)</option>
+              <option value="2:00 PM to 3:00 PM">Period 6 (2:00 PM – 3:00 PM)</option>
+              <option value="3:00 PM to 4:00 PM">Period 7 (3:00 PM – 4:00 PM)</option>
+              <option value="4:00 PM to 5:00 PM">Period 8 (4:00 PM – 5:00 PM)</option>
+              <option value="5:00 PM to 6:00 PM">Period 9 (5:00 PM – 6:00 PM)</option>
+            </select>
+          </div>
+
+          <div class="sort-select-wrapper">
+            <label for="sortSelect">Sort By:</label>
+            <select id="sortSelect">
+              <option value="ROOM_ASC" selected>Room No. Ascending (R1, R2, PB, T...)</option>
+              <option value="FREE_DESC">Most Free Hours First</option>
+              <option value="CAP_DESC">Capacity (Highest First)</option>
+            </select>
+          </div>
+
+          <!-- Desktop View Mode Toggle (Grid vs Compact) -->
+          <div class="view-toggle-wrapper" id="viewToggleWrapper">
+            <button class="btn-view-mode active" id="btnViewGrid" title="Rich Card Grid View">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h8v8H3V3m10 0h8v8h-8V3M3 13h8v8H3v-8m10 0h8v8h-8v-8Z"/></svg>
+              <span>Grid</span>
+            </button>
+            <button class="btn-view-mode" id="btnViewCompact" title="Compact List / Table View">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h18v2H3V4m0 7h18v2H3v-2m0 7h18v2H3v-2Z"/></svg>
+              <span>Compact</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Recess Callout Banner (Shown dynamically during lunch recess 1:30–2:00 PM) -->
+      <div class="recess-banner" id="recessBanner" style="display: none;">
+        <span class="recess-badge">☕ LUNCH RECESS</span>
+        <span class="recess-info">
+          <strong>1:30 PM – 2:00 PM:</strong> All 96 classrooms &amp; tutorial rooms are universally free for GD &amp; lunch.
+        </span>
+      </div>
+
+      <!-- Active Leaves Alert Banner for Rooms -->
+      <div class="active-leaves-callout" id="activeLeavesRoomBanner" style="display: none;"></div>
+
+      <!-- Live Metric Stat Badges (Hidden per user request) -->
+      <div class="metric-tiles-row" style="display: none !important;">
+        <div class="metric-tile" id="metricVacantNowTile">
+          <div class="metric-icon">⚡</div>
+          <div class="metric-details">
+            <div class="metric-num" id="metricVacantNowCount">--</div>
+            <div class="metric-title"><span class="metric-long-word">Vacant </span>Right Now</div>
+          </div>
+        </div>
+        <div class="metric-tile">
+          <div class="metric-icon">🕒</div>
+          <div class="metric-details">
+            <div class="metric-num" id="metricTotalFreeCount">0</div>
+            <div class="metric-title">Free <span class="metric-long-word">Hours on </span><span id="metricDayLabel">Monday</span></div>
+          </div>
+        </div>
+        <div class="metric-tile">
+          <div class="metric-icon">🏛️</div>
+          <div class="metric-details">
+            <div class="metric-num" id="metricBestCat">Tutorials</div>
+            <div class="metric-title">Most Vacant<span class="metric-long-word"> Wing</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active Filters Summary & Stats -->
+      <div class="stats-ribbon">
+        <div class="stats-left">
+          Showing <span id="statRoomCount" class="stat-highlight">0</span> rooms on <span id="statActiveDay" class="stat-highlight">Monday</span>
+          <span id="statFilterDesc" class="filter-desc-tag"></span>
+        </div>
+        <div class="stats-right" style="display: none;">
+          <span id="statLastSynced"></span>
+        </div>
+      </div>
+
+      <!-- Interactive Loading Skeleton State -->
+      <div class="loading-skeleton-wrap" id="loadingState" style="display: none;">
+        <div class="loading-skeleton-pulse">
+          <div class="skeleton-icon">🏛️</div>
+          <div class="skeleton-title">Checking SRCC Timetable & Available Classrooms...</div>
+          <div class="skeleton-desc">Checking 96 rooms across all wings and 210 faculty schedules</div>
+          <div class="skeleton-cards-row">
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Network / API Error State with Retry -->
+      <div class="error-state-card" id="errorState" style="display: none;">
+        <div class="error-icon">⚠️</div>
+        <h3>Unable to Load Timetable Data</h3>
+        <p id="errorMessageText">The college timetable data could not be retrieved from the server. Please verify your internet connection.</p>
+        <button type="button" class="btn-retry-load" id="btnRetryLoad">🔄 Retry Loading Data</button>
+      </div>
+
+      <!-- Room Cards Grid / Compact Container -->
+      <section class="rooms-grid view-mode-grid" id="roomsGrid">
+        <!-- Dynamically generated via app.js -->
+      </section>
+
+      <!-- No Results State -->
+      <div class="empty-state" id="emptyState" style="display: none;">
+        <div class="empty-icon">🔎</div>
+        <h3>No matching free rooms found</h3>
+        <p>Try switching to another Day, clearing your search query, or selecting "All Periods Today".</p>
+        <button class="btn-reset-filters" id="btnResetFilters">Reset Filters</button>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         VIEW SECTION 2: FACULTY LOCATOR & TIMETABLE
+         ==================================================================== -->
+    <div id="viewFacultySection" class="app-view-section" style="display: none;">
+      <!-- Top Action Header -->
+      <div class="faculty-action-bar">
+        <div class="faculty-action-title">
+          <span>👨‍🏫 SRCC Faculty Locator & Timetable</span>
+        </div>
+        <div class="faculty-action-leaves-wrap">
+          <span class="leave-count-pill" id="headerLeavePill" style="display: none; cursor: pointer;" title="Click to view faculty on leave today">0 on leave</span>
+        </div>
+      </div>
+
+      <!-- Faculty Controls Panel -->
+      <section class="controls-panel faculty-controls-panel">
+        <!-- 1. Day Picker for Faculty -->
+        <div class="control-row">
+          <span class="row-label">Select Day:</span>
+          <div class="day-picker" id="facultyDayPicker">
+            <button class="day-btn" data-day="Monday">Monday</button>
+            <button class="day-btn" data-day="Tuesday">Tuesday</button>
+            <button class="day-btn" data-day="Wednesday">Wednesday</button>
+            <button class="day-btn" data-day="Thursday">Thursday</button>
+            <button class="day-btn" data-day="Friday">Friday</button>
+            <button class="day-btn" data-day="Saturday">Saturday</button>
+          </div>
+        </div>
+
+        <!-- 2. Department Horizontal Filter Pills + Mobile Quick Dropdown -->
+        <div class="control-row faculty-dept-row">
+          <div class="dept-row-header">
+            <!-- Mobile Quick Dropdown for 1-Tap Switching on small screens -->
+            <select id="facultyDeptSelect" class="faculty-dept-select-mobile" aria-label="Select Faculty Department">
+              <option value="ALL">All Departments (210 Faculty)</option>
+              <option value="Commerce">Commerce (123 Faculty)</option>
+              <option value="Economics">Economics (33 Faculty)</option>
+              <option value="Mathematics">Mathematics (13 Faculty)</option>
+              <option value="Computer Science">Computer Science (12 Faculty)</option>
+              <option value="Political Science">Political Science (8 Faculty)</option>
+              <option value="EVS">EVS (6 Faculty)</option>
+              <option value="Hindi">Hindi (6 Faculty)</option>
+              <option value="English">English (5 Faculty)</option>
+              <option value="Physical Education">Physical Education (4 Faculty)</option>
+            </select>
+          </div>
+          <div class="faculty-dept-scroll-wrapper">
+            <div class="faculty-dept-scroll" id="facultyDeptPills" role="tablist" aria-label="Department filter pills">
+              <button class="dept-pill active" data-dept="ALL" role="tab" aria-selected="true">All Departments (210)</button>
+              <button class="dept-pill" data-dept="Commerce" role="tab" aria-selected="false">Commerce</button>
+              <button class="dept-pill" data-dept="Economics" role="tab" aria-selected="false">Economics</button>
+              <button class="dept-pill" data-dept="Mathematics" role="tab" aria-selected="false">Mathematics</button>
+              <button class="dept-pill" data-dept="Computer Science" role="tab" aria-selected="false">Computer Science</button>
+              <button class="dept-pill" data-dept="Political Science" role="tab" aria-selected="false">Political Science</button>
+              <button class="dept-pill" data-dept="EVS" role="tab" aria-selected="false">EVS</button>
+              <button class="dept-pill" data-dept="Hindi" role="tab" aria-selected="false">Hindi</button>
+              <button class="dept-pill" data-dept="English" role="tab" aria-selected="false">English</button>
+              <button class="dept-pill" data-dept="Physical Education" role="tab" aria-selected="false">Physical Education</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Search & Status Filters Bar -->
+        <div class="filter-bar faculty-filter-bar">
+          <div class="search-box-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="facultySearchInput" placeholder="Search teacher name (e.g. Abhay, Ruchi), code (cg16, ayj), dept, room, or subject..." autocomplete="off" />
+            <button id="btnClearFacultySearch" class="btn-clear-search" style="display: none;">✕</button>
+          </div>
+
+          <div class="slot-select-wrapper">
+            <label for="facultyStatusSelect">Live Status:</label>
+            <select id="facultyStatusSelect">
+              <option value="ALL" selected>All Faculty (Overview)</option>
+              <option value="TEACHING_NOW">⚡ Teaching Right Now</option>
+              <option value="FREE_NOW">☕ Currently Free / Off-Period</option>
+              <option value="ON_LEAVE">🏖️ Currently On Leave</option>
+            </select>
+          </div>
+
+          <div class="sort-select-wrapper">
+            <label for="facultySortSelect">Sort By:</label>
+            <select id="facultySortSelect">
+              <option value="NAME_ASC" selected>Name (A to Z)</option>
+              <option value="NAME_DESC">Name (Z to A)</option>
+              <option value="CLASSES_DESC">Most Classes Today</option>
+              <option value="DEPT_ASC">Department</option>
+            </select>
+          </div>
+
+          <!-- Desktop View Mode Toggle for Faculty (Grid vs Compact) -->
+          <div class="view-toggle-wrapper" id="facultyViewToggleWrapper">
+            <button class="btn-view-mode active" id="btnFacultyViewGrid" title="Rich Faculty Card Grid View">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h8v8H3V3m10 0h8v8h-8V3M3 13h8v8H3v-8m10 0h8v8h-8v-8Z"/></svg>
+              <span>Grid</span>
+            </button>
+            <button class="btn-view-mode" id="btnFacultyViewCompact" title="Compact Table / List View">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h18v2H3V4m0 7h18v2H3v-2m0 7h18v2H3v-2Z"/></svg>
+              <span>Compact</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Faculty Metric Stat Badges -->
+      <div class="metric-tiles-row faculty-metrics-row">
+        <div class="metric-tile">
+          <div class="metric-icon">👨‍🏫</div>
+          <div class="metric-details">
+            <div class="metric-num" id="metricTotalFacultyCount">210</div>
+            <div class="metric-title">Total<span class="metric-long-word"> Faculty</span></div>
+          </div>
+        </div>
+        <div class="metric-tile">
+          <div class="metric-icon">⚡</div>
+          <div class="metric-details">
+            <div class="metric-num" id="metricFacultyTeachingNow">--</div>
+            <div class="metric-title">Teaching<span class="metric-long-word"> Now</span></div>
+          </div>
+        </div>
+        <div class="metric-tile">
+          <div class="metric-icon">☕</div>
+          <div class="metric-details">
+            <div class="metric-num" id="metricFacultyFreeNow">--</div>
+            <div class="metric-title">Available<span class="metric-long-word"> Now</span></div>
+          </div>
+        </div>
+        <div class="metric-tile" id="metricFacultyOnLeaveTile" style="cursor: pointer;" title="Click to view faculty on leave today">
+          <div class="metric-icon">🏖️</div>
+          <div class="metric-details">
+            <div class="metric-num" id="metricFacultyOnLeave">0</div>
+            <div class="metric-title">On Leave<span class="metric-long-word"> Today</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Faculty Stats (Text hidden per user request) -->
+      <div style="display: none;" aria-hidden="true">
+        <span id="statFacultyCount">0</span>
+        <span id="statFacultyDay">Monday</span>
+        <span id="statFacultyFilterDesc"></span>
+        <span id="statFacultyLastSynced"></span>
+      </div>
+
+      <!-- Faculty Cards Grid -->
+      <section class="faculty-grid" id="facultyGrid">
+        <!-- Dynamically generated via app.js -->
+      </section>
+
+      <!-- Empty State for Faculty Search -->
+      <div class="empty-state" id="facultyEmptyState" style="display: none;">
+        <div class="empty-icon">🔎</div>
+        <h3>No matching faculty found</h3>
+        <p>Try clearing your search query, switching the department filter, or resetting status.</p>
+        <button class="btn-reset-filters" id="btnResetFacultyFilters">Reset Faculty Filters</button>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         VIEW SECTION 3: STUDENT TIMETABLE & VACANT ROOM FINDER
+         ==================================================================== -->
+    <div id="viewTimetableSection" class="app-view-section" style="display: none;">
+      <!-- 📢 TIMETABLE CHANGE NOTICES BANNER CONTAINER -->
+      <div id="timetableNoticesContainer" style="display: none;"></div>
+
+      <!-- Controls Panel (100% Native App UX/UI) -->
+      <section class="controls-panel">
+        <!-- 1. Day Picker -->
+        <div class="control-row">
+          <span class="row-label">Select Day:</span>
+          <div class="day-picker" id="ttMainDayPicker">
+            <button class="day-btn" data-day="Monday">Monday</button>
+            <button class="day-btn" data-day="Tuesday">Tuesday</button>
+            <button class="day-btn" data-day="Wednesday">Wednesday</button>
+            <button class="day-btn" data-day="Thursday">Thursday</button>
+            <button class="day-btn" data-day="Friday">Friday</button>
+            <button class="day-btn" data-day="Saturday">Saturday</button>
+          </div>
+        </div>
+
+        <!-- 2. Course Selection Pills -->
+        <div class="control-row">
+          <span class="row-label">Course:</span>
+          <div class="category-pills tt-course-pills" id="ttMainCoursePills">
+            <button class="cat-pill active" data-course="B.A. (Hons) Economics">B.A. (Hons) Eco</button>
+            <button class="cat-pill" data-course="B.Com (Hons)">B.Com (Hons)</button>
+            <button class="cat-pill" data-course="SEC">SEC</button>
+            <button class="cat-pill" data-course="VAC">VAC</button>
+          </div>
+        </div>
+
+        <!-- 3. Semester Selection Pills -->
+        <div class="control-row">
+          <span class="row-label">Semester:</span>
+          <div class="category-pills" id="ttMainSemPills">
+            <button class="cat-pill active" data-sem="Sem I">Sem I</button>
+            <button class="cat-pill" data-sem="Sem III">Sem III</button>
+            <button class="cat-pill" data-sem="Sem V">Sem V</button>
+            <button class="cat-pill" data-sem="Sem VII">Sem VII</button>
+          </div>
+        </div>
+
+        <!-- 4. Section, Batch, Slot & Search Filters Bar -->
+        <div class="filter-bar tt-filter-bar">
+          <div class="search-box-wrapper" style="flex: 1.5; min-width: 220px;">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="ttMainSearchInput" placeholder="Search subject (e.g. MME), teacher, SEC / VAC, batch, or room..." autocomplete="off" />
+            <button id="btnClearTtMainSearch" class="btn-clear-search" style="display: none;">✕</button>
+          </div>
+
+          <div class="slot-select-wrapper">
+            <label for="ttMainSecSelect">Section:</label>
+            <select id="ttMainSecSelect">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+
+          <div class="slot-select-wrapper">
+            <label for="ttMainBatchSelect">Batch:</label>
+            <select id="ttMainBatchSelect">
+              <option value="ALL">All batches</option>
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+
+          <div class="slot-select-wrapper">
+            <label for="ttMainSlotSelect">Time Slot:</label>
+            <select id="ttMainSlotSelect">
+              <option value="ALL" selected>All 9 Periods</option>
+              <option value="8:30 AM to 9:30 AM">Period 1 (8:30 AM – 9:30 AM)</option>
+              <option value="9:30 AM to 10:30 AM">Period 2 (9:30 AM – 10:30 AM)</option>
+              <option value="10:30 AM to 11:30 AM">Period 3 (10:30 AM – 11:30 AM)</option>
+              <option value="11:30 AM to 12:30 PM">Period 4 (11:30 AM – 12:30 PM)</option>
+              <option value="12:30 PM to 1:30 PM">Period 5 (12:30 PM – 1:30 PM)</option>
+              <option value="2:00 PM to 3:00 PM">Period 6 (2:00 PM – 3:00 PM)</option>
+              <option value="3:00 PM to 4:00 PM">Period 7 (3:00 PM – 4:00 PM)</option>
+              <option value="4:00 PM to 5:00 PM">Period 8 (4:00 PM – 5:00 PM)</option>
+              <option value="5:00 PM to 6:00 PM">Period 9 (5:00 PM – 6:00 PM)</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- Timetable Status Summary Bar (Compact, Professional & Non-redundant) -->
+      <div class="tt-summary-header-row">
+        <div class="tt-summary-card">
+          <div class="tt-sum-badges-wrap">
+            <span class="tt-sum-badge-num"><span id="ttCountClasses">0</span> Classes</span>
+            <span class="tt-sum-badge-day" id="ttRibbonDay">Monday</span>
+          </div>
+          <div class="tt-sum-desc">
+            <span id="ttSelectedSummary" class="tt-sum-course">Economics · Sem I</span>
+            <span class="tt-sum-sep">·</span>
+            <span id="ttSelectedBatchSummary" class="tt-sum-batch">Sec A · All batches</span>
+            <span id="ttRibbonCourseSec" style="display: none;"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Schedule Cards Grid -->
+      <section class="tt-schedule-grid" id="ttMainScheduleGrid">
+        <!-- Dynamically rendered via app.js -->
+      </section>
+
+      <!-- Empty State -->
+      <div class="empty-state" id="ttMainEmptyState" style="display: none;">
+        <div class="empty-icon">🔎</div>
+        <h3>No matching classes found</h3>
+        <p>Try clearing your search query or switching Section / Day.</p>
+        <button class="btn-reset-filters" id="btnResetTtFilters">Reset Filters</button>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         VIEW SECTION 5: SRCC OFFICIAL COLLEGE NOTICES & CIRCULARS
+         ==================================================================== -->
+    <div id="viewNoticesSection" class="app-view-section" style="display: none;">
+      <div class="tt-action-bar" style="border-bottom: none; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+        <div class="tt-action-title" style="display: flex; align-items: center; gap: 10px;">
+          <button type="button" class="btn-notices-back" id="btnNoticesBack" title="Return to Classroom Finder">
+            ← Back to Classrooms
+          </button>
+          <span style="display: inline-flex; align-items: center; gap: 8px;">
+            <span style="font-size: 1.3rem;">📢</span>
+            SRCC Official College Notices & Circulars
+          </span>
+        </div>
+        <div class="faculty-action-leaves-wrap" style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+          <a href="https://www.srcc.edu/announcements" target="_blank" rel="noopener noreferrer" class="tt-live-pill" style="background: rgba(14, 165, 233, 0.12); color: #0284c7; border-color: rgba(14, 165, 233, 0.3); text-decoration: none; display: inline-flex; align-items: center; gap: 4px; font-weight: 700;">
+            🏛️ Official Portal (srcc.edu) ↗
+          </a>
+          <span class="tt-live-pill" id="noticesTotalPill" style="background: rgba(16, 185, 129, 0.12); color: #059669; border-color: rgba(16, 185, 129, 0.3); font-weight: 700;">
+            430 Public Notices
+          </span>
+        </div>
+      </div>
+
+      <!-- Legal Attribution Disclaimer Callout -->
+      <div class="notices-legal-callout">
+        <span class="notices-legal-icon">⚖️</span>
+        <div class="notices-legal-text">
+          <strong>Official Public Documents:</strong> Sourced directly from public announcements on <em>Shri Ram College of Commerce</em> (<a href="https://www.srcc.edu/announcements" target="_blank" rel="noopener noreferrer">srcc.edu</a>). All notice links open original verified circulars, schedules, and forms hosted on official DU/college servers.
+        </div>
+      </div>
+
+      <!-- Search Input -->
+      <div class="notices-search-bar">
+        <div class="notices-search-input-wrap">
+          <span class="notices-search-icon">🔍</span>
+          <input type="text" id="noticesSearchInput" class="notices-search-input" placeholder="Search notices (e.g. Admit Card, Attendance, Orientation, ECA, Scholarship, Datesheet)..." aria-label="Search notices" />
+          <button type="button" id="btnClearNoticesSearch" class="btn-clear-notices-search" style="display: none;" title="Clear search">✕</button>
+        </div>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="notices-pills-filter" id="noticesCategoryPills" role="tablist">
+        <button class="notices-pill-btn active" data-cat="ALL" role="tab" aria-selected="true">
+          <span>📋 All Notices</span> <span class="notices-pill-count" id="countCatAll">430</span>
+        </button>
+        <button class="notices-pill-btn notices-pill-deadlines" data-cat="DEADLINES" role="tab" aria-selected="false">
+          <span>⏳ Active Deadlines</span> <span class="notices-pill-count notices-pill-count-urgent" id="countCatDeadlines">25</span>
+        </button>
+        <button class="notices-pill-btn" data-cat="academic" role="tab" aria-selected="false">
+          <span>📚 Academic</span> <span class="notices-pill-count" id="countCatAcademic">170</span>
+        </button>
+        <button class="notices-pill-btn" data-cat="examinations" role="tab" aria-selected="false">
+          <span>📝 Examinations</span> <span class="notices-pill-count" id="countCatExams">81</span>
+        </button>
+        <button class="notices-pill-btn" data-cat="societies" role="tab" aria-selected="false">
+          <span>🏆 Societies & Events</span> <span class="notices-pill-count" id="countCatSocieties">54</span>
+        </button>
+        <button class="notices-pill-btn" data-cat="administration" role="tab" aria-selected="false">
+          <span>🏛️ Administration</span> <span class="notices-pill-count" id="countCatAdmin">125</span>
+        </button>
+      </div>
+
+      <!-- Notices Cards Grid -->
+      <div class="notices-grid" id="noticesGrid">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         VIEW SECTION 4: CAMPUS WIFI DIRECTORY (Temporarily hidden pending administrative permission)
+         ==================================================================== -->
+    <div id="viewWifiSection" class="app-view-section" style="display: none !important;">
+      <div class="tt-action-bar" style="border-bottom: none; margin-bottom: 12px;">
+        <div class="tt-action-title">
+          <span style="display: inline-flex; align-items: center; gap: 8px;">
+            <svg class="wifi-svg-icon" style="width: 22px; height: 22px; color: #0891b2;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+              <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+              <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+              <circle cx="12" cy="20" r="1.3" fill="currentColor"></circle>
+            </svg>
+            SRCC Campus WiFi Password Directory
+          </span>
+        </div>
+        <div class="faculty-action-leaves-wrap">
+          <span class="tt-live-pill" style="background: rgba(8, 145, 178, 0.12); color: #0891b2; border-color: rgba(8, 145, 178, 0.3);">Official Verified</span>
+        </div>
+      </div>
+      <div class="wifi-search-bar">
+        <input type="text" id="wifiViewSearchInput" class="wifi-search-input" placeholder="🔍 Search network (e.g. FAC_36, PB, CLASS 1-4G, R22)..." />
+      </div>
+      <div class="wifi-pills-filter" id="wifiViewPills">
+        <button class="wifi-pill-btn active" data-band="ALL">All Networks (24)</button>
+        <button class="wifi-pill-btn" data-band="5G">⚡ 5G High Speed</button>
+        <button class="wifi-pill-btn" data-band="4G">📶 4G Standard</button>
+        <button class="wifi-pill-btn" data-band="PB">🏛️ Principal Bungalow (PB)</button>
+        <button class="wifi-pill-btn" data-band="Main">🏢 Main Building</button>
+      </div>
+      <div class="wifi-networks-grid" id="wifiViewGrid" style="max-height: none;"></div>
+    </div>
+  </main>
+
+  <!-- Modal: Full Day Schedule View -->
+  <div class="modal-overlay" id="scheduleModal" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-titles">
+          <h2 id="modalRoomTitle">Room Schedule</h2>
+          <div id="modalRoomLocationBar" class="room-location-info-bar"></div>
+          <p id="modalRoomMeta">Room Metadata</p>
+        </div>
+        <button class="modal-close" id="btnModalClose">✕</button>
+      </div>
+      <!-- Day Selector Tabs inside Room Modal -->
+      <div class="modal-day-tabs" id="modalRoomDayTabs" role="tablist" aria-label="Room schedule days">
+        <button class="day-btn modal-day-tab-btn active" data-day="Monday" role="tab" aria-selected="true">Monday</button>
+        <button class="day-btn modal-day-tab-btn" data-day="Tuesday" role="tab" aria-selected="false">Tuesday</button>
+        <button class="day-btn modal-day-tab-btn" data-day="Wednesday" role="tab" aria-selected="false">Wednesday</button>
+        <button class="day-btn modal-day-tab-btn" data-day="Thursday" role="tab" aria-selected="false">Thursday</button>
+        <button class="day-btn modal-day-tab-btn" data-day="Friday" role="tab" aria-selected="false">Friday</button>
+        <button class="day-btn modal-day-tab-btn" data-day="Saturday" role="tab" aria-selected="false">Saturday</button>
+      </div>
+
+      <!-- Room Schedule Actions Toolbar: Export Image, Direct Share -->
+      <div class="modal-schedule-toolbar" id="modalScheduleToolbar">
+        <button type="button" class="btn-sched-action btn-sched-img" id="btnModalExportScheduleImg" title="Save clean daily schedule as high-res PNG image">
+          📸 Save Day Schedule
+        </button>
+        <button type="button" class="btn-sched-action btn-sched-share" id="btnModalShareDirect" title="Share room vacancy directly">
+          📤 Share Room
+        </button>
+      </div>
+
+      <div class="modal-body" id="modalBody">
+        <!-- Timetable schedule table inserted here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Calendar / GD Slot Reminder Choice -->
+  <div class="modal-overlay" id="calendarReminderModal" style="display: none;">
+    <div class="modal-card" style="max-width: 440px;">
+      <div class="modal-header">
+        <div class="modal-titles">
+          <h2 id="calReminderTitle" style="font-size: 1.15rem;">📅 Set Group Study Reminder</h2>
+          <p id="calReminderMeta" style="font-size: 0.8rem; color: var(--text-secondary);">Room Vacancy Calendar Alert</p>
+        </div>
+        <button class="modal-close" id="btnCalReminderClose">✕</button>
+      </div>
+      <div class="modal-body" style="padding: 16px 20px;">
+        <div id="calReminderDetailsBox" style="background: rgba(37,99,235,0.06); border: 1px solid rgba(37,99,235,0.15); border-radius: 10px; padding: 12px 14px; margin-bottom: 16px;">
+          <div style="font-size: 0.95rem; font-weight: 700; color: #1e3a8a;" id="calReminderRoomName">Room R2</div>
+          <div style="font-size: 0.84rem; color: #3b82f6; font-weight: 600; margin-top: 2px;" id="calReminderSlotTime">Saturday · 12:30 PM – 1:30 PM</div>
+          <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">Classroom is officially vacant. Add a 15-minute prior alarm so your group can secure the room on time.</div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <a href="#" id="btnCalOpenGoogle" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 16px; border-radius: 8px; background: #2563eb; color: #fff; text-decoration: none; font-weight: 700; font-size: 0.9rem; box-shadow: 0 2px 8px rgba(37,99,235,0.25);">
+            <span>🗓️ Add to Google Calendar</span>
+            <span style="font-size: 0.8rem; opacity: 0.85;">↗</span>
+          </a>
+          <button type="button" id="btnCalDownloadIcs" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 16px; border-radius: 8px; border: 1px solid #cbd5e1; background: var(--bg-card); color: var(--text-primary); font-weight: 600; font-size: 0.88rem; cursor: pointer;">
+            <span>🍏 Apple / Outlook (.ics with 15m Alarm)</span>
+          </button>
+          <button type="button" id="btnCalCopyGdInvite" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 16px; border-radius: 8px; border: 1px solid #e2e8f0; background: #f8fafc; color: #475569; font-weight: 600; font-size: 0.85rem; cursor: pointer;">
+            <span>💬 Copy WhatsApp GD Invite</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal: WiFi Directory Popup (Temporarily hidden pending administrative permission) -->
+  <div class="modal-overlay" id="wifiModal" style="display: none !important;">
+    <div class="modal-card wifi-modal-dialog">
+      <div class="modal-header wifi-directory-header" style="padding: 20px 24px 16px; border-bottom: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: flex-start;">
+        <div style="display: flex; align-items: flex-start; gap: 12px;">
+          <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(8, 145, 178, 0.12); color: #0891b2; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">
+            <svg class="wifi-svg-icon" style="width: 24px; height: 24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+              <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+              <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+              <circle cx="12" cy="20" r="1.3" fill="currentColor"></circle>
+            </svg>
+          </div>
+          <div>
+            <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary); margin: 0 0 4px 0; font-family: var(--font-display); line-height: 1.2;">Campus WiFi Passwords</h2>
+            <p style="font-size: 0.82rem; color: var(--text-secondary); margin: 0; line-height: 1.35;">Direct passwords &amp; QR scan to connect instantly on campus</p>
+          </div>
+        </div>
+        <button class="modal-close" id="btnWifiModalClose" aria-label="Close WiFi Modal">✕</button>
+      </div>
+
+      <div class="modal-body wifi-modal-body" style="padding: 16px 24px 20px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto;">
+        <div class="wifi-search-bar" style="margin: 0;">
+          <input type="text" id="wifiModalSearchInput" class="wifi-search-input" placeholder="🔍 Search network, room, or wing..." />
+        </div>
+        <div class="wifi-pills-filter" id="wifiModalPills" style="margin: 0;">
+          <button class="wifi-pill-btn active" data-band="ALL">All (24)</button>
+          <button class="wifi-pill-btn" data-band="5G">⚡ 5G</button>
+          <button class="wifi-pill-btn" data-band="4G">📶 4G</button>
+          <button class="wifi-pill-btn" data-band="PB">PB Wing</button>
+          <button class="wifi-pill-btn" data-band="Main">Main Building</button>
+        </div>
+        <div class="wifi-networks-grid" id="wifiModalGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Teacher Weekly Timetable View -->
+  <div class="modal-overlay" id="teacherModal" style="display: none;">
+    <div class="modal-card teacher-modal-card" style="max-width: 720px;">
+      <div class="modal-header">
+        <div class="modal-titles">
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <div class="faculty-initials-avatar" id="modalTeacherAvatar" style="width: 44px; height: 44px; font-size: 1.05rem;">--</div>
+            <div>
+              <h2 id="modalTeacherName" style="font-size: 1.25rem;">Teacher Timetable</h2>
+              <p id="modalTeacherMeta" style="font-size: 0.8rem; color: var(--text-secondary);">Department · Code · Weekly Teaching Periods</p>
+            </div>
+          </div>
+        </div>
+        <button class="modal-close" id="btnTeacherModalClose">✕</button>
+      </div>
+
+      <!-- Teacher Schedule Toolbar: Share Profile -->
+      <div class="modal-schedule-toolbar" id="modalTeacherScheduleToolbar">
+        <button type="button" class="btn-sched-action btn-sched-share" id="btnShareTeacherProfile" title="Share faculty timetable & profile link on WhatsApp">
+          📤 Share Faculty Profile
+        </button>
+      </div>
+
+      <!-- Day Selector Tabs inside Teacher Modal (Touch scrollable, no overlap) -->
+      <div class="modal-day-tabs" id="modalTeacherDayTabs" role="tablist" aria-label="Faculty schedule days">
+        <button class="day-btn modal-day-tab-btn active" data-day="Monday" role="tab" aria-selected="true">Monday</button>
+        <button class="day-btn modal-day-tab-btn" data-day="Tuesday" role="tab" aria-selected="false">Tuesday</button>
+        <button class="day-btn modal-day-tab-btn" data-day="Wednesday" role="tab" aria-selected="false">Wednesday</button>
+        <button class="day-btn modal-day-tab-btn" data-day="Thursday" role="tab" aria-selected="false">Thursday</button>
+        <button class="day-btn modal-day-tab-btn" data-day="Friday" role="tab" aria-selected="false">Friday</button>
+        <button class="day-btn modal-day-tab-btn" data-day="Saturday" role="tab" aria-selected="false">Saturday</button>
+      </div>
+      <div class="modal-body" id="modalTeacherBody">
+        <!-- Teacher Timetable schedule table inserted here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-content">
+      <div class="footer-brand-strip">
+        <img src="assets/srcc_crest.png" onerror="this.onerror=null; this.src='srcc_crest.png';" alt="SRCC Crest" class="footer-mini-logo" />
+        <span class="footer-divider">|</span>
+        <img src="assets/srcc_100years.png" onerror="this.onerror=null; this.src='srcc_100years.png';" alt="SRCC 100 Years" class="footer-mini-logo" />
+        <span>Shri Ram College of Commerce (SRCC)</span>
+      </div>
+
+      <!-- Community & Developer Connect Cards in Footer -->
+      <div class="footer-links-row">
+        <!-- WhatsApp Community Link -->
+        <a href="https://chat.whatsapp.com/H6qxq6fGSDVJNPCEtzQgjf" target="_blank" rel="noopener noreferrer" class="footer-action-card whatsapp-card" title="Join WhatsApp Community">
+          <svg class="whatsapp-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.1 7.42C8.94 7.42 8.68 7.48 8.46 7.72C8.24 7.96 7.62 8.54 7.62 9.72C7.62 10.9 8.48 12.04 8.6 12.2C8.72 12.36 10.29 14.79 12.7 15.83C13.27 16.08 13.72 16.23 14.07 16.34C14.65 16.53 15.18 16.5 15.6 16.44C16.07 16.37 17.04 15.85 17.24 15.28C17.45 14.71 17.45 14.22 17.39 14.12C17.33 14.02 17.17 13.96 16.92 13.84C16.68 13.72 15.48 13.13 15.26 13.05C15.04 12.97 14.88 12.93 14.72 13.17C14.56 13.41 14.1 13.96 13.96 14.12C13.82 14.28 13.68 14.3 13.44 14.18C13.2 14.06 12.43 13.81 11.51 12.99C10.79 12.35 10.3 11.56 10.16 11.32C10.02 11.08 10.14 10.95 10.26 10.83C10.37 10.72 10.51 10.54 10.63 10.4C10.75 10.26 10.79 10.16 10.87 10C10.95 9.84 10.91 9.7 10.85 9.58C10.79 9.46 10.33 8.32 10.14 7.86C9.95 7.41 9.76 7.47 9.61 7.46C9.47 7.46 9.31 7.42 9.1 7.42Z"/>
+          </svg>
+          <span>Join WhatsApp Community</span>
+          <span class="footer-arrow">↗</span>
+        </a>
+
+        <!-- LinkedIn Developer Link -->
+        <a href="https://www.linkedin.com/in/anandkumar563/" target="_blank" rel="noopener noreferrer" class="footer-action-card linkedin-card" title="Open LinkedIn Profile">
+          <svg class="linkedin-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45c-.89 0-1.61.72-1.61 1.61 0 .89.72 1.61 1.61 1.61.89 0 1.61-.72 1.61-1.61 0-.89-.72-1.61-1.61-1.61Z"/>
+          </svg>
+          <span>Built by Anand Kumar (25BC070)</span>
+          <span class="footer-arrow">↗</span>
+        </a>
+      </div>
+
+      <p class="footer-desc">Designed for <strong>Shri Ram College of Commerce (SRCC)</strong> Students for GD & Peer Study Coordination.</p>
+      <p class="source-link">Timetable sourced from official portal: <a href="https://srcccollegetimetable.in/" target="_blank" rel="noopener">srcccollegetimetable.in</a> • Last Verified & Synced: <strong id="footerLastSynced">Today (Daily Auto-Sync)</strong></p>
+    </div>
+  </footer>
+
+  <!-- Mobile Bottom Navigation Bar -->
+  <!-- Mobile Bottom Navigation Bar (Streamlined Actions with Free Now) -->
+  <nav class="mobile-bottom-nav" id="mobileBottomNav">
+    <button class="bottom-nav-item active" id="bnavRooms" data-bnav="rooms" title="Browse Classrooms">
+      <span class="bnav-icon">🏛️</span>
+      <span class="bnav-label">Rooms</span>
+    </button>
+    <button class="bottom-nav-item" id="bnavFaculty" data-bnav="faculty" title="Faculty Locator">
+      <span class="bnav-icon">👨‍🏫</span>
+      <span class="bnav-label">Faculty</span>
+    </button>
+    <button class="bottom-nav-item" id="bnavTimetable" data-bnav="timetable" title="Student Timetable">
+      <span class="bnav-icon">📅</span>
+      <span class="bnav-label">Timetable</span>
+    </button>
+    <button class="bottom-nav-item" id="bnavFreeNow" data-bnav="freenow" title="Rooms Free Right Now">
+      <span class="bnav-icon">⚡</span>
+      <span class="bnav-label">Free Now</span>
+    </button>
+    <button class="bottom-nav-item" id="bnavMenu" data-bnav="menu" title="Open Campus Menu (Notices & Links)">
+      <span class="bnav-icon" style="font-size: 1.15rem; font-weight: 700;">☰</span>
+      <span class="bnav-label">Menu</span>
+    </button>
+    <!-- WiFi Bottom Nav Item - Temporarily hidden pending administrative permission -->
+    <button class="bottom-nav-item" id="bnavWifi" data-bnav="wifi" title="Campus WiFi Networks & Passwords" style="display: none !important;">
+      <span class="bnav-icon">
+        <svg class="wifi-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+          <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+          <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+          <circle cx="12" cy="20" r="1.3" fill="currentColor"></circle>
+        </svg>
+      </span>
+      <span class="bnav-label">WiFi</span>
+    </button>
+  </nav>
+
+  <!-- ====================================================================
+       STUDENT ASSIST-STYLE THREE-LINE CAMPUS NAVIGATION DRAWER
+       ==================================================================== -->
+  <div id="campusDrawerOverlay" class="campus-drawer-overlay" style="display: none;">
+    <aside id="campusDrawer" class="campus-drawer" role="dialog" aria-modal="true" aria-label="Campus Menu">
+      <div class="campus-drawer-header">
+        <div class="campus-drawer-brand">
+          <img src="assets/srcc_crest.png" onerror="this.onerror=null; this.src='srcc_crest.png';" alt="SRCC Crest" class="campus-drawer-logo" />
+          <div>
+            <h3 class="campus-drawer-title">SRCC Student Portal</h3>
+            <span class="campus-drawer-subtitle">Campus Navigation & Notices</span>
+          </div>
+        </div>
+        <button id="btnCloseCampusDrawer" class="btn-close-drawer" aria-label="Close Menu">✕</button>
+      </div>
+
+      <div class="campus-drawer-body">
+        <!-- 📢 Primary Highlighted College Notices Entry -->
+        <div class="drawer-section-title">Official Circulars</div>
+        <button class="drawer-nav-item drawer-nav-notices" id="drawerNavNotices">
+          <div class="drawer-nav-icon-wrap" style="background: rgba(225, 29, 72, 0.12); color: #e11d48;">
+            📢
+          </div>
+          <div class="drawer-nav-text">
+            <div class="drawer-nav-name">College Notices & Circulars</div>
+            <div class="drawer-nav-desc">All official university circulars, forms & fests</div>
+          </div>
+          <div class="drawer-badges-stack">
+            <span class="drawer-badge-pulse" id="drawerNoticesBadge">430 New</span>
+            <span class="drawer-badge-deadlines" id="drawerDeadlinesBadge">25 Deadlines ⏳</span>
+          </div>
+        </button>
+
+        <div class="drawer-section-title" style="margin-top: 18px;">Core Campus Features</div>
+        <button class="drawer-nav-item" id="drawerNavRooms">
+          <div class="drawer-nav-icon-wrap" style="background: rgba(13, 148, 136, 0.12); color: #0d9488;">
+            🏛️
+          </div>
+          <div class="drawer-nav-text">
+            <div class="drawer-nav-name">Free Classroom Finder</div>
+            <div class="drawer-nav-desc">Find empty rooms for GD & self-study</div>
+          </div>
+        </button>
+
+        <button class="drawer-nav-item" id="drawerNavFaculty">
+          <div class="drawer-nav-icon-wrap" style="background: rgba(37, 99, 235, 0.12); color: #2563eb;">
+            👨‍🏫
+          </div>
+          <div class="drawer-nav-text">
+            <div class="drawer-nav-name">Faculty Directory & Status</div>
+            <div class="drawer-nav-desc">Teacher schedules, leave records & emails</div>
+          </div>
+        </button>
+
+        <button class="drawer-nav-item" id="drawerNavTimetable">
+          <div class="drawer-nav-icon-wrap" style="background: rgba(124, 58, 237, 0.12); color: #7c3aed;">
+            📅
+          </div>
+          <div class="drawer-nav-text">
+            <div class="drawer-nav-name">Master Timetable</div>
+            <div class="drawer-nav-desc">Daily course, SEC, VAC & AEC schedule</div>
+          </div>
+        </button>
+
+        <div class="drawer-section-title" style="margin-top: 18px;">Community & Links</div>
+        <a href="https://chat.whatsapp.com/H6qxq6fGSDVJNPCEtzQgjf" target="_blank" rel="noopener noreferrer" class="drawer-nav-item">
+          <div class="drawer-nav-icon-wrap" style="background: rgba(37, 211, 102, 0.12); color: #25D366;">
+            💬
+          </div>
+          <div class="drawer-nav-text">
+            <div class="drawer-nav-name">SRCC WhatsApp Community</div>
+            <div class="drawer-nav-desc">Join peer student discussions</div>
+          </div>
+          <span style="font-size: 0.9rem; color: var(--text-tertiary);">↗</span>
+        </a>
+
+        <button class="drawer-nav-item" id="drawerNavReport">
+          <div class="drawer-nav-icon-wrap" style="background: rgba(234, 88, 12, 0.12); color: #ea580c;">
+            ⚠️
+          </div>
+          <div class="drawer-nav-text">
+            <div class="drawer-nav-name">Report Issue / Bug</div>
+            <div class="drawer-nav-desc">Submit wrong room or schedule errors</div>
+          </div>
+        </button>
+
+        <a href="https://www.srcc.edu/announcements" target="_blank" rel="noopener noreferrer" class="drawer-nav-item">
+          <div class="drawer-nav-icon-wrap" style="background: rgba(100, 116, 139, 0.12); color: #64748b;">
+            🌐
+          </div>
+          <div class="drawer-nav-text">
+            <div class="drawer-nav-name">Official Portal (srcc.edu)</div>
+            <div class="drawer-nav-desc">Main college website announcements</div>
+          </div>
+          <span style="font-size: 0.9rem; color: var(--text-tertiary);">↗</span>
+        </a>
+      </div>
+
+      <div class="campus-drawer-footer">
+        <div class="campus-drawer-meta">
+          <span>College Timetable Synced: Today (Verified)</span>
+          <span>SRCC Student Peer Initiative</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Social Media Direct Share Modal (With Authentic Brand Logos) -->
+  <div class="modal-overlay" id="shareModal" style="display: none;">
+    <div class="modal-card share-modal-card">
+      <div class="modal-header">
+        <div class="modal-titles">
+          <h2 id="shareModalTitle">📤 Share Room Vacancy</h2>
+          <p id="shareModalSub">Select social app or copy formatted room schedule</p>
+        </div>
+        <button class="modal-close" id="btnShareModalClose">✕</button>
+      </div>
+      <div class="modal-body share-modal-body">
+        <div class="share-preview-box" id="sharePreviewText">
+          <!-- Text preview of the share message -->
+        </div>
+
+        <div class="share-apps-label">Direct Share via App:</div>
+        <div class="share-apps-grid">
+          <!-- WhatsApp Official SVG Logo -->
+          <a href="#" class="share-app-btn share-whatsapp" id="shareBtnWhatsapp" target="_blank" rel="noopener noreferrer" title="Direct share via WhatsApp">
+            <span class="share-app-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24">
+                <path fill="#25D366" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/>
+                <path fill="#FFF" d="M17.47 14.38c-.28-.14-1.67-.82-1.93-.91-.26-.1-.45-.14-.64.14-.19.28-.73.91-.89 1.1-.16.18-.33.21-.61.07-.28-.14-1.18-.44-2.25-1.39-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.46.1-.19.05-.35-.02-.49-.07-.14-.64-1.54-.88-2.11-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.49.07-.75.35-.26.28-1 1-1 2.43 0 1.44 1.03 2.82 1.18 3.01.14.19 2.03 3.1 4.93 4.35.69.3 1.23.48 1.65.61.69.22 1.32.19 1.81.12.55-.08 1.67-.68 1.91-1.34.23-.65.23-1.22.16-1.34-.07-.11-.26-.18-.54-.32z"/>
+              </svg>
+            </span>
+            <span class="share-app-name">WhatsApp</span>
+          </a>
+
+          <!-- Gmail Official SVG Logo -->
+          <a href="#" class="share-app-btn share-gmail" id="shareBtnGmail" target="_blank" rel="noopener noreferrer" title="Send via Gmail">
+            <span class="share-app-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24">
+                <path fill="#EA4335" d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+              </svg>
+            </span>
+            <span class="share-app-name">Gmail</span>
+          </a>
+
+          <!-- X / Twitter Official SVG Logo -->
+          <a href="#" class="share-app-btn share-x" id="shareBtnX" target="_blank" rel="noopener noreferrer" title="Post on X (Twitter)">
+            <span class="share-app-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="5" fill="#000000"/>
+                <path fill="#FFFFFF" d="M16.99 5h2.15l-4.7 5.37L20 17.5h-4.32l-3.39-4.43-3.87 4.43H6.26l5.03-5.75L6 5h4.43l3.06 4.05L16.99 5zm-.75 11.22h1.19L9.83 6.22H8.55l7.69 10z"/>
+              </svg>
+            </span>
+            <span class="share-app-name">X (Twitter)</span>
+          </a>
+
+          <!-- Telegram Official SVG Logo -->
+          <a href="#" class="share-app-btn share-telegram" id="shareBtnTelegram" target="_blank" rel="noopener noreferrer" title="Share via Telegram">
+            <span class="share-app-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="12" fill="#24A1DE"/>
+                <path fill="#FFF" d="M5.4 11.7l3.8 1.4 1.5 4.5c.1.3.4.4.7.4.2 0 .4-.1.6-.2l2.2-2 3.6 2.7c.3.2.7.1.9-.2.2-.2.3-.6.2-.9l-2.4-11.4c-.1-.4-.5-.6-.9-.5l-10 3.8c-.4.2-.5.6-.4 1 .1.3.4.5.7.6zm4.7 1.4l5.8-3.7-4.6 4.3-.4 2.2-.8-2.8z"/>
+              </svg>
+            </span>
+            <span class="share-app-name">Telegram</span>
+          </a>
+
+          <!-- LinkedIn Official SVG Logo -->
+          <button type="button" class="share-app-btn share-linkedin" id="shareBtnLinkedin" title="Share via LinkedIn">
+            <span class="share-app-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="4" fill="#0A66C2"/>
+                <path fill="#FFF" d="M19 19h-3V14.2c0-1.1-.02-2.6-1.6-2.6-1.6 0-1.8 1.2-1.8 2.5V19H9.6V9h2.9v1.4h.04c.4-.8 1.4-1.6 2.9-1.6 3.1 0 3.7 2 3.7 4.7V19zM6.5 7.7c-1 0-1.8-.8-1.8-1.8s.8-1.8 1.8-1.8 1.8.8 1.8 1.8-.8 1.8-1.8 1.8zm1.5 11.3H5V9h3v10z"/>
+              </svg>
+            </span>
+            <span class="share-app-name">LinkedIn</span>
+          </button>
+
+          <!-- Instagram Official SVG Logo -->
+          <button type="button" class="share-app-btn share-instagram" id="shareBtnInstagram" title="Share via Instagram">
+            <span class="share-app-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24">
+                <defs>
+                  <linearGradient id="igGradientModal" x1="0%" y1="100%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#FFD600"/>
+                    <stop offset="25%" stop-color="#FF7A00"/>
+                    <stop offset="50%" stop-color="#FF0069"/>
+                    <stop offset="75%" stop-color="#D300C5"/>
+                    <stop offset="100%" stop-color="#7638FA"/>
+                  </linearGradient>
+                </defs>
+                <rect width="24" height="24" rx="6" fill="url(#igGradientModal)"/>
+                <rect x="5.5" y="5.5" width="13" height="13" rx="3.5" fill="none" stroke="#FFFFFF" stroke-width="1.8"/>
+                <circle cx="12" cy="12" r="3.2" fill="none" stroke="#FFFFFF" stroke-width="1.8"/>
+                <circle cx="15.8" cy="8.2" r="0.9" fill="#FFFFFF"/>
+              </svg>
+            </span>
+            <span class="share-app-name">Instagram</span>
+          </button>
+
+          <!-- Facebook Official SVG Logo -->
+          <button type="button" class="share-app-btn share-facebook" id="shareBtnFacebook" title="Share via Facebook">
+            <span class="share-app-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="12" fill="#1877F2"/>
+                <path fill="#FFF" d="M15.14 12.67l.42-2.73h-2.62V8.17c0-.75.37-1.48 1.54-1.48h1.19V4.37c-.72-.1-1.48-.15-2.24-.15-2.28 0-3.77 1.38-3.77 3.89v2.03H7.28v2.73h2.38V21.6a12.04 12.04 0 003.88 0v-8.93h2.6z"/>
+              </svg>
+            </span>
+            <span class="share-app-name">Facebook</span>
+          </button>
+        </div>
+
+        <p class="share-apps-hint">
+          💡 <strong>Tip:</strong> On mobile, tap <strong>"Direct Share"</strong> below to send directly into individual DMs, chats, or stories!
+        </p>
+
+        <!-- Copy & Direct Share Bar -->
+        <div class="share-copy-row">
+          <button class="btn-primary-share" id="btnPrimaryShare" style="display: none;">
+            📱 Direct Share via Any App
+          </button>
+          <button class="btn-copy-full-text" id="btnCopyShareText">
+            📋 Copy Formatted Text to Clipboard
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container for Copied Alerts -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Install PWA Modal UI -->
+  <div class="install-modal-overlay" id="pwaInstallModal" style="display: none;" role="dialog" aria-modal="true">
+    <div class="install-modal">
+      <div class="install-modal-header">
+        <img src="assets/srcc_100years.png" alt="App Icon" class="install-modal-icon">
+        <div class="install-modal-title">
+          <h3>Install SRCC Rooms</h3>
+          <p>Add to your home screen for quick access!</p>
+        </div>
+        <button class="btn-close-install" id="btnCloseInstall" aria-label="Close Install Prompt">×</button>
+      </div>
+      <div class="install-modal-body">
+        <ul>
+          <li>⚡ Faster load times</li>
+          <li>📱 Works like a native app</li>
+          <li>🏛️ Quick classroom finding</li>
+        </ul>
+      </div>
+      <div class="install-modal-footer">
+        <button class="btn-install-secondary" id="btnNotNowInstall">Not Now</button>
+        <button class="btn-install-primary" id="btnInstallApp">Install App</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Faculty Leave Modal -->
+  <div id="leaveManagerModal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(4px);">
+    <div class="modal-card" style="background: #ffffff; width: 92%; max-width: 560px; max-height: 85vh; border-radius: var(--radius-lg); padding: 22px; box-shadow: var(--shadow-xl); display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--border-color);">
+      <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border-subtle);">
+        <div>
+          <h2 class="modal-title" style="margin: 0; font-size: 1.18rem; font-family: var(--font-display); font-weight: 800; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
+            <span>🏖️ Recorded Faculty Leaves</span>
+            <span id="activeLeavesCount" style="font-size: 0.76rem; font-weight: 800; background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; padding: 2px 8px; border-radius: 9999px;">0</span>
+          </h2>
+          <p style="font-size: 0.78rem; color: var(--text-secondary); margin: 3px 0 0 0;">Cancelled classes & bonus free rooms for self-study and GD</p>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <button type="button" id="btnShareAllLeavesWhatsApp" style="font-size: 0.75rem; padding: 6px 12px; background: #16A34A; color: #ffffff; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;" title="Share complete list on WhatsApp">
+            💬 Share All List
+          </button>
+          <button id="btnLeaveModalClose" class="modal-close" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-secondary); line-height: 1;">&times;</button>
+        </div>
+      </div>
+      <div class="modal-body" style="overflow-y: auto; flex: 1; padding-right: 4px;">
+        <div class="leaves-items-container" id="leavesListContainer">
+          <!-- Populated via app.js -->
+        </div>
+      </div>
+      <div class="modal-footer" style="margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: flex-end; align-items: center;">
+        <button type="button" id="btnCloseLeavesModalFooter" style="padding: 7px 16px; border: 1px solid var(--border-color); background: #f1f5f9; border-radius: 6px; cursor: pointer; font-size: 0.82rem; font-weight: 600; color: var(--text-primary);">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Report Issue Modal -->
+  <div id="reportIssueModal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center; pointer-events: auto !important;">
+    <div class="modal-card" style="background: var(--bg-card); width: 90%; max-width: 400px; border-radius: var(--radius-lg); padding: 20px; box-shadow: var(--shadow-xl); pointer-events: auto !important;">
+      <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h2 class="modal-title" style="margin: 0; font-size: 1.25rem;">⚠️ Report an Issue</h2>
+        <button id="btnCloseReportModal" class="btn-icon" style="background:none; border:none; font-size:1.5rem; cursor:pointer; color: var(--text-secondary);">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 12px;">Notice wrong timetable data or present faculty marked absent? Let us know.</p>
+        <div style="margin-bottom: 12px;">
+          <label style="display:block; font-size: 0.85rem; font-weight:600; margin-bottom:4px; color: var(--text-primary);">Issue Type:</label>
+          <select id="reportIssueType" style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; background: var(--bg-input); color: var(--text-primary);">
+            <option value="Wrong Room">Wrong Room / Class Info</option>
+            <option value="Faculty Present">Faculty is present but marked absent</option>
+            <option value="Bug">App Bug / Glitch</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div style="margin-bottom: 16px;">
+          <label style="display:block; font-size: 0.85rem; font-weight:600; margin-bottom:4px; color: var(--text-primary);">Details (Optional):</label>
+          <textarea id="reportIssueDetails" rows="3" placeholder="E.g., Prof Sharma is in room 102..." style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; background: var(--bg-input); color: var(--text-primary);"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer" style="display:flex; justify-content:flex-end; gap:8px;">
+        <button id="btnCancelReport" style="padding:8px 16px; border: 1px solid var(--border-color); background: transparent; border-radius:4px; cursor: pointer; color: var(--text-primary);">Cancel</button>
+        <button id="btnSubmitReport" style="padding:8px 16px; background:#dc2626; color:#fff; border:none; border-radius:4px; cursor: pointer; font-weight: 600;">Submit</button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Student Attachment Modal Viewer (Image / PDF) -->
+  <div class="attachment-modal-overlay" id="studentAttachmentModal">
+    <div class="attachment-modal-card">
+      <div class="attachment-modal-header">
+        <h3 id="studentAttachmentModalTitle" style="margin: 0; font-family: var(--font-display); font-size: 1rem; color: #1e293b;">
+          Notice Attachment
+        </h3>
+        <button type="button" id="btnCloseStudentAttachmentModal" style="background: transparent; border: none; font-size: 1.25rem; cursor: pointer; color: #64748b; padding: 4px;">✕</button>
+      </div>
+      <div class="attachment-modal-body" id="studentAttachmentModalBody"></div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       STUDENT ASSIST-STYLE FACULTY EMAIL CONTACT MODAL
+       ==================================================================== -->
+  <div class="modal-overlay" id="facultyEmailModal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="facultyEmailModalName">
+    <div class="modal-card faculty-email-modal-card">
+      <div style="background: linear-gradient(135deg, #1e3a8a, #000066); padding: 22px 20px 18px; color: #ffffff; position: relative;">
+        <button type="button" class="modal-close" id="btnFacultyEmailModalClose" style="position: absolute; top: 14px; right: 14px; color: #ffffff; background: rgba(255,255,255,0.18); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; font-size: 1.1rem; line-height: 1;">✕</button>
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div class="faculty-initials-avatar" id="facultyEmailModalAvatar" style="width: 50px; height: 50px; font-size: 1.25rem; flex-shrink: 0; box-shadow: 0 4px 12px rgba(0,0,0,0.25); border: 2px solid rgba(255,255,255,0.35);">
+            --
+          </div>
+          <div style="min-width: 0;">
+            <div style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.8px; color: #93c5fd; font-weight: 700;">Faculty Contact Details</div>
+            <h3 id="facultyEmailModalName" style="margin: 2px 0 0; font-size: 1.22rem; font-family: var(--font-display); font-weight: 800; color: #ffffff; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+              Professor Name
+            </h3>
+            <div style="display: flex; gap: 6px; align-items: center; margin-top: 4px; flex-wrap: wrap;">
+              <span id="facultyEmailModalDept" style="background: rgba(255,255,255,0.18); font-size: 0.72rem; padding: 2px 8px; border-radius: 9999px; font-weight: 600;">Commerce</span>
+              <span id="facultyEmailModalCode" style="background: rgba(254, 240, 138, 0.25); color: #fef08a; font-size: 0.72rem; padding: 2px 8px; border-radius: 9999px; font-weight: 700;">CODE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="faculty-email-modal-body">
+        <label style="font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b; display: block; margin-bottom: 6px;">
+          Official Verified DU Email
+        </label>
+        <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+          <div style="display: flex; align-items: center; gap: 10px; min-width: 0;">
+            <span style="font-size: 1.2rem;">✉️</span>
+            <span id="facultyEmailModalAddress" style="font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; font-weight: 700; color: #0f172a; word-break: break-all;">
+              faculty@srcc.du.ac.in
+            </span>
+          </div>
+        </div>
+
+        <div class="faculty-email-actions">
+          <button type="button" id="btnFacultyEmailModalCopy" class="faculty-email-btn-copy">
+            <span>📋</span> <span id="facultyEmailModalCopyText">Copy Email</span>
+          </button>
+          <a id="btnFacultyEmailModalMailto" href="mailto:faculty@srcc.du.ac.in" class="faculty-email-btn-send">
+            <span>✉️</span> <span>Send Email</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="data.js?v=82"></script>
+  <script src="college_notices.js?v=82"></script>
+  <script src="wifi_data.js?v=82"></script>
+  <script src="cloud_config.js?v=81"></script>
+  <script src="faculty_leaves.js?v=81"></script>
+  <script src="teachers_data.js?v=81"></script>
+  <script src="classes_data.js?v=81"></script>
+  <script src="app.js?v=81"></script>
+</body>
+</html>
