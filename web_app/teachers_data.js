@@ -7387,7 +7387,7 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "",
       "ref_code": "",
       "initials": "CG",
-      "department": "Commerce",
+      "department": "Computer Science",
       "subjects_taught": [],
       "total_teaching_periods": 0,
       "schedule": {
@@ -7408,7 +7408,7 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "",
       "ref_code": "",
       "initials": "CG",
-      "department": "Commerce",
+      "department": "Computer Science",
       "subjects_taught": [],
       "total_teaching_periods": 0,
       "schedule": {
@@ -7429,7 +7429,7 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "",
       "ref_code": "",
       "initials": "CG",
-      "department": "Commerce",
+      "department": "Computer Science",
       "subjects_taught": [],
       "total_teaching_periods": 0,
       "schedule": {
@@ -7450,7 +7450,7 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "",
       "ref_code": "",
       "initials": "CG",
-      "department": "Commerce",
+      "department": "Computer Science",
       "subjects_taught": [],
       "total_teaching_periods": 0,
       "schedule": {
@@ -8397,7 +8397,7 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "",
       "ref_code": "",
       "initials": "EG",
-      "department": "Commerce",
+      "department": "Economics",
       "subjects_taught": [],
       "total_teaching_periods": 0,
       "schedule": {
@@ -8418,7 +8418,7 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "",
       "ref_code": "",
       "initials": "EG",
-      "department": "Commerce",
+      "department": "Economics",
       "subjects_taught": [],
       "total_teaching_periods": 0,
       "schedule": {
@@ -8439,7 +8439,7 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "",
       "ref_code": "",
       "initials": "EG",
-      "department": "Commerce",
+      "department": "Economics",
       "subjects_taught": [],
       "total_teaching_periods": 0,
       "schedule": {
@@ -8460,7 +8460,7 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "",
       "ref_code": "",
       "initials": "EG",
-      "department": "Commerce",
+      "department": "Economics",
       "subjects_taught": [],
       "total_teaching_periods": 0,
       "schedule": {
@@ -8690,7 +8690,7 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "EVSG1",
       "ref_code": "EVSG1",
       "initials": "EG",
-      "department": "Commerce",
+      "department": "EVS",
       "subjects_taught": [
         "Environmental Science: Theory into Practice-I",
         "Environmental Science: Theory into Practice-II"
@@ -8815,7 +8815,7 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "EVSG2",
       "ref_code": "EVSG2",
       "initials": "EG",
-      "department": "Commerce",
+      "department": "EVS",
       "subjects_taught": [
         "Environmental Science: Theory into Practice-I",
         "Environmental Science: Theory into Practice-II"
@@ -8939,7 +8939,7 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "EVSG3",
       "ref_code": "EVSG3",
       "initials": "EG",
-      "department": "Commerce",
+      "department": "EVS",
       "subjects_taught": [
         "Environmental Science: Theory into Practice-I",
         "Environmental Science: Theory into Practice-II"
@@ -9063,7 +9063,7 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "",
       "ref_code": "",
       "initials": "EG",
-      "department": "Commerce",
+      "department": "EVS",
       "subjects_taught": [],
       "total_teaching_periods": 0,
       "schedule": {
@@ -9083,7 +9083,7 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "FYV",
       "ref_code": "FYV",
       "initials": "FV",
-      "department": "Commerce",
+      "department": "EVS",
       "subjects_taught": [
         "Environmental Science: Theory into Practice-II"
       ],
@@ -11193,7 +11193,7 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "",
       "ref_code": "",
       "initials": "HG",
-      "department": "Commerce",
+      "department": "Hindi",
       "subjects_taught": [],
       "total_teaching_periods": 0,
       "schedule": {
@@ -15676,7 +15676,7 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "MG1",
       "ref_code": "MG1",
       "initials": "MG",
-      "department": "Commerce",
+      "department": "Mathematics",
       "subjects_taught": [
         "IT Skills and Data Analysis I",
         "IT Skills and Data Analysis II",
@@ -15963,7 +15963,7 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "",
       "ref_code": "",
       "initials": "MG",
-      "department": "Commerce",
+      "department": "Mathematics",
       "subjects_taught": [],
       "total_teaching_periods": 0,
       "schedule": {
@@ -19210,7 +19210,7 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "",
       "ref_code": "",
       "initials": "PG",
-      "department": "Commerce",
+      "department": "Physical Education",
       "subjects_taught": [],
       "total_teaching_periods": 0,
       "schedule": {
@@ -19231,7 +19231,7 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "",
       "ref_code": "",
       "initials": "PG",
-      "department": "Commerce",
+      "department": "Physical Education",
       "subjects_taught": [],
       "total_teaching_periods": 0,
       "schedule": {
@@ -19251,7 +19251,7 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "",
       "ref_code": "",
       "initials": "PG",
-      "department": "Commerce",
+      "department": "Physical Education",
       "subjects_taught": [],
       "total_teaching_periods": 0,
       "schedule": {
@@ -19492,7 +19492,7 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "",
       "ref_code": "",
       "initials": "PS",
-      "department": "Commerce",
+      "department": "Political Science",
       "subjects_taught": [],
       "total_teaching_periods": 0,
       "schedule": {
@@ -19513,7 +19513,7 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "",
       "ref_code": "",
       "initials": "PS",
-      "department": "Commerce",
+      "department": "Political Science",
       "subjects_taught": [],
       "total_teaching_periods": 0,
       "schedule": {
@@ -19534,7 +19534,7 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "",
       "ref_code": "",
       "initials": "PS",
-      "department": "Commerce",
+      "department": "Political Science",
       "subjects_taught": [],
       "total_teaching_periods": 0,
       "schedule": {
@@ -19555,7 +19555,7 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "",
       "ref_code": "",
       "initials": "PS",
-      "department": "Commerce",
+      "department": "Political Science",
       "subjects_taught": [],
       "total_teaching_periods": 0,
       "schedule": {
@@ -29557,7 +29557,7 @@ window.SRCC_TEACHERS_DATA = {
       "short_code": "SLK",
       "ref_code": "SLK",
       "initials": "SK",
-      "department": "Commerce",
+      "department": "EVS",
       "subjects_taught": [
         "Environmental Science: Theory into Practice-I"
       ],
