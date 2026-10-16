@@ -1,12 +1,42 @@
 // SRCC Official Faculty Leaves Data
 // Auto-synced from studentassistsrcc.app & Firebase Cloud DB
-// Last Updated: 15 Oct 2026, 08:22 AM
+// Last Updated: 16 Oct 2026, 08:15 AM
 window.SRCC_FACULTY_LEAVES = {
-  "last_updated": "15 Oct 2026, 08:22 AM",
-  "last_synced_iso": "2026-10-15T08:22:34.442038",
-  "total_on_leave": 4,
+  "last_updated": "16 Oct 2026, 08:15 AM",
+  "last_synced_iso": "2026-10-16T08:15:44.821644",
+  "total_on_leave": 5,
   "source": "https://studentassistsrcc.app / Firebase Cloud DB",
   "leaves": [
+    {
+      "teacher_id": "521",
+      "teacher_name": "Gaurav Rana",
+      "teacher_code": "GVR",
+      "department": "Commerce",
+      "start_date": "2026-10-15",
+      "end_date": "2026-10-25",
+      "reason": "Faculty Leave",
+      "status": "On Leave"
+    },
+    {
+      "teacher_id": "539",
+      "teacher_name": "Yusra Naseem",
+      "teacher_code": "YAM",
+      "department": "Mathematics",
+      "start_date": "2026-10-15",
+      "end_date": "2026-10-25",
+      "reason": "Faculty Leave",
+      "status": "On Leave"
+    },
+    {
+      "teacher_id": "544",
+      "teacher_name": "Mohd. Hassan",
+      "teacher_code": "MDH",
+      "department": "Commerce",
+      "start_date": "2026-10-15",
+      "end_date": "2026-10-25",
+      "reason": "Faculty Leave",
+      "status": "On Leave"
+    },
     {
       "teacher_id": "562",
       "teacher_name": "Kapil Dev Yadav",
@@ -24,26 +54,6 @@ window.SRCC_FACULTY_LEAVES = {
       "department": "Commerce",
       "start_date": "2026-10-03",
       "end_date": "2026-10-17",
-      "reason": "Faculty Leave",
-      "status": "On Leave"
-    },
-    {
-      "teacher_id": "547",
-      "teacher_name": "Manpreet Sharma",
-      "teacher_code": "MTS",
-      "department": "Mathematics",
-      "start_date": "2026-10-09",
-      "end_date": "2026-10-15",
-      "reason": "Faculty Leave",
-      "status": "On Leave"
-    },
-    {
-      "teacher_id": "571",
-      "teacher_name": "Amanpreet Kaur",
-      "teacher_code": "ANK",
-      "department": "Commerce",
-      "start_date": "2026-10-09",
-      "end_date": "2026-10-15",
       "reason": "Faculty Leave",
       "status": "On Leave"
     }
