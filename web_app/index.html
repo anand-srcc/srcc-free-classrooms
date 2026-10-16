@@ -56,8 +56,8 @@
             <span class="toggle-status-text" id="toggleStatusText">OFF</span>
           </button>
         </div>
-        <!-- WiFi Directory Button (Header) -->
-        <button id="btnOpenWifiModal" class="btn-wifi-header" title="Campus WiFi Networks & Passwords Directory">
+        <!-- WiFi Directory Button (Header) - Temporarily hidden pending administrative permission -->
+        <button id="btnOpenWifiModal" class="btn-wifi-header" title="Campus WiFi Networks & Passwords Directory" style="display: none !important;">
           <svg class="wifi-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
             <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
@@ -572,9 +572,9 @@
     </div>
 
     <!-- ====================================================================
-         VIEW SECTION 4: CAMPUS WIFI DIRECTORY
+         VIEW SECTION 4: CAMPUS WIFI DIRECTORY (Temporarily hidden pending administrative permission)
          ==================================================================== -->
-    <div id="viewWifiSection" class="app-view-section" style="display: none;">
+    <div id="viewWifiSection" class="app-view-section" style="display: none !important;">
       <div class="tt-action-bar" style="border-bottom: none; margin-bottom: 12px;">
         <div class="tt-action-title">
           <span style="display: inline-flex; align-items: center; gap: 8px;">
@@ -676,8 +676,8 @@
   </div>
 
 
-  <!-- Modal: WiFi Directory Popup (Triggered via header WiFi button) -->
-  <div class="modal-overlay" id="wifiModal" style="display: none;">
+  <!-- Modal: WiFi Directory Popup (Temporarily hidden pending administrative permission) -->
+  <div class="modal-overlay" id="wifiModal" style="display: none !important;">
     <div class="modal-card wifi-modal-dialog">
       <div class="modal-header wifi-directory-header" style="padding: 20px 24px 16px; border-bottom: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: flex-start;">
         <div style="display: flex; align-items: flex-start; gap: 12px;">
@@ -806,7 +806,8 @@
       <span class="bnav-icon">⚡</span>
       <span class="bnav-label">Free Now</span>
     </button>
-    <button class="bottom-nav-item" id="bnavWifi" data-bnav="wifi" title="Campus WiFi Networks & Passwords">
+    <!-- WiFi Bottom Nav Item - Temporarily hidden pending administrative permission -->
+    <button class="bottom-nav-item" id="bnavWifi" data-bnav="wifi" title="Campus WiFi Networks & Passwords" style="display: none !important;">
       <span class="bnav-icon">
         <svg class="wifi-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>

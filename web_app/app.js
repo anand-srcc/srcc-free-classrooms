@@ -1422,6 +1422,10 @@ document.addEventListener('DOMContentLoaded', () => {
         openFacultyLeavesView();
         return;
       }
+      // WiFi option temporarily hidden pending administrative permission
+      if (mode === 'wifi') {
+        mode = 'rooms';
+      }
       state.activeMode = mode;
       const isRooms = (mode === 'rooms');
       const isFaculty = (mode === 'faculty');
@@ -8746,7 +8750,8 @@ window.SRCC_FACULTY_LEAVES = {
       } else if (rawHash.includes('#timetable')) {
         if (state.activeMode !== 'timetable') setAppMode('timetable', true, { isBackNav: true });
       } else if (rawHash.includes('#wifi')) {
-        if (state.activeMode !== 'wifi') setAppMode('wifi', true, { isBackNav: true });
+        // WiFi option temporarily hidden pending administrative permission
+        if (state.activeMode !== 'rooms') setAppMode('rooms', true, { isBackNav: true });
       } else if (rawHash === '' || rawHash === '#' || rawHash.includes('#rooms')) {
         if (state.activeMode !== 'rooms') setAppMode('rooms', true, { isBackNav: true });
       } else {

@@ -7728,7 +7728,18 @@ body.dark-mode .tt-room-btn:hover,
 
 /* ==========================================================================
    📶 CAMPUS WIFI PASSWORDS DIRECTORY & MODAL
+   (Temporarily hidden pending administrative permission)
    ========================================================================== */
+.btn-wifi-header,
+#btnOpenWifiModal,
+#bnavWifi,
+#viewWifiSection,
+#wifiModal,
+[data-tab="wifi"],
+#tabContentWifi {
+  display: none !important;
+}
+
 .btn-wifi-header {
   display: inline-flex;
   align-items: center;
