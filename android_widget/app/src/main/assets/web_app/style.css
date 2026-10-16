@@ -2736,6 +2736,11 @@ body {
     box-sizing: border-box;
   }
 
+  /* Hide WiFi button in header near Report in mobile mode */
+  .btn-wifi-header {
+    display: none !important;
+  }
+
   .live-clock-card {
     max-width: 100%;
     box-sizing: border-box;

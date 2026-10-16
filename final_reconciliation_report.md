@@ -12,7 +12,7 @@
 | Audit Metric | Official Source Count | Website Count | Match Rate | Status |
 |---|---:|---:|---:|---|
 | **Total Official Source Timetables Examined** | 72 | 72 | 100.0% | VERIFIED |
-| **Total Scheduled Classes Extracted** | 2499 | 2499 | 100.0% | VERIFIED |
+| **Total Scheduled Classes Extracted** | 2351 | 2351 | 100.0% | VERIFIED |
 | **Faculty Member Profiles Reconciled** | 210 | 210 | 100.0% | VERIFIED |
 | **Classroom Venues & Labs Audited** | 96 | 96 | 100.0% | VERIFIED |
 | **SEC Classes Audited** | 253 | 253 | 100.0% | VERIFIED |
