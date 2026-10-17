@@ -1485,6 +1485,11 @@ document.addEventListener('DOMContentLoaded', () => {
         tabModeNotices.classList.toggle('active', isNotices);
         tabModeNotices.setAttribute('aria-selected', isNotices ? 'true' : 'false');
       }
+      const tabModeExamCodes = document.getElementById('tabModeExamCodes');
+      if (tabModeExamCodes) {
+        tabModeExamCodes.classList.toggle('active', isExamCodes);
+        tabModeExamCodes.setAttribute('aria-selected', isExamCodes ? 'true' : 'false');
+      }
       if (tabModeWifi) {
         tabModeWifi.classList.toggle('active', isWifi);
         tabModeWifi.setAttribute('aria-selected', isWifi ? 'true' : 'false');
@@ -1598,6 +1603,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (tabModeRooms) tabModeRooms.addEventListener('click', () => setAppMode('rooms'));
     if (tabModeFaculty) tabModeFaculty.addEventListener('click', () => setAppMode('faculty'));
     if (tabModeTimetable) tabModeTimetable.addEventListener('click', () => setAppMode('timetable'));
+    const tabModeExamCodes = document.getElementById('tabModeExamCodes');
+    if (tabModeExamCodes) tabModeExamCodes.addEventListener('click', () => setAppMode('exam_codes'));
     const tabModeWifiBtn = document.getElementById('tabModeWifi');
     if (tabModeWifiBtn) tabModeWifiBtn.addEventListener('click', () => setAppMode('wifi'));
     if (bnavRooms) {
@@ -9374,6 +9381,7 @@ window.SRCC_FACULTY_LEAVES = {
 
       function updateProgCounts(all) {
         const cAll = document.getElementById('countProgAll');
+        const cSrcc = document.getElementById('countProgSrcc');
         const cBCom = document.getElementById('countProgBCom');
         const cEco = document.getElementById('countProgEco');
         const cSec = document.getElementById('countProgSec');
@@ -9381,6 +9389,7 @@ window.SRCC_FACULTY_LEAVES = {
         const cVac = document.getElementById('countProgVac');
 
         if (cAll) cAll.textContent = all.length;
+        if (cSrcc) cSrcc.textContent = all.filter(r => r.is_srcc_offered).length;
         if (cBCom) cBCom.textContent = all.filter(r => r.programme === 'B.Com. (Hons.)').length;
         if (cEco) cEco.textContent = all.filter(r => r.programme === 'B.A. (Hons.) Economics').length;
         if (cSec) cSec.textContent = all.filter(r => r.programme === 'SEC').length;
@@ -9395,8 +9404,10 @@ window.SRCC_FACULTY_LEAVES = {
 
         const q = (currentQuery || '').toLowerCase().trim();
         const filtered = all.filter(r => {
-          // 1. Programme Filter
-          if (currentProg !== 'ALL' && r.programme !== currentProg) {
+          // 1. Programme Filter (including SRCC Offered tab)
+          if (currentProg === 'SRCC') {
+            if (!r.is_srcc_offered) return false;
+          } else if (currentProg !== 'ALL' && r.programme !== currentProg) {
             return false;
           }
 
@@ -9435,6 +9446,16 @@ window.SRCC_FACULTY_LEAVES = {
           }
 
           return true;
+        });
+
+        // Always prioritize SRCC-offered subjects at the top, then alphabetically
+        filtered.sort((a, b) => {
+          const aSrcc = a.is_srcc_offered ? 1 : 0;
+          const bSrcc = b.is_srcc_offered ? 1 : 0;
+          if (bSrcc !== aSrcc) {
+            return bSrcc - aSrcc;
+          }
+          return (a.title || '').localeCompare(b.title || '');
         });
 
         if (visibleCountEl) {
@@ -9538,6 +9559,7 @@ window.SRCC_FACULTY_LEAVES = {
                   <h3 class="examcode-title">${escapeHtml(r.title)}</h3>
                 </div>
                 <div class="examcode-compact-badges">
+                  ${r.is_srcc_offered ? '<span class="examcode-prog-badge badge-srcc-offered" title="Taught / Offered at SRCC">⭐ SRCC</span>' : ''}
                   <span class="examcode-sem-badge">Sem ${escapeHtml(r.semester || 'All')}</span>
                   ${catPill}
                   ${progBadge}

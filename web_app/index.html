@@ -22,13 +22,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   
-  <link rel="stylesheet" href="style.css?v=81" />
+  <link rel="stylesheet" href="style.css?v=84" />
 </head>
 <body>
   <!-- Header / Navigation (Slim Single-Line Strip) -->
   <header class="app-header">
     <div class="header-container">
       <div class="brand-group">
+        <!-- Three-Dots Campus Navigation Menu Button on the LEFT -->
+        <button id="btnThreeLineMenu" class="btn-three-line btn-three-dots" aria-label="Open Navigation Menu" title="Campus Menu (Notices & Exam Codes)">
+          <span class="three-dot"></span>
+          <span class="three-dot"></span>
+          <span class="three-dot"></span>
+          <span class="three-line-badge-dot" id="threeLineBadgeDot" title="Notices & Exam Codes Available"></span>
+        </button>
         <div class="brand-logos-wrapper">
           <!-- 2nd Image on the left: SRCC Crest -->
           <img src="assets/srcc_crest.png" onerror="this.onerror=null; this.src='srcc_crest.png';" alt="SRCC Crest - Shri Ram College of Commerce" class="brand-logo-img logo-crest" />
@@ -78,13 +85,6 @@
           </svg>
           <span>Community</span>
         </a>
-        <!-- Three-Dots Campus Navigation Menu Button -->
-        <button id="btnThreeLineMenu" class="btn-three-line btn-three-dots" aria-label="Open Navigation Menu" title="Campus Menu (Notices & Exam Codes)">
-          <span class="three-dot"></span>
-          <span class="three-dot"></span>
-          <span class="three-dot"></span>
-          <span class="three-line-badge-dot" id="threeLineBadgeDot" title="Notices & Exam Codes Available"></span>
-        </button>
       </div>
     </div>
   </header>
@@ -124,7 +124,7 @@
     <!-- Campus Notice & Banner Container (Shows ONLY when Admin pushes a notice, e.g. Freshers / Elections / Circulars) -->
     <div id="campusNoticeBannerContainer" style="display: none;"></div>
 
-    <!-- Top Mode Switcher: Classrooms vs Faculty vs Timetable -->
+    <!-- Top Mode Switcher: Classrooms vs Faculty vs Timetable vs Exam Codes -->
     <div class="app-mode-switcher-container">
       <div class="app-mode-switcher" role="tablist">
         <button class="mode-tab active" id="tabModeRooms" role="tab" aria-selected="true" data-mode="rooms">
@@ -138,6 +138,10 @@
         <button class="mode-tab" id="tabModeTimetable" role="tab" aria-selected="false" data-mode="timetable">
           <span class="mode-tab-icon">📅</span>
           <span class="mode-tab-text">Timetable</span>
+        </button>
+        <button class="mode-tab" id="tabModeExamCodes" role="tab" aria-selected="false" data-mode="exam_codes">
+          <span class="mode-tab-icon">📚</span>
+          <span class="mode-tab-text">Exam Codes</span>
         </button>
       </div>
     </div>
@@ -654,9 +658,6 @@
           </span>
         </div>
         <div class="faculty-action-leaves-wrap" style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
-          <button type="button" id="btnOpenUgcfGuidance" class="tt-live-pill" style="background: rgba(99, 102, 241, 0.12); color: #4338ca; border-color: rgba(99, 102, 241, 0.3); font-weight: 700; cursor: pointer;" title="View official DU UGCF General Guidelines, Prerequisites &amp; Regulations">
-            📘 General Guidelines ↗
-          </button>
           <span class="tt-live-pill" id="examCodesTotalPill" style="background: rgba(16, 185, 129, 0.12); color: #059669; border-color: rgba(16, 185, 129, 0.3); font-weight: 700;">
             446 Verified Papers
           </span>
@@ -689,6 +690,9 @@
       <div class="notices-pills-filter examcodes-prog-pills" id="examCodesProgPills" role="tablist">
         <button class="notices-pill-btn active" data-prog="ALL" role="tab" aria-selected="true">
           <span>All Programmes</span> <span class="notices-pill-count" id="countProgAll">446</span>
+        </button>
+        <button class="notices-pill-btn" data-prog="SRCC" role="tab" aria-selected="false">
+          <span>⭐ SRCC Offered</span> <span class="notices-pill-count" id="countProgSrcc">221</span>
         </button>
         <button class="notices-pill-btn" data-prog="B.Com. (Hons.)" role="tab" aria-selected="false">
           <span>B.Com. (Hons.)</span> <span class="notices-pill-count" id="countProgBCom">102</span>
@@ -1043,33 +1047,7 @@
               <span class="drawer-badge-pulse" style="background: #0284c7;" id="drawerExamCodesBadge">446 Papers</span>
             </div>
           </button>
-          
-          <!-- Direct Quick Jump to Semester -->
-          <div class="drawer-sem-quick-label">Jump Directly to Semester:</div>
-          <div class="drawer-sem-chips-grid" id="drawerSemChips">
-            <button type="button" class="drawer-sem-chip" data-drawer-sem="I">Sem 1</button>
-            <button type="button" class="drawer-sem-chip" data-drawer-sem="II">Sem 2</button>
-            <button type="button" class="drawer-sem-chip" data-drawer-sem="III">Sem 3</button>
-            <button type="button" class="drawer-sem-chip" data-drawer-sem="IV">Sem 4</button>
-            <button type="button" class="drawer-sem-chip" data-drawer-sem="V">Sem 5</button>
-            <button type="button" class="drawer-sem-chip" data-drawer-sem="VI">Sem 6</button>
-            <button type="button" class="drawer-sem-chip" data-drawer-sem="VII">Sem 7</button>
-            <button type="button" class="drawer-sem-chip" data-drawer-sem="VIII">Sem 8</button>
-            <button type="button" class="drawer-sem-chip active" data-drawer-sem="ALL">All</button>
-          </div>
         </div>
-
-        <!-- 📘 General Guidelines (UGCF) Entry -->
-        <button class="drawer-nav-item drawer-nav-guidelines" id="drawerNavGuidelines" style="margin-top: 8px;">
-          <div class="drawer-nav-icon-wrap" style="background: rgba(99, 102, 241, 0.12); color: #4338ca;">
-            📘
-          </div>
-          <div class="drawer-nav-text">
-            <div class="drawer-nav-name">General Guidelines (UGCF 2022)</div>
-            <div class="drawer-nav-desc">Mandatory prerequisites, non-repeat rules &amp; DU links</div>
-          </div>
-          <span style="color: var(--text-tertiary); font-weight: 700;">↗</span>
-        </button>
       </div>
 
       <div class="campus-drawer-footer">
@@ -1354,116 +1332,15 @@
     </div>
   </div>
 
-  <!-- ====================================================================
-       OFFICIAL DU UGCF GUIDANCE NOTES & PREREQUISITES MODAL
-       ==================================================================== -->
-  <div class="modal-overlay" id="ugcfGuidanceModal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="ugcfGuidanceModalTitle">
-    <div class="modal-card" style="background: var(--bg-card); width: 92%; max-width: 680px; max-height: 88vh; border-radius: var(--radius-lg); padding: 22px; box-shadow: var(--shadow-xl); display: flex; flex-direction: column; overflow: hidden; border: 1.5px solid var(--border-color);">
-      <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border-subtle);">
-        <div>
-          <h2 class="modal-title" id="ugcfGuidanceModalTitle" style="margin: 0; font-size: 1.22rem; font-family: var(--font-display); font-weight: 800; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
-            <span>📘 General Guidelines (DU UGCF 2022)</span>
-            <span style="font-size: 0.72rem; font-weight: 800; background: #e0e7ff; color: #4338ca; border: 1px solid #c7d2fe; padding: 2px 8px; border-radius: 9999px;">Verified Regulations</span>
-          </h2>
-          <p style="font-size: 0.78rem; color: var(--text-secondary); margin: 3px 0 0 0;">Official university guidelines, major/minor rules, prerequisites &amp; SEC/VAC restrictions</p>
-        </div>
-        <button id="btnCloseUgcfModal" class="modal-close" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-secondary); line-height: 1;">&times;</button>
-      </div>
-
-      <div class="modal-body" style="overflow-y: auto; flex: 1; padding-right: 4px; display: flex; flex-direction: column; gap: 14px;">
-        <!-- Prerequisite Chain Warning -->
-        <div style="background: #fffbeb; border: 1.5px solid #fde68a; border-radius: 12px; padding: 12px 14px; font-size: 0.82rem; color: #92400e;">
-          <div style="font-weight: 800; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
-            <span>⚠️</span> Mandatory Prerequisite Rule:
-          </div>
-          <p style="margin: 0 0 6px 0; line-height: 1.4;">
-            Several B.Com. (Hons.) papers in early semesters serve as strictly enforced prerequisites for later semesters.
-          </p>
-          <div style="background: #fef3c7; padding: 8px 10px; border-radius: 8px; font-weight: 700;">
-            Example: To take <em>Analysis of Financial Statements</em> in Semester IV, you MUST select <em>Financial Reporting Analysis and Valuation</em> (DSE 3.4) in Semester III.
-          </div>
-        </div>
-
-        <!-- SEC/VAC Non-Repeat Alert -->
-        <div style="background: #fdf2f8; border: 1.5px solid #fbcfe8; border-radius: 12px; padding: 12px 14px; font-size: 0.82rem; color: #9d174d;">
-          <div style="font-weight: 800; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
-            <span>🚫</span> SEC &amp; VAC Non-Repeat Restriction:
-          </div>
-          <p style="margin: 0; line-height: 1.4;">
-            Students can choose SEC or VAC courses offered by any DU department, but <strong>CANNOT</strong> choose the same SEC/VAC that they took in Semester I or Semester II.
-          </p>
-        </div>
-
-        <!-- Class XII Mathematics Eligibility -->
-        <div style="background: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: 12px; padding: 12px 14px; font-size: 0.82rem; color: #166534;">
-          <div style="font-weight: 800; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
-            <span>📐</span> Mathematics Eligibility Requirement:
-          </div>
-          <p style="margin: 0; line-height: 1.4;">
-            Certain Generic Electives (e.g. <em>Differential Equations</em>, <em>Principles of Microeconomics-II</em>, <em>Theory of Equations</em>) strictly require Class XII with Mathematics.
-          </p>
-        </div>
-
-        <!-- Official DU Policy Documents & Portals -->
-        <div style="margin-top: 4px;">
-          <div style="font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted); margin-bottom: 8px;">
-            Official Verified University Portals &amp; Master Documents:
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 8px;">
-            <a href="https://drive.google.com/file/d/12XxFs_aTdaqjrlipfDu9IDailBX4DNKN/view" target="_blank" rel="noopener noreferrer" class="drawer-nav-item" style="border: 1px solid var(--border-subtle); background: var(--bg-hover);">
-              <div class="drawer-nav-icon-wrap" style="background: rgba(99, 102, 241, 0.12); color: #4f46e5;">📑</div>
-              <div class="drawer-nav-text">
-                <div class="drawer-nav-name">The Structure of DU's UGCF (Master Policy)</div>
-                <div class="drawer-nav-desc">Complete NEP 2022 Undergraduate Curriculum Architecture &amp; Credits</div>
-              </div>
-              <span style="color: var(--text-tertiary); font-weight: 700;">↗</span>
-            </a>
-
-            <a href="https://academicaffairs.du.ac.in/syllabi/" target="_blank" rel="noopener noreferrer" class="drawer-nav-item" style="border: 1px solid var(--border-subtle); background: var(--bg-hover);">
-              <div class="drawer-nav-icon-wrap" style="background: rgba(14, 165, 233, 0.12); color: #0284c7;">🏛️</div>
-              <div class="drawer-nav-text">
-                <div class="drawer-nav-name">DU Academic Affairs Official Syllabi Directory</div>
-                <div class="drawer-nav-desc">academicaffairs.du.ac.in — Official university-wide syllabus repository</div>
-              </div>
-              <span style="color: var(--text-tertiary); font-weight: 700;">↗</span>
-            </a>
-
-            <a href="https://www.commerce.du.ac.in/programmes/ugcf-b-com-programme" target="_blank" rel="noopener noreferrer" class="drawer-nav-item" style="border: 1px solid var(--border-subtle); background: var(--bg-hover);">
-              <div class="drawer-nav-icon-wrap" style="background: rgba(16, 185, 129, 0.12); color: #059669;">💼</div>
-              <div class="drawer-nav-text">
-                <div class="drawer-nav-name">DU Faculty of Commerce UGCF Programme Portal</div>
-                <div class="drawer-nav-desc">Official B.Com (Hons.) &amp; Discipline Specific Elective syllabi</div>
-              </div>
-              <span style="color: var(--text-tertiary); font-weight: 700;">↗</span>
-            </a>
-
-            <a href="https://academicaffairs.du.ac.in/syllabi/ability-enhancement-courses-aec/" target="_blank" rel="noopener noreferrer" class="drawer-nav-item" style="border: 1px solid var(--border-subtle); background: var(--bg-hover);">
-              <div class="drawer-nav-icon-wrap" style="background: rgba(139, 92, 246, 0.12); color: #7c3aed;">🌱</div>
-              <div class="drawer-nav-text">
-                <div class="drawer-nav-name">DU AEC (Ability Enhancement Courses) Directory</div>
-                <div class="drawer-nav-desc">Environmental Science (EVS) and official language course options</div>
-              </div>
-              <span style="color: var(--text-tertiary); font-weight: 700;">↗</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal-footer" style="margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: flex-end;">
-        <button type="button" id="btnCloseUgcfModalFooter" style="padding: 8px 18px; border: 1px solid var(--border-color); background: var(--bg-hover); border-radius: 8px; cursor: pointer; font-size: 0.84rem; font-weight: 700; color: var(--text-primary);">Close</button>
-      </div>
-    </div>
-  </div>
-
   <!-- Scripts -->
-  <script src="data.js?v=83"></script>
-  <script src="college_notices.js?v=83"></script>
-  <script src="exam_codes_data.js?v=83"></script>
-  <script src="wifi_data.js?v=83"></script>
-  <script src="cloud_config.js?v=83"></script>
-  <script src="faculty_leaves.js?v=83"></script>
-  <script src="teachers_data.js?v=83"></script>
-  <script src="classes_data.js?v=83"></script>
-  <script src="app.js?v=83"></script>
+  <script src="data.js?v=84"></script>
+  <script src="college_notices.js?v=84"></script>
+  <script src="exam_codes_data.js?v=84"></script>
+  <script src="wifi_data.js?v=84"></script>
+  <script src="cloud_config.js?v=84"></script>
+  <script src="faculty_leaves.js?v=84"></script>
+  <script src="teachers_data.js?v=84"></script>
+  <script src="classes_data.js?v=84"></script>
+  <script src="app.js?v=84"></script>
 </body>
 </html>

@@ -2610,22 +2610,24 @@ body {
     padding: 0 4px;
   }
   .app-mode-switcher {
-    grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-columns: repeat(4, 1fr) !important;
     padding: 3px;
-    gap: 4px;
+    gap: 3px;
     border-radius: 12px;
   }
   .mode-tab {
-    padding: 6px 4px;
+    padding: 6px 3px;
     min-height: 36px;
-    font-size: 0.77rem;
+    font-size: 0.73rem;
     gap: 3px;
     border-radius: 8px;
     letter-spacing: -0.01em;
-    overflow: visible;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .mode-tab[data-mode="rooms"] {
-    padding: 6px 9px;
+    padding: 6px 3px;
   }
   .mode-tab-prefix, .mode-tab-suffix, .mode-tab-unit {
     display: none !important;
@@ -2772,18 +2774,14 @@ body {
     width: 100%;
     max-width: 100vw;
     box-sizing: border-box;
-    display: grid !important;
-    grid-template-columns: 1fr auto !important;
-    grid-template-areas:
-      "brand menu"
-      "actions actions" !important;
-    gap: 8px 10px !important;
-    align-items: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    align-items: stretch !important;
   }
   
   .brand-group {
-    grid-area: brand !important;
-    width: auto !important;
+    width: 100% !important;
     max-width: 100%;
     display: flex !important;
     flex-direction: row !important;
@@ -2816,13 +2814,13 @@ body {
   }
 
   #btnThreeLineMenu {
-    grid-area: menu !important;
+    margin-left: 0 !important;
+    margin-right: 2px !important;
     align-self: center !important;
-    margin-left: auto !important;
+    flex-shrink: 0;
   }
   
   .header-actions {
-    grid-area: actions !important;
     width: 100%;
     max-width: 100%;
     display: flex;
@@ -3413,13 +3411,13 @@ body {
   justify-content: center;
   margin: 4px auto 14px;
   width: 100%;
-  max-width: 580px;
+  max-width: 680px;
   padding: 0 8px;
 }
 
 .app-mode-switcher {
   display: grid;
-  grid-template-columns: repeat(3, 1fr) !important;
+  grid-template-columns: repeat(4, 1fr) !important;
   width: 100%;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -6478,6 +6476,13 @@ body.modal-open {
 .mode-tab.active[data-mode="timetable"] .mode-tab-count {
   background: rgba(37, 99, 235, 0.2);
   color: var(--accent-blue);
+}
+
+.mode-tab.active[data-mode="exam_codes"] {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.14), rgba(14, 165, 233, 0.04));
+  border: 1.5px solid #0284c7 !important;
+  color: #0284c7 !important;
+  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.15);
 }
 
 /* Header Shortcut Button */
@@ -9871,6 +9876,24 @@ body.dark-mode .deadline-exact-time {
   background: rgba(236, 72, 153, 0.12);
   color: #be185d;
   border: 1px solid rgba(236, 72, 153, 0.25);
+}
+
+.badge-srcc-offered {
+  background: rgba(234, 88, 12, 0.12);
+  color: #c2410c;
+  border: 1px solid rgba(234, 88, 12, 0.3);
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+@media (max-width: 640px) {
+  .examcodes-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    margin-bottom: 24px !important;
+  }
 }
 
 .examcode-sem-badge {
