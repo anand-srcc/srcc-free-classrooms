@@ -12,7 +12,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM1.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM1.pdf#page=1"
   },
   {
     "programme": "B.Com. (Hons.)",
@@ -27,7 +27,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM1.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM1.pdf#page=4"
   },
   {
     "programme": "B.Com. (Hons.)",
@@ -42,7 +42,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "0",
     "practical": "1",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM1.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM1.pdf#page=6"
   },
   {
     "programme": "B.Com. (Hons.)",
@@ -57,7 +57,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM2.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM2.pdf#page=1"
   },
   {
     "programme": "B.Com. (Hons.)",
@@ -72,7 +72,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM2.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM2.pdf#page=5"
   },
   {
     "programme": "B.Com. (Hons.)",
@@ -87,7 +87,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM2.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM2.pdf#page=8"
   },
   {
     "programme": "B.Com. (Hons.)",
@@ -102,7 +102,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "0",
     "practical": "1",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM3.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM3.pdf#page=1"
   },
   {
     "programme": "B.Com. (Hons.)",
@@ -117,7 +117,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "0",
     "practical": "1",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM3.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM3.pdf#page=5"
   },
   {
     "programme": "B.Com. (Hons.)",
@@ -132,7 +132,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM3.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM3.pdf#page=7"
   },
   {
     "programme": "B.Com. (Hons.)",
@@ -147,7 +147,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "0",
     "practical": "1",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM4.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM4.pdf#page=1"
   },
   {
     "programme": "B.Com. (Hons.)",
@@ -162,7 +162,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM4.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM4.pdf#page=4"
   },
   {
     "programme": "B.Com. (Hons.)",
@@ -177,7 +177,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM4.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM4.pdf#page=7"
   },
   {
     "programme": "B.Com. (Hons.)",
@@ -192,7 +192,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "0",
     "practical": "1",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM5.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM5.pdf#page=1"
   },
   {
     "programme": "B.Com. (Hons.)",
@@ -207,7 +207,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM5.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM5.pdf#page=3"
   },
   {
     "programme": "B.Com. (Hons.)",
@@ -222,7 +222,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "0",
     "practical": "1",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM5.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM5.pdf#page=8"
   },
   {
     "programme": "B.Com. (Hons.)",
@@ -237,7 +237,7 @@ window.EXAM_CODES_DATA = [
     "theory": "2",
     "tutorial": "0",
     "practical": "2",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM6.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM6.pdf#page=1"
   },
   {
     "programme": "B.Com. (Hons.)",
@@ -252,7 +252,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM6.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM6.pdf#page=4"
   },
   {
     "programme": "B.Com. (Hons.)",
@@ -267,7 +267,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM6.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM6.pdf#page=6"
   },
   {
     "programme": "B.Com. (Hons.)",
@@ -1565,7 +1565,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC1.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC1.pdf#page=1"
   },
   {
     "programme": "B.A. (Hons.) Economics",
@@ -1580,7 +1580,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC1.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC1.pdf#page=2"
   },
   {
     "programme": "B.A. (Hons.) Economics",
@@ -1595,7 +1595,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC1.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC1.pdf#page=4"
   },
   {
     "programme": "B.A. (Hons.) Economics",
@@ -1610,7 +1610,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC2.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC2.pdf#page=1"
   },
   {
     "programme": "B.A. (Hons.) Economics",
@@ -1625,7 +1625,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC2.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC2.pdf#page=2"
   },
   {
     "programme": "B.A. (Hons.) Economics",
@@ -1640,7 +1640,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC2.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC2.pdf#page=3"
   },
   {
     "programme": "B.A. (Hons.) Economics",
@@ -1655,7 +1655,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC3.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC3.pdf#page=1"
   },
   {
     "programme": "B.A. (Hons.) Economics",
@@ -1670,7 +1670,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC3.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC3.pdf#page=2"
   },
   {
     "programme": "B.A. (Hons.) Economics",
@@ -1685,7 +1685,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC3.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC3.pdf#page=3"
   },
   {
     "programme": "B.A. (Hons.) Economics",
@@ -1700,7 +1700,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC4.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC4.pdf#page=1"
   },
   {
     "programme": "B.A. (Hons.) Economics",
@@ -1715,7 +1715,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC4.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC4.pdf#page=3"
   },
   {
     "programme": "B.A. (Hons.) Economics",
@@ -1730,7 +1730,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "0",
     "practical": "1",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC4.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC4.pdf#page=4"
   },
   {
     "programme": "B.A. (Hons.) Economics",
@@ -1745,7 +1745,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC5.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC5.pdf#page=1"
   },
   {
     "programme": "B.A. (Hons.) Economics",
@@ -1760,7 +1760,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC5.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC5.pdf#page=3"
   },
   {
     "programme": "B.A. (Hons.) Economics",
@@ -1775,7 +1775,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC5.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC5.pdf#page=5"
   },
   {
     "programme": "B.A. (Hons.) Economics",
@@ -1790,7 +1790,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC6.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC6.pdf#page=1"
   },
   {
     "programme": "B.A. (Hons.) Economics",
@@ -1805,7 +1805,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC6.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC6.pdf#page=2"
   },
   {
     "programme": "B.A. (Hons.) Economics",
@@ -1820,7 +1820,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC6.pdf"
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BA_hons_Economics/DSC/DSC6.pdf#page=4"
   },
   {
     "programme": "B.A. (Hons.) Economics",
@@ -6969,57 +6969,3 @@ window.EXAM_CODES_DATA = [
     "srcc_offered": true
   }
 ];
-window.UGCF_GUIDELINES = {
-  "structure_doc": "https://drive.google.com/file/d/12XxFs_aTdaqjrlipfDu9IDailBX4DNKN/view",
-  "bcom_programme_url": "https://www.commerce.du.ac.in/programmes/ugcf-b-com-programme",
-  "notes": [
-    {
-      "id": "note1",
-      "title": "Note 1: What DU's UGCF is",
-      "desc": "Foundational architecture of DU Undergraduate Curriculum Framework 2022",
-      "link": "https://drive.google.com/file/d/1u5cfVEwvX2h6MkSTEX2N3Q8l_R9w11IS/view"
-    },
-    {
-      "id": "note2",
-      "title": "Note 2: Idea of Minor/Major Discipline in a Degree",
-      "desc": "How credits accumulate towards Single Major, Double Major, or Minor degree specializations",
-      "link": "https://drive.google.com/file/d/1CMKr1dcnNTpNT1bM79biL-eWf1D-XIqH/view"
-    },
-    {
-      "id": "note3",
-      "title": "Note 3: How to Read the Syllabus Document",
-      "desc": "Understanding Learning Objectives (LOCF), Unit Distributions, and Reference Readings",
-      "link": "https://drive.google.com/file/d/1Y1qDm_NodHe_O2s39GLO_bXTMHicKF8M/view"
-    },
-    {
-      "id": "note4",
-      "title": "Note 4: About AEC (Ability Enhancement Courses)",
-      "desc": "Language & Environmental Science (EVS) guidelines across semesters",
-      "link": "https://drive.google.com/file/d/1MpxJecMANfyQuA_CjYcIpl-RPe8_eVqc/view"
-    },
-    {
-      "id": "note5",
-      "title": "Note 5: A Primer on Fourth Year",
-      "desc": "B.Com. (Hons. with Research / Academic Track) eligibility and project requirements",
-      "link": "https://drive.google.com/file/d/1nLgQVWMVkzw-E-XbgwdsH9qrH7at90w9/view"
-    },
-    {
-      "id": "sec_note",
-      "title": "Official Guidelines on SEC Papers",
-      "desc": "Structure, eligibility and mandatory non-repeat rule (must take different SEC than Year I)",
-      "link": "https://drive.google.com/file/d/13Lsmj8Ru68Xoo5BTg76at0W40imO-aPM/view"
-    },
-    {
-      "id": "vac_note",
-      "title": "Official Guidelines on VAC Courses",
-      "desc": "Rules, credit distributions and mandatory non-repeat rule (must take different VAC than Year I)",
-      "link": "https://drive.google.com/file/d/1ZdzS1sNwdQiR4soFPoKGjILc4jItBGmE/view"
-    }
-  ],
-  "folder_links": {
-    "ge_folder": "https://drive.google.com/drive/folders/1hZrFNYa3AW46Wi9F1uBbVBq5LmpARhwE?usp=drive_link",
-    "sec_folder": "https://drive.google.com/file/d/1zCqufOgL8-kxLef7QvOe_KL3UOOKUFvx/view?usp=drive_link",
-    "vac_folder": "https://drive.google.com/file/d/1hqcbTBZJJmPjKqU8pIwaQ3yadhQueJkQ/view?usp=drive_link",
-    "dsc_folder": "https://drive.google.com/drive/folders/1UP9rwfVykYBTVVSEJ4s8w9F_EIqwwqIz?usp=drive_link"
-  }
-};

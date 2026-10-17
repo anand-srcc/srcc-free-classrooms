@@ -9485,9 +9485,16 @@ window.SRCC_FACULTY_LEAVES = {
           }
 
           // Verified Official Syllabus link (falls back to DU syllabi master portal)
+          let syllabusLabel = '📄 Syllabus ↗';
+          let syllabusTitle = 'Open official verified syllabus PDF from DU';
+          if (r.syllabus_url && r.syllabus_url.includes('#page=')) {
+            const pageNum = r.syllabus_url.split('#page=')[1];
+            syllabusLabel = `📄 Syllabus (p. ${pageNum}) ↗`;
+            syllabusTitle = `Open official DU syllabus booklet (Direct to Page ${pageNum} for ${r.title})`;
+          }
           const syllabusBtn = `
-            <a href="${escapeHtml(r.syllabus_url || 'https://academicaffairs.du.ac.in/syllabi/')}" target="_blank" rel="noopener noreferrer" class="btn-view-syllabus" title="Download official verified syllabus PDF from DU">
-              📄 Syllabus ↗
+            <a href="${escapeHtml(r.syllabus_url || 'https://academicaffairs.du.ac.in/syllabi/')}" target="_blank" rel="noopener noreferrer" class="btn-view-syllabus" title="${escapeHtml(syllabusTitle)}">
+              ${syllabusLabel}
             </a>
           `;
 
