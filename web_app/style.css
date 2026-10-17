@@ -2768,45 +2768,61 @@ body {
   }
 
   .header-container {
-    padding: 0 14px;
+    padding: 8px 12px;
     width: 100%;
     max-width: 100vw;
     box-sizing: border-box;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
+    grid-template-areas:
+      "brand menu"
+      "actions actions" !important;
+    gap: 8px 10px !important;
+    align-items: center !important;
   }
   
   .brand-group {
-    width: 100%;
+    grid-area: brand !important;
+    width: auto !important;
     max-width: 100%;
-    flex-direction: column;
-    align-items: flex-start;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
     gap: 8px;
     box-sizing: border-box;
+    min-width: 0;
   }
   
   .brand-titles h1 {
-    font-size: 1.25rem;
-    line-height: 1.25;
+    font-size: 1.05rem;
+    line-height: 1.2;
     word-break: break-word;
+    margin: 0;
   }
 
   .brand-titles .subtitle {
-    font-size: 0.76rem;
-    line-height: 1.35;
+    font-size: 0.74rem;
+    line-height: 1.3;
   }
 
   .brand-logos-wrapper {
-    padding: 3px 6px;
+    padding: 2px 4px;
+    flex-shrink: 0;
   }
   
   .logo-crest, .logo-100years {
-    height: 36px;
-    width: 36px;
+    height: 32px;
+    width: 32px;
+  }
+
+  #btnThreeLineMenu {
+    grid-area: menu !important;
+    align-self: center !important;
+    margin-left: auto !important;
   }
   
   .header-actions {
+    grid-area: actions !important;
     width: 100%;
     max-width: 100%;
     display: flex;
@@ -2814,6 +2830,7 @@ body {
     align-items: center;
     gap: 8px;
     box-sizing: border-box;
+    justify-content: flex-start;
   }
 
   /* Hide WiFi button in header near Report in mobile mode */
@@ -10077,6 +10094,246 @@ body.dark-mode .deadline-exact-time {
   background: #16a34a;
   color: #ffffff;
 }
+
+/* ==========================================================================
+   SEMESTER QUICK TABS & DRAWER SEMESTER CHIPS
+   ========================================================================== */
+.examcodes-sem-pills {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 6px 2px 10px;
+  margin-bottom: 8px;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.sem-pill-btn {
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.sem-pill-btn:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border-color: rgba(14, 165, 233, 0.4);
+}
+
+.sem-pill-btn.active {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);
+}
+
+.drawer-syllabus-group {
+  margin-top: 6px;
+}
+
+.drawer-sem-quick-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-muted);
+  margin: 10px 4px 6px;
+}
+
+.drawer-sem-chips-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  padding: 0 2px;
+}
+
+.drawer-sem-chip {
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s ease;
+}
+
+.drawer-sem-chip:hover {
+  background: rgba(14, 165, 233, 0.12);
+  color: #0284c7;
+  border-color: rgba(14, 165, 233, 0.3);
+}
+
+.drawer-sem-chip.active {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
+}
+
+/* ==========================================================================
+   COMPACT NOTICES BOARD & COMPACT EXAM CODE CARDS
+   ========================================================================== */
+.notice-compact-card {
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xs);
+  transition: all 0.2s ease;
+}
+
+.notice-compact-card:hover {
+  border-color: rgba(225, 29, 72, 0.3);
+  box-shadow: 0 4px 12px rgba(225, 29, 72, 0.08);
+}
+
+.notice-card-meta-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.notice-compact-card .notice-title {
+  font-size: 0.95rem;
+  line-height: 1.35;
+  margin: 0;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.notice-compact-card .notice-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.examcode-compact-card {
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xs);
+  transition: all 0.2s ease;
+}
+
+.examcode-compact-card:hover {
+  border-color: rgba(14, 165, 233, 0.4);
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.08);
+}
+
+.examcode-compact-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.examcode-compact-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.examcode-compact-title-wrap .examcode-title {
+  margin: 0;
+  font-size: 0.96rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.examcode-cno-tag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: var(--bg-hover);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+  white-space: nowrap;
+}
+
+.examcode-compact-badges {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.examcode-compact-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-top: 4px;
+}
+
+.examcode-upc-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(14, 165, 233, 0.06);
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(14, 165, 233, 0.18);
+}
+
+.examcode-upc-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #0369a1;
+  text-transform: uppercase;
+}
+
+.examcode-upc-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #0284c7;
+}
+
+.examcode-compact-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.examcode-prereq-compact {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  background: #fffbeb;
+  border-left: 3px solid #f59e0b;
+  color: #92400e;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
 
 
 

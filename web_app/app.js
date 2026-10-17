@@ -9204,26 +9204,23 @@ window.SRCC_FACULTY_LEAVES = {
           const openLabel = typeLabels[n.link_type] || typeLabels.pdf;
 
           const deadlineHtml = (n.has_deadline && n.deadline) ? `
-            <div class="notice-deadline-tag" title="Submission Deadline / Last Date">
+            <span class="notice-deadline-tag" title="Submission Deadline / Last Date">
               <span class="deadline-pulse-dot"></span>
               <span class="deadline-title-label">${escapeHtml(n.deadline_label || 'Deadline:')}</span>
-              <span class="deadline-exact-time">⏳ ${escapeHtml(n.deadline)}</span>
-            </div>
+              <span class="deadline-exact-time">${escapeHtml(n.deadline)}</span>
+            </span>
           ` : '';
 
           return `
-            <div class="notice-card" id="card-${escapeHtml(n.id)}">
-              <div>
-                <div class="notice-card-header">
+            <div class="notice-card notice-compact-card" id="card-${escapeHtml(n.id)}">
+              <div class="notice-card-header">
+                <div class="notice-card-meta-left">
+                  <span class="notice-date-badge">${escapeHtml(n.date || '2026')}</span>
                   ${catHtml}
-                  <span class="notice-date-badge">📅 ${escapeHtml(n.date || '2026')}</span>
-                </div>
-                <h3 class="notice-title">${escapeHtml(n.title)}</h3>
-                ${deadlineHtml}
-                <div class="notice-source-tag">
-                  🏛️ <span>${escapeHtml(n.source || 'Official SRCC Notice')}</span>
+                  ${deadlineHtml}
                 </div>
               </div>
+              <h3 class="notice-title">${escapeHtml(n.title)}</h3>
               <div class="notice-actions">
                 <a href="${escapeHtml(n.link)}" target="_blank" rel="noopener noreferrer" class="btn-notice-open" title="Open verified official document">
                   ${openLabel} ↗
@@ -9351,6 +9348,30 @@ window.SRCC_FACULTY_LEAVES = {
         return window.EXAM_CODES_DATA || [];
       }
 
+      function matchesSemester(targetSem, itemSemStr) {
+        if (!itemSemStr || targetSem === 'ALL') return true;
+        if (itemSemStr.includes('All Semesters')) return true;
+        const tokens = itemSemStr.split(/[^A-Za-z0-9]+/).map(t => t.trim().toUpperCase()).filter(Boolean);
+        return tokens.includes(targetSem.toUpperCase());
+      }
+
+      function setExamCodesSemester(sem) {
+        currentSem = sem || 'ALL';
+        const semPills = document.querySelectorAll('#examCodesSemPills .sem-pill-btn');
+        semPills.forEach(p => {
+          const isTarget = (p.dataset.sem === currentSem);
+          p.classList.toggle('active', isTarget);
+          p.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+        });
+        const drawerChips = document.querySelectorAll('#drawerSemChips .drawer-sem-chip');
+        drawerChips.forEach(c => {
+          c.classList.toggle('active', c.dataset.drawerSem === currentSem);
+        });
+        if (semFilter) semFilter.value = currentSem;
+        renderExamCodes();
+      }
+      window._setExamCodesSemester = setExamCodesSemester;
+
       function updateProgCounts(all) {
         const cAll = document.getElementById('countProgAll');
         const cBCom = document.getElementById('countProgBCom');
@@ -9379,17 +9400,11 @@ window.SRCC_FACULTY_LEAVES = {
             return false;
           }
 
-          // 2. Semester Filter
+          // 2. Strict Semester Filter (Tokenized roman numerals - no substring leaks)
           if (currentSem !== 'ALL') {
-            const semStr = (r.semester || '').toUpperCase();
-            if (currentSem === 'I' && !semStr.includes('I')) return false;
-            if (currentSem === 'II' && !semStr.includes('II')) return false;
-            if (currentSem === 'III' && !semStr.includes('III')) return false;
-            if (currentSem === 'IV' && !semStr.includes('IV')) return false;
-            if (currentSem === 'V' && !semStr.includes('V')) return false;
-            if (currentSem === 'VI' && !semStr.includes('VI')) return false;
-            if (currentSem === 'VII' && !semStr.includes('VII')) return false;
-            if (currentSem === 'VIII' && !semStr.includes('VIII')) return false;
+            if (!matchesSemester(currentSem, r.semester)) {
+              return false;
+            }
           }
 
           // 3. Category / Type Filter
@@ -9405,7 +9420,7 @@ window.SRCC_FACULTY_LEAVES = {
             else if (targetCat === 'RESEARCH/TRACK' && !cat.includes('RESEARCH') && !cat.includes('TRACK')) return false;
           }
 
-          // 4. Search Query
+          // 4. Search Query (Title, UPC, Course No, Department, Category)
           if (q) {
             const matchTitle = (r.title || '').toLowerCase().includes(q);
             const matchUpc = (r.upc || '').toLowerCase().includes(q);
@@ -9413,7 +9428,8 @@ window.SRCC_FACULTY_LEAVES = {
             const matchDept = (r.department || '').toLowerCase().includes(q);
             const matchTheme = (r.theme || '').toLowerCase().includes(q);
             const matchType = (r.type || '').toLowerCase().includes(q);
-            if (!matchTitle && !matchUpc && !matchCourseNo && !matchDept && !matchTheme && !matchType) {
+            const matchProg = (r.programme || '').toLowerCase().includes(q);
+            if (!matchTitle && !matchUpc && !matchCourseNo && !matchDept && !matchTheme && !matchType && !matchProg) {
               return false;
             }
           }
@@ -9430,7 +9446,7 @@ window.SRCC_FACULTY_LEAVES = {
             <div class="notices-empty-state" style="grid-column: 1 / -1;">
               <div class="notices-empty-icon">🔍</div>
               <h3>No Exam Codes Found</h3>
-              <p>No DU papers match your search "${escapeHtml(q)}" or selected filters. Try searching by UPC number, paper name, or clicking "Reset Filters".</p>
+              <p>No DU papers match your search "${escapeHtml(q)}" or selected filters. Try searching by paper name, UPC code, or click "Reset Filters".</p>
               <button type="button" class="btn-reset-examcodes" style="margin-top: 14px; display: inline-flex;" onclick="document.getElementById('btnResetExamCodesFilters').click()">
                 🔄 Clear All Filters
               </button>
@@ -9440,132 +9456,108 @@ window.SRCC_FACULTY_LEAVES = {
         }
 
         const progBadges = {
-          'B.Com. (Hons.)': '<span class="examcode-prog-badge badge-prog-bcom">💼 B.Com. (Hons.)</span>',
-          'B.A. (Hons.) Economics': '<span class="examcode-prog-badge badge-prog-eco">📈 Eco (Hons.)</span>',
-          'SEC': '<span class="examcode-prog-badge badge-prog-sec">⚡ SEC</span>',
-          'AEC': '<span class="examcode-prog-badge badge-prog-aec">🌱 AEC</span>',
-          'VAC': '<span class="examcode-prog-badge badge-prog-vac">💖 VAC</span>'
+          'B.Com. (Hons.)': '<span class="examcode-prog-badge badge-prog-bcom">B.Com. (Hons.)</span>',
+          'B.A. (Hons.) Economics': '<span class="examcode-prog-badge badge-prog-eco">Eco (Hons.)</span>',
+          'SEC': '<span class="examcode-prog-badge badge-prog-sec">SEC</span>',
+          'AEC': '<span class="examcode-prog-badge badge-prog-aec">AEC</span>',
+          'VAC': '<span class="examcode-prog-badge badge-prog-vac">VAC</span>'
         };
 
         const catPills = {
-          'Core': '<span class="examcode-pill pill-core">Core (DSC)</span>',
-          'DSE': '<span class="examcode-pill pill-dse">🎯 DSE</span>',
-          'GE': '<span class="examcode-pill pill-ge">🌐 Generic Elective (GE)</span>',
-          'SEC': '<span class="examcode-pill pill-sec">⚡ Skill Enhancement</span>',
-          'AEC': '<span class="examcode-pill pill-aec">🌱 Ability Enhancement</span>',
-          'VAC': '<span class="examcode-pill pill-vac">💖 Value Addition</span>',
-          'Research/Track': '<span class="examcode-pill pill-research">🔬 Academic Track</span>'
+          'Core': '<span class="examcode-pill pill-core">Core</span>',
+          'DSE': '<span class="examcode-pill pill-dse">DSE</span>',
+          'GE': '<span class="examcode-pill pill-ge">GE</span>',
+          'SEC': '<span class="examcode-pill pill-sec">SEC</span>',
+          'AEC': '<span class="examcode-pill pill-aec">AEC</span>',
+          'VAC': '<span class="examcode-pill pill-vac">VAC</span>',
+          'Research/Track': '<span class="examcode-pill pill-research">Track</span>'
         };
 
+        // Render Compact, Clean Cards
         examCodesGrid.innerHTML = filtered.map(r => {
           const progBadge = progBadges[r.programme] || `<span class="examcode-prog-badge badge-prog-bcom">${escapeHtml(r.programme)}</span>`;
           const catPill = catPills[r.category] || `<span class="examcode-pill pill-core">${escapeHtml(r.category || r.type || 'Core')}</span>`;
-          const courseNoHtml = r.course_no ? `<span class="examcode-pill" style="background: var(--bg-hover); color: var(--text-primary); border: 1px solid var(--border-subtle);">${escapeHtml(r.course_no)}</span>` : '';
+          const courseNoHtml = r.course_no ? `<span class="examcode-cno-tag">${escapeHtml(r.course_no)}</span>` : '';
           
           let creditsText = `${r.credits} Credits`;
           if (r.theory !== undefined && (r.theory !== '' || r.tutorial !== '' || r.practical !== '')) {
             creditsText += ` (L: ${r.theory || 0}, T: ${r.tutorial || 0}, P: ${r.practical || 0})`;
           }
 
-          const syllabusBtn = r.syllabus_url ? `
-            <a href="${escapeHtml(r.syllabus_url)}" target="_blank" rel="noopener noreferrer" class="btn-view-syllabus" title="Download official syllabus PDF from academicaffairs.du.ac.in">
-              📄 Official Syllabus ↗
-            </a>
-          ` : `
-            <a href="https://academicaffairs.du.ac.in/syllabi/" target="_blank" rel="noopener noreferrer" class="btn-view-syllabus" style="opacity: 0.85;" title="Open DU Academic Affairs Syllabi">
-              🏛️ DU Syllabus Portal ↗
+          // Verified Official Syllabus link (falls back to DU syllabi master portal)
+          const syllabusBtn = `
+            <a href="${escapeHtml(r.syllabus_url || 'https://academicaffairs.du.ac.in/syllabi/')}" target="_blank" rel="noopener noreferrer" class="btn-view-syllabus" title="Download official verified syllabus PDF from DU">
+              📄 Syllabus ↗
             </a>
           `;
 
-          const driveSyllabusBtn = r.drive_syllabus_url ? `
-            <a href="${escapeHtml(r.drive_syllabus_url)}" target="_blank" rel="noopener noreferrer" class="btn-drive-syllabus" title="Open official SRCC Google Drive syllabus document">
-              📂 SRCC Syllabus ↗
-            </a>
-          ` : '';
-
           const deptInfo = r.srcc_dept || r.department || r.theme || '';
 
-          // Prerequisite banner
+          // Prerequisite note (compact)
           let prereqHtml = '';
           if (r.prerequisite) {
             prereqHtml = `
-              <div class="examcode-prereq-box">
-                <div style="display:flex; align-items:center; gap:6px;">
-                  <span style="font-size:1.05rem;">⚠️</span>
-                  <span><strong>Prerequisite Required:</strong> ${escapeHtml(r.prerequisite)}</span>
-                </div>
-                ${r.prerequisite_note ? `<div style="font-size:0.75rem; margin-top:4px; opacity:0.9; color: var(--text-secondary);">${escapeHtml(r.prerequisite_note)}</div>` : ''}
+              <div class="examcode-prereq-compact">
+                <span>⚠️</span> <span><strong>Prerequisite:</strong> ${escapeHtml(r.prerequisite)}</span>
               </div>
             `;
           } else if (r.prerequisite_note) {
             prereqHtml = `
-              <div class="examcode-prereq-box" style="background: rgba(2, 132, 199, 0.08); border-left-color: #0284c7;">
-                <div style="display:flex; align-items:center; gap:6px;">
-                  <span style="font-size:1.05rem;">ℹ️</span>
-                  <span><strong>Prerequisite Note:</strong> ${escapeHtml(r.prerequisite_note)}</span>
-                </div>
+              <div class="examcode-prereq-compact" style="background: rgba(2, 132, 199, 0.08); border-left-color: #0284c7; color: #0369a1;">
+                <span>ℹ️</span> <span>${escapeHtml(r.prerequisite_note)}</span>
               </div>
             `;
           }
 
-          // Eligibility banner
+          // Eligibility note (compact)
           const eligibilityHtml = r.eligibility ? `
-            <div class="examcode-eligibility-item">
+            <div class="examcode-prereq-compact" style="background: rgba(16, 185, 129, 0.08); border-left-color: #10b981; color: #065f46;">
               <span>📐</span> <span><strong>Eligibility:</strong> ${escapeHtml(r.eligibility)}</span>
             </div>
           ` : '';
 
-          // Repeat rule banner
+          // Repeat rule note (compact)
           const repeatRuleHtml = r.repeat_rule ? `
-            <div class="examcode-eligibility-item" style="border-left-color: #f59e0b; background: rgba(245, 158, 11, 0.08);">
+            <div class="examcode-prereq-compact" style="background: rgba(245, 158, 11, 0.08); border-left-color: #f59e0b; color: #92400e;">
               <span>🚫</span> <span><strong>Year 1 Rule:</strong> ${escapeHtml(r.repeat_rule)}</span>
             </div>
           ` : '';
 
           return `
-            <div class="examcode-card">
-              <div>
-                <div class="examcode-card-header">
-                  ${progBadge}
-                  <span class="examcode-sem-badge">📅 Sem ${escapeHtml(r.semester || 'All')}</span>
-                </div>
-                
-                <h3 class="examcode-title">${escapeHtml(r.title)}</h3>
-
-                <div class="examcode-meta-row">
+            <div class="examcode-card examcode-compact-card">
+              <div class="examcode-compact-top">
+                <div class="examcode-compact-title-wrap">
                   ${courseNoHtml}
-                  ${catPill}
-                  <span class="examcode-credits-pill">🎓 ${escapeHtml(creditsText)}</span>
+                  <h3 class="examcode-title">${escapeHtml(r.title)}</h3>
                 </div>
+                <div class="examcode-compact-badges">
+                  <span class="examcode-sem-badge">Sem ${escapeHtml(r.semester || 'All')}</span>
+                  ${catPill}
+                  ${progBadge}
+                </div>
+              </div>
 
-                ${deptInfo ? `
-                  <div class="examcode-dept-tag">
-                    <span>🏛️</span> <span>${escapeHtml(deptInfo)}</span>
-                  </div>
-                ` : ''}
-
-                ${prereqHtml}
-                ${eligibilityHtml}
-                ${repeatRuleHtml}
-
-                <div class="examcode-upc-box">
-                  <div class="examcode-upc-info">
-                    <span class="examcode-upc-label">Unique Paper Code (UPC)</span>
-                    <span class="examcode-upc-num">${escapeHtml(r.upc)}</span>
-                  </div>
+              <div class="examcode-compact-meta">
+                <div class="examcode-upc-inline">
+                  <span class="examcode-upc-label">UPC:</span>
+                  <code class="examcode-upc-code">${escapeHtml(r.upc)}</code>
                   <button type="button" class="btn-copy-upc" data-upc="${escapeHtml(r.upc)}" data-title="${escapeHtml(r.title)}" title="Copy UPC to clipboard">
                     📋 Copy
                   </button>
                 </div>
+                <span class="examcode-credits-pill">🎓 ${escapeHtml(creditsText)}</span>
+                ${deptInfo ? `<span class="examcode-dept-pill">🏛️ ${escapeHtml(deptInfo)}</span>` : ''}
+                <div class="examcode-compact-actions">
+                  ${syllabusBtn}
+                  <button type="button" class="btn-share-examcode" data-title="${escapeHtml(r.title)}" data-upc="${escapeHtml(r.upc)}" data-sem="${escapeHtml(r.semester)}" data-url="${escapeHtml(r.syllabus_url || '')}" title="Share course details & UPC">
+                    💬 Share
+                  </button>
+                </div>
               </div>
 
-              <div class="examcode-actions">
-                ${driveSyllabusBtn}
-                ${syllabusBtn}
-                <button type="button" class="btn-share-examcode" data-title="${escapeHtml(r.title)}" data-upc="${escapeHtml(r.upc)}" data-sem="${escapeHtml(r.semester)}" data-url="${escapeHtml(r.drive_syllabus_url || r.syllabus_url || '')}" title="Share course & UPC with friends">
-                  💬 Share
-                </button>
-              </div>
+              ${prereqHtml}
+              ${eligibilityHtml}
+              ${repeatRuleHtml}
             </div>
           `;
         }).join('');
@@ -9667,6 +9659,14 @@ window.SRCC_FACULTY_LEAVES = {
         });
       }
 
+      // Semester quick tab pills in view
+      const semPillBtns = document.querySelectorAll('#examCodesSemPills .sem-pill-btn');
+      semPillBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          setExamCodesSemester(btn.dataset.sem || 'ALL');
+        });
+      });
+
       // Category filter dropdown
       if (catFilter) {
         catFilter.addEventListener('change', () => {
@@ -9679,19 +9679,17 @@ window.SRCC_FACULTY_LEAVES = {
       if (btnResetFilters) {
         btnResetFilters.addEventListener('click', () => {
           currentProg = 'ALL';
-          currentSem = 'ALL';
           currentCat = 'ALL';
           currentQuery = '';
           if (searchInput) searchInput.value = '';
           if (btnClearSearch) btnClearSearch.style.display = 'none';
-          if (semFilter) semFilter.value = 'ALL';
           if (catFilter) catFilter.value = 'ALL';
           progPills.forEach(p => {
             const isAll = p.dataset.prog === 'ALL';
             p.classList.toggle('active', isAll);
             p.setAttribute('aria-selected', isAll ? 'true' : 'false');
           });
-          renderExamCodes();
+          setExamCodesSemester('ALL');
           showToast('🔄 Filters reset to all papers');
         });
       }
@@ -9803,7 +9801,7 @@ window.SRCC_FACULTY_LEAVES = {
         });
       }
 
-      // Drawer navigation actions: Only Notices & Exam Codes (clean and non-repetitive)
+      // Drawer navigation actions
       if (drawerNavNotices) {
         drawerNavNotices.addEventListener('click', () => {
           closeCampusDrawer();
@@ -9815,6 +9813,36 @@ window.SRCC_FACULTY_LEAVES = {
         drawerNavExamCodes.addEventListener('click', () => {
           closeCampusDrawer();
           setAppMode('exam_codes');
+          if (typeof window._setExamCodesSemester === 'function') {
+            window._setExamCodesSemester('ALL');
+          }
+        });
+      }
+
+      // Drawer direct semester jump chips
+      const drawerSemChips = document.querySelectorAll('#drawerSemChips .drawer-sem-chip');
+      drawerSemChips.forEach(chip => {
+        chip.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const sem = chip.dataset.drawerSem || 'ALL';
+          closeCampusDrawer();
+          setAppMode('exam_codes');
+          if (typeof window._setExamCodesSemester === 'function') {
+            window._setExamCodesSemester(sem);
+          }
+        });
+      });
+
+      // Drawer General Guidelines trigger
+      const drawerNavGuidelines = document.getElementById('drawerNavGuidelines');
+      if (drawerNavGuidelines) {
+        drawerNavGuidelines.addEventListener('click', () => {
+          closeCampusDrawer();
+          const ugcfModal = document.getElementById('ugcfGuidanceModal');
+          if (ugcfModal) {
+            ugcfModal.style.display = 'flex';
+            document.body.classList.add('modal-open');
+          }
         });
       }
     }

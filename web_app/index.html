@@ -602,14 +602,6 @@
         </div>
       </div>
 
-      <!-- Legal Attribution Disclaimer Callout -->
-      <div class="notices-legal-callout">
-        <span class="notices-legal-icon">⚖️</span>
-        <div class="notices-legal-text">
-          <strong>Official Public Documents:</strong> Sourced directly from public announcements on <em>Shri Ram College of Commerce</em> (<a href="https://www.srcc.edu/announcements" target="_blank" rel="noopener noreferrer">srcc.edu</a>). All notice links open original verified circulars, schedules, and forms hosted on official DU/college servers.
-        </div>
-      </div>
-
       <!-- Search Input -->
       <div class="notices-search-bar">
         <div class="notices-search-input-wrap">
@@ -657,127 +649,83 @@
             ← Back to Classrooms
           </button>
           <span style="display: inline-flex; align-items: center; gap: 8px;">
-            <span style="font-size: 1.3rem;">📝</span>
-            DU Exam Codes & Course UPC Directory
+            <span style="font-size: 1.3rem;">📖</span>
+            DU Syllabus &amp; Exam Codes Directory
           </span>
         </div>
         <div class="faculty-action-leaves-wrap" style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
-          <button type="button" id="btnOpenUgcfGuidance" class="tt-live-pill" style="background: rgba(99, 102, 241, 0.12); color: #4338ca; border-color: rgba(99, 102, 241, 0.3); font-weight: 700; cursor: pointer;" title="View official DU UGCF guidance notes, prerequisite chains & folders">
-            📘 UGCF Guidelines & Notes (7) ↗
+          <button type="button" id="btnOpenUgcfGuidance" class="tt-live-pill" style="background: rgba(99, 102, 241, 0.12); color: #4338ca; border-color: rgba(99, 102, 241, 0.3); font-weight: 700; cursor: pointer;" title="View official DU UGCF General Guidelines, Prerequisites &amp; Regulations">
+            📘 General Guidelines ↗
           </button>
-          <a href="https://drive.google.com/file/d/12XxFs_aTdaqjrlipfDu9IDailBX4DNKN/view" target="_blank" rel="noopener noreferrer" class="tt-live-pill" style="background: rgba(245, 158, 11, 0.12); color: #b45309; border-color: rgba(245, 158, 11, 0.3); text-decoration: none; font-weight: 700;" title="The Structure of DU's UGCF PDF">
-            📑 UGCF Structure PDF ↗
-          </a>
           <span class="tt-live-pill" id="examCodesTotalPill" style="background: rgba(16, 185, 129, 0.12); color: #059669; border-color: rgba(16, 185, 129, 0.3); font-weight: 700;">
-            444 Verified Papers
+            446 Verified Papers
           </span>
         </div>
       </div>
 
-      <!-- Critical Prerequisite Chain & Non-Repeat Alert Banner -->
-      <div class="ugcf-rules-banner" id="ugcfRulesBanner">
-        <div class="ugcf-rules-header">
-          <span style="font-size: 1.25rem;">⚠️</span>
-          <span>Important Academic Rules & Prerequisite Warning (DU UGCF 2022)</span>
-        </div>
-        <div class="ugcf-rules-body">
-          <div class="ugcf-rule-item">
-            <span class="ugcf-rule-bullet">📌</span>
-            <div>
-              <strong>Prerequisite Requirement for Subsequent Semesters:</strong> Several B.Com. (Hons.) papers serve as mandatory prerequisites. For example, to study <em>Analysis of Financial Statements</em> in Semester IV, you <strong>MUST</strong> choose <em>Financial Reporting Analysis & Valuation</em> (DSE 3.4) in Semester III.
-            </div>
-          </div>
-          <div class="ugcf-rule-item">
-            <span class="ugcf-rule-bullet">🚫</span>
-            <div>
-              <strong>SEC & VAC Non-Repeat Restriction:</strong> Students can choose SEC/VAC offered by any department, but <strong>CANNOT</strong> choose the same SEC or VAC taken in Year I (Semester I or II). You necessarily have to choose a different course than Year I.
-            </div>
-          </div>
-          <div class="ugcf-rule-item">
-            <span class="ugcf-rule-bullet">📐</span>
-            <div>
-              <strong>Class XII Mathematics Eligibility:</strong> Certain GEs (e.g., <em>Differential Equations</em>, <em>Principles of Microeconomics-II</em>, <em>Theory of Equations and Symmetries</em>) strictly require Class XII with Mathematics.
-            </div>
-          </div>
-        </div>
-        <div class="ugcf-rules-footer">
-          <button type="button" id="btnViewAllUgcfNotes" class="btn-ugcf-view-notes">
-            📘 View 7 Official DU Policy Notes & Folders
-          </button>
-          <a href="https://www.commerce.du.ac.in/programmes/ugcf-b-com-programme" target="_blank" rel="noopener noreferrer" class="btn-ugcf-dept-link">
-            🏛️ Dept of Commerce UGCF Syllabus Portal ↗
-          </a>
-        </div>
+      <!-- Quick Semester Selection Tabs -->
+      <div class="examcodes-sem-pills" id="examCodesSemPills" role="tablist" aria-label="Select Semester">
+        <button class="sem-pill-btn active" data-sem="ALL" role="tab" aria-selected="true">All Semesters</button>
+        <button class="sem-pill-btn" data-sem="I" role="tab" aria-selected="false">Sem I</button>
+        <button class="sem-pill-btn" data-sem="II" role="tab" aria-selected="false">Sem II</button>
+        <button class="sem-pill-btn" data-sem="III" role="tab" aria-selected="false">Sem III</button>
+        <button class="sem-pill-btn" data-sem="IV" role="tab" aria-selected="false">Sem IV</button>
+        <button class="sem-pill-btn" data-sem="V" role="tab" aria-selected="false">Sem V</button>
+        <button class="sem-pill-btn" data-sem="VI" role="tab" aria-selected="false">Sem VI</button>
+        <button class="sem-pill-btn" data-sem="VII" role="tab" aria-selected="false">Sem VII</button>
+        <button class="sem-pill-btn" data-sem="VIII" role="tab" aria-selected="false">Sem VIII</button>
       </div>
 
       <!-- Search Input -->
-      <div class="notices-search-bar">
+      <div class="notices-search-bar" style="margin-top: 4px;">
         <div class="notices-search-input-wrap">
           <span class="notices-search-icon">🔍</span>
-          <input type="text" id="examCodesSearchInput" class="notices-search-input" placeholder="Search by paper title (e.g. Corporate Accounting, Differential Equations), UPC (e.g. 2412081101), or Course No. (e.g. DSE 3.4, DSC-1.1)..." aria-label="Search exam codes" />
+          <input type="text" id="examCodesSearchInput" class="notices-search-input" placeholder="Search paper title (e.g. Accounting, Microeconomics), UPC code (e.g. 2412081101), or Course No..." aria-label="Search exam codes" />
           <button type="button" id="btnClearExamCodesSearch" class="btn-clear-notices-search" style="display: none;" title="Clear search">✕</button>
         </div>
       </div>
 
-      <!-- Tier 1: Programme Selector Pills -->
+      <!-- Tier 1: Programme Selector Pills (Clean typography, no emojis) -->
       <div class="notices-pills-filter examcodes-prog-pills" id="examCodesProgPills" role="tablist">
         <button class="notices-pill-btn active" data-prog="ALL" role="tab" aria-selected="true">
-          <span>📚 All Programmes</span> <span class="notices-pill-count" id="countProgAll">444</span>
+          <span>All Programmes</span> <span class="notices-pill-count" id="countProgAll">446</span>
         </button>
         <button class="notices-pill-btn" data-prog="B.Com. (Hons.)" role="tab" aria-selected="false">
-          <span>💼 B.Com. (Hons.)</span> <span class="notices-pill-count" id="countProgBCom">102</span>
+          <span>B.Com. (Hons.)</span> <span class="notices-pill-count" id="countProgBCom">102</span>
         </button>
         <button class="notices-pill-btn" data-prog="B.A. (Hons.) Economics" role="tab" aria-selected="false">
-          <span>📈 B.A. (Hons.) Economics</span> <span class="notices-pill-count" id="countProgEco">75</span>
+          <span>B.A. (Hons.) Economics</span> <span class="notices-pill-count" id="countProgEco">75</span>
         </button>
         <button class="notices-pill-btn" data-prog="SEC" role="tab" aria-selected="false">
-          <span>⚡ SEC Courses</span> <span class="notices-pill-count" id="countProgSec">123</span>
+          <span>SEC Courses</span> <span class="notices-pill-count" id="countProgSec">123</span>
         </button>
         <button class="notices-pill-btn" data-prog="AEC" role="tab" aria-selected="false">
-          <span>🌱 AEC Courses</span> <span class="notices-pill-count" id="countProgAec">92</span>
+          <span>AEC Courses</span> <span class="notices-pill-count" id="countProgAec">92</span>
         </button>
         <button class="notices-pill-btn" data-prog="VAC" role="tab" aria-selected="false">
-          <span>💖 VAC Courses</span> <span class="notices-pill-count" id="countProgVac">39</span>
+          <span>VAC Courses</span> <span class="notices-pill-count" id="countProgVac">39</span>
         </button>
         <button class="notices-pill-btn" data-prog="GE (Elective)" role="tab" aria-selected="false">
-          <span>🌐 Generic Electives (GE)</span> <span class="notices-pill-count" id="countProgGe">13</span>
+          <span>Generic Electives (GE)</span> <span class="notices-pill-count" id="countProgGe">15</span>
         </button>
       </div>
 
-      <!-- Tier 2: Classification Filter Bar (Semester + Type: Core / DSE / GE) -->
+      <!-- Tier 2: Classification Filter Bar (Course Type: Core / DSE / GE / SEC / VAC) -->
       <div class="examcodes-secondary-filter-bar">
-        <!-- Semester Filter -->
         <div class="examcodes-filter-group">
-          <label for="examCodesSemFilter" class="examcodes-filter-label">Semester:</label>
-          <select id="examCodesSemFilter" class="examcodes-select-filter">
-            <option value="ALL">All Semesters</option>
-            <option value="I">Semester I</option>
-            <option value="II">Semester II</option>
-            <option value="III">Semester III</option>
-            <option value="IV">Semester IV</option>
-            <option value="V">Semester V</option>
-            <option value="VI">Semester VI</option>
-            <option value="VII">Semester VII</option>
-            <option value="VIII">Semester VIII</option>
-          </select>
-        </div>
-
-        <!-- Classification / Category Filter -->
-        <div class="examcodes-filter-group">
-          <label for="examCodesCatFilter" class="examcodes-filter-label">Classification / Type:</label>
+          <label for="examCodesCatFilter" class="examcodes-filter-label">Course Type:</label>
           <select id="examCodesCatFilter" class="examcodes-select-filter">
             <option value="ALL">All Course Types</option>
-            <option value="Core">Core (DSC - Discipline Specific Core)</option>
-            <option value="DSE">DSE (Discipline Specific Elective)</option>
-            <option value="GE">GE (Generic Elective)</option>
-            <option value="SEC">SEC (Skill Enhancement)</option>
-            <option value="AEC">AEC (Ability Enhancement)</option>
-            <option value="VAC">VAC (Value Addition)</option>
-            <option value="Research/Track">Research / Academic Track</option>
+            <option value="Core">Core (DSC)</option>
+            <option value="DSE">DSE (Elective)</option>
+            <option value="GE">Generic Elective (GE)</option>
+            <option value="SEC">Skill Enhancement (SEC)</option>
+            <option value="AEC">Ability Enhancement (AEC)</option>
+            <option value="VAC">Value Addition (VAC)</option>
+            <option value="Research/Track">Research / Track</option>
           </select>
         </div>
 
-        <!-- Reset Button -->
         <button type="button" id="btnResetExamCodesFilters" class="btn-reset-examcodes" title="Reset all filters">
           🔄 Reset Filters
         </button>
@@ -1081,19 +1029,46 @@
           </div>
         </button>
 
-        <!-- 📝 DU Exam Codes & UPC Directory Entry -->
-        <button class="drawer-nav-item drawer-nav-examcodes" id="drawerNavExamCodes">
-          <div class="drawer-nav-icon-wrap" style="background: rgba(14, 165, 233, 0.12); color: #0284c7;">
-            📝
+        <!-- 📖 DU Exam Codes & UPC Directory Entry -->
+        <div class="drawer-syllabus-group">
+          <button class="drawer-nav-item drawer-nav-examcodes" id="drawerNavExamCodes">
+            <div class="drawer-nav-icon-wrap" style="background: rgba(14, 165, 233, 0.12); color: #0284c7;">
+              📖
+            </div>
+            <div class="drawer-nav-text">
+              <div class="drawer-nav-name">Syllabus &amp; Exam Paper Codes</div>
+              <div class="drawer-nav-desc">B.Com (H), Eco (H), SEC, AEC, VAC &amp; UPC</div>
+            </div>
+            <div class="drawer-badges-stack">
+              <span class="drawer-badge-pulse" style="background: #0284c7;" id="drawerExamCodesBadge">446 Papers</span>
+            </div>
+          </button>
+          
+          <!-- Direct Quick Jump to Semester -->
+          <div class="drawer-sem-quick-label">Jump Directly to Semester:</div>
+          <div class="drawer-sem-chips-grid" id="drawerSemChips">
+            <button type="button" class="drawer-sem-chip" data-drawer-sem="I">Sem 1</button>
+            <button type="button" class="drawer-sem-chip" data-drawer-sem="II">Sem 2</button>
+            <button type="button" class="drawer-sem-chip" data-drawer-sem="III">Sem 3</button>
+            <button type="button" class="drawer-sem-chip" data-drawer-sem="IV">Sem 4</button>
+            <button type="button" class="drawer-sem-chip" data-drawer-sem="V">Sem 5</button>
+            <button type="button" class="drawer-sem-chip" data-drawer-sem="VI">Sem 6</button>
+            <button type="button" class="drawer-sem-chip" data-drawer-sem="VII">Sem 7</button>
+            <button type="button" class="drawer-sem-chip" data-drawer-sem="VIII">Sem 8</button>
+            <button type="button" class="drawer-sem-chip active" data-drawer-sem="ALL">All</button>
+          </div>
+        </div>
+
+        <!-- 📘 General Guidelines (UGCF) Entry -->
+        <button class="drawer-nav-item drawer-nav-guidelines" id="drawerNavGuidelines" style="margin-top: 8px;">
+          <div class="drawer-nav-icon-wrap" style="background: rgba(99, 102, 241, 0.12); color: #4338ca;">
+            📘
           </div>
           <div class="drawer-nav-text">
-            <div class="drawer-nav-name">Exam Codes & UPC Directory</div>
-            <div class="drawer-nav-desc">B.Com (H), Eco (H), SEC, AEC & VAC (NEP)</div>
+            <div class="drawer-nav-name">General Guidelines (UGCF 2022)</div>
+            <div class="drawer-nav-desc">Mandatory prerequisites, non-repeat rules &amp; DU links</div>
           </div>
-          <div class="drawer-badges-stack">
-            <span class="drawer-badge-pulse" style="background: #0284c7;" id="drawerExamCodesBadge">431 Papers</span>
-            <span class="drawer-badge-deadlines" style="background: rgba(14, 165, 233, 0.15); color: #0369a1; border-color: rgba(14, 165, 233, 0.3);">Verified UPC</span>
-          </div>
+          <span style="color: var(--text-tertiary); font-weight: 700;">↗</span>
         </button>
       </div>
 
@@ -1387,10 +1362,10 @@
       <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border-subtle);">
         <div>
           <h2 class="modal-title" id="ugcfGuidanceModalTitle" style="margin: 0; font-size: 1.22rem; font-family: var(--font-display); font-weight: 800; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
-            <span>📘 DU UGCF 2022 Guidelines & Notes</span>
-            <span style="font-size: 0.72rem; font-weight: 800; background: #e0e7ff; color: #4338ca; border: 1px solid #c7d2fe; padding: 2px 8px; border-radius: 9999px;">7 Notes & Drive Folders</span>
+            <span>📘 General Guidelines (DU UGCF 2022)</span>
+            <span style="font-size: 0.72rem; font-weight: 800; background: #e0e7ff; color: #4338ca; border: 1px solid #c7d2fe; padding: 2px 8px; border-radius: 9999px;">Verified Regulations</span>
           </h2>
-          <p style="font-size: 0.78rem; color: var(--text-secondary); margin: 3px 0 0 0;">Official curriculum guidelines, major/minor rules, prerequisites & SEC/VAC restrictions</p>
+          <p style="font-size: 0.78rem; color: var(--text-secondary); margin: 3px 0 0 0;">Official university guidelines, major/minor rules, prerequisites &amp; SEC/VAC restrictions</p>
         </div>
         <button id="btnCloseUgcfModal" class="modal-close" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-secondary); line-height: 1;">&times;</button>
       </div>
@@ -1412,110 +1387,63 @@
         <!-- SEC/VAC Non-Repeat Alert -->
         <div style="background: #fdf2f8; border: 1.5px solid #fbcfe8; border-radius: 12px; padding: 12px 14px; font-size: 0.82rem; color: #9d174d;">
           <div style="font-weight: 800; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
-            <span>🚫</span> SEC & VAC Non-Repeat Restriction:
+            <span>🚫</span> SEC &amp; VAC Non-Repeat Restriction:
           </div>
           <p style="margin: 0; line-height: 1.4;">
             Students can choose SEC or VAC courses offered by any DU department, but <strong>CANNOT</strong> choose the same SEC/VAC that they took in Semester I or Semester II.
           </p>
         </div>
 
-        <!-- 7 Official Notes Links -->
+        <!-- Class XII Mathematics Eligibility -->
+        <div style="background: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: 12px; padding: 12px 14px; font-size: 0.82rem; color: #166534;">
+          <div style="font-weight: 800; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+            <span>📐</span> Mathematics Eligibility Requirement:
+          </div>
+          <p style="margin: 0; line-height: 1.4;">
+            Certain Generic Electives (e.g. <em>Differential Equations</em>, <em>Principles of Microeconomics-II</em>, <em>Theory of Equations</em>) strictly require Class XII with Mathematics.
+          </p>
+        </div>
+
+        <!-- Official DU Policy Documents & Portals -->
         <div style="margin-top: 4px;">
           <div style="font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted); margin-bottom: 8px;">
-            Official DU Policy Documents & Notes:
+            Official Verified University Portals &amp; Master Documents:
           </div>
           <div style="display: flex; flex-direction: column; gap: 8px;">
             <a href="https://drive.google.com/file/d/12XxFs_aTdaqjrlipfDu9IDailBX4DNKN/view" target="_blank" rel="noopener noreferrer" class="drawer-nav-item" style="border: 1px solid var(--border-subtle); background: var(--bg-hover);">
               <div class="drawer-nav-icon-wrap" style="background: rgba(99, 102, 241, 0.12); color: #4f46e5;">📑</div>
               <div class="drawer-nav-text">
-                <div class="drawer-nav-name">The Structure of DU's UGCF (Master Document)</div>
-                <div class="drawer-nav-desc">Complete NEP 2022 Undergraduate Curriculum Architecture</div>
+                <div class="drawer-nav-name">The Structure of DU's UGCF (Master Policy)</div>
+                <div class="drawer-nav-desc">Complete NEP 2022 Undergraduate Curriculum Architecture &amp; Credits</div>
               </div>
               <span style="color: var(--text-tertiary); font-weight: 700;">↗</span>
             </a>
 
-            <a href="https://drive.google.com/file/d/1u5cfVEwvX2h6MkSTEX2N3Q8l_R9w11IS/view" target="_blank" rel="noopener noreferrer" class="drawer-nav-item" style="border: 1px solid var(--border-subtle); background: var(--bg-hover);">
-              <div class="drawer-nav-icon-wrap" style="background: rgba(37, 99, 235, 0.12); color: #2563eb;">📘</div>
+            <a href="https://academicaffairs.du.ac.in/syllabi/" target="_blank" rel="noopener noreferrer" class="drawer-nav-item" style="border: 1px solid var(--border-subtle); background: var(--bg-hover);">
+              <div class="drawer-nav-icon-wrap" style="background: rgba(14, 165, 233, 0.12); color: #0284c7;">🏛️</div>
               <div class="drawer-nav-text">
-                <div class="drawer-nav-name">Note 1: What DU's UGCF is</div>
-                <div class="drawer-nav-desc">Comprehensive explanation of credit systems and course baskets</div>
+                <div class="drawer-nav-name">DU Academic Affairs Official Syllabi Directory</div>
+                <div class="drawer-nav-desc">academicaffairs.du.ac.in — Official university-wide syllabus repository</div>
               </div>
               <span style="color: var(--text-tertiary); font-weight: 700;">↗</span>
             </a>
 
-            <a href="https://drive.google.com/file/d/1CMKr1dcnNTpNT1bM79biL-eWf1D-XIqH/view" target="_blank" rel="noopener noreferrer" class="drawer-nav-item" style="border: 1px solid var(--border-subtle); background: var(--bg-hover);">
-              <div class="drawer-nav-icon-wrap" style="background: rgba(16, 185, 129, 0.12); color: #059669;">🎓</div>
+            <a href="https://www.commerce.du.ac.in/programmes/ugcf-b-com-programme" target="_blank" rel="noopener noreferrer" class="drawer-nav-item" style="border: 1px solid var(--border-subtle); background: var(--bg-hover);">
+              <div class="drawer-nav-icon-wrap" style="background: rgba(16, 185, 129, 0.12); color: #059669;">💼</div>
               <div class="drawer-nav-text">
-                <div class="drawer-nav-name">Note 2: The idea of Minor/Major Discipline in a Degree</div>
-                <div class="drawer-nav-desc">How to earn a Minor or Double Major in Economics, Mathematics, etc.</div>
+                <div class="drawer-nav-name">DU Faculty of Commerce UGCF Programme Portal</div>
+                <div class="drawer-nav-desc">Official B.Com (Hons.) &amp; Discipline Specific Elective syllabi</div>
               </div>
               <span style="color: var(--text-tertiary); font-weight: 700;">↗</span>
             </a>
 
-            <a href="https://drive.google.com/file/d/1Y1qDm_NodHe_O2s39GLO_bXTMHicKF8M/view" target="_blank" rel="noopener noreferrer" class="drawer-nav-item" style="border: 1px solid var(--border-subtle); background: var(--bg-hover);">
-              <div class="drawer-nav-icon-wrap" style="background: rgba(245, 158, 11, 0.12); color: #d97706;">📖</div>
-              <div class="drawer-nav-text">
-                <div class="drawer-nav-name">Note 3: How to Read the Syllabus Document</div>
-                <div class="drawer-nav-desc">Understanding Course Learning Outcomes and Unit distributions</div>
-              </div>
-              <span style="color: var(--text-tertiary); font-weight: 700;">↗</span>
-            </a>
-
-            <a href="https://drive.google.com/file/d/1MpxJecMANfyQuA_CjYcIpl-RPe8_eVqc/view" target="_blank" rel="noopener noreferrer" class="drawer-nav-item" style="border: 1px solid var(--border-subtle); background: var(--bg-hover);">
+            <a href="https://academicaffairs.du.ac.in/syllabi/ability-enhancement-courses-aec/" target="_blank" rel="noopener noreferrer" class="drawer-nav-item" style="border: 1px solid var(--border-subtle); background: var(--bg-hover);">
               <div class="drawer-nav-icon-wrap" style="background: rgba(139, 92, 246, 0.12); color: #7c3aed;">🌱</div>
               <div class="drawer-nav-text">
-                <div class="drawer-nav-name">Note 4: About AEC (Ability Enhancement Courses)</div>
-                <div class="drawer-nav-desc">EVS and official Indian language options</div>
+                <div class="drawer-nav-name">DU AEC (Ability Enhancement Courses) Directory</div>
+                <div class="drawer-nav-desc">Environmental Science (EVS) and official language course options</div>
               </div>
               <span style="color: var(--text-tertiary); font-weight: 700;">↗</span>
-            </a>
-
-            <a href="https://drive.google.com/file/d/1nLgQVWMVkzw-E-XbgwdsH9qrH7at90w9/view" target="_blank" rel="noopener noreferrer" class="drawer-nav-item" style="border: 1px solid var(--border-subtle); background: var(--bg-hover);">
-              <div class="drawer-nav-icon-wrap" style="background: rgba(236, 72, 153, 0.12); color: #db2777;">🔬</div>
-              <div class="drawer-nav-text">
-                <div class="drawer-nav-name">Note 5: A Primer on Fourth Year</div>
-                <div class="drawer-nav-desc">Research dissertation, academic tracks & 4-year degree requirements</div>
-              </div>
-              <span style="color: var(--text-tertiary); font-weight: 700;">↗</span>
-            </a>
-
-            <a href="https://drive.google.com/file/d/13Lsmj8Ru68Xoo5BTg76at0W40imO-aPM/view" target="_blank" rel="noopener noreferrer" class="drawer-nav-item" style="border: 1px solid var(--border-subtle); background: var(--bg-hover);">
-              <div class="drawer-nav-icon-wrap" style="background: rgba(245, 158, 11, 0.12); color: #b45309;">⚡</div>
-              <div class="drawer-nav-text">
-                <div class="drawer-nav-name">Official Guidelines on SEC Papers</div>
-                <div class="drawer-nav-desc">Skill enhancement course structure, eligibility and department lists</div>
-              </div>
-              <span style="color: var(--text-tertiary); font-weight: 700;">↗</span>
-            </a>
-
-            <a href="https://drive.google.com/file/d/1ZdzS1sNwdQiR4soFPoKGjILc4jItBGmE/view" target="_blank" rel="noopener noreferrer" class="drawer-nav-item" style="border: 1px solid var(--border-subtle); background: var(--bg-hover);">
-              <div class="drawer-nav-icon-wrap" style="background: rgba(225, 29, 72, 0.12); color: #e11d48;">💖</div>
-              <div class="drawer-nav-text">
-                <div class="drawer-nav-name">Official Guidelines on VAC Courses</div>
-                <div class="drawer-nav-desc">Value addition course regulations, non-repeat rules & descriptions</div>
-              </div>
-              <span style="color: var(--text-tertiary); font-weight: 700;">↗</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- Master Drive Folders -->
-        <div style="margin-top: 6px;">
-          <div style="font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted); margin-bottom: 8px;">
-            Official Department Google Drive Syllabi Repositories:
-          </div>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px;">
-            <a href="https://drive.google.com/drive/folders/1hZrFNYa3AW46Wi9F1uBbVBq5LmpARhwE?usp=drive_link" target="_blank" rel="noopener noreferrer" class="drawer-nav-item" style="border: 1px solid var(--border-subtle); background: var(--bg-hover);">
-              <span>🌐</span> <span style="font-size: 0.85rem; font-weight: 700;">Generic Electives (GE) Folder ↗</span>
-            </a>
-            <a href="https://drive.google.com/file/d/1zCqufOgL8-kxLef7QvOe_KL3UOOKUFvx/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="drawer-nav-item" style="border: 1px solid var(--border-subtle); background: var(--bg-hover);">
-              <span>⚡</span> <span style="font-size: 0.85rem; font-weight: 700;">Skill Enhancement (SEC) Folder ↗</span>
-            </a>
-            <a href="https://drive.google.com/file/d/1hqcbTBZJJmPjKqU8pIwaQ3yadhQueJkQ/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="drawer-nav-item" style="border: 1px solid var(--border-subtle); background: var(--bg-hover);">
-              <span>💖</span> <span style="font-size: 0.85rem; font-weight: 700;">Value Addition (VAC) Folder ↗</span>
-            </a>
-            <a href="https://drive.google.com/drive/folders/1UP9rwfVykYBTVVSEJ4s8w9F_EIqwwqIz?usp=drive_link" target="_blank" rel="noopener noreferrer" class="drawer-nav-item" style="border: 1px solid var(--border-subtle); background: var(--bg-hover);">
-              <span>🏛️</span> <span style="font-size: 0.85rem; font-weight: 700;">Discipline Specific Core (DSC) Folder ↗</span>
             </a>
           </div>
         </div>
