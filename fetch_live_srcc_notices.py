@@ -177,7 +177,15 @@ def main():
     with open(JS_FILE, 'w', encoding='utf-8') as f:
         f.write('window.SRCC_NOTICES_DATA = ')
         json.dump(updated_payload, f, indent=2, ensure_ascii=False)
-        f.write(';\n')
+        f.write(';\nwindow.SRCC_OFFICIAL_NOTICES = window.SRCC_NOTICES_DATA.notices;\n')
+
+    # Also update root copy if exists
+    try:
+        import shutil
+        shutil.copy2(JSON_FILE, os.path.join(BASE_DIR, 'college_notices.json'))
+        shutil.copy2(JS_FILE, os.path.join(BASE_DIR, 'college_notices.js'))
+    except Exception:
+        pass
 
     print(f"[✓] Successfully updated {JSON_FILE} and {JS_FILE} with {len(combined)} total notices.")
 

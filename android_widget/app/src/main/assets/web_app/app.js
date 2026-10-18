@@ -7637,6 +7637,47 @@ window.SRCC_FACULTY_LEAVES = {
       const notifSecSelect = document.getElementById('notifSecSelect');
       const btnSaveClassAlerts = document.getElementById('btnSaveClassAlerts');
 
+      const classNotifModal = document.getElementById('classNotifModal');
+      const btnClassNotifModalClose = document.getElementById('btnClassNotifModalClose');
+      const drawerNavClassNotif = document.getElementById('drawerNavClassNotif');
+      const drawerClassNotifBadge = document.getElementById('drawerClassNotifBadge');
+
+      function openClassNotifModal() {
+        if (classNotifModal) {
+          classNotifModal.style.display = 'flex';
+        }
+      }
+
+      function closeClassNotifModal() {
+        if (classNotifModal) {
+          classNotifModal.style.display = 'none';
+        }
+      }
+
+      if (drawerNavClassNotif) {
+        drawerNavClassNotif.addEventListener('click', () => {
+          if (typeof window._closeCampusDrawer === 'function') {
+            window._closeCampusDrawer();
+          }
+          const drawerOverlay = document.getElementById('campusDrawerOverlay');
+          if (drawerOverlay) {
+            drawerOverlay.classList.remove('open');
+            drawerOverlay.style.display = 'none';
+          }
+          openClassNotifModal();
+        });
+      }
+
+      if (btnClassNotifModalClose) {
+        btnClassNotifModalClose.addEventListener('click', closeClassNotifModal);
+      }
+
+      if (classNotifModal) {
+        classNotifModal.addEventListener('click', (e) => {
+          if (e.target === classNotifModal) closeClassNotifModal();
+        });
+      }
+
       function populateNotifSections(preferredSec) {
         if (!notifSecSelect) return;
         notifSecSelect.innerHTML = '';
@@ -7680,6 +7721,10 @@ window.SRCC_FACULTY_LEAVES = {
           ttNotifStatusBadge.textContent = isEnabled ? `Active: ${curCourse} · ${curSem} · ${curSec}` : 'Disabled';
           ttNotifStatusBadge.classList.toggle('tt-notif-badge-disabled', !isEnabled);
         }
+        if (drawerClassNotifBadge) {
+          drawerClassNotifBadge.textContent = isEnabled ? `Active: ${curSec}` : 'Disabled';
+          drawerClassNotifBadge.style.background = isEnabled ? '#2563eb' : '#64748b';
+        }
         if (ttNotifDescText) {
           ttNotifDescText.innerHTML = isEnabled
             ? `Automatic device notifications <strong>10 min before</strong> every class for <strong>${escapeHtml(curCourse)} · ${escapeHtml(curSem)} · ${escapeHtml(curSec)}</strong> with Room No. and instant teacher leave alerts.`
@@ -7720,7 +7765,10 @@ window.SRCC_FACULTY_LEAVES = {
           }
 
           updateClassNotifUi();
-          showToast('✅ Saved Successfully', true, 2200);
+          showToast('✅ Saved Successfully', true, 2000);
+          setTimeout(() => {
+            closeClassNotifModal();
+          }, 600);
         });
       }
 
@@ -8623,9 +8671,12 @@ window.SRCC_FACULTY_LEAVES = {
         }
 
         // -------------------------------------------------------------
-        // 2. College Notices Deadlines (1 Day Left!) & New Notice Alerts
+        // 2. College Notices Deadlines (Approaching Deadlines) & New Notice Alerts
         // -------------------------------------------------------------
-        const notices = (window.SRCC_NOTICES_DATA && window.SRCC_NOTICES_DATA.notices) || [];
+        const notices = (window.SRCC_NOTICES_DATA && Array.isArray(window.SRCC_NOTICES_DATA.notices))
+          ? window.SRCC_NOTICES_DATA.notices
+          : ((window.SRCC_OFFICIAL_NOTICES && Array.isArray(window.SRCC_OFFICIAL_NOTICES)) ? window.SRCC_OFFICIAL_NOTICES : []);
+
         if (notices.length > 0) {
           notices.forEach(n => {
             if (n.has_deadline && n.deadline) {
@@ -8658,6 +8709,16 @@ window.SRCC_FACULTY_LEAVES = {
                       triggerDeviceNotification(`⏰ Final Day Deadline: ${n.title}`, {
                         body: `Today is the final date (${n.deadline}). Ensure timely submission!`,
                         tag: `srcc-deadline-today-${n.id}`,
+                        data: { url: n.link }
+                      });
+                    }
+                  } else if (diffDays === 2) {
+                    const dlKey2 = `srcc_notif_dl_2days_${n.id}`;
+                    if (!localStorage.getItem(dlKey2)) {
+                      localStorage.setItem(dlKey2, '1');
+                      triggerDeviceNotification(`⏳ 2 Days Left! Notice Deadline`, {
+                        body: `Reminder: 2 Days Left for ${n.title} (${n.deadline_label || 'Deadline'}: ${n.deadline}). Tap to view notice.`,
+                        tag: `srcc-deadline-2days-${n.id}`,
                         data: { url: n.link }
                       });
                     }
@@ -9391,7 +9452,12 @@ window.SRCC_FACULTY_LEAVES = {
       let currentQuery = '';
 
       function getAllCollegeNotices() {
-        const official = (window.SRCC_OFFICIAL_NOTICES && Array.isArray(window.SRCC_OFFICIAL_NOTICES)) ? window.SRCC_OFFICIAL_NOTICES : [];
+        let official = [];
+        if (window.SRCC_NOTICES_DATA && Array.isArray(window.SRCC_NOTICES_DATA.notices)) {
+          official = window.SRCC_NOTICES_DATA.notices;
+        } else if (window.SRCC_OFFICIAL_NOTICES && Array.isArray(window.SRCC_OFFICIAL_NOTICES)) {
+          official = window.SRCC_OFFICIAL_NOTICES;
+        }
         const adminNotices = (window.SRCC_CAMPUS_NOTICES && Array.isArray(window.SRCC_CAMPUS_NOTICES)) ? window.SRCC_CAMPUS_NOTICES : [];
 
         const formattedAdmin = adminNotices.map((an, i) => ({

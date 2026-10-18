@@ -5969,3 +5969,4 @@ window.SRCC_NOTICES_DATA = {
     }
   ]
 };
+window.SRCC_OFFICIAL_NOTICES = window.SRCC_NOTICES_DATA.notices;

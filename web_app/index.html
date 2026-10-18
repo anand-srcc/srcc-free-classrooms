@@ -571,64 +571,7 @@
         </div>
       </div>
 
-      <!-- 🔔 Student Class & Timetable Notifications Opt-in Card -->
-      <div class="tt-class-notif-card" id="ttClassNotifCard">
-        <div class="tt-notif-header-row">
-          <div class="tt-notif-main">
-            <div class="tt-notif-icon-wrap">
-              <span class="tt-notif-bell-icon">🔔</span>
-            </div>
-            <div class="tt-notif-content">
-              <div class="tt-notif-title-row">
-                <h4 class="tt-notif-heading">Class &amp; Room Alerts (10 Min Before)</h4>
-                <span class="tt-notif-badge-active" id="ttNotifStatusBadge">Active</span>
-              </div>
-              <p class="tt-notif-desc" id="ttNotifDescText">
-                Automatic device notifications 10 min before every class with Room No., and instant alerts if your professor is on leave.
-              </p>
-            </div>
-          </div>
-          <div class="tt-notif-toggle-wrap">
-            <button type="button" class="btn-tt-notif-toggle" id="btnToggleClassAlerts" role="switch" aria-checked="true" title="Turn class reminders ON / OFF">
-              <span class="tt-toggle-track">
-                <span class="tt-toggle-thumb"></span>
-              </span>
-              <span class="tt-toggle-label" id="ttToggleLabel">Alerts ON</span>
-            </button>
-          </div>
-        </div>
 
-        <!-- Course, Semester & Section Selector & Save -->
-        <div class="tt-notif-select-bar">
-          <div class="tt-notif-field">
-            <label for="notifCourseSelect">Course:</label>
-            <select id="notifCourseSelect" class="tt-notif-input">
-              <option value="B.Com (Hons)">B.Com (Hons)</option>
-              <option value="B.A. (Hons) Economics">B.A. (Hons) Eco</option>
-              <option value="M.Com">M.Com</option>
-              <option value="M.A. Economics">M.A. Eco</option>
-            </select>
-          </div>
-          <div class="tt-notif-field">
-            <label for="notifSemSelect">Semester:</label>
-            <select id="notifSemSelect" class="tt-notif-input">
-              <option value="Sem I">Sem I</option>
-              <option value="Sem III">Sem III</option>
-              <option value="Sem V">Sem V</option>
-              <option value="Sem VII">Sem VII</option>
-            </select>
-          </div>
-          <div class="tt-notif-field">
-            <label for="notifSecSelect">Section:</label>
-            <select id="notifSecSelect" class="tt-notif-input">
-              <!-- Dynamically populated -->
-            </select>
-          </div>
-          <button type="button" class="btn-tt-save-class" id="btnSaveClassAlerts" title="Save this class for automatic 10-minute alerts">
-            💾 Save Class
-          </button>
-        </div>
-      </div>
 
       <!-- Schedule Cards Grid -->
       <section class="tt-schedule-grid" id="ttMainScheduleGrid">
@@ -1114,6 +1057,19 @@
             </div>
           </button>
         </div>
+        <!-- 🔔 Save Class Timetable for Notifications -->
+        <button class="drawer-nav-item drawer-nav-classnotif" id="drawerNavClassNotif">
+          <div class="drawer-nav-icon-wrap" style="background: rgba(37, 99, 235, 0.12); color: #2563eb;">
+            🔔
+          </div>
+          <div class="drawer-nav-text">
+            <div class="drawer-nav-name">Save Class Timetable for Notification</div>
+            <div class="drawer-nav-desc">10-min alerts with Room No. &amp; teacher leave updates</div>
+          </div>
+          <div class="drawer-badges-stack">
+            <span class="drawer-badge-pulse" style="background: #2563eb;" id="drawerClassNotifBadge">Active</span>
+          </div>
+        </button>
       </div>
 
       <div class="campus-drawer-footer">
@@ -1123,6 +1079,73 @@
         </div>
       </div>
     </aside>
+  </div>
+
+  <!-- 🔔 Save Class Timetable for Notifications Modal -->
+  <div class="modal-overlay" id="classNotifModal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="classNotifModalTitle">
+    <div class="modal-card class-notif-modal-card" style="max-width: 480px; width: 92%; border-radius: 18px; overflow: hidden; background: var(--bg-card); box-shadow: 0 20px 40px rgba(0,0,0,0.25);">
+      <div style="background: linear-gradient(135deg, #1e3a8a, #000066); padding: 22px 20px 18px; color: #ffffff; position: relative;">
+        <button type="button" class="modal-close" id="btnClassNotifModalClose" style="position: absolute; top: 14px; right: 14px; color: #ffffff; background: rgba(255,255,255,0.18); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; font-size: 1.1rem; line-height: 1;">✕</button>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
+            🔔
+          </div>
+          <div>
+            <h3 id="classNotifModalTitle" style="margin: 0; font-size: 1.15rem; font-family: var(--font-display); font-weight: 800; color: #ffffff;">
+              Save Class Timetable for Notification
+            </h3>
+            <span id="classNotifModalSub" style="font-size: 0.78rem; color: #bfdbfe; font-weight: 500;">
+              10-min alerts with Room No. &amp; teacher leave updates
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="class-notif-modal-body" style="padding: 22px 20px;">
+        <div class="tt-modal-toggle-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border-color);">
+          <div>
+            <div style="font-weight: 700; font-size: 0.95rem; color: var(--text-primary);">Automatic Reminders</div>
+            <div style="font-size: 0.8rem; color: var(--text-secondary);">10 minutes before every class</div>
+          </div>
+          <button type="button" class="btn-tt-notif-toggle" id="btnToggleClassAlerts" role="switch" aria-checked="true" title="Turn alerts ON / OFF">
+            <span class="tt-toggle-track"><span class="tt-toggle-thumb"></span></span>
+            <span class="tt-toggle-label" id="ttToggleLabel">Alerts ON</span>
+          </button>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div class="tt-notif-form-field">
+            <label for="notifCourseSelect" style="display: block; font-weight: 700; font-size: 0.82rem; margin-bottom: 5px; color: var(--text-secondary);">Course:</label>
+            <select id="notifCourseSelect" class="tt-notif-input" style="width: 100%; padding: 10px 12px; font-size: 0.9rem; border-radius: 8px; border: 1.5px solid var(--border-color); background: var(--bg-card); color: var(--text-primary);">
+              <option value="B.Com (Hons)">B.Com (Hons)</option>
+              <option value="B.A. (Hons) Economics">B.A. (Hons) Eco</option>
+              <option value="M.Com">M.Com</option>
+              <option value="M.A. Economics">M.A. Eco</option>
+            </select>
+          </div>
+          <div class="tt-notif-form-field">
+            <label for="notifSemSelect" style="display: block; font-weight: 700; font-size: 0.82rem; margin-bottom: 5px; color: var(--text-secondary);">Semester:</label>
+            <select id="notifSemSelect" class="tt-notif-input" style="width: 100%; padding: 10px 12px; font-size: 0.9rem; border-radius: 8px; border: 1.5px solid var(--border-color); background: var(--bg-card); color: var(--text-primary);">
+              <option value="Sem I">Sem I</option>
+              <option value="Sem III">Sem III</option>
+              <option value="Sem V">Sem V</option>
+              <option value="Sem VII">Sem VII</option>
+            </select>
+          </div>
+          <div class="tt-notif-form-field">
+            <label for="notifSecSelect" style="display: block; font-weight: 700; font-size: 0.82rem; margin-bottom: 5px; color: var(--text-secondary);">Section:</label>
+            <select id="notifSecSelect" class="tt-notif-input" style="width: 100%; padding: 10px 12px; font-size: 0.9rem; border-radius: 8px; border: 1.5px solid var(--border-color); background: var(--bg-card); color: var(--text-primary);">
+              <!-- Dynamically populated -->
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-top: 22px;">
+          <button type="button" class="btn-tt-save-class" id="btnSaveClassAlerts" style="width: 100%; padding: 12px; font-size: 0.95rem; font-weight: 700; justify-content: center; border-radius: 10px; cursor: pointer;">
+            💾 Save Class Timetable
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Social Media Direct Share Modal (With Authentic Brand Logos) -->

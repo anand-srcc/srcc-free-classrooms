@@ -2,9 +2,9 @@ name: Auto-Sync SRCC Timetable & Free Classrooms
 
 on:
   schedule:
-    # Runs automatically 24*7 every 3 hours (all 7 days)
+    # Runs automatically 24*7 every 2 hours (all 7 days)
     # Minute 20 avoids congested :00 peak runner load times
-    - cron: '20 */3 * * *'
+    - cron: '20 */2 * * *'
   workflow_dispatch: # Allows 1-click manual trigger from GitHub web interface
 
 permissions:
