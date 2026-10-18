@@ -1575,6 +1575,72 @@
     <!-- TAB 6: CLOUD & SETTINGS -->
     <!-- ================================================================= -->
     <div class="admin-tab-pane" id="tabContentSettings">
+      <!-- Public Website Maintenance Mode Gatekeeper -->
+      <section class="admin-section-card" id="adminMaintenanceSectionCard" style="border-color: rgba(245, 158, 11, 0.45); background: linear-gradient(to bottom, rgba(254, 243, 199, 0.25), rgba(255, 255, 255, 1));">
+        <div class="admin-section-header">
+          <div class="admin-section-title" style="color: #b45309;">
+            <span>🛠️</span>
+            <span>Website Maintenance Mode (Visitor Access Control)</span>
+          </div>
+          <span id="adminMaintenanceStatusBadge" style="font-size: 0.74rem; font-weight: 800; padding: 4px 12px; border-radius: 9999px; background: rgba(239, 68, 68, 0.15); color: #dc2626; border: 1px solid rgba(239, 68, 68, 0.35);">
+            🔴 MAINTENANCE ACTIVE (Visitors Locked Out)
+          </span>
+        </div>
+
+        <p style="font-size: 0.84rem; color: var(--text-secondary); margin: 0 0 14px 0; line-height: 1.5;">
+          When Maintenance Mode is <strong>ON</strong>, any student or visitor opening your website will see an official <strong>"Under Maintenance"</strong> screen, and all timetable features, search, and rooms are hidden. Only you (the administrator) can access and use the website using your admin password.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 14px;">
+          <!-- Left: Master Maintenance Switch -->
+          <div style="background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 14px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px;">Status &amp; Control</div>
+              <div id="adminMaintenanceStatusExplanation" style="font-size: 0.88rem; font-weight: 700; color: #dc2626; margin-bottom: 12px;">
+                Currently Locked: Only Admin can access
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button type="button" id="btnToggleMaintenanceOn" style="flex: 1; padding: 10px 14px; font-weight: 800; font-size: 0.84rem; border-radius: 6px; cursor: pointer; border: none; background: #dc2626; color: #ffffff; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
+                <span>🔒</span> <span>Lock Site (Turn ON)</span>
+              </button>
+              <button type="button" id="btnToggleMaintenanceOff" style="flex: 1; padding: 10px 14px; font-weight: 800; font-size: 0.84rem; border-radius: 6px; cursor: pointer; border: 1.5px solid #16a34a; background: #ffffff; color: #16a34a; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
+                <span>🟢</span> <span>Go Live (Turn OFF)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right: Custom Announcement -->
+          <div style="background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 14px;">
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px;">Visitor Announcement Message</div>
+            <div class="leave-field-group" style="margin-bottom: 8px;">
+              <label for="adminMaintenanceTitleInput" style="font-size: 0.74rem;">Notice Heading:</label>
+              <input type="text" id="adminMaintenanceTitleInput" value="Website Under Maintenance" />
+            </div>
+            <div class="leave-field-group" style="margin-bottom: 8px;">
+              <label for="adminMaintenanceMsgInput" style="font-size: 0.74rem;">Message for Students &amp; Visitors:</label>
+              <textarea id="adminMaintenanceMsgInput" rows="2" style="width: 100%; padding: 6px 10px; font-size: 0.82rem; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit; resize: vertical;">We are currently conducting scheduled system upgrades, database optimization, and timetable maintenance. Access to student features is temporarily paused.</textarea>
+            </div>
+            <button type="button" id="btnSaveMaintenanceMsg" class="btn-primary" style="width: 100%; padding: 8px; font-size: 0.82rem; background: #d97706; border: none; color: #ffffff; font-weight: 700; cursor: pointer;">
+              💾 Save Announcement Message
+            </button>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; padding-top: 10px; border-top: 1px solid rgba(0,0,0,0.06);">
+          <a href="index.html" target="_blank" class="btn-admin-nav" style="background: #f1f5f9; color: #1e293b; text-decoration: none;">
+            <span>👁️</span> <span>Open Student Website ↗</span>
+          </a>
+          <button type="button" id="btnTestRelockBrowser" class="btn-reset-filters" style="font-size: 0.78rem; padding: 6px 12px; cursor: pointer;">
+            <span>🔒</span> <span>Test Lock on this Device (Clear Bypass)</span>
+          </button>
+          <span style="font-size: 0.74rem; color: var(--text-muted); margin-left: auto;">
+            Admin password to unlock: <strong style="font-family: monospace; color: var(--text-primary);">srcc2026</strong> (or your updated password)
+          </span>
+        </div>
+      </section>
+
       <!-- Zero-Cost Cloud Auto-Sync -->
       <section class="admin-section-card" style="border-color: rgba(56, 189, 248, 0.35);">
         <div class="admin-section-header">
@@ -2193,6 +2259,7 @@
   <script src="wifi_data.js?v=75"></script>
   <script src="faculty_leaves.js?v=75"></script>
   <script src="teachers_data.js?v=75"></script>
+  <script src="maintenance_config.js?v=88"></script>
   <script src="admin.js?v=75"></script>
 </body>
 </html>

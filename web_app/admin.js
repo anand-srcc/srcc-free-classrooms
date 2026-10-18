@@ -467,6 +467,9 @@ document.addEventListener('DOMContentLoaded', () => {
           role: matchedUser.role,
           isSuper: !!matchedUser.isSuper
         });
+        // Authorize maintenance mode bypass for this administrator session
+        sessionStorage.setItem('srcc_maintenance_admin_bypass', 'true');
+        localStorage.setItem('srcc_maintenance_admin_bypass', 'true');
         sessionStorage.setItem(ACTIVE_USER_SESSION_KEY, sessionPayload);
         try {
           localStorage.removeItem(AUTH_STORAGE_KEY);
@@ -1961,6 +1964,138 @@ document.addEventListener('DOMContentLoaded', () => {
     // User Management & Password Reset
     updateActiveUserDisplay();
     renderAdminUsersList();
+
+    // Public Website Maintenance Mode Controls
+    initMaintenanceModeControls();
+  }
+
+  // ==========================================================================
+  // 🛠️ WEBSITE MAINTENANCE MODE CONTROLS
+  // ==========================================================================
+  function isMaintenanceCurrentlyActive() {
+    try {
+      const local = localStorage.getItem('srcc_maintenance_mode_enabled');
+      if (local !== null) return local === 'true';
+    } catch (e) {}
+    if (window.SRCC_MAINTENANCE_CONFIG && typeof window.SRCC_MAINTENANCE_CONFIG.enabled === 'boolean') {
+      return window.SRCC_MAINTENANCE_CONFIG.enabled;
+    }
+    return true;
+  }
+
+  function updateMaintenanceUi() {
+    const isLocked = isMaintenanceCurrentlyActive();
+    const badge = document.getElementById('adminMaintenanceStatusBadge');
+    const explanation = document.getElementById('adminMaintenanceStatusExplanation');
+    const btnOn = document.getElementById('btnToggleMaintenanceOn');
+    const btnOff = document.getElementById('btnToggleMaintenanceOff');
+    const titleInput = document.getElementById('adminMaintenanceTitleInput');
+    const msgInput = document.getElementById('adminMaintenanceMsgInput');
+
+    if (badge) {
+      if (isLocked) {
+        badge.innerHTML = '🔴 MAINTENANCE ACTIVE (Visitors Locked Out)';
+        badge.style.background = 'rgba(239, 68, 68, 0.15)';
+        badge.style.color = '#dc2626';
+        badge.style.borderColor = 'rgba(239, 68, 68, 0.35)';
+      } else {
+        badge.innerHTML = '🟢 WEBSITE IS LIVE (Public Access Active)';
+        badge.style.background = 'rgba(22, 163, 74, 0.15)';
+        badge.style.color = '#16a34a';
+        badge.style.borderColor = 'rgba(22, 163, 74, 0.35)';
+      }
+    }
+
+    if (explanation) {
+      if (isLocked) {
+        explanation.innerHTML = '🔒 <strong>Currently Locked:</strong> Any public visitor sees the "Under Maintenance" screen. All feature access is blocked for visitors.';
+        explanation.style.color = '#dc2626';
+      } else {
+        explanation.innerHTML = '🟢 <strong>Currently Live:</strong> All students and visitors can browse classrooms, timetables, and notices freely.';
+        explanation.style.color = '#16a34a';
+      }
+    }
+
+    if (btnOn && btnOff) {
+      if (isLocked) {
+        btnOn.style.opacity = '0.45';
+        btnOn.style.cursor = 'default';
+        btnOff.style.opacity = '1';
+        btnOff.style.cursor = 'pointer';
+      } else {
+        btnOn.style.opacity = '1';
+        btnOn.style.cursor = 'pointer';
+        btnOff.style.opacity = '0.45';
+        btnOff.style.cursor = 'default';
+      }
+    }
+
+    if (titleInput && !titleInput.dataset.userEdited) {
+      const storedTitle = localStorage.getItem('srcc_maintenance_title');
+      if (storedTitle) titleInput.value = storedTitle;
+      else if (window.SRCC_MAINTENANCE_CONFIG && window.SRCC_MAINTENANCE_CONFIG.title) titleInput.value = window.SRCC_MAINTENANCE_CONFIG.title;
+    }
+
+    if (msgInput && !msgInput.dataset.userEdited) {
+      const storedMsg = localStorage.getItem('srcc_maintenance_msg');
+      if (storedMsg) msgInput.value = storedMsg;
+      else if (window.SRCC_MAINTENANCE_CONFIG && window.SRCC_MAINTENANCE_CONFIG.message) msgInput.value = window.SRCC_MAINTENANCE_CONFIG.message;
+    }
+  }
+
+  function initMaintenanceModeControls() {
+    updateMaintenanceUi();
+
+    const btnOn = document.getElementById('btnToggleMaintenanceOn');
+    const btnOff = document.getElementById('btnToggleMaintenanceOff');
+    const btnSaveMsg = document.getElementById('btnSaveMaintenanceMsg');
+    const btnRelock = document.getElementById('btnTestRelockBrowser');
+    const titleInput = document.getElementById('adminMaintenanceTitleInput');
+    const msgInput = document.getElementById('adminMaintenanceMsgInput');
+
+    if (titleInput) {
+      titleInput.addEventListener('input', () => { titleInput.dataset.userEdited = 'true'; });
+    }
+    if (msgInput) {
+      msgInput.addEventListener('input', () => { msgInput.dataset.userEdited = 'true'; });
+    }
+
+    if (btnOn) {
+      btnOn.addEventListener('click', () => {
+        localStorage.setItem('srcc_maintenance_mode_enabled', 'true');
+        updateMaintenanceUi();
+        addAuditLog('MAINTENANCE_MODE', 'Activated Maintenance Mode (Visitors Locked Out)');
+        showToast('🔒 <strong>Maintenance Mode Activated!</strong> Public visitors will now see the Under Maintenance screen.');
+      });
+    }
+
+    if (btnOff) {
+      btnOff.addEventListener('click', () => {
+        localStorage.setItem('srcc_maintenance_mode_enabled', 'false');
+        updateMaintenanceUi();
+        addAuditLog('MAINTENANCE_MODE', 'Deactivated Maintenance Mode (Website is Live)');
+        showToast('🟢 <strong>Website is now Live!</strong> Students and visitors can access all features.');
+      });
+    }
+
+    if (btnSaveMsg && titleInput && msgInput) {
+      btnSaveMsg.addEventListener('click', () => {
+        const t = (titleInput.value || '').trim() || 'Website Under Maintenance';
+        const m = (msgInput.value || '').trim() || 'We are currently conducting scheduled system upgrades and timetable maintenance.';
+        localStorage.setItem('srcc_maintenance_title', t);
+        localStorage.setItem('srcc_maintenance_msg', m);
+        addAuditLog('MAINTENANCE_MSG', `Updated maintenance announcement text: "${t}"`);
+        showToast('💾 <strong>Announcement Saved!</strong> Visitor notice has been updated.');
+      });
+    }
+
+    if (btnRelock) {
+      btnRelock.addEventListener('click', () => {
+        sessionStorage.removeItem('srcc_maintenance_admin_bypass');
+        localStorage.removeItem('srcc_maintenance_admin_bypass');
+        showToast('🔒 <strong>Admin Bypass Cleared!</strong> This browser will now see the maintenance screen if you open the Student Website.');
+      });
+    }
   }
 
   function setDefaultDates() {
