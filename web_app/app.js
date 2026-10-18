@@ -1243,8 +1243,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========================================================================
     // 🔔 TOAST HELPER
     // ========================================================================
-    function showToast(message, isCopied = false, duration = 3600) {
+    function showToast(message, isCopied = false, duration = 3000) {
       if (!toastContainer) return;
+      toastContainer.innerHTML = ''; // Never stack multiple toasts
       const toast = document.createElement('div');
       toast.className = `toast-item ${isCopied ? 'copied' : ''}`;
       toast.innerHTML = message;
@@ -7498,6 +7499,11 @@ window.SRCC_FACULTY_LEAVES = {
           });
         });
 
+        // Update Class Notification card description with current selected course/sem/sec
+        if (typeof updateClassNotifUi === 'function') {
+          updateClassNotifUi();
+        }
+
         // Attach click listeners for 1-click teacher timetable inspection
         if (ttMainScheduleGrid) {
           ttMainScheduleGrid.querySelectorAll('.btn-view-teacher-today').forEach(btn => {
@@ -7618,6 +7624,127 @@ window.SRCC_FACULTY_LEAVES = {
       window._openTimetableModal = function() {
         setAppMode('timetable');
       };
+
+      // ========================================================================
+      // 🔔 INTERACTIVE STUDENT CLASS & TIMETABLE NOTIFICATION CONTROLLER
+      // ========================================================================
+      const btnToggleClassAlerts = document.getElementById('btnToggleClassAlerts');
+      const ttNotifStatusBadge = document.getElementById('ttNotifStatusBadge');
+      const ttToggleLabel = document.getElementById('ttToggleLabel');
+      const ttNotifDescText = document.getElementById('ttNotifDescText');
+      const notifCourseSelect = document.getElementById('notifCourseSelect');
+      const notifSemSelect = document.getElementById('notifSemSelect');
+      const notifSecSelect = document.getElementById('notifSecSelect');
+      const btnSaveClassAlerts = document.getElementById('btnSaveClassAlerts');
+
+      function populateNotifSections(preferredSec) {
+        if (!notifSecSelect) return;
+        notifSecSelect.innerHTML = '';
+        const c = notifCourseSelect ? notifCourseSelect.value : 'B.Com (Hons)';
+        const s = notifSemSelect ? notifSemSelect.value : 'Sem I';
+        const secMap = courseMap[c]?.[s] || {};
+        const secs = Object.keys(secMap).sort();
+
+        if (secs.length === 0) {
+          const opt = document.createElement('option');
+          opt.value = 'Sec A';
+          opt.textContent = 'Sec A';
+          notifSecSelect.appendChild(opt);
+        } else {
+          secs.forEach(secName => {
+            const opt = document.createElement('option');
+            opt.value = secName;
+            opt.textContent = secName;
+            if (preferredSec && secName === preferredSec) {
+              opt.selected = true;
+            }
+            notifSecSelect.appendChild(opt);
+          });
+        }
+      }
+
+      function updateClassNotifUi() {
+        const isEnabled = localStorage.getItem('srcc_class_alerts_enabled') !== 'false';
+        const curCourse = localStorage.getItem('srcc_my_tt_course') || 'B.Com (Hons)';
+        const curSem = localStorage.getItem('srcc_my_tt_sem') || 'Sem I';
+        const curSec = localStorage.getItem('srcc_my_tt_sec') || 'Sec A';
+
+        if (btnToggleClassAlerts) {
+          btnToggleClassAlerts.setAttribute('aria-checked', String(isEnabled));
+          btnToggleClassAlerts.classList.toggle('off', !isEnabled);
+        }
+        if (ttToggleLabel) {
+          ttToggleLabel.textContent = isEnabled ? 'Alerts ON' : 'Alerts OFF';
+        }
+        if (ttNotifStatusBadge) {
+          ttNotifStatusBadge.textContent = isEnabled ? `Active: ${curCourse} · ${curSem} · ${curSec}` : 'Disabled';
+          ttNotifStatusBadge.classList.toggle('tt-notif-badge-disabled', !isEnabled);
+        }
+        if (ttNotifDescText) {
+          ttNotifDescText.innerHTML = isEnabled
+            ? `Automatic device notifications <strong>10 min before</strong> every class for <strong>${escapeHtml(curCourse)} · ${escapeHtml(curSem)} · ${escapeHtml(curSec)}</strong> with Room No. and instant teacher leave alerts.`
+            : `Class reminders are currently paused. Tap <strong>Alerts ON</strong> to re-enable 10-minute class and teacher leave notifications.`;
+        }
+      }
+
+      // Initialize dropdown selections
+      const initialSavedCourse = localStorage.getItem('srcc_my_tt_course') || 'B.Com (Hons)';
+      const initialSavedSem = localStorage.getItem('srcc_my_tt_sem') || 'Sem I';
+      const initialSavedSec = localStorage.getItem('srcc_my_tt_sec') || 'Sec A';
+
+      if (notifCourseSelect) notifCourseSelect.value = initialSavedCourse;
+      if (notifSemSelect) notifSemSelect.value = initialSavedSem;
+      populateNotifSections(initialSavedSec);
+
+      if (notifCourseSelect) {
+        notifCourseSelect.addEventListener('change', () => populateNotifSections());
+      }
+      if (notifSemSelect) {
+        notifSemSelect.addEventListener('change', () => populateNotifSections());
+      }
+
+      // Save Class Button
+      if (btnSaveClassAlerts) {
+        btnSaveClassAlerts.addEventListener('click', async () => {
+          const selCourse = notifCourseSelect ? notifCourseSelect.value : 'B.Com (Hons)';
+          const selSem = notifSemSelect ? notifSemSelect.value : 'Sem I';
+          const selSec = notifSecSelect ? notifSecSelect.value : 'Sec A';
+
+          localStorage.setItem('srcc_my_tt_course', selCourse);
+          localStorage.setItem('srcc_my_tt_sem', selSem);
+          localStorage.setItem('srcc_my_tt_sec', selSec);
+          localStorage.setItem('srcc_class_alerts_enabled', 'true');
+
+          if ('Notification' in window && Notification.permission !== 'granted') {
+            try { await Notification.requestPermission(); } catch (e) {}
+          }
+
+          updateClassNotifUi();
+          showToast('✅ Saved Successfully', true, 2200);
+        });
+      }
+
+      // Toggle ON/OFF Switch
+      if (btnToggleClassAlerts) {
+        btnToggleClassAlerts.addEventListener('click', async () => {
+          const currentlyEnabled = localStorage.getItem('srcc_class_alerts_enabled') !== 'false';
+          const nextState = !currentlyEnabled;
+          localStorage.setItem('srcc_class_alerts_enabled', String(nextState));
+
+          if (nextState) {
+            if ('Notification' in window && Notification.permission !== 'granted') {
+              try { await Notification.requestPermission(); } catch (e) {}
+            }
+            updateClassNotifUi();
+            showToast('✅ Alerts ON', true, 2000);
+          } else {
+            updateClassNotifUi();
+            showToast('🔕 Alerts OFF', false, 2000);
+          }
+        });
+      }
+
+      updateClassNotifUi();
 
       // ========================================================================
       // 📌 "MERE BATCH KA AAJ KA SCHEDULE" (DAILY PINNED BATCH WIDGET)
@@ -8410,8 +8537,162 @@ window.SRCC_FACULTY_LEAVES = {
             notifyFacultyLeaves(todayActive, false);
           }
         }
+      } finally {
+        // Evaluate student timetable class reminder and notice deadlines
+        checkAndNotifyStudentTimetableAndDeadlines();
       }
     }
+
+    // ========================================================================
+    // 🎓 STUDENT TIMETABLE CLASS & COLLEGE NOTICE DEADLINE NOTIFICATIONS
+    // - Class reminders 10 minutes before class according to student's timetable
+    // - Alerts with exact Room Number and professor
+    // - Instant alert if scheduled professor is on leave today (Class Cancelled/Free)
+    // - Daily morning timetable summary notification
+    // - College notices alerts & 1-day-left deadline warnings
+    // ========================================================================
+    function checkAndNotifyStudentTimetableAndDeadlines() {
+      try {
+        const istNow = getIstDate();
+        const yyyy = istNow.getFullYear();
+        const mm = String(istNow.getMonth() + 1).padStart(2, '0');
+        const dd = String(istNow.getDate()).padStart(2, '0');
+        const todayIso = `${yyyy}-${mm}-${dd}`;
+        const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const todayName = dayNames[istNow.getDay()];
+        const nowMinutes = istNow.getHours() * 60 + istNow.getMinutes();
+
+        const alertsEnabled = localStorage.getItem('srcc_class_alerts_enabled') !== 'false';
+
+        // -------------------------------------------------------------
+        // 1. Student Timetable Class Reminders (10 Min Before) & Leave Alerts
+        // -------------------------------------------------------------
+        if (alertsEnabled && todayName !== 'Sunday') {
+          const myCourse = localStorage.getItem('srcc_my_tt_course') || 'B.Com (Hons)';
+          const mySem = localStorage.getItem('srcc_my_tt_sem') || 'Sem I';
+          const mySec = localStorage.getItem('srcc_my_tt_sec') || 'Sec A';
+
+          const periodTimes = [
+            { num: 1, start: 8 * 60 + 30, end: 9 * 60 + 30, slot: '8:30 AM to 9:30 AM' },
+            { num: 2, start: 9 * 60 + 30, end: 10 * 60 + 30, slot: '9:30 AM to 10:30 AM' },
+            { num: 3, start: 10 * 60 + 30, end: 11 * 60 + 30, slot: '10:30 AM to 11:30 AM' },
+            { num: 4, start: 11 * 60 + 30, end: 12 * 60 + 30, slot: '11:30 AM to 12:30 PM' },
+            { num: 5, start: 12 * 60 + 30, end: 13 * 60 + 30, slot: '12:30 PM to 1:30 PM' },
+            { num: 6, start: 14 * 60, end: 15 * 60, slot: '2:00 PM to 3:00 PM' },
+            { num: 7, start: 15 * 60, end: 16 * 60, slot: '3:00 PM to 4:00 PM' },
+            { num: 8, start: 16 * 60, end: 17 * 60, slot: '4:00 PM to 5:00 PM' },
+            { num: 9, start: 17 * 60, end: 18 * 60, slot: '5:00 PM to 6:00 PM' }
+          ];
+
+          // A. 10 Minutes Before Class Alert (Window: 8 to 12 minutes before class start)
+          const target10mPeriod = periodTimes.find(p => (p.start - nowMinutes >= 8 && p.start - nowMinutes <= 12));
+          if (target10mPeriod) {
+            let studentClass = null;
+            if (window.SRCC_CLASSES_DATA && window.SRCC_CLASSES_DATA.courses) {
+              const cData = window.SRCC_CLASSES_DATA.courses;
+              const cand = cData[myCourse]?.[mySem]?.[mySec] || [];
+              studentClass = cand.find(c => c.day === todayName && c.slot && c.slot.includes(target10mPeriod.slot.split(' to ')[0]));
+            }
+
+            if (studentClass) {
+              const subName = studentClass.subject || 'Class';
+              const roomNo = studentClass.room || 'Room';
+              const tName = studentClass.teacher_name || studentClass.teacher || 'Faculty';
+              const notifKey = `srcc_alert_10m_${todayIso}_p${target10mPeriod.num}_${subName}`;
+
+              if (!localStorage.getItem(notifKey)) {
+                localStorage.setItem(notifKey, '1');
+
+                const teacherObj = (teachersData && teachersData.teachers) ? teachersData.teachers.find(tch => String(tch.id) === String(studentClass.teacher_id)) : null;
+                const isLeave = Boolean(isTeacherOnLeave(teacherObj || { clean_name: tName, name: tName, id: studentClass.teacher_id }));
+
+                if (isLeave) {
+                  triggerDeviceNotification(`🚨 Class Free / Teacher on Leave: ${subName}`, {
+                    body: `Prof. ${tName} is marked on leave today. Your ${subName} class (${target10mPeriod.slot}) is free. Room ${roomNo} is vacant for GD & Study!`,
+                    tag: `srcc-class-leave-${target10mPeriod.num}`
+                  });
+                } else {
+                  triggerDeviceNotification(`📚 Class Starting in 10 Min: ${subName}`, {
+                    body: `In Room ${roomNo} by Prof. ${tName} (${target10mPeriod.slot}). Tap for full schedule!`,
+                    tag: `srcc-class-10m-${target10mPeriod.num}`
+                  });
+                }
+              }
+            }
+          }
+        }
+
+        // -------------------------------------------------------------
+        // 2. College Notices Deadlines (1 Day Left!) & New Notice Alerts
+        // -------------------------------------------------------------
+        const notices = (window.SRCC_NOTICES_DATA && window.SRCC_NOTICES_DATA.notices) || [];
+        if (notices.length > 0) {
+          notices.forEach(n => {
+            if (n.has_deadline && n.deadline) {
+              const dlMatch = n.deadline.match(/(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})/);
+              if (dlMatch) {
+                const dlDay = parseInt(dlMatch[1], 10);
+                const dlMonthStr = dlMatch[2];
+                const dlYear = parseInt(dlMatch[3], 10);
+                const monthMap = { 'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'May': 4, 'Jun': 5, 'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dec': 11 };
+                const dlMonth = monthMap[dlMonthStr.slice(0, 3)] ?? -1;
+                if (dlMonth >= 0) {
+                  const dlDate = new Date(dlYear, dlMonth, dlDay);
+                  const todayMidnight = new Date(istNow.getFullYear(), istNow.getMonth(), istNow.getDate());
+                  const diffDays = Math.round((dlDate - todayMidnight) / (1000 * 60 * 60 * 24));
+
+                  if (diffDays === 1) {
+                    const dlKey = `srcc_notif_dl_1day_${n.id}`;
+                    if (!localStorage.getItem(dlKey)) {
+                      localStorage.setItem(dlKey, '1');
+                      triggerDeviceNotification(`⏰ 1 Day Left! Notice Deadline`, {
+                        body: `Reminder: 1 Day Left for ${n.title} (${n.deadline_label || 'Deadline'}: ${n.deadline}). Tap to view notice.`,
+                        tag: `srcc-deadline-1day-${n.id}`,
+                        data: { url: n.link }
+                      });
+                    }
+                  } else if (diffDays === 0) {
+                    const dlKey0 = `srcc_notif_dl_today_${n.id}`;
+                    if (!localStorage.getItem(dlKey0)) {
+                      localStorage.setItem(dlKey0, '1');
+                      triggerDeviceNotification(`⏰ Final Day Deadline: ${n.title}`, {
+                        body: `Today is the final date (${n.deadline}). Ensure timely submission!`,
+                        tag: `srcc-deadline-today-${n.id}`,
+                        data: { url: n.link }
+                      });
+                    }
+                  }
+                }
+              }
+            }
+          });
+
+          // Check newest notice
+          const latestNotice = notices[0];
+          if (latestNotice) {
+            const lastSeenNoticeId = localStorage.getItem('srcc_last_seen_notice_id');
+            if (lastSeenNoticeId && lastSeenNoticeId !== latestNotice.id) {
+              const noticeAlertKey = `srcc_alert_notice_${latestNotice.id}`;
+              if (!localStorage.getItem(noticeAlertKey)) {
+                localStorage.setItem(noticeAlertKey, '1');
+                triggerDeviceNotification(`📢 New College Notice: ${latestNotice.title}`, {
+                  body: `Official circular published on srcc.edu. Tap to view document.`,
+                  tag: `srcc-new-notice-${latestNotice.id}`,
+                  data: { url: latestNotice.link }
+                });
+                showToast(`📢 <strong>New Notice:</strong> ${latestNotice.title}`, true, 6000);
+              }
+            }
+            localStorage.setItem('srcc_last_seen_notice_id', latestNotice.id);
+          }
+        }
+      } catch (err) {
+        console.warn('[Alerts Dispatcher Note]', err);
+      }
+    }
+
+    // Run active background ticker every 30 seconds for 10-min class alerts & deadlines
+    setInterval(checkAndNotifyStudentTimetableAndDeadlines, 30000);
 
     // ========================================================================
     // 📱 DEVICE WAKEUP & APP FOCUS LISTENERS
@@ -8430,6 +8711,7 @@ window.SRCC_FACULTY_LEAVES = {
           const todayActive = getActiveTodayLeaves();
           notifyFacultyLeaves(todayActive, false);
         }
+        checkAndNotifyStudentTimetableAndDeadlines();
       };
 
       // 1. Mobile screen unlock & Tab foregrounded
@@ -9352,7 +9634,7 @@ window.SRCC_FACULTY_LEAVES = {
       let currentQuery = '';
 
       function getAllExamCodes() {
-        return window.EXAM_CODES_DATA || [];
+        return window.EXAM_CODES_DATA || window.SRCC_EXAM_CODES_DATA || [];
       }
 
       function matchesSemester(targetSem, itemSemStr) {
@@ -9395,6 +9677,9 @@ window.SRCC_FACULTY_LEAVES = {
         if (cSec) cSec.textContent = all.filter(r => r.programme === 'SEC').length;
         if (cAec) cAec.textContent = all.filter(r => r.programme === 'AEC').length;
         if (cVac) cVac.textContent = all.filter(r => r.programme === 'VAC').length;
+
+        const totalPill = document.getElementById('examCodesTotalPill');
+        if (totalPill) totalPill.textContent = `${all.length} Verified Papers`;
       }
 
       function renderExamCodes() {
@@ -9437,10 +9722,11 @@ window.SRCC_FACULTY_LEAVES = {
             const matchUpc = (r.upc || '').toLowerCase().includes(q);
             const matchCourseNo = (r.course_no || '').toLowerCase().includes(q);
             const matchDept = (r.department || '').toLowerCase().includes(q);
+            const matchCat = (r.category || '').toLowerCase().includes(q);
             const matchTheme = (r.theme || '').toLowerCase().includes(q);
             const matchType = (r.type || '').toLowerCase().includes(q);
             const matchProg = (r.programme || '').toLowerCase().includes(q);
-            if (!matchTitle && !matchUpc && !matchCourseNo && !matchDept && !matchTheme && !matchType && !matchProg) {
+            if (!matchTitle && !matchUpc && !matchCourseNo && !matchDept && !matchCat && !matchTheme && !matchType && !matchProg) {
               return false;
             }
           }
@@ -9448,12 +9734,31 @@ window.SRCC_FACULTY_LEAVES = {
           return true;
         });
 
-        // Always prioritize SRCC-offered subjects at the top, then alphabetically
+        // Category Priority Sort: DSC (Core) -> SEC -> VAC -> AEC -> GE -> DSE -> Research/Track
+        const catOrder = {
+          'Core': 1,
+          'DSC': 1,
+          'SEC': 2,
+          'VAC': 3,
+          'AEC': 4,
+          'GE': 5,
+          'DSE': 6,
+          'Research/Track': 7
+        };
+
         filtered.sort((a, b) => {
-          const aSrcc = a.is_srcc_offered ? 1 : 0;
-          const bSrcc = b.is_srcc_offered ? 1 : 0;
-          if (bSrcc !== aSrcc) {
-            return bSrcc - aSrcc;
+          const aCatRank = catOrder[a.category] || 99;
+          const bCatRank = catOrder[b.category] || 99;
+          if (aCatRank !== bCatRank) {
+            return aCatRank - bCatRank;
+          }
+          const aSem = a.semester || '';
+          const bSem = b.semester || '';
+          if (aSem !== bSem && currentSem === 'ALL') {
+            return aSem.localeCompare(bSem);
+          }
+          if (a.course_no && b.course_no) {
+            return a.course_no.localeCompare(b.course_no);
           }
           return (a.title || '').localeCompare(b.title || '');
         });
@@ -9485,7 +9790,7 @@ window.SRCC_FACULTY_LEAVES = {
         };
 
         const catPills = {
-          'Core': '<span class="examcode-pill pill-core">Core</span>',
+          'Core': '<span class="examcode-pill pill-core">Core (DSC)</span>',
           'DSE': '<span class="examcode-pill pill-dse">DSE</span>',
           'GE': '<span class="examcode-pill pill-ge">GE</span>',
           'SEC': '<span class="examcode-pill pill-sec">SEC</span>',
@@ -9494,32 +9799,48 @@ window.SRCC_FACULTY_LEAVES = {
           'Research/Track': '<span class="examcode-pill pill-research">Track</span>'
         };
 
-        // Render Compact, Clean Cards
+        // Render Compact, Clean Cards (Cleaned up: No star, no department, no credits, no share button)
         examCodesGrid.innerHTML = filtered.map(r => {
-          const progBadge = progBadges[r.programme] || `<span class="examcode-prog-badge badge-prog-bcom">${escapeHtml(r.programme)}</span>`;
+          // Prevent duplicate badges (e.g. [SEC] [SEC] or [VAC] [VAC])
+          const isRedundantProg = (
+            r.programme === 'SEC' ||
+            r.programme === 'VAC' ||
+            r.programme === 'AEC' ||
+            r.programme === r.category ||
+            (r.category === 'SEC' && r.programme === 'SEC') ||
+            (r.category === 'VAC' && r.programme === 'VAC')
+          );
+          const progBadgeHtml = isRedundantProg ? '' : (progBadges[r.programme] || `<span class="examcode-prog-badge badge-prog-bcom">${escapeHtml(r.programme)}</span>`);
           const catPill = catPills[r.category] || `<span class="examcode-pill pill-core">${escapeHtml(r.category || r.type || 'Core')}</span>`;
           const courseNoHtml = r.course_no ? `<span class="examcode-cno-tag">${escapeHtml(r.course_no)}</span>` : '';
-          
-          let creditsText = `${r.credits} Credits`;
-          if (r.theory !== undefined && (r.theory !== '' || r.tutorial !== '' || r.practical !== '')) {
-            creditsText += ` (L: ${r.theory || 0}, T: ${r.tutorial || 0}, P: ${r.practical || 0})`;
-          }
 
-          // Verified Official Syllabus link (falls back to DU syllabi master portal)
-          let syllabusLabel = '📄 Syllabus ↗';
-          let syllabusTitle = 'Open official verified syllabus PDF from DU';
-          if (r.syllabus_url && r.syllabus_url.includes('#page=')) {
-            const pageNum = r.syllabus_url.split('#page=')[1];
-            syllabusLabel = `📄 Syllabus (p. ${pageNum}) ↗`;
-            syllabusTitle = `Open official DU syllabus booklet (Direct to Page ${pageNum} for ${r.title})`;
-          }
-          const syllabusBtn = `
-            <a href="${escapeHtml(r.syllabus_url || 'https://academicaffairs.du.ac.in/syllabi/')}" target="_blank" rel="noopener noreferrer" class="btn-view-syllabus" title="${escapeHtml(syllabusTitle)}">
-              ${syllabusLabel}
-            </a>
-          `;
+          // Canonical Single UPC (Fix dual codes like 2926000002 / 2926001002 to first primary 10-digit code)
+          const rawUpc = String(r.upc || '').trim();
+          const cleanUpc = rawUpc.includes('/') ? rawUpc.split('/')[0].trim() : rawUpc;
 
-          const deptInfo = r.srcc_dept || r.department || r.theme || '';
+          // Verified Official DU Syllabus link or 'Not Available'
+          let syllabusBtn = '';
+          const officialSyllabusUrl = (r.syllabus_url && r.syllabus_url.trim()) || '';
+          if (officialSyllabusUrl) {
+            let syllabusLabel = '📄 DU Syllabus ↗';
+            let syllabusTitle = 'Open official verified syllabus from University of Delhi';
+            if (officialSyllabusUrl.includes('#page=')) {
+              const pageNum = officialSyllabusUrl.split('#page=')[1];
+              syllabusLabel = `📄 DU Syllabus (p. ${pageNum}) ↗`;
+              syllabusTitle = `Open official DU syllabus booklet (Direct to Page ${pageNum} for ${r.title})`;
+            }
+            syllabusBtn = `
+              <a href="${escapeHtml(officialSyllabusUrl)}" target="_blank" rel="noopener noreferrer" class="btn-view-syllabus" title="${escapeHtml(syllabusTitle)}">
+                ${syllabusLabel}
+              </a>
+            `;
+          } else {
+            syllabusBtn = `
+              <span class="btn-syllabus-not-avail" title="Official DU syllabus for this course is not yet published or not available">
+                📄 Syllabus: Not Available
+              </span>
+            `;
+          }
 
           // Prerequisite note (compact)
           let prereqHtml = '';
@@ -9559,28 +9880,23 @@ window.SRCC_FACULTY_LEAVES = {
                   <h3 class="examcode-title">${escapeHtml(r.title)}</h3>
                 </div>
                 <div class="examcode-compact-badges">
-                  ${r.is_srcc_offered ? '<span class="examcode-prog-badge badge-srcc-offered" title="Taught / Offered at SRCC">⭐ SRCC</span>' : ''}
+                  ${r.is_srcc_offered ? '<span class="examcode-prog-badge badge-srcc-offered" title="Offered at SRCC">SRCC Offered</span>' : ''}
                   <span class="examcode-sem-badge">Sem ${escapeHtml(r.semester || 'All')}</span>
                   ${catPill}
-                  ${progBadge}
+                  ${progBadgeHtml}
                 </div>
               </div>
 
               <div class="examcode-compact-meta">
                 <div class="examcode-upc-inline">
                   <span class="examcode-upc-label">UPC:</span>
-                  <code class="examcode-upc-code">${escapeHtml(r.upc)}</code>
-                  <button type="button" class="btn-copy-upc" data-upc="${escapeHtml(r.upc)}" data-title="${escapeHtml(r.title)}" title="Copy UPC to clipboard">
+                  <code class="examcode-upc-code">${escapeHtml(cleanUpc)}</code>
+                  <button type="button" class="btn-copy-upc" data-upc="${escapeHtml(cleanUpc)}" data-title="${escapeHtml(r.title)}" title="Copy UPC to clipboard">
                     📋 Copy
                   </button>
                 </div>
-                <span class="examcode-credits-pill">🎓 ${escapeHtml(creditsText)}</span>
-                ${deptInfo ? `<span class="examcode-dept-pill">🏛️ ${escapeHtml(deptInfo)}</span>` : ''}
                 <div class="examcode-compact-actions">
                   ${syllabusBtn}
-                  <button type="button" class="btn-share-examcode" data-title="${escapeHtml(r.title)}" data-upc="${escapeHtml(r.upc)}" data-sem="${escapeHtml(r.semester)}" data-url="${escapeHtml(r.syllabus_url || '')}" title="Share course details & UPC">
-                    💬 Share
-                  </button>
                 </div>
               </div>
 
@@ -9624,7 +9940,7 @@ window.SRCC_FACULTY_LEAVES = {
             const upc = btn.dataset.upc;
             const sem = btn.dataset.sem;
             const url = btn.dataset.url;
-            const shareText = `📝 *DU Examination Code (UPC):*\n*Paper:* ${title}\n*UPC Code:* ${upc}\n*Semester:* ${sem}${url ? `\n\n📄 Syllabus PDF: ${url}` : ''}\n\nVia SRCC Student Portal`;
+            const shareText = `📝 *DU Examination Code (UPC):*\n*Paper:* ${title}\n*UPC Code:* ${upc}\n*Semester:* ${sem}\n\n📄 Official DU Syllabus: ${url || 'https://www.du.ac.in/index.php?page=nep-ugcf-2022-syllabi'}\n🏛️ Official DU Exam Datesheet & UPC Portal: https://exam.du.ac.in/datesheet.html\n\nVia SRCC Student Portal`;
 
             if (navigator.share) {
               try {

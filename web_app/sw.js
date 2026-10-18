@@ -205,15 +205,42 @@ async function checkLeavesAndNotifyInBackground(isForced = false) {
       }
     }
 
-    // 5. Build Combined Body Text
+    // 5. Check Urgent College Notice Deadlines (1 Day Left)
+    let noticeDeadlineLine = '';
+    try {
+      const NOTICES_URL = './college_notices.json';
+      const notifResp = await caches.match(NOTICES_URL).then(r => r || fetch(NOTICES_URL));
+      if (notifResp && notifResp.ok) {
+        const notifData = await notifResp.json();
+        const notices = notifData?.notices || [];
+        const dlTomorrow = notices.find(n => {
+          if (!n.has_deadline || !n.deadline) return false;
+          const dlMatch = n.deadline.match(/(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})/);
+          if (!dlMatch) return false;
+          const dlDay = parseInt(dlMatch[1], 10);
+          const monthMap = { 'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'May': 4, 'Jun': 5, 'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dec': 11 };
+          const dlMonth = monthMap[dlMatch[2].slice(0, 3)] ?? -1;
+          if (dlMonth < 0) return false;
+          const dlDate = new Date(parseInt(dlMatch[3], 10), dlMonth, dlDay);
+          const todayMid = new Date(istDate.getFullYear(), istDate.getMonth(), istDate.getDate());
+          const diffDays = Math.round((dlDate - todayMid) / (1000 * 60 * 60 * 24));
+          return diffDays === 1;
+        });
+        if (dlTomorrow) {
+          noticeDeadlineLine = `\n⏰ 1 Day Left: ${dlTomorrow.title.slice(0, 48)}...`;
+        }
+      }
+    } catch (e) {}
+
+    // 6. Build Combined Body Text
     let bodyText = '';
     if (count === 1) {
-      bodyText = `Prof. ${uniqueLeaves[0].teacher_name} is marked on leave today.\n${freeRoomsLine}`;
+      bodyText = `Prof. ${uniqueLeaves[0].teacher_name} is marked on leave today.\n${freeRoomsLine}${noticeDeadlineLine}`;
     } else if (count > 1) {
       const topNames = uniqueLeaves.slice(0, 3).map(l => l.teacher_name).join(', ');
-      bodyText = `${count} professors on leave today (${topNames}${count > 3 ? '...' : ''}).\n${freeRoomsLine}`;
+      bodyText = `${count} professors on leave today (${topNames}${count > 3 ? '...' : ''}).\n${freeRoomsLine}${noticeDeadlineLine}`;
     } else {
-      bodyText = `All professors present today.\n${freeRoomsLine}`;
+      bodyText = `All professors present today.\n${freeRoomsLine}${noticeDeadlineLine}`;
     }
 
     // Record timestamp in cache to maintain 1-hour interval

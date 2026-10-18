@@ -76,8 +76,94 @@ function resolveFilePath(reqPath) {
 }
 
 const server = http.createServer((req, res) => {
-  const parsedUrl = url.parse(req.url);
+  const parsedUrl = url.parse(req.url, true);
   let pathname = parsedUrl.pathname || '/';
+
+  // Handle CORS
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204);
+    res.end();
+    return;
+  }
+
+  // API: Get datasets status on localhost
+  if (req.method === 'GET' && pathname === '/api/status') {
+    const dataFiles = [
+      'exam_codes_data.json',
+      'exam_codes_data.js',
+      'classes_data.json',
+      'classes_data.js',
+      'teachers_data.json',
+      'teachers_data.js',
+      'srcc_data.json',
+      'data.js',
+      'college_notices.json',
+      'college_notices.js',
+      'faculty_leaves.json',
+      'faculty_leaves.js',
+      'wifi_data.json',
+      'wifi_data.js',
+      'campus_map_data.json',
+      'directory_data.json',
+      'widget_feed.json'
+    ];
+    const statusReport = dataFiles.map(file => {
+      const fPath = path.join(WEB_APP_DIR, file);
+      const exists = fs.existsSync(fPath);
+      let sizeBytes = 0;
+      let count = null;
+      if (exists) {
+        sizeBytes = fs.statSync(fPath).size;
+        if (file.endsWith('.json')) {
+          try {
+            const parsed = JSON.parse(fs.readFileSync(fPath, 'utf8'));
+            count = Array.isArray(parsed) ? parsed.length : Object.keys(parsed).length;
+          } catch (e) {}
+        }
+      }
+      return { file, exists, sizeBytes, sizeKb: (sizeBytes / 1024).toFixed(1), count };
+    });
+    res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+    res.end(JSON.stringify({ success: true, host: 'localhost', datasets: statusReport }, null, 2));
+    return;
+  }
+
+  // API: Save data to localhost disk
+  if (req.method === 'POST' && pathname === '/api/save') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        const payload = JSON.parse(body);
+        const { filename, data } = payload;
+        if (!filename || !filename.match(/^[a-zA-Z0-9_\-\.]+\.(json|js)$/)) {
+          res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(JSON.stringify({ success: false, error: 'Invalid filename' }));
+          return;
+        }
+
+        const targetWebApp = path.join(WEB_APP_DIR, filename);
+        const targetRoot = path.join(ROOT_DIR, filename);
+
+        const content = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
+        fs.writeFileSync(targetWebApp, content, 'utf8');
+        fs.writeFileSync(targetRoot, content, 'utf8');
+
+        console.log(`[SAVE] Successfully saved ${filename} to localhost disk (${content.length} bytes)`);
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.end(JSON.stringify({ success: true, message: `Saved ${filename} to localhost`, bytes: content.length }));
+      } catch (err) {
+        console.error('[SAVE] Error saving data:', err.message);
+        res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.end(JSON.stringify({ success: false, error: err.message }));
+      }
+    });
+    return;
+  }
 
   // Security check: prohibit directory traversal out of root
   const resolved = resolveFilePath(pathname);

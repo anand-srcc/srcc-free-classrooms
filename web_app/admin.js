@@ -3335,8 +3335,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    async function triggerBroadcast(isTestOnly = false) {
-      const payload = calculateLivePayload();
+    async function triggerBroadcast(isTestOnly = false, customPayload = null) {
+      const payload = customPayload || calculateLivePayload();
 
       // Check permission
       if ('Notification' in window && Notification.permission !== 'granted') {
@@ -3412,7 +3412,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }).catch(() => {});
 
-        showToast(`📢 <strong>Broadcast Pushed to All Users!</strong> Leaves: ${payload.leaveCount}, Free Rooms: ${payload.freeRooms}`);
+        showToast(`📢 <strong>Broadcast Pushed to All Users!</strong> ${payload.title}`);
       } else {
         showToast(`🧪 <strong>Test alert displayed on your screen.</strong>`);
       }
@@ -3424,6 +3424,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (btnTestAlert) {
       btnTestAlert.addEventListener('click', () => triggerBroadcast(true));
+    }
+
+    const btnTestClassAlert = document.getElementById('btnAdminTestClassAlert');
+    if (btnTestClassAlert) {
+      btnTestClassAlert.addEventListener('click', () => {
+        const payload = {
+          title: '📚 Class Starting in 10 Min: Financial Accounting',
+          body: 'In Room 24 by Prof. Reena Gupta (Period 2: 9:30 AM to 10:30 AM). Tap to open your live timetable!'
+        };
+        triggerBroadcast(true, payload);
+        showToast('📚 <strong>Test 10-Min Class Alert Triggered!</strong> Check your notification tray.');
+      });
+    }
+
+    const btnBroadcastDeadline = document.getElementById('btnAdminBroadcastDeadline');
+    if (btnBroadcastDeadline) {
+      btnBroadcastDeadline.addEventListener('click', () => {
+        const payload = {
+          title: '⏰ Urgent Notice Deadline (1 Day Left!)',
+          body: 'Reminder: 1 Day Left for Examination Form Submission / Last Date Extended. Ensure timely submission!'
+        };
+        triggerBroadcast(false, payload);
+        showToast('⏰ <strong>Deadline Alert Broadcasted to All Users!</strong>');
+      });
     }
   }
 

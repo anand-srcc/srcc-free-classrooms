@@ -1,0 +1,48 @@
+window.SRCC_LEAVES_DATA = {
+  "last_updated": "15 Oct 2026, 08:22 AM",
+  "last_synced_iso": "2026-10-15T08:22:34.442038",
+  "total_on_leave": 4,
+  "source": "https://studentassistsrcc.app / Firebase Cloud DB",
+  "leaves": [
+    {
+      "teacher_id": "562",
+      "teacher_name": "Kapil Dev Yadav",
+      "teacher_code": "KD",
+      "department": "Commerce",
+      "start_date": "2026-10-13",
+      "end_date": "2026-10-27",
+      "reason": "Faculty Leave",
+      "status": "On Leave"
+    },
+    {
+      "teacher_id": "533",
+      "teacher_name": "Saurabh Gupta",
+      "teacher_code": "SHG",
+      "department": "Commerce",
+      "start_date": "2026-10-03",
+      "end_date": "2026-10-17",
+      "reason": "Faculty Leave",
+      "status": "On Leave"
+    },
+    {
+      "teacher_id": "547",
+      "teacher_name": "Manpreet Sharma",
+      "teacher_code": "MTS",
+      "department": "Mathematics",
+      "start_date": "2026-10-09",
+      "end_date": "2026-10-15",
+      "reason": "Faculty Leave",
+      "status": "On Leave"
+    },
+    {
+      "teacher_id": "571",
+      "teacher_name": "Amanpreet Kaur",
+      "teacher_code": "ANK",
+      "department": "Commerce",
+      "start_date": "2026-10-09",
+      "end_date": "2026-10-15",
+      "reason": "Faculty Leave",
+      "status": "On Leave"
+    }
+  ]
+};
