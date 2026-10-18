@@ -3,8 +3,8 @@ window.SRCC_DATA = {
     "college": "Shri Ram College of Commerce (SRCC)",
     "portal": "https://srcccollegetimetable.in/",
     "total_rooms": 96,
-    "last_synced": "16 Oct 2026, 04:39 AM",
-    "last_synced_iso": "2026-10-16T04:39:06.765420",
+    "last_synced": "18 Oct 2026, 05:25 PM",
+    "last_synced_iso": "2026-10-18T17:25:24.715133",
     "academic_periods": [
       "8:30 AM to 9:30 AM",
       "9:30 AM to 10:30 AM",
@@ -178,7 +178,7 @@ window.SRCC_DATA = {
           "occupied_slots": [
             {
               "slot": "8:30 AM to 9:30 AM",
-              "class": "L-BCH-A-SEM ICommerce-BLAW-AHC"
+              "class": "L-BCH-A-SEM ICommerce-BLAW-RAC"
             },
             {
               "slot": "9:30 AM to 10:30 AM",
@@ -663,7 +663,7 @@ window.SRCC_DATA = {
             },
             {
               "slot": "10:30 AM to 11:30 AM",
-              "class": "L-BCH-F-SEM ICommerce-BLAW-HGC"
+              "class": "L-BCH-F-SEM ICommerce-BLAW-RAC"
             },
             {
               "slot": "11:30 AM to 12:30 PM",
@@ -1906,7 +1906,7 @@ window.SRCC_DATA = {
           "occupied_slots": [
             {
               "slot": "8:30 AM to 9:30 AM",
-              "class": "L-BCH-F-SEM ICommerce-BLAW-HGC"
+              "class": "L-BCH-F-SEM ICommerce-BLAW-RAC"
             },
             {
               "slot": "9:30 AM to 10:30 AM",
@@ -1941,7 +1941,7 @@ window.SRCC_DATA = {
           "occupied_slots": [
             {
               "slot": "8:30 AM to 9:30 AM",
-              "class": "L-BCH-F-SEM ICommerce-BLAW-HGC"
+              "class": "L-BCH-F-SEM ICommerce-BLAW-RAC"
             },
             {
               "slot": "9:30 AM to 10:30 AM",
@@ -1987,7 +1987,7 @@ window.SRCC_DATA = {
           "occupied_slots": [
             {
               "slot": "8:30 AM to 9:30 AM",
-              "class": "L-BCH-A-SEM ICommerce-BLAW-AHC"
+              "class": "L-BCH-A-SEM ICommerce-BLAW-RAC"
             },
             {
               "slot": "9:30 AM to 10:30 AM",
@@ -3414,7 +3414,7 @@ window.SRCC_DATA = {
           "occupied_slots": [
             {
               "slot": "8:30 AM to 9:30 AM",
-              "class": "L-BCH-A-SEM ICommerce-BLAW-AHC"
+              "class": "L-BCH-A-SEM ICommerce-BLAW-RAC"
             },
             {
               "slot": "9:30 AM to 10:30 AM",
@@ -8158,7 +8158,7 @@ window.SRCC_DATA = {
             },
             {
               "slot": "10:30 AM to 11:30 AM",
-              "class": "T-BCH-C-SEM ICommerce-BLAW-HGC-C3"
+              "class": "T-BCH-C-SEM ICommerce-BLAW-RAC-C3"
             },
             {
               "slot": "11:30 AM to 12:30 PM",
@@ -8834,7 +8834,7 @@ window.SRCC_DATA = {
           "occupied_slots": [
             {
               "slot": "9:30 AM to 10:30 AM",
-              "class": "T-BCH-C-SEM ICommerce-BLAW-AHC-C2"
+              "class": "T-BCH-C-SEM ICommerce-BLAW-RAC-C2"
             },
             {
               "slot": "10:30 AM to 11:30 AM",
@@ -9852,7 +9852,7 @@ window.SRCC_DATA = {
           "occupied_slots": [
             {
               "slot": "9:30 AM to 10:30 AM",
-              "class": "T-BCH-K-SEM ICommerce-BLAW-HGC-K3"
+              "class": "T-BCH-K-SEM ICommerce-BLAW-RAC-K3"
             },
             {
               "slot": "10:30 AM to 11:30 AM",
@@ -9877,7 +9877,7 @@ window.SRCC_DATA = {
           "occupied_slots": [
             {
               "slot": "9:30 AM to 10:30 AM",
-              "class": "T-BCH-E-SEM ICommerce-BLAW-HGC-E3"
+              "class": "T-BCH-E-SEM ICommerce-BLAW-RAC-E3"
             },
             {
               "slot": "10:30 AM to 11:30 AM",
