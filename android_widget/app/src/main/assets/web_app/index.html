@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   
-  <link rel="stylesheet" href="style.css?v=85" />
+  <link rel="stylesheet" href="style.css?v=86" />
 </head>
 <body>
   <!-- Header / Navigation (Slim Single-Line Strip) -->
@@ -647,19 +647,7 @@
          VIEW SECTION 6: DU EXAM CODES & COURSE UPC DIRECTORY (NEP / UGCF 2022)
          ==================================================================== -->
     <div id="viewExamCodesSection" class="app-view-section" style="display: none;">
-      <div class="tt-action-bar" style="border-bottom: none; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
-        <div class="tt-action-title" style="display: flex; align-items: center; gap: 8px;">
-          <span style="font-size: 1.3rem;">📖</span>
-          <span>DU Syllabus &amp; Exam Codes Directory</span>
-        </div>
-        <div class="faculty-action-leaves-wrap" style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
-          <span class="tt-live-pill" id="examCodesTotalPill" style="background: rgba(16, 185, 129, 0.12); color: #059669; border-color: rgba(16, 185, 129, 0.3); font-weight: 700;">
-            454 Verified Papers
-          </span>
-        </div>
-      </div>
-
-      <!-- Clean UGCF & Degree Guidelines Quick Reference (Preserved from Syllabus Notes) -->
+      <!-- Clean UGCF & Degree Guidelines Quick Reference (Direct Entry) -->
       <div class="ugcf-clean-guidelines-bar" style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 12px 16px; margin-bottom: 14px; box-shadow: var(--shadow-xs);">
         <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
           <div style="display: flex; align-items: center; gap: 8px;">
@@ -725,6 +713,9 @@
         <button class="notices-pill-btn" data-prog="GE (Elective)" role="tab" aria-selected="false">
           <span>Generic Electives (GE)</span> <span class="notices-pill-count" id="countProgGe">15</span>
         </button>
+        <button class="notices-pill-btn" data-prog="DSE" role="tab" aria-selected="false">
+          <span>DSE (Elective)</span> <span class="notices-pill-count" id="countProgDse">82</span>
+        </button>
       </div>
 
       <!-- Tier 2: Classification Filter Bar (Course Type) -->
@@ -742,10 +733,6 @@
             <option value="Research/Track">Research / Track</option>
           </select>
         </div>
-
-        <button type="button" id="btnResetExamCodesFilters" class="btn-reset-examcodes" title="Reset all filters">
-          🔄 Reset Filters
-        </button>
       </div>
 
       <!-- Result Count Strip -->
@@ -1100,11 +1087,13 @@
           </div>
         </div>
       </div>
-      <div class="class-notif-modal-body" style="padding: 22px 20px;">
-        <div class="tt-modal-toggle-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border-color);">
+      <div class="class-notif-modal-body" style="padding: 24px 22px 32px;">
+        <div class="tt-modal-toggle-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; padding: 14px 16px; border-radius: 12px; background: var(--bg-surface); border: 1.5px solid var(--border-color); box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
           <div>
-            <div style="font-weight: 700; font-size: 0.95rem; color: var(--text-primary);">Automatic Reminders</div>
-            <div style="font-size: 0.8rem; color: var(--text-secondary);">10 minutes before every class</div>
+            <div style="font-weight: 700; font-size: 0.95rem; color: var(--text-primary); display: flex; align-items: center; gap: 6px;">
+              <span>⏰</span> Automatic Reminders
+            </div>
+            <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 2px;">10 minutes before every class</div>
           </div>
           <button type="button" class="btn-tt-notif-toggle" id="btnToggleClassAlerts" role="switch" aria-checked="true" title="Turn alerts ON / OFF">
             <span class="tt-toggle-track"><span class="tt-toggle-thumb"></span></span>
@@ -1112,35 +1101,47 @@
           </button>
         </div>
 
-        <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="display: flex; flex-direction: column; gap: 16px;">
           <div class="tt-notif-form-field">
-            <label for="notifCourseSelect" style="display: block; font-weight: 700; font-size: 0.82rem; margin-bottom: 5px; color: var(--text-secondary);">Course:</label>
-            <select id="notifCourseSelect" class="tt-notif-input" style="width: 100%; padding: 10px 12px; font-size: 0.9rem; border-radius: 8px; border: 1.5px solid var(--border-color); background: var(--bg-card); color: var(--text-primary);">
-              <option value="B.Com (Hons)">B.Com (Hons)</option>
-              <option value="B.A. (Hons) Economics">B.A. (Hons) Eco</option>
-              <option value="M.Com">M.Com</option>
-              <option value="M.A. Economics">M.A. Eco</option>
-            </select>
+            <label for="notifCourseSelect" style="display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.84rem; margin-bottom: 6px; color: var(--text-secondary);">
+              <span>📚</span> Course:
+            </label>
+            <div class="tt-select-wrapper">
+              <select id="notifCourseSelect" class="tt-notif-input">
+                <option value="B.Com (Hons)">B.Com (Hons)</option>
+                <option value="B.A. (Hons) Economics">B.A. (Hons) Eco</option>
+                <option value="M.Com">M.Com</option>
+                <option value="M.A. Economics">M.A. Eco</option>
+              </select>
+            </div>
           </div>
           <div class="tt-notif-form-field">
-            <label for="notifSemSelect" style="display: block; font-weight: 700; font-size: 0.82rem; margin-bottom: 5px; color: var(--text-secondary);">Semester:</label>
-            <select id="notifSemSelect" class="tt-notif-input" style="width: 100%; padding: 10px 12px; font-size: 0.9rem; border-radius: 8px; border: 1.5px solid var(--border-color); background: var(--bg-card); color: var(--text-primary);">
-              <option value="Sem I">Sem I</option>
-              <option value="Sem III">Sem III</option>
-              <option value="Sem V">Sem V</option>
-              <option value="Sem VII">Sem VII</option>
-            </select>
+            <label for="notifSemSelect" style="display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.84rem; margin-bottom: 6px; color: var(--text-secondary);">
+              <span>🎓</span> Semester:
+            </label>
+            <div class="tt-select-wrapper">
+              <select id="notifSemSelect" class="tt-notif-input">
+                <option value="Sem I">Sem I</option>
+                <option value="Sem III">Sem III</option>
+                <option value="Sem V">Sem V</option>
+                <option value="Sem VII">Sem VII</option>
+              </select>
+            </div>
           </div>
           <div class="tt-notif-form-field">
-            <label for="notifSecSelect" style="display: block; font-weight: 700; font-size: 0.82rem; margin-bottom: 5px; color: var(--text-secondary);">Section:</label>
-            <select id="notifSecSelect" class="tt-notif-input" style="width: 100%; padding: 10px 12px; font-size: 0.9rem; border-radius: 8px; border: 1.5px solid var(--border-color); background: var(--bg-card); color: var(--text-primary);">
-              <!-- Dynamically populated -->
-            </select>
+            <label for="notifSecSelect" style="display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.84rem; margin-bottom: 6px; color: var(--text-secondary);">
+              <span>🏷️</span> Section:
+            </label>
+            <div class="tt-select-wrapper">
+              <select id="notifSecSelect" class="tt-notif-input">
+                <!-- Dynamically populated -->
+              </select>
+            </div>
           </div>
         </div>
 
-        <div style="margin-top: 22px;">
-          <button type="button" class="btn-tt-save-class" id="btnSaveClassAlerts" style="width: 100%; padding: 12px; font-size: 0.95rem; font-weight: 700; justify-content: center; border-radius: 10px; cursor: pointer;">
+        <div style="margin-top: 26px; padding-bottom: 6px;">
+          <button type="button" class="btn-tt-save-class" id="btnSaveClassAlerts" style="width: 100%; padding: 13px 18px; font-size: 0.96rem; font-weight: 700; justify-content: center; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 14px rgba(37,99,235,0.3); transition: all 0.2s ease;">
             💾 Save Class Timetable
           </button>
         </div>
@@ -1422,14 +1423,14 @@
   </div>
 
   <!-- Scripts -->
-  <script src="data.js?v=85"></script>
-  <script src="college_notices.js?v=85"></script>
-  <script src="exam_codes_data.js?v=85"></script>
-  <script src="wifi_data.js?v=85"></script>
-  <script src="cloud_config.js?v=85"></script>
-  <script src="faculty_leaves.js?v=85"></script>
-  <script src="teachers_data.js?v=85"></script>
-  <script src="classes_data.js?v=85"></script>
-  <script src="app.js?v=85"></script>
+  <script src="data.js?v=86"></script>
+  <script src="college_notices.js?v=86"></script>
+  <script src="exam_codes_data.js?v=86"></script>
+  <script src="wifi_data.js?v=86"></script>
+  <script src="cloud_config.js?v=86"></script>
+  <script src="faculty_leaves.js?v=86"></script>
+  <script src="teachers_data.js?v=86"></script>
+  <script src="classes_data.js?v=86"></script>
+  <script src="app.js?v=86"></script>
 </body>
 </html>

@@ -1373,6 +1373,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('shareModal'),
         document.getElementById('calendarReminderModal'),
         document.getElementById('studentAttachmentModal'),
+        document.getElementById('classNotifModal'),
         document.getElementById('pwaInstallModal')
       ];
       return popups.find(m => m && (m.style.display === 'flex' || m.style.display === 'block'));
@@ -1391,6 +1392,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('reportIssueModal'),
         document.getElementById('widgetModal'),
         document.getElementById('ugcfGuidanceModal'),
+        document.getElementById('classNotifModal'),
         document.getElementById('pwaInstallModal')
       ];
       popups.forEach(m => {
@@ -1979,7 +1981,8 @@ document.addEventListener('DOMContentLoaded', () => {
         reportIssueModal, document.getElementById('facultyEmailModal'),
         document.getElementById('wifiModal'), widgetModal, installModal,
         document.getElementById('calendarReminderModal'),
-        document.getElementById('studentAttachmentModal')
+        document.getElementById('studentAttachmentModal'),
+        document.getElementById('classNotifModal')
       ].some(m => m && (m.style.display === 'flex' || m.style.display === 'block'));
 
       if (!anyOpen) {
@@ -7644,20 +7647,20 @@ window.SRCC_FACULTY_LEAVES = {
 
       function openClassNotifModal() {
         if (classNotifModal) {
-          classNotifModal.style.display = 'flex';
+          openAppModal(classNotifModal);
         }
       }
 
-      function closeClassNotifModal() {
+      function closeClassNotifModal(options = {}) {
         if (classNotifModal) {
-          classNotifModal.style.display = 'none';
+          closeAppModal(classNotifModal, options);
         }
       }
 
       if (drawerNavClassNotif) {
         drawerNavClassNotif.addEventListener('click', () => {
           if (typeof window._closeCampusDrawer === 'function') {
-            window._closeCampusDrawer();
+            window._closeCampusDrawer({ noHistory: true });
           }
           const drawerOverlay = document.getElementById('campusDrawerOverlay');
           if (drawerOverlay) {
@@ -7669,7 +7672,7 @@ window.SRCC_FACULTY_LEAVES = {
       }
 
       if (btnClassNotifModalClose) {
-        btnClassNotifModalClose.addEventListener('click', closeClassNotifModal);
+        btnClassNotifModalClose.addEventListener('click', () => closeClassNotifModal());
       }
 
       if (classNotifModal) {
@@ -8486,15 +8489,43 @@ window.SRCC_FACULTY_LEAVES = {
         return;
       }
 
+      const istNow = getIstDate();
+      const currentDayOfWeek = istNow.getDay(); // 0 is Sunday
+      const currentHour = istNow.getHours();
+
+      // 🛑 SUNDAY DAYTIME LEAVE NOTIFICATION SUPPRESSION:
+      // Faculty leave notifications run Monday to Saturday during college hours.
+      // On Sunday daytime, notifications are completely suppressed because college is closed.
+      // Only on Sunday night between 10:00 PM (22:00) and 11:59 PM IST can an upcoming Monday leave preview be sent.
+      if (currentDayOfWeek === 0 && !isTest) {
+        if (currentHour < 22) {
+          return; // Strictly no leave notifications on Sunday before 10 PM
+        }
+      }
+
       const count = (activeLeaves && activeLeaves.length) || 0;
+      let title = 'SRCC Live Campus Update 🔔';
       let bodyText = '';
-      if (count === 1) {
-        bodyText = `Prof. ${activeLeaves[0].teacher_name} is marked on leave today.\n${freeRoomsText}`;
-      } else if (count > 1) {
-        const topNames = activeLeaves.slice(0, 3).map(l => l.teacher_name).join(', ');
-        bodyText = `${count} professors on leave today (${topNames}${count > 3 ? '...' : ''}).\n${freeRoomsText}`;
+
+      if (currentDayOfWeek === 0 && currentHour >= 22) {
+        title = 'SRCC Monday Campus Preview 🔔';
+        if (count === 1) {
+          bodyText = `Prof. ${activeLeaves[0].teacher_name} is scheduled on leave for tomorrow (Monday).\n⚡ Regular classes resume Monday morning at 8:30 AM.`;
+        } else if (count > 1) {
+          const topNames = activeLeaves.slice(0, 3).map(l => l.teacher_name).join(', ');
+          bodyText = `${count} faculty scheduled on leave for tomorrow (Monday: ${topNames}${count > 3 ? '...' : ''}).\n⚡ Regular classes resume Monday morning at 8:30 AM.`;
+        } else {
+          bodyText = `All faculty scheduled present for tomorrow (Monday).\n⚡ Regular classes resume Monday morning at 8:30 AM.`;
+        }
       } else {
-        bodyText = `All professors present today.\n${freeRoomsText}`;
+        if (count === 1) {
+          bodyText = `Prof. ${activeLeaves[0].teacher_name} is marked on leave today.\n${freeRoomsText}`;
+        } else if (count > 1) {
+          const topNames = activeLeaves.slice(0, 3).map(l => l.teacher_name).join(', ');
+          bodyText = `${count} professors on leave today (${topNames}${count > 3 ? '...' : ''}).\n${freeRoomsText}`;
+        } else {
+          bodyText = `All professors present today.\n${freeRoomsText}`;
+        }
       }
 
       const ONE_HOUR_MS = 60 * 60 * 1000;
@@ -8510,7 +8541,7 @@ window.SRCC_FACULTY_LEAVES = {
 
       // 1. Browser Native Device Notification (Laptop + Mobile Lock Screen)
       if ('Notification' in window && Notification.permission === 'granted') {
-        triggerDeviceNotification('SRCC Live Campus Update 🔔', {
+        triggerDeviceNotification(title, {
           body: bodyText,
           tag: 'srcc-campus-hourly-update'
         });
@@ -9111,6 +9142,19 @@ window.SRCC_FACULTY_LEAVES = {
     // ========================================================================
     function handlePopState(e) {
       _lastPopStateTime = Date.now();
+
+      // 0. If Campus Drawer is open in DOM, close it cleanly on mobile back button
+      const drawerOverlay = document.getElementById('campusDrawerOverlay');
+      if (drawerOverlay && (drawerOverlay.classList.contains('open') || drawerOverlay.style.display === 'flex')) {
+        if (typeof closeCampusDrawer === 'function') {
+          closeCampusDrawer({ fromPopState: true });
+        } else if (typeof window._closeCampusDrawer === 'function') {
+          window._closeCampusDrawer({ fromPopState: true });
+        }
+        _modalHistoryDepth = Math.max(0, _modalHistoryDepth - 1);
+        return;
+      }
+
       const openModal = getCurrentlyOpenModal();
       const stateObj = e && e.state;
 
@@ -9477,9 +9521,48 @@ window.SRCC_FACULTY_LEAVES = {
       }
 
       function updateCategoryCounts(allNotices) {
-        const counts = { ALL: allNotices.length, DEADLINES: 0, academic: 0, examinations: 0, societies: 0, administration: 0 };
+        const MONTH_MAP = {
+          'jan': 0, 'feb': 1, 'mar': 2, 'apr': 3, 'may': 4, 'jun': 5,
+          'jul': 6, 'aug': 7, 'sep': 8, 'sept': 8, 'oct': 9, 'nov': 10, 'dec': 11
+        };
+
+        function parseNoticeDate(str) {
+          if (!str) return 0;
+          const m = str.match(/(\d{1,2})[\s\-\.\/]+([A-Za-z]+)[\s\-\.\/]+(\d{4})/);
+          if (m) {
+            const day = parseInt(m[1], 10);
+            const mon = MONTH_MAP[m[2].toLowerCase().slice(0, 3)] ?? 0;
+            const yr = parseInt(m[3], 10);
+            return new Date(yr, mon, day).getTime();
+          }
+          const m2 = str.match(/([A-Za-z]+)[\s\-\.\/]+(\d{1,2})[\s\-\.\/,]+(\d{4})/);
+          if (m2) {
+            const mon = MONTH_MAP[m2[1].toLowerCase().slice(0, 3)] ?? 0;
+            const day = parseInt(m2[2], 10);
+            const yr = parseInt(m2[3], 10);
+            return new Date(yr, mon, day).getTime();
+          }
+          return 0;
+        }
+
+        const nowIst = getIstDate();
+        const todayMidnight = new Date(nowIst.getFullYear(), nowIst.getMonth(), nowIst.getDate()).getTime();
+
+        function getDeadlineStatus(deadlineStr) {
+          if (!deadlineStr) return { time: 0, isActive: false, daysLeft: -999 };
+          const time = parseNoticeDate(deadlineStr);
+          if (!time) return { time: 0, isActive: false, daysLeft: -999 };
+          const diffDays = Math.ceil((time - todayMidnight) / (24 * 60 * 60 * 1000));
+          return { time, isActive: diffDays >= 0, daysLeft: diffDays };
+        }
+
+        const counts = { ALL: allNotices.length, DEADLINES: 0, DEADLINES_ACTIVE: 0, academic: 0, examinations: 0, societies: 0, administration: 0 };
         allNotices.forEach(n => {
-          if (n.has_deadline || n.deadline) counts.DEADLINES++;
+          if (n.has_deadline || n.deadline) {
+            counts.DEADLINES++;
+            const dlStat = getDeadlineStatus(n.deadline);
+            if (dlStat.isActive) counts.DEADLINES_ACTIVE++;
+          }
           if (counts[n.category] !== undefined) counts[n.category]++;
           else counts.administration++;
         });
@@ -9492,7 +9575,7 @@ window.SRCC_FACULTY_LEAVES = {
         const elAdmin = document.getElementById('countCatAdmin');
 
         if (elAll) elAll.textContent = counts.ALL;
-        if (elDeadlines) elDeadlines.textContent = counts.DEADLINES;
+        if (elDeadlines) elDeadlines.textContent = `${counts.DEADLINES_ACTIVE} Active`;
         if (elAcad) elAcad.textContent = counts.academic;
         if (elExam) elExam.textContent = counts.examinations;
         if (elSoc) elSoc.textContent = counts.societies;
@@ -9500,7 +9583,7 @@ window.SRCC_FACULTY_LEAVES = {
         if (noticesTotalPill) noticesTotalPill.textContent = `${counts.ALL} Public Notices`;
 
         const drawerDeadlinesBadge = document.getElementById('drawerDeadlinesBadge');
-        if (drawerDeadlinesBadge) drawerDeadlinesBadge.textContent = `${counts.DEADLINES} Deadlines ⏳`;
+        if (drawerDeadlinesBadge) drawerDeadlinesBadge.textContent = `${counts.DEADLINES_ACTIVE} Active Deadlines ⏳`;
         const drawerNoticesBadge = document.getElementById('drawerNoticesBadge');
         if (drawerNoticesBadge) drawerNoticesBadge.textContent = `${counts.ALL} New`;
       }
@@ -9509,6 +9592,41 @@ window.SRCC_FACULTY_LEAVES = {
         if (!noticesGrid) return;
         const allNotices = getAllCollegeNotices();
         updateCategoryCounts(allNotices);
+
+        const MONTH_MAP = {
+          'jan': 0, 'feb': 1, 'mar': 2, 'apr': 3, 'may': 4, 'jun': 5,
+          'jul': 6, 'aug': 7, 'sep': 8, 'sept': 8, 'oct': 9, 'nov': 10, 'dec': 11
+        };
+
+        function parseNoticeDate(str) {
+          if (!str) return 0;
+          const m = str.match(/(\d{1,2})[\s\-\.\/]+([A-Za-z]+)[\s\-\.\/]+(\d{4})/);
+          if (m) {
+            const day = parseInt(m[1], 10);
+            const mon = MONTH_MAP[m[2].toLowerCase().slice(0, 3)] ?? 0;
+            const yr = parseInt(m[3], 10);
+            return new Date(yr, mon, day).getTime();
+          }
+          const m2 = str.match(/([A-Za-z]+)[\s\-\.\/]+(\d{1,2})[\s\-\.\/,]+(\d{4})/);
+          if (m2) {
+            const mon = MONTH_MAP[m2[1].toLowerCase().slice(0, 3)] ?? 0;
+            const day = parseInt(m2[2], 10);
+            const yr = parseInt(m2[3], 10);
+            return new Date(yr, mon, day).getTime();
+          }
+          return 0;
+        }
+
+        const nowIst = getIstDate();
+        const todayMidnight = new Date(nowIst.getFullYear(), nowIst.getMonth(), nowIst.getDate()).getTime();
+
+        function getDeadlineStatus(deadlineStr) {
+          if (!deadlineStr) return { time: 0, isActive: false, daysLeft: -999 };
+          const time = parseNoticeDate(deadlineStr);
+          if (!time) return { time: 0, isActive: false, daysLeft: -999 };
+          const diffDays = Math.ceil((time - todayMidnight) / (24 * 60 * 60 * 1000));
+          return { time, isActive: diffDays >= 0, daysLeft: diffDays };
+        }
 
         const q = (currentQuery || '').toLowerCase().trim();
         const filtered = allNotices.filter(n => {
@@ -9526,6 +9644,35 @@ window.SRCC_FACULTY_LEAVES = {
           }
           return true;
         });
+
+        // 🎯 USER-SPECIFIED PRECISE SORTING:
+        // 1. In 'DEADLINES' tab: Active upcoming deadlines sorted ASCENDING (soonest deadline first!), followed by past deadlines.
+        // 2. In ALL other tabs ('ALL', 'academic', 'examinations', 'societies', 'administration'):
+        //    Sorted DESCENDING by notice date (most recent / today's latest notice on top!).
+        if (currentCat === 'DEADLINES') {
+          filtered.sort((a, b) => {
+            const statA = getDeadlineStatus(a.deadline);
+            const statB = getDeadlineStatus(b.deadline);
+
+            if (statA.isActive && !statB.isActive) return -1;
+            if (!statA.isActive && statB.isActive) return 1;
+
+            if (statA.isActive && statB.isActive) {
+              return statA.time - statB.time; // Soonest upcoming deadline first
+            }
+
+            return statB.time - statA.time; // Most recent past deadline first
+          });
+        } else {
+          filtered.sort((a, b) => {
+            const timeA = parseNoticeDate(a.date);
+            const timeB = parseNoticeDate(b.date);
+            if (timeA !== timeB) return timeB - timeA; // Latest date first
+            const idA = parseInt((a.id || '').replace(/\D/g, '') || '0', 10);
+            const idB = parseInt((b.id || '').replace(/\D/g, '') || '0', 10);
+            return idA - idB;
+          });
+        }
 
         if (filtered.length === 0) {
           noticesGrid.innerHTML = `
@@ -9558,13 +9705,32 @@ window.SRCC_FACULTY_LEAVES = {
           const catHtml = catBadges[n.category] || catBadges.administration;
           const openLabel = typeLabels[n.link_type] || typeLabels.pdf;
 
-          const deadlineHtml = (n.has_deadline && n.deadline) ? `
-            <span class="notice-deadline-tag" title="Submission Deadline / Last Date">
-              <span class="deadline-pulse-dot"></span>
-              <span class="deadline-title-label">${escapeHtml(n.deadline_label || 'Deadline:')}</span>
-              <span class="deadline-exact-time">${escapeHtml(n.deadline)}</span>
-            </span>
-          ` : '';
+          let deadlineHtml = '';
+          if (n.has_deadline && n.deadline) {
+            const dlStat = getDeadlineStatus(n.deadline);
+            if (dlStat.isActive) {
+              const daysText = dlStat.daysLeft === 0
+                ? '⚡ Last Day Today!'
+                : (dlStat.daysLeft === 1 ? '⏰ 1 Day Left!' : `⏳ ${dlStat.daysLeft} Days Left`);
+              deadlineHtml = `
+                <span class="notice-deadline-tag notice-deadline-active" title="Active Deadline: ${escapeHtml(n.deadline)}">
+                  <span class="deadline-pulse-dot"></span>
+                  <span class="deadline-title-label">${escapeHtml(n.deadline_label || 'Deadline:')}</span>
+                  <span class="deadline-exact-time">${escapeHtml(n.deadline)}</span>
+                  <span class="deadline-days-badge active">${daysText}</span>
+                </span>
+              `;
+            } else {
+              deadlineHtml = `
+                <span class="notice-deadline-tag notice-deadline-past" title="Past Deadline: ${escapeHtml(n.deadline)}">
+                  <span class="deadline-past-dot"></span>
+                  <span class="deadline-title-label">${escapeHtml(n.deadline_label || 'Deadline:')}</span>
+                  <span class="deadline-exact-time">${escapeHtml(n.deadline)}</span>
+                  <span class="deadline-days-badge past">Passed</span>
+                </span>
+              `;
+            }
+          }
 
           return `
             <div class="notice-card notice-compact-card" id="card-${escapeHtml(n.id)}">
@@ -9735,6 +9901,8 @@ window.SRCC_FACULTY_LEAVES = {
         const cSec = document.getElementById('countProgSec');
         const cAec = document.getElementById('countProgAec');
         const cVac = document.getElementById('countProgVac');
+        const cGe = document.getElementById('countProgGe');
+        const cDse = document.getElementById('countProgDse');
 
         if (cAll) cAll.textContent = all.length;
         if (cSrcc) cSrcc.textContent = all.filter(r => r.is_srcc_offered).length;
@@ -9743,6 +9911,8 @@ window.SRCC_FACULTY_LEAVES = {
         if (cSec) cSec.textContent = all.filter(r => r.programme === 'SEC').length;
         if (cAec) cAec.textContent = all.filter(r => r.programme === 'AEC').length;
         if (cVac) cVac.textContent = all.filter(r => r.programme === 'VAC').length;
+        if (cGe) cGe.textContent = all.filter(r => r.category === 'GE' || r.type === 'GE' || r.programme === 'GE (Elective)').length;
+        if (cDse) cDse.textContent = all.filter(r => r.category === 'DSE' || r.type === 'DSE' || (r.course_no && r.course_no.includes('DSE'))).length;
 
         const totalPill = document.getElementById('examCodesTotalPill');
         if (totalPill) totalPill.textContent = `${all.length} Verified Papers`;
@@ -9755,9 +9925,15 @@ window.SRCC_FACULTY_LEAVES = {
 
         const q = (currentQuery || '').toLowerCase().trim();
         const filtered = all.filter(r => {
-          // 1. Programme Filter (including SRCC Offered tab)
+          // 1. Programme Filter (including SRCC Offered and DSE tabs)
           if (currentProg === 'SRCC') {
             if (!r.is_srcc_offered) return false;
+          } else if (currentProg === 'DSE') {
+            const isDse = (r.category === 'DSE' || r.type === 'DSE' || (r.course_no && r.course_no.includes('DSE')));
+            if (!isDse) return false;
+          } else if (currentProg === 'GE (Elective)') {
+            const isGe = (r.category === 'GE' || r.type === 'GE' || r.programme === 'GE (Elective)');
+            if (!isGe) return false;
           } else if (currentProg !== 'ALL' && r.programme !== currentProg) {
             return false;
           }
@@ -10162,16 +10338,28 @@ window.SRCC_FACULTY_LEAVES = {
           drawerOverlay.classList.add('open');
         });
         document.body.classList.add('modal-open');
+        try {
+          if (!window.location.hash.includes('drawer')) {
+            window.history.pushState({ type: 'drawer', modalId: 'campusDrawerOverlay' }, '', '#menu');
+            _modalHistoryDepth++;
+          }
+        } catch (e) {}
       }
       window._openCampusDrawer = openCampusDrawer;
 
-      function closeCampusDrawer() {
+      function closeCampusDrawer(options = {}) {
         if (!drawerOverlay) return;
         drawerOverlay.classList.remove('open');
         setTimeout(() => {
           drawerOverlay.style.display = 'none';
         }, 280);
         document.body.classList.remove('modal-open');
+        if (!options.fromPopState && _modalHistoryDepth > 0) {
+          _modalHistoryDepth--;
+          try {
+            window.history.back();
+          } catch (e) {}
+        }
       }
       window._closeCampusDrawer = closeCampusDrawer;
 

@@ -154,29 +154,49 @@ def calculate_campus_update():
         except Exception as e:
             print(f"[Warning] Error calculating free rooms: {e}")
 
+    # SUNDAY RULE:
+    # On Sunday daytime (before 10:00 PM / 22:00 IST), suppress faculty leave alerts completely.
+    # On Sunday night (22:00 to 23:59 IST), upcoming Monday preview is permitted.
+    if day_name == "Sunday" and ist.hour < 22:
+        print("[Info] Sunday daytime: Faculty leave alerts suppressed (college closed).")
+        return None, None
+
     # Build title & body
-    title = "SRCC Live Campus Update 🔔"
     leave_count = len(active_leaves)
 
-    if leave_count == 1:
-        prof_name = active_leaves[0].get("teacher_name", "A Professor")
-        leave_text = f"Prof. {prof_name} is on leave today."
-    elif leave_count > 1:
-        top_names = ", ".join(l.get("teacher_name", "") for l in active_leaves[:2])
-        leave_text = f"{leave_count} professors on leave ({top_names})."
+    if day_name == "Sunday" and ist.hour >= 22:
+        title = "SRCC Monday Campus Preview 🔔"
+        if leave_count == 1:
+            prof_name = active_leaves[0].get("teacher_name", "A Professor")
+            body = f"Prof. {prof_name} is scheduled on leave for tomorrow (Monday).\n⚡ Regular classes resume Monday morning at 8:30 AM."
+        elif leave_count > 1:
+            top_names = ", ".join(l.get("teacher_name", "") for l in active_leaves[:2])
+            body = f"{leave_count} faculty scheduled on leave for tomorrow (Monday: {top_names}).\n⚡ Regular classes resume Monday morning at 8:30 AM."
+        else:
+            body = "All faculty scheduled present for tomorrow (Monday).\n⚡ Regular classes resume Monday morning at 8:30 AM."
     else:
-        leave_text = "All faculty scheduled present."
+        title = "SRCC Live Campus Update 🔔"
+        if leave_count == 1:
+            prof_name = active_leaves[0].get("teacher_name", "A Professor")
+            leave_text = f"Prof. {prof_name} is on leave today."
+        elif leave_count > 1:
+            top_names = ", ".join(l.get("teacher_name", "") for l in active_leaves[:2])
+            leave_text = f"{leave_count} professors on leave ({top_names})."
+        else:
+            leave_text = "All faculty scheduled present."
 
-    if 8 * 60 <= current_minutes <= 18 * 60:
-        rooms_text = f"{free_rooms_count} classrooms free right now for study/GD!"
-    else:
-        rooms_text = "Check tomorrow's vacant timetable."
+        if 8 * 60 <= current_minutes <= 18 * 60:
+            rooms_text = f"{free_rooms_count} classrooms free right now for study/GD!"
+        else:
+            rooms_text = "Check tomorrow's vacant timetable."
 
-    body = f"{leave_text}\n⚡ {rooms_text}"
+        body = f"{leave_text}\n⚡ {rooms_text}"
     return title, body
 
 def dispatch_all():
     title, body = calculate_campus_update()
+    if not title or not body:
+        return
     if not VAPID_PRIVATE_KEY:
         print("[Info] VAPID_PRIVATE_KEY environment variable not configured. Skipping Web Push broadcast.")
         return

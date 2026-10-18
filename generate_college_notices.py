@@ -203,7 +203,7 @@ for title, link in matches:
         18: {'date': '05 Oct 2026', 'deadline': '20 Oct 2026', 'deadline_label': 'BCH ER Re-registration Form'},
         19: {'date': '05 Oct 2026', 'deadline': '20 Oct 2026', 'deadline_label': 'Improvement / ER Form Last Date'},
         22: {'date': '28 Sep 2026', 'deadline': '10 Oct 2026', 'deadline_label': 'Bhutan Exchange Application Form'},
-        25: {'date': '26 Sep 2026', 'deadline': '15 Oct 2026', 'deadline_label': 'SAF & Fee Concession Form'},
+        25: {'date': '26 Sep 2026', 'deadline': '30 Oct 2026', 'deadline_label': 'SAF & Fee Concession Form'},
         28: {'date': '22 Sep 2026', 'deadline': '25 Sep 2026', 'deadline_label': 'SAJMD Debate Schedule'},
         33: {'date': '18 Sep 2026', 'deadline': '19 Sep 2026', 'deadline_label': 'Holiday Closure Date'},
         83: {'date': '17 Aug 2026', 'deadline': '31 Aug 2026', 'deadline_label': 'Scholarship Application Deadline'},
