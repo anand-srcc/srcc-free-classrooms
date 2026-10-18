@@ -3,8 +3,8 @@
     "college": "Shri Ram College of Commerce (SRCC)",
     "portal": "https://srcccollegetimetable.in/",
     "total_rooms": 96,
-    "last_synced": "18 Oct 2026, 05:25 PM",
-    "last_synced_iso": "2026-10-18T17:25:24.715133",
+    "last_synced": "18 Oct 2026, 08:49 PM",
+    "last_synced_iso": "2026-10-18T20:49:18.882598",
     "academic_periods": [
       "8:30 AM to 9:30 AM",
       "9:30 AM to 10:30 AM",
@@ -9907,15 +9907,15 @@
           "occupied_slots": [
             {
               "slot": "9:30 AM to 10:30 AM",
-              "class": "T-BCH-L-SEM ICommerce-BLAW-AHC-L2"
+              "class": "T-BCH-L-SEM ICommerce-BLAW-RAC-L2"
             },
             {
               "slot": "10:30 AM to 11:30 AM",
-              "class": "T-BCH-H-SEM IIICommerce-BRM-AHC-H2"
+              "class": "T-BCH-H-SEM IIICommerce-BRM-RAC-H2"
             },
             {
               "slot": "11:30 AM to 12:30 PM",
-              "class": "T-BCH-C-SEM IIICommerce-BRM-AHC-C1"
+              "class": "T-BCH-C-SEM IIICommerce-BRM-RAC-C1"
             }
           ]
         },
@@ -9958,7 +9958,7 @@
           "occupied_slots": [
             {
               "slot": "9:30 AM to 10:30 AM",
-              "class": "T-BCH-K-SEM ICommerce-BLAW-AHC-K2"
+              "class": "T-BCH-K-SEM ICommerce-BLAW-RAC-K2"
             },
             {
               "slot": "10:30 AM to 11:30 AM",
@@ -14955,7 +14955,7 @@
           "occupied_slots": [
             {
               "slot": "8:30 AM to 9:30 AM",
-              "class": "L-BAHE-A-SEM VIICommerce-ECom-CG36"
+              "class": "L-BAHE-A-SEM VIICommerce-ECom-AHC"
             },
             {
               "slot": "9:30 AM to 10:30 AM",
@@ -15066,7 +15066,7 @@
           "occupied_slots": [
             {
               "slot": "8:30 AM to 9:30 AM",
-              "class": "L-BAHE-A-SEM VIICommerce-ECom-CG36"
+              "class": "L-BAHE-A-SEM VIICommerce-ECom-AHC"
             },
             {
               "slot": "9:30 AM to 10:30 AM",
@@ -15188,7 +15188,7 @@
           "occupied_slots": [
             {
               "slot": "8:30 AM to 9:30 AM",
-              "class": "L-BAHE-A-SEM VIICommerce-ECom-CG36"
+              "class": "L-BAHE-A-SEM VIICommerce-ECom-AHC"
             },
             {
               "slot": "9:30 AM to 10:30 AM",
