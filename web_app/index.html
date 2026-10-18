@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   
-  <link rel="stylesheet" href="style.css?v=86" />
+  <link rel="stylesheet" href="style.css?v=87" />
 </head>
 <body>
   <!-- Header / Navigation (Slim Single-Line Strip) -->
@@ -145,6 +145,14 @@
         <button class="mode-tab" id="tabModeTimetable" role="tab" aria-selected="false" data-mode="timetable">
           <span class="mode-tab-icon">📅</span>
           <span class="mode-tab-text">Timetable</span>
+        </button>
+        <button class="mode-tab" id="tabModeNotices" role="tab" aria-selected="false" data-mode="notices">
+          <span class="mode-tab-icon">📢</span>
+          <span class="mode-tab-text">Notices</span>
+        </button>
+        <button class="mode-tab" id="tabModeExamCodes" role="tab" aria-selected="false" data-mode="exam_codes">
+          <span class="mode-tab-icon">📖</span>
+          <span class="mode-tab-text">DU Codes</span>
         </button>
       </div>
     </div>
@@ -980,21 +988,13 @@
       <span class="bnav-icon">📅</span>
       <span class="bnav-label">Timetable</span>
     </button>
-    <button class="bottom-nav-item" id="bnavFreeNow" data-bnav="freenow" title="Rooms Free Right Now">
-      <span class="bnav-icon">⚡</span>
-      <span class="bnav-label">Free Now</span>
+    <button class="bottom-nav-item" id="bnavNotices" data-bnav="notices" title="Official Notices & Deadlines">
+      <span class="bnav-icon">📢</span>
+      <span class="bnav-label">Notices</span>
     </button>
-    <!-- WiFi Bottom Nav Item - Temporarily hidden pending administrative permission -->
-    <button class="bottom-nav-item" id="bnavWifi" data-bnav="wifi" title="Campus WiFi Networks & Passwords" style="display: none !important;">
-      <span class="bnav-icon">
-        <svg class="wifi-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
-          <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
-          <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
-          <circle cx="12" cy="20" r="1.3" fill="currentColor"></circle>
-        </svg>
-      </span>
-      <span class="bnav-label">WiFi</span>
+    <button class="bottom-nav-item" id="bnavExamCodes" data-bnav="exam_codes" title="DU Exam Codes & UPC">
+      <span class="bnav-icon">📖</span>
+      <span class="bnav-label">DU Codes</span>
     </button>
   </nav>
 
@@ -1426,14 +1426,14 @@
   </div>
 
   <!-- Scripts -->
-  <script src="data.js?v=86"></script>
-  <script src="college_notices.js?v=86"></script>
-  <script src="exam_codes_data.js?v=86"></script>
-  <script src="wifi_data.js?v=86"></script>
-  <script src="cloud_config.js?v=86"></script>
-  <script src="faculty_leaves.js?v=86"></script>
-  <script src="teachers_data.js?v=86"></script>
-  <script src="classes_data.js?v=86"></script>
-  <script src="app.js?v=86"></script>
+  <script src="data.js?v=87"></script>
+  <script src="college_notices.js?v=87"></script>
+  <script src="exam_codes_data.js?v=87"></script>
+  <script src="wifi_data.js?v=87"></script>
+  <script src="cloud_config.js?v=87"></script>
+  <script src="faculty_leaves.js?v=87"></script>
+  <script src="teachers_data.js?v=87"></script>
+  <script src="classes_data.js?v=87"></script>
+  <script src="app.js?v=87"></script>
 </body>
 </html>

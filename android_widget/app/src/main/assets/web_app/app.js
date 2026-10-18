@@ -1547,6 +1547,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (bnavMenu) bnavMenu.classList.remove('active');
       const bnavNotices = document.getElementById('bnavNotices');
       if (bnavNotices) bnavNotices.classList.toggle('active', isNotices);
+      const bnavExamCodes = document.getElementById('bnavExamCodes');
+      if (bnavExamCodes) bnavExamCodes.classList.toggle('active', isExamCodes);
       if (bnavWifi) bnavWifi.classList.toggle('active', isWifi);
       if (bnavFreeNow) bnavFreeNow.classList.toggle('active', isRooms && state.freeNowActive);
 
@@ -1663,6 +1665,13 @@ document.addEventListener('DOMContentLoaded', () => {
       bnavNoticesBtn.addEventListener('click', () => {
         closeAllPopups();
         setAppMode('notices');
+      });
+    }
+    const bnavExamCodesBtn = document.getElementById('bnavExamCodes');
+    if (bnavExamCodesBtn) {
+      bnavExamCodesBtn.addEventListener('click', () => {
+        closeAllPopups();
+        setAppMode('exam_codes');
       });
     }
     const btnHeaderNotices = document.getElementById('btnHeaderNotices');
@@ -9194,6 +9203,10 @@ window.SRCC_FACULTY_LEAVES = {
 
       // 3. Fallback based on URL hash
       const rawHash = (window.location.hash || '').toLowerCase();
+      if (rawHash.includes('#menu') || rawHash.includes('#drawer')) {
+        // Drawer is opening or opened - do not reset to rooms
+        return;
+      }
       if (rawHash.includes('#faculty')) {
         if (state.activeMode !== 'faculty') setAppMode('faculty', true, { isBackNav: true });
       } else if (rawHash.includes('#timetable')) {
@@ -10371,7 +10384,8 @@ window.SRCC_FACULTY_LEAVES = {
       if (btnThreeLineMenu) {
         btnThreeLineMenu.addEventListener('click', (e) => {
           e.preventDefault();
-          if (drawerOverlay && drawerOverlay.classList.contains('open')) {
+          e.stopPropagation();
+          if (drawerOverlay && (drawerOverlay.classList.contains('open') || drawerOverlay.style.display === 'flex')) {
             closeCampusDrawer();
           } else {
             openCampusDrawer();
