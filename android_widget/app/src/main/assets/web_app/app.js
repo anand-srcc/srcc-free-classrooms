@@ -9902,6 +9902,7 @@ window.SRCC_FACULTY_LEAVES = {
         const cAec = document.getElementById('countProgAec');
         const cVac = document.getElementById('countProgVac');
         const cGe = document.getElementById('countProgGe');
+        const cDsc = document.getElementById('countProgDsc');
         const cDse = document.getElementById('countProgDse');
 
         if (cAll) cAll.textContent = all.length;
@@ -9912,6 +9913,7 @@ window.SRCC_FACULTY_LEAVES = {
         if (cAec) cAec.textContent = all.filter(r => r.programme === 'AEC').length;
         if (cVac) cVac.textContent = all.filter(r => r.programme === 'VAC').length;
         if (cGe) cGe.textContent = all.filter(r => r.category === 'GE' || r.type === 'GE' || r.programme === 'GE (Elective)').length;
+        if (cDsc) cDsc.textContent = all.filter(r => r.category === 'Core' || r.type === 'Core' || (r.course_no && r.course_no.includes('DSC'))).length;
         if (cDse) cDse.textContent = all.filter(r => r.category === 'DSE' || r.type === 'DSE' || (r.course_no && r.course_no.includes('DSE'))).length;
 
         const totalPill = document.getElementById('examCodesTotalPill');
@@ -9925,9 +9927,12 @@ window.SRCC_FACULTY_LEAVES = {
 
         const q = (currentQuery || '').toLowerCase().trim();
         const filtered = all.filter(r => {
-          // 1. Programme Filter (including SRCC Offered and DSE tabs)
+          // 1. Programme Filter (including SRCC Offered, DSC Core, and DSE tabs)
           if (currentProg === 'SRCC') {
             if (!r.is_srcc_offered) return false;
+          } else if (currentProg === 'DSC') {
+            const isDsc = (r.category === 'Core' || r.type === 'Core' || (r.course_no && r.course_no.includes('DSC')));
+            if (!isDsc) return false;
           } else if (currentProg === 'DSE') {
             const isDse = (r.category === 'DSE' || r.type === 'DSE' || (r.course_no && r.course_no.includes('DSE')));
             if (!isDse) return false;
