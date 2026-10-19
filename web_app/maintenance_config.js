@@ -8,7 +8,7 @@
  */
 window.SRCC_MAINTENANCE_CONFIG = {
   // Master toggle: true = Under Maintenance, false = Live for public
-  enabled: true,
+  enabled: false,
 
   // Announcement details shown to visitors
   title: "Website Under Maintenance",

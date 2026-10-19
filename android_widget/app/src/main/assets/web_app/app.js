@@ -25,10 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Display animated loading skeleton while initial data is fetching (unless in maintenance mode)
-  if (window.SRCC_MAINTENANCE && window.SRCC_MAINTENANCE.isEnabled && window.SRCC_MAINTENANCE.isEnabled() && !window.SRCC_MAINTENANCE.isAdminAuthorized()) {
-    if (loadingStateEl) loadingStateEl.style.display = 'none';
-  } else if (!appData && loadingStateEl) {
+  // Display animated loading skeleton while initial data is fetching
+  if (!appData && loadingStateEl) {
     loadingStateEl.style.display = 'block';
   }
 
