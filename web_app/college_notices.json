@@ -1,8 +1,20 @@
 {
-  "total": 497,
+  "total": 498,
   "source": "https://www.srcc.edu/announcements",
-  "last_sync": "2026-10-18T08:53:28.061276",
+  "last_sync": "2026-10-19T13:25:35.196312",
   "notices": [
+    {
+      "id": "srcc-notice-498",
+      "title": "Filling up of Examination Form for students for Session Mav/I-un62026.",
+      "category": "examinations",
+      "link": "https://online.srcc.edu/smartprof/file_uploads/notices/Attachment/FillingupofExaminationFormforstudentsforSessionMavIun62026-778225dc2bfc370d24dd47c45b4cf4c2.pdf",
+      "link_type": "pdf",
+      "date": "19 Oct 2026",
+      "deadline": null,
+      "deadline_label": null,
+      "has_deadline": false,
+      "source": "Official SRCC Announcements (srcc.edu)"
+    },
     {
       "id": "srcc-notice-431",
       "title": "Counselling Expert - Career Counsellor",
