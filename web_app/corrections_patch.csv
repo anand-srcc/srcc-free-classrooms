@@ -1,0 +1,97 @@
+﻿Action,S.No / Position,Subject,Column,Current value,Correct value,Confidence,Note
+ADD_ROW,After 64,Research Track (Dissertation/Academic Project/Translation),(whole row),,UPC=2419084801 | Sem VIII | Credits 10,High,Missing track row from official DU table; Course No and Syllabus link blank in source
+ADD_ROW,After 64,Entrepreneurship Track,(whole row),,UPC=2419084802 | Sem VIII | Credits 10,High,Missing track row from official DU table; Course No and Syllabus link blank in source
+ADD_ROW,After 69,Research Track (Dissertation/Academic Project/ Translation),(whole row),,UPC=2279104701 | Sem VII | Credits 10,High,Missing track row from official DU table; Course No and Syllabus link blank in source
+ADD_ROW,After 69,Entrepreneurship Track,(whole row),,UPC=2279104702 | Sem VII | Credits 10,High,Missing track row from official DU table; Course No and Syllabus link blank in source
+SET_CELL,354,Ayurveda and Nutrition,UPC Code,,6967000001,High,Title match & credits agree (2); filled from official DU VAC pool
+SET_CELL,355,Constitutional Values and Fundamental Duties,UPC Code,,6967000002,High,Title match & credits agree (2); filled from official DU VAC pool
+SET_CELL,356,Culture and Communication,UPC Code,,6967000003,High,Title match & credits agree (2); filled from official DU VAC pool
+SET_CELL,358,Emotional Intelligence,UPC Code,,6967000005,High,Title match & credits agree (2); filled from official DU VAC pool
+SET_CELL,359,Ethics and Culture,UPC Code,,6967000006,High,Title match & credits agree (2); filled from official DU VAC pool
+SET_CELL,360,Ethics and Values in Ancient Indian Traditions,UPC Code,,6967000007,High,Title match & credits agree (2); filled from official DU VAC pool
+SET_CELL,361,Financial Literacy,UPC Code,,6967000008,High,Title match & credits agree (2); filled from official DU VAC pool
+SET_CELL,363,Gandhi and Education,UPC Code,,6967000010,High,Title match & credits agree (2); filled from official DU VAC pool
+SET_CELL,364,Ecology and Literature,UPC Code,,6967000011,High,Title match & credits agree (2); filled from official DU VAC pool
+SET_CELL,365,Panchkosha: Holistic Development of Personality,UPC Code,,6967000013,High,Title match & credits agree (2); filled from official DU VAC pool
+SET_CELL,366,Reading Indian Fiction in English,UPC Code,,6967000014,High,Title match & credits agree (2); filled from official DU VAC pool
+SET_CELL,367,Science and Society,UPC Code,,6967000015,High,Title match & credits agree (2); filled from official DU VAC pool
+SET_CELL,368,Social and Emotional Learning,UPC Code,,6967000016,High,Title match & credits agree (2); filled from official DU VAC pool
+SET_CELL,371,Swachh Bharat,UPC Code,,6967000018,High,Title match & credits agree (2); filled from official DU VAC pool
+SET_CELL,372,The Art of Being Happy,UPC Code,,6967000019,High,Title match & credits agree (2); filled from official DU VAC pool
+SET_CELL,373,Vedic Mathematics-I,UPC Code,,6967000020,High,Title match & credits agree (2); filled from official DU VAC pool
+SET_CELL,377,Yoga: Philosophy and Practice,UPC Code,,6967000021,High,Title match & credits agree (2); filled from official DU VAC pool
+SET_CELL,378,Envisaging Viksit Bharat: Perspectives and Challenges,UPC Code,,6967000033,High,Title match & credits agree (2); filled from official DU VAC pool
+SET_CELL,379,The Gita for Holistic Life,UPC Code,,6967000029,High,Title match & credits agree (2); filled from official DU VAC pool
+SET_CELL,380,Leadership Excellence Through the Gita,UPC Code,,6967000030,High,Title match & credits agree (2); filled from official DU VAC pool
+SET_CELL,381,The Gita for Sustainable Universe,UPC Code,,6967000031,High,Title match & credits agree (2); filled from official DU VAC pool
+SET_CELL,382,The Gita: Navigating Life Challenges,UPC Code,,6967000032,High,Title match & credits agree (2); filled from official DU VAC pool
+SET_CELL,383,The Science of Happiness,UPC Code,,6967000034,High,Title match & credits agree (2); filled from official DU VAC pool
+SET_CELL,384,Tribes of India,UPC Code,,6967000028,High,Title match & credits agree (2); filled from official DU VAC pool
+SET_CELL,390,भारतीय भक्ति परम्परा और मानव मूल्य,UPC Code,,6967000022,High,Title match & credits agree (2); filled from official DU VAC pool
+SET_CELL,391,साहित्य संस्कृति और सिनेमा,UPC Code,,6967000023,High,Title match & credits agree (2); filled from official DU VAC pool
+SET_CELL,392,सृजनात्मक लेखन के आयाम,UPC Code,,6967000024,High,Title match & credits agree (2); filled from official DU VAC pool
+SPLIT_CELL,215,Front End Web Design and Development,UPC Code / Alt UPC (unverified),2346000008 / 2346001008,UPC=2346000008 | Alt=2346001008,Medium,Primary UPC set to first value from official table; secondary moved to Alt UPC column
+SPLIT_CELL,216,Back-End Web Development,UPC Code / Alt UPC (unverified),2346001004 / 2346000004,UPC=2346001004 | Alt=2346000004,Medium,Primary UPC set to first value from official table; secondary moved to Alt UPC column
+SPLIT_CELL,229,Creative Writing,UPC Code / Alt UPC (unverified),2036001004 / 2036000004,UPC=2036001004 | Alt=2036000004,Medium,Primary UPC set to first value from official table; secondary moved to Alt UPC column
+SPLIT_CELL,231,Rangmanch,UPC Code / Alt UPC (unverified),2056000002 / 2056001002,UPC=2056000002 | Alt=2056001002,Medium,Primary UPC set to first value from official table; secondary moved to Alt UPC column
+SPLIT_CELL,237,Communication in Everyday Life,UPC Code / Alt UPC (unverified),2036000002 / 2036001002,UPC=2036000002 | Alt=2036001002,Medium,Primary UPC set to first value from official table; secondary moved to Alt UPC column
+SPLIT_CELL,246,Graphics Design & Animation,UPC Code / Alt UPC (unverified),6956000002 / 6956001002,UPC=6956000002 | Alt=6956001002,Medium,Primary UPC set to first value from official table; secondary moved to Alt UPC column
+SPLIT_CELL,255,Prospecting E-waste for Sustainability,UPC Code / Alt UPC (unverified),2186000002 / 2186001002,UPC=2186000002 | Alt=2186001002,Medium,Primary UPC set to first value from official table; secondary moved to Alt UPC column
+SPLIT_CELL,259,Finance for Everyone,UPC Code / Alt UPC (unverified),2416000002 / 2416001002,UPC=2416000002 | Alt=2416001002,Medium,Primary UPC set to first value from official table; secondary moved to Alt UPC column
+SPLIT_CELL,262,Basics of Food Science and Nutrition,UPC Code / Alt UPC (unverified),2202311102 / 2202601202,UPC=2202311102 | Alt=2202601202,Medium,Primary UPC set to first value from official table; secondary moved to Alt UPC column
+SPLIT_CELL,294,Digital Marketing,UPC Code / Alt UPC (unverified),2926000002 / 2926001002,UPC=2926000002 | Alt=2926001002,Medium,Primary UPC set to first value from official table; secondary moved to Alt UPC column
+SPLIT_CELL,352,Sustainable Ecotourism and Entrepreneurship,UPC Code / Alt UPC (unverified),6136000002 / 6136001002,UPC=6136000002 | Alt=6136001002,Medium,Primary UPC set to first value from official table; secondary moved to Alt UPC column
+SPLIT_CELL,353,E Tourism,UPC Code / Alt UPC (unverified),6136000001 / 6136001001,UPC=6136000001 | Alt=6136001001,Medium,Primary UPC set to first value from official table; secondary moved to Alt UPC column
+SPLIT_CELL,407,हिन्दी भाषा और तकनीक (हिन्दी ग),UPC Code / Alt UPC (unverified),2051002006 / 2051002003,UPC=2051002006 | Alt=2051002003,Medium,Primary UPC set to first value from official table; secondary moved to Alt UPC column
+SET_CELL,411,Urdu-B (AEC-1B),Official DU Syllabus Link,https://academicaffairs.du.ac.in/syllabus/ug/aec/Urdu_AEC2B.pdf,https://academicaffairs.du.ac.in/syllabus/ug/aec/Urdu_AEC1B.pdf,High,Fixed copy error (was pointing to AEC2B); verified HTTP 200
+SET_CELL,408,विदेशी विद्यार्थियों के लिए पाठ्यक्रम,Official DU Syllabus Link,https://academicaffairs.du.ac.in/syllabus/ug/aec/Hindi_AEC1D.pdf,https://academicaffairs.du.ac.in/syllabus/ug/aec/Hindi_AECD.pdf,Medium,Corrected link to Hindi_AECD.pdf (HTTP 200 confirmed). Possible overlap with S.No 486 placeholder.
+SET_CELL,324,Cultivation of Lac: An eco-friendly multiuse wonder product of nature,Credits,101,2,High,Corrected typographical error 101 to 2; all SEC rows are 2 credits
+SET_CELL,243,Radio Jockeying,Credits,0,2,Medium,Corrected Credits from 0 to 2 per standard SEC curriculum
+FLAG,370,Sports - Diversity and Inclusivity,Official DU Syllabus Link,https://academicaffairs.du.ac.in/syllabus/ug/VAC%20Syllabus/The%20Gita%20Navigating%20Life%20Challenges.pdf,https://academicaffairs.du.ac.in/syllabus/ug/VAC%20Syllabus/SPORTS%20DIVERSITY%20AND%20INCLUSIVITY.pdf,Medium,"Link in source was Gita syllabus copy error; target URL SPORTS%20DIVERSITY... timed out during HTTP test, flagged per rule 6"
+DELETE_ROW,184,Principles of Macroeconomics I,(whole row),Principles of Macroeconomics I (2274001201),DELETED,High,Exact duplicate of S.No 170 (all columns identical)
+DELETE_ROW,393,Sports - Diversity and lnclusivity,(whole row),"Sports - Diversity and lnclusivity (TBA, VAC-24)",DELETED,Medium,"Duplicate of S.No 370 with typo ""lnclusivity"" and UPC TBA; Course No VAC-24 vs VAC-30 collision flagged in S.No 370"
+FLAG,342,Acting Skills in Sanskrit Dramaturgy,UPC Code,,,High,DO NOT fill from JSON (JSON UPC 2136000003 belongs to Script Writing Skills S.No 343)
+FLAG,205,Green Methods in Chemistry,UPC Code,32173908,32173908,High,Unchanged - invalid 8-digit UPC (32173908) present in both CSV and JSON; verify at DU source
+FLAG,392,सृजनात्मक लेखन के आयाम,Subject Title,सृजनात्मक लेखन के आयाम,सृजनात्मक लेखन के आयाम,High,Subject Title kept as लेखन (JSON says लेख); verify against syllabus PDF
+FLAG,41,Business Research Methodology,UPC Code,2413080026,2413080026,High,Duplicate UPC 2413080026 appears for Sem VI (DSE-6.6) and Sem VII (DSE-7.1); verified identical in DU source
+FLAG,44,Business Research Methodology,UPC Code,2413080026,2413080026,High,Duplicate UPC 2413080026 appears for Sem VI (DSE-6.6) and Sem VII (DSE-7.1); verified identical in DU source
+FLAG,381,The Gita for Sustainable Universe,Course No,VAC-29,VAC-29,High,VAC course number collision: VAC-29 used for both S.No 381 and S.No 382; pending DU confirmation
+FLAG,382,The Gita: Navigating Life Challenges,Course No,VAC-29,VAC-29,High,VAC course number collision: VAC-29 used for both S.No 381 and S.No 382; pending DU confirmation
+FLAG,370,Sports - Diversity and Inclusivity,Course No,VAC-30,VAC-30,High,VAC course number collision: VAC-30 used for both S.No 370 and S.No 383 (deleted S.No 393 had VAC-24); pending confirmation
+FLAG,383,The Science of Happiness,Course No,VAC-30,VAC-30,High,VAC course number collision: VAC-30 used for both S.No 370 and S.No 383; pending confirmation
+LOOKUP,357,Digital Empowerment,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,362,Fit India,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,369,Sports for Life,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,370,Sports - Diversity and Inclusivity,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,389,Indigenous Sports,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,208,CAD (Computer aided Jewellery Design - I) Coral Draw,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,209,CAD (Computer aided Jewellery Design - II) Coral Draw,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,210,CAD (Computer aided Jewellery Design-I II) RHINO,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,211,CAD (Computer aided Jewellery Design-IV) RHINO,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,212,Programming using Python,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,224,Robotics and Automation,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,225,Introduction of IoT using Arduino,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,226,Low-code/No-code Development,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,248,PCB Designing and Fabrication,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,249,Electronic Product Testing,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,251,Vacuum Technology,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,275,Surface Ornamentation,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,285,Basic IT Tools,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,286,Advanced Spreadsheet Tool,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,290,R Programming for Business Analytics,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,291,Essential of Python,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,292,Analytics with Python,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,311,DNA barcoding of medicinal/Commercially important plants,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,324,Cultivation of Lac: An eco-friendly multiuse wonder product of nature,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,325,Lac Characterization and Processing,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,326,Isolation and characterisation of Plasmid DNA,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,327,"Isolation, characterisation, and Quality Check of Genomic DNA",UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,331,Forensic Analysis of Biological Evidence,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,332,Forensic Toxicology,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,333,Questioned Document Examination,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,334,Injury and Health,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,336,Methods in Epidemiological Data Collection,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,338,Mathematical Modelling with Excel,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,341,Reading &Writing Skills in Brahmi Scripts,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,342,Acting Skills in Sanskrit Dramaturgy,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
+LOOKUP,346,E-Learning Tools and Techniques in Sanskrit,UPC Code,,,High,UPC not present in official DU JSON scrape; left blank without guessing per guidelines
