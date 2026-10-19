@@ -28,6 +28,9 @@ scratch/
 homepage_temp.html
 srcc_data.json
 *.pdf
+!web_app/DU_UPC_and_Subjects_Master_Directory.pdf
+!DU_UPC_and_Subjects_Master_Directory.pdf
+!android_widget/app/src/main/assets/web_app/DU_UPC_and_Subjects_Master_Directory.pdf
 map_feature_backup/
 *.code-workspace
 
