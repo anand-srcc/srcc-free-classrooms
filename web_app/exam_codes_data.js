@@ -28,7 +28,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM1.pdf#page=5",
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM1.pdf#page=4",
     "is_srcc_offered": true
   },
   {
@@ -44,7 +44,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "0",
     "practical": "1",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM1.pdf#page=9",
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM1.pdf#page=6",
     "is_srcc_offered": true
   },
   {
@@ -92,7 +92,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM2.pdf#page=9",
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM2.pdf#page=8",
     "is_srcc_offered": true
   },
   {
@@ -140,7 +140,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM3.pdf#page=9",
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM3.pdf#page=7",
     "is_srcc_offered": true
   },
   {
@@ -172,7 +172,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM4.pdf#page=5",
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM4.pdf#page=4",
     "is_srcc_offered": true
   },
   {
@@ -188,7 +188,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM4.pdf#page=9",
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM4.pdf#page=7",
     "is_srcc_offered": true
   },
   {
@@ -220,7 +220,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM5.pdf#page=5",
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM5.pdf#page=4",
     "is_srcc_offered": true
   },
   {
@@ -236,7 +236,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "0",
     "practical": "1",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM5.pdf#page=9",
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM5.pdf#page=7",
     "is_srcc_offered": true
   },
   {
@@ -268,7 +268,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM6.pdf#page=5",
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM6.pdf#page=4",
     "is_srcc_offered": true
   },
   {
@@ -284,7 +284,7 @@ window.EXAM_CODES_DATA = [
     "theory": "3",
     "tutorial": "1",
     "practical": "0",
-    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM6.pdf#page=9",
+    "syllabus_url": "https://academicaffairs.du.ac.in/syllabus/ug/BCom(Hons)/DSC/SEM6.pdf#page=7",
     "is_srcc_offered": true
   },
   {
