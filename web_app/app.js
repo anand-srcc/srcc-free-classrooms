@@ -10,6 +10,15 @@
 const SRCC_WHATSAPP_LINK = 'https://chat.whatsapp.com/H6qxq6fGSDVJNPCEtzQgjf';
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Ensure no stale maintenance lock or overlay remains on client side
+  try {
+    document.documentElement.classList.remove('srcc-maintenance-locked');
+    if (document.body) document.body.classList.remove('srcc-maintenance-locked');
+    localStorage.removeItem('srcc_maintenance_mode_enabled');
+    const staleOverlay = document.getElementById('srccMaintenanceOverlay');
+    if (staleOverlay) staleOverlay.remove();
+  } catch (e) {}
+
   let appData = window.SRCC_DATA;
   let teachersData = window.SRCC_TEACHERS_DATA;
   let leavesData = window.SRCC_FACULTY_LEAVES;
