@@ -22,7 +22,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   
-  <link rel="stylesheet" href="style.css?v=87" />
+  <link rel="stylesheet" href="style.css?v=90" />
+
+  <!-- Maintenance Mode & Administrator Gatekeeper -->
+  <script src="maintenance_config.js?v=90"></script>
+  <script src="maintenance.js?v=90"></script>
 </head>
 <body>
   <!-- Header / Navigation (Slim Single-Line Strip) -->
@@ -145,14 +149,6 @@
         <button class="mode-tab" id="tabModeTimetable" role="tab" aria-selected="false" data-mode="timetable">
           <span class="mode-tab-icon">📅</span>
           <span class="mode-tab-text">Timetable</span>
-        </button>
-        <button class="mode-tab" id="tabModeNotices" role="tab" aria-selected="false" data-mode="notices">
-          <span class="mode-tab-icon">📢</span>
-          <span class="mode-tab-text">Notices</span>
-        </button>
-        <button class="mode-tab" id="tabModeExamCodes" role="tab" aria-selected="false" data-mode="exam_codes">
-          <span class="mode-tab-icon">📖</span>
-          <span class="mode-tab-text">DU Codes</span>
         </button>
       </div>
     </div>
@@ -611,6 +607,16 @@
           <span class="tt-live-pill" id="noticesTotalPill" style="background: rgba(16, 185, 129, 0.12); color: #059669; border-color: rgba(16, 185, 129, 0.3); font-weight: 700;">
             430 Public Notices
           </span>
+          <div class="view-toggle-wrapper" id="noticesViewModeToggle">
+            <button type="button" class="btn-view-mode active" id="btnNoticesViewGrid" title="Grid View">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h8v8H3V3m10 0h8v8h-8V3M3 13h8v8H3v-8m10 0h8v8h-8v-8Z"/></svg>
+              <span>Grid</span>
+            </button>
+            <button type="button" class="btn-view-mode" id="btnNoticesViewCompact" title="Compact View">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h18v2H3V4m0 7h18v2H3v-2m0 7h18v2H3v-2Z"/></svg>
+              <span>Compact</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -629,19 +635,7 @@
           <span>📋 All Notices</span> <span class="notices-pill-count" id="countCatAll">430</span>
         </button>
         <button class="notices-pill-btn notices-pill-deadlines" data-cat="DEADLINES" role="tab" aria-selected="false">
-          <span>⏳ Active Deadlines</span> <span class="notices-pill-count notices-pill-count-urgent" id="countCatDeadlines">25</span>
-        </button>
-        <button class="notices-pill-btn" data-cat="academic" role="tab" aria-selected="false">
-          <span>📚 Academic</span> <span class="notices-pill-count" id="countCatAcademic">170</span>
-        </button>
-        <button class="notices-pill-btn" data-cat="examinations" role="tab" aria-selected="false">
-          <span>📝 Examinations</span> <span class="notices-pill-count" id="countCatExams">81</span>
-        </button>
-        <button class="notices-pill-btn" data-cat="societies" role="tab" aria-selected="false">
-          <span>🏆 Societies & Events</span> <span class="notices-pill-count" id="countCatSocieties">54</span>
-        </button>
-        <button class="notices-pill-btn" data-cat="administration" role="tab" aria-selected="false">
-          <span>🏛️ Administration</span> <span class="notices-pill-count" id="countCatAdmin">125</span>
+          <span>⏳ Active Deadlines</span> <span class="notices-pill-count notices-pill-count-urgent" id="countCatDeadlines">7 Active</span>
         </button>
       </div>
 
@@ -746,9 +740,21 @@
         </div>
       </div>
 
-      <!-- Result Count Strip -->
-      <div class="examcodes-results-summary" id="examCodesResultsSummary">
-        Showing <strong id="examCodesVisibleCount">431</strong> papers matching filters
+      <!-- Result Count Strip & View Mode Toggle -->
+      <div class="examcodes-results-summary-row" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin: 10px 0 14px;">
+        <div class="examcodes-results-summary" id="examCodesResultsSummary" style="margin: 0;">
+          Showing <strong id="examCodesVisibleCount">431</strong> papers matching filters
+        </div>
+        <div class="view-toggle-wrapper" id="examCodesViewModeToggle">
+          <button type="button" class="btn-view-mode active" id="btnExamCodesViewGrid" title="Grid View">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h8v8H3V3m10 0h8v8h-8V3M3 13h8v8H3v-8m10 0h8v8h-8v-8Z"/></svg>
+            <span>Grid</span>
+          </button>
+          <button type="button" class="btn-view-mode" id="btnExamCodesViewCompact" title="Compact View">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h18v2H3V4m0 7h18v2H3v-2m0 7h18v2H3v-2Z"/></svg>
+            <span>Compact</span>
+          </button>
+        </div>
       </div>
 
       <!-- Exam Codes Cards Grid -->
@@ -1023,8 +1029,8 @@
             📢
           </div>
           <div class="drawer-nav-text">
-            <div class="drawer-nav-name">College Notices & Circulars</div>
-            <div class="drawer-nav-desc">All official university circulars, forms & deadlines</div>
+            <div class="drawer-nav-name">College Notices &amp; Circulars</div>
+            <div class="drawer-nav-desc">All official university circulars, forms &amp; deadlines</div>
           </div>
           <div class="drawer-badges-stack">
             <span class="drawer-badge-pulse" id="drawerNoticesBadge">430 New</span>
@@ -1032,7 +1038,7 @@
           </div>
         </button>
 
-        <!-- 📖 DU Exam Codes & UPC Directory Entry -->
+        <!-- 📖 DU Exam Codes & UPC Directory Entry with Direct Semester Chips -->
         <div class="drawer-syllabus-group">
           <button class="drawer-nav-item drawer-nav-examcodes" id="drawerNavExamCodes">
             <div class="drawer-nav-icon-wrap" style="background: rgba(14, 165, 233, 0.12); color: #0284c7;">
@@ -1047,6 +1053,7 @@
             </div>
           </button>
         </div>
+
         <!-- 🔔 Save Class Timetable for Notifications -->
         <button class="drawer-nav-item drawer-nav-classnotif" id="drawerNavClassNotif">
           <div class="drawer-nav-icon-wrap" style="background: rgba(37, 99, 235, 0.12); color: #2563eb;">
@@ -1426,14 +1433,14 @@
   </div>
 
   <!-- Scripts -->
-  <script src="data.js?v=87"></script>
-  <script src="college_notices.js?v=87"></script>
-  <script src="exam_codes_data.js?v=87"></script>
-  <script src="wifi_data.js?v=87"></script>
-  <script src="cloud_config.js?v=87"></script>
-  <script src="faculty_leaves.js?v=87"></script>
-  <script src="teachers_data.js?v=87"></script>
-  <script src="classes_data.js?v=87"></script>
-  <script src="app.js?v=87"></script>
+  <script src="data.js?v=90"></script>
+  <script src="college_notices.js?v=90"></script>
+  <script src="exam_codes_data.js?v=90"></script>
+  <script src="wifi_data.js?v=90"></script>
+  <script src="cloud_config.js?v=90"></script>
+  <script src="faculty_leaves.js?v=90"></script>
+  <script src="teachers_data.js?v=90"></script>
+  <script src="classes_data.js?v=90"></script>
+  <script src="app.js?v=90"></script>
 </body>
 </html>

@@ -555,13 +555,12 @@
         background: linear-gradient(135deg, #1d4ed8, #1e40af);
       }
 
-      /* Admin Active Preview Bar */
+      /* Admin Active Preview Bar - relative document flow prevents header overlap */
       #srccAdminActiveBar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 99999;
+        position: relative;
+        width: 100%;
+        box-sizing: border-box;
+        z-index: 1001;
         background: linear-gradient(90deg, #7c2d12, #9a3412, #7c2d12);
         color: #fed7aa;
         padding: 8px 16px;
@@ -630,12 +629,12 @@
         color: #ffffff;
       }
 
-      /* Adjust top header if admin bar is present */
-      body.srcc-has-admin-bar .app-header {
-        top: 36px !important;
-      }
+      /* No fixed padding hacks needed since bar is in normal document flow */
       body.srcc-has-admin-bar {
-        padding-top: 36px !important;
+        padding-top: 0 !important;
+      }
+      body.srcc-has-admin-bar .app-header {
+        top: 0 !important;
       }
     `;
     document.head.appendChild(style);
@@ -923,6 +922,8 @@
     `;
 
     document.body.prepend(bar);
+    const measuredHeight = bar.offsetHeight || 42;
+    document.documentElement.style.setProperty('--admin-bar-height', `${measuredHeight}px`);
 
     const btnRelock = document.getElementById('btnRelockSite');
     if (btnRelock) {

@@ -934,9 +934,9 @@
       "link": "https://online.srcc.edu/smartprof/file_uploads/notices/Attachment/NoticeRestrictiononParkingon13thOctober2026-15644e7ea526efa09d4e0ab30d227111.pdf",
       "link_type": "pdf",
       "date": "12 Oct 2026",
-      "deadline": "13 Oct 2026",
-      "deadline_label": "Parking Restriction Date",
-      "has_deadline": true,
+      "deadline": null,
+      "deadline_label": null,
+      "has_deadline": false,
       "source": "Official SRCC Announcements (srcc.edu)"
     },
     {
@@ -1138,9 +1138,9 @@
       "link": "https://online.srcc.edu/smartprof/file_uploads/notices/Attachment/NoticeArrangementsfor3rdEditionofSAJMDonSeptember252026-aff2b582660175dd8f1783e09ca530aa.pdf",
       "link_type": "pdf",
       "date": "22 Sep 2026",
-      "deadline": "25 Sep 2026",
-      "deadline_label": "SAJMD Debate Schedule",
-      "has_deadline": true,
+      "deadline": null,
+      "deadline_label": null,
+      "has_deadline": false,
       "source": "Official SRCC Announcements (srcc.edu)"
     },
     {
@@ -1198,9 +1198,9 @@
       "link": "https://online.srcc.edu/smartprof/file_uploads/notices/Attachment/NoticeforHolidaySept192026-f1e4d113f3ac8f75caa6a06a363b1734.pdf",
       "link_type": "pdf",
       "date": "18 Sep 2026",
-      "deadline": "19 Sep 2026",
-      "deadline_label": "Holiday Closure Date",
-      "has_deadline": true,
+      "deadline": null,
+      "deadline_label": null,
+      "has_deadline": false,
       "source": "Official SRCC Announcements (srcc.edu)"
     },
     {
@@ -3881,7 +3881,7 @@
     },
     {
       "id": "srcc-notice-257",
-      "title": "Filling up of Examination Form for students for Session Mav/I-un62026.",
+      "title": "Filling up of Examination Form for students for Session May/June 2026.",
       "category": "examinations",
       "link": "https://online.srcc.edu/smartprof/file_uploads/notices/Attachment/FillingupofExaminationFormforstudentsforSessionMavIun62026-778225dc2bfc370d24dd47c45b4cf4c2.pdf",
       "link_type": "pdf",

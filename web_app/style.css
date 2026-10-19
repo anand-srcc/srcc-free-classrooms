@@ -169,7 +169,7 @@ body {
   border-bottom: 1px solid var(--border-subtle);
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000 !important;
   padding: 8px 0;
 }
 
@@ -3092,50 +3092,56 @@ body {
     min-width: 0;
   }
 
-  /* Campus Alert Notification Banner - sleek, compact, non-bulky on mobile */
+  /* Campus Alert Notification Banner - sleek, visible, non-cramped on mobile */
   .leave-notif-banner {
-    padding: 4px 10px !important;
+    padding: 8px 12px !important;
+    z-index: 999 !important;
   }
   .leave-notif-banner-content {
-    gap: 6px !important;
-    flex-wrap: nowrap !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
     align-items: center !important;
     justify-content: space-between !important;
   }
   .leave-notif-icon-col {
-    width: 22px !important;
-    height: 22px !important;
-    font-size: 0.7rem !important;
+    width: 26px !important;
+    height: 26px !important;
+    font-size: 0.8rem !important;
+    flex-shrink: 0 !important;
   }
   .leave-notif-text {
+    flex: 1 1 180px !important;
     min-width: 0 !important;
-    font-size: 0.72rem !important;
-    line-height: 1.25 !important;
+    font-size: 0.78rem !important;
+    line-height: 1.3 !important;
   }
   .leave-notif-text strong {
-    display: inline !important;
-    font-size: 0.75rem !important;
-    margin-right: 4px !important;
+    display: inline-block !important;
+    font-size: 0.82rem !important;
+    margin-right: 6px !important;
   }
   .leave-notif-text span {
     display: inline !important;
-    font-size: 0.7rem !important;
+    font-size: 0.74rem !important;
   }
   .leave-notif-actions {
-    gap: 4px !important;
+    gap: 6px !important;
     display: flex !important;
     flex-shrink: 0 !important;
     align-items: center !important;
   }
   .btn-notif-allow {
-    padding: 3px 8px !important;
-    font-size: 0.68rem !important;
+    padding: 5px 12px !important;
+    font-size: 0.74rem !important;
     white-space: nowrap !important;
+    border-radius: 6px !important;
+    font-weight: 700 !important;
   }
   .btn-notif-dismiss {
-    padding: 3px 6px !important;
-    font-size: 0.68rem !important;
+    padding: 5px 10px !important;
+    font-size: 0.74rem !important;
     white-space: nowrap !important;
+    border-radius: 6px !important;
   }
 
   /* Active leaves callout strip on mobile */
@@ -4836,7 +4842,7 @@ body {
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   padding: 8px 16px;
   position: relative;
-  z-index: 150;
+  z-index: 999 !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
   animation: slideDownBanner 0.25s ease-out;
 }
@@ -9487,15 +9493,15 @@ body.dark-mode .notices-pill-count {
 .notice-card {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: 14px;
-  padding: 16px;
+  border-radius: 12px;
+  padding: 14px 16px;
   box-shadow: var(--shadow-sm);
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   position: relative;
   overflow: hidden;
+  gap: 10px;
 }
 
 .notice-card:hover {
@@ -9509,7 +9515,7 @@ body.dark-mode .notices-pill-count {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 2px;
 }
 
 .notice-cat-badge {
@@ -9558,11 +9564,11 @@ body.dark-mode .notices-pill-count {
 }
 
 .notice-title {
-  font-size: 0.95rem;
+  font-size: 0.93rem;
   font-weight: 700;
   color: var(--text-primary);
   line-height: 1.4;
-  margin: 0 0 12px 0;
+  margin: 0;
   font-family: var(--font-display);
   word-break: break-word;
 }
@@ -9570,7 +9576,7 @@ body.dark-mode .notices-pill-count {
 .notice-source-tag {
   font-size: 0.72rem;
   color: var(--text-muted);
-  margin-bottom: 12px;
+  margin-bottom: 6px;
   display: flex;
   align-items: center;
   gap: 4px;
@@ -9579,42 +9585,41 @@ body.dark-mode .notices-pill-count {
 .notice-actions {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 8px;
-  padding-top: 10px;
+  padding-top: 8px;
   border-top: 1px solid var(--border-subtle);
-  margin-top: auto;
+  margin-top: 4px;
 }
 
-.btn-notice-open {
-  flex: 1;
+.notice-pdf-text-link {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
-  background: #0284c7;
-  color: #ffffff;
-  padding: 8px 12px;
-  border-radius: 8px;
+  gap: 5px;
+  color: #0284c7;
   font-size: 0.81rem;
   font-weight: 700;
   text-decoration: none;
-  transition: all 0.18s ease;
-  border: none;
-  cursor: pointer;
+  background: rgba(14, 165, 233, 0.08);
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(14, 165, 233, 0.22);
+  transition: all 0.15s ease;
+  white-space: nowrap;
 }
 
-.btn-notice-open:hover {
-  background: #0369a1;
-  color: #ffffff;
-  transform: translateY(-1px);
+.notice-pdf-text-link:hover {
+  background: rgba(14, 165, 233, 0.16);
+  color: #0369a1;
+  border-color: rgba(14, 165, 233, 0.4);
 }
 
-.btn-notice-copy, .btn-notice-share {
+.btn-notice-share {
   background: var(--bg-hover);
   color: var(--text-secondary);
   border: 1px solid var(--border-color);
-  padding: 7px 10px;
-  border-radius: 8px;
+  padding: 5px 11px;
+  border-radius: 6px;
   font-size: 0.78rem;
   font-weight: 600;
   cursor: pointer;
@@ -9624,10 +9629,67 @@ body.dark-mode .notices-pill-count {
   gap: 4px;
 }
 
-.btn-notice-copy:hover, .btn-notice-share:hover {
+.btn-notice-share:hover {
   background: rgba(14, 165, 233, 0.14);
   color: #0284c7;
   border-color: rgba(14, 165, 233, 0.4);
+}
+
+/* Compact view mode for Notices */
+.notices-grid.view-mode-compact {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.notices-grid.view-mode-compact .notice-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.notices-grid.view-mode-compact .notice-card-header {
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+.notices-grid.view-mode-compact .notice-title {
+  font-size: 0.88rem;
+  margin: 0;
+  flex: 1;
+  min-width: 180px;
+}
+
+.notices-grid.view-mode-compact .notice-actions {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+/* Compact view mode for Exam Codes */
+.examcodes-grid.view-mode-compact {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.examcodes-grid.view-mode-compact .examcode-card {
+  padding: 10px 14px;
+  gap: 6px;
+}
+
+.examcodes-grid.view-mode-compact .examcode-compact-top {
+  margin-bottom: 0;
+}
+
+.examcodes-grid.view-mode-compact .examcode-title {
+  font-size: 0.88rem;
 }
 
 /* Empty notices state */
