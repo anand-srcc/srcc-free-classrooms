@@ -11195,3 +11195,133 @@ body.dark-mode .deadline-days-badge.past {
   color: #ffffff;
   border-color: #1e3a8a;
 }
+
+/* ==========================================================================
+   Class Notification Modal Responsive & Mobile Optimization
+   ========================================================================== */
+#classNotifModal {
+  z-index: 2500;
+}
+
+.class-notif-modal-card {
+  max-width: 460px !important;
+  width: 92% !important;
+  max-height: min(650px, calc(92vh - 20px)) !important;
+  border-radius: 18px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  background: var(--bg-card) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
+  margin: auto;
+}
+
+.class-notif-modal-body {
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  flex: 1 1 auto !important;
+  overscroll-behavior: contain;
+}
+
+@media (max-width: 768px) {
+  #classNotifModal.modal-overlay {
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 12px 14px calc(72px + env(safe-area-inset-bottom, 0px)) 14px !important;
+  }
+
+  #classNotifModal .class-notif-modal-card {
+    width: 94% !important;
+    max-width: 420px !important;
+    max-height: calc(100dvh - 84px) !important;
+    border-radius: 18px !important;
+    margin: auto !important;
+    border: 1px solid var(--border-color) !important;
+  }
+
+  #classNotifModal .class-notif-modal-body {
+    padding: 14px 16px 20px !important;
+    max-height: calc(100dvh - 160px) !important;
+  }
+
+  #classNotifModal .tt-modal-toggle-row {
+    padding: 10px 12px !important;
+    margin-bottom: 12px !important;
+  }
+
+  #classNotifModal .btn-tt-save-class {
+    padding: 13px 16px !important;
+    font-size: 0.95rem !important;
+  }
+}
+
+/* ==========================================================================
+   DU Exam Codes Official Source & Discrepancy Notice Bar
+   ========================================================================== */
+.examcodes-source-notice-bar {
+  background: linear-gradient(135deg, rgba(30, 58, 138, 0.05), rgba(245, 158, 11, 0.09));
+  border: 1.5px solid rgba(245, 158, 11, 0.35);
+  border-left: 5px solid #d97706;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  box-shadow: var(--shadow-xs);
+}
+
+.examcodes-notice-icon {
+  font-size: 1.35rem;
+  line-height: 1.1;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.examcodes-notice-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.examcodes-notice-header {
+  font-weight: 800;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.examcodes-notice-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: rgba(245, 158, 11, 0.15);
+  color: #b45309;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.examcodes-notice-text {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.examcodes-notice-text strong {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .examcodes-source-notice-bar {
+  background: linear-gradient(135deg, rgba(30, 58, 138, 0.2), rgba(245, 158, 11, 0.12));
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+[data-theme="dark"] .examcodes-notice-badge {
+  background: rgba(245, 158, 11, 0.25);
+  color: #fcd34d;
+}
+

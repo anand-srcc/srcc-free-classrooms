@@ -645,6 +645,20 @@
          VIEW SECTION 6: DU EXAM CODES & COURSE UPC DIRECTORY (NEP / UGCF 2022)
          ==================================================================== -->
     <div id="viewExamCodesSection" class="app-view-section" style="display: none;">
+      <!-- Official DU Source Notice -->
+      <div class="examcodes-source-notice-bar">
+        <span class="examcodes-notice-icon">🏛️</span>
+        <div class="examcodes-notice-content">
+          <div class="examcodes-notice-header">
+            <span>Official University of Delhi (DU) Examination Directory</span>
+            <span class="examcodes-notice-badge">Official DU Source</span>
+          </div>
+          <p class="examcodes-notice-text">
+            This data is taken from the <strong>official DU site</strong>. In case of any discrepancy, please contact the admin.
+          </p>
+        </div>
+      </div>
+
       <!-- Clean UGCF & Degree Guidelines Quick Reference (Direct Entry) -->
       <div class="ugcf-clean-guidelines-bar" style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 12px 16px; margin-bottom: 14px; box-shadow: var(--shadow-xs);">
         <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
@@ -1079,30 +1093,30 @@
 
   <!-- 🔔 Save Class Timetable for Notifications Modal -->
   <div class="modal-overlay" id="classNotifModal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="classNotifModalTitle">
-    <div class="modal-card class-notif-modal-card" style="max-width: 480px; width: 92%; border-radius: 18px; overflow: hidden; background: var(--bg-card); box-shadow: 0 20px 40px rgba(0,0,0,0.25);">
-      <div style="background: linear-gradient(135deg, #1e3a8a, #000066); padding: 22px 20px 18px; color: #ffffff; position: relative;">
-        <button type="button" class="modal-close" id="btnClassNotifModalClose" style="position: absolute; top: 14px; right: 14px; color: #ffffff; background: rgba(255,255,255,0.18); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; font-size: 1.1rem; line-height: 1;">✕</button>
+    <div class="modal-card class-notif-modal-card">
+      <div class="class-notif-modal-header" style="background: linear-gradient(135deg, #1e3a8a, #000066); padding: 18px 18px 16px; color: #ffffff; position: relative; flex-shrink: 0;">
+        <button type="button" class="modal-close" id="btnClassNotifModalClose" style="position: absolute; top: 12px; right: 12px; color: #ffffff; background: rgba(255,255,255,0.18); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; font-size: 1.1rem; line-height: 1;">✕</button>
         <div style="display: flex; align-items: center; gap: 12px;">
-          <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
+          <div style="width: 40px; height: 40px; border-radius: 12px; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.3rem;">
             🔔
           </div>
-          <div>
-            <h3 id="classNotifModalTitle" style="margin: 0; font-size: 1.15rem; font-family: var(--font-display); font-weight: 800; color: #ffffff;">
+          <div style="padding-right: 28px;">
+            <h3 id="classNotifModalTitle" style="margin: 0; font-size: 1.1rem; font-family: var(--font-display); font-weight: 800; color: #ffffff; line-height: 1.25;">
               Save Class Timetable for Notification
             </h3>
-            <span id="classNotifModalSub" style="font-size: 0.78rem; color: #bfdbfe; font-weight: 500;">
+            <span id="classNotifModalSub" style="font-size: 0.76rem; color: #bfdbfe; font-weight: 500;">
               10-min alerts with Room No. &amp; teacher leave updates
             </span>
           </div>
         </div>
       </div>
-      <div class="class-notif-modal-body" style="padding: 24px 22px 32px;">
-        <div class="tt-modal-toggle-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; padding: 14px 16px; border-radius: 12px; background: var(--bg-surface); border: 1.5px solid var(--border-color); box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+      <div class="class-notif-modal-body">
+        <div class="tt-modal-toggle-row">
           <div>
-            <div style="font-weight: 700; font-size: 0.95rem; color: var(--text-primary); display: flex; align-items: center; gap: 6px;">
+            <div style="font-weight: 700; font-size: 0.92rem; color: var(--text-primary); display: flex; align-items: center; gap: 6px;">
               <span>⏰</span> Automatic Reminders
             </div>
-            <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 2px;">10 minutes before every class</div>
+            <div style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 2px;">10 minutes before every class</div>
           </div>
           <button type="button" class="btn-tt-notif-toggle" id="btnToggleClassAlerts" role="switch" aria-checked="true" title="Turn alerts ON / OFF">
             <span class="tt-toggle-track"><span class="tt-toggle-thumb"></span></span>
@@ -1110,9 +1124,9 @@
           </button>
         </div>
 
-        <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div class="class-notif-fields-grid" style="display: flex; flex-direction: column; gap: 12px;">
           <div class="tt-notif-form-field">
-            <label for="notifCourseSelect" style="display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.84rem; margin-bottom: 6px; color: var(--text-secondary);">
+            <label for="notifCourseSelect" style="display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.82rem; margin-bottom: 5px; color: var(--text-secondary);">
               <span>📚</span> Course:
             </label>
             <div class="tt-select-wrapper">
@@ -1125,7 +1139,7 @@
             </div>
           </div>
           <div class="tt-notif-form-field">
-            <label for="notifSemSelect" style="display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.84rem; margin-bottom: 6px; color: var(--text-secondary);">
+            <label for="notifSemSelect" style="display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.82rem; margin-bottom: 5px; color: var(--text-secondary);">
               <span>🎓</span> Semester:
             </label>
             <div class="tt-select-wrapper">
@@ -1138,7 +1152,7 @@
             </div>
           </div>
           <div class="tt-notif-form-field">
-            <label for="notifSecSelect" style="display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.84rem; margin-bottom: 6px; color: var(--text-secondary);">
+            <label for="notifSecSelect" style="display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.82rem; margin-bottom: 5px; color: var(--text-secondary);">
               <span>🏷️</span> Section:
             </label>
             <div class="tt-select-wrapper">
@@ -1149,9 +1163,9 @@
           </div>
         </div>
 
-        <div style="margin-top: 26px; padding-bottom: 6px;">
-          <button type="button" class="btn-tt-save-class" id="btnSaveClassAlerts" style="width: 100%; padding: 13px 18px; font-size: 0.96rem; font-weight: 700; justify-content: center; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 14px rgba(37,99,235,0.3); transition: all 0.2s ease;">
-            💾 Save Class Timetable
+        <div class="class-notif-save-wrap" style="margin-top: 20px; padding-bottom: 4px;">
+          <button type="button" class="btn-tt-save-class" id="btnSaveClassAlerts" style="width: 100%; padding: 13px 18px; font-size: 0.96rem; font-weight: 700; justify-content: center; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 14px rgba(37,99,235,0.35); background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #ffffff; border: none; display: flex; align-items: center; gap: 8px;">
+            <span>💾</span> <span>Save Class Timetable</span>
           </button>
         </div>
       </div>
