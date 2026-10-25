@@ -1175,7 +1175,7 @@
         const todayIso = getIstTime().toISOString().split('T')[0]; // "2026-10-13"
 
         return list.filter(l => {
-          if (l.status === 'On Leave' || l.status === 'Absent' || l.active === true) {
+          if (!l.status || l.status === 'On Leave' || l.status === 'Absent' || l.active === true) {
             if (l.start_date && l.end_date) {
               return todayIso >= l.start_date && todayIso <= l.end_date;
             }

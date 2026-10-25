@@ -95,7 +95,28 @@ document.addEventListener('DOMContentLoaded', () => {
           leavesData = d;
           window.SRCC_FACULTY_LEAVES = d;
           try {
-            localStorage.setItem('srcc_faculty_leaves_v2', JSON.stringify(d.leaves));
+            const todayIso = new Date().toISOString().split('T')[0];
+            const localStored = localStorage.getItem('srcc_faculty_leaves_v2');
+            let merged = [...d.leaves];
+            if (localStored) {
+              const parsed = JSON.parse(localStored);
+              if (Array.isArray(parsed)) {
+                parsed.forEach(localLeaf => {
+                  const endD = localLeaf.end_date || localLeaf.start_date || '';
+                  if (!endD || endD >= todayIso) {
+                    const exists = merged.some(m => 
+                      (m.teacher_id && localLeaf.teacher_id && String(m.teacher_id) === String(localLeaf.teacher_id)) ||
+                      (m.teacher_name && localLeaf.teacher_name && m.teacher_name.toLowerCase().trim() === localLeaf.teacher_name.toLowerCase().trim())
+                    );
+                    if (!exists) {
+                      merged.push(localLeaf);
+                    }
+                  }
+                });
+              }
+            }
+            window.SRCC_FACULTY_LEAVES.leaves = merged;
+            localStorage.setItem('srcc_faculty_leaves_v2', JSON.stringify(merged));
           } catch (e) {}
           // Re-render faculty leaves view if active
           if (typeof renderFacultyLeavesView === 'function' && document.getElementById('facultyLeavesView')?.style.display !== 'none') {

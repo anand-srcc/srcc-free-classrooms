@@ -311,11 +311,52 @@ async def sync_leaves(headless=True):
         else:
             print("[Cloud Fallback] No active leaves currently registered in Cloud Database.")
 
-    # 3. Process, Enrich & Deduplicate Leaves
+    # 3. Preserve Unexpired Leaves & Merge with Incoming Scraped Absences
+    # Load any existing unexpired leaves from web_app/faculty_leaves.json (e.g. leaves marked for 10-20 days)
+    # A multi-day leave must NEVER be wiped out by automated sync before its end_date!
+    existing_unexpired_leaves = []
+    if os.path.exists(LEAVES_JSON):
+        try:
+            with open(LEAVES_JSON, "r", encoding="utf-8") as f:
+                old_data = json.load(f)
+                for item in old_data.get("leaves", []):
+                    end_d = item.get("end_date") or item.get("start_date") or ""
+                    if not end_d or end_d >= today_iso:
+                        existing_unexpired_leaves.append(item)
+            print(f"[Persistence] Loaded {len(existing_unexpired_leaves)} unexpired leaves from local database.")
+        except Exception as e:
+            print(f"[Persistence Note] Could not read existing leaves: {e}")
+
+    # Combine incoming absences with existing unexpired leaves
+    all_absences = list(raw_absences)
+    for ex in existing_unexpired_leaves:
+        ex_tid = str(ex.get("teacher_id", "")).strip()
+        ex_name = (ex.get("teacher_name") or "").lower().strip()
+
+        matched_incoming = None
+        for inc in all_absences:
+            inc_tid = str(inc.get("teacher_id", "")).strip()
+            inc_name = (inc.get("teacher_name") or "").lower().strip()
+            if (ex_tid and inc_tid and ex_tid == inc_tid) or (ex_name and inc_name and ex_name == inc_name):
+                matched_incoming = inc
+                break
+
+        if matched_incoming:
+            # If the existing leave has an end_date further into the future (e.g. 10 or 20 days), preserve it!
+            ex_end = ex.get("end_date") or ""
+            inc_end = matched_incoming.get("end_date") or ""
+            if ex_end > inc_end:
+                matched_incoming["end_date"] = ex_end
+            if ex.get("reason") and not matched_incoming.get("reason"):
+                matched_incoming["reason"] = ex.get("reason")
+        else:
+            all_absences.append(ex)
+
+    # 4. Process, Enrich & Deduplicate Leaves
     processed_leaves = []
     seen_sigs = set()
 
-    for item in raw_absences:
+    for item in all_absences:
         t_id = str(item.get("teacher_id", ""))
         live_info = live_teachers_map.get(t_id, {}) if isinstance(live_teachers_map, dict) else {}
         name = item.get("teacher_name") or live_info.get("name") or ""
@@ -332,8 +373,8 @@ async def sync_leaves(headless=True):
         if end_date and end_date < today_iso:
             continue
 
-        # Deduplicate
-        dedup_key = (teacher_name.lower().strip(), start_date, end_date)
+        # Deduplicate by teacher ID or clean name
+        dedup_key = (teacher_name.lower().strip(), str(t_id).strip())
         if dedup_key in seen_sigs:
             continue
         seen_sigs.add(dedup_key)
