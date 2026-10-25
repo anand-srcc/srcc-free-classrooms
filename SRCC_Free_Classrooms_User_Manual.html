@@ -49,6 +49,40 @@ html, body {
     break-after: avoid;
 }
 
+@media screen and (max-width: 900px) {
+    html, body {
+        background: #f8fafc;
+        padding: 10px 8px;
+        font-size: 10pt;
+    }
+    .page {
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        margin: 0 auto 20px auto;
+        padding: 18px 14px;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+        border: 1px solid #e2e8f0;
+        page-break-after: unset;
+        break-after: unset;
+    }
+    .running-header {
+        margin-bottom: 4mm;
+    }
+    .page-footer {
+        position: static;
+        margin-top: 18px;
+        border-top: 1px solid #e2e8f0;
+        padding-top: 8px;
+    }
+    .manual-figure-wrap img, .figure-row img {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+}
+
 /* Top running header on pages 2-15 */
 .running-header {
     display: flex;

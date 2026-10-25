@@ -1393,7 +1393,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function getCurrentlyOpenModal() {
       const popups = [
-        document.getElementById('appTourModal'),
+        document.getElementById('appTourSpotlightOverlay'),
         document.getElementById('scheduleModal'),
         document.getElementById('teacherModal'),
         document.getElementById('wifiModal'),
@@ -1412,7 +1412,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function closeAllPopups(options = {}) {
       const popups = [
-        document.getElementById('appTourModal'),
         document.getElementById('wifiModal'),
         document.getElementById('facultyEmailModal'),
         document.getElementById('scheduleModal'),
@@ -7679,10 +7678,13 @@ window.SRCC_FACULTY_LEAVES = {
       const notifCourseSelect = document.getElementById('notifCourseSelect');
       const notifSemSelect = document.getElementById('notifSemSelect');
       const notifSecSelect = document.getElementById('notifSecSelect');
+      const notifBatchSelect = document.getElementById('notifBatchSelect');
+      const notifStudentLeadTimeSelect = document.getElementById('notifStudentLeadTimeSelect');
       const btnSaveClassAlerts = document.getElementById('btnSaveClassAlerts');
 
       const classNotifModal = document.getElementById('classNotifModal');
       const btnClassNotifModalClose = document.getElementById('btnClassNotifModalClose');
+      const btnOpenClassAlertsHeader = document.getElementById('btnOpenClassAlertsHeader');
       const drawerNavClassNotif = document.getElementById('drawerNavClassNotif');
       const drawerClassNotifBadge = document.getElementById('drawerClassNotifBadge');
 
@@ -7696,6 +7698,12 @@ window.SRCC_FACULTY_LEAVES = {
         if (classNotifModal) {
           closeAppModal(classNotifModal, options);
         }
+      }
+
+      if (btnOpenClassAlertsHeader) {
+        btnOpenClassAlertsHeader.addEventListener('click', () => {
+          openClassNotifModal();
+        });
       }
 
       if (drawerNavClassNotif) {
@@ -7776,7 +7784,70 @@ window.SRCC_FACULTY_LEAVES = {
         });
       }
 
-      function populateNotifSections(preferredSec) {
+      function populateNotifBatches(preferredBatch) {
+        if (!notifBatchSelect) return;
+        notifBatchSelect.innerHTML = '';
+        const c = notifCourseSelect ? notifCourseSelect.value : 'B.Com (Hons)';
+        const s = notifSecSelect ? notifSecSelect.value : 'Sec A';
+        const savedBatch = preferredBatch || localStorage.getItem('srcc_my_tt_batch') || 'ALL';
+
+        const letterMatch = s.match(/Sec\s*([A-Za-z])/i) || s.match(/([A-Za-z])/i);
+        const secLetter = letterMatch ? letterMatch[1].toUpperCase() : '';
+
+        // 1. ALL Classes option
+        const optAll = document.createElement('option');
+        optAll.value = 'ALL';
+        optAll.textContent = 'All Classes (Full Section + All Tutorials & Labs)';
+        notifBatchSelect.appendChild(optAll);
+
+        if (secLetter) {
+          // Combined Tutorial & Practical Batches as user requested: J1/JP1, J2/JP2, J3/JP3
+          const combinedBatches = [
+            { val: `${secLetter}1 / ${secLetter}P1`, label: `${secLetter}1 / ${secLetter}P1 (Tutorial 1 & Practical 1)` },
+            { val: `${secLetter}2 / ${secLetter}P2`, label: `${secLetter}2 / ${secLetter}P2 (Tutorial 2 & Practical 2)` },
+            { val: `${secLetter}3 / ${secLetter}P3`, label: `${secLetter}3 / ${secLetter}P3 (Tutorial 3 & Practical 3)` }
+          ];
+          combinedBatches.forEach(b => {
+            const opt = document.createElement('option');
+            opt.value = b.val;
+            opt.textContent = b.label;
+            notifBatchSelect.appendChild(opt);
+          });
+
+          // Individual Tutorial Batches
+          for (let i = 1; i <= 3; i++) {
+            const opt = document.createElement('option');
+            opt.value = `${secLetter}${i}`;
+            opt.textContent = `${secLetter}${i} (Tutorial Batch ${i} only)`;
+            notifBatchSelect.appendChild(opt);
+          }
+
+          // Individual Practical Batches
+          for (let i = 1; i <= 3; i++) {
+            const opt = document.createElement('option');
+            opt.value = `${secLetter}P${i}`;
+            opt.textContent = `${secLetter}P${i} (Practical / Lab ${i} only)`;
+            notifBatchSelect.appendChild(opt);
+          }
+        } else {
+          // General / GBO / PG Batches
+          ['Group 1 / Lab 1', 'Group 2 / Lab 2', 'Group 3 / Lab 3'].forEach((g, idx) => {
+            const opt = document.createElement('option');
+            opt.value = `G${idx + 1}`;
+            opt.textContent = g;
+            notifBatchSelect.appendChild(opt);
+          });
+        }
+
+        // Restore saved preference
+        if (savedBatch && Array.from(notifBatchSelect.options).some(o => o.value === savedBatch)) {
+          notifBatchSelect.value = savedBatch;
+        } else {
+          notifBatchSelect.value = 'ALL';
+        }
+      }
+
+      function populateNotifSections(preferredSec, preferredBatch) {
         if (!notifSecSelect) return;
         notifSecSelect.innerHTML = '';
         const c = notifCourseSelect ? notifCourseSelect.value : 'B.Com (Hons)';
@@ -7800,6 +7871,14 @@ window.SRCC_FACULTY_LEAVES = {
             notifSecSelect.appendChild(opt);
           });
         }
+
+        populateNotifBatches(preferredBatch);
+      }
+
+      if (notifSecSelect) {
+        notifSecSelect.addEventListener('change', () => {
+          populateNotifBatches();
+        });
       }
 
       function updateClassNotifUi() {
@@ -7808,7 +7887,11 @@ window.SRCC_FACULTY_LEAVES = {
         const curCourse = localStorage.getItem('srcc_my_tt_course') || 'B.Com (Hons)';
         const curSem = localStorage.getItem('srcc_my_tt_sem') || 'Sem I';
         const curSec = localStorage.getItem('srcc_my_tt_sec') || 'Sec A';
+        const curBatch = localStorage.getItem('srcc_my_tt_batch') || 'ALL';
+        const curLeadMins = localStorage.getItem('srcc_notif_student_lead_mins') || '10';
         const savedTeacherName = localStorage.getItem('srcc_my_teacher_name') || '';
+
+        const batchBadgeSuffix = (curBatch && curBatch !== 'ALL') ? ` · ${curBatch}` : '';
 
         if (btnToggleClassAlerts) {
           btnToggleClassAlerts.setAttribute('aria-checked', String(isEnabled));
@@ -7825,7 +7908,7 @@ window.SRCC_FACULTY_LEAVES = {
             ttNotifStatusBadge.textContent = `Active: Prof. ${savedTeacherName || 'Faculty'}`;
             ttNotifStatusBadge.classList.remove('tt-notif-badge-disabled');
           } else {
-            ttNotifStatusBadge.textContent = `Active: ${curCourse} · ${curSem} · ${curSec}`;
+            ttNotifStatusBadge.textContent = `Active: ${curCourse} · ${curSem} · ${curSec}${batchBadgeSuffix}`;
             ttNotifStatusBadge.classList.remove('tt-notif-badge-disabled');
           }
         }
@@ -7838,7 +7921,7 @@ window.SRCC_FACULTY_LEAVES = {
             drawerClassNotifBadge.textContent = `Active: Prof. ${shortProf}`;
             drawerClassNotifBadge.style.background = '#2563eb';
           } else {
-            drawerClassNotifBadge.textContent = `Active: ${curSec}`;
+            drawerClassNotifBadge.textContent = `Active: ${curSec}${batchBadgeSuffix}`;
             drawerClassNotifBadge.style.background = '#2563eb';
           }
         }
@@ -7849,7 +7932,7 @@ window.SRCC_FACULTY_LEAVES = {
             const lead = localStorage.getItem('srcc_notif_lead_mins') || '15';
             ttNotifDescText.innerHTML = `Automatic device notifications <strong>${lead} min before</strong> every lecture for <strong>Prof. ${escapeHtml(savedTeacherName || 'Faculty')}</strong> with Room No., Course, Semester & Section.`;
           } else {
-            ttNotifDescText.innerHTML = `Automatic device notifications <strong>10 min before</strong> every class for <strong>${escapeHtml(curCourse)} · ${escapeHtml(curSem)} · ${escapeHtml(curSec)}</strong> with Room No. and instant teacher leave alerts.`;
+            ttNotifDescText.innerHTML = `Automatic device notifications <strong>${curLeadMins} min before</strong> every class for <strong>${escapeHtml(curCourse)} · ${escapeHtml(curSem)} · ${escapeHtml(curSec)}${escapeHtml(batchBadgeSuffix)}</strong> with Room No. and instant teacher leave alerts.`;
           }
         }
       }
@@ -7860,14 +7943,18 @@ window.SRCC_FACULTY_LEAVES = {
       if (notifLeadTimeSelect) {
         notifLeadTimeSelect.value = localStorage.getItem('srcc_notif_lead_mins') || '15';
       }
+      if (notifStudentLeadTimeSelect) {
+        notifStudentLeadTimeSelect.value = localStorage.getItem('srcc_notif_student_lead_mins') || '10';
+      }
 
       const initialSavedCourse = localStorage.getItem('srcc_my_tt_course') || 'B.Com (Hons)';
       const initialSavedSem = localStorage.getItem('srcc_my_tt_sem') || 'Sem I';
       const initialSavedSec = localStorage.getItem('srcc_my_tt_sec') || 'Sec A';
+      const initialSavedBatch = localStorage.getItem('srcc_my_tt_batch') || 'ALL';
 
       if (notifCourseSelect) notifCourseSelect.value = initialSavedCourse;
       if (notifSemSelect) notifSemSelect.value = initialSavedSem;
-      populateNotifSections(initialSavedSec);
+      populateNotifSections(initialSavedSec, initialSavedBatch);
 
       if (notifCourseSelect) {
         notifCourseSelect.addEventListener('change', () => populateNotifSections());
@@ -7906,7 +7993,7 @@ window.SRCC_FACULTY_LEAVES = {
             // Cache preference for Service Worker
             if ('caches' in window) {
               try {
-                const cache = await caches.open('srcc-classroom-v92');
+                const cache = await caches.open('srcc-classroom-v94');
                 await cache.put('/__srcc_user_class_pref', new Response(JSON.stringify({
                   role: 'faculty',
                   teacherId: teacherId,
@@ -7948,17 +8035,21 @@ window.SRCC_FACULTY_LEAVES = {
           const selCourse = notifCourseSelect ? notifCourseSelect.value : 'B.Com (Hons)';
           const selSem = notifSemSelect ? notifSemSelect.value : 'Sem I';
           const selSec = notifSecSelect ? notifSecSelect.value : 'Sec A';
+          const selBatch = notifBatchSelect ? notifBatchSelect.value : 'ALL';
+          const selLeadMins = notifStudentLeadTimeSelect ? (notifStudentLeadTimeSelect.value || '10') : '10';
 
           localStorage.setItem('srcc_my_tt_course', selCourse);
           localStorage.setItem('srcc_my_tt_sem', selSem);
           localStorage.setItem('srcc_my_tt_sec', selSec);
+          localStorage.setItem('srcc_my_tt_batch', selBatch);
+          localStorage.setItem('srcc_notif_student_lead_mins', selLeadMins);
 
           try {
             saveMyBatchPref({
               course: selCourse,
               sem: selSem,
               sec: selSec,
-              batch: 'ALL'
+              batch: selBatch
             });
             if (typeof renderMyBatchDailyWidget === 'function') {
               renderMyBatchDailyWidget();
@@ -7967,12 +8058,14 @@ window.SRCC_FACULTY_LEAVES = {
 
           if ('caches' in window) {
             try {
-              const cache = await caches.open('srcc-classroom-v92');
+              const cache = await caches.open('srcc-classroom-v94');
               await cache.put('/__srcc_user_class_pref', new Response(JSON.stringify({
                 role: 'student',
                 course: selCourse,
                 sem: selSem,
                 sec: selSec,
+                batch: selBatch,
+                leadMins: parseInt(selLeadMins, 10),
                 enabled: true
               })));
             } catch (e) {}
@@ -7985,6 +8078,8 @@ window.SRCC_FACULTY_LEAVES = {
               course: selCourse,
               sem: selSem,
               sec: selSec,
+              batch: selBatch,
+              leadMins: parseInt(selLeadMins, 10),
               enabled: true
             });
           }
@@ -7992,8 +8087,9 @@ window.SRCC_FACULTY_LEAVES = {
           updateClassNotifUi();
 
           if (perm === 'granted') {
+            const batchLabel = (selBatch && selBatch !== 'ALL') ? ` (${selBatch})` : '';
             triggerDeviceNotification('🔔 Class & Leave Alerts Active', {
-              body: `Active for ${selCourse} · ${selSem} · ${selSec}. You will get 10-min reminders before every lecture and instant teacher leave alerts!`,
+              body: `Active for ${selCourse} · ${selSem} · ${selSec}${batchLabel}. Reminders ${selLeadMins} min before class with Room No. and instant teacher leave alerts!`,
               tag: 'srcc-class-alert-confirmed'
             });
           }
@@ -8938,10 +9034,12 @@ window.SRCC_FACULTY_LEAVES = {
             const myCourse = localStorage.getItem('srcc_my_tt_course') || 'B.Com (Hons)';
             const mySem = localStorage.getItem('srcc_my_tt_sem') || 'Sem I';
             const mySec = localStorage.getItem('srcc_my_tt_sec') || 'Sec A';
+            const myBatch = localStorage.getItem('srcc_my_tt_batch') || 'ALL';
+            const studentLeadMins = parseInt(localStorage.getItem('srcc_notif_student_lead_mins') || '10', 10);
 
-            // Get student's verified classes today using getClassesForParameters
+            // Get student's verified classes today using getClassesForParameters filtered by batch
             const todayClasses = (typeof getClassesForParameters === 'function')
-              ? getClassesForParameters(todayName, mySem, myCourse, 'ALL', mySec)
+              ? getClassesForParameters(todayName, mySem, myCourse, myBatch, mySec)
               : [];
             const mergedClasses = (typeof mergeConsecutiveSessions === 'function')
               ? mergeConsecutiveSessions(todayClasses)
@@ -8961,7 +9059,7 @@ window.SRCC_FACULTY_LEAVES = {
               return null;
             }
 
-            // A. TEACHER ON LEAVE ALERT (Alert for any faculty of this section on leave today)
+            // A. TEACHER ON LEAVE ALERT (Alert for any faculty of this section/batch on leave today)
             mergedClasses.forEach(cls => {
               const leave = checkTeacherLeave(cls);
               if (leave) {
@@ -8980,16 +9078,16 @@ window.SRCC_FACULTY_LEAVES = {
               }
             });
 
-            // B. 10 MINUTES BEFORE CLASS ALERT (Window: 0 to 12 minutes before lecture start)
+            // B. PRIOR CLASS ALERT (Window: 0 to (studentLeadMins + 2) minutes before lecture start)
             mergedClasses.forEach(cls => {
               const startMins = parseTimeToMinutes(cls.startTime);
               if (startMins !== -1) {
                 const diff = startMins - nowMinutes;
-                if (diff >= 0 && diff <= 12) {
+                if (diff >= 0 && diff <= (studentLeadMins + 2)) {
                   const subName = cls.subject || 'Class';
                   const roomNo = cls.room || 'Room';
                   const tName = cls.teacher || 'Faculty';
-                  const notifKey = `srcc_alert_10m_${todayIso}_${cls.startTime}_${subName}`;
+                  const notifKey = `srcc_alert_${studentLeadMins}m_${todayIso}_${cls.startTime}_${subName}`;
 
                   if (!localStorage.getItem(notifKey)) {
                     localStorage.setItem(notifKey, '1');
@@ -9003,7 +9101,7 @@ window.SRCC_FACULTY_LEAVES = {
                       const minText = diff === 0 ? 'starting right now' : `starting in ${diff} min`;
                       triggerDeviceNotification(`📚 Class ${minText}: ${subName}`, {
                         body: `Room ${roomNo} · Prof. ${tName} (${cls.slot || cls.startTime}). Tap to view full timetable!`,
-                        tag: `srcc-class-10m-${cls.startTime}`
+                        tag: `srcc-class-${studentLeadMins}m-${cls.startTime}`
                       });
                     }
                   }
@@ -10828,201 +10926,178 @@ window.SRCC_FACULTY_LEAVES = {
     }
 
     // ========================================================================
-    // ✨ FIRST-TIME ONBOARDING & INTERACTIVE APP DEMO FEATURE TOUR
+    // ✨ FIRST-TIME ONBOARDING & INTERACTIVE SPOTLIGHT WALKTHROUGH TOUR
     // ========================================================================
     function initAppTour() {
-      const tourModal = document.getElementById('appTourModal');
-      const tourBody = document.getElementById('tourModalBody');
-      const stepBadge = document.getElementById('tourStepBadge');
-      const dotsContainer = document.getElementById('tourDotsContainer');
-      const btnClose = document.getElementById('btnTourClose');
-      const btnSkip = document.getElementById('btnTourSkip');
-      const btnPrev = document.getElementById('btnTourPrev');
-      const btnNext = document.getElementById('btnTourNext');
+      const tourOverlay = document.getElementById('appTourSpotlightOverlay');
+      const tourBackdrop = document.getElementById('tourBackdrop');
+      const tourCard = document.getElementById('tourCalloutCard');
+      const tourArrow = document.getElementById('tourCalloutArrow');
+      const tourStepEl = document.getElementById('tourCalloutStep');
+      const tourDotsEl = document.getElementById('tourCalloutDots');
+      const tourBodyEl = document.getElementById('tourCalloutBody');
+      const btnClose = document.getElementById('btnTourCoachmarkClose');
+      const btnSkip = document.getElementById('btnTourSkipSpotlight');
+      const btnPrev = document.getElementById('btnTourPrevSpotlight');
+      const btnNext = document.getElementById('btnTourNextSpotlight');
 
-      if (!tourModal || !tourBody) return;
+      if (!tourOverlay || !tourCard || !tourBodyEl) return;
 
       const TOUR_STORAGE_KEY = 'srcc_first_visit_tour_v1';
       let currentTourStep = 0;
 
       const tourSteps = [
         {
-          step: 1,
-          category: 'Real-Time Vacancy Finder',
-          icon: '🏛️',
-          iconBg: 'linear-gradient(135deg, rgba(37, 99, 235, 0.16), rgba(30, 58, 138, 0.22))',
-          title: 'Vacant Classrooms & GD Finder',
-          locationTag: 'Top Navigation Bar ➔ 🏛️ Classrooms Tab',
-          locationHint: 'Browse 50+ classrooms across Main, PB, and SCR wings',
-          features: [
-            { icon: '🏛️', bold: 'Wing Filters:', text: 'Switch between Main Heritage Wing, Principal Bungalow (PB), and Sports Complex (SCR).' },
-            { icon: '⚡', bold: 'Free Right Now Quick-Toggle:', text: 'Tap the ⚡ lightning pill to instantly filter only 100% empty rooms right this minute for self-study or GD.' },
-            { icon: '📅', bold: 'Period Timetables & Reminders:', text: 'Click any classroom card for full period schedule, faculty leave alerts, and 1-click Google/Apple calendar export.' }
-          ],
-          actionText: '👀 View Classrooms Tab Live',
-          actionHandler: () => {
-            closeAppTour(false);
-            setAppMode('rooms');
-          }
+          targetSelector: '#tabModeRooms',
+          mode: 'rooms',
+          badge: 'Step 1 of 5 · 🏛️ Classrooms',
+          title: '90+ Vacant Classrooms & GD Rooms',
+          body: 'Browse all <strong>96 classrooms</strong> across Main Heritage, PB & SCR wings. Tap the <strong>⚡ Free Right Now</strong> switch to instantly reveal 100% empty rooms for self-study and GD.',
+          pill: '⚡ 96 Classrooms · 10 Time Slots',
+          actionText: '👀 View Free Classrooms'
         },
         {
-          step: 2,
-          category: 'Batch & Section Academics',
-          icon: '📅',
-          iconBg: 'linear-gradient(135deg, rgba(16, 185, 129, 0.16), rgba(5, 150, 105, 0.22))',
-          title: 'Daily Batch Timetable & Pinning',
-          locationTag: 'Top Navigation Bar ➔ 📅 Batch Timetable Tab',
-          locationHint: 'Select Course, Semester & Section for full daily schedule',
-          features: [
-            { icon: '🎓', bold: 'All Degree Courses & Sections:', text: 'Filter B.Com (Hons), B.A. (Hons) Economics, M.Com, and GBO across Semesters II, IV & VI.' },
-            { icon: '⭐', bold: 'Pin "Mere Batch Ka Schedule":', text: 'Click "Pin This Batch" once. Your exact section schedule will load first every time you open the app!' },
-            { icon: '🕒', bold: 'Subject Codes & Room Numbers:', text: 'See exact classroom codes, teacher names, and live faculty leave status for every lecture.' }
-          ],
-          actionText: '🗓️ Switch to Batch Timetable',
-          actionHandler: () => {
-            closeAppTour(false);
-            setAppMode('timetable');
-          }
+          targetSelector: '#tabModeTimetable',
+          mode: 'timetable',
+          badge: 'Step 2 of 5 · 📅 Batch Timetable',
+          title: 'Batch Timetable & Pin Schedule',
+          body: 'View complete lecture schedules for B.Com (Hons), Eco (Hons), M.Com & GBO. Tap <strong>"Pin This Batch"</strong> so your exact section timetable loads first on every visit.',
+          pill: '⭐ All Semesters & Sections A to N',
+          actionText: '🗓️ Explore Batch Schedules'
         },
         {
-          step: 3,
-          category: 'Prior Class Notifications',
-          icon: '🔔',
-          iconBg: 'linear-gradient(135deg, rgba(59, 130, 246, 0.16), rgba(29, 78, 216, 0.22))',
-          title: '10-Minute Class & Faculty Alerts',
-          locationTag: 'Header Bell 🔔 or Campus Menu ➔ 10-Min Class Alerts',
-          locationHint: 'Proactive reminders sent directly to your phone or laptop',
-          features: [
-            { icon: '⏰', bold: 'Dual-Mode System:', text: 'Choose "🎓 I am a Student" (pinned to your batch) or "👨‍🏫 I am a Faculty" (for professors).' },
-            { icon: '📢', bold: 'Prior Device Alerts with Room No.:', text: 'Receive sound & vibration reminders 5-15 mins before lecture with verified Room No.' },
-            { icon: '🚨', bold: 'Instant Teacher Leave Warnings:', text: 'Get alerted immediately if your scheduled professor is on leave so you never arrive at an empty classroom.' }
-          ],
-          actionText: '⚙️ Open 10-Min Alerts Settings',
-          actionHandler: () => {
-            closeAppTour(false);
-            if (typeof openClassNotifModal === 'function') openClassNotifModal();
-          }
+          targetSelector: '#btnOpenClassAlertsHeader',
+          mode: 'rooms',
+          badge: 'Step 3 of 5 · 🔔 Prior Alerts',
+          title: '10, 15 & 30-Min Class Alerts',
+          body: 'Choose your <strong>Tutorial & Practical Batch (e.g. J1 / JP1)</strong> and get reminders <strong>10, 15, or 30 min before</strong> with Room No. and instant warnings if your teacher is on leave.',
+          pill: '⏰ Student & Faculty Prior Alerts',
+          actionText: '🔔 Setup My Class Alerts'
         },
         {
-          step: 4,
-          category: 'Faculty Directory & Contact',
-          icon: '👨‍🏫',
-          iconBg: 'linear-gradient(135deg, rgba(245, 158, 11, 0.16), rgba(217, 119, 6, 0.22))',
-          title: 'Faculty Directory & Live Leave Status',
-          locationTag: 'Top Navigation Bar ➔ 👨‍🏫 Faculty Tab',
-          locationHint: '130+ verified SRCC professors and academic departments',
-          features: [
-            { icon: '🔍', bold: 'Search 130+ Teachers:', text: 'Instant search by professor name, department (Commerce, Economics, Maths, etc.), or short code.' },
-            { icon: '📍', bold: 'Active Teaching Room Right Now:', text: 'See which classroom a professor is currently lecturing in, or their next upcoming period.' },
-            { icon: '✉️', bold: 'Verified DU Emails & Leave Tracker:', text: 'One-tap copy of verified @srcc.du.ac.in emails and live view of professors on sanctioned leave.' }
-          ],
-          actionText: '👨‍🏫 Browse Faculty Directory',
-          actionHandler: () => {
-            closeAppTour(false);
-            setAppMode('faculty');
-          }
+          targetSelector: '#tabModeFaculty',
+          mode: 'faculty',
+          badge: 'Step 4 of 5 · 👨‍🏫 Faculty Directory',
+          title: '210+ Faculty Members & Live Leaves',
+          body: 'Search <strong>210+ verified SRCC professors</strong>. Check where they are teaching right now, view verified DU emails, and track sanctioned faculty leaves in real time.',
+          pill: '👨‍🏫 210 Faculty · 1-Tap DU Email',
+          actionText: '👨‍🏫 Browse Faculty Directory'
         },
         {
-          step: 5,
-          category: 'Campus Central Hub',
-          icon: '📢',
-          iconBg: 'linear-gradient(135deg, rgba(239, 68, 68, 0.16), rgba(185, 28, 28, 0.22))',
-          title: 'Official SRCC Circulars & Exam Codes',
-          locationTag: 'Top-Left ☰ Campus Hub Menu Button',
-          locationHint: 'Official college circulars, exam forms & offline resources',
-          features: [
-            { icon: '📰', bold: '430+ Official College Circulars:', text: 'Synced directly with srcc.edu for admission notices, exam guidelines, and fee deadlines.' },
-            { icon: '📖', bold: 'DU NEP Exam Paper Codes (UPC):', text: 'Search 8-digit Unique Paper Codes (UPC) and official syllabi for semester exam forms.' },
-            { icon: '📘', bold: 'Offline PDF Manual & Campus WiFi:', text: 'Download the complete illustrated User Guide PDF or check campus WiFi connectivity credentials.' }
-          ],
-          actionText: '☰ Open Campus Hub Menu',
-          actionHandler: () => {
-            closeAppTour(false);
-            if (typeof openCampusDrawer === 'function') openCampusDrawer();
-            else if (typeof window._openCampusDrawer === 'function') window._openCampusDrawer();
-          }
+          targetSelector: '#btnThreeLineMenu',
+          mode: 'rooms',
+          badge: 'Step 5 of 5 · ☰ Campus Hub',
+          title: 'Campus Hub, Circulars & PDF Manual',
+          body: 'Access 430+ synced official SRCC circulars, DU NEP exam paper codes (UPC), offline PDF user guide, and campus resources anytime.',
+          pill: '📢 430+ Notices · Offline Resources',
+          actionText: '☰ Open Campus Hub'
         }
       ];
+
+      function clearHighlights() {
+        document.querySelectorAll('.tour-target-highlight').forEach(el => {
+          el.classList.remove('tour-target-highlight');
+        });
+      }
+
+      function positionCalloutCard(targetEl) {
+        if (!targetEl || !tourCard || !tourArrow) return;
+        const rect = targetEl.getBoundingClientRect();
+        const cardWidth = Math.min(360, window.innerWidth - 24);
+
+        // Render visibility to calculate offsetHeight
+        tourCard.style.width = `${Math.round(cardWidth)}px`;
+        const cardHeight = tourCard.offsetHeight || 230;
+
+        const spaceBelow = window.innerHeight - rect.bottom;
+        const spaceAbove = rect.top;
+
+        let top = 0;
+        let isBelow = true;
+
+        if (spaceBelow >= cardHeight + 16 || spaceBelow > spaceAbove) {
+          top = rect.bottom + 14;
+          isBelow = true;
+        } else {
+          top = Math.max(12, rect.top - cardHeight - 14);
+          isBelow = false;
+        }
+
+        top = Math.max(10, Math.min(top, window.innerHeight - cardHeight - 12));
+
+        const targetCenter = rect.left + (rect.width / 2);
+        let left = targetCenter - (cardWidth / 2);
+        left = Math.max(12, Math.min(left, window.innerWidth - cardWidth - 12));
+
+        tourCard.style.top = `${Math.round(top)}px`;
+        tourCard.style.left = `${Math.round(left)}px`;
+
+        tourArrow.className = 'tour-callout-arrow ' + (isBelow ? 'arrow-top' : 'arrow-bottom');
+        const arrowLeft = Math.max(16, Math.min(cardWidth - 28, targetCenter - left - 7));
+        tourArrow.style.left = `${Math.round(arrowLeft)}px`;
+      }
 
       function renderTourStep(index) {
         currentTourStep = Math.max(0, Math.min(index, tourSteps.length - 1));
         const s = tourSteps[currentTourStep];
 
-        // Step badge & dots
-        if (stepBadge) stepBadge.textContent = `Step ${currentTourStep + 1} of ${tourSteps.length}`;
-        if (dotsContainer) {
-          dotsContainer.querySelectorAll('.tour-dot').forEach((dot, idx) => {
+        clearHighlights();
+
+        // Switch mode if needed
+        if (s.mode && typeof setAppMode === 'function') {
+          setAppMode(s.mode);
+        }
+
+        const targetEl = document.querySelector(s.targetSelector);
+        if (targetEl) {
+          targetEl.classList.add('tour-target-highlight');
+          try {
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          } catch (e) {}
+        }
+
+        if (tourStepEl) tourStepEl.textContent = s.badge;
+
+        if (tourDotsEl) {
+          const dots = tourDotsEl.querySelectorAll('.t-dot');
+          dots.forEach((dot, idx) => {
             dot.classList.toggle('active', idx === currentTourStep);
           });
         }
 
-        // Render body
-        const featuresHtml = s.features.map(f => `
-          <li class="tour-feature-item">
-            <span class="tour-feature-bullet">${f.icon}</span>
-            <div><strong>${escapeHtml(f.bold)}</strong> ${escapeHtml(f.text)}</div>
-          </li>
-        `).join('');
-
-        tourBody.innerHTML = `
-          <div class="tour-hero-block">
-            <div class="tour-icon-circle" style="background: ${s.iconBg};">
-              ${s.icon}
-            </div>
-            <div class="tour-title-wrap">
-              <span class="tour-category-tag">${escapeHtml(s.category)}</span>
-              <h3 class="tour-step-title" id="tourStepTitle">${escapeHtml(s.title)}</h3>
-            </div>
-          </div>
-
-          <div class="tour-nav-location-box">
-            <span class="tour-nav-location-icon">📍</span>
-            <div class="tour-nav-location-text">
-              <strong>How to Navigate: ${escapeHtml(s.locationTag)}</strong>
-              <div style="font-size: 0.76rem; color: var(--text-muted); margin-top: 2px;">${escapeHtml(s.locationHint)}</div>
-            </div>
-          </div>
-
-          <ul class="tour-feature-list">
-            ${featuresHtml}
-          </ul>
-
-          <div class="tour-action-row">
-            <button type="button" class="btn-tour-jump" id="btnTourJumpAction">
-              ${s.actionText} ➔
-            </button>
-          </div>
+        tourBodyEl.innerHTML = `
+          <h4 class="tour-callout-title">${escapeHtml(s.title)}</h4>
+          <p class="tour-callout-text">${s.body}</p>
+          <div class="tour-callout-pill">${escapeHtml(s.pill)}</div>
         `;
 
-        const jumpBtn = document.getElementById('btnTourJumpAction');
-        if (jumpBtn && typeof s.actionHandler === 'function') {
-          jumpBtn.addEventListener('click', s.actionHandler);
-        }
-
-        // Update navigation buttons
         if (btnPrev) {
           btnPrev.style.display = currentTourStep === 0 ? 'none' : 'inline-flex';
         }
         if (btnNext) {
           const isLast = (currentTourStep === tourSteps.length - 1);
-          if (isLast) {
-            btnNext.textContent = '🎉 Explore Portal!';
-            btnNext.classList.add('btn-tour-finish');
-          } else {
-            btnNext.textContent = 'Next →';
-            btnNext.classList.remove('btn-tour-finish');
-          }
+          btnNext.textContent = isLast ? 'Finish Tour 🎉' : 'Next ➔';
         }
+
+        // Reposition callout card with requestAnimationFrame to ensure layout is ready
+        requestAnimationFrame(() => {
+          if (targetEl) {
+            positionCalloutCard(targetEl);
+          }
+        });
       }
 
       function openAppTour(startIndex = 0) {
+        tourOverlay.style.display = 'block';
+        document.body.classList.add('modal-open');
         renderTourStep(startIndex);
-        openAppModal(tourModal);
       }
       window._openAppTour = openAppTour;
 
       function closeAppTour(markSeen = true) {
-        closeAppModal(tourModal);
+        clearHighlights();
+        tourOverlay.style.display = 'none';
+        document.body.classList.remove('modal-open');
         if (markSeen) {
           try {
             localStorage.setItem(TOUR_STORAGE_KEY, 'true');
@@ -11030,14 +11105,13 @@ window.SRCC_FACULTY_LEAVES = {
         }
       }
 
-      // Button listeners
       if (btnNext) {
         btnNext.addEventListener('click', () => {
           if (currentTourStep < tourSteps.length - 1) {
             renderTourStep(currentTourStep + 1);
           } else {
             closeAppTour(true);
-            showToast('✨ Welcome to SRCC Smart Campus Portal! Enjoy exploring.');
+            showToast('✨ Tour complete! Enjoy exploring SRCC Smart Campus.');
           }
         });
       }
@@ -11053,7 +11127,7 @@ window.SRCC_FACULTY_LEAVES = {
       if (btnSkip) {
         btnSkip.addEventListener('click', () => {
           closeAppTour(true);
-          showToast('💡 You can re-open the App Demo anytime from the ☰ menu.');
+          showToast('💡 Re-open the App Tour anytime from the ☰ menu.');
         });
       }
 
@@ -11061,18 +11135,23 @@ window.SRCC_FACULTY_LEAVES = {
         btnClose.addEventListener('click', () => closeAppTour(true));
       }
 
-      if (tourModal) {
-        tourModal.addEventListener('click', (e) => {
-          if (e.target === tourModal) closeAppTour(true);
-        });
+      if (tourBackdrop) {
+        tourBackdrop.addEventListener('click', () => closeAppTour(true));
       }
+
+      window.addEventListener('resize', () => {
+        if (tourOverlay.style.display !== 'none') {
+          const s = tourSteps[currentTourStep];
+          const targetEl = document.querySelector(s.targetSelector);
+          if (targetEl) positionCalloutCard(targetEl);
+        }
+      });
 
       // Auto-trigger on first app visit (after 900ms delay)
       try {
         const hasVisited = localStorage.getItem(TOUR_STORAGE_KEY);
         if (!hasVisited) {
           setTimeout(() => {
-            // Only trigger if user hasn't already opened another deep-link modal
             if (!getCurrentlyOpenModal()) {
               openAppTour(0);
             }

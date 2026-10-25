@@ -80,6 +80,10 @@
           </svg>
           <span>WiFi</span>
         </button>
+        <!-- 10-Minute Class Alerts Button (Header) -->
+        <button id="btnOpenClassAlertsHeader" class="btn-class-alerts-header" title="10-Minute Class Alerts for Students &amp; Faculty">
+          <span>🔔 Alerts</span>
+        </button>
         <!-- Report Issue Button (Header) -->
         <button id="btnReportIssue" class="btn-report-header" title="Report wrong timetable data or present faculty marked absent">
           <span>⚠️ Report</span>
@@ -1170,6 +1174,7 @@
                 <option value="B.Com (Hons)">B.Com (Hons)</option>
                 <option value="B.A. (Hons) Economics">B.A. (Hons) Eco</option>
                 <option value="M.Com">M.Com</option>
+                <option value="GBO">GBO (Global Business Operations)</option>
                 <option value="M.A. Economics">M.A. Eco</option>
               </select>
             </div>
@@ -1193,12 +1198,35 @@
             </label>
             <div class="tt-select-wrapper">
               <select id="notifSecSelect" class="tt-notif-input">
-                <!-- Dynamically populated -->
+                <!-- Dynamically populated e.g. Sec A to Sec N -->
+              </select>
+            </div>
+          </div>
+          <div class="tt-notif-form-field">
+            <label for="notifBatchSelect" style="display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.82rem; margin-bottom: 5px; color: var(--text-secondary);">
+              <span>👥</span> Tutorial &amp; Practical Batch:
+            </label>
+            <div class="tt-select-wrapper">
+              <select id="notifBatchSelect" class="tt-notif-input">
+                <option value="ALL">All Classes (Full Section + All Tutorials)</option>
+                <!-- Dynamically populated e.g. J1 / JP1, J2 / JP2, J3 / JP3 -->
+              </select>
+            </div>
+          </div>
+          <div class="tt-notif-form-field">
+            <label for="notifStudentLeadTimeSelect" style="display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.82rem; margin-bottom: 5px; color: var(--text-secondary);">
+              <span>⏱️</span> Alert Notification Timing:
+            </label>
+            <div class="tt-select-wrapper">
+              <select id="notifStudentLeadTimeSelect" class="tt-notif-input">
+                <option value="10">10 minutes before class</option>
+                <option value="15" selected>15 minutes before class</option>
+                <option value="30">30 minutes before class</option>
               </select>
             </div>
           </div>
           <p id="studentNotifDesc" style="font-size: 0.78rem; color: var(--text-muted); margin: 2px 0 0; line-height: 1.4;">
-            Automatic notifications 10 min before every lecture with Room No. and instant teacher leave notifications.
+            Automatic notifications with verified Room No. and instant warnings if your professor is on leave.
           </p>
         </div>
 
@@ -1222,11 +1250,12 @@
               <select id="notifLeadTimeSelect" class="tt-notif-input">
                 <option value="10">10 minutes before class</option>
                 <option value="15" selected>15 minutes before class</option>
+                <option value="30">30 minutes before class</option>
               </select>
             </div>
           </div>
           <p id="facultyNotifDesc" style="font-size: 0.78rem; color: var(--text-muted); margin: 2px 0 0; line-height: 1.4;">
-            Automatic notifications 10–15 min before every scheduled lecture with your Room No., Course, Semester &amp; Section.
+            Automatic notifications 10, 15, or 30 min before every scheduled lecture with your Room No., Course, Semester &amp; Section.
           </p>
         </div>
 
@@ -1513,50 +1542,53 @@
   </div>
 
   <!-- ====================================================================
-       INTERACTIVE APP DEMO & GUIDED FEATURE TOUR MODAL
+       INTERACTIVE ONBOARDING COACHMARK & SPOTLIGHT WALKTHROUGH TOUR
        ==================================================================== -->
-  <div class="modal-overlay" id="appTourModal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="tourStepTitle">
-    <div class="modal-card tour-modal-card">
-      <!-- Tour Header -->
-      <div class="tour-modal-header">
-        <div class="tour-step-indicator">
-          <span class="tour-step-badge" id="tourStepBadge">Step 1 of 5</span>
-          <div class="tour-dots-wrapper" id="tourDotsContainer">
-            <span class="tour-dot active"></span>
-            <span class="tour-dot"></span>
-            <span class="tour-dot"></span>
-            <span class="tour-dot"></span>
-            <span class="tour-dot"></span>
+  <div class="tour-spotlight-overlay" id="appTourSpotlightOverlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="tourSpotlightTitle">
+    <!-- Backdrop to dim background and focus on highlighted element -->
+    <div class="tour-backdrop" id="tourBackdrop"></div>
+
+    <!-- Floating Coachmark Callout Card with Pointer Arrow -->
+    <div class="tour-callout-card" id="tourCalloutCard">
+      <div class="tour-callout-arrow" id="tourCalloutArrow"></div>
+      
+      <div class="tour-callout-header">
+        <div class="tour-callout-meta">
+          <span class="tour-callout-step" id="tourCalloutStep">Step 1 of 5</span>
+          <div class="tour-callout-dots" id="tourCalloutDots">
+            <span class="t-dot active"></span>
+            <span class="t-dot"></span>
+            <span class="t-dot"></span>
+            <span class="t-dot"></span>
+            <span class="t-dot"></span>
           </div>
         </div>
-        <button type="button" class="modal-close" id="btnTourClose" aria-label="Close tour">✕</button>
+        <button type="button" class="tour-callout-close" id="btnTourCoachmarkClose" aria-label="Skip and close tour">✕</button>
       </div>
 
-      <!-- Tour Content Body -->
-      <div class="tour-modal-body" id="tourModalBody">
+      <div class="tour-callout-body" id="tourCalloutBody">
         <!-- Injected via JavaScript -->
       </div>
 
-      <!-- Tour Navigation Footer -->
-      <div class="tour-modal-footer">
-        <button type="button" class="btn-tour-nav btn-tour-skip" id="btnTourSkip">Skip Tour</button>
-        <div class="tour-footer-right">
-          <button type="button" class="btn-tour-nav btn-tour-prev" id="btnTourPrev" style="display: none;">← Back</button>
-          <button type="button" class="btn-tour-nav btn-tour-next" id="btnTourNext">Next →</button>
+      <div class="tour-callout-footer">
+        <button type="button" class="btn-tour-callout btn-tour-skip-spotlight" id="btnTourSkipSpotlight">Skip Tour</button>
+        <div class="tour-callout-actions">
+          <button type="button" class="btn-tour-callout btn-tour-prev-spotlight" id="btnTourPrevSpotlight" style="display: none;">← Back</button>
+          <button type="button" class="btn-tour-callout btn-tour-next-spotlight" id="btnTourNextSpotlight">Next ➔</button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Scripts -->
-  <script src="data.js?v=93"></script>
-  <script src="college_notices.js?v=93"></script>
-  <script src="exam_codes_data.js?v=93"></script>
-  <script src="wifi_data.js?v=93"></script>
-  <script src="cloud_config.js?v=93"></script>
-  <script src="faculty_leaves.js?v=93"></script>
-  <script src="teachers_data.js?v=93"></script>
-  <script src="classes_data.js?v=93"></script>
-  <script src="app.js?v=93"></script>
+  <script src="data.js?v=94"></script>
+  <script src="college_notices.js?v=94"></script>
+  <script src="exam_codes_data.js?v=94"></script>
+  <script src="wifi_data.js?v=94"></script>
+  <script src="cloud_config.js?v=94"></script>
+  <script src="faculty_leaves.js?v=94"></script>
+  <script src="teachers_data.js?v=94"></script>
+  <script src="classes_data.js?v=94"></script>
+  <script src="app.js?v=94"></script>
 </body>
 </html>
