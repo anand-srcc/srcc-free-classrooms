@@ -1393,6 +1393,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function getCurrentlyOpenModal() {
       const popups = [
+        document.getElementById('appTourModal'),
         document.getElementById('scheduleModal'),
         document.getElementById('teacherModal'),
         document.getElementById('wifiModal'),
@@ -1411,6 +1412,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function closeAllPopups(options = {}) {
       const popups = [
+        document.getElementById('appTourModal'),
         document.getElementById('wifiModal'),
         document.getElementById('facultyEmailModal'),
         document.getElementById('scheduleModal'),
@@ -7720,6 +7722,60 @@ window.SRCC_FACULTY_LEAVES = {
         });
       }
 
+      const roleBtnStudent = document.getElementById('btnRoleStudent');
+      const roleBtnFaculty = document.getElementById('btnRoleFaculty');
+      const notifStudentFields = document.getElementById('notifStudentFields');
+      const notifFacultyFields = document.getElementById('notifFacultyFields');
+      const notifTeacherSelect = document.getElementById('notifTeacherSelect');
+      const notifLeadTimeSelect = document.getElementById('notifLeadTimeSelect');
+      const btnSaveAlertsText = document.getElementById('btnSaveAlertsText');
+
+      let currentNotifRole = localStorage.getItem('srcc_notif_role') || 'student';
+
+      function setNotifRole(role) {
+        currentNotifRole = role;
+        if (roleBtnStudent) {
+          roleBtnStudent.classList.toggle('active', role === 'student');
+        }
+        if (roleBtnFaculty) {
+          roleBtnFaculty.classList.toggle('active', role === 'faculty');
+        }
+        if (notifStudentFields) {
+          notifStudentFields.style.display = (role === 'student') ? 'flex' : 'none';
+        }
+        if (notifFacultyFields) {
+          notifFacultyFields.style.display = (role === 'faculty') ? 'flex' : 'none';
+        }
+        if (btnSaveAlertsText) {
+          btnSaveAlertsText.textContent = (role === 'faculty')
+            ? 'Save Faculty Alerts'
+            : 'Save Class Timetable';
+        }
+      }
+
+      function populateTeacherSelect(selectedId) {
+        if (!notifTeacherSelect || !teachersData || !Array.isArray(teachersData.teachers)) return;
+        notifTeacherSelect.innerHTML = '<option value="">-- Choose Professor / Faculty --</option>';
+        const sorted = [...teachersData.teachers].sort((a, b) => (a.clean_name || '').localeCompare(b.clean_name || ''));
+        sorted.forEach(t => {
+          const opt = document.createElement('option');
+          opt.value = t.id;
+          opt.textContent = `${t.clean_name} (${t.department || 'Faculty'}${t.short_code ? ` - ${t.short_code}` : ''})`;
+          if (selectedId && String(t.id) === String(selectedId)) opt.selected = true;
+          notifTeacherSelect.appendChild(opt);
+        });
+      }
+
+      if (roleBtnStudent) {
+        roleBtnStudent.addEventListener('click', () => setNotifRole('student'));
+      }
+      if (roleBtnFaculty) {
+        roleBtnFaculty.addEventListener('click', () => {
+          setNotifRole('faculty');
+          populateTeacherSelect(localStorage.getItem('srcc_my_teacher_id') || '');
+        });
+      }
+
       function populateNotifSections(preferredSec) {
         if (!notifSecSelect) return;
         notifSecSelect.innerHTML = '';
@@ -7748,9 +7804,11 @@ window.SRCC_FACULTY_LEAVES = {
 
       function updateClassNotifUi() {
         const isEnabled = localStorage.getItem('srcc_class_alerts_enabled') !== 'false';
+        const role = localStorage.getItem('srcc_notif_role') || 'student';
         const curCourse = localStorage.getItem('srcc_my_tt_course') || 'B.Com (Hons)';
         const curSem = localStorage.getItem('srcc_my_tt_sem') || 'Sem I';
         const curSec = localStorage.getItem('srcc_my_tt_sec') || 'Sec A';
+        const savedTeacherName = localStorage.getItem('srcc_my_teacher_name') || '';
 
         if (btnToggleClassAlerts) {
           btnToggleClassAlerts.setAttribute('aria-checked', String(isEnabled));
@@ -7760,21 +7818,49 @@ window.SRCC_FACULTY_LEAVES = {
           ttToggleLabel.textContent = isEnabled ? 'Alerts ON' : 'Alerts OFF';
         }
         if (ttNotifStatusBadge) {
-          ttNotifStatusBadge.textContent = isEnabled ? `Active: ${curCourse} · ${curSem} · ${curSec}` : 'Disabled';
-          ttNotifStatusBadge.classList.toggle('tt-notif-badge-disabled', !isEnabled);
+          if (!isEnabled) {
+            ttNotifStatusBadge.textContent = 'Disabled';
+            ttNotifStatusBadge.classList.add('tt-notif-badge-disabled');
+          } else if (role === 'faculty') {
+            ttNotifStatusBadge.textContent = `Active: Prof. ${savedTeacherName || 'Faculty'}`;
+            ttNotifStatusBadge.classList.remove('tt-notif-badge-disabled');
+          } else {
+            ttNotifStatusBadge.textContent = `Active: ${curCourse} · ${curSem} · ${curSec}`;
+            ttNotifStatusBadge.classList.remove('tt-notif-badge-disabled');
+          }
         }
         if (drawerClassNotifBadge) {
-          drawerClassNotifBadge.textContent = isEnabled ? `Active: ${curSec}` : 'Disabled';
-          drawerClassNotifBadge.style.background = isEnabled ? '#2563eb' : '#64748b';
+          if (!isEnabled) {
+            drawerClassNotifBadge.textContent = 'Disabled';
+            drawerClassNotifBadge.style.background = '#64748b';
+          } else if (role === 'faculty') {
+            const shortProf = savedTeacherName ? (savedTeacherName.split(' ')[0] || 'Faculty') : 'Faculty';
+            drawerClassNotifBadge.textContent = `Active: Prof. ${shortProf}`;
+            drawerClassNotifBadge.style.background = '#2563eb';
+          } else {
+            drawerClassNotifBadge.textContent = `Active: ${curSec}`;
+            drawerClassNotifBadge.style.background = '#2563eb';
+          }
         }
         if (ttNotifDescText) {
-          ttNotifDescText.innerHTML = isEnabled
-            ? `Automatic device notifications <strong>10 min before</strong> every class for <strong>${escapeHtml(curCourse)} · ${escapeHtml(curSem)} · ${escapeHtml(curSec)}</strong> with Room No. and instant teacher leave alerts.`
-            : `Class reminders are currently paused. Tap <strong>Alerts ON</strong> to re-enable 10-minute class and teacher leave notifications.`;
+          if (!isEnabled) {
+            ttNotifDescText.innerHTML = `Class reminders are currently paused. Tap <strong>Alerts ON</strong> to re-enable lecture and leave notifications.`;
+          } else if (role === 'faculty') {
+            const lead = localStorage.getItem('srcc_notif_lead_mins') || '15';
+            ttNotifDescText.innerHTML = `Automatic device notifications <strong>${lead} min before</strong> every lecture for <strong>Prof. ${escapeHtml(savedTeacherName || 'Faculty')}</strong> with Room No., Course, Semester & Section.`;
+          } else {
+            ttNotifDescText.innerHTML = `Automatic device notifications <strong>10 min before</strong> every class for <strong>${escapeHtml(curCourse)} · ${escapeHtml(curSem)} · ${escapeHtml(curSec)}</strong> with Room No. and instant teacher leave alerts.`;
+          }
         }
       }
 
-      // Initialize dropdown selections
+      // Initialize dropdown selections and roles
+      setNotifRole(currentNotifRole);
+      populateTeacherSelect(localStorage.getItem('srcc_my_teacher_id') || '');
+      if (notifLeadTimeSelect) {
+        notifLeadTimeSelect.value = localStorage.getItem('srcc_notif_lead_mins') || '15';
+      }
+
       const initialSavedCourse = localStorage.getItem('srcc_my_tt_course') || 'B.Com (Hons)';
       const initialSavedSem = localStorage.getItem('srcc_my_tt_sem') || 'Sem I';
       const initialSavedSec = localStorage.getItem('srcc_my_tt_sec') || 'Sec A';
@@ -7790,9 +7876,75 @@ window.SRCC_FACULTY_LEAVES = {
         notifSemSelect.addEventListener('change', () => populateNotifSections());
       }
 
-      // Save Class Button
+      // Save Class / Faculty Button
       if (btnSaveClassAlerts) {
         btnSaveClassAlerts.addEventListener('click', async () => {
+          localStorage.setItem('srcc_notif_role', currentNotifRole);
+          localStorage.setItem('srcc_class_alerts_enabled', 'true');
+
+          let perm = ('Notification' in window) ? Notification.permission : 'denied';
+          if ('Notification' in window && perm !== 'granted') {
+            try { perm = await Notification.requestPermission(); } catch (e) {}
+          }
+
+          if (currentNotifRole === 'faculty') {
+            const teacherId = notifTeacherSelect ? notifTeacherSelect.value : '';
+            if (!teacherId) {
+              showToast('⚠️ Please select your faculty name first');
+              return;
+            }
+            const teacherObj = (teachersData && teachersData.teachers)
+              ? teachersData.teachers.find(t => String(t.id) === String(teacherId))
+              : null;
+            const tName = teacherObj ? teacherObj.clean_name : (notifTeacherSelect.options[notifTeacherSelect.selectedIndex]?.text || 'Faculty');
+            const leadMins = notifLeadTimeSelect ? (notifLeadTimeSelect.value || '15') : '15';
+
+            localStorage.setItem('srcc_my_teacher_id', teacherId);
+            localStorage.setItem('srcc_my_teacher_name', tName);
+            localStorage.setItem('srcc_notif_lead_mins', leadMins);
+
+            // Cache preference for Service Worker
+            if ('caches' in window) {
+              try {
+                const cache = await caches.open('srcc-classroom-v92');
+                await cache.put('/__srcc_user_class_pref', new Response(JSON.stringify({
+                  role: 'faculty',
+                  teacherId: teacherId,
+                  teacherName: tName,
+                  leadMins: parseInt(leadMins, 10),
+                  enabled: true
+                })));
+              } catch (e) {}
+            }
+
+            // Broadcast to Service Worker
+            if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+              navigator.serviceWorker.controller.postMessage({
+                type: 'UPDATE_CLASS_PREF',
+                role: 'faculty',
+                teacherId: teacherId,
+                teacherName: tName,
+                leadMins: parseInt(leadMins, 10),
+                enabled: true
+              });
+            }
+
+            updateClassNotifUi();
+
+            if (perm === 'granted') {
+              triggerDeviceNotification('🔔 Faculty Lecture Alerts Active', {
+                body: `Active for Prof. ${tName}. You will receive reminders ${leadMins} min before each lecture with Room No., Course, Semester & Section!`,
+                tag: 'srcc-faculty-alert-confirmed'
+              });
+            }
+
+            checkAndNotifyStudentTimetableAndDeadlines();
+            showToast(`✅ Faculty Alerts Active for Prof. ${tName}`, true, 2500);
+            setTimeout(() => { closeClassNotifModal(); }, 600);
+            return;
+          }
+
+          // Student role saving
           const selCourse = notifCourseSelect ? notifCourseSelect.value : 'B.Com (Hons)';
           const selSem = notifSemSelect ? notifSemSelect.value : 'Sem I';
           const selSec = notifSecSelect ? notifSecSelect.value : 'Sec A';
@@ -7800,17 +7952,55 @@ window.SRCC_FACULTY_LEAVES = {
           localStorage.setItem('srcc_my_tt_course', selCourse);
           localStorage.setItem('srcc_my_tt_sem', selSem);
           localStorage.setItem('srcc_my_tt_sec', selSec);
-          localStorage.setItem('srcc_class_alerts_enabled', 'true');
 
-          if ('Notification' in window && Notification.permission !== 'granted') {
-            try { await Notification.requestPermission(); } catch (e) {}
+          try {
+            saveMyBatchPref({
+              course: selCourse,
+              sem: selSem,
+              sec: selSec,
+              batch: 'ALL'
+            });
+            if (typeof renderMyBatchDailyWidget === 'function') {
+              renderMyBatchDailyWidget();
+            }
+          } catch (e) {}
+
+          if ('caches' in window) {
+            try {
+              const cache = await caches.open('srcc-classroom-v92');
+              await cache.put('/__srcc_user_class_pref', new Response(JSON.stringify({
+                role: 'student',
+                course: selCourse,
+                sem: selSem,
+                sec: selSec,
+                enabled: true
+              })));
+            } catch (e) {}
+          }
+
+          if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+            navigator.serviceWorker.controller.postMessage({
+              type: 'UPDATE_CLASS_PREF',
+              role: 'student',
+              course: selCourse,
+              sem: selSem,
+              sec: selSec,
+              enabled: true
+            });
           }
 
           updateClassNotifUi();
-          showToast('✅ Saved Successfully', true, 2000);
-          setTimeout(() => {
-            closeClassNotifModal();
-          }, 600);
+
+          if (perm === 'granted') {
+            triggerDeviceNotification('🔔 Class & Leave Alerts Active', {
+              body: `Active for ${selCourse} · ${selSem} · ${selSec}. You will get 10-min reminders before every lecture and instant teacher leave alerts!`,
+              tag: 'srcc-class-alert-confirmed'
+            });
+          }
+
+          checkAndNotifyStudentTimetableAndDeadlines();
+          showToast('✅ Saved & Notifications Activated', true, 2500);
+          setTimeout(() => { closeClassNotifModal(); }, 600);
         });
       }
 
@@ -8683,60 +8873,143 @@ window.SRCC_FACULTY_LEAVES = {
         const alertsEnabled = localStorage.getItem('srcc_class_alerts_enabled') !== 'false';
 
         // -------------------------------------------------------------
-        // 1. Student Timetable Class Reminders (10 Min Before) & Leave Alerts
+        // 1. Timetable Class Reminders (10-15 Min Before) & Leave Alerts
+        // Supports both Students (by Section) & Faculty / Teachers (by Name)
         // -------------------------------------------------------------
         if (alertsEnabled && todayName !== 'Sunday') {
-          const myCourse = localStorage.getItem('srcc_my_tt_course') || 'B.Com (Hons)';
-          const mySem = localStorage.getItem('srcc_my_tt_sem') || 'Sem I';
-          const mySec = localStorage.getItem('srcc_my_tt_sec') || 'Sec A';
+          const role = localStorage.getItem('srcc_notif_role') || 'student';
 
-          const periodTimes = [
-            { num: 1, start: 8 * 60 + 30, end: 9 * 60 + 30, slot: '8:30 AM to 9:30 AM' },
-            { num: 2, start: 9 * 60 + 30, end: 10 * 60 + 30, slot: '9:30 AM to 10:30 AM' },
-            { num: 3, start: 10 * 60 + 30, end: 11 * 60 + 30, slot: '10:30 AM to 11:30 AM' },
-            { num: 4, start: 11 * 60 + 30, end: 12 * 60 + 30, slot: '11:30 AM to 12:30 PM' },
-            { num: 5, start: 12 * 60 + 30, end: 13 * 60 + 30, slot: '12:30 PM to 1:30 PM' },
-            { num: 6, start: 14 * 60, end: 15 * 60, slot: '2:00 PM to 3:00 PM' },
-            { num: 7, start: 15 * 60, end: 16 * 60, slot: '3:00 PM to 4:00 PM' },
-            { num: 8, start: 16 * 60, end: 17 * 60, slot: '4:00 PM to 5:00 PM' },
-            { num: 9, start: 17 * 60, end: 18 * 60, slot: '5:00 PM to 6:00 PM' }
-          ];
+          // ===========================================================
+          // ROLE: FACULTY / TEACHER LECTURE ALERTS (10-15 Min Before)
+          // ===========================================================
+          if (role === 'faculty') {
+            const savedTeacherId = localStorage.getItem('srcc_my_teacher_id') || '';
+            const leadMins = parseInt(localStorage.getItem('srcc_notif_lead_mins') || '15', 10);
+            const teacherObj = (teachersData && teachersData.teachers)
+              ? teachersData.teachers.find(t => String(t.id) === String(savedTeacherId))
+              : null;
 
-          // A. 10 Minutes Before Class Alert (Window: 8 to 12 minutes before class start)
-          const target10mPeriod = periodTimes.find(p => (p.start - nowMinutes >= 8 && p.start - nowMinutes <= 12));
-          if (target10mPeriod) {
-            let studentClass = null;
-            if (window.SRCC_CLASSES_DATA && window.SRCC_CLASSES_DATA.courses) {
-              const cData = window.SRCC_CLASSES_DATA.courses;
-              const cand = cData[myCourse]?.[mySem]?.[mySec] || [];
-              studentClass = cand.find(c => c.day === todayName && c.slot && c.slot.includes(target10mPeriod.slot.split(' to ')[0]));
-            }
-
-            if (studentClass) {
-              const subName = studentClass.subject || 'Class';
-              const roomNo = studentClass.room || 'Room';
-              const tName = studentClass.teacher_name || studentClass.teacher || 'Faculty';
-              const notifKey = `srcc_alert_10m_${todayIso}_p${target10mPeriod.num}_${subName}`;
-
-              if (!localStorage.getItem(notifKey)) {
-                localStorage.setItem(notifKey, '1');
-
-                const teacherObj = (teachersData && teachersData.teachers) ? teachersData.teachers.find(tch => String(tch.id) === String(studentClass.teacher_id)) : null;
-                const isLeave = Boolean(isTeacherOnLeave(teacherObj || { clean_name: tName, name: tName, id: studentClass.teacher_id }));
-
-                if (isLeave) {
-                  triggerDeviceNotification(`🚨 Class Free / Teacher on Leave: ${subName}`, {
-                    body: `Prof. ${tName} is marked on leave today. Your ${subName} class (${target10mPeriod.slot}) is free. Room ${roomNo} is vacant for GD & Study!`,
-                    tag: `srcc-class-leave-${target10mPeriod.num}`
-                  });
-                } else {
-                  triggerDeviceNotification(`📚 Class Starting in 10 Min: ${subName}`, {
-                    body: `In Room ${roomNo} by Prof. ${tName} (${target10mPeriod.slot}). Tap for full schedule!`,
-                    tag: `srcc-class-10m-${target10mPeriod.num}`
+            if (teacherObj) {
+              // 1. Alert if teacher is marked on leave today
+              const isLeave = Boolean(isTeacherOnLeave(teacherObj));
+              if (isLeave) {
+                const leaveKey = `srcc_alert_faculty_leave_${todayIso}_${savedTeacherId}`;
+                if (!localStorage.getItem(leaveKey)) {
+                  localStorage.setItem(leaveKey, '1');
+                  triggerDeviceNotification(`🏖️ Portal Status: On Leave Today`, {
+                    body: `Prof. ${teacherObj.clean_name}, you are currently recorded on leave today on the portal. Scheduled lecture rooms are unlocked for students.`,
+                    tag: 'srcc-faculty-leave-status'
                   });
                 }
               }
+
+              // 2. Class Reminders 10-15 Min Before Each Scheduled Lecture
+              const daySched = (teacherObj.schedule && teacherObj.schedule[todayName]) || [];
+              daySched.forEach(cls => {
+                let startMins = -1;
+                if (cls.slot) {
+                  const firstPart = cls.slot.split(/to|–|-/i)[0];
+                  startMins = parseTimeToMinutes(firstPart);
+                }
+                if (startMins !== -1) {
+                  const diff = startMins - nowMinutes;
+                  if (diff >= 0 && diff <= leadMins) {
+                    const roomStr = cls.room || 'Room TBD';
+                    const subName = cls.subject || 'Lecture';
+                    const secStr = [cls.course, cls.semester, cls.section, cls.batch].filter(Boolean).join(' ');
+                    const notifKey = `srcc_alert_prof_${todayIso}_${cls.slot}_${roomStr}_${subName}`;
+
+                    if (!localStorage.getItem(notifKey)) {
+                      localStorage.setItem(notifKey, '1');
+                      const minText = diff === 0 ? 'starting right now' : `starting in ${diff} min`;
+                      triggerDeviceNotification(`📚 Lecture ${minText}: Room ${roomStr}`, {
+                        body: `${subName} with ${secStr}. Slot: ${cls.slot}. Room: ${roomStr}. Tap for full daily schedule!`,
+                        tag: `srcc-prof-lecture-${cls.slot}`
+                      });
+                    }
+                  }
+                }
+              });
             }
+          } else {
+            // ===========================================================
+            // ROLE: STUDENT TIMETABLE CLASS & LEAVE ALERTS
+            // ===========================================================
+            const myCourse = localStorage.getItem('srcc_my_tt_course') || 'B.Com (Hons)';
+            const mySem = localStorage.getItem('srcc_my_tt_sem') || 'Sem I';
+            const mySec = localStorage.getItem('srcc_my_tt_sec') || 'Sec A';
+
+            // Get student's verified classes today using getClassesForParameters
+            const todayClasses = (typeof getClassesForParameters === 'function')
+              ? getClassesForParameters(todayName, mySem, myCourse, 'ALL', mySec)
+              : [];
+            const mergedClasses = (typeof mergeConsecutiveSessions === 'function')
+              ? mergeConsecutiveSessions(todayClasses)
+              : todayClasses;
+
+            // Build quick lookup for faculty leaves active today
+            const todayLeaves = (typeof getActiveTodayLeaves === 'function') ? getActiveTodayLeaves() : [];
+            const leaveProfMap = {};
+            todayLeaves.forEach(l => {
+              if (l.teacher_id) leaveProfMap[String(l.teacher_id)] = l;
+              if (l.teacher_name) leaveProfMap[l.teacher_name.trim().toLowerCase()] = l;
+            });
+
+            function checkTeacherLeave(cls) {
+              if (cls.teacherId && leaveProfMap[String(cls.teacherId)]) return leaveProfMap[String(cls.teacherId)];
+              if (cls.teacher && leaveProfMap[cls.teacher.trim().toLowerCase()]) return leaveProfMap[cls.teacher.trim().toLowerCase()];
+              return null;
+            }
+
+            // A. TEACHER ON LEAVE ALERT (Alert for any faculty of this section on leave today)
+            mergedClasses.forEach(cls => {
+              const leave = checkTeacherLeave(cls);
+              if (leave) {
+                const tId = cls.teacherId || cls.teacher || 'faculty';
+                const leaveNotifKey = `srcc_alert_leave_today_${todayIso}_${tId}_${cls.subject}`;
+                if (!localStorage.getItem(leaveNotifKey)) {
+                  localStorage.setItem(leaveNotifKey, '1');
+                  const tName = cls.teacher || 'Faculty';
+                  const sub = cls.subject || 'Class';
+                  const slot = cls.slot || `${cls.startTime || ''} to ${cls.endTime || ''}`.trim();
+                  triggerDeviceNotification(`⚠️ Teacher on Leave Today: Prof. ${tName}`, {
+                    body: `Prof. ${tName} is marked on leave today. Your ${sub} lecture (${slot}) in Room ${cls.room} is free for self-study / GD!`,
+                    tag: `srcc-class-leave-${tId}`
+                  });
+                }
+              }
+            });
+
+            // B. 10 MINUTES BEFORE CLASS ALERT (Window: 0 to 12 minutes before lecture start)
+            mergedClasses.forEach(cls => {
+              const startMins = parseTimeToMinutes(cls.startTime);
+              if (startMins !== -1) {
+                const diff = startMins - nowMinutes;
+                if (diff >= 0 && diff <= 12) {
+                  const subName = cls.subject || 'Class';
+                  const roomNo = cls.room || 'Room';
+                  const tName = cls.teacher || 'Faculty';
+                  const notifKey = `srcc_alert_10m_${todayIso}_${cls.startTime}_${subName}`;
+
+                  if (!localStorage.getItem(notifKey)) {
+                    localStorage.setItem(notifKey, '1');
+                    const leave = checkTeacherLeave(cls);
+                    if (leave) {
+                      triggerDeviceNotification(`🚨 Class Free / Teacher on Leave: ${subName}`, {
+                        body: `Prof. ${tName} is on leave today. Your ${subName} (${cls.slot || cls.startTime}) is free. Room ${roomNo} is vacant for GD!`,
+                        tag: `srcc-class-leave-${cls.startTime}`
+                      });
+                    } else {
+                      const minText = diff === 0 ? 'starting right now' : `starting in ${diff} min`;
+                      triggerDeviceNotification(`📚 Class ${minText}: ${subName}`, {
+                        body: `Room ${roomNo} · Prof. ${tName} (${cls.slot || cls.startTime}). Tap to view full timetable!`,
+                        tag: `srcc-class-10m-${cls.startTime}`
+                      });
+                    }
+                  }
+                }
+              }
+            });
           }
         }
 
@@ -8958,28 +9231,31 @@ window.SRCC_FACULTY_LEAVES = {
         }
       }
 
-      // 1. Notification Opt-in Prompt Banner (Shows for users when alerts are not yet granted)
-      const isNotifGranted = ('Notification' in window && Notification.permission === 'granted');
-      if (isNotifGranted) {
-        if (banner) banner.style.display = 'none';
-        window._isNotifBannerActive = false;
-        registerDeviceWebPushSubscription();
-        const todayActive = getActiveTodayLeaves();
-        notifyFacultyLeaves(todayActive, false);
-      } else {
-        setTimeout(() => {
-          if (banner && (!installModal || installModal.style.display !== 'flex')) {
+      // 1. Notification Opt-in Prompt Banner (Reliably shows for users who have not subscribed)
+      function evaluateBannerDisplay() {
+        const isNotifGranted = ('Notification' in window && Notification.permission === 'granted');
+        if (isNotifGranted) {
+          if (banner) banner.style.display = 'none';
+          window._isNotifBannerActive = false;
+          registerDeviceWebPushSubscription();
+          const todayActive = getActiveTodayLeaves();
+          notifyFacultyLeaves(todayActive, false);
+        } else {
+          // If not subscribed/granted, display banner to ensure student/teacher sees subscription prompt
+          if (banner) {
             banner.style.display = 'block';
             window._isNotifBannerActive = true;
           }
-        }, 400);
+        }
       }
+      setTimeout(evaluateBannerDisplay, 400);
 
       if (btnAllow) {
         btnAllow.addEventListener('click', async () => {
           if (banner) banner.style.display = 'none';
           window._isNotifBannerActive = false;
           await requestLeavePermission();
+          if (typeof updateClassNotifUi === 'function') updateClassNotifUi();
           if (typeof window._triggerDeferredPwaPrompt === 'function') {
             window._triggerDeferredPwaPrompt(6000);
           }
@@ -8990,7 +9266,7 @@ window.SRCC_FACULTY_LEAVES = {
         btnDismiss.addEventListener('click', () => {
           if (banner) banner.style.display = 'none';
           window._isNotifBannerActive = false;
-          sessionStorage.setItem('srcc_notif_session_dismissed', '1');
+          sessionStorage.setItem('srcc_notif_session_dismissed', String(Date.now()));
           if (typeof window._triggerDeferredPwaPrompt === 'function') {
             window._triggerDeferredPwaPrompt(6000);
           }
@@ -10538,6 +10814,271 @@ window.SRCC_FACULTY_LEAVES = {
           }
         });
       }
+
+      // Drawer App Demo & Guided Feature Tour trigger
+      const drawerNavTour = document.getElementById('drawerNavTour');
+      if (drawerNavTour) {
+        drawerNavTour.addEventListener('click', () => {
+          closeCampusDrawer();
+          if (typeof window._openAppTour === 'function') {
+            window._openAppTour(0);
+          }
+        });
+      }
+    }
+
+    // ========================================================================
+    // ✨ FIRST-TIME ONBOARDING & INTERACTIVE APP DEMO FEATURE TOUR
+    // ========================================================================
+    function initAppTour() {
+      const tourModal = document.getElementById('appTourModal');
+      const tourBody = document.getElementById('tourModalBody');
+      const stepBadge = document.getElementById('tourStepBadge');
+      const dotsContainer = document.getElementById('tourDotsContainer');
+      const btnClose = document.getElementById('btnTourClose');
+      const btnSkip = document.getElementById('btnTourSkip');
+      const btnPrev = document.getElementById('btnTourPrev');
+      const btnNext = document.getElementById('btnTourNext');
+
+      if (!tourModal || !tourBody) return;
+
+      const TOUR_STORAGE_KEY = 'srcc_first_visit_tour_v1';
+      let currentTourStep = 0;
+
+      const tourSteps = [
+        {
+          step: 1,
+          category: 'Real-Time Vacancy Finder',
+          icon: '🏛️',
+          iconBg: 'linear-gradient(135deg, rgba(37, 99, 235, 0.16), rgba(30, 58, 138, 0.22))',
+          title: 'Vacant Classrooms & GD Finder',
+          locationTag: 'Top Navigation Bar ➔ 🏛️ Classrooms Tab',
+          locationHint: 'Browse 50+ classrooms across Main, PB, and SCR wings',
+          features: [
+            { icon: '🏛️', bold: 'Wing Filters:', text: 'Switch between Main Heritage Wing, Principal Bungalow (PB), and Sports Complex (SCR).' },
+            { icon: '⚡', bold: 'Free Right Now Quick-Toggle:', text: 'Tap the ⚡ lightning pill to instantly filter only 100% empty rooms right this minute for self-study or GD.' },
+            { icon: '📅', bold: 'Period Timetables & Reminders:', text: 'Click any classroom card for full period schedule, faculty leave alerts, and 1-click Google/Apple calendar export.' }
+          ],
+          actionText: '👀 View Classrooms Tab Live',
+          actionHandler: () => {
+            closeAppTour(false);
+            setAppMode('rooms');
+          }
+        },
+        {
+          step: 2,
+          category: 'Batch & Section Academics',
+          icon: '📅',
+          iconBg: 'linear-gradient(135deg, rgba(16, 185, 129, 0.16), rgba(5, 150, 105, 0.22))',
+          title: 'Daily Batch Timetable & Pinning',
+          locationTag: 'Top Navigation Bar ➔ 📅 Batch Timetable Tab',
+          locationHint: 'Select Course, Semester & Section for full daily schedule',
+          features: [
+            { icon: '🎓', bold: 'All Degree Courses & Sections:', text: 'Filter B.Com (Hons), B.A. (Hons) Economics, M.Com, and GBO across Semesters II, IV & VI.' },
+            { icon: '⭐', bold: 'Pin "Mere Batch Ka Schedule":', text: 'Click "Pin This Batch" once. Your exact section schedule will load first every time you open the app!' },
+            { icon: '🕒', bold: 'Subject Codes & Room Numbers:', text: 'See exact classroom codes, teacher names, and live faculty leave status for every lecture.' }
+          ],
+          actionText: '🗓️ Switch to Batch Timetable',
+          actionHandler: () => {
+            closeAppTour(false);
+            setAppMode('timetable');
+          }
+        },
+        {
+          step: 3,
+          category: 'Prior Class Notifications',
+          icon: '🔔',
+          iconBg: 'linear-gradient(135deg, rgba(59, 130, 246, 0.16), rgba(29, 78, 216, 0.22))',
+          title: '10-Minute Class & Faculty Alerts',
+          locationTag: 'Header Bell 🔔 or Campus Menu ➔ 10-Min Class Alerts',
+          locationHint: 'Proactive reminders sent directly to your phone or laptop',
+          features: [
+            { icon: '⏰', bold: 'Dual-Mode System:', text: 'Choose "🎓 I am a Student" (pinned to your batch) or "👨‍🏫 I am a Faculty" (for professors).' },
+            { icon: '📢', bold: 'Prior Device Alerts with Room No.:', text: 'Receive sound & vibration reminders 5-15 mins before lecture with verified Room No.' },
+            { icon: '🚨', bold: 'Instant Teacher Leave Warnings:', text: 'Get alerted immediately if your scheduled professor is on leave so you never arrive at an empty classroom.' }
+          ],
+          actionText: '⚙️ Open 10-Min Alerts Settings',
+          actionHandler: () => {
+            closeAppTour(false);
+            if (typeof openClassNotifModal === 'function') openClassNotifModal();
+          }
+        },
+        {
+          step: 4,
+          category: 'Faculty Directory & Contact',
+          icon: '👨‍🏫',
+          iconBg: 'linear-gradient(135deg, rgba(245, 158, 11, 0.16), rgba(217, 119, 6, 0.22))',
+          title: 'Faculty Directory & Live Leave Status',
+          locationTag: 'Top Navigation Bar ➔ 👨‍🏫 Faculty Tab',
+          locationHint: '130+ verified SRCC professors and academic departments',
+          features: [
+            { icon: '🔍', bold: 'Search 130+ Teachers:', text: 'Instant search by professor name, department (Commerce, Economics, Maths, etc.), or short code.' },
+            { icon: '📍', bold: 'Active Teaching Room Right Now:', text: 'See which classroom a professor is currently lecturing in, or their next upcoming period.' },
+            { icon: '✉️', bold: 'Verified DU Emails & Leave Tracker:', text: 'One-tap copy of verified @srcc.du.ac.in emails and live view of professors on sanctioned leave.' }
+          ],
+          actionText: '👨‍🏫 Browse Faculty Directory',
+          actionHandler: () => {
+            closeAppTour(false);
+            setAppMode('faculty');
+          }
+        },
+        {
+          step: 5,
+          category: 'Campus Central Hub',
+          icon: '📢',
+          iconBg: 'linear-gradient(135deg, rgba(239, 68, 68, 0.16), rgba(185, 28, 28, 0.22))',
+          title: 'Official SRCC Circulars & Exam Codes',
+          locationTag: 'Top-Left ☰ Campus Hub Menu Button',
+          locationHint: 'Official college circulars, exam forms & offline resources',
+          features: [
+            { icon: '📰', bold: '430+ Official College Circulars:', text: 'Synced directly with srcc.edu for admission notices, exam guidelines, and fee deadlines.' },
+            { icon: '📖', bold: 'DU NEP Exam Paper Codes (UPC):', text: 'Search 8-digit Unique Paper Codes (UPC) and official syllabi for semester exam forms.' },
+            { icon: '📘', bold: 'Offline PDF Manual & Campus WiFi:', text: 'Download the complete illustrated User Guide PDF or check campus WiFi connectivity credentials.' }
+          ],
+          actionText: '☰ Open Campus Hub Menu',
+          actionHandler: () => {
+            closeAppTour(false);
+            if (typeof openCampusDrawer === 'function') openCampusDrawer();
+            else if (typeof window._openCampusDrawer === 'function') window._openCampusDrawer();
+          }
+        }
+      ];
+
+      function renderTourStep(index) {
+        currentTourStep = Math.max(0, Math.min(index, tourSteps.length - 1));
+        const s = tourSteps[currentTourStep];
+
+        // Step badge & dots
+        if (stepBadge) stepBadge.textContent = `Step ${currentTourStep + 1} of ${tourSteps.length}`;
+        if (dotsContainer) {
+          dotsContainer.querySelectorAll('.tour-dot').forEach((dot, idx) => {
+            dot.classList.toggle('active', idx === currentTourStep);
+          });
+        }
+
+        // Render body
+        const featuresHtml = s.features.map(f => `
+          <li class="tour-feature-item">
+            <span class="tour-feature-bullet">${f.icon}</span>
+            <div><strong>${escapeHtml(f.bold)}</strong> ${escapeHtml(f.text)}</div>
+          </li>
+        `).join('');
+
+        tourBody.innerHTML = `
+          <div class="tour-hero-block">
+            <div class="tour-icon-circle" style="background: ${s.iconBg};">
+              ${s.icon}
+            </div>
+            <div class="tour-title-wrap">
+              <span class="tour-category-tag">${escapeHtml(s.category)}</span>
+              <h3 class="tour-step-title" id="tourStepTitle">${escapeHtml(s.title)}</h3>
+            </div>
+          </div>
+
+          <div class="tour-nav-location-box">
+            <span class="tour-nav-location-icon">📍</span>
+            <div class="tour-nav-location-text">
+              <strong>How to Navigate: ${escapeHtml(s.locationTag)}</strong>
+              <div style="font-size: 0.76rem; color: var(--text-muted); margin-top: 2px;">${escapeHtml(s.locationHint)}</div>
+            </div>
+          </div>
+
+          <ul class="tour-feature-list">
+            ${featuresHtml}
+          </ul>
+
+          <div class="tour-action-row">
+            <button type="button" class="btn-tour-jump" id="btnTourJumpAction">
+              ${s.actionText} ➔
+            </button>
+          </div>
+        `;
+
+        const jumpBtn = document.getElementById('btnTourJumpAction');
+        if (jumpBtn && typeof s.actionHandler === 'function') {
+          jumpBtn.addEventListener('click', s.actionHandler);
+        }
+
+        // Update navigation buttons
+        if (btnPrev) {
+          btnPrev.style.display = currentTourStep === 0 ? 'none' : 'inline-flex';
+        }
+        if (btnNext) {
+          const isLast = (currentTourStep === tourSteps.length - 1);
+          if (isLast) {
+            btnNext.textContent = '🎉 Explore Portal!';
+            btnNext.classList.add('btn-tour-finish');
+          } else {
+            btnNext.textContent = 'Next →';
+            btnNext.classList.remove('btn-tour-finish');
+          }
+        }
+      }
+
+      function openAppTour(startIndex = 0) {
+        renderTourStep(startIndex);
+        openAppModal(tourModal);
+      }
+      window._openAppTour = openAppTour;
+
+      function closeAppTour(markSeen = true) {
+        closeAppModal(tourModal);
+        if (markSeen) {
+          try {
+            localStorage.setItem(TOUR_STORAGE_KEY, 'true');
+          } catch (e) {}
+        }
+      }
+
+      // Button listeners
+      if (btnNext) {
+        btnNext.addEventListener('click', () => {
+          if (currentTourStep < tourSteps.length - 1) {
+            renderTourStep(currentTourStep + 1);
+          } else {
+            closeAppTour(true);
+            showToast('✨ Welcome to SRCC Smart Campus Portal! Enjoy exploring.');
+          }
+        });
+      }
+
+      if (btnPrev) {
+        btnPrev.addEventListener('click', () => {
+          if (currentTourStep > 0) {
+            renderTourStep(currentTourStep - 1);
+          }
+        });
+      }
+
+      if (btnSkip) {
+        btnSkip.addEventListener('click', () => {
+          closeAppTour(true);
+          showToast('💡 You can re-open the App Demo anytime from the ☰ menu.');
+        });
+      }
+
+      if (btnClose) {
+        btnClose.addEventListener('click', () => closeAppTour(true));
+      }
+
+      if (tourModal) {
+        tourModal.addEventListener('click', (e) => {
+          if (e.target === tourModal) closeAppTour(true);
+        });
+      }
+
+      // Auto-trigger on first app visit (after 900ms delay)
+      try {
+        const hasVisited = localStorage.getItem(TOUR_STORAGE_KEY);
+        if (!hasVisited) {
+          setTimeout(() => {
+            // Only trigger if user hasn't already opened another deep-link modal
+            if (!getCurrentlyOpenModal()) {
+              openAppTour(0);
+            }
+          }, 900);
+        }
+      } catch (e) {}
     }
 
     // ========================================================================
@@ -10551,6 +11092,7 @@ window.SRCC_FACULTY_LEAVES = {
     initCollegeNoticesFeature();
     initExamCodesFeature();
     initCampusDrawer();
+    initAppTour();
     initWifiDirectory();
     trackStudentVisitor();
     initLeaveNotificationSystem();

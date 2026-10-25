@@ -93,14 +93,26 @@ def fetch_live_notices():
     print(f"[*] Fetching live announcements from {url}...")
     req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'})
     try:
-        html = urllib.request.urlopen(req, timeout=20).read().decode('utf-8', errors='ignore')
+        html_content = urllib.request.urlopen(req, timeout=20).read().decode('utf-8', errors='ignore')
     except Exception as e:
         print(f"[!] Warning: Could not fetch announcements: {e}")
         return []
 
-    parser = NoticeLinkParser()
-    parser.feed(html)
-    return parser.links
+    pattern = re.compile(
+        r'<div class="announcementtime">\s*([^<]+)\s*</div>\s*<div class="annoncementList">\s*<a href="([^"]+)"[^>]*>\s*([^<]+)\s*</a>',
+        re.IGNORECASE
+    )
+    items = []
+    for m in pattern.finditer(html_content):
+        date_str = re.sub(r'\s+', ' ', m.group(1)).strip()
+        href = m.group(2).strip()
+        text = re.sub(r'\s+', ' ', m.group(3)).strip()
+        if href.startswith('/'):
+            href = 'https://www.srcc.edu' + href
+        elif not href.startswith('http'):
+            href = 'https://www.srcc.edu/' + href
+        items.append({'title': text, 'link': href, 'date': date_str})
+    return items
 
 def main():
     live_items = fetch_live_notices()
@@ -135,14 +147,14 @@ def main():
         if ext not in ['pdf', 'png', 'jpg', 'jpeg', 'docx', 'xlsx']:
             ext = 'pdf' if 'pdf' in link.lower() else 'link'
 
-        now_str = datetime.now().strftime('%d %b %Y')
+        notice_date = item.get('date') or datetime.now().strftime('%d %b %Y')
         new_notice = {
             "id": f"srcc-notice-{len(existing_data.get('notices', [])) + len(new_notices) + 1}",
             "title": title,
             "category": cat,
             "link": link,
             "link_type": ext,
-            "date": now_str,
+            "date": notice_date,
             "deadline": dl_val,
             "deadline_label": dl_label,
             "has_deadline": has_dl,

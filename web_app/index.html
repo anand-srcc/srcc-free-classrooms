@@ -96,22 +96,19 @@
     </div>
   </header>
 
-  <!-- One-Time Campus Notification Opt-in Prompt Banner -->
+  <!-- Campus Notification Subscription Opt-in Prompt Banner -->
   <aside id="leaveNotificationPromptBanner" class="leave-notif-banner" style="display: none;" role="region" aria-label="Campus Notifications">
     <div class="leave-notif-banner-content">
-      <div class="leave-notif-icon-col">
-        <svg class="leave-notif-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-          <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-        </svg>
+      <div class="leave-notif-icon-col" style="background: rgba(37, 99, 235, 0.2); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;">
+        🔔
       </div>
       <div class="leave-notif-text">
-        <strong>Campus Notifications</strong>
-        <span>Enable real-time updates for classroom vacancies and schedule changes.</span>
+        <strong style="color: #60a5fa; display: flex; align-items: center; gap: 6px;">Subscribe to Class &amp; Notice Alerts</strong>
+        <span>Get reminders 10 min before lectures with Room No. and official SRCC notice deadlines!</span>
       </div>
       <div class="leave-notif-actions">
-        <button id="btnAllowLeaveNotif" class="btn-notif-allow" type="button">Enable Alerts</button>
-        <button id="btnDismissLeaveNotif" class="btn-notif-dismiss" type="button" aria-label="Dismiss">Not Now</button>
+        <button id="btnAllowLeaveNotif" class="btn-notif-allow" type="button" style="background: #2563eb; color: #fff; font-weight: 700; border-radius: 8px; padding: 7px 15px; border: none; cursor: pointer; box-shadow: 0 2px 8px rgba(37,99,235,0.4); font-size: 0.85rem;">🔔 Subscribe Now</button>
+        <button id="btnDismissLeaveNotif" class="btn-notif-dismiss" type="button" aria-label="Dismiss" style="background: transparent; color: #94a3b8; border: 1px solid #475569; border-radius: 8px; padding: 7px 12px; cursor: pointer; font-size: 0.82rem;">Not Now</button>
       </div>
     </div>
   </aside>
@@ -594,7 +591,7 @@
       <div class="tt-action-bar" style="border-bottom: none; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
         <div class="tt-action-title" style="display: flex; align-items: center; gap: 8px;">
           <span style="font-size: 1.3rem;">📢</span>
-          <span>College Notices &amp; Circulars</span>
+          <span>SRCC Notices</span>
         </div>
         <div class="faculty-action-leaves-wrap" style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
           <a href="https://www.srcc.edu/announcements" target="_blank" rel="noopener noreferrer" class="tt-live-pill" style="background: rgba(14, 165, 233, 0.12); color: #0284c7; border-color: rgba(14, 165, 233, 0.3); text-decoration: none; display: inline-flex; align-items: center; gap: 4px; font-weight: 700;">
@@ -1042,8 +1039,8 @@
             📢
           </div>
           <div class="drawer-nav-text">
-            <div class="drawer-nav-name">College Notices &amp; Circulars</div>
-            <div class="drawer-nav-desc">All official university circulars, forms &amp; deadlines</div>
+            <div class="drawer-nav-name">SRCC Notices</div>
+            <div class="drawer-nav-desc">Official circulars, exam forms &amp; deadlines</div>
           </div>
           <div class="drawer-badges-stack">
             <span class="drawer-badge-pulse" id="drawerNoticesBadge">430 New</span>
@@ -1058,8 +1055,8 @@
               📖
             </div>
             <div class="drawer-nav-text">
-              <div class="drawer-nav-name">DU Exam Codes &amp; Syllabi</div>
-              <div class="drawer-nav-desc">Direct UPCs, B.Com (H), Eco (H), SEC &amp; VAC</div>
+              <div class="drawer-nav-name">DU Exam Codes</div>
+              <div class="drawer-nav-desc">NEP / UGCF unique paper codes &amp; syllabi</div>
             </div>
             <div class="drawer-badges-stack">
               <span class="drawer-badge-pulse" style="background: #0284c7;" id="drawerExamCodesBadge">Official ↗</span>
@@ -1067,19 +1064,47 @@
           </button>
         </div>
 
-        <!-- 🔔 Save Class Timetable for Notifications -->
+        <!-- 🔔 10-Min Class Alerts Entry -->
         <button class="drawer-nav-item drawer-nav-classnotif" id="drawerNavClassNotif">
           <div class="drawer-nav-icon-wrap" style="background: rgba(37, 99, 235, 0.12); color: #2563eb;">
             🔔
           </div>
           <div class="drawer-nav-text">
-            <div class="drawer-nav-name">Save Class Timetable for Notification</div>
-            <div class="drawer-nav-desc">10-min alerts with Room No. &amp; teacher leave updates</div>
+            <div class="drawer-nav-name">10-Min Class Alerts</div>
+            <div class="drawer-nav-desc">Room reminders for Students &amp; Faculty</div>
           </div>
           <div class="drawer-badges-stack">
             <span class="drawer-badge-pulse" style="background: #2563eb;" id="drawerClassNotifBadge">Active</span>
           </div>
         </button>
+
+        <!-- 💡 App Demo & Interactive Feature Tour -->
+        <button class="drawer-nav-item drawer-nav-tour" id="drawerNavTour" type="button">
+          <div class="drawer-nav-icon-wrap" style="background: rgba(245, 158, 11, 0.14); color: #d97706;">
+            💡
+          </div>
+          <div class="drawer-nav-text">
+            <div class="drawer-nav-name">App Demo &amp; Tour</div>
+            <div class="drawer-nav-desc">Interactive guide &amp; key feature navigation</div>
+          </div>
+          <div class="drawer-badges-stack">
+            <span class="drawer-badge-pulse" style="background: #d97706;" id="drawerTourBadge">Guide ✦</span>
+          </div>
+        </button>
+
+        <!-- 📘 Student User Manual (PDF Guide) -->
+        <a href="SRCC-Free-Classrooms-User-Manual.pdf" target="_blank" rel="noopener noreferrer" class="drawer-nav-item drawer-nav-manual" id="drawerNavManual" style="text-decoration: none; color: inherit;">
+          <div class="drawer-nav-icon-wrap" style="background: rgba(16, 185, 129, 0.12); color: #059669;">
+            📘
+          </div>
+          <div class="drawer-nav-text">
+            <div class="drawer-nav-name">User Manual (PDF)</div>
+            <div class="drawer-nav-desc">Illustrated portal guide &amp; offline copy</div>
+          </div>
+          <div class="drawer-badges-stack">
+            <span class="drawer-badge-pulse" style="background: #059669;" id="drawerManualBadge">v2.0 PDF ↗</span>
+          </div>
+        </a>
       </div>
 
       <div class="campus-drawer-footer">
@@ -1091,7 +1116,7 @@
     </aside>
   </div>
 
-  <!-- 🔔 Save Class Timetable for Notifications Modal -->
+  <!-- 🔔 10-Minute Class Alerts Modal (Students & Faculty) -->
   <div class="modal-overlay" id="classNotifModal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="classNotifModalTitle">
     <div class="modal-card class-notif-modal-card">
       <div class="class-notif-modal-header" style="background: linear-gradient(135deg, #1e3a8a, #000066); padding: 18px 18px 16px; color: #ffffff; position: relative; flex-shrink: 0;">
@@ -1102,10 +1127,10 @@
           </div>
           <div style="padding-right: 28px;">
             <h3 id="classNotifModalTitle" style="margin: 0; font-size: 1.1rem; font-family: var(--font-display); font-weight: 800; color: #ffffff; line-height: 1.25;">
-              Save Class Timetable for Notification
+              10-Minute Class Alerts
             </h3>
             <span id="classNotifModalSub" style="font-size: 0.76rem; color: #bfdbfe; font-weight: 500;">
-              10-min alerts with Room No. &amp; teacher leave updates
+              Lecture &amp; room reminders for Students and Teachers
             </span>
           </div>
         </div>
@@ -1116,7 +1141,7 @@
             <div style="font-weight: 700; font-size: 0.92rem; color: var(--text-primary); display: flex; align-items: center; gap: 6px;">
               <span>⏰</span> Automatic Reminders
             </div>
-            <div style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 2px;">10 minutes before every class</div>
+            <div style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 2px;">Device alerts before every lecture</div>
           </div>
           <button type="button" class="btn-tt-notif-toggle" id="btnToggleClassAlerts" role="switch" aria-checked="true" title="Turn alerts ON / OFF">
             <span class="tt-toggle-track"><span class="tt-toggle-thumb"></span></span>
@@ -1124,7 +1149,18 @@
           </button>
         </div>
 
-        <div class="class-notif-fields-grid" style="display: flex; flex-direction: column; gap: 12px;">
+        <!-- Role Selector (Student vs Faculty / Teacher) -->
+        <div class="notif-role-picker" style="display: flex; gap: 8px; margin: 12px 0 16px; background: var(--bg-hover, #f1f5f9); padding: 4px; border-radius: 10px;">
+          <button type="button" class="btn-notif-role active" id="btnRoleStudent" style="flex: 1; padding: 8px 12px; border-radius: 8px; border: none; font-weight: 700; font-size: 0.86rem; cursor: pointer; transition: all 0.2s;">
+            🎓 I am a Student
+          </button>
+          <button type="button" class="btn-notif-role" id="btnRoleFaculty" style="flex: 1; padding: 8px 12px; border-radius: 8px; border: none; font-weight: 700; font-size: 0.86rem; cursor: pointer; transition: all 0.2s;">
+            👨‍🏫 I am a Faculty
+          </button>
+        </div>
+
+        <!-- 1. Student Configuration Fields -->
+        <div id="notifStudentFields" class="class-notif-fields-grid" style="display: flex; flex-direction: column; gap: 12px;">
           <div class="tt-notif-form-field">
             <label for="notifCourseSelect" style="display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.82rem; margin-bottom: 5px; color: var(--text-secondary);">
               <span>📚</span> Course:
@@ -1161,11 +1197,42 @@
               </select>
             </div>
           </div>
+          <p id="studentNotifDesc" style="font-size: 0.78rem; color: var(--text-muted); margin: 2px 0 0; line-height: 1.4;">
+            Automatic notifications 10 min before every lecture with Room No. and instant teacher leave notifications.
+          </p>
         </div>
 
-        <div class="class-notif-save-wrap" style="margin-top: 20px; padding-bottom: 4px;">
-          <button type="button" class="btn-tt-save-class" id="btnSaveClassAlerts" style="width: 100%; padding: 13px 18px; font-size: 0.96rem; font-weight: 700; justify-content: center; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 14px rgba(37,99,235,0.35); background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #ffffff; border: none; display: flex; align-items: center; gap: 8px;">
-            <span>💾</span> <span>Save Class Timetable</span>
+        <!-- 2. Faculty / Teacher Configuration Fields (Initially Hidden) -->
+        <div id="notifFacultyFields" class="class-notif-fields-grid" style="display: none; flex-direction: column; gap: 12px;">
+          <div class="tt-notif-form-field">
+            <label for="notifTeacherSelect" style="display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.82rem; margin-bottom: 5px; color: var(--text-secondary);">
+              <span>👨‍🏫</span> Select Your Name (Faculty):
+            </label>
+            <div class="tt-select-wrapper">
+              <select id="notifTeacherSelect" class="tt-notif-input">
+                <option value="">-- Choose Professor / Faculty --</option>
+              </select>
+            </div>
+          </div>
+          <div class="tt-notif-form-field">
+            <label for="notifLeadTimeSelect" style="display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.82rem; margin-bottom: 5px; color: var(--text-secondary);">
+              <span>⏱️</span> Alert Notification Timing:
+            </label>
+            <div class="tt-select-wrapper">
+              <select id="notifLeadTimeSelect" class="tt-notif-input">
+                <option value="10">10 minutes before class</option>
+                <option value="15" selected>15 minutes before class</option>
+              </select>
+            </div>
+          </div>
+          <p id="facultyNotifDesc" style="font-size: 0.78rem; color: var(--text-muted); margin: 2px 0 0; line-height: 1.4;">
+            Automatic notifications 10–15 min before every scheduled lecture with your Room No., Course, Semester &amp; Section.
+          </p>
+        </div>
+
+        <div class="class-notif-save-wrap" style="margin-top: 18px; padding-bottom: 4px;">
+          <button type="button" class="btn-tt-save-class" id="btnSaveClassAlerts" style="width: 100%; padding: 13px 18px; font-size: 0.95rem; font-weight: 700; justify-content: center; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 14px rgba(37,99,235,0.35); background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #ffffff; border: none; display: flex; align-items: center; gap: 8px;">
+            <span>💾</span> <span id="btnSaveAlertsText">Save &amp; Activate 10-Min Alerts</span>
           </button>
         </div>
       </div>
@@ -1445,15 +1512,51 @@
     </div>
   </div>
 
+  <!-- ====================================================================
+       INTERACTIVE APP DEMO & GUIDED FEATURE TOUR MODAL
+       ==================================================================== -->
+  <div class="modal-overlay" id="appTourModal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="tourStepTitle">
+    <div class="modal-card tour-modal-card">
+      <!-- Tour Header -->
+      <div class="tour-modal-header">
+        <div class="tour-step-indicator">
+          <span class="tour-step-badge" id="tourStepBadge">Step 1 of 5</span>
+          <div class="tour-dots-wrapper" id="tourDotsContainer">
+            <span class="tour-dot active"></span>
+            <span class="tour-dot"></span>
+            <span class="tour-dot"></span>
+            <span class="tour-dot"></span>
+            <span class="tour-dot"></span>
+          </div>
+        </div>
+        <button type="button" class="modal-close" id="btnTourClose" aria-label="Close tour">✕</button>
+      </div>
+
+      <!-- Tour Content Body -->
+      <div class="tour-modal-body" id="tourModalBody">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <!-- Tour Navigation Footer -->
+      <div class="tour-modal-footer">
+        <button type="button" class="btn-tour-nav btn-tour-skip" id="btnTourSkip">Skip Tour</button>
+        <div class="tour-footer-right">
+          <button type="button" class="btn-tour-nav btn-tour-prev" id="btnTourPrev" style="display: none;">← Back</button>
+          <button type="button" class="btn-tour-nav btn-tour-next" id="btnTourNext">Next →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Scripts -->
-  <script src="data.js?v=91"></script>
-  <script src="college_notices.js?v=91"></script>
-  <script src="exam_codes_data.js?v=91"></script>
-  <script src="wifi_data.js?v=91"></script>
-  <script src="cloud_config.js?v=91"></script>
-  <script src="faculty_leaves.js?v=91"></script>
-  <script src="teachers_data.js?v=91"></script>
-  <script src="classes_data.js?v=91"></script>
-  <script src="app.js?v=92"></script>
+  <script src="data.js?v=93"></script>
+  <script src="college_notices.js?v=93"></script>
+  <script src="exam_codes_data.js?v=93"></script>
+  <script src="wifi_data.js?v=93"></script>
+  <script src="cloud_config.js?v=93"></script>
+  <script src="faculty_leaves.js?v=93"></script>
+  <script src="teachers_data.js?v=93"></script>
+  <script src="classes_data.js?v=93"></script>
+  <script src="app.js?v=93"></script>
 </body>
 </html>

@@ -1159,10 +1159,10 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--bg-card);
+  background: rgba(15, 23, 42, 0.65);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  z-index: 200;
+  z-index: 2500 !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9978,10 +9978,13 @@ body.dark-mode .notices-pill-count {
 }
 
 .drawer-nav-name {
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   font-weight: 700;
   color: var(--text-primary);
   line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .drawer-nav-desc {
@@ -11255,6 +11258,43 @@ body.dark-mode .deadline-days-badge.past {
   }
 }
 
+.notif-role-picker {
+  display: flex;
+  gap: 8px;
+  background: var(--bg-input, #f1f5f9);
+  padding: 4px;
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle, #e2e8f0);
+}
+
+.btn-notif-role {
+  flex: 1;
+  padding: 9px 12px;
+  border-radius: 9px;
+  border: none;
+  font-weight: 700;
+  font-size: 0.86rem;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-secondary, #64748b);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn-notif-role:hover {
+  color: var(--text-primary);
+}
+
+.btn-notif-role.active {
+  background: var(--bg-card, #ffffff);
+  color: var(--brand-blue, #1d4ed8);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+
 /* ==========================================================================
    DU Exam Codes Official Source & Discrepancy Notice Bar
    ========================================================================== */
@@ -11323,5 +11363,308 @@ body.dark-mode .deadline-days-badge.past {
 [data-theme="dark"] .examcodes-notice-badge {
   background: rgba(245, 158, 11, 0.25);
   color: #fcd34d;
+}
+
+/* ==========================================================================
+   ✨ FIRST-TIME ONBOARDING & APP DEMO FEATURE TOUR MODAL
+   ========================================================================== */
+.tour-modal-card {
+  max-width: 520px;
+  width: 94%;
+  background: var(--bg-card);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.45), 0 0 1px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-color);
+  animation: tourCardPop 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes tourCardPop {
+  0% { transform: scale(0.92) translateY(12px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.tour-modal-header {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+}
+
+.tour-step-indicator {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tour-step-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #1e3a8a, #2563eb);
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+}
+
+.tour-dots-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tour-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--border-color);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tour-dot.active {
+  width: 22px;
+  background: #2563eb;
+  border-radius: 9999px;
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.4);
+}
+
+.tour-modal-body {
+  padding: 22px 24px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 330px;
+  box-sizing: border-box;
+}
+
+.tour-hero-block {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.tour-icon-circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.85rem;
+  flex-shrink: 0;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(30, 58, 138, 0.15));
+  border: 1.5px solid rgba(37, 99, 235, 0.25);
+}
+
+.tour-title-wrap {
+  min-width: 0;
+  flex: 1;
+}
+
+.tour-category-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #2563eb;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: block;
+  margin-bottom: 2px;
+}
+
+[data-theme="dark"] .tour-category-tag {
+  color: #60a5fa;
+}
+
+.tour-step-title {
+  font-family: var(--font-display);
+  font-size: 1.22rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.tour-nav-location-box {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.06), rgba(245, 158, 11, 0.06));
+  border: 1.5px dashed rgba(37, 99, 235, 0.35);
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tour-nav-location-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.tour-nav-location-text {
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+.tour-nav-location-text strong {
+  color: var(--text-primary);
+  display: block;
+  font-size: 0.85rem;
+}
+
+.tour-feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tour-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+
+.tour-feature-bullet {
+  font-size: 1rem;
+  line-height: 1.3;
+  flex-shrink: 0;
+}
+
+.tour-feature-item strong {
+  color: var(--text-primary);
+}
+
+.tour-action-row {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 4px;
+}
+
+.btn-tour-jump {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-surface);
+  border: 1.5px solid var(--border-color);
+  padding: 7px 14px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-tour-jump:hover {
+  background: var(--bg-card-hover);
+  border-color: #2563eb;
+  color: #2563eb;
+  transform: translateY(-1px);
+}
+
+.tour-modal-footer {
+  padding: 14px 20px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+}
+
+.tour-footer-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-tour-nav {
+  padding: 9px 16px;
+  border-radius: 10px;
+  font-family: var(--font-display);
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-tour-skip {
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.btn-tour-skip:hover {
+  color: var(--text-primary);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.btn-tour-prev {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-tour-prev:hover {
+  background: var(--bg-card-hover);
+}
+
+.btn-tour-next {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.btn-tour-next:hover {
+  background: linear-gradient(135deg, #1d4ed8, #1e3a8a);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+}
+
+.btn-tour-finish {
+  background: linear-gradient(135deg, #059669, #047857) !important;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.35) !important;
+}
+
+.btn-tour-finish:hover {
+  background: linear-gradient(135deg, #047857, #065f46) !important;
+}
+
+@media (max-width: 520px) {
+  .tour-modal-body {
+    padding: 18px 18px 14px;
+    min-height: 310px;
+    gap: 14px;
+  }
+  .tour-icon-circle {
+    width: 48px;
+    height: 48px;
+    font-size: 1.5rem;
+  }
+  .tour-step-title {
+    font-size: 1.08rem;
+  }
+  .tour-modal-footer {
+    padding: 12px 16px;
+  }
+  .btn-tour-nav {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
 }
 

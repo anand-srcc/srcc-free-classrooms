@@ -396,6 +396,15 @@ self.addEventListener('message', (event) => {
     event.waitUntil(checkLeavesAndNotifyInBackground(true));
   }
 
+  if (event.data.type === 'UPDATE_CLASS_PREF') {
+    event.waitUntil((async () => {
+      try {
+        const cache = await caches.open(CACHE_NAME);
+        await cache.put('/__srcc_user_class_pref', new Response(JSON.stringify(event.data)));
+      } catch (err) {}
+    })());
+  }
+
   if (event.data.type === 'TEST_NOTIFICATION') {
     const basePath = self.location.pathname.substring(0, self.location.pathname.lastIndexOf('/') + 1);
     event.waitUntil(

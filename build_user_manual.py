@@ -29,7 +29,7 @@ logo_crest = to_base64_img(os.path.join(WEB_APP_DIR, "assets", "srcc_crest.png")
 if not logo_crest:
     logo_crest = to_base64_img(os.path.join(ROOT_DIR, "srcc_crest_official.png"))
 
-# Figures
+# Figures 1 to 19
 fig1 = to_base64_img(os.path.join(ASSETS_DIR, "fig1_landing_page.png"))
 fig2 = to_base64_img(os.path.join(ASSETS_DIR, "fig2_pwa_install.png"))
 fig3 = to_base64_img(os.path.join(ASSETS_DIR, "fig3_category_pb.png"))
@@ -41,27 +41,30 @@ fig8 = to_base64_img(os.path.join(ASSETS_DIR, "fig8_faculty_email.png"))
 fig9 = to_base64_img(os.path.join(ASSETS_DIR, "fig9_teacher_modal.png"))
 fig10 = to_base64_img(os.path.join(ASSETS_DIR, "fig10_leaves_modal.png"))
 fig11 = to_base64_img(os.path.join(ASSETS_DIR, "fig11_student_timetable.png"))
-fig12 = to_base64_img(os.path.join(ASSETS_DIR, "fig12_wifi_directory.png"))
-fig13 = to_base64_img(os.path.join(ASSETS_DIR, "fig13_report_issue.png"))
-fig14 = to_base64_img(os.path.join(ASSETS_DIR, "fig14_widget_preview.png"))
+fig12 = to_base64_img(os.path.join(ASSETS_DIR, "fig12_college_notices.png"))
+fig13 = to_base64_img(os.path.join(ASSETS_DIR, "fig13_notice_attachment.png"))
+fig14 = to_base64_img(os.path.join(ASSETS_DIR, "fig14_exam_codes.png"))
+fig15 = to_base64_img(os.path.join(ASSETS_DIR, "fig15_campus_drawer.png"))
+fig16 = to_base64_img(os.path.join(ASSETS_DIR, "fig16_class_notifications.png"))
+fig17 = to_base64_img(os.path.join(ASSETS_DIR, "fig17_share_modal.png"))
+fig18 = to_base64_img(os.path.join(ASSETS_DIR, "fig18_report_issue.png"))
+fig19 = to_base64_img(os.path.join(ASSETS_DIR, "fig19_widget_preview.png"))
+
+TOTAL_PAGES = 15
 
 html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SRCC Free Classroom Finder - User Manual for Students</title>
+<title>SRCC Free Classroom Finder & Student Academic Portal - User Manual</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
 
 @page {{
     size: A4 portrait;
-    margin: 18mm 20mm 20mm 20mm;
-    @top-center {{
-        content: "";
-    }}
-    @bottom-center {{
-        content: "";
-    }}
+    margin: 15mm 18mm 16mm 18mm;
+    @top-center {{ content: ""; }}
+    @bottom-center {{ content: ""; }}
 }}
 
 * {{
@@ -76,14 +79,14 @@ html, body {{
     font-family: 'Lora', 'Georgia', 'Times New Roman', serif;
     color: #1a1a1a;
     background: #ffffff;
-    font-size: 10pt;
-    line-height: 1.46;
+    font-size: 9.7pt;
+    line-height: 1.44;
 }}
 
 .page {{
     width: 100%;
-    height: 257mm;
-    max-height: 257mm;
+    height: 260mm;
+    max-height: 260mm;
     position: relative;
     page-break-after: always;
     break-after: page;
@@ -92,6 +95,7 @@ html, body {{
     justify-content: space-between;
     padding-bottom: 1.5mm;
     overflow: hidden;
+    box-sizing: border-box;
 }}
 
 .page:last-child {{
@@ -99,39 +103,31 @@ html, body {{
     break-after: avoid;
 }}
 
-/* Top running header on pages 2-12 */
+/* Top running header on pages 2-15 */
 .running-header {{
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 7.8pt;
+    font-size: 7.6pt;
     color: #4b5563;
-    padding-bottom: 2.5mm;
-    margin-bottom: 3.5mm;
-    border-bottom: 0.5px solid #d1d5db;
+    padding-bottom: 2mm;
+    margin-bottom: 3mm;
+    border-bottom: 0.5px solid #cbd5e1;
 }}
 
-.running-header .left {{
-    font-weight: 500;
-}}
-
-.running-header .center {{
-    font-weight: 500;
-}}
-
-.running-header .right {{
-    font-weight: 500;
-}}
+.running-header .left {{ font-weight: 600; color: #0f2b5c; }}
+.running-header .center {{ font-weight: 500; }}
+.running-header .right {{ font-weight: 600; color: #2563eb; }}
 
 /* Page footer */
 .page-footer {{
     text-align: center;
     font-family: 'Lora', serif;
-    font-size: 8.5pt;
-    color: #4b5563;
-    padding-top: 2.5mm;
-    border-top: 0.5px solid #e5e7eb;
+    font-size: 8.4pt;
+    color: #64748b;
+    padding-top: 2mm;
+    border-top: 0.5px solid #e2e8f0;
     margin-top: auto;
 }}
 
@@ -139,47 +135,46 @@ html, body {{
 h1, h2, h3, h4 {{
     font-family: 'Lora', 'Georgia', serif;
     color: #111827;
-    margin: 0 0 2mm 0;
+    margin: 0 0 1.8mm 0;
     font-weight: 700;
 }}
 
 .section-title {{
-    font-size: 12.5pt;
+    font-size: 12.2pt;
     font-weight: 700;
     color: #0f2b5c;
-    margin-top: 1.5mm;
-    margin-bottom: 2mm;
+    margin-top: 1.2mm;
+    margin-bottom: 1.8mm;
     letter-spacing: -0.2px;
 }}
 
 .subsection-title {{
-    font-size: 10.5pt;
+    font-size: 10.2pt;
     font-weight: 700;
     color: #1e3a8a;
-    margin-top: 2mm;
-    margin-bottom: 1.5mm;
+    margin-top: 1.8mm;
+    margin-bottom: 1.3mm;
 }}
 
 p {{
-    margin: 0 0 2mm 0;
+    margin: 0 0 1.8mm 0;
     text-align: justify;
     text-justify: inter-word;
-    font-size: 9.8pt;
-    line-height: 1.45;
+    font-size: 9.6pt;
+    line-height: 1.42;
 }}
 
 ul, ol {{
-    margin: 0 0 2mm 0;
+    margin: 0 0 1.8mm 0;
     padding-left: 5mm;
-    font-size: 9.4pt;
-    line-height: 1.4;
+    font-size: 9.2pt;
+    line-height: 1.38;
 }}
 
 li {{
-    margin-bottom: 1mm;
+    margin-bottom: 0.8mm;
 }}
 
-/* Links */
 a {{
     color: #1e40af;
     text-decoration: underline;
@@ -194,25 +189,26 @@ a {{
 .figure-box {{
     display: inline-block;
     border: 1px solid #cbd5e1;
-    border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
     overflow: hidden;
     background: #ffffff;
 }}
 
 .figure-img-single {{
     display: block;
-    width: 190px;
+    width: 250px;
     height: auto;
     max-height: 98mm;
     object-fit: contain;
+    margin: 0 auto;
 }}
 
 .figure-caption {{
     font-family: 'Lora', serif;
-    font-size: 8.6pt;
+    font-size: 8.5pt;
     font-weight: 600;
-    color: #1f2937;
+    color: #1e293b;
     margin-top: 1.5mm;
     text-align: center;
 }}
@@ -222,22 +218,44 @@ a {{
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    gap: 7mm;
+    gap: 6mm;
     margin: 1.5mm auto 1.5mm auto;
 }}
 
 .figure-col {{
     flex: 1;
     text-align: center;
-    max-width: 200px;
+    max-width: 210px;
 }}
 
 .figure-img-dual {{
     display: block;
     width: 100%;
     height: auto;
-    max-height: 86mm;
+    max-height: 85mm;
     object-fit: contain;
+}}
+
+/* Highlights & Badges */
+.highlight-box {{
+    background: #f8fafc;
+    border-left: 3.5px solid #1e40af;
+    padding: 2.2mm 3.2mm;
+    margin: 1.8mm 0 2.4mm 0;
+    border-radius: 0 6px 6px 0;
+    font-size: 9.2pt;
+    line-height: 1.38;
+}}
+
+.badge-pill {{
+    display: inline-block;
+    background: #dbeafe;
+    color: #1e40af;
+    font-family: 'Inter', sans-serif;
+    font-size: 7.8pt;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 4px;
 }}
 
 /* ================= PAGE 1 COVER SPECIFIC ================= */
@@ -252,51 +270,51 @@ a {{
 
 .cover-body {{
     text-align: center;
-    padding-top: 8mm;
+    padding-top: 6mm;
 }}
 
 .cover-crest-wrap {{
-    margin-bottom: 6mm;
+    margin-bottom: 5mm;
 }}
 
 .cover-crest-img {{
-    width: 125px;
+    width: 120px;
     height: auto;
 }}
 
 .cover-institution {{
     font-family: 'Cinzel', 'Times New Roman', serif;
-    font-size: 20pt;
+    font-size: 19.5pt;
     font-weight: 700;
     color: #1e293b;
     letter-spacing: 0.8px;
-    margin-bottom: 2.5mm;
+    margin-bottom: 2mm;
 }}
 
 .cover-accreditation {{
     font-family: 'Lora', serif;
-    font-size: 11pt;
+    font-size: 10.8pt;
     color: #334155;
-    margin-bottom: 1.5mm;
+    margin-bottom: 1.2mm;
 }}
 
 .cover-iso {{
     font-family: 'Lora', serif;
-    font-size: 9.5pt;
+    font-size: 9.2pt;
     color: #475569;
-    margin-bottom: 6mm;
+    margin-bottom: 5mm;
 }}
 
 .cover-divider {{
     width: 100%;
     height: 1.2px;
     background: #0f2b5c;
-    margin: 0 auto 7mm auto;
+    margin: 0 auto 6mm auto;
 }}
 
 .cover-doc-title {{
     font-family: 'Lora', serif;
-    font-size: 24pt;
+    font-size: 23pt;
     font-weight: 700;
     color: #0f2b5c;
     letter-spacing: 0.5px;
@@ -306,15 +324,16 @@ a {{
 
 .cover-doc-subtitle {{
     font-family: 'Lora', serif;
-    font-size: 11.5pt;
+    font-size: 11pt;
     font-style: italic;
     color: #334155;
-    margin-bottom: 6mm;
+    margin-bottom: 5mm;
+    padding: 0 10mm;
 }}
 
 .cover-edition {{
     font-family: 'Lora', serif;
-    font-size: 10.5pt;
+    font-size: 10.2pt;
     font-style: italic;
     color: #475569;
     margin-bottom: 1mm;
@@ -331,64 +350,66 @@ a {{
 
 .cover-version {{
     font-family: 'Lora', serif;
-    font-size: 10.5pt;
+    font-size: 10.2pt;
     color: #334155;
     margin-bottom: 1mm;
 }}
 
 .cover-month-year {{
     font-family: 'Lora', serif;
-    font-size: 10.5pt;
+    font-size: 10.2pt;
     font-weight: 700;
     letter-spacing: 0.8px;
     color: #1e293b;
-    margin-bottom: 5mm;
+    margin-bottom: 4mm;
 }}
 
 .cover-url {{
-    font-family: 'Inter', monospace;
-    font-size: 10.5pt;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10pt;
+    font-weight: 700;
     color: #1d4ed8;
-    margin-bottom: 8mm;
+    margin-bottom: 6mm;
 }}
 
 .cover-authors-box {{
     text-align: left;
-    margin: 0 auto 5mm 5mm;
-    font-size: 9.8pt;
-    line-height: 1.5;
+    margin: 0 auto 4mm 5mm;
+    font-size: 9.5pt;
+    line-height: 1.45;
 }}
 
 .cover-developed-box {{
     text-align: left;
-    margin: 0 auto 4mm 5mm;
-    font-size: 9.8pt;
-    line-height: 1.45;
+    margin: 0 auto 3.5mm 5mm;
+    font-size: 9.5pt;
+    line-height: 1.4;
 }}
 
 .cover-feedback-box {{
     text-align: center;
-    font-size: 9.5pt;
+    font-size: 9.2pt;
     color: #334155;
-    margin-top: 4mm;
+    margin-top: 3.5mm;
 }}
 
 /* ================= PAGE 2 TOC SPECIFIC ================= */
 .toc-section-title {{
-    font-size: 11.5pt;
+    font-size: 11pt;
     font-weight: 700;
-    margin-bottom: 2mm;
+    color: #0f2b5c;
+    margin-bottom: 1.5mm;
 }}
 
 .toc-table {{
     width: 100%;
     border-collapse: collapse;
-    font-size: 8.5pt;
-    margin-bottom: 2.5mm;
+    font-size: 8.1pt;
+    margin-bottom: 2mm;
 }}
 
 .toc-table td {{
-    padding: 0.55mm 0;
+    padding: 0.45mm 0;
     vertical-align: bottom;
 }}
 
@@ -409,26 +430,7 @@ a {{
     text-align: right;
     padding-left: 2mm;
     font-weight: 600;
-}}
-
-.highlight-box {{
-    background: #f8fafc;
-    border-left: 3.5px solid #1e40af;
-    padding: 2.5mm 3.5mm;
-    margin: 2mm 0 3mm 0;
-    border-radius: 0 6px 6px 0;
-    font-size: 9.6pt;
-}}
-
-.badge-pill {{
-    display: inline-block;
-    background: #dbeafe;
-    color: #1e40af;
-    font-family: 'Inter', sans-serif;
-    font-size: 8pt;
-    font-weight: 700;
-    padding: 1px 6px;
-    border-radius: 4px;
+    color: #1e3a8a;
 }}
 </style>
 </head>
@@ -439,48 +441,44 @@ a {{
      ========================================================================== -->
 <div class="page" id="page-1">
   <div class="cover-header">
-    <span>Free Classroom Finder</span>
-    <span>User Manual for Students</span>
-    <span>Version 1.0</span>
+    <span>SRCC Free Classroom Finder</span>
+    <span>Student Manual &amp; Academic Guide</span>
+    <span>Version 2.0</span>
   </div>
 
   <div class="cover-body">
     <div class="cover-crest-wrap">
-      <img src="{logo_100years}" class="cover-crest-img" alt="SRCC 100 Years Centenary Logo" />
+      <img src="{logo_100years}" class="cover-crest-img" alt="SRCC Centenary Logo" />
     </div>
 
-    <div class="cover-institution">SHRI RAM COLLEGE OF COMMERCE</div>
-    <div class="cover-accreditation">A++ Accredited by NAAC</div>
-    <div class="cover-iso">ISO 21001:2018 &amp; ISO 9001:2015 Certified</div>
+    <div class="cover-doc-title">SRCC FREE CLASSROOM FINDER</div>
+    <div class="cover-doc-subtitle">A student academic navigation portal for vacant classrooms, daily batch schedules, faculty directories, official college notices, DU exam codes, and timetable notifications.</div>
 
     <div class="cover-divider"></div>
 
-    <div class="cover-doc-title">SRCC FREE CLASSROOM FINDER</div>
-    <div class="cover-doc-subtitle">Designed to facilitate students in navigating vacant classrooms, faculty, and academic timetables.</div>
-
-    <div class="cover-edition">Official Student Release</div>
     <div class="cover-manual-type">USER MANUAL FOR STUDENTS</div>
-    <div class="cover-version">(Version 1.0)</div>
+    <div class="cover-version">Comprehensive Student Edition · Academic Year 2026–2027</div>
     <div class="cover-month-year">OCTOBER 2026</div>
 
-    <div class="cover-url">https://srcc-free-classrooms.netlify.app/</div>
-
-    <div class="cover-authors-box">
-      <strong>Authors:</strong><br>
-      1. <strong>Mr. Anand Kumar</strong>, Student, B.Com.(Hons.), Roll No. <strong>25BC070</strong><br>
-      2. <strong>Academic &amp; Digital Initiative Mentorship</strong>, Shri Ram College of Commerce
+    <div class="cover-url" style="margin-bottom: 5mm;">
+      <a href="https://anand-srcc.github.io/srcc-free-classrooms/web_app/" style="color: #1d4ed8; text-decoration: none; font-weight: 700; font-size: 10.5pt;">https://anand-srcc.github.io/srcc-free-classrooms/web_app/</a>
     </div>
 
-    <div class="cover-developed-box">
-      <strong>Website and Application Developed by Mr. Anand Kumar</strong>, Student, B.Com.(Hons.), Roll No. <strong>25BC070</strong> <em>with support, open timetable synchronization, and guidance from SRCC.</em>
+    <div style="background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 8px; padding: 4.5mm 6mm; text-align: left; margin: 0 auto; max-width: 155mm; line-height: 1.5;">
+      <div style="font-size: 10.2pt; font-weight: 700; color: #0f2b5c; margin-bottom: 1.5mm;">Project Lead &amp; Developer:</div>
+      <div style="font-size: 9.6pt; color: #1e293b;">
+        <strong>Anand Kumar</strong> · Student, B.Com. (Hons.), Roll No. <strong>25BC070</strong><br>
+        Shri Ram College of Commerce, University of Delhi<br>
+        <span style="font-size: 9.2pt; color: #0284c7;">🔗 LinkedIn: <a href="https://www.linkedin.com/in/anandkumar563/" style="color: #0284c7; text-decoration: none; font-weight: 600;">linkedin.com/in/anandkumar563</a></span>
+      </div>
     </div>
 
-    <div class="cover-feedback-box">
-      Feedback &amp; Inquiries: <a href="https://chat.whatsapp.com/H6qxq6fGSDVJNPCEtzQgjf" style="color: #16a34a; font-weight: 700; text-decoration: none;">Official SRCC Community &amp; Student Helpdesk</a>
+    <div class="cover-feedback-box" style="margin-top: 5mm;">
+      Student Community Network &amp; Helpdesk: <a href="https://chat.whatsapp.com/H6qxq6fGSDVJNPCEtzQgjf" style="color: #16a34a; font-weight: 700; text-decoration: none;">SRCC Free Classrooms WhatsApp Group</a>
     </div>
   </div>
 
-  <div class="page-footer">Page 1 of 12</div>
+  <div class="page-footer">Page 1 of {TOTAL_PAGES}</div>
 </div>
 
 
@@ -491,52 +489,61 @@ a {{
   <div class="running-header">
     <span class="left">Free Classroom Finder</span>
     <span class="center">User Manual for Students</span>
-    <span class="right">Version 1.0</span>
+    <span class="right">Version 2.0</span>
   </div>
 
   <div style="flex: 1;">
     <div class="toc-section-title">Sections:</div>
     <table class="toc-table">
-      <tr><td class="toc-name">1. About SRCC Free Classroom Finder</td><td><div class="toc-dots"></div></td><td class="toc-page">3</td></tr>
+      <tr><td class="toc-name">1. About SRCC Free Classroom Finder &amp; Architecture</td><td><div class="toc-dots"></div></td><td class="toc-page">3</td></tr>
       <tr><td class="toc-name">2. Access and Progressive Web App (PWA) Setup</td><td><div class="toc-dots"></div></td><td class="toc-page">3</td></tr>
-      <tr><td class="toc-name">3. Dashboard and Navigation</td><td><div class="toc-dots"></div></td><td class="toc-page">5</td></tr>
-      <tr><td class="toc-name">4. Classroom Vacancy Locator (Flagship Feature)</td><td><div class="toc-dots"></div></td><td class="toc-page">6</td></tr>
-      <tr><td class="toc-name">5. "Free Right Now" Real-Time Quick-Toggle</td><td><div class="toc-dots"></div></td><td class="toc-page">6</td></tr>
-      <tr><td class="toc-name">6. Room Occupancy Timeline &amp; Schedule Breakdown</td><td><div class="toc-dots"></div></td><td class="toc-page">7</td></tr>
-      <tr><td class="toc-name">7. Faculty Locator &amp; Teacher Directory (210 Faculty)</td><td><div class="toc-dots"></div></td><td class="toc-page">7</td></tr>
-      <tr><td class="toc-name">8. Faculty Contact Details &amp; Verified Email Copy</td><td><div class="toc-dots"></div></td><td class="toc-page">8</td></tr>
-      <tr><td class="toc-name">9. Faculty Weekly Timetable &amp; Profile Share</td><td><div class="toc-dots"></div></td><td class="toc-page">8</td></tr>
-      <tr><td class="toc-name">10. Recorded Faculty Leaves &amp; Bonus Vacant Rooms</td><td><div class="toc-dots"></div></td><td class="toc-page">9</td></tr>
-      <tr><td class="toc-name">11. Student Academic Timetable Explorer</td><td><div class="toc-dots"></div></td><td class="toc-page">9</td></tr>
-      <tr><td class="toc-name">12. Campus Wi-Fi Credentials Directory</td><td><div class="toc-dots"></div></td><td class="toc-page">10</td></tr>
-      <tr><td class="toc-name">13. Group Study Coordination &amp; Calendar Reminders</td><td><div class="toc-dots"></div></td><td class="toc-page">10</td></tr>
-      <tr><td class="toc-name">14. Android Interactive Home Screen Widgets &amp; APK</td><td><div class="toc-dots"></div></td><td class="toc-page">11</td></tr>
-      <tr><td class="toc-name">15. Offline Support, Keyboard Shortcuts &amp; Issue Reporting</td><td><div class="toc-dots"></div></td><td class="toc-page">11</td></tr>
-      <tr><td class="toc-name">Disclaimer</td><td><div class="toc-dots"></div></td><td class="toc-page">12</td></tr>
-      <tr><td class="toc-name">Feedback &amp; Community</td><td><div class="toc-dots"></div></td><td class="toc-page">12</td></tr>
-      <tr><td class="toc-name">Acknowledgments</td><td><div class="toc-dots"></div></td><td class="toc-page">12</td></tr>
+      <tr><td class="toc-name">3. PWA Installation on Android &amp; iOS Devices</td><td><div class="toc-dots"></div></td><td class="toc-page">4</td></tr>
+      <tr><td class="toc-name">4. Navigation Drawer &amp; Campus Student Portal Menu</td><td><div class="toc-dots"></div></td><td class="toc-page">5</td></tr>
+      <tr><td class="toc-name">5. Classroom Vacancy Locator &amp; Wing Filtering</td><td><div class="toc-dots"></div></td><td class="toc-page">5</td></tr>
+      <tr><td class="toc-name">6. "Free Right Now" Real-Time Quick-Toggle &amp; Lunch Recess</td><td><div class="toc-dots"></div></td><td class="toc-page">6</td></tr>
+      <tr><td class="toc-name">7. Room Occupancy Timeline Modal (9-Period Breakdown)</td><td><div class="toc-dots"></div></td><td class="toc-page">7</td></tr>
+      <tr><td class="toc-name">8. Group Study Coordination &amp; Calendar Reminders</td><td><div class="toc-dots"></div></td><td class="toc-page">7</td></tr>
+      <tr><td class="toc-name">9. Faculty Locator &amp; Teacher Directory (210 Faculty)</td><td><div class="toc-dots"></div></td><td class="toc-page">8</td></tr>
+      <tr><td class="toc-name">10. Faculty Contact Details &amp; Verified DU Email Copy</td><td><div class="toc-dots"></div></td><td class="toc-page">8</td></tr>
+      <tr><td class="toc-name">11. Faculty Weekly Timetable &amp; Profile Share</td><td><div class="toc-dots"></div></td><td class="toc-page">9</td></tr>
+      <tr><td class="toc-name">12. Recorded Faculty Leaves &amp; Bonus Free Rooms</td><td><div class="toc-dots"></div></td><td class="toc-page">9</td></tr>
+      <tr><td class="toc-name">13. Student Academic Timetable Explorer</td><td><div class="toc-dots"></div></td><td class="toc-page">10</td></tr>
+      <tr><td class="toc-name">14. 10-Minute Class Alerts (Students &amp; Faculty)</td><td><div class="toc-dots"></div></td><td class="toc-page">10</td></tr>
+      <tr><td class="toc-name">15. SRCC Notices &amp; Deadlines Hub</td><td><div class="toc-dots"></div></td><td class="toc-page">11</td></tr>
+      <tr><td class="toc-name">16. Notice Attachment &amp; PDF Circular Viewer</td><td><div class="toc-dots"></div></td><td class="toc-page">11</td></tr>
+      <tr><td class="toc-name">17. Official DU Examination Codes &amp; Course UPC Directory</td><td><div class="toc-dots"></div></td><td class="toc-page">12</td></tr>
+      <tr><td class="toc-name">18. Social Media Direct Share Modal</td><td><div class="toc-dots"></div></td><td class="toc-page">13</td></tr>
+      <tr><td class="toc-name">19. Android Interactive Home Screen Widgets &amp; APK</td><td><div class="toc-dots"></div></td><td class="toc-page">13</td></tr>
+      <tr><td class="toc-name">20. Offline Support, Keyboard Shortcuts &amp; In-App Issue Reporting</td><td><div class="toc-dots"></div></td><td class="toc-page">14</td></tr>
+      <tr><td class="toc-name">Disclaimer</td><td><div class="toc-dots"></div></td><td class="toc-page">15</td></tr>
+      <tr><td class="toc-name">Feedback &amp; Community Support</td><td><div class="toc-dots"></div></td><td class="toc-page">15</td></tr>
     </table>
 
-    <div class="toc-section-title" style="margin-top: 3mm;">Figures:</div>
+    <div class="toc-section-title" style="margin-top: 2.5mm;">Figures:</div>
     <table class="toc-table">
-      <tr><td class="toc-name">1. Portal Landing Page on Mobile Web</td><td><div class="toc-dots"></div></td><td class="toc-page">3</td></tr>
-      <tr><td class="toc-name">2. PWA Installation &amp; Home Screen Prompt</td><td><div class="toc-dots"></div></td><td class="toc-page">4</td></tr>
-      <tr><td class="toc-name">3. Classroom Category Filtering &amp; Wing Badges</td><td><div class="toc-dots"></div></td><td class="toc-page">5</td></tr>
-      <tr><td class="toc-name">4. Classroom Vacancy Cards Grid View</td><td><div class="toc-dots"></div></td><td class="toc-page">5</td></tr>
+      <tr><td class="toc-name">1. Portal Landing Page &amp; Top Branding on Mobile Web</td><td><div class="toc-dots"></div></td><td class="toc-page">3</td></tr>
+      <tr><td class="toc-name">2. PWA Installation &amp; Add to Home Screen Prompt</td><td><div class="toc-dots"></div></td><td class="toc-page">4</td></tr>
+      <tr><td class="toc-name">3. Campus Navigation Drawer ("SRCC Student Portal")</td><td><div class="toc-dots"></div></td><td class="toc-page">5</td></tr>
+      <tr><td class="toc-name">4. Classroom Category Filtering &amp; Vacant Room Cards</td><td><div class="toc-dots"></div></td><td class="toc-page">5</td></tr>
       <tr><td class="toc-name">5. "Free Right Now" Real-Time Quick-Toggle Active</td><td><div class="toc-dots"></div></td><td class="toc-page">6</td></tr>
       <tr><td class="toc-name">6. Room Occupancy Timeline Modal (9-Period Breakdown)</td><td><div class="toc-dots"></div></td><td class="toc-page">7</td></tr>
-      <tr><td class="toc-name">7. Faculty Locator &amp; Department Search</td><td><div class="toc-dots"></div></td><td class="toc-page">7</td></tr>
-      <tr><td class="toc-name">8. Faculty Contact Details &amp; Verified DU Email Copy Chip</td><td><div class="toc-dots"></div></td><td class="toc-page">8</td></tr>
-      <tr><td class="toc-name">9. Faculty Weekly Timetable Modal</td><td><div class="toc-dots"></div></td><td class="toc-page">8</td></tr>
-      <tr><td class="toc-name">10. Recorded Faculty Leaves &amp; Bonus Free Rooms Directory</td><td><div class="toc-dots"></div></td><td class="toc-page">9</td></tr>
-      <tr><td class="toc-name">11. Student Academic Timetable Explorer</td><td><div class="toc-dots"></div></td><td class="toc-page">9</td></tr>
-      <tr><td class="toc-name">12. Campus Wi-Fi Credentials Directory</td><td><div class="toc-dots"></div></td><td class="toc-page">10</td></tr>
-      <tr><td class="toc-name">13. Group Study Reminder &amp; WhatsApp GD Invite</td><td><div class="toc-dots"></div></td><td class="toc-page">10</td></tr>
-      <tr><td class="toc-name">14. Standalone Widget &amp; Android Home Screen Configuration</td><td><div class="toc-dots"></div></td><td class="toc-page">11</td></tr>
+      <tr><td class="toc-name">7. Group Study Reminder &amp; WhatsApp GD Invite Generator</td><td><div class="toc-dots"></div></td><td class="toc-page">7</td></tr>
+      <tr><td class="toc-name">8. Faculty Locator &amp; Department Search Directory</td><td><div class="toc-dots"></div></td><td class="toc-page">8</td></tr>
+      <tr><td class="toc-name">9. Faculty Contact Details &amp; Verified DU Email Copy Chip</td><td><div class="toc-dots"></div></td><td class="toc-page">8</td></tr>
+      <tr><td class="toc-name">10. Faculty Weekly Timetable Modal &amp; Room Jump</td><td><div class="toc-dots"></div></td><td class="toc-page">9</td></tr>
+      <tr><td class="toc-name">11. Recorded Faculty Leaves &amp; Bonus Free Rooms Directory</td><td><div class="toc-dots"></div></td><td class="toc-page">9</td></tr>
+      <tr><td class="toc-name">12. Student Academic Timetable Schedule Explorer</td><td><div class="toc-dots"></div></td><td class="toc-page">10</td></tr>
+      <tr><td class="toc-name">13. 10-Minute Class &amp; Faculty Alerts Configuration</td><td><div class="toc-dots"></div></td><td class="toc-page">10</td></tr>
+      <tr><td class="toc-name">14. SRCC Official Notices Hub</td><td><div class="toc-dots"></div></td><td class="toc-page">11</td></tr>
+      <tr><td class="toc-name">15. In-App Notice Attachment &amp; PDF Circular Viewer</td><td><div class="toc-dots"></div></td><td class="toc-page">11</td></tr>
+      <tr><td class="toc-name">16. Official DU Examination Codes &amp; UPC Directory</td><td><div class="toc-dots"></div></td><td class="toc-page">12</td></tr>
+      <tr><td class="toc-name">17. Social Media Direct Share Modal</td><td><div class="toc-dots"></div></td><td class="toc-page">13</td></tr>
+      <tr><td class="toc-name">18. Standalone Schedule Widget &amp; Android Home Screen Setup</td><td><div class="toc-dots"></div></td><td class="toc-page">13</td></tr>
+      <tr><td class="toc-name">19. In-App Issue Reporting &amp; Timetable Discrepancy Modal</td><td><div class="toc-dots"></div></td><td class="toc-page">14</td></tr>
     </table>
   </div>
 
-  <div class="page-footer">Page 2 of 12</div>
+  <div class="page-footer">Page 2 of {TOTAL_PAGES}</div>
 </div>
 
 
@@ -547,13 +554,13 @@ a {{
   <div class="running-header">
     <span class="left">Free Classroom Finder</span>
     <span class="center">User Manual for Students</span>
-    <span class="right">Version 1.0</span>
+    <span class="right">Version 2.0</span>
   </div>
 
   <div style="flex: 1;">
-    <div class="section-title">1. About SRCC Free Classroom Finder</div>
+    <div class="section-title">1. About SRCC Free Classroom Finder &amp; Architecture</div>
     <p>
-      The <strong>SRCC Free Classroom Finder</strong> is an open academic navigation platform built to resolve one of the most persistent daily challenges faced by students at Shri Ram College of Commerce: locating available, vacant classrooms for <strong>Group Discussions (GD)</strong>, society rehearsals, case-study competitions, tutorial catch-ups, and peer study sessions.
+      The <strong>SRCC Free Classroom Finder &amp; Student Academic Portal</strong> is a high-performance web platform built to solve daily academic coordination challenges at Shri Ram College of Commerce: finding available classrooms for <strong>Group Discussions (GD)</strong>, case study competitions, tutorial revisions, society meetings, and self-study.
     </p>
     <p>
       Covering all <strong>96 instructional rooms</strong> across the campus (including Main Building lecture halls, Tutorial wings, Principal Bungalow, Sports Complex, and Computer Labs) and tracking <strong>210 faculty schedules</strong> across 9 daily periods, the platform synthesizes complex scheduling information into an intuitive, real-time portal. Timetable data is synchronized directly from the official college timetable portal (<a href="https://srcccollegetimetable.in/">srcccollegetimetable.in</a>), guaranteeing verified accuracy.
@@ -566,19 +573,19 @@ a {{
     <p>
       The portal can be accessed directly from any modern web browser on desktop, tablet, or smartphone devices:
     </p>
-    <p style="text-align: center; margin: 2mm 0 4mm 0;">
-      <strong>Website URL:</strong> <a href="https://srcc-free-classrooms.netlify.app/">https://srcc-free-classrooms.netlify.app/</a>
+    <p style="text-align: center; margin: 1.5mm 0 2.5mm 0;">
+      <strong>Website URL:</strong> <a href="https://anand-srcc.github.io/srcc-free-classrooms/web_app/">https://anand-srcc.github.io/srcc-free-classrooms/web_app/</a>
     </p>
 
     <div class="figure-container">
       <div class="figure-box">
         <img src="{fig1}" class="figure-img-single" alt="Figure 1: Portal Landing Page on Mobile Web" />
       </div>
-      <div class="figure-caption">Figure 1: Portal Landing Page on Mobile Web</div>
+      <div class="figure-caption">Figure 1: Portal Landing Page &amp; Top Branding on Mobile Web</div>
     </div>
   </div>
 
-  <div class="page-footer">Page 3 of 12</div>
+  <div class="page-footer">Page 3 of {TOTAL_PAGES}</div>
 </div>
 
 
@@ -589,18 +596,18 @@ a {{
   <div class="running-header">
     <span class="left">Free Classroom Finder</span>
     <span class="center">User Manual for Students</span>
-    <span class="right">Version 1.0</span>
+    <span class="right">Version 2.0</span>
   </div>
 
   <div style="flex: 1;">
-    <div class="subsection-title">Installing as a Progressive Web App (PWA):</div>
+    <div class="section-title">3. PWA Installation on Android &amp; iOS Devices</div>
     <p>
       Installing the application directly to your mobile home screen provides an app-like fullscreen experience, instant offline caching, and faster load times without requiring an app store account.
     </p>
 
     <p><strong>For Android Devices (Google Chrome / Brave / Edge):</strong></p>
     <ol>
-      <li>Open the website in your browser: <a href="https://srcc-free-classrooms.netlify.app/">https://srcc-free-classrooms.netlify.app/</a>.</li>
+      <li>Open the website in your browser: <a href="https://anand-srcc.github.io/srcc-free-classrooms/web_app/">https://anand-srcc.github.io/srcc-free-classrooms/web_app/</a>.</li>
       <li>Tap the <strong>"Install SRCC Rooms"</strong> prompt banner that appears at the bottom of the screen, or tap the three dots (<strong>⋮</strong>) in the top-right corner of your browser.</li>
       <li>Select <strong>"Install app"</strong> or <strong>"Add to Home screen"</strong>.</li>
       <li>Tap <strong>Install</strong> to confirm. The official centenary icon will appear on your device launcher.</li>
@@ -614,135 +621,111 @@ a {{
       <li>Tap <strong>Add</strong> in the top-right corner. The app icon will be pinned to your home screen.</li>
     </ol>
 
-    <div class="subsection-title">Official Standalone Android App (APK):</div>
-    <p>
-      For students desiring native home screen widgets, the precompiled Android APK can be downloaded directly from the portal's Timetable strip via the <strong>"⬇️ App APK"</strong> button or installed via the repository releases.
-    </p>
-
-    <div class="figure-container" style="margin-top: 3mm;">
+    <div class="figure-container">
       <div class="figure-box">
-        <img src="{fig2}" class="figure-img-single" style="max-height: 98mm;" alt="Figure 2: PWA Installation Prompt" />
+        <img src="{fig2}" class="figure-img-single" alt="Figure 2: PWA Installation Prompt" />
       </div>
-      <div class="figure-caption">Figure 2: PWA Installation &amp; Home Screen Setup Prompt</div>
+      <div class="figure-caption">Figure 2: PWA Installation &amp; Add to Home Screen Prompt</div>
     </div>
   </div>
 
-  <div class="page-footer">Page 4 of 12</div>
+  <div class="page-footer">Page 4 of {TOTAL_PAGES}</div>
 </div>
 
 
 <!-- ==========================================================================
-     PAGE 5: DASHBOARD & NAVIGATION
+     PAGE 5: CAMPUS DRAWER & CLASSROOM VACANCY LOCATOR
      ========================================================================== -->
 <div class="page" id="page-5">
   <div class="running-header">
     <span class="left">Free Classroom Finder</span>
     <span class="center">User Manual for Students</span>
-    <span class="right">Version 1.0</span>
+    <span class="right">Version 2.0</span>
   </div>
 
   <div style="flex: 1;">
-    <div class="section-title">3. Dashboard and Navigation</div>
+    <div class="section-title">4. Navigation Drawer &amp; Campus Student Portal Menu</div>
     <p>
-      The user interface is structured for high-speed interaction on mobile screens. The top header features authentic college branding: the official <strong>SRCC Crest</strong> and the <strong>Centenary 100 Years Logo</strong>, alongside a live sync status indicator displaying <em>"College Timetable Synced: Today (Daily Verified)"</em>.
+      Tapping the responsive menu button (three vertical dots on desktop, hamburger bars on mobile) opens the slide-out <strong>Campus Navigation Drawer</strong>. It acts as the central academic hub, connecting students directly to <strong>SRCC Notices</strong>, <strong>DU Exam Codes</strong>, and <strong>10-Min Class Alerts</strong> (supporting both Students and Faculty).
     </p>
 
     <div class="figures-row">
       <div class="figure-col">
         <div class="figure-box">
-          <img src="{fig3}" class="figure-img-dual" alt="Figure 3: Category Filtering" />
+          <img src="{fig15}" class="figure-img-dual" alt="Figure 3: Campus Navigation Drawer" />
         </div>
-        <div class="figure-caption">Figure 3: Category &amp; Wing Filter</div>
+        <div class="figure-caption">Figure 3: Campus Drawer Menu</div>
       </div>
       <div class="figure-col">
         <div class="figure-box">
-          <img src="{fig1}" class="figure-img-dual" alt="Figure 4: Classroom Vacancy Cards" />
+          <img src="{fig3}" class="figure-img-dual" alt="Figure 4: Classroom Category Filtering" />
         </div>
         <div class="figure-caption">Figure 4: Room Cards Overview</div>
       </div>
     </div>
 
-    <p style="margin-top: 3mm;">
-      The <strong>Top Dual-Mode Switcher</strong> allows seamless 1-tap switching across three primary modules:
-    </p>
-    <ul>
-      <li><strong>🏛️ Classrooms:</strong> Comprehensive vacancy scanner across all 96 college rooms.</li>
-      <li><strong>👨‍🏫 Faculty:</strong> Teacher directory, lecture status, timetable, and verified email contact.</li>
-      <li><strong>📅 Timetable:</strong> Full student schedule explorer by Course, Semester, Section, and Batch.</li>
-    </ul>
+    <div class="section-title" style="margin-top: 2mm;">5. Classroom Vacancy Locator &amp; Wing Filtering</div>
     <p>
-      Below the mode switcher, the <strong>Day Picker</strong> lets students inspect schedules for any day from <strong>Monday to Saturday</strong>. The <strong>Category Pills</strong> filter rooms by architectural wing: Principal Bungalow (PB), Tutorial Rooms (T), Sports Complex (SCR), Main Building Classrooms (R), and Computer Labs (CL).
+      The <strong>Classrooms</strong> tab scans all 96 college rooms across the campus. Students can filter rooms by architectural wing using Category Pills: <strong>All Rooms (96)</strong>, <strong>Principal Bungalow (PB)</strong>, <strong>Tutorial Rooms (T)</strong>, <strong>Sports Complex (SCR)</strong>, <strong>Classrooms (R)</strong>, and <strong>Computer Labs (CL)</strong>. The <strong>Day Picker</strong> allows instant switching between Monday and Saturday.
     </p>
   </div>
 
-  <div class="page-footer">Page 5 of 12</div>
+  <div class="page-footer">Page 5 of {TOTAL_PAGES}</div>
 </div>
 
 
 <!-- ==========================================================================
-     PAGE 6: CLASSROOM VACANCY LOCATOR & FREE RIGHT NOW
+     PAGE 6: FREE RIGHT NOW & LUNCH RECESS
      ========================================================================== -->
 <div class="page" id="page-6">
   <div class="running-header">
     <span class="left">Free Classroom Finder</span>
     <span class="center">User Manual for Students</span>
-    <span class="right">Version 1.0</span>
+    <span class="right">Version 2.0</span>
   </div>
 
   <div style="flex: 1;">
-    <div class="section-title">4. Classroom Vacancy Locator (Flagship Feature)</div>
-    <p>
-      The Classroom Vacancy Locator calculates room status period-by-period for all 9 academic periods of the college day (from Period 1: 8:30 AM to Period 9: 6:00 PM). Each room card displays:
-    </p>
-    <ul>
-      <li><strong>Room Code &amp; Wing:</strong> Floor level, building wing (e.g. Front Wing, Canteen Building, PB Lawn), and seating capacity.</li>
-      <li><strong>9-Period Breakdown Pills:</strong> Color-coded micro-pills (P1 to P9) providing an immediate visual scan of busy vs empty slots.</li>
-      <li><strong>Active Vacancy Summary:</strong> Explicit tags indicating free periods (e.g. <em>"Free Periods: Period 3, Period 4, Period 6"</em>).</li>
-      <li><strong>Bonus Free Slot Indicators:</strong> Highlights classrooms freed up due to officially recorded faculty leaves.</li>
-    </ul>
-
-    <div class="highlight-box">
-      <strong>☕ Universal Lunch Recess (1:30 PM – 2:00 PM):</strong> During recess, the platform dynamically displays a notification callout confirming that all 96 classrooms and tutorial rooms are open for group discussions and lunch.
-    </div>
-
-    <div class="section-title">5. "Free Right Now" Real-Time Quick-Toggle</div>
+    <div class="section-title">6. "Free Right Now" Real-Time Quick-Toggle &amp; Lunch Recess</div>
     <p>
       Located directly in the header strip, the <strong>⚡ Free Right Now</strong> switch automatically detects the current college period based on device clock time. Flipping the toggle to <strong>ON</strong> instantly filters out all occupied rooms, presenting only rooms that are vacant right at this moment.
     </p>
+    <ul>
+      <li><strong>Clock-Synchronized Detection:</strong> Seamlessly transitions between Periods 1 through 9.</li>
+      <li><strong>Immediate Availability:</strong> Room cards indicate how long the room remains empty (e.g., <em>"Vacant until 1:30 PM"</em>).</li>
+      <li><strong>One-Tap Reset:</strong> Switching off restores the complete 9-period daily schedule overview.</li>
+    </ul>
+
+    <div class="highlight-box">
+      <strong>☕ Universal Lunch Recess (1:30 PM – 2:00 PM):</strong> During recess, the platform dynamically displays an amber notification banner confirming that all 96 classrooms and tutorial rooms are universally available for group discussion and lunch.
+    </div>
 
     <div class="figure-container">
       <div class="figure-box">
-        <img src="{fig4}" class="figure-img-single" style="max-height: 100mm;" alt="Figure 5: Free Right Now Active" />
+        <img src="{fig4}" class="figure-img-single" alt="Figure 5: Free Right Now Quick-Toggle Active" />
       </div>
       <div class="figure-caption">Figure 5: "Free Right Now" Real-Time Quick-Toggle Active</div>
     </div>
   </div>
 
-  <div class="page-footer">Page 6 of 12</div>
+  <div class="page-footer">Page 6 of {TOTAL_PAGES}</div>
 </div>
 
 
 <!-- ==========================================================================
-     PAGE 7: ROOM OCCUPANCY MODAL & FACULTY LOCATOR
+     PAGE 7: ROOM MODAL & CALENDAR REMINDERS
      ========================================================================== -->
 <div class="page" id="page-7">
   <div class="running-header">
     <span class="left">Free Classroom Finder</span>
     <span class="center">User Manual for Students</span>
-    <span class="right">Version 1.0</span>
+    <span class="right">Version 2.0</span>
   </div>
 
   <div style="flex: 1;">
-    <div class="section-title">6. Room Occupancy Timeline &amp; Schedule Breakdown</div>
+    <div class="section-title">7. Room Occupancy Timeline Modal (9-Period Breakdown)</div>
     <p>
-      Tapping any room card opens the <strong>Room Occupancy Timeline Modal</strong>. It presents a complete chronological table of all 9 periods for that specific room:
+      Tapping any room card opens the <strong>Room Occupancy Timeline Modal</strong>, presenting a complete chronological table of all 9 periods for that room. Occupied slots display the subject, course semester, section, and scheduled professor (with 1-tap link to their profile). Vacant slots are highlighted in bold green (<strong>Empty / Free for GD</strong>).
     </p>
-    <ul>
-      <li><strong>Occupied Slots:</strong> Displays the subject name, course semester, section, and the scheduled professor (with 1-tap link to open their faculty timetable).</li>
-      <li><strong>Vacant Slots:</strong> Marked with a bold green badge (<strong>Empty / Free for GD</strong>) confirming the room is officially unscheduled.</li>
-      <li><strong>Day Tabs:</strong> Switch between Monday to Saturday without leaving the dialog.</li>
-      <li><strong>Action Toolbar:</strong> Includes <strong>"📸 Save Day Schedule"</strong> (exports a clean PNG card to photo gallery) and <strong>"📤 Share Room"</strong> (instant WhatsApp vacancy sharing).</li>
-    </ul>
 
     <div class="figures-row">
       <div class="figure-col">
@@ -753,227 +736,312 @@ a {{
       </div>
       <div class="figure-col">
         <div class="figure-box">
-          <img src="{fig7}" class="figure-img-dual" alt="Figure 7: Faculty Directory Search" />
+          <img src="{fig6}" class="figure-img-dual" alt="Figure 7: Group Study Reminder" />
         </div>
-        <div class="figure-caption">Figure 7: Faculty Locator Search</div>
+        <div class="figure-caption">Figure 7: Calendar Alert Modal</div>
       </div>
     </div>
 
-    <div class="section-title" style="margin-top: 3mm;">7. Faculty Locator &amp; Teacher Directory (210 Faculty)</div>
+    <div class="section-title" style="margin-top: 2mm;">8. Group Study Coordination &amp; Calendar Reminders</div>
     <p>
-      Switching to the <strong>Faculty tab</strong> opens the comprehensive directory of all 210 faculty members across Commerce, Economics, Mathematics, English, Political Science, Physical Education, EVS, and Hindi. Students can filter by department or search by professor name or teacher code (e.g., <em>CG16</em>, <em>SVK</em>, <em>MTS</em>).
+      Tapping the calendar icon next to any free period opens the <strong>Group Study Reminder Modal</strong>. It provides a direct <strong>Google Calendar link</strong> (with preconfigured 15-minute advance alert), an <strong>Apple / Outlook <code>.ics</code> file</strong>, and a 1-tap formatted <strong>WhatsApp GD Invite</strong> generator.
     </p>
   </div>
 
-  <div class="page-footer">Page 7 of 12</div>
+  <div class="page-footer">Page 7 of {TOTAL_PAGES}</div>
 </div>
 
 
 <!-- ==========================================================================
-     PAGE 8: FACULTY CONTACT & WEEKLY TIMETABLE
+     PAGE 8: FACULTY LOCATOR & CONTACT DETAILS
      ========================================================================== -->
 <div class="page" id="page-8">
   <div class="running-header">
     <span class="left">Free Classroom Finder</span>
     <span class="center">User Manual for Students</span>
-    <span class="right">Version 1.0</span>
+    <span class="right">Version 2.0</span>
   </div>
 
   <div style="flex: 1;">
-    <div class="section-title">8. Faculty Contact Details &amp; Verified Email Copy</div>
+    <div class="section-title">9. Faculty Locator &amp; Teacher Directory (210 Faculty)</div>
     <p>
-      Each faculty member card includes an inline email action chip. Tapping the email icon opens the dedicated <strong>Faculty Contact Modal</strong> featuring:
+      Switching to the <strong>Faculty tab</strong> opens the directory of all 210 faculty members across Commerce, Economics, Mathematics, Computer Science, Political Science, EVS, Hindi, English, and Physical Education. Students can filter by department, search by name or teacher code, or use the <strong>Live Status Filter</strong> (<em>Teaching Right Now</em>, <em>Available Now</em>, or <em>On Leave Today</em>).
     </p>
-    <ul>
-      <li>Official verified University of Delhi academic email (<code>@srcc.du.ac.in</code>).</li>
-      <li>Teacher code, department badge, and initials avatar.</li>
-      <li><strong>"📋 Copy Email"</strong> chip: Copies the official address cleanly to clipboard with a confirmation toast, eliminating raw email typos and avoiding accidental external mail app launches.</li>
-      <li><strong>"↗️ Open Mail"</strong> button for drafting messages directly in your email client.</li>
-    </ul>
 
     <div class="figures-row">
       <div class="figure-col">
         <div class="figure-box">
-          <img src="{fig8}" class="figure-img-dual" alt="Figure 8: Faculty Contact Details" />
+          <img src="{fig7}" class="figure-img-dual" alt="Figure 8: Faculty Directory" />
         </div>
-        <div class="figure-caption">Figure 8: Faculty Email Contact</div>
+        <div class="figure-caption">Figure 8: Faculty Directory Search</div>
       </div>
       <div class="figure-col">
         <div class="figure-box">
-          <img src="{fig9}" class="figure-img-dual" alt="Figure 9: Faculty Weekly Timetable" />
+          <img src="{fig8}" class="figure-img-dual" alt="Figure 9: Faculty Contact Details" />
         </div>
-        <div class="figure-caption">Figure 9: Faculty Timetable Modal</div>
+        <div class="figure-caption">Figure 9: Faculty Verified Email Modal</div>
       </div>
     </div>
 
-    <div class="section-title" style="margin-top: 3mm;">9. Faculty Weekly Timetable &amp; Profile Share</div>
+    <div class="section-title" style="margin-top: 2mm;">10. Faculty Contact Details &amp; Verified DU Email Copy</div>
     <p>
-      Tapping a teacher's card opens their full <strong>Weekly Timetable Modal</strong>. Students can review the professor's scheduled lectures, tutorial batches, and assigned room numbers from Monday to Saturday. Tapping any room in the teacher's schedule immediately jumps to that room's vacancy card. The <strong>"📤 Share Faculty Profile"</strong> button generates a clean WhatsApp profile link for batch coordination.
+      Tapping the email button on any teacher card opens the dedicated <strong>Faculty Contact Modal</strong>. It presents the professor's official verified University of Delhi email (<code>@srcc.du.ac.in</code>), teacher code, and department. The <strong>"📋 Copy Email"</strong> chip copies the address with an instant confirmation toast, preventing typos and avoiding accidental external mail app launches.
     </p>
   </div>
 
-  <div class="page-footer">Page 8 of 12</div>
+  <div class="page-footer">Page 8 of {TOTAL_PAGES}</div>
 </div>
 
 
 <!-- ==========================================================================
-     PAGE 9: FACULTY LEAVES & STUDENT TIMETABLE EXPLORER
+     PAGE 9: TEACHER TIMETABLE & FACULTY LEAVES
      ========================================================================== -->
 <div class="page" id="page-9">
   <div class="running-header">
     <span class="left">Free Classroom Finder</span>
     <span class="center">User Manual for Students</span>
-    <span class="right">Version 1.0</span>
+    <span class="right">Version 2.0</span>
   </div>
 
   <div style="flex: 1;">
-    <div class="section-title">10. Recorded Faculty Leaves &amp; Bonus Vacant Rooms</div>
+    <div class="section-title">11. Faculty Weekly Timetable &amp; Profile Share</div>
     <p>
-      When faculty members are on leave, their assigned classrooms often sit empty and unused. The <strong>Faculty Leaves module</strong> connects official absence notices directly with the Classroom Finder:
+      Tapping a teacher card opens their complete <strong>Weekly Timetable Modal</strong>. Students can review scheduled lectures, tutorial batches, and assigned room numbers from Monday to Saturday. Tapping any room number jumps directly to that room's vacancy card. The <strong>"📤 Share Faculty Profile"</strong> button creates a WhatsApp sharing link.
     </p>
-    <ul>
-      <li>Classes scheduled under an absent teacher are dynamically unlocked as <strong>"Bonus Vacant Slots"</strong> for self-study.</li>
-      <li>Tapping the <strong>"🏖️ Active Leaves"</strong> header pill opens the Leave Directory, listing absent professors, dates, and affected lecture periods.</li>
-      <li>The <strong>"💬 Share All List"</strong> button generates a formatted absence summary for CRs and batch WhatsApp groups.</li>
-    </ul>
 
     <div class="figures-row">
       <div class="figure-col">
         <div class="figure-box">
-          <img src="{fig10}" class="figure-img-dual" alt="Figure 10: Faculty Leaves Directory" />
+          <img src="{fig9}" class="figure-img-dual" alt="Figure 10: Faculty Weekly Timetable" />
         </div>
-        <div class="figure-caption">Figure 10: Faculty Leaves Directory</div>
+        <div class="figure-caption">Figure 10: Teacher Timetable Modal</div>
       </div>
       <div class="figure-col">
         <div class="figure-box">
-          <img src="{fig11}" class="figure-img-dual" alt="Figure 11: Student Timetable Explorer" />
+          <img src="{fig10}" class="figure-img-dual" alt="Figure 11: Faculty Leaves Directory" />
         </div>
-        <div class="figure-caption">Figure 11: Student Timetable Explorer</div>
+        <div class="figure-caption">Figure 11: Recorded Leaves Modal</div>
       </div>
     </div>
 
-    <div class="section-title" style="margin-top: 3mm;">11. Student Academic Timetable Explorer</div>
+    <div class="section-title" style="margin-top: 2mm;">12. Recorded Faculty Leaves &amp; Bonus Free Rooms</div>
     <p>
-      The <strong>Timetable tab</strong> allows students to view complete official class schedules across all programs: <strong>B.Com (Hons)</strong> (Sections A to N), <strong>B.A. (Hons) Economics</strong> (Sections A to D), and interdisciplinary <strong>SEC / VAC</strong> courses across Semesters I, III, V, and VII. Selecting your course, section, and tutorial batch renders all daily lectures, teachers, and rooms in chronological sequence.
+      When faculty members are on leave, their assigned classrooms sit empty. The <strong>Faculty Leaves module</strong> connects official absence notices directly with the Classroom Finder. Rooms scheduled under absent professors are dynamically unlocked as <strong>"Bonus Vacant Rooms"</strong> for self-study. The <strong>"💬 Share All List"</strong> button generates a clean summary for CRs and batch groups.
     </p>
   </div>
 
-  <div class="page-footer">Page 9 of 12</div>
+  <div class="page-footer">Page 9 of {TOTAL_PAGES}</div>
 </div>
 
 
 <!-- ==========================================================================
-     PAGE 10: CAMPUS WI-FI & CALENDAR REMINDERS
+     PAGE 10: STUDENT TIMETABLE & CLASS NOTIFICATIONS
      ========================================================================== -->
 <div class="page" id="page-10">
   <div class="running-header">
     <span class="left">Free Classroom Finder</span>
     <span class="center">User Manual for Students</span>
-    <span class="right">Version 1.0</span>
+    <span class="right">Version 2.0</span>
   </div>
 
   <div style="flex: 1;">
-    <div class="section-title">12. Campus Wi-Fi Credentials Directory</div>
+    <div class="section-title">13. Student Academic Timetable Explorer</div>
     <p>
-      To assist students experiencing cellular connectivity dead zones inside basement labs or thick-walled heritage blocks, the header features a dedicated <strong>WiFi Directory</strong>. It stores verified credentials for <strong>24 campus Wi-Fi networks</strong>:
+      The <strong>Timetable tab</strong> provides complete schedules across all programs: <strong>B.Com (Hons)</strong> (Sections A to N), <strong>B.A. (Hons) Economics</strong> (Sections A to D), and interdisciplinary <strong>SEC / VAC</strong> courses across Semesters I, III, V, and VII. Selecting your course, section, and batch renders daily lectures, teachers, and rooms in sequence.
     </p>
-    <ul>
-      <li>Categorized by frequency band: <strong>⚡ 5G High Speed</strong>, <strong>📶 4G Standard</strong>, <strong>🏛️ Principal Bungalow</strong>, and <strong>🏢 Main Building</strong>.</li>
-      <li>Displays exact network SSID, location coverage, and security protocol.</li>
-      <li><strong>1-Tap Password Copy:</strong> Instantly copies the network password to clipboard.</li>
-      <li><strong>Scan QR Code:</strong> Generates a standard Wi-Fi QR code for automatic camera connection on Android and iOS devices.</li>
-    </ul>
 
     <div class="figures-row">
       <div class="figure-col">
         <div class="figure-box">
-          <img src="{fig12}" class="figure-img-dual" alt="Figure 12: Campus Wi-Fi Directory" />
+          <img src="{fig11}" class="figure-img-dual" alt="Figure 12: Student Academic Timetable" />
         </div>
-        <div class="figure-caption">Figure 12: Campus Wi-Fi Directory</div>
+        <div class="figure-caption">Figure 12: Student Timetable Cards</div>
       </div>
       <div class="figure-col">
         <div class="figure-box">
-          <img src="{fig6}" class="figure-img-dual" alt="Figure 13: Group Study Reminder & Invite" />
+          <img src="{fig16}" class="figure-img-dual" alt="Figure 13: Class Notification Modal" />
         </div>
-        <div class="figure-caption">Figure 13: Group Study Reminder</div>
+        <div class="figure-caption">Figure 13: Class Alert Settings</div>
       </div>
     </div>
 
-    <div class="section-title" style="margin-top: 3mm;">13. Group Study Coordination &amp; Calendar Reminders</div>
+    <div class="section-title" style="margin-top: 2mm;">14. 10-Minute Class Alerts for Students &amp; Faculty</div>
     <p>
-      When securing an empty room for a society rehearsal or case discussion, students can tap the calendar bell icon on any vacant period card to open the <strong>Group Study Reminder Modal</strong>. It provides a direct <strong>Google Calendar link</strong> (with a 15-minute advance alert), an <strong>Apple / Outlook <code>.ics</code> file</strong> download, and a formatted <strong>WhatsApp GD Invite</strong> generator.
+      Accessed via the campus drawer or timetable view, the <strong>10-Minute Class Alerts</strong> modal allows both students and faculty members to configure automated reminders. Students receive notifications 10 minutes before their section's lectures with room numbers and faculty leave alerts. Faculty members can select their name and receive automated reminders 10 to 15 minutes before every scheduled lecture with their room number, course, semester, and section.
     </p>
   </div>
 
-  <div class="page-footer">Page 10 of 12</div>
+  <div class="page-footer">Page 10 of {TOTAL_PAGES}</div>
 </div>
 
 
 <!-- ==========================================================================
-     PAGE 11: ANDROID WIDGETS, OFFLINE & REPORTING
+     PAGE 11: COLLEGE NOTICES & ATTACHMENT VIEWER
      ========================================================================== -->
 <div class="page" id="page-11">
   <div class="running-header">
     <span class="left">Free Classroom Finder</span>
     <span class="center">User Manual for Students</span>
-    <span class="right">Version 1.0</span>
+    <span class="right">Version 2.0</span>
   </div>
 
   <div style="flex: 1;">
-    <div class="section-title">14. Android Interactive Home Screen Widgets &amp; APK</div>
+    <div class="section-title">15. Official College Notices &amp; Circulars Hub</div>
     <p>
-      The platform includes dedicated companion widget options for home screen access without opening a browser:
+      The <strong>Notices tab</strong> provides a centralized stream of <strong>430+ public college circulars</strong> synchronized from <code>srcc.edu/announcements</code>. It includes real-time category filtering (<strong>📋 All Notices</strong> vs <strong>⏳ Active Deadlines</strong>), keyword search (Admit Card, Attendance, Orientation, ECA, Scholarship, Datesheet), and direct links to official documents.
     </p>
-    <ul>
-      <li><strong>Standalone Web Widget (<code>widget.html</code>):</strong> A dedicated lightweight schedule widget that saves your course, section, and batch offline for immediate glanceable schedule access.</li>
-      <li><strong>Android Native Home Screen Widgets:</strong> Pre-built Android app package providing three distinct widget formats:
-        <ul>
-          <li><em>4x1 Next Class Pill:</em> Displays your upcoming lecture, room code, and teacher.</li>
-          <li><em>4x2 Daily Timeline:</em> Scrollable list of today's remaining classes.</li>
-          <li><em>4x4 Academic Dashboard:</em> Combines room vacancy scanner and personal schedule.</li>
-        </ul>
-      </li>
-    </ul>
 
     <div class="figures-row">
       <div class="figure-col">
         <div class="figure-box">
-          <img src="{fig14}" class="figure-img-dual" alt="Figure 14: Standalone Widget Configuration" />
+          <img src="{fig12}" class="figure-img-dual" alt="Figure 14: College Notices Hub" />
         </div>
-        <div class="figure-caption">Figure 14: Widget Setup</div>
+        <div class="figure-caption">Figure 14: College Notices Hub</div>
       </div>
       <div class="figure-col">
         <div class="figure-box">
-          <img src="{fig13}" class="figure-img-dual" alt="Figure 15: Issue Reporting Modal" />
+          <img src="{fig13}" class="figure-img-dual" alt="Figure 15: Notice Attachment Viewer" />
         </div>
-        <div class="figure-caption">Figure 15: Issue Reporting Modal</div>
+        <div class="figure-caption">Figure 15: In-App Circular Viewer</div>
       </div>
     </div>
 
-    <div class="section-title" style="margin-top: 3mm;">15. Offline Support, Keyboard Shortcuts &amp; Issue Reporting</div>
+    <div class="section-title" style="margin-top: 2mm;">16. Notice Attachment &amp; PDF Circular Viewer</div>
     <p>
-      The app incorporates a Service Worker caching engine, ensuring the full timetable and room database function seamlessly in offline mode. Desktop users can press <strong><code>/</code></strong> to focus search inputs and <strong><code>Esc</code></strong> to close any modal. The header <strong>⚠️ Report</strong> button enables students to flag timetable discrepancies or room changes for immediate verification.
+      Tapping any notice card opens the dedicated <strong>In-App Attachment Viewer</strong>. Students can review official circular text, administrative reference numbers, and download attached PDF documents or images directly without navigating through complex administrative menus.
     </p>
   </div>
 
-  <div class="page-footer">Page 11 of 12</div>
+  <div class="page-footer">Page 11 of {TOTAL_PAGES}</div>
 </div>
 
 
 <!-- ==========================================================================
-     PAGE 12: DISCLAIMER, FEEDBACK & ACKNOWLEDGMENTS
+     PAGE 12: DU EXAM CODES & UPC DIRECTORY
      ========================================================================== -->
 <div class="page" id="page-12">
   <div class="running-header">
     <span class="left">Free Classroom Finder</span>
     <span class="center">User Manual for Students</span>
-    <span class="right">Version 1.0</span>
+    <span class="right">Version 2.0</span>
+  </div>
+
+  <div style="flex: 1;">
+    <div class="section-title">17. Official DU Examination Codes &amp; Course UPC Directory</div>
+    <p>
+      The <strong>DU Codes tab</strong> features an authoritative directory of <strong>450+ examination papers and Unique Paper Codes (UPC)</strong> structured under the University of Delhi <strong>NEP / UGCF 2022 framework</strong>. Sourced directly from official university records, this tool eliminates errors when filling out exam portal registration forms.
+    </p>
+    <ul>
+      <li><strong>Semester Chips:</strong> Instant filtering across Semesters I through VIII.</li>
+      <li><strong>Programme Selectors:</strong> Quick-filter by <em>SRCC Offered</em>, <em>B.Com. (Hons.)</em>, <em>B.A. (Hons.) Economics</em>, <em>SEC</em>, <em>VAC</em>, <em>AEC</em>, <em>GE</em>, <em>DSC</em>, and <em>DSE</em> courses.</li>
+      <li><strong>Course Type Dropdown:</strong> Differentiates between Core, Generic Electives, Skill Enhancement, and Research tracks.</li>
+      <li><strong>Direct Syllabi &amp; PDF Links:</strong> 1-tap access to DU Major/Minor degree rules, Commerce UGCF syllabi, and direct download of the Master UPC Directory PDF.</li>
+    </ul>
+
+    <div class="figure-container">
+      <div class="figure-box">
+        <img src="{fig14}" class="figure-img-single" style="max-height: 98mm;" alt="Figure 16: DU Exam Codes Directory" />
+      </div>
+      <div class="figure-caption">Figure 16: Official DU Examination Codes &amp; Course UPC Directory</div>
+    </div>
+  </div>
+
+  <div class="page-footer">Page 12 of {TOTAL_PAGES}</div>
+</div>
+
+
+<!-- ==========================================================================
+     PAGE 13: SOCIAL SHARE & WIDGETS
+     ========================================================================== -->
+<div class="page" id="page-13">
+  <div class="running-header">
+    <span class="left">Free Classroom Finder</span>
+    <span class="center">User Manual for Students</span>
+    <span class="right">Version 2.0</span>
+  </div>
+
+  <div style="flex: 1;">
+    <div class="section-title">18. Social Media Direct Share Modal</div>
+    <p>
+      When coordinating group discussions, students can share real-time room vacancy and GD invites directly via the <strong>Social Share Modal</strong>. Featuring official SVG brand buttons for <strong>WhatsApp</strong>, <strong>Gmail</strong>, <strong>X (Twitter)</strong>, <strong>Telegram</strong>, <strong>LinkedIn</strong>, <strong>Instagram</strong>, and <strong>Facebook</strong>, it also includes a 1-tap <strong>Copy Formatted Text</strong> button.
+    </p>
+
+    <div class="figures-row">
+      <div class="figure-col">
+        <div class="figure-box">
+          <img src="{fig17}" class="figure-img-dual" alt="Figure 17: Social Media Share Modal" />
+        </div>
+        <div class="figure-caption">Figure 17: Social Share Modal</div>
+      </div>
+      <div class="figure-col">
+        <div class="figure-box">
+          <img src="{fig19}" class="figure-img-dual" alt="Figure 18: Standalone Widget Preview" />
+        </div>
+        <div class="figure-caption">Figure 18: Standalone Widget</div>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top: 2mm;">19. Android Interactive Home Screen Widgets &amp; APK</div>
+    <p>
+      Students desiring glanceable home screen access can utilize the <strong>Standalone Web Widget (<code>widget.html</code>)</strong> or the native Android APK package. Preconfigured widget sizes include the <strong>4x1 Next Class Pill</strong> (upcoming class, room, and teacher) and the <strong>4x2 Daily Timeline</strong> (scrollable daily lecture agenda).
+    </p>
+  </div>
+
+  <div class="page-footer">Page 13 of {TOTAL_PAGES}</div>
+</div>
+
+
+<!-- ==========================================================================
+     PAGE 14: OFFLINE SUPPORT, SHORTCUTS & ISSUE REPORTING
+     ========================================================================== -->
+<div class="page" id="page-14">
+  <div class="running-header">
+    <span class="left">Free Classroom Finder</span>
+    <span class="center">User Manual for Students</span>
+    <span class="right">Version 2.0</span>
+  </div>
+
+  <div style="flex: 1;">
+    <div class="section-title">20. Offline Support, Keyboard Shortcuts &amp; In-App Issue Reporting</div>
+    <p>
+      The platform incorporates a Service Worker caching engine, ensuring the full timetable, room schedules, faculty lists, and exam codes remain functional even when cellular networks fail inside heritage blocks or basement labs. An offline pulse banner appears automatically when network connectivity is interrupted.
+    </p>
+    <ul>
+      <li><strong>Keyboard Shortcuts (Desktop):</strong> Press <strong><code>/</code></strong> to immediately focus search bars; press <strong><code>Esc</code></strong> to close any active modal dialog.</li>
+      <li><strong>View Mode Toggles:</strong> Switch between <strong>Grid Card View</strong> and <strong>Compact Table View</strong> across Classrooms, Faculty, Notices, and Exam Codes.</li>
+      <li><strong>In-App Issue Reporting:</strong> The header <strong>⚠️ Report</strong> button enables students to flag timetable discrepancies, room swaps, or report present faculty marked absent for prompt verification.</li>
+    </ul>
+
+    <div class="highlight-box">
+      <strong>📶 Campus Wi-Fi Status Notice:</strong> Campus Wi-Fi password directory display has been temporarily paused pending formal administrative authorization. Students can rely on complete offline caching and widget feeds in the interim.
+    </div>
+
+    <div class="figure-container">
+      <div class="figure-box">
+        <img src="{fig18}" class="figure-img-single" style="max-height: 98mm;" alt="Figure 19: In-App Issue Reporting Modal" />
+      </div>
+      <div class="figure-caption">Figure 19: In-App Issue Reporting &amp; Timetable Discrepancy Modal</div>
+    </div>
+  </div>
+
+  <div class="page-footer">Page 14 of {TOTAL_PAGES}</div>
+</div>
+
+
+<!-- ==========================================================================
+     PAGE 15: DISCLAIMER & COMMUNITY SUPPORT
+     ========================================================================== -->
+<div class="page" id="page-15">
+  <div class="running-header">
+    <span class="left">Free Classroom Finder</span>
+    <span class="center">User Manual for Students</span>
+    <span class="right">Version 2.0</span>
   </div>
 
   <div style="flex: 1;">
     <div class="section-title">Disclaimer</div>
     <p>
-      The SRCC Free Classroom Finder is an independent student academic facilitation project designed to simplify classroom discovery, peer study coordination, and timetable navigation. Class schedules and faculty assignments are sourced directly from the official Shri Ram College of Commerce timetable portal (<a href="https://srcccollegetimetable.in/">srcccollegetimetable.in</a>).
+      The SRCC Free Classroom Finder &amp; Student Academic Portal is an independent student academic facilitation initiative developed to streamline classroom discovery, timetable navigation, and peer coordination. Class schedules and faculty assignments are sourced directly from the official Shri Ram College of Commerce timetable portal (<a href="https://srcccollegetimetable.in/">srcccollegetimetable.in</a>).
     </p>
     <p>
       This platform does not supersede official college notifications, room requisition circulars, or administrative orders issued by the Principal's Office or the Timetable Committee (TTC). Classroom vacancy indicated by the application reflects unscheduled instructional hours; official administrative bookings, departmental tests, and sanctioned events take precedence at all times.
@@ -981,35 +1049,28 @@ a {{
 
     <div class="section-title" style="margin-top: 5mm;">Feedback &amp; Community Support</div>
     <p>
-      For technical queries, feature suggestions, or data discrepancy reports regarding the SRCC Free Classroom Finder, please reach out through the following channels:
+      For technical queries, feature suggestions, or timetable feedback, reach out through the following channels:
     </p>
-    <ul>
-      <li><strong>Official WhatsApp Community:</strong> <a href="https://chat.whatsapp.com/H6qxq6fGSDVJNPCEtzQgjf">SRCC Free Classrooms Student Network</a></li>
+    <ul style="line-height: 1.7; margin-top: 2mm;">
+      <li><strong>Live Web Portal:</strong> <a href="https://anand-srcc.github.io/srcc-free-classrooms/web_app/">https://anand-srcc.github.io/srcc-free-classrooms/web_app/</a></li>
       <li><strong>Developer Profile (LinkedIn):</strong> <a href="https://www.linkedin.com/in/anandkumar563/">Anand Kumar (25BC070)</a></li>
-      <li><strong>GitHub Open Repository:</strong> <a href="https://github.com/anand-srcc/srcc-free-classrooms">github.com/anand-srcc/srcc-free-classrooms</a></li>
+      <li><strong>Official WhatsApp Community:</strong> <a href="https://chat.whatsapp.com/H6qxq6fGSDVJNPCEtzQgjf">SRCC Free Classrooms Student Network</a></li>
       <li><strong>In-App Issue Reporter:</strong> Tap the <em>⚠️ Report</em> button in the website header.</li>
     </ul>
 
-    <div class="section-title" style="margin-top: 5mm;">Acknowledgments</div>
-    <p>
-      The developer would like to express heartfelt gratitude and sincere appreciation to the following individuals and bodies for their encouragement, guidance, and continuous feedback:
-    </p>
-    <ol>
-      <li><strong>Prof. Aruna Jha</strong> (Vice-Principal, Shri Ram College of Commerce)</li>
-      <li><strong>Timetable Committee (Commerce &amp; Economics Departments)</strong>, AY 2026–27</li>
-      <li><strong>Digital Initiatives &amp; Academic Technology Vertical</strong>, SRCC</li>
-      <li><strong>Faculty Members &amp; Mentors</strong> of Shri Ram College of Commerce</li>
-      <li><strong>Student Batch Representatives &amp; CRs</strong> of B.Com.(Hons.) and B.A.(Hons.) Economics for rigorous testing and operational suggestions.</li>
-    </ol>
-    <p style="margin-top: 4mm;">
-      <em>Special gratitude to the open-source and modern AI tooling community that empowered rapid development, automated reconciliation, and the realization of this student utility.</em>
-    </p>
-    <p style="text-align: center; margin-top: 6mm; font-size: 11pt; color: #64748b;">
+    <div style="margin-top: 10mm; padding: 4mm 6mm; background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 8px;">
+      <div style="font-size: 10pt; font-weight: 700; color: #0f2b5c; margin-bottom: 1.5mm;">Continuous Improvement &amp; Real-Time Data Reconciliation</div>
+      <p style="font-size: 9pt; color: #475569; margin: 0; line-height: 1.5;">
+        Class schedules and classroom assignments are continuously updated to mirror changes published on the college portal. For suggestions or immediate reporting of schedule updates, students are encouraged to use the in-app reporting tool or connect via the WhatsApp student community.
+      </p>
+    </div>
+
+    <p style="text-align: center; margin-top: 12mm; font-size: 11pt; color: #64748b;">
       ***
     </p>
   </div>
 
-  <div class="page-footer">Page 12 of 12</div>
+  <div class="page-footer">Page 15 of {TOTAL_PAGES}</div>
 </div>
 
 </body>
@@ -1023,7 +1084,6 @@ with open(html_path, "w", encoding="utf-8") as f:
 print(f"[OK] Master HTML Manual created at: {html_path}")
 print(f"File size: {os.path.getsize(html_path):,} bytes")
 
-# Now compile to PDF via Chrome Headless
 pdf_path = os.path.join(ROOT_DIR, "SRCC-Free-Classrooms-User-Manual.pdf")
 print(f"[...] Compiling PDF via Chrome Headless...")
 cmd = [
@@ -1038,7 +1098,7 @@ res = subprocess.run(cmd, capture_output=True, text=True)
 if os.path.exists(pdf_path) and os.path.getsize(pdf_path) > 1000:
     print(f"[SUCCESS] PDF generated at: {pdf_path}")
     print(f"PDF size: {os.path.getsize(pdf_path):,} bytes")
-    # Also copy to Downloads folder if it exists
+    # Also copy to Downloads folder if possible
     downloads_pdf = os.path.expanduser(r"~\Downloads\SRCC-Free-Classrooms-User-Manual.pdf")
     try:
         import shutil
