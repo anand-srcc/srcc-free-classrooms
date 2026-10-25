@@ -1,8 +1,116 @@
 window.SRCC_NOTICES_DATA = {
-  "total": 430,
+  "total": 439,
   "source": "https://www.srcc.edu/announcements",
-  "last_sync": "2026-10-25T23:45:00",
+  "last_sync": "2026-10-25T20:55:21.209548",
   "notices": [
+    {
+      "id": "srcc-notice-431",
+      "title": "Notification-Last date extended UG &amp; PG",
+      "category": "administration",
+      "link": "https://online.srcc.edu/smartprof/file_uploads/notices/Attachment/NotificationLastdateextendedUGampPG-a694806f112ec3b73ef7349745550a5d.pdf",
+      "link_type": "pdf",
+      "date": "13 Oct 2026",
+      "deadline": "See Notice",
+      "deadline_label": "Extended Last Date",
+      "has_deadline": true,
+      "source": "Official SRCC Announcements (srcc.edu)"
+    },
+    {
+      "id": "srcc-notice-432",
+      "title": "SEC&amp;VAC BCH SEM III List",
+      "category": "administration",
+      "link": "https://online.srcc.edu/smartprof/file_uploads/notices/Attachment/SECampVACBCHSEMIIIList-171294edac25288ff927fe3a43a1e7c8.pdf",
+      "link_type": "pdf",
+      "date": "25 Jul 2026",
+      "deadline": null,
+      "deadline_label": null,
+      "has_deadline": false,
+      "source": "Official SRCC Announcements (srcc.edu)"
+    },
+    {
+      "id": "srcc-notice-433",
+      "title": "PGDGBO_Revised Date Sheet-Sem-II &amp; IV",
+      "category": "examinations",
+      "link": "https://online.srcc.edu/smartprof/file_uploads/notices/Attachment/PGDGBORevisedDateSheetSemIIampIV-f7c872278aade002116c5cb1ed3836a6.pdf",
+      "link_type": "pdf",
+      "date": "16 May 2026",
+      "deadline": null,
+      "deadline_label": null,
+      "has_deadline": false,
+      "source": "Official SRCC Announcements (srcc.edu)"
+    },
+    {
+      "id": "srcc-notice-434",
+      "title": "Practical Examination Schedule- Strength &amp; Conditioning sem-8",
+      "category": "examinations",
+      "link": "https://online.srcc.edu/smartprof/file_uploads/notices/Attachment/PracticalExaminationScheduleStrengthampConditioningsem8-aebf9a32aa4f1cfebd04245014898a3d.pdf",
+      "link_type": "pdf",
+      "date": "29 Apr 2026",
+      "deadline": null,
+      "deadline_label": null,
+      "has_deadline": false,
+      "source": "Official SRCC Announcements (srcc.edu)"
+    },
+    {
+      "id": "srcc-notice-435",
+      "title": "Practical Examination Schedule-Yoga &amp; Stress Management sem-4",
+      "category": "examinations",
+      "link": "https://online.srcc.edu/smartprof/file_uploads/notices/Attachment/PracticalExaminationScheduleYogaampStressManagementsem4-8d6739d568f75415d232f8dfb2fb7ed8.pdf",
+      "link_type": "pdf",
+      "date": "29 Apr 2026",
+      "deadline": null,
+      "deadline_label": null,
+      "has_deadline": false,
+      "source": "Official SRCC Announcements (srcc.edu)"
+    },
+    {
+      "id": "srcc-notice-436",
+      "title": "Notice-Submission of Attendance &amp; IA_TU Record",
+      "category": "administration",
+      "link": "https://online.srcc.edu/smartprof/file_uploads/notices/Attachment/NoticeSubmissionofAttendanceampIATURecord-c7b77e7584e19c3fa61253a9e2d1cbac.pdf",
+      "link_type": "pdf",
+      "date": "22 Apr 2026",
+      "deadline": null,
+      "deadline_label": null,
+      "has_deadline": false,
+      "source": "Official SRCC Announcements (srcc.edu)"
+    },
+    {
+      "id": "srcc-notice-437",
+      "title": "Notice-Regarding Attendance Medical Cases and Benefits &amp; Student Attendance",
+      "category": "administration",
+      "link": "https://online.srcc.edu/smartprof/file_uploads/notices/Attachment/NoticeRegardingAttendanceMedicalCasesandBenefitsampStudentAttendance-d8b31be1964ed102cb500ef1dca8b40f.pdf",
+      "link_type": "pdf",
+      "date": "9 Apr 2026",
+      "deadline": null,
+      "deadline_label": null,
+      "has_deadline": false,
+      "source": "Official SRCC Announcements (srcc.edu)"
+    },
+    {
+      "id": "srcc-notice-438",
+      "title": "Notice - Inviting Proposals Cum Bids for Allotment of Tea &amp; Snacks Vending Kiosk on License Fee basis",
+      "category": "admissions",
+      "link": "https://online.srcc.edu/smartprof/file_uploads/notices/Attachment/NoticeInvitingProposalsCumBidsforAllotmentofTeaampSnacksVendingKioskonLicenseFeebasis-74fee4e9f40294f5f854bdf054770fc4.pdf",
+      "link_type": "pdf",
+      "date": "3 Feb 2026",
+      "deadline": null,
+      "deadline_label": null,
+      "has_deadline": false,
+      "source": "Official SRCC Announcements (srcc.edu)"
+    },
+    {
+      "id": "srcc-notice-439",
+      "title": "G.B.O Fee Notice IInd &amp; IVth Semester",
+      "category": "admissions",
+      "link": "https://online.srcc.edu/smartprof/file_uploads/notices/Attachment/GBOFeeNoticeIIndampIVthSemester-2c1dd44c6d6a098a4076342198e79ca5.pdf",
+      "link_type": "pdf",
+      "date": "30 Jan 2026",
+      "deadline": null,
+      "deadline_label": null,
+      "has_deadline": false,
+      "source": "Official SRCC Announcements (srcc.edu)"
+    },
     {
       "id": "srcc-notice-1",
       "title": "Helpline - Women's Safety",
@@ -5166,4 +5274,3 @@ window.SRCC_NOTICES_DATA = {
   ]
 };
 window.SRCC_OFFICIAL_NOTICES = window.SRCC_NOTICES_DATA.notices;
-window.COLLEGE_NOTICES = window.SRCC_OFFICIAL_NOTICES;
