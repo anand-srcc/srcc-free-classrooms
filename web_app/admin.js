@@ -515,15 +515,58 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================================
-  // 💾 LEAVES LOCAL STORAGE SYNC
+  // 💾 LEAVES LOCAL STORAGE SYNC & CANCELLATION TRACKING
   // ==========================================================================
+  const CANCELLED_LEAVES_KEY = 'srcc_cancelled_faculty_leaves_v1';
+
+  function getCancelledLeaves() {
+    try {
+      const stored = localStorage.getItem(CANCELLED_LEAVES_KEY);
+      return stored ? JSON.parse(stored) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function addCancelledLeave(teacher) {
+    try {
+      const list = getCancelledLeaves();
+      const idKey = teacher && teacher.teacher_id ? String(teacher.teacher_id) : '';
+      const nameKey = teacher && teacher.teacher_name ? teacher.teacher_name.toLowerCase().trim() : '';
+      const exists = list.some(c => (idKey && c.id === idKey) || (nameKey && c.name === nameKey));
+      if (!exists) {
+        list.push({ id: idKey, name: nameKey, cancelledAt: new Date().toISOString() });
+        localStorage.setItem(CANCELLED_LEAVES_KEY, JSON.stringify(list));
+      }
+    } catch (e) {}
+  }
+
+  function uncancelLeave(teacherId, teacherName) {
+    try {
+      let list = getCancelledLeaves();
+      const idKey = teacherId ? String(teacherId) : '';
+      const nameKey = teacherName ? teacherName.toLowerCase().trim() : '';
+      list = list.filter(c => !((idKey && c.id === idKey) || (nameKey && c.name === nameKey)));
+      localStorage.setItem(CANCELLED_LEAVES_KEY, JSON.stringify(list));
+    } catch (e) {}
+  }
+
+  function isLeaveCancelled(teacherId, teacherName) {
+    const list = getCancelledLeaves();
+    const idKey = teacherId ? String(teacherId) : '';
+    const nameKey = teacherName ? teacherName.toLowerCase().trim() : '';
+    return list.some(c => (idKey && c.id === idKey) || (nameKey && c.name === nameKey));
+  }
+
   function getLeavesList() {
     let raw = [];
+    let hasStored = false;
     try {
       const stored = localStorage.getItem(LEAVES_STORAGE_KEY) || localStorage.getItem('srcc_faculty_leaves_custom_v1');
-      if (stored) {
+      if (stored !== null) {
+        hasStored = true;
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length > 0) {
+        if (Array.isArray(parsed)) {
           raw = parsed;
         }
       }
@@ -531,7 +574,7 @@ document.addEventListener('DOMContentLoaded', () => {
       console.warn('Failed to parse stored leaves:', e);
     }
 
-    if (raw.length === 0) {
+    if (!hasStored) {
       if (window.SRCC_FACULTY_LEAVES && Array.isArray(window.SRCC_FACULTY_LEAVES.leaves)) {
         raw = [...window.SRCC_FACULTY_LEAVES.leaves];
       } else if (defaultLeaves && Array.isArray(defaultLeaves.leaves)) {
@@ -539,21 +582,28 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // Deduplicate by teacher ID or clean name (preserves latest entry)
+    // Deduplicate by teacher ID or clean name (preserves latest entry), ensure ID, and filter cancelled
     const dedupMap = new Map();
-    raw.forEach(l => {
-      const key = (l.teacher_id ? String(l.teacher_id) : '') || (l.teacher_name ? l.teacher_name.toLowerCase().trim() : '');
+    raw.forEach((l, idx) => {
+      const tId = l.teacher_id ? String(l.teacher_id) : '';
+      const tName = l.teacher_name ? l.teacher_name.toLowerCase().trim() : '';
+      
+      // If admin previously removed this teacher from leave, skip!
+      if (isLeaveCancelled(tId, tName)) {
+        return;
+      }
+
+      if (!l.id) {
+        l.id = tId ? ('leave_' + tId) : (tName ? ('leave_' + tName.replace(/[^a-z0-9]/g, '_')) : ('leave_' + idx));
+      }
+
+      const key = tId || tName;
       if (key && !dedupMap.has(key)) {
         dedupMap.set(key, l);
       }
     });
 
     const deduped = Array.from(dedupMap.values());
-    if (raw.length !== deduped.length) {
-      try {
-        localStorage.setItem(LEAVES_STORAGE_KEY, JSON.stringify(deduped));
-      } catch (e) {}
-    }
     return deduped;
   }
 
@@ -2287,6 +2337,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let clearedLeavesBackup = null;
   window.undoClearLeaves = function() {
     if (!clearedLeavesBackup || clearedLeavesBackup.length === 0) return;
+    clearedLeavesBackup.forEach(l => uncancelLeave(l.teacher_id, l.teacher_name));
     saveLeavesList(clearedLeavesBackup);
     renderLeavesTable();
     updateKpis();
@@ -2328,6 +2379,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const teacher = teachersData.teachers.find(t => String(t.id) === String(optVal));
         if (!teacher) return;
         
+        // Remove from cancelled leaves list if previously marked not on leave
+        uncancelLeave(teacher.id, teacher.clean_name);
+
         // Upsert: Remove existing leave for this teacher so the latest update takes precedence without duplication
         const existingIdx = current.findIndex(l => 
           (l.teacher_id && String(l.teacher_id) === String(teacher.id)) ||
@@ -2541,15 +2595,30 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.addEventListener('click', () => {
         const id = btn.dataset.leaveId;
         const current = getLeavesList();
-        const target = current.find(l => l.id === id);
-        const updated = current.filter(l => l.id !== id);
+        const target = current.find(l => {
+          const lId = l.id || (l.teacher_id ? ('leave_' + l.teacher_id) : '');
+          return String(l.id) === String(id) || String(lId) === String(id) || String(l.teacher_id) === String(id) || (l.teacher_name && l.teacher_name.toLowerCase().trim() === String(id).toLowerCase().trim());
+        });
+        
+        if (target) {
+          addCancelledLeave(target);
+        } else {
+          addCancelledLeave({ teacher_id: id, teacher_name: id });
+        }
+        
+        const updated = current.filter(l => {
+          const lId = l.id || (l.teacher_id ? ('leave_' + l.teacher_id) : '');
+          const isTarget = String(l.id) === String(id) || String(lId) === String(id) || String(l.teacher_id) === String(id) || (l.teacher_name && l.teacher_name.toLowerCase().trim() === String(id).toLowerCase().trim());
+          return !isTarget;
+        });
+        
         saveLeavesList(updated);
 
         renderLeavesTable();
         updateKpis();
         updateCodePreview();
         addAuditLog('LEAVE_DELETED', `Removed leave for ${target ? target.teacher_name : id}`);
-        showToast('🗑️ Faculty leave removed. Scheduled rooms restored to timetable.');
+        showToast(`🗑️ Faculty leave removed for <strong>${escapeHtml(target ? target.teacher_name : 'Teacher')}</strong>. Teacher is back on regular duty.`);
 
         // Auto-sync to Cloud DB if configured
         syncLeavesToCloud(updated, false);
@@ -2566,7 +2635,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       clearedLeavesBackup = [...current];
-      localStorage.removeItem(LEAVES_STORAGE_KEY);
+      current.forEach(l => addCancelledLeave(l));
+      saveLeavesList([]);
       renderLeavesTable();
       updateKpis();
       updateCodePreview();

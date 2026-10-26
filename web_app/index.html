@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   
-  <link rel="stylesheet" href="style.css?v=91" />
+  <link rel="stylesheet" href="style.css?v=95" />
 </head>
 <body>
   <!-- Header / Navigation (Slim Single-Line Strip) -->
@@ -53,9 +53,9 @@
         </div>
         <div class="brand-titles">
           <h1>SRCC Free Classroom Finder</h1>
-          <div class="header-last-updated" id="headerLastUpdatedWrap">
+          <div class="header-last-updated" id="headerLastUpdatedWrap" title="Timetable synced daily with official SRCC records">
             <span class="sync-dot-live"></span>
-            <span>College Timetable Synced: <strong id="lastUpdatedHeader">Today (Daily Verified)</strong></span>
+            <span>Sync: <strong id="lastUpdatedHeader">Today</strong></span>
           </div>
         </div>
       </div>
@@ -1047,8 +1047,8 @@
             <div class="drawer-nav-desc">Official circulars, exam forms &amp; deadlines</div>
           </div>
           <div class="drawer-badges-stack">
-            <span class="drawer-badge-pulse" id="drawerNoticesBadge">430 New</span>
-            <span class="drawer-badge-deadlines" id="drawerDeadlinesBadge">25 Deadlines ⏳</span>
+            <span class="drawer-badge-pulse" id="drawerNoticesBadge">Official Notices</span>
+            <span class="drawer-badge-deadlines" id="drawerDeadlinesBadge" style="display: none;"></span>
           </div>
         </button>
 
@@ -1079,20 +1079,6 @@
           </div>
           <div class="drawer-badges-stack">
             <span class="drawer-badge-pulse" style="background: #2563eb;" id="drawerClassNotifBadge">Active</span>
-          </div>
-        </button>
-
-        <!-- 💡 App Demo & Interactive Feature Tour -->
-        <button class="drawer-nav-item drawer-nav-tour" id="drawerNavTour" type="button">
-          <div class="drawer-nav-icon-wrap" style="background: rgba(245, 158, 11, 0.14); color: #d97706;">
-            💡
-          </div>
-          <div class="drawer-nav-text">
-            <div class="drawer-nav-name">App Demo &amp; Tour</div>
-            <div class="drawer-nav-desc">Interactive guide &amp; key feature navigation</div>
-          </div>
-          <div class="drawer-badges-stack">
-            <span class="drawer-badge-pulse" style="background: #d97706;" id="drawerTourBadge">Guide ✦</span>
           </div>
         </button>
 
@@ -1541,54 +1527,15 @@
     </div>
   </div>
 
-  <!-- ====================================================================
-       INTERACTIVE ONBOARDING COACHMARK & SPOTLIGHT WALKTHROUGH TOUR
-       ==================================================================== -->
-  <div class="tour-spotlight-overlay" id="appTourSpotlightOverlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="tourSpotlightTitle">
-    <!-- Backdrop to dim background and focus on highlighted element -->
-    <div class="tour-backdrop" id="tourBackdrop"></div>
-
-    <!-- Floating Coachmark Callout Card with Pointer Arrow -->
-    <div class="tour-callout-card" id="tourCalloutCard">
-      <div class="tour-callout-arrow" id="tourCalloutArrow"></div>
-      
-      <div class="tour-callout-header">
-        <div class="tour-callout-meta">
-          <span class="tour-callout-step" id="tourCalloutStep">Step 1 of 5</span>
-          <div class="tour-callout-dots" id="tourCalloutDots">
-            <span class="t-dot active"></span>
-            <span class="t-dot"></span>
-            <span class="t-dot"></span>
-            <span class="t-dot"></span>
-            <span class="t-dot"></span>
-          </div>
-        </div>
-        <button type="button" class="tour-callout-close" id="btnTourCoachmarkClose" aria-label="Skip and close tour">✕</button>
-      </div>
-
-      <div class="tour-callout-body" id="tourCalloutBody">
-        <!-- Injected via JavaScript -->
-      </div>
-
-      <div class="tour-callout-footer">
-        <button type="button" class="btn-tour-callout btn-tour-skip-spotlight" id="btnTourSkipSpotlight">Skip Tour</button>
-        <div class="tour-callout-actions">
-          <button type="button" class="btn-tour-callout btn-tour-prev-spotlight" id="btnTourPrevSpotlight" style="display: none;">← Back</button>
-          <button type="button" class="btn-tour-callout btn-tour-next-spotlight" id="btnTourNextSpotlight">Next ➔</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Scripts -->
-  <script src="data.js?v=94"></script>
-  <script src="college_notices.js?v=94"></script>
-  <script src="exam_codes_data.js?v=94"></script>
-  <script src="wifi_data.js?v=94"></script>
-  <script src="cloud_config.js?v=94"></script>
-  <script src="faculty_leaves.js?v=94"></script>
-  <script src="teachers_data.js?v=94"></script>
-  <script src="classes_data.js?v=94"></script>
-  <script src="app.js?v=94"></script>
+  <script src="data.js?v=95"></script>
+  <script src="college_notices.js?v=95"></script>
+  <script src="exam_codes_data.js?v=95"></script>
+  <script src="wifi_data.js?v=95"></script>
+  <script src="cloud_config.js?v=95"></script>
+  <script src="faculty_leaves.js?v=95"></script>
+  <script src="teachers_data.js?v=95"></script>
+  <script src="classes_data.js?v=95"></script>
+  <script src="app.js?v=95"></script>
 </body>
 </html>

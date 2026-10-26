@@ -551,12 +551,26 @@ document.addEventListener('DOMContentLoaded', () => {
     function getLeavesList() {
       const mergedMap = new Map();
 
+      // Check cancelled leaves from admin
+      let cancelledList = [];
+      try {
+        const cStored = localStorage.getItem('srcc_cancelled_faculty_leaves_v1');
+        if (cStored) cancelledList = JSON.parse(cStored);
+      } catch (e) {}
+
+      function isCancelled(tId, tName) {
+        const idKey = tId ? String(tId) : '';
+        const nameKey = tName ? tName.toLowerCase().trim() : '';
+        return cancelledList.some(c => (idKey && c.id === idKey) || (nameKey && c.name === nameKey));
+      }
+
       // 1. Load authoritative leaves from scraper/server (window.SRCC_FACULTY_LEAVES or leavesData)
       const activeSource = (window.SRCC_FACULTY_LEAVES && Array.isArray(window.SRCC_FACULTY_LEAVES.leaves))
         ? window.SRCC_FACULTY_LEAVES
         : leavesData;
       if (activeSource && Array.isArray(activeSource.leaves)) {
         activeSource.leaves.forEach(l => {
+          if (isCancelled(l.teacher_id, l.teacher_name)) return;
           const key = String(l.teacher_id || l.teacher_name || '').toLowerCase().trim();
           if (key) mergedMap.set(key, l);
         });
@@ -569,6 +583,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const parsed = JSON.parse(stored);
           if (Array.isArray(parsed)) {
             parsed.forEach(l => {
+              if (isCancelled(l.teacher_id, l.teacher_name)) return;
               const key = String(l.teacher_id || l.teacher_name || '').toLowerCase().trim();
               if (key) mergedMap.set(key, l);
             });
@@ -1335,7 +1350,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const elRibbonSync = document.getElementById('statLastSynced');
     const elFooterSync = document.getElementById('footerLastSynced');
 
-    if (elHeaderSync) elHeaderSync.textContent = `Today, ${todayDateFormatted}`;
+    if (elHeaderSync) {
+      elHeaderSync.textContent = 'Today';
+      elHeaderSync.title = `Official SRCC Timetable Synced: Today, ${todayDateFormatted}`;
+    }
     if (elRibbonSync) elRibbonSync.textContent = `Today, ${todayDateFormatted} • Daily Verified`;
     if (elFooterSync) elFooterSync.textContent = `Today, ${todayDateFormatted} • Official SRCC Timetable Verified`;
     if (statFacultyLastSynced) statFacultyLastSynced.textContent = `Today, ${todayDateFormatted}`;
@@ -1393,7 +1411,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function getCurrentlyOpenModal() {
       const popups = [
-        document.getElementById('appTourSpotlightOverlay'),
         document.getElementById('scheduleModal'),
         document.getElementById('teacherModal'),
         document.getElementById('wifiModal'),
@@ -1495,21 +1512,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
-      const tabModeWifi = document.getElementById('tabModeWifi');
-      const viewWifiSection = document.getElementById('viewWifiSection');
+      // Strip any lingering tour spotlight highlight classes
+      document.querySelectorAll('.tour-target-highlight').forEach(el => el.classList.remove('tour-target-highlight'));
 
-      if (tabModeRooms) {
-        tabModeRooms.classList.toggle('active', isRooms);
-        tabModeRooms.setAttribute('aria-selected', isRooms ? 'true' : 'false');
-      }
-      if (tabModeFaculty) {
-        tabModeFaculty.classList.toggle('active', isFaculty);
-        tabModeFaculty.setAttribute('aria-selected', isFaculty ? 'true' : 'false');
-      }
-      if (tabModeTimetable) {
-        tabModeTimetable.classList.toggle('active', isTimetable);
-        tabModeTimetable.setAttribute('aria-selected', isTimetable ? 'true' : 'false');
-      }
+      // Cleanly update top mode switcher tabs
+      document.querySelectorAll('.app-mode-switcher .mode-tab').forEach(tab => {
+        const m = tab.dataset.mode;
+        const isActive = (m === mode);
+        tab.classList.toggle('active', isActive);
+        tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        if (!isActive) {
+          try { tab.blur(); } catch (e) {}
+        }
+      });
+
+      const tabModeDirectory = document.getElementById('tabModeDirectory');
       if (tabModeDirectory) {
         tabModeDirectory.classList.toggle('active', isDirectory);
         tabModeDirectory.setAttribute('aria-selected', isDirectory ? 'true' : 'false');
@@ -1524,6 +1541,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tabModeExamCodes.classList.toggle('active', isExamCodes);
         tabModeExamCodes.setAttribute('aria-selected', isExamCodes ? 'true' : 'false');
       }
+      const tabModeWifi = document.getElementById('tabModeWifi');
       if (tabModeWifi) {
         tabModeWifi.classList.toggle('active', isWifi);
         tabModeWifi.setAttribute('aria-selected', isWifi ? 'true' : 'false');
@@ -6897,13 +6915,24 @@ window.SRCC_FACULTY_LEAVES = {
             candidateList.forEach(s => {
               if (s.day !== targetDay) return;
               if (selBatch !== 'ALL') {
-                const targetSubBatches = selBatch.split(/[\s,\/]+/).map(x => x.trim().toUpperCase()).filter(Boolean);
-                if (s.batch) {
-                  const classBatches = s.batch.toUpperCase().split(/[\s,]+/);
-                  const matches = classBatches.some(cb => {
-                    return targetSubBatches.includes(cb) || 
-                           targetSubBatches.some(tb => tb.replace(/P(\d+)$/, '$1') === cb.replace(/P(\d+)$/, '$1'));
+                const sBatchRaw = (s.batch || '').trim().toUpperCase();
+                // Normal lectures (empty batch or whole section) always match and notify!
+                if (sBatchRaw && sBatchRaw !== 'WHOLE SECTION' && sBatchRaw !== 'ALL') {
+                  const targetSubBatches = selBatch.split(/[\s,\/]+/).map(x => x.trim().toUpperCase()).filter(Boolean);
+                  const expandedTargets = new Set(targetSubBatches);
+                  targetSubBatches.forEach(tok => {
+                    const mp = tok.match(/^([A-Z]+)P(\d+)$/);
+                    if (mp) {
+                      expandedTargets.add(`${mp[1]}${mp[2]}`);
+                    } else {
+                      const m = tok.match(/^([A-Z]+)(\d+)$/);
+                      if (m && !m[1].endsWith('P')) {
+                        expandedTargets.add(`${m[1]}P${m[2]}`);
+                      }
+                    }
                   });
+                  const classBatches = sBatchRaw.split(/[\s,]+/).map(x => x.trim().toUpperCase()).filter(Boolean);
+                  const matches = classBatches.some(cb => expandedTargets.has(cb));
                   if (!matches) return;
                 }
               }
@@ -6991,7 +7020,6 @@ window.SRCC_FACULTY_LEAVES = {
             if (matchesFilter) {
               const selBatch = (targetBatch || 'ALL').trim().toUpperCase();
               if (selBatch !== 'ALL') {
-                const targetSubBatches = selBatch.split(/[\s,\/]+/).map(x => x.trim().toUpperCase()).filter(Boolean);
                 const allBatches = [
                   s.batch,
                   s.raw_batch,
@@ -6999,13 +7027,26 @@ window.SRCC_FACULTY_LEAVES = {
                   ...(s.raw_batches_list || [])
                 ].filter(Boolean).map(b => b.toUpperCase().trim());
 
-                if (allBatches.length > 0) {
+                // If class has a specific batch (not empty/whole section)
+                const isGroupClass = allBatches.length > 0 && allBatches.some(b => b !== 'WHOLE SECTION' && b !== 'ALL');
+                if (isGroupClass) {
+                  const targetSubBatches = selBatch.split(/[\s,\/]+/).map(x => x.trim().toUpperCase()).filter(Boolean);
+                  const expandedTargets = new Set(targetSubBatches);
+                  targetSubBatches.forEach(tok => {
+                    const mp = tok.match(/^([A-Z]+)P(\d+)$/);
+                    if (mp) {
+                      expandedTargets.add(`${mp[1]}${mp[2]}`);
+                    } else {
+                      const m = tok.match(/^([A-Z]+)(\d+)$/);
+                      if (m && !m[1].endsWith('P')) {
+                        expandedTargets.add(`${m[1]}P${m[2]}`);
+                      }
+                    }
+                  });
+
                   const matches = allBatches.some(b => {
                     const subBatches = b.split(/[\s,\/]+/).map(x => x.trim().toUpperCase()).filter(Boolean);
-                    return subBatches.some(tok => {
-                      return targetSubBatches.includes(tok) || 
-                             targetSubBatches.some(tb => tb.replace(/P(\d+)$/, '$1') === tok.replace(/P(\d+)$/, '$1'));
-                    });
+                    return subBatches.some(tok => expandedTargets.has(tok));
                   });
                   if (!matches) return;
                 }
@@ -7794,12 +7835,6 @@ window.SRCC_FACULTY_LEAVES = {
         const letterMatch = s.match(/Sec\s*([A-Za-z])/i) || s.match(/([A-Za-z])/i);
         const secLetter = letterMatch ? letterMatch[1].toUpperCase() : '';
 
-        // 1. ALL Classes option
-        const optAll = document.createElement('option');
-        optAll.value = 'ALL';
-        optAll.textContent = 'All Classes (Full Section + All Tutorials & Labs)';
-        notifBatchSelect.appendChild(optAll);
-
         if (secLetter) {
           // Combined Tutorial & Practical Batches as user requested: J1/JP1, J2/JP2, J3/JP3
           const combinedBatches = [
@@ -7829,6 +7864,12 @@ window.SRCC_FACULTY_LEAVES = {
             opt.textContent = `${secLetter}P${i} (Practical / Lab ${i} only)`;
             notifBatchSelect.appendChild(opt);
           }
+
+          // All Batches option at bottom
+          const optAll = document.createElement('option');
+          optAll.value = 'ALL';
+          optAll.textContent = 'All Batches (Full Section + All Tutorials & Labs)';
+          notifBatchSelect.appendChild(optAll);
         } else {
           // General / GBO / PG Batches
           ['Group 1 / Lab 1', 'Group 2 / Lab 2', 'Group 3 / Lab 3'].forEach((g, idx) => {
@@ -7837,13 +7878,18 @@ window.SRCC_FACULTY_LEAVES = {
             opt.textContent = g;
             notifBatchSelect.appendChild(opt);
           });
+          const optAll = document.createElement('option');
+          optAll.value = 'ALL';
+          optAll.textContent = 'All Batches';
+          notifBatchSelect.appendChild(optAll);
         }
 
-        // Restore saved preference
+        // Restore saved preference or default to Batch 1
+        const defaultBatch1 = secLetter ? `${secLetter}1 / ${secLetter}P1` : (notifBatchSelect.options[0]?.value || 'ALL');
         if (savedBatch && Array.from(notifBatchSelect.options).some(o => o.value === savedBatch)) {
           notifBatchSelect.value = savedBatch;
         } else {
-          notifBatchSelect.value = 'ALL';
+          notifBatchSelect.value = defaultBatch1;
         }
       }
 
@@ -7993,7 +8039,7 @@ window.SRCC_FACULTY_LEAVES = {
             // Cache preference for Service Worker
             if ('caches' in window) {
               try {
-                const cache = await caches.open('srcc-classroom-v94');
+                const cache = await caches.open('srcc-classroom-v95');
                 await cache.put('/__srcc_user_class_pref', new Response(JSON.stringify({
                   role: 'faculty',
                   teacherId: teacherId,
@@ -8058,7 +8104,7 @@ window.SRCC_FACULTY_LEAVES = {
 
           if ('caches' in window) {
             try {
-              const cache = await caches.open('srcc-classroom-v94');
+              const cache = await caches.open('srcc-classroom-v95');
               await cache.put('/__srcc_user_class_pref', new Response(JSON.stringify({
                 role: 'student',
                 course: selCourse,
@@ -10022,9 +10068,16 @@ window.SRCC_FACULTY_LEAVES = {
         if (noticesTotalPill) noticesTotalPill.textContent = `${counts.ALL} Public Notices`;
 
         const drawerDeadlinesBadge = document.getElementById('drawerDeadlinesBadge');
-        if (drawerDeadlinesBadge) drawerDeadlinesBadge.textContent = `${counts.DEADLINES_ACTIVE} Active Deadlines ⏳`;
+        if (drawerDeadlinesBadge) {
+          if (counts.DEADLINES_ACTIVE > 0) {
+            drawerDeadlinesBadge.textContent = `${counts.DEADLINES_ACTIVE} Active Deadline${counts.DEADLINES_ACTIVE > 1 ? 's' : ''} ⏳`;
+            drawerDeadlinesBadge.style.display = 'inline-block';
+          } else {
+            drawerDeadlinesBadge.style.display = 'none';
+          }
+        }
         const drawerNoticesBadge = document.getElementById('drawerNoticesBadge');
-        if (drawerNoticesBadge) drawerNoticesBadge.textContent = `${counts.ALL} New`;
+        if (drawerNoticesBadge) drawerNoticesBadge.textContent = `${counts.ALL} Notices`;
       }
 
       function renderCollegeNotices() {
@@ -10071,6 +10124,8 @@ window.SRCC_FACULTY_LEAVES = {
         const filtered = allNotices.filter(n => {
           if (currentCat === 'DEADLINES') {
             if (!n.has_deadline && !n.deadline) return false;
+            const dlStat = getDeadlineStatus(n.deadline);
+            if (!dlStat.isActive) return false; // Show only currently ACTIVE deadlines!
           } else if (currentCat !== 'ALL' && n.category !== currentCat) {
             return false;
           }
@@ -10085,7 +10140,7 @@ window.SRCC_FACULTY_LEAVES = {
         });
 
         // 🎯 USER-SPECIFIED PRECISE SORTING:
-        // 1. In 'DEADLINES' tab: Active upcoming deadlines sorted ASCENDING (soonest deadline first!), followed by past deadlines.
+        // 1. In 'DEADLINES' tab: Active upcoming deadlines sorted ASCENDING (soonest deadline first!).
         // 2. In ALL other tabs ('ALL', 'academic', 'examinations', 'societies', 'administration'):
         //    Sorted DESCENDING by notice date (most recent / today's latest notice on top!).
         if (currentCat === 'DEADLINES') {
@@ -10114,11 +10169,12 @@ window.SRCC_FACULTY_LEAVES = {
         }
 
         if (filtered.length === 0) {
+          const isDl = (currentCat === 'DEADLINES');
           noticesGrid.innerHTML = `
             <div class="notices-empty-state">
-              <div class="notices-empty-icon">📭</div>
-              <h3>No Notices Found</h3>
-              <p>No college notices match "${escapeHtml(q)}". Try clearing your search or switching filters.</p>
+              <div class="notices-empty-icon">${isDl ? '🎉' : '📭'}</div>
+              <h3>${isDl ? 'No Active Deadlines Right Now' : 'No Notices Found'}</h3>
+              <p>${isDl ? 'All upcoming application & submission deadlines are completed. Check All Notices for recent circulars.' : `No college notices match "${escapeHtml(q)}". Try clearing your search or switching filters.`}</p>
             </div>
           `;
           return;
@@ -10269,6 +10325,11 @@ window.SRCC_FACULTY_LEAVES = {
           setAppMode('rooms');
         });
       }
+
+      // Initialize counts immediately so drawer badges are accurate on load
+      try {
+        updateCategoryCounts(getAllCollegeNotices());
+      } catch (e) {}
     }
 
     // ========================================================================
@@ -10912,252 +10973,14 @@ window.SRCC_FACULTY_LEAVES = {
           }
         });
       }
-
-      // Drawer App Demo & Guided Feature Tour trigger
-      const drawerNavTour = document.getElementById('drawerNavTour');
-      if (drawerNavTour) {
-        drawerNavTour.addEventListener('click', () => {
-          closeCampusDrawer();
-          if (typeof window._openAppTour === 'function') {
-            window._openAppTour(0);
-          }
-        });
-      }
     }
 
     // ========================================================================
-    // ✨ FIRST-TIME ONBOARDING & INTERACTIVE SPOTLIGHT WALKTHROUGH TOUR
+    // ✨ TOUR CLEANUP (App Demo & Tour permanently removed per user request)
     // ========================================================================
     function initAppTour() {
-      const tourOverlay = document.getElementById('appTourSpotlightOverlay');
-      const tourBackdrop = document.getElementById('tourBackdrop');
-      const tourCard = document.getElementById('tourCalloutCard');
-      const tourArrow = document.getElementById('tourCalloutArrow');
-      const tourStepEl = document.getElementById('tourCalloutStep');
-      const tourDotsEl = document.getElementById('tourCalloutDots');
-      const tourBodyEl = document.getElementById('tourCalloutBody');
-      const btnClose = document.getElementById('btnTourCoachmarkClose');
-      const btnSkip = document.getElementById('btnTourSkipSpotlight');
-      const btnPrev = document.getElementById('btnTourPrevSpotlight');
-      const btnNext = document.getElementById('btnTourNextSpotlight');
-
-      if (!tourOverlay || !tourCard || !tourBodyEl) return;
-
-      const TOUR_STORAGE_KEY = 'srcc_first_visit_tour_v1';
-      let currentTourStep = 0;
-
-      const tourSteps = [
-        {
-          targetSelector: '#tabModeRooms',
-          mode: 'rooms',
-          badge: 'Step 1 of 5 · 🏛️ Classrooms',
-          title: '90+ Vacant Classrooms & GD Rooms',
-          body: 'Browse all <strong>96 classrooms</strong> across Main Heritage, PB & SCR wings. Tap the <strong>⚡ Free Right Now</strong> switch to instantly reveal 100% empty rooms for self-study and GD.',
-          pill: '⚡ 96 Classrooms · 10 Time Slots',
-          actionText: '👀 View Free Classrooms'
-        },
-        {
-          targetSelector: '#tabModeTimetable',
-          mode: 'timetable',
-          badge: 'Step 2 of 5 · 📅 Batch Timetable',
-          title: 'Batch Timetable & Pin Schedule',
-          body: 'View complete lecture schedules for B.Com (Hons), Eco (Hons), M.Com & GBO. Tap <strong>"Pin This Batch"</strong> so your exact section timetable loads first on every visit.',
-          pill: '⭐ All Semesters & Sections A to N',
-          actionText: '🗓️ Explore Batch Schedules'
-        },
-        {
-          targetSelector: '#btnOpenClassAlertsHeader',
-          mode: 'rooms',
-          badge: 'Step 3 of 5 · 🔔 Prior Alerts',
-          title: '10, 15 & 30-Min Class Alerts',
-          body: 'Choose your <strong>Tutorial & Practical Batch (e.g. J1 / JP1)</strong> and get reminders <strong>10, 15, or 30 min before</strong> with Room No. and instant warnings if your teacher is on leave.',
-          pill: '⏰ Student & Faculty Prior Alerts',
-          actionText: '🔔 Setup My Class Alerts'
-        },
-        {
-          targetSelector: '#tabModeFaculty',
-          mode: 'faculty',
-          badge: 'Step 4 of 5 · 👨‍🏫 Faculty Directory',
-          title: '210+ Faculty Members & Live Leaves',
-          body: 'Search <strong>210+ verified SRCC professors</strong>. Check where they are teaching right now, view verified DU emails, and track sanctioned faculty leaves in real time.',
-          pill: '👨‍🏫 210 Faculty · 1-Tap DU Email',
-          actionText: '👨‍🏫 Browse Faculty Directory'
-        },
-        {
-          targetSelector: '#btnThreeLineMenu',
-          mode: 'rooms',
-          badge: 'Step 5 of 5 · ☰ Campus Hub',
-          title: 'Campus Hub, Circulars & PDF Manual',
-          body: 'Access 430+ synced official SRCC circulars, DU NEP exam paper codes (UPC), offline PDF user guide, and campus resources anytime.',
-          pill: '📢 430+ Notices · Offline Resources',
-          actionText: '☰ Open Campus Hub'
-        }
-      ];
-
-      function clearHighlights() {
-        document.querySelectorAll('.tour-target-highlight').forEach(el => {
-          el.classList.remove('tour-target-highlight');
-        });
-      }
-
-      function positionCalloutCard(targetEl) {
-        if (!targetEl || !tourCard || !tourArrow) return;
-        const rect = targetEl.getBoundingClientRect();
-        const cardWidth = Math.min(360, window.innerWidth - 24);
-
-        // Render visibility to calculate offsetHeight
-        tourCard.style.width = `${Math.round(cardWidth)}px`;
-        const cardHeight = tourCard.offsetHeight || 230;
-
-        const spaceBelow = window.innerHeight - rect.bottom;
-        const spaceAbove = rect.top;
-
-        let top = 0;
-        let isBelow = true;
-
-        if (spaceBelow >= cardHeight + 16 || spaceBelow > spaceAbove) {
-          top = rect.bottom + 14;
-          isBelow = true;
-        } else {
-          top = Math.max(12, rect.top - cardHeight - 14);
-          isBelow = false;
-        }
-
-        top = Math.max(10, Math.min(top, window.innerHeight - cardHeight - 12));
-
-        const targetCenter = rect.left + (rect.width / 2);
-        let left = targetCenter - (cardWidth / 2);
-        left = Math.max(12, Math.min(left, window.innerWidth - cardWidth - 12));
-
-        tourCard.style.top = `${Math.round(top)}px`;
-        tourCard.style.left = `${Math.round(left)}px`;
-
-        tourArrow.className = 'tour-callout-arrow ' + (isBelow ? 'arrow-top' : 'arrow-bottom');
-        const arrowLeft = Math.max(16, Math.min(cardWidth - 28, targetCenter - left - 7));
-        tourArrow.style.left = `${Math.round(arrowLeft)}px`;
-      }
-
-      function renderTourStep(index) {
-        currentTourStep = Math.max(0, Math.min(index, tourSteps.length - 1));
-        const s = tourSteps[currentTourStep];
-
-        clearHighlights();
-
-        // Switch mode if needed
-        if (s.mode && typeof setAppMode === 'function') {
-          setAppMode(s.mode);
-        }
-
-        const targetEl = document.querySelector(s.targetSelector);
-        if (targetEl) {
-          targetEl.classList.add('tour-target-highlight');
-          try {
-            targetEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-          } catch (e) {}
-        }
-
-        if (tourStepEl) tourStepEl.textContent = s.badge;
-
-        if (tourDotsEl) {
-          const dots = tourDotsEl.querySelectorAll('.t-dot');
-          dots.forEach((dot, idx) => {
-            dot.classList.toggle('active', idx === currentTourStep);
-          });
-        }
-
-        tourBodyEl.innerHTML = `
-          <h4 class="tour-callout-title">${escapeHtml(s.title)}</h4>
-          <p class="tour-callout-text">${s.body}</p>
-          <div class="tour-callout-pill">${escapeHtml(s.pill)}</div>
-        `;
-
-        if (btnPrev) {
-          btnPrev.style.display = currentTourStep === 0 ? 'none' : 'inline-flex';
-        }
-        if (btnNext) {
-          const isLast = (currentTourStep === tourSteps.length - 1);
-          btnNext.textContent = isLast ? 'Finish Tour 🎉' : 'Next ➔';
-        }
-
-        // Reposition callout card with requestAnimationFrame to ensure layout is ready
-        requestAnimationFrame(() => {
-          if (targetEl) {
-            positionCalloutCard(targetEl);
-          }
-        });
-      }
-
-      function openAppTour(startIndex = 0) {
-        tourOverlay.style.display = 'block';
-        document.body.classList.add('modal-open');
-        renderTourStep(startIndex);
-      }
-      window._openAppTour = openAppTour;
-
-      function closeAppTour(markSeen = true) {
-        clearHighlights();
-        tourOverlay.style.display = 'none';
-        document.body.classList.remove('modal-open');
-        if (markSeen) {
-          try {
-            localStorage.setItem(TOUR_STORAGE_KEY, 'true');
-          } catch (e) {}
-        }
-      }
-
-      if (btnNext) {
-        btnNext.addEventListener('click', () => {
-          if (currentTourStep < tourSteps.length - 1) {
-            renderTourStep(currentTourStep + 1);
-          } else {
-            closeAppTour(true);
-            showToast('✨ Tour complete! Enjoy exploring SRCC Smart Campus.');
-          }
-        });
-      }
-
-      if (btnPrev) {
-        btnPrev.addEventListener('click', () => {
-          if (currentTourStep > 0) {
-            renderTourStep(currentTourStep - 1);
-          }
-        });
-      }
-
-      if (btnSkip) {
-        btnSkip.addEventListener('click', () => {
-          closeAppTour(true);
-          showToast('💡 Re-open the App Tour anytime from the ☰ menu.');
-        });
-      }
-
-      if (btnClose) {
-        btnClose.addEventListener('click', () => closeAppTour(true));
-      }
-
-      if (tourBackdrop) {
-        tourBackdrop.addEventListener('click', () => closeAppTour(true));
-      }
-
-      window.addEventListener('resize', () => {
-        if (tourOverlay.style.display !== 'none') {
-          const s = tourSteps[currentTourStep];
-          const targetEl = document.querySelector(s.targetSelector);
-          if (targetEl) positionCalloutCard(targetEl);
-        }
-      });
-
-      // Auto-trigger on first app visit (after 900ms delay)
-      try {
-        const hasVisited = localStorage.getItem(TOUR_STORAGE_KEY);
-        if (!hasVisited) {
-          setTimeout(() => {
-            if (!getCurrentlyOpenModal()) {
-              openAppTour(0);
-            }
-          }, 900);
-        }
-      } catch (e) {}
+      // Clear any lingering spotlight highlight classes from elements
+      document.querySelectorAll('.tour-target-highlight').forEach(el => el.classList.remove('tour-target-highlight'));
     }
 
     // ========================================================================
