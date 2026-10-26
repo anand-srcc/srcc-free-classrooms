@@ -1,16 +1,76 @@
 {
-  "last_updated": "25 Oct 2026, 05:30 PM",
-  "last_synced_iso": "2026-10-25T17:30:00.000000",
-  "total_on_leave": 4,
+  "last_updated": "26 Oct 2026, 09:47 AM",
+  "last_synced_iso": "2026-10-26T09:47:02.102871",
+  "total_on_leave": 10,
   "source": "https://studentassistsrcc.app / Firebase Cloud DB",
   "leaves": [
+    {
+      "teacher_id": "579",
+      "teacher_name": "Surya Prakash",
+      "teacher_code": "SAP",
+      "department": "Commerce",
+      "start_date": "2026-10-26",
+      "end_date": "2026-10-28",
+      "reason": "Faculty Leave",
+      "status": "On Leave"
+    },
+    {
+      "teacher_id": "502",
+      "teacher_name": "Shikha Rajput",
+      "teacher_code": "SAR",
+      "department": "Commerce",
+      "start_date": "2026-10-26",
+      "end_date": "2026-10-26",
+      "reason": "Faculty Leave",
+      "status": "On Leave"
+    },
+    {
+      "teacher_id": "604",
+      "teacher_name": "Amit Sachdeva",
+      "teacher_code": "AMS",
+      "department": "Commerce",
+      "start_date": "2026-10-26",
+      "end_date": "2026-10-26",
+      "reason": "Faculty Leave",
+      "status": "On Leave"
+    },
     {
       "teacher_id": "521",
       "teacher_name": "Gaurav Rana",
       "teacher_code": "GVR",
       "department": "Commerce",
-      "start_date": "2026-10-15",
+      "start_date": "2026-10-26",
       "end_date": "2026-11-04",
+      "reason": "Faculty Leave",
+      "status": "On Leave"
+    },
+    {
+      "teacher_id": "596",
+      "teacher_name": "Shailesh Kumar Chawla",
+      "teacher_code": "SKC",
+      "department": "English",
+      "start_date": "2026-10-23",
+      "end_date": "2026-10-29",
+      "reason": "Faculty Leave",
+      "status": "On Leave"
+    },
+    {
+      "teacher_id": "575",
+      "teacher_name": "Kinneri Jain",
+      "teacher_code": "KIJ",
+      "department": "Commerce",
+      "start_date": "2026-10-26",
+      "end_date": "2026-10-26",
+      "reason": "Faculty Leave",
+      "status": "On Leave"
+    },
+    {
+      "teacher_id": "609",
+      "teacher_name": "Sneh Lata Gupta",
+      "teacher_code": "SLG",
+      "department": "Commerce",
+      "start_date": "2026-10-26",
+      "end_date": "2026-11-11",
       "reason": "Faculty Leave",
       "status": "On Leave"
     },
