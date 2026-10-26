@@ -2,19 +2,29 @@
   "rules": {
     "leaves": {
       ".read": true,
-      ".write": false
+      ".write": true
+    },
+    "push_subscriptions": {
+      ".read": true,
+      ".write": true
+    },
+    "broadcast_triggers": {
+      ".read": true,
+      ".write": true
+    },
+    "room_locks": {
+      ".read": true,
+      ".write": true
+    },
+    "campus_notices": {
+      ".read": true,
+      ".write": true
     },
     "issues": {
       ".read": false,
       "$issue_id": {
         ".write": "!data.exists() && newData.exists()",
         ".validate": "newData.hasChildren(['type', 'timestamp']) && newData.child('type').isString()"
-      }
-    },
-    "push": {
-      ".read": false,
-      "$key": {
-        ".write": "$key.length === 32 && (!newData.exists() || (newData.hasChild('sub') && newData.hasChild('hourly')))"
       }
     },
     ".read": false,

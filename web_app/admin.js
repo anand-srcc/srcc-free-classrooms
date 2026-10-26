@@ -845,6 +845,47 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function broadcastFacultyLeaveUpdate(title, body) {
+    try {
+      // 1. Broadcast trigger to Firebase Realtime Database
+      const baseUrl = getBaseCloudDbUrl();
+      if (baseUrl) {
+        const secret = getCloudDbSecret();
+        let trigUrl = `${baseUrl}/broadcast_triggers/latest.json`;
+        if (secret) trigUrl += (trigUrl.includes('?') ? '&' : '?') + 'auth=' + encodeURIComponent(secret);
+        fetch(trigUrl, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            title: title,
+            body: body,
+            category: 'faculty_leave_update',
+            timestamp: Date.now(),
+            sentBy: (typeof getActiveSessionUser === 'function' && getActiveSessionUser()?.fullName) || 'Admin'
+          })
+        }).catch(() => {});
+      }
+
+      // 2. Dispatch to Netlify Web Push so closed-browser phones get alerted immediately
+      fetch('/.netlify/functions/push_dispatch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: title,
+          body: body,
+          url: './?view=leaves'
+        })
+      }).catch(() => {});
+
+      // 3. Message active Service Worker if available
+      if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({ type: 'CHECK_LEAVES' });
+      }
+    } catch (e) {
+      console.warn('Broadcast leave update note:', e);
+    }
+  }
+
   // ==========================================================================
   // 🔒 ROOM LOCKS & EXTRA CLASSES MANAGEMENT
   // ==========================================================================
@@ -2435,6 +2476,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Auto-sync to Cloud DB if configured
       syncLeavesToCloud(current, false);
+      broadcastFacultyLeaveUpdate('🏖️ Faculty Leave Update', `Prof. ${namesStr} marked on leave. Timetable updated.`);
     });
   }
 
@@ -2622,6 +2664,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Auto-sync to Cloud DB if configured
         syncLeavesToCloud(updated, false);
+        broadcastFacultyLeaveUpdate('✅ Faculty Duty Restored', `Prof. ${target ? target.teacher_name : 'Teacher'} leave removed. Regular lectures restored.`);
       });
     });
   }
@@ -2645,6 +2688,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Auto-sync empty leaves to Cloud DB
       syncLeavesToCloud([], false);
+      broadcastFacultyLeaveUpdate('🔄 Faculty Leaves Cleared', 'All faculty leaves have been cleared. Classes running on regular schedule.');
     });
   }
 

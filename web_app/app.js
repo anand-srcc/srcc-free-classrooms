@@ -8935,9 +8935,24 @@ window.SRCC_FACULTY_LEAVES = {
       if (!cloudUrl) return;
 
       try {
-        const res = await fetch(cloudUrl, { cache: 'no-cache' });
-        if (!res.ok) return;
-        const data = await res.json();
+        let data = null;
+        try {
+          const res = await fetch(cloudUrl, { cache: 'no-cache' });
+          if (res.ok) {
+            data = await res.json();
+          }
+        } catch (err) {}
+
+        // Fallback to auto-synced static json if Cloud DB is unreachable or 401
+        if (!data || (!data.leaves && !Array.isArray(data))) {
+          try {
+            const localRes = await fetch('./faculty_leaves.json?t=' + Date.now(), { cache: 'no-cache' });
+            if (localRes.ok) {
+              data = await localRes.json();
+            }
+          } catch (e) {}
+        }
+
         let newLeaves = [];
         if (data && Array.isArray(data.leaves)) {
           newLeaves = data.leaves;
@@ -11049,7 +11064,7 @@ window._triggerDeferredPwaPrompt = function(delayMs = 3000) {
 // Register Service Worker with robust relative path and periodic sync
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    const swUrl = './sw.js?v=80';
+    const swUrl = './sw.js?v=95';
     navigator.serviceWorker.register(swUrl, { scope: './' }).then(async (registration) => {
       console.log('[SW] Registered successfully with scope:', registration.scope);
 

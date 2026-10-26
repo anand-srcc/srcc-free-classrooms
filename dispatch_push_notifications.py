@@ -16,7 +16,7 @@ if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8')
 
 FIREBASE_DB_BASE = "https://srcc-leaves-default-rtdb.firebaseio.com"
-VAPID_PRIVATE_KEY = os.environ.get("VAPID_PRIVATE_KEY", "")
+VAPID_PRIVATE_KEY = os.environ.get("VAPID_PRIVATE_KEY") or "qrlpGNpCe_mRfk7xlfB3IlUSVUSFdP9Kasqpp0L_uZM"
 VAPID_CLAIMS = {
     "sub": os.environ.get("VAPID_EMAIL", "mailto:anand.kumar.student@srcc.du.ac.in")
 }
