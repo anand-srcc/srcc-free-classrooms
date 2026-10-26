@@ -1345,14 +1345,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // 📅 DAILY VERIFIED TIMETABLE METADATA & LIVE CREDIBILITY
     // ========================================================================
     const todayDateFormatted = istNow.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    const headerDateFormatted = istNow.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
 
     const elHeaderSync = document.getElementById('lastUpdatedHeader');
     const elRibbonSync = document.getElementById('statLastSynced');
     const elFooterSync = document.getElementById('footerLastSynced');
 
     if (elHeaderSync) {
-      elHeaderSync.textContent = 'Today';
-      elHeaderSync.title = `Official SRCC Timetable Synced: Today, ${todayDateFormatted}`;
+      elHeaderSync.textContent = headerDateFormatted;
+      elHeaderSync.title = `Official SRCC Timetable Synced: ${todayDateFormatted}`;
     }
     if (elRibbonSync) elRibbonSync.textContent = `Today, ${todayDateFormatted} • Daily Verified`;
     if (elFooterSync) elFooterSync.textContent = `Today, ${todayDateFormatted} • Official SRCC Timetable Verified`;
@@ -8039,7 +8040,7 @@ window.SRCC_FACULTY_LEAVES = {
             // Cache preference for Service Worker
             if ('caches' in window) {
               try {
-                const cache = await caches.open('srcc-classroom-v95');
+                const cache = await caches.open('srcc-classroom-v96');
                 await cache.put('/__srcc_user_class_pref', new Response(JSON.stringify({
                   role: 'faculty',
                   teacherId: teacherId,
@@ -8104,7 +8105,7 @@ window.SRCC_FACULTY_LEAVES = {
 
           if ('caches' in window) {
             try {
-              const cache = await caches.open('srcc-classroom-v95');
+              const cache = await caches.open('srcc-classroom-v96');
               await cache.put('/__srcc_user_class_pref', new Response(JSON.stringify({
                 role: 'student',
                 course: selCourse,
@@ -11064,7 +11065,7 @@ window._triggerDeferredPwaPrompt = function(delayMs = 3000) {
 // Register Service Worker with robust relative path and periodic sync
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    const swUrl = './sw.js?v=95';
+    const swUrl = './sw.js?v=96';
     navigator.serviceWorker.register(swUrl, { scope: './' }).then(async (registration) => {
       console.log('[SW] Registered successfully with scope:', registration.scope);
 

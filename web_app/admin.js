@@ -804,43 +804,108 @@ document.addEventListener('DOMContentLoaded', () => {
     return null;
   }
 
-  async function syncLeavesToCloud(leavesList, showSuccessToast = false) {
-    let baseUrl = getBaseCloudDbUrl();
-    if (!baseUrl) return false;
-    let url = baseUrl + '/leaves.json';
-    
-    const secret = getCloudDbSecret();
-    if (secret) {
-      url += (url.includes('?') ? '&' : '?') + 'auth=' + encodeURIComponent(secret);
-    }
+  const GITHUB_REPO = 'anand-srcc/srcc-free-classrooms';
+  const GITHUB_PAT = localStorage.getItem('srcc_admin_github_token') || '';
 
+  async function syncLeavesToGitHub(leavesList) {
+    if (!GITHUB_PAT) return false;
     try {
       const todayStr = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
-      const payload = {
+      const payloadObj = {
         last_updated: todayStr,
+        last_synced_iso: new Date().toISOString(),
+        total_on_leave: leavesList.length,
+        source: 'SRCC Portal Admin Live Update',
         leaves: leavesList
       };
+      const jsonContent = JSON.stringify(payloadObj, null, 2);
+      const b64Content = btoa(unescape(encodeURIComponent(jsonContent)));
 
-      const res = await fetch(url, {
+      // 1. Get current SHA
+      const getUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/web_app/faculty_leaves.json`;
+      const getRes = await fetch(getUrl, {
+        headers: {
+          'Authorization': `Bearer ${GITHUB_PAT}`,
+          'Accept': 'application/vnd.github.v3+json'
+        }
+      });
+      if (!getRes.ok) return false;
+      const getData = await getRes.json();
+      const currentSha = getData.sha;
+
+      // 2. Commit updated faculty_leaves.json directly to main branch
+      const putRes = await fetch(getUrl, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        headers: {
+          'Authorization': `Bearer ${GITHUB_PAT}`,
+          'Content-Type': 'application/json',
+          'Accept': 'application/vnd.github.v3+json'
+        },
+        body: JSON.stringify({
+          message: `🏖️ [Admin Live Sync] Update faculty leaves (${leavesList.length} active)`,
+          content: b64Content,
+          sha: currentSha,
+          branch: 'main'
+        })
       });
 
-      if (res.ok) {
-        updateCloudStatusBadge();
-        if (showSuccessToast) {
-          showToast('☁️ <strong>Live Cloud Synced!</strong> All SRCC students will see this update instantly.', true, 4500);
-        }
-        return true;
-      } else {
-        console.warn('Cloud sync HTTP error:', res.status);
-        showToast(`⚠️ Cloud Sync failed (HTTP ${res.status}). Check Firebase test rules.`, false);
-        return false;
-      }
+      return putRes.ok;
     } catch (err) {
-      console.error('Cloud sync network error:', err);
-      showToast('⚠️ Could not connect to Cloud Database. Saved locally.', false);
+      console.warn('[GitHub Sync Note]', err);
+      return false;
+    }
+  }
+
+  async function syncLeavesToCloud(leavesList, showSuccessToast = false) {
+    let firebaseSuccess = false;
+    let githubSuccess = false;
+
+    // 1. Sync to Firebase Realtime DB
+    let baseUrl = getBaseCloudDbUrl();
+    if (baseUrl) {
+      let url = baseUrl + '/leaves.json';
+      const secret = getCloudDbSecret();
+      if (secret) {
+        url += (url.includes('?') ? '&' : '?') + 'auth=' + encodeURIComponent(secret);
+      }
+
+      try {
+        const todayStr = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+        const payload = {
+          last_updated: todayStr,
+          leaves: leavesList
+        };
+
+        const res = await fetch(url, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          firebaseSuccess = true;
+        } else {
+          console.warn('Firebase sync HTTP status:', res.status);
+        }
+      } catch (err) {
+        console.error('Firebase sync network error:', err);
+      }
+    }
+
+    // 2. Dual-Sync: Direct GitHub Repository Auto-Sync (Guarantees every student mobile gets it!)
+    try {
+      githubSuccess = await syncLeavesToGitHub(leavesList);
+    } catch (e) {}
+
+    if (firebaseSuccess || githubSuccess) {
+      updateCloudStatusBadge(firebaseSuccess, githubSuccess);
+      if (showSuccessToast || !firebaseSuccess) {
+        const targetStr = (firebaseSuccess && githubSuccess) ? 'Firebase & GitHub' : (githubSuccess ? 'GitHub Cloud' : 'Firebase DB');
+        showToast(`☁️ <strong>Live Cloud Synced! (${targetStr})</strong> All SRCC students will see this update immediately.`, true, 4500);
+      }
+      return true;
+    } else {
+      showToast('⚠️ Cloud Sync could not connect to Firebase/GitHub. Saved in local storage.', false);
       return false;
     }
   }
