@@ -9803,15 +9803,16 @@ body.dark-mode .notices-pill-count {
   box-shadow: 0 4px 12px rgba(14, 165, 233, 0.15);
 }
 
+.three-dots-wrap,
 .desktop-dots-wrap {
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   align-items: center;
   gap: 3.5px;
 }
 
 .mobile-lines-wrap {
-  display: none;
+  display: none !important;
 }
 
 .three-dot {
@@ -9849,17 +9850,19 @@ body.dark-mode .notices-pill-count {
 }
 
 @media (max-width: 768px) {
+  .three-dots-wrap,
   .desktop-dots-wrap {
-    display: none !important;
-  }
-  .mobile-lines-wrap {
     display: flex !important;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 3px;
+  }
+  .mobile-lines-wrap {
+    display: none !important;
   }
   #btnThreeLineMenu {
     order: 10 !important;
+    display: inline-flex !important;
     margin-left: auto !important;
     margin-right: 0 !important;
   }
