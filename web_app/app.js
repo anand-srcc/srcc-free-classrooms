@@ -1352,8 +1352,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const elFooterSync = document.getElementById('footerLastSynced');
 
     if (elHeaderSync) {
-      elHeaderSync.textContent = headerDateFormatted;
-      elHeaderSync.title = `Official SRCC Timetable Synced: ${todayDateFormatted}`;
+      elHeaderSync.textContent = `Today, ${todayDateFormatted}`;
+      elHeaderSync.title = `Official SRCC Timetable Synced: Today, ${todayDateFormatted}`;
     }
     if (elRibbonSync) elRibbonSync.textContent = `Today, ${todayDateFormatted} • Daily Verified`;
     if (elFooterSync) elFooterSync.textContent = `Today, ${todayDateFormatted} • Official SRCC Timetable Verified`;
@@ -11065,7 +11065,7 @@ window._triggerDeferredPwaPrompt = function(delayMs = 3000) {
 // Register Service Worker with robust relative path and periodic sync
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    const swUrl = './sw.js?v=96';
+    const swUrl = './sw.js?v=97';
     navigator.serviceWorker.register(swUrl, { scope: './' }).then(async (registration) => {
       console.log('[SW] Registered successfully with scope:', registration.scope);
 

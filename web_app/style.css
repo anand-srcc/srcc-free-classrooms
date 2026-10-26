@@ -194,17 +194,16 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: var(--bg-card-hover);
-  padding: 3px 8px;
-  border-radius: var(--radius-md);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  background: transparent;
+  padding: 0;
+  border: none;
+  box-shadow: none;
   flex-shrink: 0;
-  transition: border-color var(--transition-normal);
 }
 
 .brand-logos-wrapper:hover {
-  border-color: #b45309;
+  background: transparent;
+  border-color: transparent;
 }
 
 .brand-logo-img {
@@ -216,18 +215,18 @@ body {
 .logo-crest {
   height: 38px;
   width: 38px;
-  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+  filter: none;
 }
 
 .logo-100years {
   height: 38px;
   width: 38px;
   border-radius: 50%;
-  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+  filter: none;
 }
 
 .brand-logos-wrapper:hover .brand-logo-img {
-  transform: scale(1.08);
+  transform: scale(1.06);
 }
 
 .brand-logo-separator {
@@ -2790,7 +2789,7 @@ body {
       "logos sync menu";
     grid-template-columns: auto 1fr auto;
     align-items: center;
-    column-gap: 8px;
+    column-gap: 6px;
     row-gap: 6px;
     box-sizing: border-box;
     min-width: 0;
@@ -2822,38 +2821,64 @@ body {
 
   .brand-logos-wrapper {
     grid-area: logos;
-    padding: 2px 5px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
     flex-shrink: 0;
     display: flex;
     align-items: center;
     gap: 4px;
-    border-radius: var(--radius-sm);
+    border-radius: 0;
   }
   
   .logo-crest, .logo-100years {
-    height: 28px;
-    width: 28px;
+    height: 26px;
+    width: 26px;
+    filter: none;
+  }
+
+  .brand-logo-separator {
+    font-size: 0.95rem;
+    margin: 0 1px;
+    color: #b45309;
+    opacity: 0.75;
   }
 
   .header-last-updated {
     grid-area: sync;
-    display: flex !important;
+    display: inline-flex !important;
     align-items: center;
     justify-content: center;
-    gap: 5px;
-    margin: 0 auto;
-    padding: 3.5px 10px;
+    gap: 4px;
+    margin: 0;
+    padding: 3px 8px;
     background: rgba(16, 185, 129, 0.08);
     border: 1px solid rgba(16, 185, 129, 0.25);
     border-radius: 9999px;
-    font-size: 0.70rem;
+    font-size: clamp(0.55rem, 2.3vw, 0.69rem);
+    letter-spacing: -0.015em;
     font-weight: 600;
     color: #047857;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    overflow: visible;
     max-width: 100%;
+    box-sizing: border-box;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  }
+
+  .header-last-updated span {
+    white-space: nowrap;
+    line-height: 1.2;
+    overflow: visible;
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .header-last-updated strong {
+    font-weight: 700;
+    white-space: nowrap;
   }
 
   body.dark-mode .header-last-updated {
@@ -2864,10 +2889,34 @@ body {
 
   #btnThreeLineMenu {
     grid-area: menu;
+    width: 34px;
+    height: 34px;
+    padding: 6px;
     margin-left: auto !important;
     margin-right: 0 !important;
     align-self: center !important;
     flex-shrink: 0;
+  }
+
+  @media (max-width: 360px) {
+    .brand-group {
+      column-gap: 3px;
+    }
+    .header-last-updated {
+      padding: 2.5px 5px;
+      font-size: 0.52rem;
+      letter-spacing: -0.025em;
+      gap: 3px;
+    }
+    .logo-crest, .logo-100years {
+      height: 22px;
+      width: 22px;
+    }
+    #btnThreeLineMenu {
+      width: 30px;
+      height: 30px;
+      padding: 4px;
+    }
   }
   
   .header-actions {
@@ -3396,6 +3445,7 @@ body {
   padding: 3px 10px;
   border-radius: var(--radius-full);
   margin-top: 4px;
+  white-space: nowrap;
 }
 
 .header-last-updated .sync-dot-live {
