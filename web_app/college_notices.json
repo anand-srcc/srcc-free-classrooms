@@ -1,8 +1,20 @@
 {
-  "total": 439,
+  "total": 440,
   "source": "https://www.srcc.edu/announcements",
-  "last_sync": "2026-10-25T20:55:21.209548",
+  "last_sync": "2026-10-27T07:56:35.867586",
   "notices": [
+    {
+      "id": "srcc-notice-440",
+      "title": "Notice - Vigilance Awareness Week 2026",
+      "category": "administration",
+      "link": "https://www.srcc.edu/sites/default/files/Notice Vigilance Awareness Week 2026.pdf",
+      "link_type": "pdf",
+      "date": "27 Oct 2026",
+      "deadline": null,
+      "deadline_label": null,
+      "has_deadline": false,
+      "source": "Official SRCC Announcements (srcc.edu)"
+    },
     {
       "id": "srcc-notice-431",
       "title": "Notification-Last date extended UG &amp; PG",
