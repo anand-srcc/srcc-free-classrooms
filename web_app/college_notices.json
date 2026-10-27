@@ -1,8 +1,32 @@
 {
-  "total": 440,
+  "total": 442,
   "source": "https://www.srcc.edu/announcements",
-  "last_sync": "2026-10-27T07:56:35.867586",
+  "last_sync": "2026-10-27T14:35:01.719137",
   "notices": [
+    {
+      "id": "srcc-notice-441",
+      "title": "IQAC SRCCs Student Newsletter Volume III Issue 12",
+      "category": "administration",
+      "link": "https://online.srcc.edu/smartprof/file_uploads/notices/Attachment/IQACSRCCsStudentNewsletterVolumeIIIIssue12-c478b86d3ab5256256acbd9ddbaee186.pdf",
+      "link_type": "pdf",
+      "date": "27 Oct 2026",
+      "deadline": null,
+      "deadline_label": null,
+      "has_deadline": false,
+      "source": "Official SRCC Announcements (srcc.edu)"
+    },
+    {
+      "id": "srcc-notice-442",
+      "title": "Notice Vigilance Awareness Week 2026",
+      "category": "administration",
+      "link": "https://online.srcc.edu/smartprof/file_uploads/notices/Attachment/NoticeVigilanceAwarenessWeek2026-fead86c405864bcc7a59eeb4c5c6760d.pdf",
+      "link_type": "pdf",
+      "date": "27 Oct 2026",
+      "deadline": null,
+      "deadline_label": null,
+      "has_deadline": false,
+      "source": "Official SRCC Announcements (srcc.edu)"
+    },
     {
       "id": "srcc-notice-440",
       "title": "Notice - Vigilance Awareness Week 2026",
