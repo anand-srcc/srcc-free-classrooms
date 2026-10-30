@@ -1,119 +1,9 @@
 {
-  "last_updated": "29 Oct 2026, 07:59 AM",
-  "last_synced_iso": "2026-10-29T07:59:37.044304",
-  "total_on_leave": 18,
+  "last_updated": "30 Oct 2026, 08:02 AM",
+  "last_synced_iso": "2026-10-30T08:02:29.724116",
+  "total_on_leave": 6,
   "source": "https://studentassistsrcc.app / Firebase Cloud DB",
   "leaves": [
-    {
-      "teacher_id": "545",
-      "teacher_name": "Priyanka Aggarwal",
-      "teacher_code": "PAA",
-      "department": "Commerce",
-      "start_date": "2026-10-29",
-      "end_date": "2026-10-29",
-      "reason": "Faculty Leave",
-      "status": "On Leave"
-    },
-    {
-      "teacher_id": "516",
-      "teacher_name": "Rutika Saini",
-      "teacher_code": "RAS",
-      "department": "Commerce",
-      "start_date": "2026-10-29",
-      "end_date": "2026-10-29",
-      "reason": "Faculty Leave",
-      "status": "On Leave"
-    },
-    {
-      "teacher_id": "583",
-      "teacher_name": "Harendra Nath Tiwari",
-      "teacher_code": "HNT",
-      "department": "Commerce",
-      "start_date": "2026-10-29",
-      "end_date": "2026-10-29",
-      "reason": "Faculty Leave",
-      "status": "On Leave"
-    },
-    {
-      "teacher_id": "658",
-      "teacher_name": "Ashima",
-      "teacher_code": "AHC",
-      "department": "Commerce",
-      "start_date": "2026-10-29",
-      "end_date": "2026-10-29",
-      "reason": "Faculty Leave",
-      "status": "On Leave"
-    },
-    {
-      "teacher_id": "550",
-      "teacher_name": "Sudhanshu Yadav",
-      "teacher_code": "SUY",
-      "department": "Commerce",
-      "start_date": "2026-10-29",
-      "end_date": "2026-10-29",
-      "reason": "Faculty Leave",
-      "status": "On Leave"
-    },
-    {
-      "teacher_id": "542",
-      "teacher_name": "Jaideep",
-      "teacher_code": "JDP",
-      "department": "Commerce",
-      "start_date": "2026-10-29",
-      "end_date": "2026-10-29",
-      "reason": "Faculty Leave",
-      "status": "On Leave"
-    },
-    {
-      "teacher_id": "571",
-      "teacher_name": "Amanpreet Kaur",
-      "teacher_code": "ANK",
-      "department": "Commerce",
-      "start_date": "2026-10-29",
-      "end_date": "2026-10-29",
-      "reason": "Faculty Leave",
-      "status": "On Leave"
-    },
-    {
-      "teacher_id": "591",
-      "teacher_name": "Priyanka Bhatia",
-      "teacher_code": "PB",
-      "department": "Economics",
-      "start_date": "2026-10-29",
-      "end_date": "2026-10-29",
-      "reason": "Faculty Leave",
-      "status": "On Leave"
-    },
-    {
-      "teacher_id": "610",
-      "teacher_name": "Reena Chadha",
-      "teacher_code": "",
-      "department": "Commerce",
-      "start_date": "2026-10-29",
-      "end_date": "2026-10-29",
-      "reason": "Faculty Leave",
-      "status": "On Leave"
-    },
-    {
-      "teacher_id": "533",
-      "teacher_name": "Saurabh Gupta",
-      "teacher_code": "SHG",
-      "department": "Commerce",
-      "start_date": "2026-10-29",
-      "end_date": "2026-10-29",
-      "reason": "Faculty Leave",
-      "status": "On Leave"
-    },
-    {
-      "teacher_id": "507",
-      "teacher_name": "Shruti Mallik",
-      "teacher_code": "SIM",
-      "department": "Commerce",
-      "start_date": "2026-10-29",
-      "end_date": "2026-10-29",
-      "reason": "Faculty Leave",
-      "status": "On Leave"
-    },
     {
       "teacher_id": "604",
       "teacher_name": "Amit Sachdeva",
@@ -121,16 +11,6 @@
       "department": "Commerce",
       "start_date": "2026-10-27",
       "end_date": "2026-10-30",
-      "reason": "Faculty Leave",
-      "status": "On Leave"
-    },
-    {
-      "teacher_id": "596",
-      "teacher_name": "Shailesh Kumar Chawla",
-      "teacher_code": "SKC",
-      "department": "English",
-      "start_date": "2026-10-23",
-      "end_date": "2026-10-29",
       "reason": "Faculty Leave",
       "status": "On Leave"
     },
