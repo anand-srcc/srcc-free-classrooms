@@ -1,22 +1,12 @@
 // SRCC Official Faculty Leaves Data
 // Auto-synced from studentassistsrcc.app & Firebase Cloud DB
-// Last Updated: 30 Oct 2026, 08:02 AM
+// Last Updated: 31 Oct 2026, 07:59 AM
 window.SRCC_FACULTY_LEAVES = {
-  "last_updated": "30 Oct 2026, 08:02 AM",
-  "last_synced_iso": "2026-10-30T08:02:29.724116",
-  "total_on_leave": 6,
+  "last_updated": "31 Oct 2026, 07:59 AM",
+  "last_synced_iso": "2026-10-31T07:59:02.295848",
+  "total_on_leave": 5,
   "source": "https://studentassistsrcc.app / Firebase Cloud DB",
   "leaves": [
-    {
-      "teacher_id": "604",
-      "teacher_name": "Amit Sachdeva",
-      "teacher_code": "AMS",
-      "department": "Commerce",
-      "start_date": "2026-10-27",
-      "end_date": "2026-10-30",
-      "reason": "Faculty Leave",
-      "status": "On Leave"
-    },
     {
       "teacher_id": "609",
       "teacher_name": "Sneh Lata Gupta",
