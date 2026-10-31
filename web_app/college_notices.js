@@ -1,8 +1,20 @@
 window.SRCC_NOTICES_DATA = {
-  "total": 442,
+  "total": 443,
   "source": "https://www.srcc.edu/announcements",
-  "last_sync": "2026-10-27T14:35:01.719137",
+  "last_sync": "2026-10-31T05:50:46.799061",
   "notices": [
+    {
+      "id": "srcc-notice-443",
+      "title": "Notice - Submission of Investment declaration for FY 2026-2027",
+      "category": "administration",
+      "link": "https://www.srcc.edu/sites/default/files/INVESTMENT DECLARATION FORM FY 2026-27_0001.pdf",
+      "link_type": "pdf",
+      "date": "30 Oct 2026",
+      "deadline": null,
+      "deadline_label": null,
+      "has_deadline": false,
+      "source": "Official SRCC Announcements (srcc.edu)"
+    },
     {
       "id": "srcc-notice-441",
       "title": "IQAC SRCCs Student Newsletter Volume III Issue 12",
