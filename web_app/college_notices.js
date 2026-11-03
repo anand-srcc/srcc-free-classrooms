@@ -1,8 +1,32 @@
 window.SRCC_NOTICES_DATA = {
-  "total": 443,
+  "total": 445,
   "source": "https://www.srcc.edu/announcements",
-  "last_sync": "2026-10-31T05:50:46.799061",
+  "last_sync": "2026-11-03T16:19:01.709576",
   "notices": [
+    {
+      "id": "srcc-notice-444",
+      "title": "Notice-Regarding Update of SmartProf SRCC Mobile Application",
+      "category": "administration",
+      "link": "https://online.srcc.edu/smartprof/file_uploads/notices/Attachment/NoticeRegardingUpdateofSmartProfSRCCMobileApplication-58f014f18b0a24d53fecfc379cee697f.pdf",
+      "link_type": "pdf",
+      "date": "3 Nov 2026",
+      "deadline": null,
+      "deadline_label": null,
+      "has_deadline": false,
+      "source": "Official SRCC Announcements (srcc.edu)"
+    },
+    {
+      "id": "srcc-notice-445",
+      "title": "IQAC SRCCs Student Newsletter Volume III Issue 13",
+      "category": "administration",
+      "link": "https://online.srcc.edu/smartprof/file_uploads/notices/Attachment/IQACSRCCsStudentNewsletterVolumeIIIIssue13-8c22e92327934bd0133ccb075680021d.pdf",
+      "link_type": "pdf",
+      "date": "3 Nov 2026",
+      "deadline": null,
+      "deadline_label": null,
+      "has_deadline": false,
+      "source": "Official SRCC Announcements (srcc.edu)"
+    },
     {
       "id": "srcc-notice-443",
       "title": "Notice - Submission of Investment declaration for FY 2026-2027",
