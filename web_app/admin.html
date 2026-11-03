@@ -1622,9 +1622,14 @@
               <label for="adminMaintenanceMsgInput" style="font-size: 0.74rem;">Message for Students &amp; Visitors:</label>
               <textarea id="adminMaintenanceMsgInput" rows="2" style="width: 100%; padding: 6px 10px; font-size: 0.82rem; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit; resize: vertical;">We are currently conducting scheduled system upgrades, database optimization, and timetable maintenance. Access to student features is temporarily paused.</textarea>
             </div>
-            <button type="button" id="btnSaveMaintenanceMsg" class="btn-primary" style="width: 100%; padding: 8px; font-size: 0.82rem; background: #d97706; border: none; color: #ffffff; font-weight: 700; cursor: pointer;">
-              💾 Save Announcement Message
-            </button>
+            <div style="display: flex; gap: 8px; margin-top: 4px;">
+              <button type="button" id="btnSaveMaintenanceMsg" class="btn-primary" style="flex: 1; padding: 8px; font-size: 0.82rem; background: #d97706; border: none; color: #ffffff; font-weight: 700; cursor: pointer;">
+                💾 Save Message
+              </button>
+              <button type="button" id="btnDownloadMaintenanceConfig" class="btn-primary" style="flex: 1; padding: 8px; font-size: 0.82rem; background: #475569; border: none; color: #ffffff; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
+                <span>⬇️</span> <span>Download Config</span>
+              </button>
+            </div>
           </div>
         </div>
 

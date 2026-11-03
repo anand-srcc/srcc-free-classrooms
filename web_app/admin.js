@@ -2216,32 +2216,123 @@ document.addEventListener('DOMContentLoaded', () => {
       msgInput.addEventListener('input', () => { msgInput.dataset.userEdited = 'true'; });
     }
 
+    async function syncMaintenanceToCloud(isLocked) {
+      const t = (titleInput?.value || '').trim() || 'Website Under Maintenance';
+      const m = (msgInput?.value || '').trim() || 'We are currently conducting scheduled system upgrades and timetable maintenance.';
+
+      let baseUrl = getBaseCloudDbUrl();
+      if (baseUrl) {
+        let url = baseUrl + '/maintenance.json';
+        const secret = getCloudDbSecret();
+        if (secret) {
+          url += (url.includes('?') ? '&' : '?') + 'auth=' + encodeURIComponent(secret);
+        }
+        try {
+          await fetch(url, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              enabled: isLocked,
+              title: t,
+              message: m,
+              updatedAt: new Date().toISOString()
+            })
+          });
+        } catch (err) {
+          console.warn('Firebase maintenance sync note:', err);
+        }
+      }
+
+      if (GITHUB_PAT) {
+        try {
+          const fileContent = `/**\n * SRCC Portal - Maintenance Mode Configuration\n * Managed via Admin Portal\n */\nwindow.SRCC_MAINTENANCE_CONFIG = {\n  enabled: ${isLocked},\n  title: ${JSON.stringify(t)},\n  badge: "🛠️ Scheduled System Maintenance",\n  subtitle: "Shri Ram College of Commerce · Digital Timetable Portal",\n  message: ${JSON.stringify(m)},\n  estimatedTime: "Updates currently in progress · Please check back shortly",\n  contactEmail: "",\n  lastUpdated: "${new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}",\n  allowAdminBypass: true\n};\n`;
+          const getUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/web_app/maintenance_config.js`;
+          const getRes = await fetch(getUrl, {
+            headers: {
+              'Authorization': `Bearer ${GITHUB_PAT}`,
+              'Accept': 'application/vnd.github.v3+json'
+            }
+          });
+          if (getRes.ok) {
+            const getData = await getRes.json();
+            await fetch(getUrl, {
+              method: 'PUT',
+              headers: {
+                'Authorization': `Bearer ${GITHUB_PAT}`,
+                'Content-Type': 'application/json',
+                'Accept': 'application/vnd.github.v3+json'
+              },
+              body: JSON.stringify({
+                message: `🛠️ [Admin Live Sync] Set maintenance mode to ${isLocked ? 'ACTIVE' : 'OFF'}`,
+                content: btoa(unescape(encodeURIComponent(fileContent))),
+                sha: getData.sha,
+                branch: 'main'
+              })
+            });
+          }
+        } catch (err) {
+          console.warn('GitHub maintenance sync note:', err);
+        }
+      }
+    }
+
     if (btnOn) {
-      btnOn.addEventListener('click', () => {
+      btnOn.addEventListener('click', async () => {
         localStorage.setItem('srcc_maintenance_mode_enabled', 'true');
+        sessionStorage.removeItem('srcc_maintenance_admin_bypass');
+        localStorage.removeItem('srcc_maintenance_admin_bypass');
+        if (window.SRCC_MAINTENANCE_CONFIG) window.SRCC_MAINTENANCE_CONFIG.enabled = true;
         updateMaintenanceUi();
         addAuditLog('MAINTENANCE_MODE', 'Activated Maintenance Mode (Visitors Locked Out)');
         showToast('🔒 <strong>Maintenance Mode Activated!</strong> Public visitors will now see the Under Maintenance screen.');
+        await syncMaintenanceToCloud(true);
       });
     }
 
     if (btnOff) {
-      btnOff.addEventListener('click', () => {
+      btnOff.addEventListener('click', async () => {
         localStorage.setItem('srcc_maintenance_mode_enabled', 'false');
+        if (window.SRCC_MAINTENANCE_CONFIG) window.SRCC_MAINTENANCE_CONFIG.enabled = false;
         updateMaintenanceUi();
         addAuditLog('MAINTENANCE_MODE', 'Deactivated Maintenance Mode (Website is Live)');
         showToast('🟢 <strong>Website is now Live!</strong> Students and visitors can access all features.');
+        await syncMaintenanceToCloud(false);
       });
     }
 
     if (btnSaveMsg && titleInput && msgInput) {
-      btnSaveMsg.addEventListener('click', () => {
+      btnSaveMsg.addEventListener('click', async () => {
         const t = (titleInput.value || '').trim() || 'Website Under Maintenance';
         const m = (msgInput.value || '').trim() || 'We are currently conducting scheduled system upgrades and timetable maintenance.';
         localStorage.setItem('srcc_maintenance_title', t);
         localStorage.setItem('srcc_maintenance_msg', m);
+        if (window.SRCC_MAINTENANCE_CONFIG) {
+          window.SRCC_MAINTENANCE_CONFIG.title = t;
+          window.SRCC_MAINTENANCE_CONFIG.message = m;
+        }
         addAuditLog('MAINTENANCE_MSG', `Updated maintenance announcement text: "${t}"`);
         showToast('💾 <strong>Announcement Saved!</strong> Visitor notice has been updated.');
+        await syncMaintenanceToCloud(isMaintenanceCurrentlyActive());
+      });
+    }
+
+    const btnDownloadConfig = document.getElementById('btnDownloadMaintenanceConfig');
+    if (btnDownloadConfig) {
+      btnDownloadConfig.addEventListener('click', () => {
+        const isLocked = isMaintenanceCurrentlyActive();
+        const t = (titleInput?.value || '').trim() || 'Website Under Maintenance';
+        const m = (msgInput?.value || '').trim() || 'We are currently conducting scheduled system upgrades and timetable maintenance.';
+        const fileContent = `/**\n * SRCC Portal - Maintenance Mode Configuration\n * Managed via Admin Portal\n */\nwindow.SRCC_MAINTENANCE_CONFIG = {\n  enabled: ${isLocked},\n  title: ${JSON.stringify(t)},\n  badge: "🛠️ Scheduled System Maintenance",\n  subtitle: "Shri Ram College of Commerce · Digital Timetable Portal",\n  message: ${JSON.stringify(m)},\n  estimatedTime: "Updates currently in progress · Please check back shortly",\n  contactEmail: "",\n  lastUpdated: "${new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}",\n  allowAdminBypass: true\n};\n`;
+        const blob = new Blob([fileContent], { type: 'application/javascript' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'maintenance_config.js';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('⬇️ <strong>maintenance_config.js Downloaded!</strong> Replace in your repository when updating GitHub.');
       });
     }
 

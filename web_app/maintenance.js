@@ -113,7 +113,7 @@
     if (window.SRCC_MAINTENANCE_CONFIG && typeof window.SRCC_MAINTENANCE_CONFIG.enabled === 'boolean') {
       return window.SRCC_MAINTENANCE_CONFIG.enabled;
     }
-    return true; // Default to true as requested
+    return false; // Default: Website is LIVE
   }
 
   // Check if current user has verified administrator access
@@ -980,6 +980,30 @@
     },
     evaluate: evaluateMaintenanceGate
   };
+
+  // Optional real-time cloud sync check
+  try {
+    const rawCloud = (window.SRCC_CLOUD_CONFIG && window.SRCC_CLOUD_CONFIG.db_url) || localStorage.getItem('srcc_cloud_db_url');
+    if (rawCloud) {
+      const maintenanceCloudUrl = rawCloud.replace(/\/leaves\.json(\?.*)?$/, '/maintenance.json');
+      fetch(maintenanceCloudUrl, { cache: 'no-cache' })
+        .then(r => r.ok ? r.json() : null)
+        .then(d => {
+          if (d && typeof d.enabled === 'boolean') {
+            const localOverride = localStorage.getItem(OVERRIDE_STORAGE_KEY);
+            if (localOverride === null) {
+              if (window.SRCC_MAINTENANCE_CONFIG) {
+                window.SRCC_MAINTENANCE_CONFIG.enabled = d.enabled;
+                if (d.title) window.SRCC_MAINTENANCE_CONFIG.title = d.title;
+                if (d.message) window.SRCC_MAINTENANCE_CONFIG.message = d.message;
+              }
+              evaluateMaintenanceGate();
+            }
+          }
+        })
+        .catch(() => {});
+    }
+  } catch (e) {}
 
   // Run as early as possible
   if (document.readyState === 'loading') {

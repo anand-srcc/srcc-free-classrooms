@@ -95,28 +95,33 @@ document.addEventListener('DOMContentLoaded', () => {
           leavesData = d;
           window.SRCC_FACULTY_LEAVES = d;
           try {
-            const todayIso = new Date().toISOString().split('T')[0];
-            const localStored = localStorage.getItem('srcc_faculty_leaves_v2');
-            let merged = [...d.leaves];
-            if (localStored) {
-              const parsed = JSON.parse(localStored);
-              if (Array.isArray(parsed)) {
-                parsed.forEach(localLeaf => {
-                  const endD = localLeaf.end_date || localLeaf.start_date || '';
-                  if (!endD || endD >= todayIso) {
-                    const exists = merged.some(m => 
-                      (m.teacher_id && localLeaf.teacher_id && String(m.teacher_id) === String(localLeaf.teacher_id)) ||
-                      (m.teacher_name && localLeaf.teacher_name && m.teacher_name.toLowerCase().trim() === localLeaf.teacher_name.toLowerCase().trim())
-                    );
-                    if (!exists) {
-                      merged.push(localLeaf);
+            if (d.leaves.length === 0 || d.total_on_leave === 0) {
+              window.SRCC_FACULTY_LEAVES.leaves = [];
+              localStorage.setItem('srcc_faculty_leaves_v2', '[]');
+            } else {
+              const todayIso = new Date().toISOString().split('T')[0];
+              const localStored = localStorage.getItem('srcc_faculty_leaves_v2');
+              let merged = [...d.leaves];
+              if (localStored) {
+                const parsed = JSON.parse(localStored);
+                if (Array.isArray(parsed) && parsed.length > 0) {
+                  parsed.forEach(localLeaf => {
+                    const endD = localLeaf.end_date || localLeaf.start_date || '';
+                    if (!endD || endD >= todayIso) {
+                      const exists = merged.some(m => 
+                        (m.teacher_id && localLeaf.teacher_id && String(m.teacher_id) === String(localLeaf.teacher_id)) ||
+                        (m.teacher_name && localLeaf.teacher_name && m.teacher_name.toLowerCase().trim() === localLeaf.teacher_name.toLowerCase().trim())
+                      );
+                      if (!exists) {
+                        merged.push(localLeaf);
+                      }
                     }
-                  }
-                });
+                  });
+                }
               }
+              window.SRCC_FACULTY_LEAVES.leaves = merged;
+              localStorage.setItem('srcc_faculty_leaves_v2', JSON.stringify(merged));
             }
-            window.SRCC_FACULTY_LEAVES.leaves = merged;
-            localStorage.setItem('srcc_faculty_leaves_v2', JSON.stringify(merged));
           } catch (e) {}
           // Re-render faculty leaves view if active
           if (typeof renderFacultyLeavesView === 'function' && document.getElementById('facultyLeavesView')?.style.display !== 'none') {
@@ -549,8 +554,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const LEAVES_STORAGE_KEY = 'srcc_faculty_leaves_v2';
 
     function getLeavesList() {
-      const mergedMap = new Map();
-
       // Check cancelled leaves from admin
       let cancelledList = [];
       try {
@@ -564,34 +567,39 @@ document.addEventListener('DOMContentLoaded', () => {
         return cancelledList.some(c => (idKey && c.id === idKey) || (nameKey && c.name === nameKey));
       }
 
-      // 1. Load authoritative leaves from scraper/server (window.SRCC_FACULTY_LEAVES or leavesData)
-      const activeSource = (window.SRCC_FACULTY_LEAVES && Array.isArray(window.SRCC_FACULTY_LEAVES.leaves))
-        ? window.SRCC_FACULTY_LEAVES
-        : leavesData;
-      if (activeSource && Array.isArray(activeSource.leaves)) {
-        activeSource.leaves.forEach(l => {
-          if (isCancelled(l.teacher_id, l.teacher_name)) return;
-          const key = String(l.teacher_id || l.teacher_name || '').toLowerCase().trim();
-          if (key) mergedMap.set(key, l);
-        });
-      }
-
-      // 2. Merge local admin manual leaves marked in admin.html
+      let raw = [];
+      let hasStored = false;
       try {
         const stored = localStorage.getItem(LEAVES_STORAGE_KEY) || localStorage.getItem('srcc_faculty_leaves_custom_v1');
-        if (stored) {
+        if (stored !== null) {
+          hasStored = true;
           const parsed = JSON.parse(stored);
           if (Array.isArray(parsed)) {
-            parsed.forEach(l => {
-              if (isCancelled(l.teacher_id, l.teacher_name)) return;
-              const key = String(l.teacher_id || l.teacher_name || '').toLowerCase().trim();
-              if (key) mergedMap.set(key, l);
-            });
+            raw = parsed;
           }
         }
       } catch (e) {
-        console.error('Error reading leaves from localStorage:', e);
+        console.warn('Failed to parse stored leaves:', e);
       }
+
+      // If admin has not explicitly configured localStorage leaves, use authoritative source
+      if (!hasStored) {
+        const activeSource = (window.SRCC_FACULTY_LEAVES && Array.isArray(window.SRCC_FACULTY_LEAVES.leaves))
+          ? window.SRCC_FACULTY_LEAVES
+          : leavesData;
+        if (activeSource && Array.isArray(activeSource.leaves)) {
+          raw = [...activeSource.leaves];
+        }
+      }
+
+      const mergedMap = new Map();
+      raw.forEach(l => {
+        if (isCancelled(l.teacher_id, l.teacher_name)) return;
+        const key = String(l.teacher_id || l.teacher_name || '').toLowerCase().trim();
+        if (key && !mergedMap.has(key)) {
+          mergedMap.set(key, l);
+        }
+      });
 
       return Array.from(mergedMap.values());
     }
