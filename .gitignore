@@ -26,6 +26,9 @@ preview_web_app/
 check_syntax.py
 *.log
 
+# Archives
+*.zip
+
 # OS generated files
 .DS_Store
 Thumbs.db
