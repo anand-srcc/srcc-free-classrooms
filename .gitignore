@@ -11,6 +11,16 @@ __pycache__/
 # Session state & credentials
 playwright_state.json
 
+# Environment variables & secrets (CRITICAL)
+.env
+.env.*
+*.env
+serviceAccountKey.json
+firebase-admin-key.json
+*.pem
+*.key
+*.token
+
 # Local preview / temporary folders
 preview_web_app/
 check_syntax.py
@@ -26,22 +36,6 @@ node_modules/
 # Scratch & Temporary
 scratch/
 homepage_temp.html
-srcc_data.json
-*.pdf
-!web_app/DU_UPC_and_Subjects_Master_Directory.pdf
-!DU_UPC_and_Subjects_Master_Directory.pdf
-!android_widget/app/src/main/assets/web_app/DU_UPC_and_Subjects_Master_Directory.pdf
-!web_app/SRCC-Free-Classrooms-User-Manual.pdf
-!SRCC-Free-Classrooms-User-Manual.pdf
-map_feature_backup/
 *.code-workspace
-
-# Android Build artifacts
-android_widget/.gradle/
-android_widget/app/build/
-*.apk
-!android_widget/app-debug.apk
-!web_app/app-debug.apk
 local.properties
 **/local.properties
-

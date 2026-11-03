@@ -4,13 +4,8 @@
   "description": "SRCC Free Classrooms & Faculty Locator - Shri Ram College of Commerce",
   "main": "dev-server.js",
   "scripts": {
-    "test": "node test/run_all_tests.js",
     "dev": "node dev-server.js",
-    "start": "node dev-server.js",
-    "package:netlify": "node package_netlify.js",
-    "package:github": "node package_github.js",
-    "sync:leaves": "python sync_leaves.py",
-    "sync:timetable": "python auto_sync_timetable.py"
+    "start": "node dev-server.js"
   },
   "keywords": [
     "srcc",
@@ -21,6 +16,7 @@
   "author": "SRCC Dev",
   "license": "ISC",
   "dependencies": {
+    "firebase-admin": "^12.0.0",
     "web-push": "^3.6.7"
   }
 }

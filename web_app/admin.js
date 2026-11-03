@@ -4,12 +4,85 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Precomputed SHA-256 hashes for authorized administrator passcodes
-  const AUTH_HASHES = [
-    '06f1339f683c69374e5805994b4956bc856e0204827364a6062894a88d792fae', // srcc2026
-    '10908fb4fb59e0ac6fbe1c53af7a531fdb45345c5be65928fe896866c88d4fd1', // Srcc2026 (mobile auto-caps)
-    'ef1e8cfc2b5fa29b5a105e68c1e46a366b7de8d8292c37a809858e075a9472f0'  // SRCC2026
-  ];
+  // Firebase Client SDK References (Zero hardcoded secrets)
+  let firebaseAuth = null;
+  let currentFirebaseUser = null;
+  let currentIdToken = null;
+  // ==========================================================================
+  // 🔐 FIREBASE AUTHENTICATION & ZERO-TRUST SERVER-SIDE API CLIENT
+  // ==========================================================================
+  if (window.firebase && window.SRCC_FIREBASE_CONFIG) {
+    try {
+      if (!firebase.apps.length) {
+        firebase.initializeApp(window.SRCC_FIREBASE_CONFIG);
+      }
+      firebaseAuth = firebase.auth();
+
+      firebaseAuth.onAuthStateChanged(async (user) => {
+        if (user) {
+          currentFirebaseUser = user;
+          try {
+            const tokenResult = await user.getIdTokenResult(true);
+            currentIdToken = tokenResult.token;
+            const isAdmin = tokenResult.claims && (tokenResult.claims.admin === true || tokenResult.claims.role === 'administrator');
+
+            if (isAdmin) {
+              sessionStorage.setItem(AUTH_STORAGE_KEY, 'fb_' + user.uid);
+              sessionStorage.setItem('srcc_login_time', Date.now().toString());
+              sessionStorage.setItem(ACTIVE_USER_SESSION_KEY, JSON.stringify({
+                username: user.email.split('@')[0],
+                fullName: user.displayName || user.email,
+                role: 'Verified Administrator',
+                email: user.email,
+                isSuper: true
+              }));
+              sessionStorage.setItem('srcc_maintenance_admin_bypass', 'true');
+              localStorage.setItem('srcc_maintenance_admin_bypass', 'true');
+              checkAuth(true);
+            } else {
+              showToast('⚠️ <strong>Access Pending:</strong> Firebase account verified, but { admin: true } claim is not yet assigned. Check manage_admin_claim function.', false, 8000);
+            }
+          } catch (e) {
+            console.error('Firebase token verification error:', e);
+          }
+        } else {
+          currentFirebaseUser = null;
+          currentIdToken = null;
+          checkAuth(false);
+        }
+      });
+    } catch (err) {
+      console.warn('[Firebase Auth Init Note]', err);
+    }
+  }
+
+  async function callProtectedAdminApi(action, payload = {}) {
+    let token = currentIdToken;
+    if (firebaseAuth && firebaseAuth.currentUser) {
+      try {
+        token = await firebaseAuth.currentUser.getIdToken(false);
+      } catch (e) {}
+    }
+
+    try {
+      const res = await fetch('/.netlify/functions/admin_api', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token ? `Bearer ${token}` : ''
+        },
+        body: JSON.stringify({
+          action,
+          ...payload
+        })
+      });
+      return await res.json();
+    } catch (err) {
+      console.warn(`[Protected Admin API error on ${action}]:`, err);
+      return { error: err.message };
+    }
+  }
+
   const LEAVES_STORAGE_KEY = 'srcc_faculty_leaves_v2';
   const AUTH_STORAGE_KEY = 'srcc_admin_session_auth';
   const USERS_STORAGE_KEY = 'srcc_admin_users_list_v1';
@@ -392,101 +465,63 @@ document.addEventListener('DOMContentLoaded', () => {
     adminLoginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      let uInput = (adminUsername ? adminUsername.value : '').trim().toLowerCase();
-      const val = (adminPasscode ? adminPasscode.value : '').trim();
-      if (!val) {
-        showToast('⚠️ Please enter your password.', false);
-        if (adminPasscode) adminPasscode.focus();
+      const emailEl = document.getElementById('adminEmail');
+      const passEl = document.getElementById('adminPasscode');
+
+      const email = (emailEl ? emailEl.value : '').trim();
+      const pass = (passEl ? passEl.value : '').trim();
+
+      if (!email || !pass) {
+        showToast('⚠️ Please enter both your administrator email and password.', false);
         return;
       }
 
-      if (!uInput) {
-        uInput = 'admin';
-      }
-
-      const hashed = await hashPasscode(val);
-      const isMasterKey = (uInput === 'admin') && (AUTH_HASHES.includes(hashed) || AUTH_HASHES.includes(await hashPasscode(val.toLowerCase())));
-
-      // Check brute-force lockout (Master key can immediately bypass & clear lockout)
-      const remainingLockout = getLoginLockoutStatus();
-      if (remainingLockout > 0 && !isMasterKey) {
-        showToast(`⛔ <strong>Access Locked:</strong> Too many failed attempts. Please wait ${remainingLockout}s before trying again.`, false);
-        return;
-      }
-
-      let users = getStoredUsers();
-      let matchedUser = users.find(u => u && u.username && u.username.toLowerCase() === uInput);
-
-      if (matchedUser) {
-        const isMatch = (matchedUser.passwordHash === hashed) || 
-                        (matchedUser.isSuper && (AUTH_HASHES.includes(hashed) || isMasterKey));
-        if (!isMatch) matchedUser = null;
-      }
-
-      // If local matching failed, check Firebase Cloud DB for newly created accounts or updated passwords
-      if (!matchedUser) {
+      if (firebaseAuth) {
+        showToast('⏳ Verifying credentials with Firebase Authentication...');
         try {
-          const cloudUsers = await fetchUsersFromCloud();
-          if (cloudUsers && Array.isArray(cloudUsers) && cloudUsers.length > 0) {
-            const cloudMatch = cloudUsers.find(u => u && u.username && u.username.toLowerCase() === uInput);
-            if (cloudMatch) {
-              const isMatch = (cloudMatch.passwordHash === hashed) || 
-                              (cloudMatch.isSuper && (AUTH_HASHES.includes(hashed) || isMasterKey));
-              if (isMatch) {
-                matchedUser = cloudMatch;
-                // Merge cloud users into local cache
-                localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(cloudUsers));
-              }
-            }
+          const userCredential = await firebaseAuth.signInWithEmailAndPassword(email, pass);
+          const user = userCredential.user;
+          const tokenResult = await user.getIdTokenResult(true);
+
+          if (tokenResult.claims && (tokenResult.claims.admin === true || tokenResult.claims.role === 'administrator')) {
+            showToast(`🔓 <strong>Welcome, ${escapeHtml(user.displayName || user.email)}!</strong> Verified via Firebase Auth.`);
+          } else {
+            showToast('⚠️ <strong>Access Notice:</strong> Firebase credentials verified, but { admin: true } custom claim is not yet assigned.', false, 8000);
           }
-        } catch (e) {
-          console.warn('Cloud user login fallback check error:', e);
+          return;
+        } catch (err) {
+          console.warn('[Firebase Auth Login Error]', err);
+          let msg = err.message;
+          if (err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found') {
+            msg = 'Invalid administrator email or password.';
+          }
+          showToast(`❌ <strong>Authentication Failed:</strong> ${escapeHtml(msg)}`, false);
+          return;
         }
-      }
-
-      // Universal master override: if username is admin and master key provided, always authenticate
-      if (!matchedUser && isMasterKey) {
-        matchedUser = {
-          username: 'admin',
-          fullName: 'Master Administrator (Anand)',
-          role: 'Super Admin',
-          passwordHash: hashed,
-          isSuper: true
-        };
-      }
-
-      if (matchedUser) {
-        resetLoginLockout();
-        // Store auth token in sessionStorage only so new sessions require password
-        const tokenStr = 'srcc_auth_' + btoa(Date.now().toString());
-        sessionStorage.setItem(AUTH_STORAGE_KEY, tokenStr);
-        sessionStorage.setItem('srcc_login_time', Date.now().toString());
-        const sessionPayload = JSON.stringify({
-          username: matchedUser.username,
-          fullName: matchedUser.fullName,
-          role: matchedUser.role,
-          isSuper: !!matchedUser.isSuper
-        });
-        // Authorize maintenance mode bypass for this administrator session
-        sessionStorage.setItem('srcc_maintenance_admin_bypass', 'true');
-        localStorage.setItem('srcc_maintenance_admin_bypass', 'true');
-        sessionStorage.setItem(ACTIVE_USER_SESSION_KEY, sessionPayload);
-        try {
-          localStorage.removeItem(AUTH_STORAGE_KEY);
-          localStorage.removeItem(ACTIVE_USER_SESSION_KEY);
-        } catch (e) {}
-        showToast(`🔓 <strong>Welcome, ${escapeHtml(matchedUser.fullName)}!</strong> Logged in successfully.`);
-        checkAuth(true);
       } else {
-        const isNowLocked = recordFailedLogin();
-        if (isNowLocked) {
-          showToast('⛔ <strong>Security Lockdown!</strong> 5 consecutive failed attempts. System locked for 60 seconds.', false);
-        } else {
-          showToast('⚠️ <strong>Access Denied:</strong> Invalid username or password.', false);
-        }
-        if (adminPasscode) {
-          adminPasscode.value = '';
-          adminPasscode.focus();
+        showToast('⚠️ Firebase Auth SDK is initializing. Please verify network connection or firebase_config.js.', false);
+      }
+    });
+  }
+
+  // Forgot password handler
+  const btnForgotPassword = document.getElementById('btnForgotPassword');
+  if (btnForgotPassword) {
+    btnForgotPassword.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const emailEl = document.getElementById('adminEmail');
+      const email = (emailEl ? emailEl.value : '').trim();
+      if (!email) {
+        showToast('⚠️ Please enter your email in the field above to receive a reset link.', false);
+        if (emailEl) emailEl.focus();
+        return;
+      }
+      if (firebaseAuth) {
+        try {
+          await firebaseAuth.sendPasswordResetEmail(email);
+          showToast(`📧 <strong>Reset Link Sent!</strong> Please check inbox for ${escapeHtml(email)}.`);
+        } catch (err) {
+          showToast(`❌ Error sending reset email: ${escapeHtml(err.message)}`, false);
         }
       }
     });
@@ -503,14 +538,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (btnAdminLogout) {
-    btnAdminLogout.addEventListener('click', () => {
+    btnAdminLogout.addEventListener('click', async () => {
+      if (firebaseAuth) {
+        try { await firebaseAuth.signOut(); } catch (e) {}
+      }
       sessionStorage.removeItem(AUTH_STORAGE_KEY);
       sessionStorage.removeItem(ACTIVE_USER_SESSION_KEY);
       sessionStorage.removeItem('srcc_login_time');
       localStorage.removeItem(AUTH_STORAGE_KEY);
       localStorage.removeItem(ACTIVE_USER_SESSION_KEY);
+      localStorage.removeItem('srcc_maintenance_admin_bypass');
       showToast('🔒 Logged out of Admin Portal.');
-      checkAuth();
+      checkAuth(false);
     });
   }
 

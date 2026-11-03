@@ -2,30 +2,45 @@
   "rules": {
     "leaves": {
       ".read": true,
-      ".write": true
-    },
-    "push_subscriptions": {
-      ".read": true,
-      ".write": true
-    },
-    "broadcast_triggers": {
-      ".read": true,
-      ".write": true
+      ".write": "auth != null && auth.token.admin === true",
+      ".validate": "newData.hasChildren(['last_updated', 'leaves'])"
     },
     "room_locks": {
       ".read": true,
-      ".write": true
+      ".write": "auth != null && auth.token.admin === true"
     },
     "campus_notices": {
       ".read": true,
-      ".write": true
+      ".write": "auth != null && auth.token.admin === true"
+    },
+    "maintenance": {
+      ".read": true,
+      ".write": "auth != null && auth.token.admin === true",
+      ".validate": "newData.hasChildren(['enabled']) && newData.child('enabled').isBoolean()"
+    },
+    "broadcast_triggers": {
+      "latest": {
+        ".read": true,
+        ".write": "auth != null && auth.token.admin === true"
+      }
+    },
+    "push_subscriptions": {
+      ".read": "auth != null && auth.token.admin === true",
+      "$sub_id": {
+        ".write": "!data.exists() && newData.exists()",
+        ".validate": "newData.hasChildren(['endpoint']) && newData.child('endpoint').isString() && newData.child('endpoint').val().beginsWith('https://')"
+      }
     },
     "issues": {
-      ".read": false,
+      ".read": "auth != null && auth.token.admin === true",
       "$issue_id": {
         ".write": "!data.exists() && newData.exists()",
-        ".validate": "newData.hasChildren(['type', 'timestamp']) && newData.child('type').isString()"
+        ".validate": "newData.hasChildren(['type', 'timestamp']) && newData.child('type').isString() && newData.child('type').val().length <= 50 && (!newData.hasChild('details') || (newData.child('details').isString() && newData.child('details').val().length <= 1000))"
       }
+    },
+    "admin_audit_logs": {
+      ".read": "auth != null && auth.token.admin === true",
+      ".write": "auth != null && auth.token.admin === true"
     },
     ".read": false,
     ".write": false

@@ -1,15 +1,27 @@
 # SRCC Room Finder - Anti-Scraper & Security Policy
+# Preserves search engine indexing of legitimate student pages while blocking scrapers and bots.
+
 User-agent: *
+Disallow: /admin.html
+Disallow: /admin.js
 Disallow: /srcc_data.json
 Disallow: /faculty_leaves.json
 Disallow: /teachers_data.json
 Disallow: /directory_data.json
-Disallow: /admin.html
-Disallow: /admin.js
 Disallow: /cloud_config.js
+Disallow: /firebase_config.js
 Disallow: /*.xlsx$
+Disallow: /.netlify/
+Allow: /
+Allow: /index.html
+Allow: /style.css
+Allow: /assets/
+Allow: /favicon.ico
+Allow: /favicon.png
+Allow: /manifest.json
+Allow: /sw.js
 
-# Block AI crawlers, data harvesters & bulk scrapers
+# Block AI training bots & aggressive scrapers
 User-agent: GPTBot
 Disallow: /
 

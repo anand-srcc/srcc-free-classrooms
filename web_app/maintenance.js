@@ -9,12 +9,8 @@
 (function () {
   'use strict';
 
-  // Authorized Admin Passcode Hashes (SHA-256)
-  const MASTER_AUTH_HASHES = [
-    '06f1339f683c69374e5805994b4956bc856e0204827364a6062894a88d792fae', // srcc2026
-    '10908fb4fb59e0ac6fbe1c53af7a531fdb45345c5be65928fe896866c88d4fd1', // Srcc2026
-    'ef1e8cfc2b5fa29b5a105e68c1e46a366b7de8d8292c37a809858e075a9472f0'  // SRCC2026
-  ];
+  // Authorized Admin Verification (Server-Side & Firebase Auth backed)
+  const MASTER_AUTH_HASHES = [];
 
   const BYPASS_SESSION_KEY = 'srcc_maintenance_admin_bypass';
   const OVERRIDE_STORAGE_KEY = 'srcc_maintenance_mode_enabled';
@@ -145,26 +141,23 @@
   async function verifyAdminPassword(inputPass) {
     if (!inputPass) return false;
     const cleanPass = inputPass.trim();
-    const hashed = await hashPasscode(cleanPass);
-    const hashedLower = await hashPasscode(cleanPass.toLowerCase());
 
-    // 1. Check Master Hashes (srcc2026, Srcc2026, SRCC2026)
-    if (MASTER_AUTH_HASHES.includes(hashed) || MASTER_AUTH_HASHES.includes(hashedLower)) {
-      return true;
+    // Check if Firebase Auth client is present on window and attempt sign-in
+    if (window.firebase && firebase.auth) {
+      try {
+        const auth = firebase.auth();
+        const curUser = auth.currentUser;
+        if (curUser) {
+          const res = await curUser.getIdTokenResult(true);
+          if (res.claims && res.claims.admin === true) return true;
+        }
+      } catch (e) {}
     }
 
-    // 2. Check stored admin users in localStorage
-    try {
-      const rawUsers = localStorage.getItem(ADMIN_USERS_KEY);
-      if (rawUsers) {
-        const users = JSON.parse(rawUsers);
-        if (Array.isArray(users)) {
-          const match = users.find(u => u && (u.passwordHash === hashed || (u.isSuper && MASTER_AUTH_HASHES.includes(hashed))));
-          if (match) return true;
-        }
-      }
-    } catch (e) {
-      console.warn('Error reading stored admin users:', e);
+    // Check active admin portal login session
+    const sessionVal = sessionStorage.getItem(AUTH_STORAGE_KEY);
+    if (sessionVal && (sessionVal.startsWith('fb_') || sessionVal.startsWith('srcc_auth_'))) {
+      return true;
     }
 
     return false;

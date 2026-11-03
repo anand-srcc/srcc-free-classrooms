@@ -1,8 +1,8 @@
 const webpush = require('web-push');
 
-const VAPID_PUBLIC_KEY = process.env.VAPID_PUBLIC_KEY || 'BJfmbvYuaQnKot04ZeKfaQrZBHgQVMubvYF02BZwLbT2TWqVEbRIJ8_A_vFsuGMNMMDQWYoObRw1gNfhA4_P-3w';
-const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY || 'qrlpGNpCe_mRfk7xlfB3IlUSVUSFdP9Kasqpp0L_uZM';
-const VAPID_EMAIL = process.env.VAPID_EMAIL || 'mailto:anand.kumar.student@srcc.du.ac.in';
+const VAPID_PUBLIC_KEY = process.env.VAPID_PUBLIC_KEY || '';
+const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY || '';
+const VAPID_EMAIL = process.env.VAPID_EMAIL || 'mailto:admin@srcc.du.ac.in';
 
 if (VAPID_PRIVATE_KEY) {
   webpush.setVapidDetails(VAPID_EMAIL, VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY);
@@ -23,18 +23,23 @@ exports.handler = async (event) => {
     };
   }
 
-  // Security: Enforce admin secret authorization if ADMIN_DISPATCH_SECRET is set
+  // Security: Enforce mandatory admin secret authorization
   const expectedSecret = process.env.ADMIN_DISPATCH_SECRET || process.env.VAPID_PRIVATE_KEY;
-  if (expectedSecret) {
-    const authHeader = event.headers['authorization'] || event.headers['x-dispatch-secret'] || '';
-    const token = authHeader.replace(/^Bearer\s+/i, '').trim();
-    if (!token || token !== expectedSecret) {
-      return {
-        statusCode: 401,
-        headers: { 'Access-Control-Allow-Origin': '*' },
-        body: JSON.stringify({ error: 'Unauthorized: Valid dispatch secret required' })
-      };
-    }
+  if (!expectedSecret) {
+    return {
+      statusCode: 503,
+      headers: { 'Access-Control-Allow-Origin': '*' },
+      body: JSON.stringify({ error: 'Server configuration required: ADMIN_DISPATCH_SECRET not configured' })
+    };
+  }
+  const authHeader = event.headers['authorization'] || event.headers['x-dispatch-secret'] || '';
+  const token = authHeader.replace(/^Bearer\s+/i, '').trim();
+  if (!token || token !== expectedSecret) {
+    return {
+      statusCode: 401,
+      headers: { 'Access-Control-Allow-Origin': '*' },
+      body: JSON.stringify({ error: 'Unauthorized: Valid dispatch secret required' })
+    };
   }
 
   try {

@@ -1030,23 +1030,31 @@
         <img src="assets/srcc_100years.png" onerror="this.onerror=null; this.src='srcc_100years.png';" alt="SRCC 100 Years" />
       </div>
       <h2>Admin Control Center</h2>
-      <p>Enter administrator passcode to access live dashboard.</p>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+        Sign in with your verified administrator credentials via Firebase Authentication.
+      </p>
 
       <form id="adminLoginForm">
         <div class="auth-input-group">
-          <label for="adminUsername">Username:</label>
-          <input type="text" id="adminUsername" placeholder="Enter username (or leave blank)" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" />
+          <label for="adminEmail">Administrator Email:</label>
+          <input type="email" id="adminEmail" placeholder="admin@srcc.du.ac.in" required autocomplete="email" autocapitalize="none" autocorrect="off" spellcheck="false" />
         </div>
         <div class="auth-input-group">
           <label for="adminPasscode">Password:</label>
           <div class="password-input-wrapper" style="position: relative; display: flex; align-items: center;">
-            <input type="password" id="adminPasscode" placeholder="Enter administrator passcode" required autofocus autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false" style="width: 100%; padding-right: 44px;" />
+            <input type="password" id="adminPasscode" placeholder="••••••••••••" required autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false" style="width: 100%; padding-right: 44px;" />
             <button type="button" id="btnTogglePassword" class="btn-toggle-pwd" title="Show / Hide password" style="position: absolute; right: 8px; background: none; border: none; cursor: pointer; font-size: 1.15rem; padding: 4px; color: var(--text-muted); line-height: 1;">👁️</button>
           </div>
         </div>
 
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 12px;">
+          <a href="#" id="btnForgotPassword" style="font-size: 0.78rem; color: #3b82f6; text-decoration: none; font-weight: 600;">
+            Forgot Password? Send Reset Link
+          </a>
+        </div>
+
         <button type="submit" class="btn-auth-submit" id="btnAuthSubmit">
-          🔒 Unlock Admin Portal
+          🔐 Sign In with Firebase Authentication
         </button>
       </form>
     </div>
@@ -1641,8 +1649,7 @@
             <span>🔒</span> <span>Test Lock on this Device (Clear Bypass)</span>
           </button>
           <span style="font-size: 0.74rem; color: var(--text-muted); margin-left: auto;">
-            Admin password to unlock: <strong style="font-family: monospace; color: var(--text-primary);">srcc2026</strong> (or your updated password)
-          </span>
+            Protected via Firebase Authentication (Authorized Admins Only)</span>
         </div>
       </section>
 
@@ -2236,13 +2243,19 @@
   <!-- Toast Container -->
   <div class="toast-container" id="toastContainer"></div>
 
+  <!-- Firebase Authentication & Database SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+  <script src="firebase_config.js?v=101"></script>
+
   <!-- Data Scripts -->
-  <script src="cloud_config.js?v=96"></script>
-  <script src="data.js?v=96"></script>
-  <script src="classes_data.js?v=96"></script>
-  <script src="faculty_leaves.js?v=96"></script>
-  <script src="teachers_data.js?v=96"></script>
-  <script src="maintenance_config.js?v=96"></script>
-  <script src="admin.js?v=96"></script>
+  <script src="cloud_config.js?v=101"></script>
+  <script src="data.js?v=101"></script>
+  <script src="classes_data.js?v=101"></script>
+  <script src="faculty_leaves.js?v=101"></script>
+  <script src="teachers_data.js?v=101"></script>
+  <script src="maintenance_config.js?v=101"></script>
+  <script src="admin.js?v=101"></script>
 </body>
 </html>
