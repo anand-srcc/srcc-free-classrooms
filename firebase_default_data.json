@@ -1,0 +1,24 @@
+{
+  "leaves": {
+    "last_updated": "Today, 03 Nov 2026",
+    "last_synced_iso": "2026-11-03T23:50:00.000Z",
+    "total_on_leave": 0,
+    "source": "SRCC Admin Portal (All Leaves Cleared)",
+    "leaves": []
+  },
+  "room_locks": {},
+  "campus_notices": {},
+  "maintenance": {
+    "enabled": false,
+    "title": "Scheduled Maintenance",
+    "message": "The system is briefly undergoing maintenance. Please check back shortly."
+  },
+  "broadcast_triggers": {
+    "latest": {
+      "timestamp": 0
+    }
+  },
+  "admin_users": {},
+  "push_subscriptions": {},
+  "issues": {}
+}

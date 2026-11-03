@@ -18,29 +18,45 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       firebaseAuth = firebase.auth();
 
+      const SUPER_ADMIN_EMAILS = [
+        'anandkumarmaurya1848@gmail.com',
+        'anand.kumar.student@srcc.du.ac.in'
+      ];
+
       firebaseAuth.onAuthStateChanged(async (user) => {
         if (user) {
           currentFirebaseUser = user;
           try {
             const tokenResult = await user.getIdTokenResult(true);
             currentIdToken = tokenResult.token;
-            const isAdmin = tokenResult.claims && (tokenResult.claims.admin === true || tokenResult.claims.role === 'administrator');
+            const emailLower = (user.email || '').toLowerCase().trim();
+            const isSuperAdmin = SUPER_ADMIN_EMAILS.includes(emailLower);
+            let isTeamAdmin = tokenResult.claims && (tokenResult.claims.admin === true || tokenResult.claims.role === 'administrator');
+
+            if (!isSuperAdmin && !isTeamAdmin) {
+              try {
+                const snap = await firebase.database().ref('admin_users/' + user.uid).once('value');
+                if (snap.exists()) isTeamAdmin = true;
+              } catch (e) {}
+            }
+
+            const isAdmin = isSuperAdmin || isTeamAdmin;
 
             if (isAdmin) {
               sessionStorage.setItem(AUTH_STORAGE_KEY, 'fb_' + user.uid);
               sessionStorage.setItem('srcc_login_time', Date.now().toString());
               sessionStorage.setItem(ACTIVE_USER_SESSION_KEY, JSON.stringify({
                 username: user.email.split('@')[0],
-                fullName: user.displayName || user.email,
-                role: 'Verified Administrator',
+                fullName: user.displayName || (isSuperAdmin ? 'Anand (Super Admin)' : user.email),
+                role: isSuperAdmin ? 'Super Admin' : 'Leave Coordinator',
                 email: user.email,
-                isSuper: true
+                isSuper: isSuperAdmin
               }));
               sessionStorage.setItem('srcc_maintenance_admin_bypass', 'true');
               localStorage.setItem('srcc_maintenance_admin_bypass', 'true');
               checkAuth(true);
             } else {
-              showToast('⚠️ <strong>Access Pending:</strong> Firebase account verified, but { admin: true } claim is not yet assigned. Check manage_admin_claim function.', false, 8000);
+              showToast('⚠️ <strong>Access Notice:</strong> Firebase account verified, but this account is not registered as an authorized Administrator.', false, 8000);
             }
           } catch (e) {
             console.error('Firebase token verification error:', e);
@@ -398,11 +414,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Default initial super admin (Anand)
     const defaultUsers = [
       {
-        username: 'admin',
-        fullName: 'Master Administrator (Anand)',
+        username: 'anandkumarmaurya1848@gmail.com',
+        fullName: 'Anand Kumar Maurya (Master Super Admin)',
         role: 'Super Admin',
-        passwordHash: '06f1339f683c69374e5805994b4956bc856e0204827364a6062894a88d792fae',
-        createdAt: 'Default Master Account',
+        email: 'anandkumarmaurya1848@gmail.com',
+        createdAt: 'Primary Master Account',
+        isSuper: true
+      },
+      {
+        username: 'anand.kumar.student@srcc.du.ac.in',
+        fullName: 'Anand (SRCC Student Admin)',
+        role: 'Super Admin',
+        email: 'anand.kumar.student@srcc.du.ac.in',
+        createdAt: 'SRCC Institutional Account',
         isSuper: true
       }
     ];
@@ -483,10 +507,21 @@ document.addEventListener('DOMContentLoaded', () => {
           const user = userCredential.user;
           const tokenResult = await user.getIdTokenResult(true);
 
-          if (tokenResult.claims && (tokenResult.claims.admin === true || tokenResult.claims.role === 'administrator')) {
-            showToast(`🔓 <strong>Welcome, ${escapeHtml(user.displayName || user.email)}!</strong> Verified via Firebase Auth.`);
+          const emailLower = (user.email || '').toLowerCase().trim();
+          const isSuperAdmin = ['anandkumarmaurya1848@gmail.com', 'anand.kumar.student@srcc.du.ac.in'].includes(emailLower);
+          let isTeamAdmin = tokenResult.claims && (tokenResult.claims.admin === true || tokenResult.claims.role === 'administrator');
+
+          if (!isSuperAdmin && !isTeamAdmin) {
+            try {
+              const snap = await firebase.database().ref('admin_users/' + user.uid).once('value');
+              if (snap.exists()) isTeamAdmin = true;
+            } catch (e) {}
+          }
+
+          if (isSuperAdmin || isTeamAdmin) {
+            showToast(`🔓 <strong>Welcome, ${escapeHtml(user.displayName || (isSuperAdmin ? 'Anand (Super Admin)' : user.email))}!</strong> Logged in successfully.`);
           } else {
-            showToast('⚠️ <strong>Access Notice:</strong> Firebase credentials verified, but { admin: true } custom claim is not yet assigned.', false, 8000);
+            showToast('⚠️ <strong>Access Notice:</strong> Firebase credentials verified, but this account is not registered as an authorized administrator.', false, 8000);
           }
           return;
         } catch (err) {
@@ -3174,13 +3209,13 @@ document.addEventListener('DOMContentLoaded', () => {
           </thead>
           <tbody>
             ${users.map(u => {
-              const uname = (u.username || '').toLowerCase();
-              const isSelf = uname === activeUser.username.toLowerCase();
-              const isRootAdmin = uname === 'admin';
+              const uname = (u.username || u.email || '').toLowerCase();
+              const isSelf = uname === activeUser.username.toLowerCase() || (activeUser.email && uname === activeUser.email.toLowerCase());
+              const isRootAdmin = uname === 'admin' || uname === 'anandkumarmaurya1848@gmail.com' || uname === 'anand.kumar.student@srcc.du.ac.in';
               const canDelete = (activeUser.isSuper || activeUser.role === 'Admin' || activeUser.role === 'Super Admin') && !isSelf && !isRootAdmin;
               
               let roleBadge = '';
-              if (u.isSuper || uname === 'admin') {
+              if (u.isSuper || isRootAdmin) {
                 roleBadge = '<span style="background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; font-size: 0.74rem; font-weight: 700; padding: 3px 10px; border-radius: 9999px; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">👑 Super Admin</span>';
               } else if (u.role === 'Admin') {
                 roleBadge = '<span style="background: #e0e7ff; color: #4338ca; border: 1px solid #c7d2fe; font-size: 0.74rem; font-weight: 700; padding: 3px 10px; border-radius: 9999px; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">⚡ Full Admin</span>';
@@ -3221,16 +3256,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const curActive = getActiveSessionUser();
         const canManage = curActive.isSuper || curActive.role === 'Admin' || curActive.role === 'Super Admin';
         if (!canManage) {
-          showToast('⚠️ Only Administrators can remove accounts.', false);
+          showToast('⚠️ Only Super Administrators can remove accounts.', false);
           return;
         }
         const uname = btn.dataset.username;
-        if (confirm(`Remove administrator account "${uname}"? They will no longer be able to log in.`)) {
+        if (confirm(`Remove administrator account "${uname}"? They will no longer have admin access.`)) {
           let users = getStoredUsers();
-          users = users.filter(u => u.username.toLowerCase() !== uname.toLowerCase());
+          const target = users.find(u => (u.username || '').toLowerCase() === uname.toLowerCase());
+          users = users.filter(u => (u.username || '').toLowerCase() !== uname.toLowerCase());
           await saveStoredUsers(users);
+          if (target && target.uid && firebase && firebase.apps.length) {
+            try {
+              await firebase.database().ref('admin_users/' + target.uid).remove();
+            } catch (e) {}
+          }
           renderAdminUsersList();
-          showToast(`🗑️ Account <strong>${escapeHtml(uname)}</strong> removed successfully and synced to Cloud.`);
+          showToast(`🗑️ Account <strong>${escapeHtml(uname)}</strong> access revoked successfully.`);
         }
       });
     });
@@ -3355,51 +3396,102 @@ document.addEventListener('DOMContentLoaded', () => {
       const activeUser = getActiveSessionUser();
       const canManage = activeUser.isSuper || activeUser.role === 'Admin' || activeUser.role === 'Super Admin';
       if (!canManage) {
-        showToast('⚠️ Only Administrators can create new accounts.', false);
+        showToast('⚠️ Only Super Administrators can create and authorize new accounts.', false);
         return;
       }
 
-      const uname = (newUserUsername ? newUserUsername.value : '').trim().toLowerCase();
+      let emailOrUser = (newUserUsername ? newUserUsername.value : '').trim().toLowerCase();
       const name = (newUserFullName ? newUserFullName.value : '').trim();
       const pwd = (newUserPassword ? newUserPassword.value : '').trim();
       const role = (newUserRole ? newUserRole.value : 'Leave Coordinator');
 
-      if (!uname || !name || !pwd) {
+      if (!emailOrUser || !name || !pwd) {
         showToast('⚠️ Please fill in all fields.', false);
         return;
       }
-      if (!/^[a-z0-9_\-\.]+$/i.test(uname)) {
-        showToast('⚠️ Username must contain only letters, numbers, and dashes.', false);
-        return;
+
+      let email = emailOrUser;
+      if (!email.includes('@')) {
+        email = email + '@srcc.du.ac.in';
       }
-      if (pwd.length < 4) {
-        showToast('⚠️ Password must be at least 4 characters long.', false);
+
+      if (pwd.length < 6) {
+        showToast('⚠️ Password must be at least 6 characters long (Firebase requirement).', false);
         return;
       }
 
       const users = getStoredUsers();
-      if (users.some(u => u.username.toLowerCase() === uname)) {
-        showToast(`⚠️ Username "${escapeHtml(uname)}" already exists. Choose a different username.`, false);
+      if (users.some(u => (u.username || '').toLowerCase() === email.toLowerCase() || (u.email || '').toLowerCase() === email.toLowerCase())) {
+        showToast(`⚠️ Account for "${escapeHtml(email)}" already exists.`, false);
         if (newUserUsername) newUserUsername.focus();
         return;
       }
 
-      const pwdHash = await hashPasscode(pwd);
-      const isSuperRole = (uname === 'admin');
+      showToast(`⏳ Registering account in Firebase Authentication for ${escapeHtml(name)}...`);
+
+      let newUid = null;
+      if (firebase && firebase.apps.length && window.SRCC_FIREBASE_CONFIG) {
+        const secAppName = 'SecAuthApp_' + Date.now();
+        const secondaryApp = firebase.initializeApp(window.SRCC_FIREBASE_CONFIG, secAppName);
+        try {
+          const userCred = await secondaryApp.auth().createUserWithEmailAndPassword(email, pwd);
+          if (userCred && userCred.user) {
+            newUid = userCred.user.uid;
+            try {
+              await userCred.user.updateProfile({ displayName: name });
+            } catch (pErr) {}
+          }
+          await secondaryApp.auth().signOut();
+          await secondaryApp.delete();
+        } catch (authErr) {
+          try { await secondaryApp.delete(); } catch (delE) {}
+          console.error('[Firebase User Creation Error]', authErr);
+          let errMsg = authErr.message;
+          if (authErr.code === 'auth/email-already-in-use') {
+            errMsg = 'This email address is already registered in Firebase Authentication.';
+          } else if (authErr.code === 'auth/invalid-email') {
+            errMsg = 'Invalid email address format. Please enter a valid email.';
+          } else if (authErr.code === 'auth/weak-password') {
+            errMsg = 'Password is too weak. Please use at least 6 characters.';
+          }
+          showToast(`❌ <strong>Failed to create account:</strong> ${escapeHtml(errMsg)}`, false, 7000);
+          return;
+        }
+      }
+
+      // Save user authorization to Firebase Realtime Database /admin_users
+      if (newUid && firebase && firebase.apps.length) {
+        try {
+          await firebase.database().ref('admin_users/' + newUid).set({
+            uid: newUid,
+            email: email,
+            username: email.split('@')[0],
+            fullName: name,
+            role: role,
+            createdAt: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+            addedBy: activeUser.email || activeUser.username || 'Super Admin'
+          });
+        } catch (dbErr) {
+          console.warn('Realtime database write note for admin_users:', dbErr);
+        }
+      }
+
       users.push({
-        username: uname,
+        uid: newUid,
+        username: email,
         fullName: name,
+        email: email,
         role: role,
-        passwordHash: pwdHash,
         createdAt: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
-        isSuper: isSuperRole,
-        hasChangedPassword: true,
+        isSuper: false,
         updatedAt: Date.now()
       });
 
       await saveStoredUsers(users);
       renderAdminUsersList();
-      showToast(`🎉 <strong>Account created!</strong> User <code>${escapeHtml(uname)}</code> can now log in and is synced to Cloud Database.`);
+
+      showToast(`🎉 <strong>Account Created!</strong> User <code>${escapeHtml(email)}</code> is now registered in Firebase Auth as <strong>${escapeHtml(role)}</strong> and can log in immediately.`, true, 6000);
+
       if (newUserUsername) newUserUsername.value = '';
       if (newUserFullName) newUserFullName.value = '';
       if (newUserPassword) newUserPassword.value = '';

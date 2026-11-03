@@ -11,3 +11,4 @@ window.SRCC_FIREBASE_CONFIG = {
   messagingSenderId: "",
   appId: ""
 };
+

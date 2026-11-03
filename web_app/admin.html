@@ -1792,16 +1792,16 @@
             </h4>
             <form id="formCreateAdminUser">
               <div class="leave-field-group" style="margin-bottom: 8px;">
-                <label for="newUserUsername">Username:</label>
-                <input type="text" id="newUserUsername" placeholder="e.g. rohit" required />
+                <label for="newUserUsername">Email / Username:</label>
+                <input type="text" id="newUserUsername" placeholder="e.g. teacher@srcc.du.ac.in or gmail.com" required />
               </div>
               <div class="leave-field-group" style="margin-bottom: 8px;">
                 <label for="newUserFullName">Full Name:</label>
-                <input type="text" id="newUserFullName" placeholder="e.g. Rohit Sharma" required />
+                <input type="text" id="newUserFullName" placeholder="e.g. Prof. Rohit Sharma" required />
               </div>
               <div class="leave-field-group" style="margin-bottom: 8px;">
-                <label for="newUserPassword">Password:</label>
-                <input type="password" id="newUserPassword" required minlength="4" />
+                <label for="newUserPassword">Password (min. 6 chars):</label>
+                <input type="password" id="newUserPassword" required minlength="6" placeholder="Create login password" />
               </div>
               <div class="leave-field-group" style="margin-bottom: 10px;">
                 <label for="newUserRole">Role:</label>
@@ -1811,7 +1811,7 @@
                 </select>
               </div>
               <button type="submit" class="btn-primary" id="btnSubmitCreateUser" style="width: 100%; padding: 9px; font-size: 0.82rem; background: linear-gradient(135deg, #10B981, #059669); color: #ffffff; border: none; border-radius: var(--radius-sm); font-weight: 700; cursor: pointer;">
-                ➕ Create Account
+                ➕ Create &amp; Authorize Account
               </button>
             </form>
           </div>
