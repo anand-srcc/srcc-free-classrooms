@@ -4,10 +4,10 @@ const { execSync } = require('child_process');
 
 const srcDir = path.resolve('web_app');
 const previewDir = path.resolve('preview_web_app');
-const downloadsDir = 'C:\\Users\\anand_fua08yg\\Downloads\\srcc_web_app_for_netlify';
-const zipPath = 'C:\\Users\\anand_fua08yg\\Downloads\\srcc_web_app_for_netlify.zip';
+const desktopPath = path.join(process.env.USERPROFILE || 'C:\\Users\\anand', 'OneDrive', 'Desktop');
+const zipPath = path.join(desktopPath, 'SRCC_Free_Classroom_Finder_Netlify_Deploy.zip');
 
-console.log('📦 Syncing web_app to preview_web_app and Downloads folder...');
+console.log('📦 Syncing web_app and generating Netlify deployment zip...');
 
 function copyRecursiveSync(src, dest) {
   if (!fs.existsSync(dest)) {
@@ -29,19 +29,15 @@ function copyRecursiveSync(src, dest) {
 copyRecursiveSync(srcDir, previewDir);
 console.log('✅ Copied to preview_web_app/');
 
-// 2. Copy to Downloads folder
-copyRecursiveSync(srcDir, downloadsDir);
-console.log('✅ Copied to ' + downloadsDir);
-
-// 3. Remove old zip if present
+// 2. Remove old zip if present
 if (fs.existsSync(zipPath)) {
   fs.unlinkSync(zipPath);
   console.log('🗑️ Removed old zip archive');
 }
 
-// 4. Create new zip using PowerShell Compress-Archive
+// 3. Create new zip using PowerShell .NET ZipFile
 console.log('🗜️ Creating zip archive...');
-const psCommand = `powershell -Command "Compress-Archive -Path '${downloadsDir}\\*' -DestinationPath '${zipPath}' -Force"`;
+const psCommand = `powershell -Command "Add-Type -AssemblyName System.IO.Compression.FileSystem; [System.IO.Compression.ZipFile]::CreateFromDirectory('${srcDir}', '${zipPath}')"`;
 execSync(psCommand, { stdio: 'inherit' });
 
 if (fs.existsSync(zipPath)) {
