@@ -2,49 +2,49 @@
   "rules": {
     "leaves": {
       ".read": true,
-      ".write": "auth != null && (auth.token.admin === true || auth.token.email === 'anandkumarmaurya1848@gmail.com' || auth.token.email === 'anand.kumar.student@srcc.du.ac.in' || root.child('admin_users').child(auth.uid).exists())",
+      ".write": "auth != null && (auth.token.admin === true || auth.token.email === 'anandkumarmaurya1848@gmail.com' || root.child('admin_users').child(auth.uid).exists())",
       ".validate": "newData.hasChildren(['last_updated', 'leaves'])"
     },
     "room_locks": {
       ".read": true,
-      ".write": "auth != null && (auth.token.admin === true || auth.token.email === 'anandkumarmaurya1848@gmail.com' || auth.token.email === 'anand.kumar.student@srcc.du.ac.in' || root.child('admin_users').child(auth.uid).exists())"
+      ".write": "auth != null && (auth.token.admin === true || auth.token.email === 'anandkumarmaurya1848@gmail.com' || root.child('admin_users').child(auth.uid).exists())"
     },
     "campus_notices": {
       ".read": true,
-      ".write": "auth != null && (auth.token.admin === true || auth.token.email === 'anandkumarmaurya1848@gmail.com' || auth.token.email === 'anand.kumar.student@srcc.du.ac.in' || root.child('admin_users').child(auth.uid).exists())"
+      ".write": "auth != null && (auth.token.admin === true || auth.token.email === 'anandkumarmaurya1848@gmail.com' || root.child('admin_users').child(auth.uid).exists())"
     },
     "maintenance": {
       ".read": true,
-      ".write": "auth != null && (auth.token.admin === true || auth.token.email === 'anandkumarmaurya1848@gmail.com' || auth.token.email === 'anand.kumar.student@srcc.du.ac.in' || root.child('admin_users').child(auth.uid).exists())",
+      ".write": "auth != null && (auth.token.admin === true || auth.token.email === 'anandkumarmaurya1848@gmail.com' || root.child('admin_users').child(auth.uid).exists())",
       ".validate": "newData.hasChildren(['enabled']) && newData.child('enabled').isBoolean()"
     },
     "broadcast_triggers": {
       "latest": {
         ".read": true,
-        ".write": "auth != null && (auth.token.admin === true || auth.token.email === 'anandkumarmaurya1848@gmail.com' || auth.token.email === 'anand.kumar.student@srcc.du.ac.in' || root.child('admin_users').child(auth.uid).exists())"
+        ".write": "auth != null && (auth.token.admin === true || auth.token.email === 'anandkumarmaurya1848@gmail.com' || root.child('admin_users').child(auth.uid).exists())"
       }
     },
     "admin_users": {
       ".read": "auth != null",
-      ".write": "auth != null && (auth.token.admin === true || auth.token.email === 'anandkumarmaurya1848@gmail.com' || auth.token.email === 'anand.kumar.student@srcc.du.ac.in')"
+      ".write": "auth != null && (auth.token.admin === true || auth.token.email === 'anandkumarmaurya1848@gmail.com')"
     },
     "push_subscriptions": {
-      ".read": "auth != null && (auth.token.admin === true || auth.token.email === 'anandkumarmaurya1848@gmail.com' || auth.token.email === 'anand.kumar.student@srcc.du.ac.in' || root.child('admin_users').child(auth.uid).exists())",
+      ".read": "auth != null && (auth.token.admin === true || auth.token.email === 'anandkumarmaurya1848@gmail.com' || root.child('admin_users').child(auth.uid).exists())",
       "$sub_id": {
         ".write": "!data.exists() && newData.exists()",
         ".validate": "newData.hasChildren(['endpoint']) && newData.child('endpoint').isString() && newData.child('endpoint').val().beginsWith('https://')"
       }
     },
     "issues": {
-      ".read": "auth != null && (auth.token.admin === true || auth.token.email === 'anandkumarmaurya1848@gmail.com' || auth.token.email === 'anand.kumar.student@srcc.du.ac.in' || root.child('admin_users').child(auth.uid).exists())",
+      ".read": "auth != null && (auth.token.admin === true || auth.token.email === 'anandkumarmaurya1848@gmail.com' || root.child('admin_users').child(auth.uid).exists())",
       "$issue_id": {
         ".write": "!data.exists() && newData.exists()",
         ".validate": "newData.hasChildren(['type', 'timestamp']) && newData.child('type').isString() && newData.child('type').val().length <= 50 && (!newData.hasChild('details') || (newData.child('details').isString() && newData.child('details').val().length <= 1000))"
       }
     },
     "admin_audit_logs": {
-      ".read": "auth != null && (auth.token.admin === true || auth.token.email === 'anandkumarmaurya1848@gmail.com' || auth.token.email === 'anand.kumar.student@srcc.du.ac.in' || root.child('admin_users').child(auth.uid).exists())",
-      ".write": "auth != null && (auth.token.admin === true || auth.token.email === 'anandkumarmaurya1848@gmail.com' || auth.token.email === 'anand.kumar.student@srcc.du.ac.in' || root.child('admin_users').child(auth.uid).exists())"
+      ".read": "auth != null && (auth.token.admin === true || auth.token.email === 'anandkumarmaurya1848@gmail.com' || root.child('admin_users').child(auth.uid).exists())",
+      ".write": "auth != null && (auth.token.admin === true || auth.token.email === 'anandkumarmaurya1848@gmail.com' || root.child('admin_users').child(auth.uid).exists())"
     },
     ".read": false,
     ".write": false

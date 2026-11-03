@@ -19,8 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
       firebaseAuth = firebase.auth();
 
       const SUPER_ADMIN_EMAILS = [
-        'anandkumarmaurya1848@gmail.com',
-        'anand.kumar.student@srcc.du.ac.in'
+        'anandkumarmaurya1848@gmail.com'
       ];
 
       firebaseAuth.onAuthStateChanged(async (user) => {
@@ -420,14 +419,6 @@ document.addEventListener('DOMContentLoaded', () => {
         email: 'anandkumarmaurya1848@gmail.com',
         createdAt: 'Primary Master Account',
         isSuper: true
-      },
-      {
-        username: 'anand.kumar.student@srcc.du.ac.in',
-        fullName: 'Anand (SRCC Student Admin)',
-        role: 'Super Admin',
-        email: 'anand.kumar.student@srcc.du.ac.in',
-        createdAt: 'SRCC Institutional Account',
-        isSuper: true
       }
     ];
     saveStoredUsers(defaultUsers);
@@ -508,7 +499,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const tokenResult = await user.getIdTokenResult(true);
 
           const emailLower = (user.email || '').toLowerCase().trim();
-          const isSuperAdmin = ['anandkumarmaurya1848@gmail.com', 'anand.kumar.student@srcc.du.ac.in'].includes(emailLower);
+          const isSuperAdmin = ['anandkumarmaurya1848@gmail.com'].includes(emailLower);
           let isTeamAdmin = tokenResult.claims && (tokenResult.claims.admin === true || tokenResult.claims.role === 'administrator');
 
           if (!isSuperAdmin && !isTeamAdmin) {
@@ -3211,7 +3202,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ${users.map(u => {
               const uname = (u.username || u.email || '').toLowerCase();
               const isSelf = uname === activeUser.username.toLowerCase() || (activeUser.email && uname === activeUser.email.toLowerCase());
-              const isRootAdmin = uname === 'admin' || uname === 'anandkumarmaurya1848@gmail.com' || uname === 'anand.kumar.student@srcc.du.ac.in';
+              const isRootAdmin = uname === 'admin' || uname === 'anandkumarmaurya1848@gmail.com';
               const canDelete = (activeUser.isSuper || activeUser.role === 'Admin' || activeUser.role === 'Super Admin') && !isSelf && !isRootAdmin;
               
               let roleBadge = '';
