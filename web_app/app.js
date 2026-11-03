@@ -1353,10 +1353,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (elHeaderSync) {
       elHeaderSync.textContent = `Today, ${todayDateFormatted}`;
-      elHeaderSync.title = `Official SRCC Timetable Synced: Today, ${todayDateFormatted}`;
+      elHeaderSync.title = `Timetable Reference Synced: Today, ${todayDateFormatted}`;
     }
-    if (elRibbonSync) elRibbonSync.textContent = `Today, ${todayDateFormatted} • Daily Verified`;
-    if (elFooterSync) elFooterSync.textContent = `Today, ${todayDateFormatted} • Official SRCC Timetable Verified`;
+    if (elRibbonSync) elRibbonSync.textContent = `Today, ${todayDateFormatted} • Daily Synced`;
+    if (elFooterSync) elFooterSync.textContent = `Today, ${todayDateFormatted} • Student Peer Initiative`;
     if (statFacultyLastSynced) statFacultyLastSynced.textContent = `Today, ${todayDateFormatted}`;
 
     if (modeFacultyCount && teachersData && teachersData.teachers) {
@@ -10277,7 +10277,7 @@ window.SRCC_FACULTY_LEAVES = {
             e.preventDefault();
             const title = btn.dataset.title;
             const url = btn.dataset.url;
-            const shareText = `📢 *SRCC Official Notice:*\n"${title}"\n\n🔗 Official Link:\n${url}\n\nVia SRCC Student Portal`;
+            const shareText = `📢 *SRCC Campus Notice:*\n"${title}"\n\n🔗 Public Link:\n${url}\n\nVia SRCC Room Finder (Student Peer Initiative)`;
 
             if (navigator.share) {
               try {
@@ -10740,7 +10740,7 @@ window.SRCC_FACULTY_LEAVES = {
             const upc = btn.dataset.upc;
             const sem = btn.dataset.sem;
             const url = btn.dataset.url;
-            const shareText = `📝 *DU Examination Code (UPC):*\n*Paper:* ${title}\n*UPC Code:* ${upc}\n*Semester:* ${sem}\n\n📄 Official DU Syllabus: ${url || 'https://www.du.ac.in/index.php?page=nep-ugcf-2022-syllabi'}\n🏛️ Official DU Exam Datesheet & UPC Portal: https://exam.du.ac.in/datesheet.html\n\nVia SRCC Student Portal`;
+            const shareText = `📝 *DU Examination Code (UPC):*\n*Paper:* ${title}\n*UPC Code:* ${upc}\n*Semester:* ${sem}\n\n📄 DU Syllabus Reference: ${url || 'https://www.du.ac.in/index.php?page=nep-ugcf-2022-syllabi'}\n🏛️ DU Exam Datesheet & UPC Portal: https://exam.du.ac.in/datesheet.html\n\nVia SRCC Room Finder (Student Peer Initiative)`;
 
             if (navigator.share) {
               try {
