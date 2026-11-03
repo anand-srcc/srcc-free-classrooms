@@ -9355,18 +9355,42 @@ window.SRCC_FACULTY_LEAVES = {
       const btnAllow = document.getElementById('btnAllowLeaveNotif');
       const btnDismiss = document.getElementById('btnDismissLeaveNotif');
 
+      // PWA Notification Opt-in Modal Elements (For First-time & Unaccepted Users)
+      const notifModal = document.getElementById('pwaNotifOptInModal');
+      const btnEnablePwaNotif = document.getElementById('btnEnablePwaNotif');
+      const btnLaterPwaNotif = document.getElementById('btnLaterPwaNotif');
+      const btnCloseNotifOptIn = document.getElementById('btnCloseNotifOptIn');
+
+      function closeNotifOptInModal() {
+        if (notifModal) {
+          notifModal.style.display = 'none';
+          sessionStorage.setItem('srcc_notif_modal_dismissed', '1');
+        }
+      }
+
+      window.openNotificationOptInModal = function() {
+        if (notifModal) notifModal.style.display = 'flex';
+      };
+
       // Request permission helper (Registers closed-browser Push Alerts like Zomato/Blinkit)
       async function requestLeavePermission() {
         if (!('Notification' in window)) {
           showToast('⚠️ Notifications are not supported in this browser.', false, 3500);
-          return;
+          return false;
         }
 
         try {
           const perm = await Notification.requestPermission();
           if (perm === 'granted') {
             localStorage.setItem('srcc_leave_notif_enabled', 'true');
-            showToast('🔔 <strong>Campus Alerts Enabled</strong> You will receive real-time updates for schedule and classroom vacancies.', true, 4000);
+            localStorage.setItem('srcc_notifications_enabled', 'true');
+            sessionStorage.removeItem('srcc_notif_modal_dismissed');
+
+            if (banner) banner.style.display = 'none';
+            if (notifModal) notifModal.style.display = 'none';
+            window._isNotifBannerActive = false;
+
+            showToast('🔔 <strong>Campus Alerts Enabled!</strong> You will receive real-time updates for schedule and classroom vacancies.', true, 4000);
 
             // 1. Register closed-browser Web Push subscription (Wakes up device even when Chrome is shut)
             registerDeviceWebPushSubscription();
@@ -9380,36 +9404,78 @@ window.SRCC_FACULTY_LEAVES = {
               });
             }
 
-            // Immediately check and notify
+            // 3. Immediately dispatch welcome test notification to device
+            triggerDeviceNotification('SRCC Free Classroom Finder 🔔', {
+              body: '✅ Live alerts active! You will now receive vacant room updates, faculty leaves, and campus notices.',
+              tag: 'srcc-welcome-alert'
+            });
+
+            // Check and notify leaves
             const todayActive = getActiveTodayLeaves();
-            notifyFacultyLeaves(todayActive, false);
+            notifyFacultyLeaves(todayActive, false, true);
+            return true;
           } else {
             showToast('ℹ️ Notification permission was not enabled. You can enable anytime via browser settings.', false, 3500);
+            return false;
           }
         } catch (e) {
           console.warn('Permission request error:', e);
+          return false;
         }
       }
 
-      // 1. Notification Opt-in Prompt Banner (Reliably shows for users who have not subscribed)
+      // 1. Notification Opt-in Prompt Banner & Modal (Reliably prompts users who have not subscribed)
       function evaluateBannerDisplay() {
-        const isNotifGranted = ('Notification' in window && Notification.permission === 'granted');
+        const isNotifSupported = ('Notification' in window);
+        const isNotifGranted = (isNotifSupported && Notification.permission === 'granted');
+
         if (isNotifGranted) {
           if (banner) banner.style.display = 'none';
+          if (notifModal) notifModal.style.display = 'none';
           window._isNotifBannerActive = false;
           registerDeviceWebPushSubscription();
           const todayActive = getActiveTodayLeaves();
           notifyFacultyLeaves(todayActive, false);
         } else {
-          // If not subscribed/granted, display banner to ensure student/teacher sees subscription prompt
+          // If not subscribed/granted, display banner and opt-in modal for first-time or unaccepted users
           if (banner) {
             banner.style.display = 'block';
             window._isNotifBannerActive = true;
+          }
+          // Pop modal for users who haven't dismissed it this session and haven't granted permission
+          const isModalDismissed = sessionStorage.getItem('srcc_notif_modal_dismissed');
+          if (notifModal && isNotifSupported && Notification.permission !== 'denied' && !isModalDismissed) {
+            setTimeout(() => {
+              notifModal.style.display = 'flex';
+            }, 1200);
           }
         }
       }
       setTimeout(evaluateBannerDisplay, 400);
 
+      // Modal action buttons
+      if (btnEnablePwaNotif) {
+        btnEnablePwaNotif.addEventListener('click', async () => {
+          await requestLeavePermission();
+          if (typeof updateClassNotifUi === 'function') updateClassNotifUi();
+          if (typeof window._triggerDeferredPwaPrompt === 'function') {
+            window._triggerDeferredPwaPrompt(6000);
+          }
+        });
+      }
+      if (btnLaterPwaNotif) {
+        btnLaterPwaNotif.addEventListener('click', closeNotifOptInModal);
+      }
+      if (btnCloseNotifOptIn) {
+        btnCloseNotifOptIn.addEventListener('click', closeNotifOptInModal);
+      }
+      if (notifModal) {
+        notifModal.addEventListener('click', (e) => {
+          if (e.target === notifModal) closeNotifOptInModal();
+        });
+      }
+
+      // Banner action buttons
       if (btnAllow) {
         btnAllow.addEventListener('click', async () => {
           if (banner) banner.style.display = 'none';
@@ -11052,9 +11118,10 @@ window._triggerDeferredPwaPrompt = function(delayMs = 3000) {
     const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
     if (isLocal || sessionStorage.getItem('pwa_dismissed')) return;
 
-    // Check if notification banner is currently active
+    // Check if notification prompt or banner is currently active
     const notifBanner = document.getElementById('leaveNotificationPromptBanner');
-    const isNotifActive = window._isNotifBannerActive || (notifBanner && notifBanner.style.display === 'block');
+    const notifModal = document.getElementById('pwaNotifOptInModal');
+    const isNotifActive = window._isNotifBannerActive || (notifBanner && notifBanner.style.display === 'block') || (notifModal && notifModal.style.display === 'flex');
 
     if (deferredPrompt && installModal && !isNotifActive) {
       installModal.style.display = 'flex';
@@ -11065,7 +11132,7 @@ window._triggerDeferredPwaPrompt = function(delayMs = 3000) {
 // Register Service Worker with robust relative path and periodic sync
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    const swUrl = './sw.js?v=98';
+    const swUrl = './sw.js?v=106';
     navigator.serviceWorker.register(swUrl, { scope: './' }).then(async (registration) => {
       console.log('[SW] Registered successfully with scope:', registration.scope);
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SRCC Room Finder | Group Discussion & Study</title>
+  <title>SRCC Free Classroom Finder | Group Discussion & Study</title>
   <meta name="description" content="Find vacant classrooms, tutorial rooms, Principal Bungalow (PB), Sports Complex (SCR) and labs for Group Discussion (GD) at Shri Ram College of Commerce (SRCC)." />
   
   <!-- Security Enhancements -->
@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   
-  <link rel="stylesheet" href="style.css?v=105" />
+  <link rel="stylesheet" href="style.css?v=106" />
   
   <!-- Maintenance Mode Gatekeeper -->
   <script src="cloud_config.js?v=100"></script>
@@ -52,7 +52,7 @@
           <img src="assets/srcc_100years.png" onerror="this.onerror=null; this.src='srcc_100years.png';" alt="SRCC 100 Years Centenary Logo" class="brand-logo-img logo-100years" />
         </div>
         <div class="brand-titles">
-          <h1>SRCC Room Finder</h1>
+          <h1>SRCC Free Classroom Finder</h1>
           <div class="header-last-updated" id="headerLastUpdatedWrap" title="Timetable reference for vacant rooms - Student Peer Initiative">
             <span class="sync-dot-live"></span>
             <span>Timetable Synced: <strong id="lastUpdatedHeader">Today</strong></span>
@@ -1291,6 +1291,49 @@
   </div>
 
 
+  <!-- PWA Campus Notification Opt-In Prompt Modal (For First-time Users & Unaccepted Users) -->
+  <div id="pwaNotifOptInModal" class="notif-optin-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="notifOptInTitle">
+    <div class="notif-optin-card">
+      <button id="btnCloseNotifOptIn" class="btn-close-notif-optin" aria-label="Close Notification Prompt">&times;</button>
+      <div class="notif-optin-icon-wrap">
+        <span class="notif-optin-bell-icon">🔔</span>
+      </div>
+      <h3 id="notifOptInTitle" class="notif-optin-title">Enable Campus &amp; Room Alerts</h3>
+      <p class="notif-optin-desc">Get instant real-time notifications on your device for free rooms, faculty leaves, and urgent SRCC notices.</p>
+      
+      <div class="notif-optin-features">
+        <div class="notif-feature-row">
+          <span class="notif-feature-icon">⚡</span>
+          <div class="notif-feature-text">
+            <strong>Vacant Classrooms</strong>
+            <span>Live updates on available rooms for GD and study</span>
+          </div>
+        </div>
+        <div class="notif-feature-row">
+          <span class="notif-feature-icon">🏖️</span>
+          <div class="notif-feature-text">
+            <strong>Faculty Leaves</strong>
+            <span>Know in advance when scheduled classes are cancelled</span>
+          </div>
+        </div>
+        <div class="notif-feature-row">
+          <span class="notif-feature-icon">📢</span>
+          <div class="notif-feature-text">
+            <strong>Official Notices &amp; Deadlines</strong>
+            <span>Exam form dates, datesheets, and urgent college circulars</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="notif-optin-actions">
+        <button id="btnEnablePwaNotif" class="btn-enable-pwa-notif" type="button">
+          <span>🔔 Enable Notifications</span>
+        </button>
+        <button id="btnLaterPwaNotif" class="btn-later-pwa-notif" type="button">Maybe Later</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Faculty Leave Modal -->
   <div id="leaveManagerModal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(4px);">
     <div class="modal-card" style="background: #ffffff; width: 92%; max-width: 560px; max-height: 85vh; border-radius: var(--radius-lg); padding: 22px; box-shadow: var(--shadow-xl); display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--border-color);">
@@ -1360,6 +1403,6 @@
   <script src="faculty_leaves.js?v=100"></script>
   <script src="teachers_data.js?v=100"></script>
   <script src="classes_data.js?v=100"></script>
-  <script src="app.js?v=105"></script>
+  <script src="app.js?v=106"></script>
 </body>
 </html>
