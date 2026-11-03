@@ -7,7 +7,7 @@ window.SRCC_TEACHERS_DATA = {
     "audit_reconciled": true,
     "tridiagonal_passes": 5,
     "reverse_reconciled": true,
-    "emails_enriched": 115
+    "emails_enriched": 0
   },
   "teachers": [
     {
@@ -119,7 +119,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "ayushisharmafbd@gmail.com",
       "official_department": "Commerce Department"
     },
     {
@@ -317,7 +316,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "abhay.jain@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -387,7 +385,6 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "email": "abhishek.khadgawat@srcc.du.ac.in",
       "official_department": "Economics Department"
     },
     {
@@ -609,7 +606,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "abhishek.yadav@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -1455,7 +1451,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "alka.goyale@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -1652,7 +1647,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "dralok.kumar@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -1850,7 +1844,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "amanpreet.kaur@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -2072,7 +2065,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "amarjeet.singh@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -2307,7 +2299,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "amit.girdharwal@srcc.du.ac.in",
       "official_department": "Economics Department"
     },
     {
@@ -2529,7 +2520,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "amitkumar1@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -2727,7 +2717,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "amit.sachdeva@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -2949,7 +2938,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "anil.kumar1@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -3283,7 +3271,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "anisha@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -3643,7 +3630,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "anju.verma@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -3963,7 +3949,6 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "email": "ankita.tomar@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -4284,7 +4269,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "anubha.godara@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -4494,7 +4478,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "anuj.jatav@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -4716,7 +4699,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "anuj.bhatia@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -4938,7 +4920,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "anuradha.agarwal@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -5159,7 +5140,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "anuradha.gulati@srcc.du.ac.in",
       "official_department": "Economics Department"
     },
     {
@@ -5592,7 +5572,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "aruna.jha@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -5814,7 +5793,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "asha.rani@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -6159,7 +6137,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "ashwani.kumar@srcc.du.ac.in",
       "official_department": "Economics Department"
     },
     {
@@ -6357,7 +6334,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "avinashkumar.jha@srcc.du.ac.in",
       "official_department": "Economics Department"
     },
     {
@@ -6603,7 +6579,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "kumar.sharma@srcc.du.ac.in",
       "official_department": "Mathematics Department"
     },
     {
@@ -6825,7 +6800,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "bal.kishan@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -7294,7 +7268,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "chhavi.gautam@srcc.du.ac.in",
       "official_department": "Economics Department"
     },
     {
@@ -7939,7 +7912,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "deepashree@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -8163,7 +8135,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "dipika.bansal@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -8386,7 +8357,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "dixit.yadav@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -8679,7 +8649,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "esther.ngaihte@srcc.du.ac.in",
       "official_department": "Economics Department"
     },
     {
@@ -9269,7 +9238,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "franky.varah@srcc.du.ac.in",
       "official_department": "Environmental Science Department"
     },
     {
@@ -9479,7 +9447,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "gaurav.rana@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -9936,7 +9903,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "hn.tiwari@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -10159,7 +10125,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "harish.kumar@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -10897,7 +10862,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "himanshi.aggarwal@srcc.du.ac.in",
       "official_department": "Economics Department"
     },
     {
@@ -11182,7 +11146,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "xyzzyx121202@gmail.com",
       "official_department": "Commerce"
     },
     {
@@ -11531,7 +11494,6 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "email": "jagadish@srcc.du.ac.in",
       "official_department": "Economics Department"
     },
     {
@@ -11754,7 +11716,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "jaideep@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -12101,7 +12062,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "jigmet.wangdus@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -12323,7 +12283,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "kamaldeepkaur.sarna@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -12536,7 +12495,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "kanika.gandhi@srcc.du.ac.in",
       "official_department": "English Department"
     },
     {
@@ -12770,7 +12728,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "kapildev.yadav@srcc.du.ac.in",
       "official_department": "Economics Department"
     },
     {
@@ -12943,7 +12900,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "karuna@srcc.du.ac.in,",
       "official_department": "Commerce Department"
     },
     {
@@ -13450,7 +13406,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "kaushal.kishore@srcc.du.ac.in",
       "official_department": "Economics Department"
     },
     {
@@ -13624,7 +13579,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "kinneri.jain@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -13992,7 +13946,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "krishan.kant@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -14423,7 +14376,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "kuljeet.kaur@srcc.du.ac.in",
       "official_department": "Physical Education Department"
     },
     {
@@ -14645,7 +14597,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "latika.bajetha@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -14843,7 +14794,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "linesh@srcc.du.ac.in",
       "official_department": "Political Science Department"
     },
     {
@@ -15176,7 +15126,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "drmallika.kumar@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -15665,7 +15614,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "manpreet.sharma@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -16577,7 +16525,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "misha.govil@srcc.du.ac.in",
       "official_department": "Mathematics Department"
     },
     {
@@ -16801,7 +16748,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "mohd.hassan@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -16823,7 +16769,6 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "email": "monika.bansal@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -17057,7 +17002,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "monika.gaur@srcc.du.ac.in",
       "official_department": "Economics Department"
     },
     {
@@ -17475,7 +17419,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "naveen.mittal@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -17672,7 +17615,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "nawang.gialchhen@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -17791,7 +17733,6 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "email": "nidhi.gupta@srcc.du.ac.in",
       "official_department": "Economics Department"
     },
     {
@@ -18138,7 +18079,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "nikunj.aggarwal@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -18621,7 +18561,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "nisha.devi@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -18819,7 +18758,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "padmeshwar.doley@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -19178,7 +19116,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "palak.kanojia@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -19972,7 +19909,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "prashasti.singh@srcc.du.ac.in",
       "official_department": "Computer Science Department"
     },
     {
@@ -20330,7 +20266,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "prerana@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -20552,7 +20487,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "priya.chaurasia@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -20774,7 +20708,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "priyanka.aggarwal@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -21008,7 +20941,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "priyanka.bhatia@srcc.du.ac.in",
       "official_department": "Economics Department"
     },
     {
@@ -21205,7 +21137,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "drrachnajawa@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -21402,7 +21333,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "rajkumar.sah@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -21620,7 +21550,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "rajiv.jha@srcc.du.ac.in",
       "official_department": "Economics Department"
     },
     {
@@ -21719,7 +21648,6 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "email": "rajkumar.sah@srcc.du.ac.in",
       "official_department": "Hindi Department"
     },
     {
@@ -21917,7 +21845,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "rakesh.ranjan@srcc.du.ac.in",
       "official_department": "Economics Department"
     },
     {
@@ -22278,7 +22205,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "ravi.kant@srcc.du.ac.in",
       "official_department": "Economics Department"
     },
     {
@@ -22451,7 +22377,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "ravi.sharma@srcc.du.ac.in",
       "official_department": "Hindi Department"
     },
     {
@@ -22473,7 +22398,6 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "email": "reena.chadha@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -22671,7 +22595,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "renu.agarwal@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -22869,7 +22792,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "renu.bansal@srcc.du.ac.in",
       "official_department": "Economics Department"
     },
     {
@@ -23116,7 +23038,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "rishabh.raj@srcc.du.ac.in",
       "official_department": "Political Science Department"
     },
     {
@@ -23314,7 +23235,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "drrituranjan@srcc.du.ac.in",
       "official_department": "Economics Department"
     },
     {
@@ -23522,7 +23442,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "drruchi.kaushik@srcc.du.ac.in",
       "official_department": "English Department"
     },
     {
@@ -23544,7 +23463,6 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "email": "ruchika.choudhary@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -23766,7 +23684,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "rutika.saini@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -24257,7 +24174,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "santosh.kumar@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -24394,7 +24310,6 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "email": "shailesh.chawla@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -24592,7 +24507,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "dr.santoshkumari@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -24790,7 +24704,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "santosh.sabharwal@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -25014,7 +24927,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "sapna.bansal@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -25236,7 +25148,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "saroj.joshi@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -25258,7 +25169,6 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "email": "satnam.singh@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -25480,7 +25390,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "saumya.aggarwal@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -25702,7 +25611,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "saurabh.gupta@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -26268,7 +26176,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "shailesh.chawla@srcc.du.ac.in",
       "official_department": "English Department"
     },
     {
@@ -26502,7 +26409,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "shalini.aggarwal@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -26724,7 +26630,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "shashank.singh@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -26946,7 +26851,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "shefali.kapoor@srcc.du.ac.in",
       "official_department": "Mathematics Department"
     },
     {
@@ -27156,7 +27060,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "shikha.gupta@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -27379,7 +27282,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "shikha.rajput@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -27749,7 +27651,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "shivangi.kaushik@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -27970,7 +27871,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "shreya.shreedhar@srcc.du.ac.in",
       "official_department": "Indian Economy & Macro"
     },
     {
@@ -28327,7 +28227,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "shruti@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -28680,7 +28579,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "snehlata.gupta@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -29004,7 +28902,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "skchoudhury@srcc.du.ac.in",
       "official_department": "English Department"
     },
     {
@@ -29227,7 +29124,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "sudhanshu.yadav@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -29449,7 +29345,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "suman.si@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -29767,7 +29662,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "sunil.kumar@srcc.du.ac.in",
       "official_department": "Environmental Science Department"
     },
     {
@@ -30012,7 +29906,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "sunita.sharma@srcc.du.ac.in",
       "official_department": "Mathematics Department"
     },
     {
@@ -30186,7 +30079,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "suryaprakash@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -30873,7 +30765,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "tarun.manjhi@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -31095,7 +30986,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "vaishali.chhokar@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -31293,7 +31183,6 @@ window.SRCC_TEACHERS_DATA = {
         ],
         "Saturday": []
       },
-      "email": "drvandana.jain@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -31315,7 +31204,6 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "email": "vartika.khandelwal@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -31537,7 +31425,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "vikki.sharma@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -31882,7 +31769,6 @@ window.SRCC_TEACHERS_DATA = {
           }
         ]
       },
-      "email": "yusra.naseem@srcc.du.ac.in",
       "official_department": "Commerce Department"
     },
     {
@@ -31904,7 +31790,6 @@ window.SRCC_TEACHERS_DATA = {
         "Friday": [],
         "Saturday": []
       },
-      "email": "yuthika.agarwal@srcc.du.ac.in",
       "official_department": "Economics Department"
     }
   ]

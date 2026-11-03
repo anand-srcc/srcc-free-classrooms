@@ -16,8 +16,8 @@ window.SRCC_MAINTENANCE_CONFIG = {
   subtitle: "Shri Ram College of Commerce · Digital Timetable Portal",
   message: "We are currently conducting scheduled system upgrades, database optimization, and timetable maintenance to bring you an improved experience. Access to student features and timetable tools is temporarily paused.",
   estimatedTime: "Updates currently in progress · Please check back shortly",
-  contactEmail: "srcc@srcc.du.ac.in",
-  lastUpdated: "October 2026",
+  contactEmail: "",
+  lastUpdated: "November 2026",
 
   // Enable administrator bypass via password
   allowAdminBypass: true

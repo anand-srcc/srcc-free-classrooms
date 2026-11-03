@@ -6,7 +6,7 @@ echo   Target Repository: https://github.com/anand-srcc/srcc-free-classrooms
 echo ===================================================================
 echo.
 cd /d "%~dp0"
-set "PATH=%PATH%;C:\Users\anand_fua08yg\AppData\Local\Microsoft\WinGet\Packages\Git.MinGit_Microsoft.Winget.Source_8wekyb3d8bbwe\cmd"
+set "PATH=%PATH%;C:\Users\anand\AppData\Local\Programs\Git\cmd;C:\Program Files\Git\cmd"
 
 git remote remove origin 2>nul
 git remote add origin https://github.com/anand-srcc/srcc-free-classrooms.git
