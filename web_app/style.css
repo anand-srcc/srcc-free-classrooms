@@ -240,9 +240,9 @@ body {
 
 .brand-titles h1 {
   font-family: var(--font-display);
-  font-size: 1.22rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-size: 1.55rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   color: var(--text-primary);
   line-height: 1.2;
 }
@@ -2802,10 +2802,10 @@ body {
   .brand-titles h1 {
     grid-area: title;
     font-family: var(--font-display);
-    font-size: clamp(0.92rem, 4.4vw, 1.16rem);
+    font-size: clamp(1.22rem, 5.6vw, 1.48rem);
     font-weight: 800;
     line-height: 1.2;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
     color: var(--text-primary);
     white-space: nowrap;
     overflow: hidden;
@@ -9929,7 +9929,7 @@ body.dark-mode .notices-pill-count {
 
 .campus-drawer-title {
   margin: 0;
-  font-size: 1.05rem;
+  font-size: 1.20rem;
   font-weight: 800;
   font-family: var(--font-display);
   color: var(--text-primary);

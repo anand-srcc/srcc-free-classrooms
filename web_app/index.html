@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SRCC Free Classroom Finder | Group Discussion & Study</title>
+  <title>SRCC Room Finder | Group Discussion & Study</title>
   <meta name="description" content="Find vacant classrooms, tutorial rooms, Principal Bungalow (PB), Sports Complex (SCR) and labs for Group Discussion (GD) at Shri Ram College of Commerce (SRCC)." />
   
   <!-- Security Enhancements -->
@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   
-  <link rel="stylesheet" href="style.css?v=100" />
+  <link rel="stylesheet" href="style.css?v=105" />
   
   <!-- Maintenance Mode Gatekeeper -->
   <script src="cloud_config.js?v=100"></script>
@@ -52,10 +52,19 @@
           <img src="assets/srcc_100years.png" onerror="this.onerror=null; this.src='srcc_100years.png';" alt="SRCC 100 Years Centenary Logo" class="brand-logo-img logo-100years" />
         </div>
         <div class="brand-titles">
-          <h1>SRCC Free Classroom Finder</h1>
+          <h1>SRCC Room Finder</h1>
           <div class="header-last-updated" id="headerLastUpdatedWrap" title="Timetable reference for vacant rooms - Student Peer Initiative">
             <span class="sync-dot-live"></span>
-            <span>Timetable Synced: <strong id="lastUpdatedHeader">Today, 26 Oct 2026</strong></span>
+            <span>Timetable Synced: <strong id="lastUpdatedHeader">Today</strong></span>
+            <script>
+              (function(){
+                try {
+                  var d = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+                  var el = document.getElementById('lastUpdatedHeader');
+                  if (el) el.textContent = 'Today, ' + d;
+                } catch(e){}
+              })();
+            </script>
           </div>
         </div>
       </div>
@@ -1351,6 +1360,6 @@
   <script src="faculty_leaves.js?v=100"></script>
   <script src="teachers_data.js?v=100"></script>
   <script src="classes_data.js?v=100"></script>
-  <script src="app.js?v=103"></script>
+  <script src="app.js?v=105"></script>
 </body>
 </html>
