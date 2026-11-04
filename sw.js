@@ -1,17 +1,19 @@
-const CACHE_NAME = 'srcc-classroom-v92';
+const CACHE_NAME = 'srcc-classroom-v108';
 const ASSETS = [
   './',
   './index.html',
-  './style.css?v=92',
-  './app.js?v=92',
-  './data.js?v=92',
-  './cloud_config.js?v=92',
-  './faculty_leaves.js?v=92',
-  './teachers_data.js?v=92',
-  './classes_data.js?v=92',
-  './wifi_data.js?v=81',
+  './style.css?v=108',
+  './app.js?v=108',
+  './data.js?v=100',
+  './cloud_config.js?v=100',
+  './maintenance_config.js?v=100',
+  './maintenance.js?v=100',
+  './faculty_leaves.js?v=100',
+  './teachers_data.js?v=100',
+  './classes_data.js?v=100',
+  './exam_codes_data.js?v=100',
+  './exam_codes_data.json',
   './classes_data.json',
-  './wifi_data.json',
   './srcc_data.json',
   './faculty_leaves.json',
   './teachers_data.json',
@@ -71,7 +73,12 @@ self.addEventListener('fetch', (e) => {
         }
         return networkResponse;
       });
-    }).catch(() => caches.match('./index.html'))
+    }).catch(() => {
+      if (e.request.url.includes('widget')) {
+        return caches.match('./widget.html');
+      }
+      return caches.match('./index.html');
+    })
   );
 });
 
@@ -194,27 +201,103 @@ async function checkLeavesAndNotifyInBackground(isForced = false) {
       }
     }
 
-    // 5. Build Combined Body Text
+    // 5. Check Urgent College Notice Deadlines & New Notices (Runs 24*7 Mon-Sun)
+    let noticeDeadlineLine = '';
+    try {
+      const NOTICES_URL = './college_notices.json';
+      const notifResp = await caches.match(NOTICES_URL).then(r => r || fetch(NOTICES_URL));
+      if (notifResp && notifResp.ok) {
+        const notifData = await notifResp.json();
+        const notices = notifData?.notices || [];
+
+        // A. 24*7 Real-Time New Notice Alert
+        if (notices.length > 0) {
+          const latestNotice = notices[0];
+          const lastNoticeMatch = await cache.match('/__srcc_sw_last_notice_id');
+          const lastNoticeId = lastNoticeMatch ? await lastNoticeMatch.text() : '';
+          if (lastNoticeId && lastNoticeId !== latestNotice.id) {
+            await cache.put('/__srcc_sw_last_notice_id', new Response(latestNotice.id));
+            const baseOrigin = self.location.origin;
+            const basePath = self.location.pathname.substring(0, self.location.pathname.lastIndexOf('/') + 1);
+            await self.registration.showNotification('📢 New SRCC Official Notice', {
+              body: latestNotice.title,
+              icon: new URL(basePath + 'srcc_crest.png', baseOrigin).href,
+              badge: new URL(basePath + 'favicon.png', baseOrigin).href,
+              tag: 'srcc-notice-' + latestNotice.id,
+              renotify: true,
+              vibrate: [200, 100, 200],
+              data: { url: basePath + 'index.html?view=notices' }
+            });
+          } else if (!lastNoticeId) {
+            await cache.put('/__srcc_sw_last_notice_id', new Response(latestNotice.id));
+          }
+        }
+
+        // B. 1 Day Left Notice Deadline Warning
+        const dlTomorrow = notices.find(n => {
+          if (!n.has_deadline || !n.deadline) return false;
+          const dlMatch = n.deadline.match(/(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})/);
+          if (!dlMatch) return false;
+          const dlDay = parseInt(dlMatch[1], 10);
+          const monthMap = { 'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'May': 4, 'Jun': 5, 'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dec': 11 };
+          const dlMonth = monthMap[dlMatch[2].slice(0, 3)] ?? -1;
+          if (dlMonth < 0) return false;
+          const dlDate = new Date(parseInt(dlMatch[3], 10), dlMonth, dlDay);
+          const todayMid = new Date(istDate.getFullYear(), istDate.getMonth(), istDate.getDate());
+          const diffDays = Math.round((dlDate - todayMid) / (1000 * 60 * 60 * 24));
+          return diffDays === 1;
+        });
+        if (dlTomorrow) {
+          noticeDeadlineLine = `\n⏰ 1 Day Left: ${dlTomorrow.title.slice(0, 48)}...`;
+        }
+      }
+    } catch (e) {}
+
+    // 🛑 SUNDAY DAYTIME LEAVE SUPPRESSION:
+    // Faculty leave notifications run Mon-Sat.
+    // On Sunday daytime, suppress leave notifications completely (College closed).
+    // On Sunday night between 10:00 PM (22:00) and 11:59 PM IST, upcoming Monday preview is permitted.
+    if (currentDay === 'Sunday' && !isForced) {
+      if (istDate.getHours() < 22) {
+        return; // Suppress Sunday daytime leave notifications
+      }
+    }
+
+    // 6. Build Combined Body Text & Title
+    let notifTitle = 'SRCC Live Campus Update 🔔';
     let bodyText = '';
-    if (count === 1) {
-      bodyText = `Prof. ${uniqueLeaves[0].teacher_name} is marked on leave today.\n${freeRoomsLine}`;
-    } else if (count > 1) {
-      const topNames = uniqueLeaves.slice(0, 3).map(l => l.teacher_name).join(', ');
-      bodyText = `${count} professors on leave today (${topNames}${count > 3 ? '...' : ''}).\n${freeRoomsLine}`;
+
+    if (currentDay === 'Sunday' && istDate.getHours() >= 22) {
+      notifTitle = 'SRCC Monday Campus Preview 🔔';
+      if (count === 1) {
+        bodyText = `Prof. ${uniqueLeaves[0].teacher_name} is scheduled on leave for tomorrow (Monday).\n⚡ Regular classes resume Monday morning at 8:30 AM.${noticeDeadlineLine}`;
+      } else if (count > 1) {
+        const topNames = uniqueLeaves.slice(0, 3).map(l => l.teacher_name).join(', ');
+        bodyText = `${count} faculty scheduled on leave for tomorrow (Monday: ${topNames}).\n⚡ Regular classes resume Monday morning at 8:30 AM.${noticeDeadlineLine}`;
+      } else {
+        bodyText = `All faculty scheduled present for tomorrow (Monday).\n⚡ Regular classes resume Monday morning at 8:30 AM.${noticeDeadlineLine}`;
+      }
     } else {
-      bodyText = `All professors present today.\n${freeRoomsLine}`;
+      if (count === 1) {
+        bodyText = `Prof. ${uniqueLeaves[0].teacher_name} is marked on leave today.\n${freeRoomsLine}${noticeDeadlineLine}`;
+      } else if (count > 1) {
+        const topNames = uniqueLeaves.slice(0, 3).map(l => l.teacher_name).join(', ');
+        bodyText = `${count} professors on leave today (${topNames}${count > 3 ? '...' : ''}).\n${freeRoomsLine}${noticeDeadlineLine}`;
+      } else {
+        bodyText = `All professors present today.\n${freeRoomsLine}${noticeDeadlineLine}`;
+      }
     }
 
     // Record timestamp in cache to maintain 1-hour interval
     await cache.put('/__srcc_sw_last_hourly_time', new Response(String(Date.now())));
 
-    // 6. Fire Notification on Screen / Lock Screen
+    // 7. Fire Notification on Screen / Lock Screen
     const baseOrigin = self.location.origin;
     const basePath = self.location.pathname.substring(0, self.location.pathname.lastIndexOf('/') + 1);
     const iconUrl = new URL(basePath + 'srcc_crest.png', baseOrigin).href;
     const badgeUrl = new URL(basePath + 'favicon.png', baseOrigin).href;
 
-    await self.registration.showNotification('SRCC Live Campus Update 🔔', {
+    await self.registration.showNotification(notifTitle, {
       body: bodyText,
       icon: iconUrl,
       badge: badgeUrl,
@@ -307,6 +390,15 @@ self.addEventListener('message', (event) => {
 
   if (event.data === 'BROADCAST_LEAVES_ALERT' || event.data.type === 'BROADCAST_LEAVES_ALERT' || event.data.type === 'CHECK_LEAVES') {
     event.waitUntil(checkLeavesAndNotifyInBackground(true));
+  }
+
+  if (event.data.type === 'UPDATE_CLASS_PREF') {
+    event.waitUntil((async () => {
+      try {
+        const cache = await caches.open(CACHE_NAME);
+        await cache.put('/__srcc_user_class_pref', new Response(JSON.stringify(event.data)));
+      } catch (err) {}
+    })());
   }
 
   if (event.data.type === 'TEST_NOTIFICATION') {

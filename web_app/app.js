@@ -1495,6 +1495,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const isDirectory = (mode === 'directory');
       const isNotices = (mode === 'notices');
       const isExamCodes = (mode === 'exam_codes');
+      const isBunkBuddies = (mode === 'bunk_buddies');
       const isWifi = (mode === 'wifi');
 
       // Update browser history & URL hash for smooth mobile back navigation
@@ -1542,6 +1543,11 @@ document.addEventListener('DOMContentLoaded', () => {
         tabModeExamCodes.classList.toggle('active', isExamCodes);
         tabModeExamCodes.setAttribute('aria-selected', isExamCodes ? 'true' : 'false');
       }
+      const tabModeBunkBuddies = document.getElementById('tabModeBunkBuddies');
+      if (tabModeBunkBuddies) {
+        tabModeBunkBuddies.classList.toggle('active', isBunkBuddies);
+        tabModeBunkBuddies.setAttribute('aria-selected', isBunkBuddies ? 'true' : 'false');
+      }
       const tabModeWifi = document.getElementById('tabModeWifi');
       if (tabModeWifi) {
         tabModeWifi.classList.toggle('active', isWifi);
@@ -1558,6 +1564,13 @@ document.addEventListener('DOMContentLoaded', () => {
           } else if (typeof window._renderMainTimetable === 'function') {
             window._renderMainTimetable();
           }
+        }
+      }
+      const viewBunkBuddiesSection = document.getElementById('viewBunkBuddiesSection');
+      if (viewBunkBuddiesSection) {
+        viewBunkBuddiesSection.style.display = isBunkBuddies ? 'block' : 'none';
+        if (isBunkBuddies && typeof window._renderBunkBuddies === 'function') {
+          window._renderBunkBuddies();
         }
       }
       if (viewDirectorySection) {
@@ -1599,6 +1612,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (bnavNotices) bnavNotices.classList.toggle('active', isNotices);
       const bnavExamCodes = document.getElementById('bnavExamCodes');
       if (bnavExamCodes) bnavExamCodes.classList.toggle('active', isExamCodes);
+      const bnavBunkBuddies = document.getElementById('bnavBunkBuddies');
+      if (bnavBunkBuddies) bnavBunkBuddies.classList.toggle('active', isBunkBuddies);
       if (bnavWifi) bnavWifi.classList.toggle('active', isWifi);
       if (bnavFreeNow) bnavFreeNow.classList.toggle('active', isRooms && state.freeNowActive);
 
@@ -1724,6 +1739,19 @@ document.addEventListener('DOMContentLoaded', () => {
         setAppMode('exam_codes');
       });
     }
+    const tabModeBunkBuddiesBtn = document.getElementById('tabModeBunkBuddies');
+    if (tabModeBunkBuddiesBtn) tabModeBunkBuddiesBtn.addEventListener('click', () => setAppMode('bunk_buddies'));
+    const btnOpenBunkBuddiesHeader = document.getElementById('btnOpenBunkBuddiesHeader');
+    if (btnOpenBunkBuddiesHeader) btnOpenBunkBuddiesHeader.addEventListener('click', () => setAppMode('bunk_buddies'));
+    const bnavBunkBuddiesBtn = document.getElementById('bnavBunkBuddies');
+    if (bnavBunkBuddiesBtn) {
+      bnavBunkBuddiesBtn.addEventListener('click', () => {
+        closeAllPopups();
+        setAppMode('bunk_buddies');
+      });
+    }
+    const btnTtGoToBunkBuddies = document.getElementById('btnTtGoToBunkBuddies');
+    if (btnTtGoToBunkBuddies) btnTtGoToBunkBuddies.addEventListener('click', () => setAppMode('bunk_buddies'));
     const btnHeaderNotices = document.getElementById('btnHeaderNotices');
     if (btnHeaderNotices) btnHeaderNotices.addEventListener('click', () => setAppMode('notices'));
     const btnNoticesBack = document.getElementById('btnNoticesBack');
@@ -3613,7 +3641,7 @@ ${directRoomUrl}`;
 
       const directUrl = `${window.location.origin}${window.location.pathname}?room=${encodeURIComponent(room.code)}`;
       const eventTitle = `SRCC GD: Room ${room.code}`;
-      const eventDesc = `Classroom ${room.code} (${room.name}) is officially vacant at SRCC for Group Discussion & Peer Study.\nCapacity: ${room.capacity}\nWing: ${room.category}\nDirect Room Link: ${directUrl}`;
+      const eventDesc = `Classroom ${room.code} (${room.name}) is scheduled vacant at SRCC for Group Discussion & Peer Study.\nCapacity: ${room.capacity}\nWing: ${room.category}\nDirect Room Link: ${directUrl}`;
       const eventLoc = `Room ${room.code}, Shri Ram College of Commerce, University of Delhi, Maurice Nagar, Delhi 110007`;
 
       const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventTitle)}&dates=${startStamp}/${endStamp}&ctz=Asia/Kolkata&details=${encodeURIComponent(eventDesc)}&location=${encodeURIComponent(eventLoc)}`;
@@ -8787,6 +8815,13 @@ window.SRCC_FACULTY_LEAVES = {
 
       // 1. Primary Method: Service Worker showNotification (MANDATORY for Android Mobile Chrome to avoid Illegal Constructor, works excellently on Laptop Chrome)
       if ('serviceWorker' in navigator) {
+  let swRefreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!swRefreshing) {
+      swRefreshing = true;
+      window.location.reload();
+    }
+  });
         try {
           const reg = await (navigator.serviceWorker.ready || navigator.serviceWorker.getRegistration());
           if (reg && typeof reg.showNotification === 'function') {
@@ -9397,6 +9432,13 @@ window.SRCC_FACULTY_LEAVES = {
 
             // 2. Register periodic background sync
             if ('serviceWorker' in navigator) {
+  let swRefreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!swRefreshing) {
+      swRefreshing = true;
+      window.location.reload();
+    }
+  });
               navigator.serviceWorker.ready.then(reg => {
                 if ('periodicSync' in reg) {
                   reg.periodicSync.register('srcc-check-leaves', { minInterval: 60 * 60 * 1000 }).catch(() => {});
@@ -9515,6 +9557,13 @@ window.SRCC_FACULTY_LEAVES = {
               const notifTitle = trig.title || 'SRCC Live Campus Update 🔔';
               const notifBody = trig.body || 'Live campus announcement from college administration.';
               if ('serviceWorker' in navigator) {
+  let swRefreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!swRefreshing) {
+      swRefreshing = true;
+      window.location.reload();
+    }
+  });
                 const reg = await (navigator.serviceWorker.ready || navigator.serviceWorker.getRegistration());
                 if (reg && reg.showNotification) {
                   reg.showNotification(notifTitle, {
@@ -9655,9 +9704,11 @@ window.SRCC_FACULTY_LEAVES = {
           }
         }
 
-        // 3. Tab deep link: ?tab=timetable | ?tab=notices | ?tab=wifi | ?tab=rooms | ?tab=faculty or #timetable etc.
-        const tabParam = searchParams.get('tab') || '';
-        if (tabParam === 'timetable' || hash.includes('#timetable')) {
+        // 3. Tab deep link: ?tab=timetable | ?tab=bunk_buddies | ?tab=notices | ?tab=wifi | ?tab=rooms | ?tab=faculty or #bunk_buddies etc.
+        const tabParam = searchParams.get('tab') || searchParams.get('view') || '';
+        if (tabParam === 'bunk_buddies' || tabParam === 'buddies' || hash.includes('#bunk_buddies') || hash.includes('#buddies')) {
+          setAppMode('bunk_buddies', false, { isInitial: options.isInitial });
+        } else if (tabParam === 'timetable' || hash.includes('#timetable')) {
           setAppMode('timetable', false, { isInitial: options.isInitial });
         } else if (tabParam === 'notices' || hash.includes('#notices')) {
           setAppMode('notices', false, { isInitial: options.isInitial });
@@ -10944,6 +10995,687 @@ window.SRCC_FACULTY_LEAVES = {
     }
 
     // ========================================================================
+    // 🍕 BUNK BUDDIES • FRIEND HANGOUT & FREE TIME PLANNER
+    // ========================================================================
+    function initBunkBuddiesFeature() {
+      const cData = (window.SRCC_CLASSES_DATA && window.SRCC_CLASSES_DATA.courses) || {};
+
+      function getLiveDayName() {
+        const ist = (typeof getIstDate === 'function') ? getIstDate() : new Date();
+        const d = ist.toLocaleDateString('en-US', { weekday: 'long' });
+        return (d === 'Sunday') ? 'Monday' : d;
+      }
+
+      const bunkState = {
+        friendCourse: localStorage.getItem('srcc_bunk_friend_course') || 'B.Com (Hons)',
+        friendSem: localStorage.getItem('srcc_bunk_friend_sem') || 'Sem I',
+        friendSec: localStorage.getItem('srcc_bunk_friend_sec') || 'Sec A',
+        activeDay: getLiveDayName(),
+        compareEnabled: localStorage.getItem('srcc_bunk_compare_enabled') === 'true',
+        myCourse: localStorage.getItem('srcc_my_tt_course') || 'B.Com (Hons)',
+        mySem: localStorage.getItem('srcc_my_tt_sem') || 'Sem I',
+        mySec: localStorage.getItem('srcc_my_tt_sec') || 'Sec B',
+        savedBuddies: []
+      };
+
+      try {
+        const raw = localStorage.getItem('srcc_bunk_saved_buddies');
+        if (raw) bunkState.savedBuddies = JSON.parse(raw);
+      } catch (e) {
+        bunkState.savedBuddies = [];
+      }
+
+      // DOM Elements
+      const courseChips = document.querySelectorAll('#bunkCourseChips .bunk-chip');
+      const semChips = document.querySelectorAll('#bunkSemChips .bunk-chip');
+      const sectionPillsGrid = document.getElementById('bunkSectionPillsGrid');
+      const selectedPreview = document.getElementById('bunkSelectedPreview');
+      const savedChipsList = document.getElementById('bunkSavedChipsList');
+      const inputNickname = document.getElementById('bunkFriendNicknameInput');
+      const btnSaveBuddy = document.getElementById('btnSaveCurrentBuddy');
+
+      const btnToggleCompare = document.getElementById('btnToggleCompareMutual');
+      const compareStatusText = document.getElementById('bunkCompareStatusText');
+      const mySectionRow = document.getElementById('bunkMySectionRow');
+      const myCourseSelect = document.getElementById('bunkMyCourseSelect');
+      const mySemSelect = document.getElementById('bunkMySemSelect');
+      const mySecSelect = document.getElementById('bunkMySecSelect');
+      const mutualMatchCard = document.getElementById('bunkMutualMatchCard');
+      const mutualTitle = document.getElementById('bunkMutualTitle');
+      const mutualSubtitle = document.getElementById('bunkMutualSubtitle');
+      const mutualSlotsList = document.getElementById('bunkMutualSlotsList');
+
+      const liveCard = document.getElementById('bunkLiveCard');
+      const liveStatusBadge = document.getElementById('bunkLiveStatusBadge');
+      const liveTime = document.getElementById('bunkLiveTime');
+      const liveHeadline = document.getElementById('bunkLiveHeadline');
+      const liveSubtext = document.getElementById('bunkLiveSubtext');
+      const liveNextCallout = document.getElementById('bunkLiveNextCallout');
+
+      const dayTabs = document.querySelectorAll('#bunkDayTabs .bunk-day-tab');
+      const timelineTitle = document.getElementById('bunkTimelineTitle');
+      const totalFreeBadge = document.getElementById('bunkTotalFreeBadge');
+      const periodBar = document.getElementById('bunkPeriodBar');
+      const slotsDetailGrid = document.getElementById('bunkSlotsDetailGrid');
+
+      const btnBunkWhatsApp = document.getElementById('btnBunkWhatsApp');
+      const btnBunkCopy = document.getElementById('btnBunkCopy');
+      const btnBunkFindRoom = document.getElementById('btnBunkFindRoom');
+
+      const ACADEMIC_PERIODS = [
+        { num: 1, label: 'P1', slot: '8:30 AM to 9:30 AM', start: 8 * 60 + 30, end: 9 * 60 + 30 },
+        { num: 2, label: 'P2', slot: '9:30 AM to 10:30 AM', start: 9 * 60 + 30, end: 10 * 60 + 30 },
+        { num: 3, label: 'P3', slot: '10:30 AM to 11:30 AM', start: 10 * 60 + 30, end: 11 * 60 + 30 },
+        { num: 4, label: 'P4', slot: '11:30 AM to 12:30 PM', start: 11 * 60 + 30, end: 12 * 60 + 30 },
+        { num: 5, label: 'P5', slot: '12:30 PM to 1:30 PM', start: 12 * 60 + 30, end: 13 * 60 + 30 },
+        { num: 'L', label: 'Lunch', slot: '1:30 PM to 2:00 PM', start: 13 * 60 + 30, end: 14 * 60, isLunch: true },
+        { num: 6, label: 'P6', slot: '2:00 PM to 3:00 PM', start: 14 * 60, end: 15 * 60 },
+        { num: 7, label: 'P7', slot: '3:00 PM to 4:00 PM', start: 15 * 60, end: 16 * 60 },
+        { num: 8, label: 'P8', slot: '4:00 PM to 5:00 PM', start: 16 * 60, end: 17 * 60 },
+        { num: 9, label: 'P9', slot: '5:00 PM to 6:00 PM', start: 17 * 60, end: 18 * 60 }
+      ];
+
+      function formatMinsToTime(totalMins) {
+        let hours = Math.floor(totalMins / 60);
+        const mins = totalMins % 60;
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        if (hours > 12) hours -= 12;
+        if (hours === 0) hours = 12;
+        return `${hours}:${mins < 10 ? '0' + mins : mins} ${ampm}`;
+      }
+
+      function getSectionSchedule(course, sem, sec, day) {
+        const secClasses = (cData[course] && cData[course][sem] && cData[course][sem][sec]) ? cData[course][sem][sec] : [];
+        const dayClasses = secClasses.filter(c => c.day && c.day.toLowerCase() === day.toLowerCase());
+
+        const todayLeaves = (typeof getActiveTodayLeaves === 'function') ? getActiveTodayLeaves() : [];
+        const leaveProfMap = {};
+        todayLeaves.forEach(l => {
+          if (l.teacher_id) leaveProfMap[String(l.teacher_id).trim()] = l;
+          if (l.teacher_name) leaveProfMap[String(l.teacher_name).trim().toLowerCase()] = l;
+        });
+
+        function checkLeave(cls) {
+          if (cls.teacher_id && leaveProfMap[String(cls.teacher_id).trim()]) return leaveProfMap[String(cls.teacher_id).trim()];
+          if (cls.teacher_name && leaveProfMap[String(cls.teacher_name).trim().toLowerCase()]) return leaveProfMap[String(cls.teacher_name).trim().toLowerCase()];
+          return null;
+        }
+
+        return ACADEMIC_PERIODS.map(p => {
+          if (p.isLunch) {
+            return {
+              ...p,
+              isLunch: true,
+              isFree: true,
+              statusLabel: 'Lunch Recess 🥪',
+              detail: 'College-wide recess — All 96 classrooms & students free!'
+            };
+          }
+
+          const matched = dayClasses.filter(c => {
+            if (!c.slot) return false;
+            const s1 = c.slot.replace(/\s+/g, ' ').trim().toLowerCase();
+            const s2 = p.slot.replace(/\s+/g, ' ').trim().toLowerCase();
+            return s1 === s2 || s1.includes(p.slot.toLowerCase()) || p.slot.toLowerCase().includes(s1);
+          });
+
+          if (matched.length === 0) {
+            return {
+              ...p,
+              isFree: true,
+              isClass: false,
+              statusLabel: 'Free Period ⚡',
+              detail: 'No lecture scheduled — Free to hangout, study or relax!'
+            };
+          }
+
+          const firstCls = matched[0];
+          const leave = checkLeave(firstCls);
+          if (leave) {
+            return {
+              ...p,
+              isFree: true,
+              isLeave: true,
+              isClass: true,
+              classObj: firstCls,
+              leaveObj: leave,
+              statusLabel: 'Cancelled (Teacher on Leave! 🏖️)',
+              detail: `${firstCls.subject || 'Class'} in ${firstCls.room || 'Room'} • Prof. ${firstCls.teacher_name} marked absent today! Surprise free slot!`
+            };
+          }
+
+          return {
+            ...p,
+            isFree: false,
+            isClass: true,
+            classObj: firstCls,
+            statusLabel: `In Class: ${firstCls.subject || 'Lecture'}`,
+            detail: `${firstCls.subject_name || firstCls.subject || 'Lecture'} • Room: ${firstCls.room || 'TBD'} • Prof. ${firstCls.teacher_name || 'Faculty'}`
+          };
+        });
+      }
+
+      function evaluateLiveStatus(friendSchedule, day) {
+        const ist = (typeof getIstDate === 'function') ? getIstDate() : new Date();
+        const istDay = ist.toLocaleDateString('en-US', { weekday: 'long' });
+        const nowMins = ist.getHours() * 60 + ist.getMinutes();
+        const timeStr = ist.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+
+        if (liveTime) liveTime.textContent = `Live Clock: ${timeStr} IST`;
+
+        if (day.toLowerCase() !== istDay.toLowerCase()) {
+          if (liveCard) liveCard.className = 'bunk-live-card status-off';
+          if (liveStatusBadge) liveStatusBadge.textContent = `${day} Schedule`;
+          if (liveHeadline) liveHeadline.textContent = `Viewing ${day}'s Free Slots`;
+          const freeCount = friendSchedule.filter(s => s.isFree).length;
+          if (liveSubtext) liveSubtext.textContent = `Your friend has ${freeCount} free periods (inc. lunch) scheduled on ${day}.`;
+          if (liveNextCallout) liveNextCallout.style.display = 'none';
+          return;
+        }
+
+        if (istDay === 'Sunday') {
+          if (liveCard) liveCard.className = 'bunk-live-card status-off';
+          if (liveStatusBadge) liveStatusBadge.textContent = 'Sunday (Closed)';
+          if (liveHeadline) liveHeadline.textContent = 'College Closed Today (Sunday)';
+          if (liveSubtext) liveSubtext.textContent = 'Enjoy your weekend! Regular classes resume Monday morning at 8:30 AM.';
+          if (liveNextCallout) liveNextCallout.style.display = 'none';
+          return;
+        }
+
+        if (nowMins < 8 * 60 + 30) {
+          if (liveCard) liveCard.className = 'bunk-live-card status-off';
+          if (liveStatusBadge) liveStatusBadge.textContent = 'Before College Hours';
+          if (liveHeadline) liveHeadline.textContent = 'Classes Begin at 8:30 AM';
+          const p1 = friendSchedule[0];
+          if (liveSubtext) {
+            liveSubtext.textContent = p1.isFree
+              ? `Your friend has no class in Period 1 (8:30 AM)!`
+              : `First class at 8:30 AM: ${p1.classObj?.subject} in ${p1.classObj?.room}.`;
+          }
+          if (liveNextCallout) liveNextCallout.style.display = 'none';
+          return;
+        }
+
+        if (nowMins >= 18 * 60) {
+          if (liveCard) liveCard.className = 'bunk-live-card status-off';
+          if (liveStatusBadge) liveStatusBadge.textContent = 'Classes Over';
+          if (liveHeadline) liveHeadline.textContent = 'College Done for Today!';
+          if (liveSubtext) liveSubtext.textContent = 'All academic periods finished for today. Check tomorrow’s free time!';
+          if (liveNextCallout) liveNextCallout.style.display = 'none';
+          return;
+        }
+
+        const activeSlot = friendSchedule.find(s => nowMins >= s.start && nowMins < s.end);
+
+        let nextFreeSlot = null;
+        if (activeSlot && !activeSlot.isFree) {
+          nextFreeSlot = friendSchedule.find(s => s.start > nowMins && s.isFree);
+        }
+
+        if (!activeSlot) {
+          if (liveCard) liveCard.className = 'bunk-live-card status-off';
+          if (liveStatusBadge) liveStatusBadge.textContent = 'In-Between Period';
+          if (liveHeadline) liveHeadline.textContent = 'Period Transition';
+          if (liveSubtext) liveSubtext.textContent = 'Classes shifting rooms...';
+          if (liveNextCallout) liveNextCallout.style.display = 'none';
+          return;
+        }
+
+        if (activeSlot.isLunch) {
+          if (liveCard) liveCard.className = 'bunk-live-card status-lunch';
+          if (liveStatusBadge) liveStatusBadge.textContent = 'Lunch Recess 🥪';
+          if (liveHeadline) liveHeadline.textContent = 'Lunch Break (1:30–2:00 PM)';
+          if (liveSubtext) liveSubtext.textContent = 'All SRCC students are free right now! Perfect time to meet at the Canteen or Front Lawn! ☕';
+          if (liveNextCallout) liveNextCallout.style.display = 'none';
+          return;
+        }
+
+        if (activeSlot.isLeave) {
+          if (liveCard) liveCard.className = 'bunk-live-card status-free';
+          if (liveStatusBadge) liveStatusBadge.textContent = 'Cancelled Class 🎉';
+          if (liveHeadline) liveHeadline.textContent = `Free Right Now! (Teacher Absent)`;
+          if (liveSubtext) liveSubtext.textContent = `Prof. ${activeSlot.classObj?.teacher_name || 'Faculty'} is on leave today. Surprise free period until ${formatMinsToTime(activeSlot.end)}! ☕`;
+          if (liveNextCallout) liveNextCallout.style.display = 'none';
+          return;
+        }
+
+        if (activeSlot.isFree) {
+          if (liveCard) liveCard.className = 'bunk-live-card status-free';
+          if (liveStatusBadge) liveStatusBadge.textContent = 'Free Right Now ⚡';
+          if (liveHeadline) liveHeadline.textContent = `Free Right Now! (Until ${formatMinsToTime(activeSlot.end)})`;
+          if (liveSubtext) liveSubtext.textContent = `Your friend in ${bunkState.friendSec} has no class in ${activeSlot.label}. Call them for chai or a quick hangout! ☕🍕`;
+          if (liveNextCallout) liveNextCallout.style.display = 'none';
+          return;
+        }
+
+        // In Class (Busy)
+        if (liveCard) liveCard.className = 'bunk-live-card status-busy';
+        if (liveStatusBadge) liveStatusBadge.textContent = `In Class (${activeSlot.label})`;
+        if (liveHeadline) liveHeadline.textContent = `In Lecture: ${activeSlot.classObj?.subject || 'Class'}`;
+        const minsLeftInClass = Math.max(1, activeSlot.end - nowMins);
+        if (liveSubtext) {
+          liveSubtext.textContent = `Room: ${activeSlot.classObj?.room || 'TBD'} • Prof. ${activeSlot.classObj?.teacher_name || 'Faculty'} (Class ends in ~${minsLeftInClass}m)`;
+        }
+        if (liveNextCallout) {
+          if (nextFreeSlot) {
+            const minsToFree = Math.max(1, nextFreeSlot.start - nowMins);
+            liveNextCallout.style.display = 'flex';
+            liveNextCallout.innerHTML = `⏳ <strong>Next Free Window:</strong> &nbsp;${nextFreeSlot.label} (${nextFreeSlot.slot}) — in ${minsToFree} mins`;
+          } else {
+            liveNextCallout.style.display = 'flex';
+            liveNextCallout.innerHTML = `⏳ <strong>No more free periods today</strong> — Free after 5:00/6:00 PM`;
+          }
+        }
+      }
+
+      function populateFriendSections() {
+        if (!sectionPillsGrid) return;
+        sectionPillsGrid.innerHTML = '';
+        const courseMap = cData[bunkState.friendCourse];
+        const semMap = courseMap ? courseMap[bunkState.friendSem] : null;
+        const sections = semMap ? Object.keys(semMap).sort((a, b) => {
+          return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' });
+        }) : [];
+
+        if (sections.length === 0) {
+          sectionPillsGrid.innerHTML = '<div style="grid-column: 1/-1; font-size: 0.8rem; color: var(--text-muted); padding: 8px;">No sections found for this course and semester.</div>';
+          return;
+        }
+
+        if (!sections.includes(bunkState.friendSec)) {
+          bunkState.friendSec = sections[0];
+          localStorage.setItem('srcc_bunk_friend_sec', bunkState.friendSec);
+        }
+
+        sections.forEach(secName => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = `bunk-sec-pill ${secName === bunkState.friendSec ? 'active' : ''}`;
+          btn.textContent = secName;
+          btn.dataset.sec = secName;
+          btn.title = `Check ${secName} schedule`;
+          btn.addEventListener('click', () => {
+            bunkState.friendSec = secName;
+            localStorage.setItem('srcc_bunk_friend_sec', secName);
+            sectionPillsGrid.querySelectorAll('.bunk-sec-pill').forEach(p => {
+              p.classList.toggle('active', p.dataset.sec === secName);
+            });
+            renderBunkBuddies();
+          });
+          sectionPillsGrid.appendChild(btn);
+        });
+
+        if (selectedPreview) {
+          selectedPreview.innerHTML = `Selected: <strong>${bunkState.friendCourse} • ${bunkState.friendSem} • ${bunkState.friendSec}</strong>`;
+        }
+      }
+
+      function populateMySectionSelectors() {
+        if (!myCourseSelect || !mySemSelect || !mySecSelect) return;
+        
+        const courses = ['B.Com (Hons)', 'B.A. (Hons) Economics', 'M.Com'].filter(c => cData[c]);
+        myCourseSelect.innerHTML = courses.map(c => `<option value="${c}" ${c === bunkState.myCourse ? 'selected' : ''}>${c}</option>`).join('');
+
+        function updateMySems() {
+          const sems = Object.keys(cData[bunkState.myCourse] || {});
+          mySemSelect.innerHTML = sems.map(s => `<option value="${s}" ${s === bunkState.mySem ? 'selected' : ''}>${s}</option>`).join('');
+          updateMySecs();
+        }
+
+        function updateMySecs() {
+          const semMap = (cData[bunkState.myCourse] && cData[bunkState.myCourse][bunkState.mySem]) || {};
+          const secs = Object.keys(semMap).sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
+          mySecSelect.innerHTML = secs.map(s => `<option value="${s}" ${s === bunkState.mySec ? 'selected' : ''}>${s}</option>`).join('');
+        }
+
+        myCourseSelect.onchange = () => {
+          bunkState.myCourse = myCourseSelect.value;
+          updateMySems();
+          renderBunkBuddies();
+        };
+        mySemSelect.onchange = () => {
+          bunkState.mySem = mySemSelect.value;
+          updateMySecs();
+          renderBunkBuddies();
+        };
+        mySecSelect.onchange = () => {
+          bunkState.mySec = mySecSelect.value;
+          renderBunkBuddies();
+        };
+
+        updateMySems();
+      }
+
+      function renderSavedBuddies() {
+        if (!savedChipsList) return;
+        savedChipsList.innerHTML = '';
+        if (bunkState.savedBuddies.length === 0) {
+          savedChipsList.innerHTML = '<span style="font-size: 0.74rem; color: var(--text-muted); font-style: italic;">No saved friends yet. Enter name &amp; tap + Save Friend!</span>';
+          return;
+        }
+
+        bunkState.savedBuddies.forEach((buddy, idx) => {
+          const chip = document.createElement('div');
+          const isCurrent = (buddy.course === bunkState.friendCourse && buddy.sem === bunkState.friendSem && buddy.sec === bunkState.friendSec);
+          chip.className = `bunk-saved-chip ${isCurrent ? 'active' : ''}`;
+          chip.innerHTML = `
+            <span class="buddy-name-label">👤 ${buddy.name} (${buddy.sec})</span>
+            <button class="btn-delete-saved-buddy" title="Remove friend" data-index="${idx}">&times;</button>
+          `;
+
+          chip.querySelector('.buddy-name-label').addEventListener('click', () => {
+            bunkState.friendCourse = buddy.course;
+            bunkState.friendSem = buddy.sem;
+            bunkState.friendSec = buddy.sec;
+            localStorage.setItem('srcc_bunk_friend_course', buddy.course);
+            localStorage.setItem('srcc_bunk_friend_sem', buddy.sem);
+            localStorage.setItem('srcc_bunk_friend_sec', buddy.sec);
+
+            courseChips.forEach(c => c.classList.toggle('active', c.dataset.course === buddy.course));
+            semChips.forEach(s => s.classList.toggle('active', s.dataset.sem === buddy.sem));
+
+            populateFriendSections();
+            renderBunkBuddies();
+            showToast(`👤 Loaded ${buddy.name}'s schedule (${buddy.sec})`);
+          });
+
+          chip.querySelector('.btn-delete-saved-buddy').addEventListener('click', (e) => {
+            e.stopPropagation();
+            bunkState.savedBuddies.splice(idx, 1);
+            localStorage.setItem('srcc_bunk_saved_buddies', JSON.stringify(bunkState.savedBuddies));
+            renderSavedBuddies();
+            showToast('Removed friend from quick list');
+          });
+
+          savedChipsList.appendChild(chip);
+        });
+      }
+
+      function renderBunkBuddies() {
+        const friendSchedule = getSectionSchedule(bunkState.friendCourse, bunkState.friendSem, bunkState.friendSec, bunkState.activeDay);
+        const mySchedule = bunkState.compareEnabled ? getSectionSchedule(bunkState.myCourse, bunkState.mySem, bunkState.mySec, bunkState.activeDay) : [];
+
+        // 1. Update Preview Text
+        if (selectedPreview) {
+          selectedPreview.innerHTML = `Selected: <strong>${bunkState.friendCourse} • ${bunkState.friendSem} • ${bunkState.friendSec}</strong>`;
+        }
+
+        // 2. Real-time Status Card
+        evaluateLiveStatus(friendSchedule, bunkState.activeDay);
+
+        // 3. Update Day Tabs
+        dayTabs.forEach(tab => {
+          const isAct = (tab.dataset.day === bunkState.activeDay);
+          tab.classList.toggle('active', isAct);
+        });
+
+        // 4. Update Timeline Header & Total Free Hours
+        const freeSlots = friendSchedule.filter(s => s.isFree);
+        let totalFreeHours = 0;
+        freeSlots.forEach(s => {
+          totalFreeHours += s.isLunch ? 0.5 : 1.0;
+        });
+        if (totalFreeBadge) {
+          totalFreeBadge.textContent = `${totalFreeHours} Hours Free (${bunkState.activeDay})`;
+        }
+        if (timelineTitle) {
+          timelineTitle.textContent = `${bunkState.friendSec} Schedule on ${bunkState.activeDay}`;
+        }
+
+        // 5. Render Visual Period Bar
+        if (periodBar) {
+          periodBar.innerHTML = '';
+          friendSchedule.forEach((s, idx) => {
+            const block = document.createElement('div');
+            let blockClass = 'busy';
+            let icon = '📚';
+            let statusText = s.classObj?.subject || 'Class';
+
+            if (s.isLunch) {
+              blockClass = 'lunch';
+              icon = '🥪';
+              statusText = 'Lunch';
+            } else if (s.isLeave) {
+              blockClass = 'leave';
+              icon = '🎉';
+              statusText = 'Cancelled';
+            } else if (s.isFree) {
+              blockClass = 'free';
+              icon = '⚡';
+              statusText = 'Free';
+            }
+
+            block.className = `bunk-bar-block ${blockClass}`;
+            block.title = `${s.label} (${s.slot}): ${s.statusLabel}`;
+            block.innerHTML = `
+              <span class="bunk-bar-period-label">${s.label}</span>
+              <span class="bunk-bar-status-text">${icon} ${statusText}</span>
+            `;
+
+            block.addEventListener('click', () => {
+              const targetRow = document.getElementById(`bunkSlotRow_${idx}`);
+              if (targetRow) {
+                targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                targetRow.style.boxShadow = '0 0 0 2px #d97706';
+                setTimeout(() => { targetRow.style.boxShadow = ''; }, 1600);
+              }
+            });
+
+            periodBar.appendChild(block);
+          });
+        }
+
+        // 6. Render Detailed Slots Breakdown
+        if (slotsDetailGrid) {
+          slotsDetailGrid.innerHTML = '';
+          friendSchedule.forEach((s, idx) => {
+            const row = document.createElement('div');
+            let rowClass = 'is-busy';
+            let tagText = s.classObj ? `📚 ${s.classObj.subject} in ${s.classObj.room || 'Room'}` : 'In Lecture';
+
+            if (s.isLunch) {
+              rowClass = 'is-lunch';
+              tagText = '🥪 Lunch Break';
+            } else if (s.isLeave) {
+              rowClass = 'is-leave';
+              tagText = '🏖️ Cancelled! Teacher on Leave';
+            } else if (s.isFree) {
+              rowClass = 'is-free';
+              tagText = '⚡ Free to Hangout!';
+            }
+
+            row.className = `bunk-slot-row ${rowClass}`;
+            row.id = `bunkSlotRow_${idx}`;
+            row.innerHTML = `
+              <div class="bunk-slot-left">
+                <div class="bunk-slot-period-pill">${s.label}</div>
+                <div class="bunk-slot-info">
+                  <span class="bunk-slot-time-text">${s.slot}</span>
+                  <span class="bunk-slot-class-text">${s.detail}</span>
+                </div>
+              </div>
+              <span class="bunk-slot-tag">${tagText}</span>
+            `;
+            slotsDetailGrid.appendChild(row);
+          });
+        }
+
+        // 7. Render Mutual Free Time Match (if enabled)
+        if (bunkState.compareEnabled && mySchedule.length > 0) {
+          if (mutualMatchCard) mutualMatchCard.style.display = 'block';
+          const mutualSlots = [];
+          for (let i = 0; i < friendSchedule.length; i++) {
+            if (friendSchedule[i].isFree && mySchedule[i].isFree) {
+              mutualSlots.push(friendSchedule[i]);
+            }
+          }
+
+          let mutualHours = 0;
+          mutualSlots.forEach(s => { mutualHours += s.isLunch ? 0.5 : 1.0; });
+
+          if (mutualTitle) {
+            mutualTitle.textContent = mutualSlots.length > 0
+              ? `🔥 Bunk Match: ${mutualHours} Common Free Hours on ${bunkState.activeDay}!`
+              : `No common free periods on ${bunkState.activeDay}`;
+          }
+          if (mutualSubtitle) {
+            mutualSubtitle.textContent = mutualSlots.length > 0
+              ? `Both ${bunkState.mySec} (you) and ${bunkState.friendSec} (friend) have no lectures during these times:`
+              : `Your schedules don't overlap today. Check another day or meet after 5:00 PM!`;
+          }
+
+          if (mutualSlotsList) {
+            mutualSlotsList.innerHTML = '';
+            if (mutualSlots.length === 0) {
+              mutualSlotsList.innerHTML = '<span style="font-size: 0.8rem; color: #b45309;">Try selecting another day from the tabs above.</span>';
+            } else {
+              mutualSlots.forEach(ms => {
+                const pill = document.createElement('div');
+                pill.className = 'bunk-mutual-slot-pill';
+                pill.innerHTML = ms.isLunch
+                  ? `<span>🥪 Lunch Recess (1:30–2:00 PM)</span>`
+                  : `<span>⚡ ${ms.label}: ${ms.slot}</span>`;
+                mutualSlotsList.appendChild(pill);
+              });
+            }
+          }
+        } else {
+          if (mutualMatchCard) mutualMatchCard.style.display = 'none';
+        }
+
+        // 8. Update Saved Buddies active pill
+        renderSavedBuddies();
+      }
+
+      window._renderBunkBuddies = renderBunkBuddies;
+
+      // Event Listeners: Course Chips
+      courseChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          courseChips.forEach(c => c.classList.toggle('active', c === chip));
+          bunkState.friendCourse = chip.dataset.course;
+          localStorage.setItem('srcc_bunk_friend_course', bunkState.friendCourse);
+          populateFriendSections();
+          renderBunkBuddies();
+        });
+      });
+
+      // Event Listeners: Sem Chips
+      semChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          semChips.forEach(s => s.classList.toggle('active', s === chip));
+          bunkState.friendSem = chip.dataset.sem;
+          localStorage.setItem('srcc_bunk_friend_sem', bunkState.friendSem);
+          populateFriendSections();
+          renderBunkBuddies();
+        });
+      });
+
+      // Event Listeners: Day Tabs
+      dayTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          bunkState.activeDay = tab.dataset.day;
+          renderBunkBuddies();
+        });
+      });
+
+      // Event Listeners: Compare Toggle
+      if (btnToggleCompare) {
+        btnToggleCompare.classList.toggle('is-on', bunkState.compareEnabled);
+        if (compareStatusText) compareStatusText.textContent = bunkState.compareEnabled ? 'ON' : 'OFF';
+        if (mySectionRow) mySectionRow.style.display = bunkState.compareEnabled ? 'flex' : 'none';
+
+        btnToggleCompare.addEventListener('click', () => {
+          bunkState.compareEnabled = !bunkState.compareEnabled;
+          localStorage.setItem('srcc_bunk_compare_enabled', String(bunkState.compareEnabled));
+          btnToggleCompare.classList.toggle('is-on', bunkState.compareEnabled);
+          btnToggleCompare.setAttribute('aria-checked', bunkState.compareEnabled ? 'true' : 'false');
+          if (compareStatusText) compareStatusText.textContent = bunkState.compareEnabled ? 'ON' : 'OFF';
+          if (mySectionRow) mySectionRow.style.display = bunkState.compareEnabled ? 'flex' : 'none';
+          renderBunkBuddies();
+        });
+      }
+
+      // Event Listeners: Save Friend Button
+      if (btnSaveBuddy && inputNickname) {
+        btnSaveBuddy.addEventListener('click', () => {
+          const name = (inputNickname.value || '').trim();
+          if (!name) {
+            showToast('⚠️ Please enter a friend name or nickname');
+            inputNickname.focus();
+            return;
+          }
+          const existing = bunkState.savedBuddies.find(b => b.name.toLowerCase() === name.toLowerCase());
+          if (existing) {
+            existing.course = bunkState.friendCourse;
+            existing.sem = bunkState.friendSem;
+            existing.sec = bunkState.friendSec;
+          } else {
+            bunkState.savedBuddies.push({
+              name: name,
+              course: bunkState.friendCourse,
+              sem: bunkState.friendSem,
+              sec: bunkState.friendSec
+            });
+          }
+          localStorage.setItem('srcc_bunk_saved_buddies', JSON.stringify(bunkState.savedBuddies));
+          inputNickname.value = '';
+          renderSavedBuddies();
+          showToast(`⭐ Saved ${name} (${bunkState.friendSec}) to your Buddies!`, true);
+        });
+
+        inputNickname.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') btnSaveBuddy.click();
+        });
+      }
+
+      // Event Listener: WhatsApp Share
+      if (btnBunkWhatsApp) {
+        btnBunkWhatsApp.addEventListener('click', () => {
+          const friendSchedule = getSectionSchedule(bunkState.friendCourse, bunkState.friendSem, bunkState.friendSec, bunkState.activeDay);
+          const freeSlots = friendSchedule.filter(s => s.isFree);
+          const freeTextList = freeSlots.map(s => `• ${s.label} (${s.slot})${s.isLeave ? ' [Prof on Leave! 🎉]' : ''}`).join('\n');
+
+          const shareMsg = `Hey! 🍕 Checked your timetable on *SRCC Free Classroom Finder*:\n\n*${bunkState.friendCourse} • ${bunkState.friendSem} • ${bunkState.friendSec}*\nFree Time on *${bunkState.activeDay}*:\n${freeTextList}\n\nLet's catch up at the Canteen or Front Lawn! ☕\n\nCheck live friend free times here:\nhttps://anand-srcc.github.io/#bunk_buddies`;
+
+          const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareMsg)}`;
+          window.open(waUrl, '_blank');
+        });
+      }
+
+      // Event Listener: Copy Summary
+      if (btnBunkCopy) {
+        btnBunkCopy.addEventListener('click', () => {
+          const friendSchedule = getSectionSchedule(bunkState.friendCourse, bunkState.friendSem, bunkState.friendSec, bunkState.activeDay);
+          const freeSlots = friendSchedule.filter(s => s.isFree);
+          const freeTextList = freeSlots.map(s => `• ${s.label} (${s.slot})${s.isLeave ? ' [Teacher on Leave! 🎉]' : ''}`).join('\n');
+
+          const text = `🍕 SRCC Bunk Buddies — ${bunkState.friendCourse} ${bunkState.friendSem} ${bunkState.friendSec}\nFree Slots on ${bunkState.activeDay}:\n${freeTextList}\nhttps://anand-srcc.github.io/#bunk_buddies`;
+
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(text).then(() => {
+              showToast('📋 Copied free hangout slots to clipboard!', true);
+            });
+          }
+        });
+      }
+
+      // Event Listener: Spot Free AC Classroom
+      if (btnBunkFindRoom) {
+        btnBunkFindRoom.addEventListener('click', () => {
+          setAppMode('rooms');
+          setFreeNowState(true);
+          showToast('🏛️ Showing Classrooms Free Right Now for Hangout & Study!');
+        });
+      }
+
+      // Initial Population
+      populateFriendSections();
+      populateMySectionSelectors();
+      renderSavedBuddies();
+    }
+
+    // ========================================================================
     // 🍔 STUDENT ASSIST-STYLE CAMPUS NAVIGATION DRAWER
     // ========================================================================
     function initCampusDrawer() {
@@ -11033,6 +11765,14 @@ window.SRCC_FACULTY_LEAVES = {
         });
       }
 
+      const drawerNavBunkBuddies = document.getElementById('drawerNavBunkBuddies');
+      if (drawerNavBunkBuddies) {
+        drawerNavBunkBuddies.addEventListener('click', () => {
+          closeCampusDrawer({ noHistory: true });
+          setAppMode('bunk_buddies');
+        });
+      }
+
       if (drawerNavExamCodes) {
         drawerNavExamCodes.addEventListener('click', () => {
           closeCampusDrawer({ noHistory: true });
@@ -11075,6 +11815,7 @@ window.SRCC_FACULTY_LEAVES = {
     initTimetableFeature();
     initCollegeNoticesFeature();
     initExamCodesFeature();
+    initBunkBuddiesFeature();
     initCampusDrawer();
     initAppTour();
     initWifiDirectory();
@@ -11131,8 +11872,15 @@ window._triggerDeferredPwaPrompt = function(delayMs = 3000) {
 
 // Register Service Worker with robust relative path and periodic sync
 if ('serviceWorker' in navigator) {
+  let swRefreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!swRefreshing) {
+      swRefreshing = true;
+      window.location.reload();
+    }
+  });
   window.addEventListener('load', () => {
-    const swUrl = './sw.js?v=106';
+    const swUrl = './sw.js?v=108';
     navigator.serviceWorker.register(swUrl, { scope: './' }).then(async (registration) => {
       console.log('[SW] Registered successfully with scope:', registration.scope);
 
