@@ -1,4 +1,4 @@
-﻿/**
+/**
  * SRCC Free Classroom Finder & Faculty Locator - Core Application Logic
  * Integrates 96 Classrooms and 210 Faculty Members from Shri Ram College of Commerce
  */
@@ -1364,8 +1364,80 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 // ========================================================================
-// OPEN FACULTY LEAVES VIEW (Native integration inside Faculty Locator)
+// INTERACTIVE FACULTY METRIC TAB VIEWS (Total, Teaching Now, Available Now, On Leave)
 // ========================================================================
+    function openFacultyTotalView() {
+      setAppMode('faculty', true);
+      facultyState.activeDept = 'ALL';
+      facultyState.statusFilter = 'ALL';
+      facultyState.alphabetFilter = 'ALL';
+      document.querySelectorAll('#facultyAzFilter .az-btn').forEach(b => b.classList.toggle('active', b.dataset.letter === 'ALL'));
+      facultyDeptPills.forEach(p => p.classList.toggle('active', p.dataset.dept === 'ALL'));
+      if (facultyDeptSelect) facultyDeptSelect.value = 'ALL';
+      if (facultyStatusSelect) facultyStatusSelect.value = 'ALL';
+      facultyState.searchQuery = '';
+      if (facultySearchInput) facultySearchInput.value = '';
+      if (btnClearFacultySearch) btnClearFacultySearch.style.display = 'none';
+      if (statFacultyFilterDesc) statFacultyFilterDesc.innerHTML = '';
+      renderFaculty();
+      setTimeout(() => {
+        if (facultyGrid) {
+          facultyGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+
+      const totalCount = (teachersData?.teachers || []).length;
+      showToast(`Showing all <strong>${totalCount} professors</strong>.`);
+    }
+
+    function openFacultyTeachingNowView() {
+      setAppMode('faculty', true);
+      facultyState.activeDept = 'ALL';
+      facultyState.statusFilter = 'TEACHING_NOW';
+      facultyState.alphabetFilter = 'ALL';
+      document.querySelectorAll('#facultyAzFilter .az-btn').forEach(b => b.classList.toggle('active', b.dataset.letter === 'ALL'));
+      facultyDeptPills.forEach(p => p.classList.toggle('active', p.dataset.dept === 'ALL'));
+      if (facultyDeptSelect) facultyDeptSelect.value = 'ALL';
+      if (facultyStatusSelect) facultyStatusSelect.value = 'TEACHING_NOW';
+      facultyState.searchQuery = '';
+      if (facultySearchInput) facultySearchInput.value = '';
+      if (btnClearFacultySearch) btnClearFacultySearch.style.display = 'none';
+      if (statFacultyFilterDesc) statFacultyFilterDesc.innerHTML = '';
+      renderFaculty();
+      setTimeout(() => {
+        if (facultyGrid) {
+          facultyGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+
+      const teachingCount = (teachersData?.teachers || []).filter(t => getTeacherLiveStatus(t).isTeachingNow).length;
+      showToast(`Showing <strong>${teachingCount} ${teachingCount === 1 ? 'professor' : 'professors'}</strong> teaching right now.`);
+    }
+
+    function openFacultyFreeNowView() {
+      setAppMode('faculty', true);
+      facultyState.activeDept = 'ALL';
+      facultyState.statusFilter = 'FREE_NOW';
+      facultyState.alphabetFilter = 'ALL';
+      document.querySelectorAll('#facultyAzFilter .az-btn').forEach(b => b.classList.toggle('active', b.dataset.letter === 'ALL'));
+      facultyDeptPills.forEach(p => p.classList.toggle('active', p.dataset.dept === 'ALL'));
+      if (facultyDeptSelect) facultyDeptSelect.value = 'ALL';
+      if (facultyStatusSelect) facultyStatusSelect.value = 'FREE_NOW';
+      facultyState.searchQuery = '';
+      if (facultySearchInput) facultySearchInput.value = '';
+      if (btnClearFacultySearch) btnClearFacultySearch.style.display = 'none';
+      if (statFacultyFilterDesc) statFacultyFilterDesc.innerHTML = '';
+      renderFaculty();
+      setTimeout(() => {
+        if (facultyGrid) {
+          facultyGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+
+      const freeCount = (teachersData?.teachers || []).filter(t => getTeacherLiveStatus(t).isFreeNow).length;
+      showToast(`Showing <strong>${freeCount} ${freeCount === 1 ? 'professor' : 'professors'}</strong> available / off-period right now.`);
+    }
+
     function openFacultyLeavesView() {
       setAppMode('faculty', true);
       facultyState.activeDept = 'ALL';
@@ -1391,6 +1463,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const onLeaveCount = activeToday.length;
       showToast(`Showing <strong>${onLeaveCount} ${onLeaveCount === 1 ? 'professor' : 'professors'}</strong> currently on leave today.`);
     }
+
+    window.openFacultyTotalView = openFacultyTotalView;
+    window.openFacultyTeachingNowView = openFacultyTeachingNowView;
+    window.openFacultyFreeNowView = openFacultyFreeNowView;
+    window.openFacultyLeavesView = openFacultyLeavesView;
 
 // ========================================================================
 // MOBILE NAVIGATION & MODAL MANAGEMENT HELPERS
@@ -1908,14 +1985,38 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-// Support clicking the "Free Now" faculty metric tile to jump to free classrooms
-    const metricFacultyFreeTile = document.getElementById('metricFacultyFreeNow')?.closest('.metric-tile');
+// Interactive Faculty Metric Status Tabs (Total, Teaching Now, Available Now, On Leave)
+    const metricFacultyTotalTile = document.getElementById('metricFacultyTotalTile');
+    const metricFacultyTeachingTile = document.getElementById('metricFacultyTeachingTile');
+    const metricFacultyFreeTile = document.getElementById('metricFacultyFreeTile') || document.getElementById('metricFacultyFreeNow')?.closest('.metric-tile');
+    const metricFacultyOnLeaveTile = document.getElementById('metricFacultyOnLeaveTile');
+
+    if (metricFacultyTotalTile) {
+      metricFacultyTotalTile.style.cursor = 'pointer';
+      metricFacultyTotalTile.onclick = openFacultyTotalView;
+      metricFacultyTotalTile.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openFacultyTotalView(); }
+      });
+    }
+    if (metricFacultyTeachingTile) {
+      metricFacultyTeachingTile.style.cursor = 'pointer';
+      metricFacultyTeachingTile.onclick = openFacultyTeachingNowView;
+      metricFacultyTeachingTile.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openFacultyTeachingNowView(); }
+      });
+    }
     if (metricFacultyFreeTile) {
       metricFacultyFreeTile.style.cursor = 'pointer';
-      metricFacultyFreeTile.title = 'Click to view classrooms free right now';
-      metricFacultyFreeTile.addEventListener('click', () => {
-        setAppMode('rooms', true);
-        setFreeNowState(true);
+      metricFacultyFreeTile.onclick = openFacultyFreeNowView;
+      metricFacultyFreeTile.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openFacultyFreeNowView(); }
+      });
+    }
+    if (metricFacultyOnLeaveTile) {
+      metricFacultyOnLeaveTile.style.cursor = 'pointer';
+      metricFacultyOnLeaveTile.onclick = openFacultyLeavesView;
+      metricFacultyOnLeaveTile.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openFacultyLeavesView(); }
       });
     }
 
@@ -4569,6 +4670,33 @@ ${directRoomUrl}`;
       if (metricFacultyTeachingNow) metricFacultyTeachingNow.textContent = state.currentLiveSlot ? `${teachingCount} Faculty` : 'Off-Hours';
       if (metricFacultyFreeNow) metricFacultyFreeNow.textContent = state.currentLiveSlot ? `${freeCount} Faculty` : 'Off-Hours';
       if (metricFacultyOnLeave) metricFacultyOnLeave.textContent = leaveCount;
+
+      // Sync active tab state across all 4 faculty metric status tiles
+      const mTotalTile = document.getElementById('metricFacultyTotalTile');
+      const mTeachingTile = document.getElementById('metricFacultyTeachingTile');
+      const mFreeTile = document.getElementById('metricFacultyFreeTile');
+      const mLeaveTile = document.getElementById('metricFacultyOnLeaveTile');
+
+      if (mTotalTile) {
+        const isAct = (facultyState.statusFilter === 'ALL');
+        mTotalTile.classList.toggle('active-metric-tile', isAct);
+        mTotalTile.setAttribute('aria-selected', isAct ? 'true' : 'false');
+      }
+      if (mTeachingTile) {
+        const isAct = (facultyState.statusFilter === 'TEACHING_NOW');
+        mTeachingTile.classList.toggle('active-metric-tile', isAct);
+        mTeachingTile.setAttribute('aria-selected', isAct ? 'true' : 'false');
+      }
+      if (mFreeTile) {
+        const isAct = (facultyState.statusFilter === 'FREE_NOW');
+        mFreeTile.classList.toggle('active-metric-tile', isAct);
+        mFreeTile.setAttribute('aria-selected', isAct ? 'true' : 'false');
+      }
+      if (mLeaveTile) {
+        const isAct = (facultyState.statusFilter === 'ON_LEAVE');
+        mLeaveTile.classList.toggle('active-metric-tile', isAct);
+        mLeaveTile.setAttribute('aria-selected', isAct ? 'true' : 'false');
+      }
 
       const metricFacultyEmailTile = document.getElementById('metricFacultyEmailTile');
       const metricFacultyEmailCount = document.getElementById('metricFacultyEmailCount');
@@ -11042,7 +11170,7 @@ if ('serviceWorker' in navigator) {
     }
   });
   window.addEventListener('load', () => {
-    const swUrl = './sw.js?v=110';
+    const swUrl = './sw.js?v=112';
     navigator.serviceWorker.register(swUrl, { scope: './' }).then(async (registration) => {
       console.log('[SW] Registered successfully with scope:', registration.scope);
 

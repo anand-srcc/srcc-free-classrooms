@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   
-  <link rel="stylesheet" href="style.css?v=111" />
+  <link rel="stylesheet" href="style.css?v=112" />
   
   <!-- Maintenance Mode Gatekeeper -->
   <script src="cloud_config.js?v=100"></script>
@@ -417,30 +417,30 @@
         </div>
       </section>
 
-      <!-- Faculty Metric Stat Badges -->
-      <div class="metric-tiles-row faculty-metrics-row">
-        <div class="metric-tile">
+      <!-- Faculty Metric Stat Badges (Interactive Status Tabs) -->
+      <div class="metric-tiles-row faculty-metrics-row" role="tablist" aria-label="Faculty Live Status Filters">
+        <div class="metric-tile active-metric-tile" id="metricFacultyTotalTile" role="tab" tabindex="0" aria-selected="true" style="cursor: pointer;" title="Click to view all faculty (Overview)">
           <div class="metric-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
           <div class="metric-details">
             <div class="metric-num" id="metricTotalFacultyCount">210</div>
             <div class="metric-title">Total<span class="metric-long-word"> Faculty</span></div>
           </div>
         </div>
-        <div class="metric-tile">
+        <div class="metric-tile" id="metricFacultyTeachingTile" role="tab" tabindex="0" aria-selected="false" style="cursor: pointer;" title="Click to view faculty teaching right now">
           <div class="metric-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></div>
           <div class="metric-details">
             <div class="metric-num" id="metricFacultyTeachingNow">--</div>
             <div class="metric-title">Teaching<span class="metric-long-word"> Now</span></div>
           </div>
         </div>
-        <div class="metric-tile">
+        <div class="metric-tile" id="metricFacultyFreeTile" role="tab" tabindex="0" aria-selected="false" style="cursor: pointer;" title="Click to view faculty available right now">
           <div class="metric-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
           <div class="metric-details">
             <div class="metric-num" id="metricFacultyFreeNow">--</div>
             <div class="metric-title">Available<span class="metric-long-word"> Now</span></div>
           </div>
         </div>
-        <div class="metric-tile" id="metricFacultyOnLeaveTile" style="cursor: pointer;" title="Click to view faculty on leave today">
+        <div class="metric-tile" id="metricFacultyOnLeaveTile" role="tab" tabindex="0" aria-selected="false" style="cursor: pointer;" title="Click to view faculty on leave today">
           <div class="metric-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
           <div class="metric-details">
             <div class="metric-num" id="metricFacultyOnLeave">0</div>
@@ -1413,6 +1413,6 @@
   <script src="faculty_leaves.js?v=100"></script>
   <script src="teachers_data.js?v=100"></script>
   <script src="classes_data.js?v=100"></script>
-  <script src="app.js?v=111"></script>
+  <script src="app.js?v=112"></script>
 </body>
 </html>

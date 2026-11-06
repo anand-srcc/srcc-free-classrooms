@@ -1,4 +1,4 @@
-
+﻿
 /* ==========================================================================
    Faculty Contact Email Modal
    ========================================================================== */
@@ -965,10 +965,7 @@ body {
 .room-card.card-theme-r .card-room-code {
   color: #1d4ed8 !important;
 }
-.room-card.card-theme-r .card-room-code::before {
-  content: '🏫 ';
-  font-size: 1.05rem;
-}
+
 
 /* 2. Principal Bungalow (PB): Warm Centenary Gold Accent */
 .room-card.card-theme-pb {
@@ -977,10 +974,7 @@ body {
 .room-card.card-theme-pb .card-room-code {
   color: #b45309 !important;
 }
-.room-card.card-theme-pb .card-room-code::before {
-  content: '🏡 ';
-  font-size: 1.05rem;
-}
+
 
 /* 3. Tutorial Rooms (T): Mint Emerald Green Accent */
 .room-card.card-theme-t {
@@ -989,10 +983,7 @@ body {
 .room-card.card-theme-t .card-room-code {
   color: #065f46 !important;
 }
-.room-card.card-theme-t .card-room-code::before {
-  content: '📚 ';
-  font-size: 1.05rem;
-}
+
 
 /* 4. Sports Complex (SCR): Coral Crimson Red Accent */
 .room-card.card-theme-scr {
@@ -1001,10 +992,7 @@ body {
 .room-card.card-theme-scr .card-room-code {
   color: #be123c !important;
 }
-.room-card.card-theme-scr .card-room-code::before {
-  content: '⚽ ';
-  font-size: 1.05rem;
-}
+
 
 /* 5. Computer Labs (CL / CLIB): Cyber Violet Accent */
 .room-card.card-theme-cl {
@@ -1013,10 +1001,7 @@ body {
 .room-card.card-theme-cl .card-room-code {
   color: #6d28d9 !important;
 }
-.room-card.card-theme-cl .card-room-code::before {
-  content: '💻 ';
-  font-size: 1.05rem;
-}
+
 
 /* 6. Library & Others: Soft Teal Accent */
 .room-card.card-theme-other {
@@ -1025,10 +1010,7 @@ body {
 .room-card.card-theme-other .card-room-code {
   color: #1d4ed8 !important;
 }
-.room-card.card-theme-other .card-room-code::before {
-  content: '📖 ';
-  font-size: 1.05rem;
-}
+
 
 /* Card Body - Free slots list */
 .card-body {
@@ -11931,4 +11913,39 @@ body.dark-mode .notif-optin-desc {
 }
 body.dark-mode .btn-later-pwa-notif {
   color: #94a3b8;
+}
+
+/* Faculty Metric Tiles Interactive Tabs & Active Indicator */
+.faculty-metrics-row .metric-tile {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+}
+.faculty-metrics-row .metric-tile:hover {
+  transform: translateY(-2px);
+  border-color: #2563eb;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12);
+}
+.faculty-metrics-row .metric-tile.active-metric-tile {
+  border-color: #2563eb !important;
+  background: #eff6ff !important;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.22), 0 4px 12px rgba(37, 99, 235, 0.1) !important;
+}
+.faculty-metrics-row .metric-tile.active-metric-tile::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+  right: 20%;
+  height: 3px;
+  background: #2563eb;
+  border-radius: 3px 3px 0 0;
+}
+.dark-theme .faculty-metrics-row .metric-tile.active-metric-tile {
+  background: rgba(37, 99, 235, 0.18) !important;
+  border-color: #60a5fa !important;
+}
+.dark-theme .faculty-metrics-row .metric-tile.active-metric-tile::after {
+  background: #60a5fa;
 }
