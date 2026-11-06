@@ -396,7 +396,49 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   window.getPeriodInfo = getPeriodInfo;
 
+  // ==========================================================================
+  // 📊 FIREBASE ANALYTICS TELEMETRY ENGINE
+  // ==========================================================================
+  let firebaseAnalytics = null;
+  function initFirebaseAnalytics() {
+    try {
+      if (typeof firebase !== 'undefined' && window.SRCC_FIREBASE_CONFIG) {
+        if (!firebase.apps || !firebase.apps.length) {
+          firebase.initializeApp(window.SRCC_FIREBASE_CONFIG);
+        }
+        if (typeof firebase.analytics === 'function') {
+          const conf = window.SRCC_FIREBASE_CONFIG;
+          if (conf.measurementId || conf.appId) {
+            firebaseAnalytics = firebase.analytics();
+            console.log('[Analytics] Firebase Analytics connected successfully.');
+          } else {
+            console.info('[Analytics] Firebase SDK loaded. Provide measurementId (G-XXXXXXXXXX) in firebase_config.js to activate event tracking.');
+          }
+        }
+      }
+    } catch (err) {
+      console.warn('[Analytics] Firebase Analytics init notice (e.g. adblocker or offline):', err);
+    }
+  }
+
+  window.trackAnalyticsEvent = function(eventName, eventParams = {}) {
+    try {
+      if (firebaseAnalytics) {
+        firebaseAnalytics.logEvent(eventName, eventParams);
+      } else if (typeof window.gtag === 'function') {
+        window.gtag('event', eventName, eventParams);
+      }
+    } catch (err) {
+      // Non-blocking telemetry
+    }
+  };
+
   function initApp() {
+    initFirebaseAnalytics();
+    window.trackAnalyticsEvent('page_view', {
+      page_title: 'SRCC Free Classrooms',
+      page_location: window.location.href
+    });
     if (!appData && window.SRCC_DATA) {
       appData = window.SRCC_DATA;
     }
@@ -1572,6 +1614,7 @@ document.addEventListener('DOMContentLoaded', () => {
         mode = 'rooms';
       }
       state.activeMode = mode;
+      window.trackAnalyticsEvent('view_mode_change', { mode: mode });
       const isRooms = (mode === 'rooms');
       const isFaculty = (mode === 'faculty');
       const isTimetable = (mode === 'timetable');
@@ -3178,6 +3221,7 @@ ${directRoomUrl}`;
         return;
       }
       currentModalRoomCode = room.code;
+      window.trackAnalyticsEvent('view_room_schedule', { room_code: room.code });
 
       const activeTimetableDay = window._srccTtState?.day;
       const dayToUse = targetDay || 
@@ -5597,6 +5641,7 @@ ${directRoomUrl}`;
 
       facultyState.modalActiveTeacher = teacher;
       facultyState.modalActiveDay = targetDay || facultyState.activeDay || initialDay;
+      window.trackAnalyticsEvent('view_teacher_schedule', { teacher_id: String(teacher.id), teacher_name: teacher.clean_name });
 
       const initials = teacher.initials || teacher.clean_name.slice(0, 2).toUpperCase();
       const deptAvatarCls = getDeptAvatarClass(teacher.department);
@@ -8897,6 +8942,7 @@ window.SRCC_FACULTY_LEAVES = {
         }
         closeAllPopups();
         openAppModal(modal);
+        window.trackAnalyticsEvent('open_live_tracker');
         syncProfileToInputs();
         renderLiveTracker();
       }
@@ -9440,6 +9486,7 @@ window.SRCC_FACULTY_LEAVES = {
         }
         closeAllPopups();
         openAppModal(bunkModal);
+        window.trackAnalyticsEvent('open_bunk_buddies');
         syncMyBatchToInputs();
         renderBunkCalculation();
       }
@@ -9579,6 +9626,16 @@ window.SRCC_FACULTY_LEAVES = {
           localStorage.setItem('srcc_bunk_friend_sem', s2);
           localStorage.setItem('srcc_bunk_friend_sec', sec2);
         } catch (e) {}
+
+        window.trackAnalyticsEvent('bunk_buddies_compare', {
+          day: activeBunkDay,
+          course1: c1,
+          sem1: s1,
+          sec1: sec1,
+          course2: c2,
+          sem2: s2,
+          sec2: sec2
+        });
 
         const getClasses = window.getClassesForParameters;
         const classes1 = typeof getClasses === 'function' ? (getClasses(activeBunkDay, s1, c1, 'ALL', sec1) || []) : [];
