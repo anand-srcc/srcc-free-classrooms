@@ -10079,6 +10079,31 @@ body.dark-mode .notices-pill-count {
   white-space: nowrap;
 }
 
+.drawer-badge-upcoming {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 9999px;
+  background: rgba(100, 116, 139, 0.12);
+  color: #475569;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.drawer-nav-upcoming {
+  opacity: 0.9;
+  transition: all 0.18s ease;
+}
+
+.drawer-nav-upcoming:hover {
+  opacity: 1;
+  background: rgba(241, 245, 249, 0.75);
+}
+
 .campus-drawer-footer {
   padding: 14px 18px;
   border-top: 1px solid var(--border-subtle);

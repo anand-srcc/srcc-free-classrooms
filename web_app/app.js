@@ -1358,6 +1358,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => toast.remove(), 250);
       }, duration);
     }
+    window.showToast = showToast;
 
 // ========================================================================
 // LIVE CLOCK UPDATE (STANDARDIZED ON ASIA/KOLKATA IST)
@@ -7942,19 +7943,7 @@ window.SRCC_FACULTY_LEAVES = {
         });
       }
 
-      if (drawerNavClassNotif) {
-        drawerNavClassNotif.addEventListener('click', () => {
-          if (typeof window._closeCampusDrawer === 'function') {
-            window._closeCampusDrawer({ noHistory: true });
-          }
-          const drawerOverlay = document.getElementById('campusDrawerOverlay');
-          if (drawerOverlay) {
-            drawerOverlay.classList.remove('open');
-            drawerOverlay.style.display = 'none';
-          }
-          openClassNotifModal();
-        });
-      }
+      // drawerNavClassNotif click is handled centrally in initCampusDrawer() as an Upcoming Feature
 
       if (btnClassNotifModalClose) {
         btnClassNotifModalClose.addEventListener('click', () => closeClassNotifModal());
@@ -8968,7 +8957,7 @@ window.SRCC_FACULTY_LEAVES = {
       window.openNowAndNextModal = openModal;
       window.closeNowAndNextModal = closeModal;
 
-      if (drawerBtn) drawerBtn.addEventListener('click', openModal);
+      // drawerBtn click handled centrally in initCampusDrawer() as an Upcoming Feature
       if (btnClose) btnClose.addEventListener('click', () => closeModal());
       if (btnCloseFooter) btnCloseFooter.addEventListener('click', () => closeModal());
       modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
@@ -9512,7 +9501,7 @@ window.SRCC_FACULTY_LEAVES = {
       window.openBunkBuddiesModal = openBunkModal;
       window.closeBunkBuddiesModal = closeBunkModal;
 
-      if (drawerBtn) drawerBtn.addEventListener('click', openBunkModal);
+      // drawerBtn click handled centrally in initCampusDrawer() as an Upcoming Feature
       if (btnClose) btnClose.addEventListener('click', () => closeBunkModal());
       if (btnCloseFooter) btnCloseFooter.addEventListener('click', () => closeBunkModal());
       bunkModal.addEventListener('click', (e) => { if (e.target === bunkModal) closeBunkModal(); });
@@ -9879,13 +9868,7 @@ window.SRCC_FACULTY_LEAVES = {
       window.openAttendanceModal = openAttModal;
       window.closeAttendanceModal = closeAttModal;
 
-      if (drawerBtn) drawerBtn.addEventListener('click', () => {
-        if (typeof window._closeCampusDrawer === 'function') {
-          window._closeCampusDrawer({ noHistory: true });
-        }
-        closeAllPopups();
-        openAttModal();
-      });
+      // drawerBtn click handled centrally in initCampusDrawer() as an Upcoming Feature
       if (quickBtn) quickBtn.addEventListener('click', openAttModal);
       if (btnClose) btnClose.addEventListener('click', () => closeAttModal());
       if (btnCloseFooter) btnCloseFooter.addEventListener('click', () => closeAttModal());
@@ -12432,14 +12415,18 @@ window.SRCC_FACULTY_LEAVES = {
         }
       });
 
-      // Drawer navigation actions
-      if (drawerNavNotices) {
-        drawerNavNotices.addEventListener('click', () => {
-          closeCampusDrawer({ noHistory: true });
-          setAppMode('notices');
-        });
+      // Helper for upcoming drawer features
+      function handleUpcomingFeatureClick(featureName) {
+        closeCampusDrawer({ noHistory: true });
+        const toastMsg = `🚀 <strong>Coming Soon!</strong> ${featureName} is in final testing and will be live in the next update.`;
+        if (typeof showToast === 'function') {
+          showToast(toastMsg, false, 3200);
+        } else if (typeof window.showToast === 'function') {
+          window.showToast(toastMsg, false, 3200);
+        }
       }
 
+      // DU Exam Codes (Active)
       if (drawerNavExamCodes) {
         drawerNavExamCodes.addEventListener('click', () => {
           closeCampusDrawer({ noHistory: true });
@@ -12450,41 +12437,34 @@ window.SRCC_FACULTY_LEAVES = {
         });
       }
 
-      if (drawerNavClassNotif) {
-        drawerNavClassNotif.addEventListener('click', () => {
+      // Student User Manual PDF (Active)
+      const drawerNavManual = document.getElementById('drawerNavManual');
+      if (drawerNavManual) {
+        drawerNavManual.addEventListener('click', () => {
           closeCampusDrawer({ noHistory: true });
-          if (typeof window.openClassNotifModal === 'function') {
-            window.openClassNotifModal();
-          } else {
-            const m = document.getElementById('classNotifModal');
-            if (m) openAppModal(m);
-          }
         });
       }
 
-      if (drawerNavNowAndNext) {
-        drawerNavNowAndNext.addEventListener('click', () => {
-          closeCampusDrawer({ noHistory: true });
-          if (typeof window.openNowAndNextModal === 'function') {
-            window.openNowAndNextModal();
-          } else {
-            const m = document.getElementById('nowAndNextModal');
-            if (m) openAppModal(m);
-          }
-        });
-      }
+      // Upcoming Features (Touching any displays the sleek Coming Soon toast)
+      const upcomingDrawerItems = [
+        { id: 'drawerNavNowAndNext', name: 'Now & Next Live Tracker' },
+        { id: 'drawerNavBunkBuddies', name: 'Bunk Buddies Hangout Finder' },
+        { id: 'drawerNavClassNotif', name: '10-Min Class Alerts' },
+        { id: 'drawerNavAttendance', name: '75% Attendance Safe Meter' },
+        { id: 'drawerNavNotices', name: 'College Notices & Circulars' }
+      ];
 
-      if (drawerNavBunkBuddies) {
-        drawerNavBunkBuddies.addEventListener('click', () => {
-          closeCampusDrawer({ noHistory: true });
-          if (typeof window.openBunkBuddiesModal === 'function') {
-            window.openBunkBuddiesModal();
-          } else {
-            const m = document.getElementById('bunkBuddiesModal');
-            if (m) openAppModal(m);
-          }
-        });
-      }
+      upcomingDrawerItems.forEach(item => {
+        const btn = document.getElementById(item.id);
+        if (btn) {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const title = btn.getAttribute('data-feature') || item.name;
+            handleUpcomingFeatureClick(title);
+          });
+        }
+      });
 
       if (drawerNavGuidelines) {
         drawerNavGuidelines.addEventListener('click', () => {
