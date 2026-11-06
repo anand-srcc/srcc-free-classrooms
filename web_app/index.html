@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   
-  <link rel="stylesheet" href="style.css?v=110" />
+  <link rel="stylesheet" href="style.css?v=111" />
   
   <!-- Maintenance Mode Gatekeeper -->
   <script src="cloud_config.js?v=100"></script>
@@ -71,7 +71,7 @@
       <div class="header-actions">
         <!-- Free Right Now with ON / OFF Switch -->
         <div class="toggle-freenow-wrapper" id="toggleFreeNowWrapper" title="Toggle rooms vacant right now">
-          <span class="freenow-label">⚡ Free Right Now</span>
+          <span class="freenow-label">Free Right Now</span>
           <button class="toggle-freenow-btn" id="btnFreeNow" role="switch" aria-checked="false">
             <span class="toggle-switch-track">
               <span class="toggle-switch-thumb"></span>
@@ -82,11 +82,11 @@
         
         <!-- 10-Minute Class Alerts Button (Header) -->
         <button id="btnOpenClassAlertsHeader" class="btn-class-alerts-header" title="10-Minute Class Alerts for Students &amp; Faculty">
-          <span>🔔 Alerts</span>
+          <span>Class Alerts</span>
         </button>
         <!-- Report Issue Button (Header) -->
         <button id="btnReportIssue" class="btn-report-header" title="Report wrong timetable data or present faculty marked absent">
-          <span>⚠️ Report</span>
+          <span>Report</span>
         </button>
         <!-- WhatsApp Community Button (Header) -->
         <a href="https://chat.whatsapp.com/H6qxq6fGSDVJNPCEtzQgjf" target="_blank" rel="noopener noreferrer" class="btn-community-header" title="Join SRCC WhatsApp Community">
@@ -103,15 +103,15 @@
   <!-- Campus Notification Subscription Opt-in Prompt Banner -->
   <aside id="leaveNotificationPromptBanner" class="leave-notif-banner" style="display: none;" role="region" aria-label="Campus Notifications">
     <div class="leave-notif-banner-content">
-      <div class="leave-notif-icon-col" style="background: rgba(37, 99, 235, 0.2); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;">
-        🔔
+      <div class="leave-notif-icon-col" style="background: rgba(37, 99, 235, 0.2); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: #60a5fa; flex-shrink: 0;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
       </div>
       <div class="leave-notif-text">
         <strong style="color: #60a5fa; display: flex; align-items: center; gap: 6px;">Subscribe to Class &amp; Notice Alerts</strong>
         <span>Get reminders 10 min before lectures with Room No. and campus notice deadlines!</span>
       </div>
       <div class="leave-notif-actions">
-        <button id="btnAllowLeaveNotif" class="btn-notif-allow" type="button" style="background: #2563eb; color: #fff; font-weight: 700; border-radius: 8px; padding: 7px 15px; border: none; cursor: pointer; box-shadow: 0 2px 8px rgba(37,99,235,0.4); font-size: 0.85rem;">🔔 Subscribe Now</button>
+        <button id="btnAllowLeaveNotif" class="btn-notif-allow" type="button" style="background: #2563eb; color: #fff; font-weight: 700; border-radius: 8px; padding: 7px 15px; border: none; cursor: pointer; box-shadow: 0 2px 8px rgba(37,99,235,0.4); font-size: 0.85rem;">Subscribe Now</button>
         <button id="btnDismissLeaveNotif" class="btn-notif-dismiss" type="button" aria-label="Dismiss" style="background: transparent; color: #94a3b8; border: 1px solid #475569; border-radius: 8px; padding: 7px 12px; cursor: pointer; font-size: 0.82rem;">Not Now</button>
       </div>
     </div>
@@ -120,7 +120,7 @@
   <!-- Main Content Container -->
   <main class="main-container">
     
-    <!-- ⚡ Sticky Offline Indicator Banner -->
+    <!-- Sticky Offline Indicator Banner -->
     <div id="offlineIndicatorBanner" class="offline-indicator-banner" style="display: none;" role="status" aria-live="polite">
       <div class="offline-banner-content">
         <span class="offline-pulse-dot"></span>
@@ -136,15 +136,15 @@
     <div class="app-mode-switcher-container">
       <div class="app-mode-switcher" role="tablist">
         <button class="mode-tab active" id="tabModeRooms" role="tab" aria-selected="true" data-mode="rooms">
-          <span class="mode-tab-icon">🏛️</span>
+          <span class="mode-tab-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px;" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></span>
           <span class="mode-tab-text">Classrooms</span>
         </button>
         <button class="mode-tab" id="tabModeFaculty" role="tab" aria-selected="false" data-mode="faculty">
-          <span class="mode-tab-icon">👨‍🏫</span>
+          <span class="mode-tab-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px;" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span>
           <span class="mode-tab-text">Faculty</span>
         </button>
         <button class="mode-tab" id="tabModeTimetable" role="tab" aria-selected="false" data-mode="timetable">
-          <span class="mode-tab-icon">📅</span>
+          <span class="mode-tab-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px;" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
           <span class="mode-tab-text">Timetable</span>
         </button>
       </div>
@@ -186,7 +186,7 @@
         <!-- 3. Search & Time Slot Filters -->
         <div class="filter-bar">
           <div class="search-box-wrapper">
-            <span class="search-icon">🔍</span>
+            <span class="search-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px;" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
             <input type="text" id="searchInput" placeholder="Search room no (e.g. PB3, R2, SCR1, T14)..." autocomplete="off" />
             <button id="btnClearSearch" class="btn-clear-search" style="display: none;">✕</button>
           </div>
@@ -232,7 +232,7 @@
 
       <!-- Recess Callout Banner (Shown dynamically during lunch recess 1:30–2:00 PM) -->
       <div class="recess-banner" id="recessBanner" style="display: none;">
-        <span class="recess-badge">☕ LUNCH RECESS</span>
+        <span class="recess-badge">LUNCH RECESS</span>
         <span class="recess-info">
           <strong>1:30 PM – 2:00 PM:</strong> All 96 classrooms &amp; tutorial rooms are universally free for GD &amp; lunch.
         </span>
@@ -244,21 +244,21 @@
       <!-- Live Metric Stat Badges (Hidden per user request) -->
       <div class="metric-tiles-row" style="display: none !important;">
         <div class="metric-tile" id="metricVacantNowTile">
-          <div class="metric-icon">⚡</div>
+          <div class="metric-icon"></div>
           <div class="metric-details">
             <div class="metric-num" id="metricVacantNowCount">--</div>
             <div class="metric-title"><span class="metric-long-word">Vacant </span>Right Now</div>
           </div>
         </div>
         <div class="metric-tile">
-          <div class="metric-icon">🕒</div>
+          <div class="metric-icon"></div>
           <div class="metric-details">
             <div class="metric-num" id="metricTotalFreeCount">0</div>
             <div class="metric-title">Free <span class="metric-long-word">Hours on </span><span id="metricDayLabel">Monday</span></div>
           </div>
         </div>
         <div class="metric-tile">
-          <div class="metric-icon">🏛️</div>
+          <div class="metric-icon"></div>
           <div class="metric-details">
             <div class="metric-num" id="metricBestCat">Tutorials</div>
             <div class="metric-title">Most Vacant<span class="metric-long-word"> Wing</span></div>
@@ -280,7 +280,7 @@
       <!-- Interactive Loading Skeleton State -->
       <div class="loading-skeleton-wrap" id="loadingState" style="display: none;">
         <div class="loading-skeleton-pulse">
-          <div class="skeleton-icon">🏛️</div>
+          <div class="skeleton-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.5;" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></div>
           <div class="skeleton-title">Checking SRCC Timetable & Available Classrooms...</div>
           <div class="skeleton-desc">Checking 96 rooms across all wings and 210 faculty schedules</div>
           <div class="skeleton-cards-row">
@@ -293,10 +293,10 @@
 
       <!-- Network / API Error State with Retry -->
       <div class="error-state-card" id="errorState" style="display: none;">
-        <div class="error-icon">⚠️</div>
+        <div class="error-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></div>
         <h3>Unable to Load Timetable Data</h3>
         <p id="errorMessageText">The college timetable data could not be retrieved from the server. Please verify your internet connection.</p>
-        <button type="button" class="btn-retry-load" id="btnRetryLoad">🔄 Retry Loading Data</button>
+        <button type="button" class="btn-retry-load" id="btnRetryLoad">Retry Loading Data</button>
       </div>
 
       <!-- Room Cards Grid / Compact Container -->
@@ -306,7 +306,7 @@
 
       <!-- No Results State -->
       <div class="empty-state" id="emptyState" style="display: none;">
-        <div class="empty-icon">🔎</div>
+        <div class="empty-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.45;" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>
         <h3>No matching free rooms found</h3>
         <p>Try switching to another Day, clearing your search query, or selecting "All Periods Today".</p>
         <button class="btn-reset-filters" id="btnResetFilters">Reset Filters</button>
@@ -320,7 +320,7 @@
       <!-- Top Action Header -->
       <div class="faculty-action-bar">
         <div class="faculty-action-title">
-          <span>👨‍🏫 SRCC Faculty Locator & Timetable</span>
+          <span>SRCC Faculty Locator &amp; Timetable</span>
         </div>
         <div class="faculty-action-leaves-wrap">
           <span class="leave-count-pill" id="headerLeavePill" style="display: none; cursor: pointer;" title="Click to view faculty on leave today">0 on leave</span>
@@ -378,7 +378,7 @@
         <!-- 3. Search & Status Filters Bar -->
         <div class="filter-bar faculty-filter-bar">
           <div class="search-box-wrapper">
-            <span class="search-icon">🔍</span>
+            <span class="search-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px;" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
             <input type="text" id="facultySearchInput" placeholder="Search teacher name (e.g. Abhay, Ruchi), code (cg16, ayj), dept, room, or subject..." autocomplete="off" />
             <button id="btnClearFacultySearch" class="btn-clear-search" style="display: none;">✕</button>
           </div>
@@ -387,9 +387,9 @@
             <label for="facultyStatusSelect">Live Status:</label>
             <select id="facultyStatusSelect">
               <option value="ALL" selected>All Faculty (Overview)</option>
-              <option value="TEACHING_NOW">⚡ Teaching Right Now</option>
-              <option value="FREE_NOW">☕ Currently Free / Off-Period</option>
-              <option value="ON_LEAVE">🏖️ Currently On Leave</option>
+              <option value="TEACHING_NOW">Teaching Right Now</option>
+              <option value="FREE_NOW">Currently Free / Off-Period</option>
+              <option value="ON_LEAVE">Currently On Leave</option>
             </select>
           </div>
 
@@ -420,28 +420,28 @@
       <!-- Faculty Metric Stat Badges -->
       <div class="metric-tiles-row faculty-metrics-row">
         <div class="metric-tile">
-          <div class="metric-icon">👨‍🏫</div>
+          <div class="metric-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
           <div class="metric-details">
             <div class="metric-num" id="metricTotalFacultyCount">210</div>
             <div class="metric-title">Total<span class="metric-long-word"> Faculty</span></div>
           </div>
         </div>
         <div class="metric-tile">
-          <div class="metric-icon">⚡</div>
+          <div class="metric-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></div>
           <div class="metric-details">
             <div class="metric-num" id="metricFacultyTeachingNow">--</div>
             <div class="metric-title">Teaching<span class="metric-long-word"> Now</span></div>
           </div>
         </div>
         <div class="metric-tile">
-          <div class="metric-icon">☕</div>
+          <div class="metric-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
           <div class="metric-details">
             <div class="metric-num" id="metricFacultyFreeNow">--</div>
             <div class="metric-title">Available<span class="metric-long-word"> Now</span></div>
           </div>
         </div>
         <div class="metric-tile" id="metricFacultyOnLeaveTile" style="cursor: pointer;" title="Click to view faculty on leave today">
-          <div class="metric-icon">🏖️</div>
+          <div class="metric-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
           <div class="metric-details">
             <div class="metric-num" id="metricFacultyOnLeave">0</div>
             <div class="metric-title">On Leave<span class="metric-long-word"> Today</span></div>
@@ -464,7 +464,7 @@
 
       <!-- Empty State for Faculty Search -->
       <div class="empty-state" id="facultyEmptyState" style="display: none;">
-        <div class="empty-icon">🔎</div>
+        <div class="empty-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.45;" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>
         <h3>No matching faculty found</h3>
         <p>Try clearing your search query, switching the department filter, or resetting status.</p>
         <button class="btn-reset-filters" id="btnResetFacultyFilters">Reset Faculty Filters</button>
@@ -475,7 +475,7 @@
          VIEW SECTION 3: STUDENT TIMETABLE & VACANT ROOM FINDER
          ==================================================================== -->
     <div id="viewTimetableSection" class="app-view-section" style="display: none;">
-      <!-- 📢 TIMETABLE CHANGE NOTICES BANNER CONTAINER -->
+      <!-- TIMETABLE CHANGE NOTICES BANNER CONTAINER -->
       <div id="timetableNoticesContainer" style="display: none;"></div>
 
       <!-- Controls Panel (100% Native App UX/UI) -->
@@ -518,7 +518,7 @@
         <!-- 4. Section, Batch, Slot & Search Filters Bar -->
         <div class="filter-bar tt-filter-bar">
           <div class="search-box-wrapper" style="flex: 1.5; min-width: 220px;">
-            <span class="search-icon">🔍</span>
+            <span class="search-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px;" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
             <input type="text" id="ttMainSearchInput" placeholder="Search subject (e.g. MME), teacher, SEC / VAC, batch, or room..." autocomplete="off" />
             <button id="btnClearTtMainSearch" class="btn-clear-search" style="display: none;">✕</button>
           </div>
@@ -581,7 +581,7 @@
 
       <!-- Empty State -->
       <div class="empty-state" id="ttMainEmptyState" style="display: none;">
-        <div class="empty-icon">🔎</div>
+        <div class="empty-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.45;" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>
         <h3>No matching classes found</h3>
         <p>Try clearing your search query or switching Section / Day.</p>
         <button class="btn-reset-filters" id="btnResetTtFilters">Reset Filters</button>
@@ -594,7 +594,7 @@
     <div id="viewExamCodesSection" class="app-view-section" style="display: none;">
       <!-- DU Reference Notice -->
       <div class="examcodes-source-notice-bar">
-        <span class="examcodes-notice-icon">🏛️</span>
+        <span class="examcodes-notice-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></span>
         <div class="examcodes-notice-content">
           <div class="examcodes-notice-header">
             <span>University of Delhi (DU) Examination Directory Reference</span>
@@ -610,18 +610,18 @@
       <div class="ugcf-clean-guidelines-bar" style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 12px 16px; margin-bottom: 14px; box-shadow: var(--shadow-xs);">
         <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
           <div style="display: flex; align-items: center; gap: 8px;">
-            <span style="font-size: 1.15rem;">📘</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
             <span style="font-weight: 700; font-size: 0.88rem; color: var(--text-primary);">DU UGCF Guidelines &amp; Degree Structure:</span>
           </div>
           <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
             <a href="https://drive.google.com/file/d/12XxFs_aTdaqjrlipfDu9IDailBX4DNKN/view" target="_blank" rel="noopener noreferrer" class="ugcf-guideline-link-pill" style="font-size: 0.76rem; font-weight: 600; padding: 5px 10px; border-radius: 8px; background: rgba(14, 165, 233, 0.1); color: #0284c7; text-decoration: none; border: 1px solid rgba(14, 165, 233, 0.25); display: inline-flex; align-items: center; gap: 5px;">
-              📄 Major &amp; Minor Degree Rules ↗
+              Major &amp; Minor Degree Rules ↗
             </a>
             <a href="https://www.commerce.du.ac.in/programmes/ugcf-b-com-programme" target="_blank" rel="noopener noreferrer" class="ugcf-guideline-link-pill" style="font-size: 0.76rem; font-weight: 600; padding: 5px 10px; border-radius: 8px; background: rgba(245, 158, 11, 0.1); color: #d97706; text-decoration: none; border: 1px solid rgba(245, 158, 11, 0.25); display: inline-flex; align-items: center; gap: 5px;">
-              🏛️ Commerce UGCF Syllabi ↗
+              Commerce UGCF Syllabi ↗
             </a>
             <a href="DU_UPC_and_Subjects_Master_Directory.pdf" target="_blank" rel="noopener noreferrer" class="ugcf-guideline-link-pill" style="font-size: 0.76rem; font-weight: 700; padding: 5px 10px; border-radius: 8px; background: rgba(16, 185, 129, 0.12); color: #059669; text-decoration: none; border: 1px solid rgba(16, 185, 129, 0.3); display: inline-flex; align-items: center; gap: 5px;">
-              📥 Download Master UPC Directory (PDF) ↗
+              Download Master UPC Directory (PDF) ↗
             </a>
           </div>
         </div>
@@ -643,7 +643,7 @@
       <!-- Search Input -->
       <div class="notices-search-bar" style="margin-top: 4px;">
         <div class="notices-search-input-wrap">
-          <span class="notices-search-icon">🔍</span>
+          <span class="notices-search-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px;" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
           <input type="text" id="examCodesSearchInput" class="notices-search-input" placeholder="Search paper title (e.g. Accounting, Microeconomics), UPC code (e.g. 2412081101), or Course No..." aria-label="Search exam codes" />
           <button type="button" id="btnClearExamCodesSearch" class="btn-clear-notices-search" style="display: none;" title="Clear search">✕</button>
         </div>
@@ -744,14 +744,14 @@
         </div>
       </div>
       <div class="wifi-search-bar">
-        <input type="text" id="wifiViewSearchInput" class="wifi-search-input" placeholder="🔍 Search network (e.g. FAC_36, PB, CLASS 1-4G, R22)..." />
+        <input type="text" id="wifiViewSearchInput" class="wifi-search-input" placeholder="Search network (e.g. FAC_36, PB, CLASS 1-4G, R22)..." />
       </div>
       <div class="wifi-pills-filter" id="wifiViewPills">
         <button class="wifi-pill-btn active" data-band="ALL">All Networks (24)</button>
-        <button class="wifi-pill-btn" data-band="5G">⚡ 5G High Speed</button>
-        <button class="wifi-pill-btn" data-band="4G">📶 4G Standard</button>
-        <button class="wifi-pill-btn" data-band="PB">🏛️ Principal Bungalow (PB)</button>
-        <button class="wifi-pill-btn" data-band="Main">🏢 Main Building</button>
+        <button class="wifi-pill-btn" data-band="5G">5G High Speed</button>
+        <button class="wifi-pill-btn" data-band="4G">4G Standard</button>
+        <button class="wifi-pill-btn" data-band="PB">Principal Bungalow (PB)</button>
+        <button class="wifi-pill-btn" data-band="Main">Main Building</button>
       </div>
       <div class="wifi-networks-grid" id="wifiViewGrid" style="max-height: none;"></div>
     </div>
@@ -781,10 +781,10 @@
       <!-- Room Schedule Actions Toolbar: Export Image, Direct Share -->
       <div class="modal-schedule-toolbar" id="modalScheduleToolbar">
         <button type="button" class="btn-sched-action btn-sched-img" id="btnModalExportScheduleImg" title="Save clean daily schedule as high-res PNG image">
-          📸 Save Day Schedule
+          Save Schedule Image
         </button>
         <button type="button" class="btn-sched-action btn-sched-share" id="btnModalShareDirect" title="Share room vacancy directly">
-          📤 Share Room
+          Share Room
         </button>
       </div>
 
@@ -799,7 +799,7 @@
     <div class="modal-card" style="max-width: 440px;">
       <div class="modal-header">
         <div class="modal-titles">
-          <h2 id="calReminderTitle" style="font-size: 1.15rem;">📅 Set Group Study Reminder</h2>
+          <h2 id="calReminderTitle" style="font-size: 1.15rem;">Set Group Study Reminder</h2>
           <p id="calReminderMeta" style="font-size: 0.8rem; color: var(--text-secondary);">Room Vacancy Calendar Alert</p>
         </div>
         <button class="modal-close" id="btnCalReminderClose">✕</button>
@@ -813,14 +813,14 @@
 
         <div style="display: flex; flex-direction: column; gap: 10px;">
           <a href="#" id="btnCalOpenGoogle" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 16px; border-radius: 8px; background: #2563eb; color: #fff; text-decoration: none; font-weight: 700; font-size: 0.9rem; box-shadow: 0 2px 8px rgba(37,99,235,0.25);">
-            <span>🗓️ Add to Google Calendar</span>
+            <span>Add to Google Calendar</span>
             <span style="font-size: 0.8rem; opacity: 0.85;">↗</span>
           </a>
           <button type="button" id="btnCalDownloadIcs" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 16px; border-radius: 8px; border: 1px solid #cbd5e1; background: var(--bg-card); color: var(--text-primary); font-weight: 600; font-size: 0.88rem; cursor: pointer;">
-            <span>🍏 Apple / Outlook (.ics with 15m Alarm)</span>
+            <span>Apple / Outlook (.ics)</span>
           </button>
           <button type="button" id="btnCalCopyGdInvite" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 16px; border-radius: 8px; border: 1px solid #e2e8f0; background: #f8fafc; color: #475569; font-weight: 600; font-size: 0.85rem; cursor: pointer;">
-            <span>💬 Copy WhatsApp GD Invite</span>
+            <span>Copy WhatsApp Invite</span>
           </button>
         </div>
       </div>
@@ -850,7 +850,7 @@
       <!-- Teacher Schedule Toolbar: Share Profile -->
       <div class="modal-schedule-toolbar" id="modalTeacherScheduleToolbar">
         <button type="button" class="btn-sched-action btn-sched-share" id="btnShareTeacherProfile" title="Share faculty timetable & profile link on WhatsApp">
-          📤 Share Faculty Profile
+          Share Faculty Profile
         </button>
       </div>
 
@@ -909,20 +909,20 @@
   <!-- Mobile Bottom Navigation Bar (Streamlined Actions with Free Now) -->
   <nav class="mobile-bottom-nav" id="mobileBottomNav">
     <button class="bottom-nav-item active" id="bnavRooms" data-bnav="rooms" title="Browse Classrooms">
-      <span class="bnav-icon">🏛️</span>
+      <span class="bnav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></span>
       <span class="bnav-label">Rooms</span>
     </button>
     <button class="bottom-nav-item" id="bnavFaculty" data-bnav="faculty" title="Faculty Locator">
-      <span class="bnav-icon">👨‍🏫</span>
+      <span class="bnav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span>
       <span class="bnav-label">Faculty</span>
     </button>
     <button class="bottom-nav-item" id="bnavTimetable" data-bnav="timetable" title="Student Timetable">
-      <span class="bnav-icon">📅</span>
+      <span class="bnav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
       <span class="bnav-label">Timetable</span>
     </button>
     
     <button class="bottom-nav-item" id="bnavExamCodes" data-bnav="exam_codes" title="DU Exam Codes & UPC">
-      <span class="bnav-icon">📖</span>
+      <span class="bnav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></span>
       <span class="bnav-label">DU Codes</span>
     </button>
   </nav>
@@ -948,11 +948,11 @@
         
         
 
-        <!-- 📖 DU Exam Codes & UPC Directory Entry with Direct Semester Chips -->
+        <!-- DU Exam Codes & UPC Directory Entry with Direct Semester Chips -->
         <div class="drawer-syllabus-group">
           <button class="drawer-nav-item drawer-nav-examcodes" id="drawerNavExamCodes">
             <div class="drawer-nav-icon-wrap" style="background: rgba(14, 165, 233, 0.12); color: #0284c7;">
-              📖
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
             </div>
             <div class="drawer-nav-text">
               <div class="drawer-nav-name">DU Exam Codes</div>
@@ -964,10 +964,10 @@
           </button>
         </div>
 
-        <!-- 🔔 10-Min Class Alerts Entry -->
+        <!-- 10-Min Class Alerts Entry -->
         <button class="drawer-nav-item drawer-nav-classnotif" id="drawerNavClassNotif">
           <div class="drawer-nav-icon-wrap" style="background: rgba(37, 99, 235, 0.12); color: #2563eb;">
-            🔔
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
           </div>
           <div class="drawer-nav-text">
             <div class="drawer-nav-name">10-Min Class Alerts</div>
@@ -978,10 +978,10 @@
           </div>
         </button>
 
-        <!-- 📘 Student User Manual (PDF Guide) -->
+        <!-- Student User Manual (PDF Guide) -->
         <a href="SRCC-Free-Classrooms-User-Manual.pdf" target="_blank" rel="noopener noreferrer" class="drawer-nav-item drawer-nav-manual" id="drawerNavManual" style="text-decoration: none; color: inherit;">
           <div class="drawer-nav-icon-wrap" style="background: rgba(16, 185, 129, 0.12); color: #059669;">
-            📘
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
           </div>
           <div class="drawer-nav-text">
             <div class="drawer-nav-name">User Manual (PDF)</div>
@@ -1002,14 +1002,14 @@
     </aside>
   </div>
 
-  <!-- 🔔 10-Minute Class Alerts Modal (Students & Faculty) -->
+  <!-- 10-Minute Class Alerts Modal (Students & Faculty) -->
   <div class="modal-overlay" id="classNotifModal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="classNotifModalTitle">
     <div class="modal-card class-notif-modal-card">
       <div class="class-notif-modal-header" style="background: linear-gradient(135deg, #1e3a8a, #000066); padding: 18px 18px 16px; color: #ffffff; position: relative; flex-shrink: 0;">
         <button type="button" class="modal-close" id="btnClassNotifModalClose" style="position: absolute; top: 12px; right: 12px; color: #ffffff; background: rgba(255,255,255,0.18); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; font-size: 1.1rem; line-height: 1;">✕</button>
         <div style="display: flex; align-items: center; gap: 12px;">
-          <div style="width: 40px; height: 40px; border-radius: 12px; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.3rem;">
-            🔔
+          <div style="width: 40px; height: 40px; border-radius: 12px; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
           </div>
           <div style="padding-right: 28px;">
             <h3 id="classNotifModalTitle" style="margin: 0; font-size: 1.1rem; font-family: var(--font-display); font-weight: 800; color: #ffffff; line-height: 1.25;">
@@ -1025,7 +1025,7 @@
         <div class="tt-modal-toggle-row">
           <div>
             <div style="font-weight: 700; font-size: 0.92rem; color: var(--text-primary); display: flex; align-items: center; gap: 6px;">
-              <span>⏰</span> Automatic Reminders
+              Automatic Reminders
             </div>
             <div style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 2px;">Device alerts before every lecture</div>
           </div>
@@ -1038,10 +1038,10 @@
         <!-- Role Selector (Student vs Faculty / Teacher) -->
         <div class="notif-role-picker" style="display: flex; gap: 8px; margin: 12px 0 16px; background: var(--bg-hover, #f1f5f9); padding: 4px; border-radius: 10px;">
           <button type="button" class="btn-notif-role active" id="btnRoleStudent" style="flex: 1; padding: 8px 12px; border-radius: 8px; border: none; font-weight: 700; font-size: 0.86rem; cursor: pointer; transition: all 0.2s;">
-            🎓 I am a Student
+            I am a Student
           </button>
           <button type="button" class="btn-notif-role" id="btnRoleFaculty" style="flex: 1; padding: 8px 12px; border-radius: 8px; border: none; font-weight: 700; font-size: 0.86rem; cursor: pointer; transition: all 0.2s;">
-            👨‍🏫 I am a Faculty
+            I am a Faculty
           </button>
         </div>
 
@@ -1049,7 +1049,7 @@
         <div id="notifStudentFields" class="class-notif-fields-grid" style="display: flex; flex-direction: column; gap: 12px;">
           <div class="tt-notif-form-field">
             <label for="notifCourseSelect" style="display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.82rem; margin-bottom: 5px; color: var(--text-secondary);">
-              <span>📚</span> Course:
+              Course:
             </label>
             <div class="tt-select-wrapper">
               <select id="notifCourseSelect" class="tt-notif-input">
@@ -1063,7 +1063,7 @@
           </div>
           <div class="tt-notif-form-field">
             <label for="notifSemSelect" style="display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.82rem; margin-bottom: 5px; color: var(--text-secondary);">
-              <span>🎓</span> Semester:
+              Semester:
             </label>
             <div class="tt-select-wrapper">
               <select id="notifSemSelect" class="tt-notif-input">
@@ -1076,7 +1076,7 @@
           </div>
           <div class="tt-notif-form-field">
             <label for="notifSecSelect" style="display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.82rem; margin-bottom: 5px; color: var(--text-secondary);">
-              <span>🏷️</span> Section:
+              Section:
             </label>
             <div class="tt-select-wrapper">
               <select id="notifSecSelect" class="tt-notif-input">
@@ -1086,7 +1086,7 @@
           </div>
           <div class="tt-notif-form-field">
             <label for="notifBatchSelect" style="display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.82rem; margin-bottom: 5px; color: var(--text-secondary);">
-              <span>👥</span> Tutorial &amp; Practical Batch:
+              Tutorial &amp; Practical Batch:
             </label>
             <div class="tt-select-wrapper">
               <select id="notifBatchSelect" class="tt-notif-input">
@@ -1097,7 +1097,7 @@
           </div>
           <div class="tt-notif-form-field">
             <label for="notifStudentLeadTimeSelect" style="display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.82rem; margin-bottom: 5px; color: var(--text-secondary);">
-              <span>⏱️</span> Alert Notification Timing:
+              Alert Notification Timing:
             </label>
             <div class="tt-select-wrapper">
               <select id="notifStudentLeadTimeSelect" class="tt-notif-input">
@@ -1116,7 +1116,7 @@
         <div id="notifFacultyFields" class="class-notif-fields-grid" style="display: none; flex-direction: column; gap: 12px;">
           <div class="tt-notif-form-field">
             <label for="notifTeacherSelect" style="display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.82rem; margin-bottom: 5px; color: var(--text-secondary);">
-              <span>👨‍🏫</span> Select Your Name (Faculty):
+              Select Your Name (Faculty):
             </label>
             <div class="tt-select-wrapper">
               <select id="notifTeacherSelect" class="tt-notif-input">
@@ -1126,7 +1126,7 @@
           </div>
           <div class="tt-notif-form-field">
             <label for="notifLeadTimeSelect" style="display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.82rem; margin-bottom: 5px; color: var(--text-secondary);">
-              <span>⏱️</span> Alert Notification Timing:
+              Alert Notification Timing:
             </label>
             <div class="tt-select-wrapper">
               <select id="notifLeadTimeSelect" class="tt-notif-input">
@@ -1143,7 +1143,7 @@
 
         <div class="class-notif-save-wrap" style="margin-top: 18px; padding-bottom: 4px;">
           <button type="button" class="btn-tt-save-class" id="btnSaveClassAlerts" style="width: 100%; padding: 13px 18px; font-size: 0.95rem; font-weight: 700; justify-content: center; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 14px rgba(37,99,235,0.35); background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #ffffff; border: none; display: flex; align-items: center; gap: 8px;">
-            <span>💾</span> <span id="btnSaveAlertsText">Save &amp; Activate 10-Min Alerts</span>
+            <span id="btnSaveAlertsText">Save &amp; Activate 10-Min Alerts</span>
           </button>
         </div>
       </div>
@@ -1155,7 +1155,7 @@
     <div class="modal-card share-modal-card">
       <div class="modal-header">
         <div class="modal-titles">
-          <h2 id="shareModalTitle">📤 Share Room Vacancy</h2>
+          <h2 id="shareModalTitle">Share Room Vacancy</h2>
           <p id="shareModalSub">Select social app or copy formatted room schedule</p>
         </div>
         <button class="modal-close" id="btnShareModalClose">✕</button>
@@ -1248,16 +1248,16 @@
         </div>
 
         <p class="share-apps-hint">
-          💡 <strong>Tip:</strong> On mobile, tap <strong>"Direct Share"</strong> below to send directly into individual DMs, chats, or stories!
+          <strong>Tip:</strong> On mobile, tap <strong>"Direct Share"</strong> below to send directly into individual DMs, chats, or stories!
         </p>
 
         <!-- Copy & Direct Share Bar -->
         <div class="share-copy-row">
           <button class="btn-primary-share" id="btnPrimaryShare" style="display: none;">
-            📱 Direct Share via Any App
+            Direct Share via Any App
           </button>
           <button class="btn-copy-full-text" id="btnCopyShareText">
-            📋 Copy Formatted Text to Clipboard
+            Copy Formatted Text to Clipboard
           </button>
         </div>
       </div>
@@ -1280,9 +1280,9 @@
       </div>
       <div class="install-modal-body">
         <ul>
-          <li>⚡ Faster load times</li>
-          <li>📱 Works like a native app</li>
-          <li>🏛️ Quick classroom finding</li>
+          <li>Faster load times</li>
+          <li>Works like a native app</li>
+          <li>Quick classroom finding</li>
         </ul>
       </div>
       <div class="install-modal-footer">
@@ -1298,28 +1298,36 @@
     <div class="notif-optin-card">
       <button id="btnCloseNotifOptIn" class="btn-close-notif-optin" aria-label="Close Notification Prompt">&times;</button>
       <div class="notif-optin-icon-wrap">
-        <span class="notif-optin-bell-icon">🔔</span>
+        <span class="notif-optin-bell-icon" style="display: flex; align-items: center; justify-content: center; color: #2563eb;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+        </span>
       </div>
       <h3 id="notifOptInTitle" class="notif-optin-title">Enable Campus &amp; Room Alerts</h3>
       <p class="notif-optin-desc">Get instant real-time notifications on your device for free rooms, faculty leaves, and urgent SRCC notices.</p>
       
       <div class="notif-optin-features">
         <div class="notif-feature-row">
-          <span class="notif-feature-icon">⚡</span>
+          <span class="notif-feature-icon" style="display: flex; align-items: center; justify-content: center; color: #2563eb;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          </span>
           <div class="notif-feature-text">
             <strong>Vacant Classrooms</strong>
             <span>Live updates on available rooms for GD and study</span>
           </div>
         </div>
         <div class="notif-feature-row">
-          <span class="notif-feature-icon">🏖️</span>
+          <span class="notif-feature-icon" style="display: flex; align-items: center; justify-content: center; color: #2563eb;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          </span>
           <div class="notif-feature-text">
             <strong>Faculty Leaves</strong>
             <span>Know in advance when scheduled classes are cancelled</span>
           </div>
         </div>
         <div class="notif-feature-row">
-          <span class="notif-feature-icon">📢</span>
+          <span class="notif-feature-icon" style="display: flex; align-items: center; justify-content: center; color: #2563eb;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+          </span>
           <div class="notif-feature-text">
             <strong>Official Notices &amp; Deadlines</strong>
             <span>Exam form dates, datesheets, and urgent college circulars</span>
@@ -1329,7 +1337,7 @@
 
       <div class="notif-optin-actions">
         <button id="btnEnablePwaNotif" class="btn-enable-pwa-notif" type="button">
-          <span>🔔 Enable Notifications</span>
+          <span>Enable Notifications</span>
         </button>
         <button id="btnLaterPwaNotif" class="btn-later-pwa-notif" type="button">Maybe Later</button>
       </div>
@@ -1342,14 +1350,14 @@
       <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border-subtle);">
         <div>
           <h2 class="modal-title" style="margin: 0; font-size: 1.18rem; font-family: var(--font-display); font-weight: 800; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
-            <span>🏖️ Recorded Faculty Leaves</span>
+            <span>Recorded Faculty Leaves</span>
             <span id="activeLeavesCount" style="font-size: 0.76rem; font-weight: 800; background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; padding: 2px 8px; border-radius: 9999px;">0</span>
           </h2>
           <p style="font-size: 0.78rem; color: var(--text-secondary); margin: 3px 0 0 0;">Cancelled classes & bonus free rooms for self-study and GD</p>
         </div>
         <div style="display: flex; align-items: center; gap: 8px;">
           <button type="button" id="btnShareAllLeavesWhatsApp" style="font-size: 0.75rem; padding: 6px 12px; background: #16A34A; color: #ffffff; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;" title="Share complete list on WhatsApp">
-            💬 Share All List
+            Share All List
           </button>
           <button id="btnLeaveModalClose" class="modal-close" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-secondary); line-height: 1;">&times;</button>
         </div>
@@ -1369,7 +1377,7 @@
   <div id="reportIssueModal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center; pointer-events: auto !important;">
     <div class="modal-card" style="background: var(--bg-card); width: 90%; max-width: 400px; border-radius: var(--radius-lg); padding: 20px; box-shadow: var(--shadow-xl); pointer-events: auto !important;">
       <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-        <h2 class="modal-title" style="margin: 0; font-size: 1.25rem;">⚠️ Report an Issue</h2>
+        <h2 class="modal-title" style="margin: 0; font-size: 1.25rem;">Report an Issue</h2>
         <button id="btnCloseReportModal" class="btn-icon" style="background:none; border:none; font-size:1.5rem; cursor:pointer; color: var(--text-secondary);">&times;</button>
       </div>
       <div class="modal-body">
@@ -1405,6 +1413,6 @@
   <script src="faculty_leaves.js?v=100"></script>
   <script src="teachers_data.js?v=100"></script>
   <script src="classes_data.js?v=100"></script>
-  <script src="app.js?v=110"></script>
+  <script src="app.js?v=111"></script>
 </body>
 </html>

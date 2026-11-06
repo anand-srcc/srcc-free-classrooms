@@ -1,11 +1,11 @@
-/**
+﻿/**
  * SRCC Free Classroom Finder & Faculty Locator - Core Application Logic
  * Integrates 96 Classrooms and 210 Faculty Members from Shri Ram College of Commerce
  */
 
 // ==========================================================================
-// 🔗 SRCC WHATSAPP COMMUNITY / GROUP LINK CONFIGURATION
-// 👉 UPDATE YOUR ACTIVE WHATSAPP GROUP INVITE LINK HERE:
+// SRCC WHATSAPP COMMUNITY / GROUP LINK CONFIGURATION
+// UPDATE YOUR ACTIVE WHATSAPP GROUP INVITE LINK HERE:
 // ==========================================================================
 const SRCC_WHATSAPP_LINK = 'https://chat.whatsapp.com/H6qxq6fGSDVJNPCEtzQgjf';
 
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Display animated loading skeleton while initial data is fetching
+// Display animated loading skeleton while initial data is fetching
   if (!appData && loadingStateEl) {
     loadingStateEl.style.display = 'block';
   }
@@ -70,9 +70,9 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     );
   }
-  // 🏖️ Smart Leaves Fetch:
-  // If running locally (file:// or localhost) -> prioritize local faculty_leaves.js / faculty_leaves.json
-  // If running on production (Netlify) -> fetch live from GitHub Raw CDN (0 Netlify build credits)
+// Smart Leaves Fetch:
+// If running locally (file:// or localhost) -> prioritize local faculty_leaves.js / faculty_leaves.json
+// If running on production (Netlify) -> fetch live from GitHub Raw CDN (0 Netlify build credits)
   const isLocalEnv = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
   const GITHUB_LIVE_LEAVES_URL = 'https://raw.githubusercontent.com/anand-srcc/srcc-free-classrooms/main/web_app/faculty_leaves.json';
   
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
               localStorage.setItem('srcc_faculty_leaves_v2', JSON.stringify(merged));
             }
           } catch (e) {}
-          // Re-render faculty leaves view if active
+// Re-render faculty leaves view if active
           if (typeof renderFacultyLeavesView === 'function' && document.getElementById('facultyLeavesView')?.style.display !== 'none') {
             try { renderFacultyLeavesView(); } catch (e) {}
           }
@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     loadPromises.push(leavesFetchPromise);
   } else {
-    // In local development / testing: use local faculty_leaves.js or faculty_leaves.json
+// In local development / testing: use local faculty_leaves.js or faculty_leaves.json
     if (!leavesData) {
       loadPromises.push(
         fetch('faculty_leaves.json?t=' + Date.now())
@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // ☁️ Optional Cloud Database Fetch (if custom cloud_config.js URL or admin configured URL is provided)
+// Optional Cloud Database Fetch (if custom cloud_config.js URL or admin configured URL is provided)
   const rawCloudUrl = (window.SRCC_CLOUD_CONFIG && window.SRCC_CLOUD_CONFIG.db_url && window.SRCC_CLOUD_CONFIG.db_url.trim())
     ? window.SRCC_CLOUD_CONFIG.db_url.trim()
     : (localStorage.getItem('srcc_cloud_db_url') || localStorage.getItem('srcc_cloud_db_url_custom') || '');
@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   }
 
-  // 🔒 Fetch Active Room Locks & Extra Classes
+// Fetch Active Room Locks & Extra Classes
   let roomLocksList = [];
   const ROOM_LOCKS_STORAGE_KEY = 'srcc_room_locks_v1';
   try {
@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .catch(() => {})
   );
 
-  // 📢 Fetch Active Campus Notices & Banners
+// Fetch Active Campus Notices & Banners
   let campusNoticesList = [];
   const CAMPUS_NOTICES_STORAGE_KEY = 'srcc_campus_notices_v1';
   try {
@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .catch(() => {})
   );
 
-  // 🏛️ Fetch Active Room Management Overrides
+// Fetch Active Room Management Overrides
   let roomOverridesMap = {};
   const ROOM_OVERRIDES_STORAGE_KEY = 'srcc_room_overrides_v1';
   try {
@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .catch(() => {})
   );
 
-  // 📶 Fetch Campus WiFi Directory (Custom / Updated Networks)
+// Fetch Campus WiFi Directory (Custom / Updated Networks)
   let campusWifiList = [];
   const CAMPUS_WIFI_STORAGE_KEY = 'srcc_campus_wifi_v1';
   try {
@@ -311,16 +311,16 @@ document.addEventListener('DOMContentLoaded', () => {
     initApp();
   }
 
-  // ========================================================================
-  // 🕒 ASIA/KOLKATA (IST) TIMEZONE ENFORCEMENT HELPER
-  // ========================================================================
+// ========================================================================
+// ASIA/KOLKATA (IST) TIMEZONE ENFORCEMENT HELPER
+// ========================================================================
   function getIstDate() {
     try {
       const now = new Date();
       const istString = now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
       return new Date(istString);
     } catch (e) {
-      // Fallback if Intl timeZone is unsupported
+// Fallback if Intl timeZone is unsupported
       const now = new Date();
       const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
       return new Date(utc + (3600000 * 5.5)); // UTC+5:30
@@ -427,7 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const todayName = daysOfWeek[todayIndex];
     const initialDay = (todayName === 'Sunday') ? 'Monday' : todayName;
 
-    // Standard local date string YYYY-MM-DD in Asia/Kolkata
+// Standard local date string YYYY-MM-DD in Asia/Kolkata
     function getTodayIsoDate() {
       const d = getIstDate();
       const year = d.getFullYear();
@@ -436,7 +436,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return `${year}-${month}-${day}`;
     }
 
-    // Format ISO date (YYYY-MM-DD) to DD/MM/YYYY
+// Format ISO date (YYYY-MM-DD) to DD/MM/YYYY
     function formatIsoToDdMmYyyy(isoStr) {
       if (!isoStr) return '';
       const p = String(isoStr).trim().split('-');
@@ -459,7 +459,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return sFmt || eFmt || 'Today';
     }
 
-    // Room display & jump helpers for Library First Floor and other facilities
+// Room display & jump helpers for Library First Floor and other facilities
     function getDisplayRoomName(room) {
       if (!room || room === 'TBD') return 'No Room';
       const trimmed = String(room).trim();
@@ -478,22 +478,22 @@ document.addEventListener('DOMContentLoaded', () => {
       return trimmed;
     }
 
-    // Ultra-reliable room lookup: matches room by code, number, prefix, or name
+// Ultra-reliable room lookup: matches room by code, number, prefix, or name
     function findRoomByCodeOrName(input) {
       if (!input || !appData || !Array.isArray(appData.rooms)) return null;
       const raw = String(input).trim();
       if (!raw || raw.toUpperCase() === 'TBD') return null;
       const q = raw.toLowerCase();
 
-      // 1. Exact match on code (case-insensitive)
+// 1. Exact match on code (case-insensitive)
       let found = appData.rooms.find(r => r.code && r.code.toLowerCase() === q);
       if (found) return found;
 
-      // 2. Exact match on name or label
+// 2. Exact match on name or label
       found = appData.rooms.find(r => (r.name && r.name.toLowerCase() === q) || (r.label && r.label.toLowerCase() === q));
       if (found) return found;
 
-      // 3. Normalized room numbers: e.g. "14", "Room 14", "R 14", "R-14" -> match "R14" or "14"
+// 3. Normalized room numbers: e.g. "14", "Room 14", "R 14", "R-14" -> match "R14" or "14"
       const numMatch = q.match(/^(?:room\s*|r\s*|lecture\s*(?:classroom\s*)?)?(\d+)$/i);
       if (numMatch) {
         const num = numMatch[1];
@@ -501,7 +501,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (found) return found;
       }
 
-      // 4. Tutorial rooms: "T1", "T-1", "Tutorial 1", "Tutorial Room 1"
+// 4. Tutorial rooms: "T1", "T-1", "Tutorial 1", "Tutorial Room 1"
       const tutMatch = q.match(/^(?:tut(?:orial)?(?:\s*room)?\s*|t\s*-?\s*)(\d+)$/i);
       if (tutMatch) {
         const num = tutMatch[1];
@@ -509,7 +509,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (found) return found;
       }
 
-      // 5. PB wing: "PB1", "PB-1", "Principal Bungalow 1"
+// 5. PB wing: "PB1", "PB-1", "Principal Bungalow 1"
       const pbMatch = q.match(/^(?:pb\s*-?\s*|principal\s*bungalow\s*)(\d+)$/i);
       if (pbMatch) {
         const num = pbMatch[1];
@@ -517,7 +517,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (found) return found;
       }
 
-      // 6. Computer lab: "CL1", "CL-1", "Computer Lab 1", "Lab 1"
+// 6. Computer lab: "CL1", "CL-1", "Computer Lab 1", "Lab 1"
       const clMatch = q.match(/^(?:cl\s*-?\s*|comp(?:uter)?\s*lab\s*|lab\s*)(\d+)$/i);
       if (clMatch) {
         const num = clMatch[1];
@@ -525,7 +525,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (found) return found;
       }
 
-      // 7. Sports Complex: "SCR1", "SCR-1"
+// 7. Sports Complex: "SCR1", "SCR-1"
       const scrMatch = q.match(/^(?:scr\s*-?\s*|sports\s*complex\s*)(\d+)$/i);
       if (scrMatch) {
         const num = scrMatch[1];
@@ -533,20 +533,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (found) return found;
       }
 
-      // 8. Partial / substring match
+// 8. Partial / substring match
       found = appData.rooms.find(r => (r.code && r.code.toLowerCase().includes(q)) || (r.name && r.name.toLowerCase().includes(q)));
       if (found) return found;
 
       return null;
     }
 
-    // ========================================================================
-    // 🏖️ FACULTY LEAVE MANAGEMENT STORAGE & HELPERS
-    // ========================================================================
+// ========================================================================
+// FACULTY LEAVE MANAGEMENT STORAGE & HELPERS
+// ========================================================================
     const LEAVES_STORAGE_KEY = 'srcc_faculty_leaves_v2';
 
     function getLeavesList() {
-      // Check cancelled leaves from admin
+// Check cancelled leaves from admin
       let cancelledList = [];
       try {
         const cStored = localStorage.getItem('srcc_cancelled_faculty_leaves_v1');
@@ -574,7 +574,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.warn('Failed to parse stored leaves:', e);
       }
 
-      // If admin has not explicitly configured localStorage leaves, use authoritative source
+// If admin has not explicitly configured localStorage leaves, use authoritative source
       if (!hasStored) {
         const activeSource = (window.SRCC_FACULTY_LEAVES && Array.isArray(window.SRCC_FACULTY_LEAVES.leaves))
           ? window.SRCC_FACULTY_LEAVES
@@ -611,9 +611,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // ========================================================================
-    // 🔒 ROOM LOCKS & EXTRA CLASSES HELPERS (Includes Recurring Locks & Weekend Batches)
-    // ========================================================================
+// ========================================================================
+// ROOM LOCKS & EXTRA CLASSES HELPERS (Includes Recurring Locks & Weekend Batches)
+// ========================================================================
     function getDateForDayName(targetDayName) {
       const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
       const now = new Date();
@@ -672,10 +672,10 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // ========================================================================
-    // 📢 CAMPUS NOTICE BANNER & ATTACHMENT MODAL (Freshers / Elections / Circulars)
-    // Only visible when an active notice is pushed by Admin; otherwise completely hidden!
-    // ========================================================================
+// ========================================================================
+// CAMPUS NOTICE BANNER & ATTACHMENT MODAL (Freshers / Elections / Circulars)
+// Only visible when an active notice is pushed by Admin; otherwise completely hidden!
+// ========================================================================
     function renderCampusNoticeBanner() {
       const container = document.getElementById('campusNoticeBannerContainer');
       if (!container) return;
@@ -708,12 +708,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const categoryBadges = {
-        timetable_change: '<span class="campus-notice-badge" style="background: #ea580c; color: #fff;">⚠️ Timetable Change Notice</span>',
-        freshers: '<span class="campus-notice-badge badge-notice-freshers">🎉 Freshers 2026</span>',
-        elections: '<span class="campus-notice-badge badge-notice-elections">🗳️ Student Elections</span>',
-        circular: '<span class="campus-notice-badge badge-notice-circular">📢 Official Circular</span>',
-        societies: '<span class="campus-notice-badge badge-notice-societies">🏆 Societies & Auditions</span>',
-        urgent: '<span class="campus-notice-badge badge-notice-urgent">📌 Urgent Alert</span>'
+        timetable_change: '<span class="campus-notice-badge" style="background: #ea580c; color: #fff;">Timetable Change Notice</span>',
+        freshers: '<span class="campus-notice-badge badge-notice-freshers">Freshers 2026</span>',
+        elections: '<span class="campus-notice-badge badge-notice-elections">Student Elections</span>',
+        circular: '<span class="campus-notice-badge badge-notice-circular">Official Circular</span>',
+        societies: '<span class="campus-notice-badge badge-notice-societies">Societies & Auditions</span>',
+        urgent: '<span class="campus-notice-badge badge-notice-urgent">Urgent Alert</span>'
       };
 
       const issueDateStr = notice.created_at ? notice.created_at.slice(0, 10) : todayIso;
@@ -727,17 +727,17 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="campus-notice-header" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
             ${catBadge}
             <span class="campus-notice-issue-date" style="font-size: 0.74rem; color: #475569; font-weight: 700; background: rgba(0,0,0,0.04); padding: 2px 7px; border-radius: 6px;">
-              📅 Issued: ${formattedIssueDate}
+              Issued: ${formattedIssueDate}
             </span>
-            ${notice.event_date ? `<span class="campus-notice-event-date" style="font-size: 0.74rem; font-weight: 600; color: #0369a1;">🗓️ Event: ${escapeHtml(notice.event_date)}</span>` : ''}
-            ${formattedExpiryDate ? `<span class="campus-notice-expiry-date" style="font-size: 0.72rem; color: #64748b; font-weight: 600; margin-left: auto;">⏳ Valid till: ${formattedExpiryDate}</span>` : ''}
+            ${notice.event_date ? `<span class="campus-notice-event-date" style="font-size: 0.74rem; font-weight: 600; color: #0369a1;">Event: ${escapeHtml(notice.event_date)}</span>` : ''}
+            ${formattedExpiryDate ? `<span class="campus-notice-expiry-date" style="font-size: 0.72rem; color: #64748b; font-weight: 600; margin-left: auto;">Valid till: ${formattedExpiryDate}</span>` : ''}
           </div>
           <h3 class="campus-notice-title" style="margin-top: 8px;">${escapeHtml(notice.title)}</h3>
           ${notice.body ? `<p class="campus-notice-body">${escapeHtml(notice.body)}</p>` : ''}
           <div class="campus-notice-actions">
             ${hasAttachment ? `
               <button type="button" class="btn-notice-attachment" id="btnViewNoticeAttachment">
-                📎 View ${notice.attachment.type === 'pdf' ? 'Official Circular (PDF)' : 'Event Poster (Image)'} (${escapeHtml(notice.attachment.name || 'Attachment')})
+                View ${notice.attachment.type === 'pdf' ? 'Official Circular (PDF)' : 'Event Poster (Image)'} (${escapeHtml(notice.attachment.name || 'Attachment')})
               </button>
             ` : ''}
           </div>
@@ -775,7 +775,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const safeUrl = getSafeAttachmentUrl(attachment.dataUrl);
       if (!safeUrl) {
-        showToast('⚠️ Unable to display attachment (invalid or untrusted file URL).');
+        showToast('Unable to display attachment (invalid or untrusted file URL).');
         return;
       }
 
@@ -867,21 +867,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const lCode = String(leave.teacher_code || '').toLowerCase().trim();
         const lClean = String(leave.clean_name || leave.teacher_name || '').replace(/^(?:(?:dr|prof|mr|ms|mrs|ca|cma)\.?\s+)/i, '').toLowerCase().trim();
 
-        // If both have explicit IDs and they differ, they CANNOT be the same teacher
+// If both have explicit IDs and they differ, they CANNOT be the same teacher
         if (lId && tId && lId !== tId) {
           return false;
         }
 
-        // 1. Direct ID match
+// 1. Direct ID match
         const matchId = Boolean(lId && tId && lId === tId);
 
-        // 2. Short code match (only if codes match and IDs don't conflict)
+// 2. Short code match (only if codes match and IDs don't conflict)
         const matchCode = Boolean(tCode && lCode && (
           lCode === tCode ||
           (lCode && lCode.split(/\s*[\/,]\s*/).includes(tCode))
         ));
 
-        // 3. Strict Normalized Name match (avoid loose substrings like "Anju" matching "Anju Verma")
+// 3. Strict Normalized Name match (avoid loose substrings like "Anju" matching "Anju Verma")
         const matchName = Boolean(lClean && tClean && lClean === tClean);
 
         if (matchId || matchCode || matchName) {
@@ -891,7 +891,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const inRange = (targetDate >= s && targetDate <= e);
           if (!inRange) return false;
 
-          // Check half-day restrictions if slot is provided
+// Check half-day restrictions if slot is provided
           if (checkSlotStr && (leave.half_day || leave.isHalfDay)) {
             const pInfo = typeof getPeriodInfo === 'function' ? getPeriodInfo(checkSlotStr) : null;
             const periodNum = pInfo ? pInfo.num : 1;
@@ -906,7 +906,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }) || null;
     }
 
-    // Single unified, deduplicated active leaves helper for today or selected date
+// Single unified, deduplicated active leaves helper for today or selected date
     function getActiveTodayLeaves(checkDateStr) {
       const targetDate = checkDateStr || getTodayIsoDate();
       const allLeaves = getLeavesList();
@@ -917,7 +917,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return (targetDate >= s && targetDate <= e);
       });
 
-      // Deduplicate by teacher ID or clean name so each professor is represented exactly once
+// Deduplicate by teacher ID or clean name so each professor is represented exactly once
       const dedupMap = new Map();
       active.forEach(l => {
         const key = (l.teacher_id ? String(l.teacher_id) : '') || (l.teacher_name ? l.teacher_name.toLowerCase().trim() : '');
@@ -928,7 +928,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return Array.from(dedupMap.values());
     }
 
-    // Reverse lookup map: given a room and a time slot on active day, find teacher and if on leave
+// Reverse lookup map: given a room and a time slot on active day, find teacher and if on leave
     function getRoomScheduledTeacherLeave(roomCode, day, slot) {
       if (!teachersData || !teachersData.teachers) return null;
       const todayDate = getDateForDayName(day);
@@ -939,7 +939,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const matchingClass = daySched.find(c => {
           if (c.slot !== slot) return false;
-          // Room match: e.g. "R35", "T38", etc.
+// Room match: e.g. "R35", "T38", etc.
           const r = (c.room || '').trim().toUpperCase();
           const target = (roomCode || '').trim().toUpperCase();
           return r === target || (r.replace(/\s+/g, '') === target.replace(/\s+/g, ''));
@@ -959,9 +959,9 @@ document.addEventListener('DOMContentLoaded', () => {
       return null;
     }
 
-    // ========================================================================
-    // ⚙️ REACTIVE STATE
-    // ========================================================================
+// ========================================================================
+// REACTIVE STATE
+// ========================================================================
     const state = {
       activeMode: 'rooms', // 'rooms' | 'faculty'
       activeDay: initialDay,
@@ -987,9 +987,9 @@ document.addEventListener('DOMContentLoaded', () => {
       modalActiveDay: initialDay
     };
 
-    // ========================================================================
-    // 🎯 DOM ELEMENTS - NAVIGATION & MODE SWITCHER
-    // ========================================================================
+// ========================================================================
+// DOM ELEMENTS - NAVIGATION & MODE SWITCHER
+// ========================================================================
     const tabModeRooms = document.getElementById('tabModeRooms');
     const tabModeFaculty = document.getElementById('tabModeFaculty');
     const tabModeTimetable = document.getElementById('tabModeTimetable');
@@ -1015,35 +1015,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const emptyState = document.getElementById('emptyState');
     const liveClockText = document.getElementById('liveClockText');
 
-    // Header ON / OFF Toggle Switch
+// Header ON / OFF Toggle Switch
     const btnFreeNow = document.getElementById('btnFreeNow');
     const toggleFreeNowWrapper = document.getElementById('toggleFreeNowWrapper');
     const toggleStatusText = document.getElementById('toggleStatusText');
 
-    // View Mode Toggle
+// View Mode Toggle
     const btnViewGrid = document.getElementById('btnViewGrid');
     const btnViewCompact = document.getElementById('btnViewCompact');
 
-    // Live Metrics (Rooms)
+// Live Metrics (Rooms)
     const metricVacantNowCount = document.getElementById('metricVacantNowCount');
     const metricTotalFreeCount = document.getElementById('metricTotalFreeCount');
     const metricDayLabel = document.getElementById('metricDayLabel');
     const metricBestCat = document.getElementById('metricBestCat');
 
-    // Stats Ribbon (Rooms)
+// Stats Ribbon (Rooms)
     const statRoomCount = document.getElementById('statRoomCount');
     const statActiveDay = document.getElementById('statActiveDay');
     const statFilterDesc = document.getElementById('statFilterDesc');
     const statTotalFreeHours = document.getElementById('statTotalFreeHours');
 
-    // Schedule Modal Elements (Room)
+// Schedule Modal Elements (Room)
     const scheduleModal = document.getElementById('scheduleModal');
     const btnModalClose = document.getElementById('btnModalClose');
     const modalRoomTitle = document.getElementById('modalRoomTitle');
     const modalRoomMeta = document.getElementById('modalRoomMeta');
     const modalBody = document.getElementById('modalBody');
 
-    // Share Room Modal Elements
+// Share Room Modal Elements
     const shareModal = document.getElementById('shareModal');
     const btnShareModalClose = document.getElementById('btnShareModalClose');
     const shareModalTitle = document.getElementById('shareModalTitle');
@@ -1059,7 +1059,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnPrimaryShare = document.getElementById('btnPrimaryShare');
     let currentShareMessage = '';
 
-    // Mobile Bottom Nav Elements
+// Mobile Bottom Nav Elements
     const mobileBottomNav = document.getElementById('mobileBottomNav');
     const bnavDay = document.getElementById('bnavDay');
     const bnavDayLabel = document.getElementById('bnavDayLabel');
@@ -1070,7 +1070,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const bnavSearch = document.getElementById('bnavSearch');
     const bnavCommunity = document.getElementById('bnavCommunity');
 
-    // Mobile Bottom Sheets
+// Mobile Bottom Sheets
     const daySheetOverlay = document.getElementById('daySheetOverlay');
     const btnCloseDaySheet = document.getElementById('btnCloseDaySheet');
     const sheetDayButtons = document.querySelectorAll('.sheet-day-btn');
@@ -1079,12 +1079,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnCloseWingsSheet = document.getElementById('btnCloseWingsSheet');
     const sheetWingItems = document.querySelectorAll('.sheet-wing-item');
 
-    // Toast Container
+// Toast Container
     const toastContainer = document.getElementById('toastContainer');
 
-    // ========================================================================
-    // 👨‍🏫 DOM ELEMENTS - FACULTY LOCATOR
-    // ========================================================================
+// ========================================================================
+// ‍ DOM ELEMENTS - FACULTY LOCATOR
+// ========================================================================
     const facultyDayButtons = document.querySelectorAll('#facultyDayPicker .day-btn');
     const facultyDeptPills = document.querySelectorAll('#facultyDeptPills .dept-pill');
     const facultyDeptSelect = document.getElementById('facultyDeptSelect');
@@ -1096,7 +1096,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const facultyGrid = document.getElementById('facultyGrid');
     const facultyEmptyState = document.getElementById('facultyEmptyState');
 
-    // Faculty Metrics & Stats
+// Faculty Metrics & Stats
     const metricTotalFacultyCount = document.getElementById('metricTotalFacultyCount');
     const metricFacultyTeachingNow = document.getElementById('metricFacultyTeachingNow');
     const metricFacultyFreeNow = document.getElementById('metricFacultyFreeNow');
@@ -1106,7 +1106,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const statFacultyFilterDesc = document.getElementById('statFacultyFilterDesc');
     const statFacultyLastSynced = document.getElementById('statFacultyLastSynced');
 
-    // Teacher Schedule Modal Elements
+// Teacher Schedule Modal Elements
     const teacherModal = document.getElementById('teacherModal');
     const btnTeacherModalClose = document.getElementById('btnTeacherModalClose');
     const modalTeacherAvatar = document.getElementById('modalTeacherAvatar');
@@ -1117,7 +1117,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnShareTeacherProfile = document.getElementById('btnShareTeacherProfile');
     const btnPrintTeacherTimetable = document.getElementById('btnPrintTeacherTimetable');
 
-    // Faculty Leave Manager Modal Elements
+// Faculty Leave Manager Modal Elements
     const btnOpenLeaveManager = document.getElementById('btnOpenLeaveManager');
     const leaveManagerModal = document.getElementById('leaveManagerModal');
     const btnLeaveModalClose = document.getElementById('btnLeaveModalClose');
@@ -1131,19 +1131,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const activeLeavesCount = document.getElementById('activeLeavesCount');
     const leavesListContainer = document.getElementById('leavesListContainer');
 
-    // Faculty View Mode Toggle
+// Faculty View Mode Toggle
     const btnFacultyViewGrid = document.getElementById('btnFacultyViewGrid');
     const btnFacultyViewCompact = document.getElementById('btnFacultyViewCompact');
 
-    // Active Leaves Callout Banners
+// Active Leaves Callout Banners
     const activeLeavesRoomBanner = document.getElementById('activeLeavesRoomBanner');
     const activeLeavesFacultyBanner = document.getElementById('activeLeavesFacultyBanner');
 
-    // Leave Sync & Export Buttons
+// Leave Sync & Export Buttons
     const btnDownloadLeavesJs = document.getElementById('btnDownloadLeavesJs');
     const btnCopyLeavesJs = document.getElementById('btnCopyLeavesJs');
 
-    // Academic Period intervals map for live detection & visual period bars
+// Academic Period intervals map for live detection & visual period bars
     const periodIntervals = [
       { num: 1, start: 8 * 60 + 30, end: 9 * 60 + 30, slot: '8:30 AM to 9:30 AM', label: 'P1', full: 'Period 1 (8:30–9:30 AM)' },
       { num: 2, start: 9 * 60 + 30, end: 10 * 60 + 30, slot: '9:30 AM to 10:30 AM', label: 'P2', full: 'Period 2 (9:30–10:30 AM)' },
@@ -1156,9 +1156,9 @@ document.addEventListener('DOMContentLoaded', () => {
       { num: 9, start: 17 * 60 + 0, end: 18 * 60 + 0, slot: '5:00 PM to 6:00 PM', label: 'P9', full: 'Period 9 (5:00–6:00 PM)' }
     ];
 
-    // ========================================================================
-    // ⏰ ACADEMIC PERIODS MAP & LOOKUP HELPER (GLOBAL)
-    // ========================================================================
+// ========================================================================
+// ACADEMIC PERIODS MAP & LOOKUP HELPER (GLOBAL)
+// ========================================================================
     const academicPeriodsMap = {
       '8:30 AM to 9:30 AM': { num: 1, start: '8:30 AM', end: '9:30 AM' },
       '8:30 AM – 9:30 AM': { num: 1, start: '8:30 AM', end: '9:30 AM' },
@@ -1217,9 +1217,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     window.getPeriodInfo = getPeriodInfo;
 
-    // ========================================================================
-    // ⚡ CONSECUTIVE FREE WINDOWS ALGORITHM
-    // ========================================================================
+// ========================================================================
+// CONSECUTIVE FREE WINDOWS ALGORITHM
+// ========================================================================
     function getConsecutiveFreeWindows(freeSlots, bonusSlots = []) {
       if (!freeSlots && !bonusSlots) return [];
       const bonusSlotNames = (bonusSlots || []).map(b => (typeof b === 'string' ? b : b.slot));
@@ -1245,7 +1245,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const prev = freePeriodNums[i - 1];
         const curr = freePeriodNums[i];
 
-        // Consecutive periods (1-2, 2-3, 3-4, 4-5, 5-6 [crossing lunch], 6-7, 7-8, 8-9)
+// Consecutive periods (1-2, 2-3, 3-4, 4-5, 5-6 [crossing lunch], 6-7, 7-8, 8-9)
         if (curr === prev + 1) {
           currentGroup.push(curr);
         } else {
@@ -1277,17 +1277,17 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // ========================================================================
-    // ⏱️ "FREE UNTIL" COUNTDOWN CALCULATOR
-    // Answers student question: "Har free room kab tak khali hai (Free until 12:30)?"
-    // ========================================================================
+// ========================================================================
+// "FREE UNTIL" COUNTDOWN CALCULATOR
+// Answers student question: "Har free room kab tak khali hai (Free until 12:30)?"
+// ========================================================================
     function getRoomFreeUntilStatus(room, targetDay) {
       return null;
     }
 
-    // ========================================================================
-    // 🔔 TOAST HELPER
-    // ========================================================================
+// ========================================================================
+// TOAST HELPER
+// ========================================================================
     function showToast(message, isCopied = false, duration = 3000) {
       if (!toastContainer) return;
       toastContainer.innerHTML = ''; // Never stack multiple toasts
@@ -1303,16 +1303,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }, duration);
     }
 
-    // ========================================================================
-    // 🕒 LIVE CLOCK UPDATE (STANDARDIZED ON ASIA/KOLKATA IST)
-    // ========================================================================
+// ========================================================================
+// LIVE CLOCK UPDATE (STANDARDIZED ON ASIA/KOLKATA IST)
+// ========================================================================
     function updateLiveClock() {
       const now = getIstDate();
       const options = { weekday: 'short', hour: 'numeric', minute: '2-digit', hour12: true };
       const timeStr = now.toLocaleTimeString('en-US', options) + ' IST';
       const currentMinutes = now.getHours() * 60 + now.getMinutes();
 
-      // Check lunch recess specifically (1:30 PM - 2:00 PM)
+// Check lunch recess specifically (1:30 PM - 2:00 PM)
       const isLunchRecess = currentMinutes >= 13 * 60 + 30 && currentMinutes < 14 * 60 + 0;
       const recessBanner = document.getElementById('recessBanner');
       if (recessBanner) {
@@ -1341,9 +1341,9 @@ document.addEventListener('DOMContentLoaded', () => {
     updateLiveClock();
     setInterval(updateLiveClock, 30000);
 
-    // ========================================================================
-    // 📅 DAILY VERIFIED TIMETABLE METADATA & LIVE CREDIBILITY
-    // ========================================================================
+// ========================================================================
+// DAILY VERIFIED TIMETABLE METADATA & LIVE CREDIBILITY
+// ========================================================================
     const todayDateFormatted = istNow.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
     const headerDateFormatted = istNow.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
 
@@ -1363,9 +1363,9 @@ document.addEventListener('DOMContentLoaded', () => {
       modeFacultyCount.textContent = `${teachersData.teachers.length} Teachers`;
     }
 
-    // ========================================================================
-    // 🏖️ OPEN FACULTY LEAVES VIEW (Native integration inside Faculty Locator)
-    // ========================================================================
+// ========================================================================
+// OPEN FACULTY LEAVES VIEW (Native integration inside Faculty Locator)
+// ========================================================================
     function openFacultyLeavesView() {
       setAppMode('faculty', true);
       facultyState.activeDept = 'ALL';
@@ -1389,12 +1389,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const todayDate = getTodayIsoDate();
       const activeToday = getActiveTodayLeaves(todayDate);
       const onLeaveCount = activeToday.length;
-      showToast(`🏖️ Showing <strong>${onLeaveCount} ${onLeaveCount === 1 ? 'professor' : 'professors'}</strong> currently on leave today.`);
+      showToast(`Showing <strong>${onLeaveCount} ${onLeaveCount === 1 ? 'professor' : 'professors'}</strong> currently on leave today.`);
     }
 
-    // ========================================================================
-    // 📱 MOBILE NAVIGATION & MODAL MANAGEMENT HELPERS
-    // ========================================================================
+// ========================================================================
+// MOBILE NAVIGATION & MODAL MANAGEMENT HELPERS
+// ========================================================================
     function updateBottomNavActiveState() {
       const isRoomsStandard = (state.activeMode === 'rooms') && !state.freeNowActive;
       if (bnavRooms) bnavRooms.classList.toggle('active', isRoomsStandard);
@@ -1464,27 +1464,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     window._closeAllPopups = closeAllPopups;
 
-    // ========================================================================
-    // 🔀 MULTI-MODE SWITCHING (ROOMS ⇄ FACULTY ⇄ TIMETABLE)
-    // ========================================================================
+// ========================================================================
+// MULTI-MODE SWITCHING (ROOMS ⇄ FACULTY ⇄ TIMETABLE)
+// ========================================================================
     function setAppMode(mode, preserveFilters = false, options = {}) {
       const isBackNav = Boolean(options && options.isBackNav);
       const isInitial = Boolean(options && options.isInitial);
       const replace = Boolean(options && options.replace);
 
-      // If already in this mode and not a back nav, scroll to top and return
+// If already in this mode and not a back nav, scroll to top and return
       if (state.activeMode === mode && !isBackNav && !options.force) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
       }
 
-      // Dismiss any open popups/modals whenever navigating or switching tabs
+// Dismiss any open popups/modals whenever navigating or switching tabs
       closeAllPopups({ fromPopState: isBackNav });
       if (mode === 'leaves') {
         openFacultyLeavesView();
         return;
       }
-      // WiFi option temporarily hidden pending administrative permission
+// WiFi option temporarily hidden pending administrative permission
       if (mode === 'wifi') {
         mode = 'rooms';
       }
@@ -1497,7 +1497,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const isExamCodes = (mode === 'exam_codes');
       const isWifi = (mode === 'wifi');
 
-      // Update browser history & URL hash for smooth mobile back navigation
+// Update browser history & URL hash for smooth mobile back navigation
       const targetHash = '#' + mode;
       const stateObj = { type: 'tab', mode: mode };
 
@@ -1513,10 +1513,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
-      // Strip any lingering tour spotlight highlight classes
+// Strip any lingering tour spotlight highlight classes
       document.querySelectorAll('.tour-target-highlight').forEach(el => el.classList.remove('tour-target-highlight'));
 
-      // Cleanly update top mode switcher tabs
+// Cleanly update top mode switcher tabs
       document.querySelectorAll('.app-mode-switcher .mode-tab').forEach(tab => {
         const m = tab.dataset.mode;
         const isActive = (m === mode);
@@ -1588,7 +1588,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
-      // Update mobile bottom nav
+// Update mobile bottom nav
       const isRoomsStandard = isRooms && !state.freeNowActive;
       if (bnavRooms) bnavRooms.classList.toggle('active', isRoomsStandard);
       if (bnavFaculty) bnavFaculty.classList.toggle('active', isFaculty);
@@ -1602,9 +1602,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (bnavWifi) bnavWifi.classList.toggle('active', isWifi);
       if (bnavFreeNow) bnavFreeNow.classList.toggle('active', isRooms && state.freeNowActive);
 
-      // Clean filter reset when switching tabs so users never get stuck with leftover filters
+// Clean filter reset when switching tabs so users never get stuck with leftover filters
       if (!preserveFilters) {
-        // 1. Reset Room Finder filters
+// 1. Reset Room Finder filters
         state.activeCategory = 'ALL';
         state.activeSlot = 'ALL';
         state.searchQuery = '';
@@ -1630,7 +1630,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (slotSelect) slotSelect.value = 'ALL';
         if (sortSelect) sortSelect.value = 'ROOM_ASC';
 
-        // 2. Reset Faculty Locator filters completely
+// 2. Reset Faculty Locator filters completely
         facultyState.activeDept = 'ALL';
         facultyState.statusFilter = 'ALL';
         facultyState.searchQuery = '';
@@ -1734,9 +1734,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // ========================================================================
-    // 🏛️ ROOM FINDER HELPERS & LISTENERS
-    // ========================================================================
+// ========================================================================
+// ROOM FINDER HELPERS & LISTENERS
+// ========================================================================
     function setActiveDay(day) {
       state.activeDay = day;
       facultyState.activeDay = day;
@@ -1773,7 +1773,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.addEventListener('click', () => setActiveDay(btn.dataset.day));
     });
 
-    // Community Link Handlers
+// Community Link Handlers
 
     document.querySelectorAll('.btn-community-header, .whatsapp-card').forEach(card => {
       card.href = SRCC_WHATSAPP_LINK;
@@ -1794,7 +1794,7 @@ document.addEventListener('DOMContentLoaded', () => {
       pill.addEventListener('click', () => setActiveCategory(pill.dataset.cat));
     });
 
-    // Search Input UI
+// Search Input UI
     if (searchInput) {
       searchInput.addEventListener('input', (e) => {
         state.searchQuery = e.target.value.trim();
@@ -1844,7 +1844,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (bnavRooms) bnavRooms.classList.toggle('active', state.activeMode === 'rooms' && !isActive);
 
       if (isActive) {
-        // Automatically switch day to Today (Monday to Saturday)
+// Automatically switch day to Today (Monday to Saturday)
         const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         const todayName = daysOfWeek[getIstDate().getDay()];
         if (todayName !== 'Sunday' && state.activeDay !== todayName) {
@@ -1853,15 +1853,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (state.currentLiveSlot === '1:30 PM to 2:00 PM') {
           state.activeSlot = '1:30 PM to 2:00 PM';
-          showToast('🥪 <strong>Lunch Recess Active (1:30–2:00 PM)!</strong> All 96 classrooms are 100% vacant and free right now.');
+          showToast('<strong>Lunch Recess Active (1:30–2:00 PM)!</strong> All 96 classrooms are 100% vacant and free right now.');
         } else if (state.currentLiveSlot) {
           state.activeSlot = state.currentLiveSlot;
           if (slotSelect) slotSelect.value = state.currentLiveSlot;
-          showToast(`⚡ Showing classrooms vacant right now (${escapeHtml(state.currentLiveSlot)})!`);
+          showToast(`Showing classrooms vacant right now (${escapeHtml(state.currentLiveSlot)})!`);
         } else {
           state.activeSlot = '8:30 AM to 9:30 AM';
           if (slotSelect) slotSelect.value = '8:30 AM to 9:30 AM';
-          showToast('🌙 <strong>College Off-Hours right now.</strong> Showing classrooms free for Period 1 (8:30–9:30 AM).');
+          showToast('<strong>College Off-Hours right now.</strong> Showing classrooms free for Period 1 (8:30–9:30 AM).');
         }
         setTimeout(() => {
           if (roomsGrid) {
@@ -1908,7 +1908,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Support clicking the "Free Now" faculty metric tile to jump to free classrooms
+// Support clicking the "Free Now" faculty metric tile to jump to free classrooms
     const metricFacultyFreeTile = document.getElementById('metricFacultyFreeNow')?.closest('.metric-tile');
     if (metricFacultyFreeTile) {
       metricFacultyFreeTile.style.cursor = 'pointer';
@@ -1921,7 +1921,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-    // View Mode Toggle (Rooms - Grid vs Compact)
+// View Mode Toggle (Rooms - Grid vs Compact)
     if (btnViewGrid && btnViewCompact) {
       btnViewGrid.addEventListener('click', () => {
         state.viewMode = 'grid';
@@ -1940,7 +1940,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Faculty View Mode Toggle (Grid vs Compact)
+// Faculty View Mode Toggle (Grid vs Compact)
     if (btnFacultyViewGrid && btnFacultyViewCompact) {
       btnFacultyViewGrid.addEventListener('click', () => {
         facultyState.viewMode = 'grid';
@@ -1965,7 +1965,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Reset Filters (Rooms)
+// Reset Filters (Rooms)
     if (btnResetFilters) {
       btnResetFilters.addEventListener('click', () => {
         state.activeCategory = 'ALL';
@@ -1985,7 +1985,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Modal Helpers with Mobile Scroll Lock (body.modal-open) & Print Context Tracker
+// Modal Helpers with Mobile Scroll Lock (body.modal-open) & Print Context Tracker
     function openAppModal(modalEl, options = {}) {
       if (!modalEl) return;
       modalEl.style.display = 'flex';
@@ -1998,7 +1998,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.remove('print-room-modal-active');
       }
 
-      // History Management: Push modal state so mobile back button closes the modal cleanly!
+// History Management: Push modal state so mobile back button closes the modal cleanly!
       if (!options.fromPopState && !options.noHistory) {
         let modalHash = '#' + (modalEl.id || 'modal');
         if (modalEl === scheduleModal && currentModalRoomCode) {
@@ -2050,14 +2050,14 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.remove('print-teacher-modal-active');
       }
 
-      // If user closed modal via UI ('X' button or backdrop) and we pushed history for it, pop via history.back()
+// If user closed modal via UI ('X' button or backdrop) and we pushed history for it, pop via history.back()
       if (!options.fromPopState && _modalHistoryDepth > 0) {
         _modalHistoryDepth--;
         try {
           window.history.back();
         } catch (e) {}
       } else if (!options.fromPopState && _modalHistoryDepth === 0) {
-        // Direct link or initial load: restore clean tab hash without exiting site
+// Direct link or initial load: restore clean tab hash without exiting site
         const tabHash = '#' + (state.activeMode || 'rooms');
         if (window.location.hash !== tabHash) {
           try {
@@ -2068,7 +2068,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     window.closeAppModal = closeAppModal;
 
-    // Modal Close Handlers
+// Modal Close Handlers
     if (btnModalClose) btnModalClose.addEventListener('click', () => { closeAppModal(scheduleModal); });
     if (scheduleModal) {
       scheduleModal.addEventListener('click', (e) => {
@@ -2097,7 +2097,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Widget Feature Modal Handlers
+// Widget Feature Modal Handlers
     const widgetModal = document.getElementById('widgetModal');
     const btnOpenWidgetModal = document.getElementById('btnOpenWidgetModal');
     const btnOpenWidgetFromTt = document.getElementById('btnOpenWidgetFromTt');
@@ -2120,12 +2120,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const base = (window.location.origin + window.location.pathname).replace(/\/+$/, '');
         const widgetUrl = `${base}/widget.html`;
         copyToClipboard(widgetUrl).then(() => {
-          showToast('📋 Copied Standalone Widget Link!');
+          showToast('Copied Standalone Widget Link!');
         });
       });
     }
 
-    // Keyboard Shortcuts
+// Keyboard Shortcuts
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         if (scheduleModal && scheduleModal.style.display !== 'none') closeAppModal(scheduleModal);
@@ -2151,7 +2151,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Helper: Map category code
+// Helper: Map category code
     function matchesCategory(room, catCode) {
       if (catCode === 'ALL') return true;
       if (catCode === 'PB') return room.code.startsWith('PB');
@@ -2210,31 +2210,31 @@ document.addEventListener('DOMContentLoaded', () => {
       const name = room.name.toLowerCase();
       const cat = room.category.toLowerCase();
 
-      // 1. Exact match by code
+// 1. Exact match by code
       if (qNoSpace === codeNoSpace) return true;
 
-      // 2. Specific room code patterns:
-      // R (Classrooms): 'r3', 'room3', 'room 3', 'r 3'
+// 2. Specific room code patterns:
+// R (Classrooms): 'r3', 'room3', 'room 3', 'r 3'
       const mR = qNoSpace.match(/^(?:r|room)(\d+)$/);
       if (mR) return codeNoSpace === `r${mR[1]}`;
 
-      // T (Tutorials): 't3', 'tut3', 'tutorial3', 't 3'
+// T (Tutorials): 't3', 'tut3', 'tutorial3', 't 3'
       const mT = qNoSpace.match(/^(?:t|tut|tutorial)(\d+)$/);
       if (mT) return codeNoSpace === `t${mT[1]}`;
 
-      // PB (Principal Bungalow): 'pb3', 'pb 3'
+// PB (Principal Bungalow): 'pb3', 'pb 3'
       const mPB = qNoSpace.match(/^(?:pb|bungalow)(\d+)$/);
       if (mPB) return codeNoSpace === `pb${mPB[1]}`;
 
-      // SCR (Sports Complex): 'scr3', 'scr 3'
+// SCR (Sports Complex): 'scr3', 'scr 3'
       const mSCR = qNoSpace.match(/^(?:scr|sport|sports)(\d+)$/);
       if (mSCR) return codeNoSpace === `scr${mSCR[1]}`;
 
-      // CL (Computer Labs): 'cl1', 'cl 1', 'lab1'
+// CL (Computer Labs): 'cl1', 'cl 1', 'lab1'
       const mCL = qNoSpace.match(/^(?:cl|lab)(\d+)$/);
       if (mCL) return codeNoSpace === `cl${mCL[1]}`;
 
-      // Pure number, e.g. '3' -> match rooms whose number is exactly 3 (R3, T3, PB3, SCR3, CL3)
+// Pure number, e.g. '3' -> match rooms whose number is exactly 3 (R3, T3, PB3, SCR3, CL3)
       if (/^\d+$/.test(qNoSpace)) {
         return codeNoSpace === `r${qNoSpace}` ||
                codeNoSpace === `t${qNoSpace}` ||
@@ -2243,7 +2243,7 @@ document.addEventListener('DOMContentLoaded', () => {
                codeNoSpace === `cl${qNoSpace}`;
       }
 
-      // Category keywords:
+// Category keywords:
       if (['r', 'room', 'rooms', 'classroom', 'classrooms', 'lecture'].includes(q)) {
         return /^r\d+$/i.test(room.code);
       }
@@ -2266,11 +2266,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (q.includes('playground')) return code.includes('playground');
       if (q.includes('office')) return code.includes('office');
 
-      // Fallback: whole word match in name or code (avoiding substring leakage)
+// Fallback: whole word match in name or code (avoiding substring leakage)
       const words = (name + ' ' + code).toLowerCase().split(/[^a-z0-9]+/);
       if (words.includes(qNoSpace)) return true;
 
-      // Also match by teacher or subject currently scheduled in this room
+// Also match by teacher or subject currently scheduled in this room
       const sched = room.schedule ? room.schedule[state.activeDay] : null;
       if (sched && Array.isArray(sched.occupied_slots)) {
         for (const occ of sched.occupied_slots) {
@@ -2309,7 +2309,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Calculate calendar date for any day of the current academic week (IST-aligned)
+// Calculate calendar date for any day of the current academic week (IST-aligned)
     function getDateForDay(targetDayName) {
       const daysMap = { 'Sunday': 0, 'Monday': 1, 'Tuesday': 2, 'Wednesday': 3, 'Thursday': 4, 'Friday': 5, 'Saturday': 6 };
       const now = getIstDate();
@@ -2356,34 +2356,34 @@ document.addEventListener('DOMContentLoaded', () => {
       const loc = getRoomLocationMeta(room.code);
       const locDisplay = `${loc.floor} • ${loc.wing}`;
 
-      const cleanMessage = `🎓 SRCC Classroom Vacancy Alert
+      const cleanMessage = `SRCC Classroom Vacancy Alert
 
-📍 Room: ${room.code} (${room.name})
-🏢 Location: ${locDisplay} (${loc.landmark})
-🗓️ Day & Date: ${dayAndDateDisplay}
+Room: ${room.code} (${room.name})
+Location: ${locDisplay} (${loc.landmark})
+Day & Date: ${dayAndDateDisplay}
 
-🕒 Free Academic Slots:
+Free Academic Slots:
 ${freeSlotsFormatted}
 
-🔗 Live Schedule:
+Live Schedule:
 ${directRoomUrl}`;
 
-      const whatsappMessage = `🎓 *SRCC Classroom Vacancy Alert*
+      const whatsappMessage = `*SRCC Classroom Vacancy Alert*
 
-📍 *Room:* ${room.code} (${room.name})
-🏢 *Location:* ${locDisplay} (${loc.landmark})
-🗓️ *Day & Date:* ${dayAndDateDisplay}
+*Room:* ${room.code} (${room.name})
+*Location:* ${locDisplay} (${loc.landmark})
+*Day & Date:* ${dayAndDateDisplay}
 
-🕒 *Free Academic Slots:*
+*Free Academic Slots:*
 ${freeSlotsFormatted}
 
-🔗 *Live Schedule:*
+*Live Schedule:*
 ${directRoomUrl}`;
 
-      const tweetText = `🎓 SRCC Vacancy: Room ${room.code} is FREE on ${dayAndDateDisplay}! Check live schedule:`;
+      const tweetText = `SRCC Vacancy: Room ${room.code} is FREE on ${dayAndDateDisplay}! Check live schedule:`;
       const emailSubject = `SRCC Room Vacancy: ${room.code} (${dayAndDateDisplay})`;
 
-      // Direct mobile share sheet: Open WhatsApp/native app share directly on phones
+// Direct mobile share sheet: Open WhatsApp/native app share directly on phones
       const isMobileDevice = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || (window.innerWidth <= 768);
       if (isMobileDevice && navigator.share) {
         navigator.share({
@@ -2395,7 +2395,7 @@ ${directRoomUrl}`;
 
       currentShareMessage = cleanMessage;
 
-      if (shareModalTitle) shareModalTitle.textContent = `📤 Share ${room.code} (${room.name})`;
+      if (shareModalTitle) shareModalTitle.textContent = `Share ${room.code} (${room.name})`;
       if (sharePreviewText) sharePreviewText.textContent = cleanMessage;
 
       const encodedCleanMsg = encodeURIComponent(cleanMessage);
@@ -2433,7 +2433,7 @@ ${directRoomUrl}`;
           if (navigator.share) {
             navigator.share({ title: `SRCC Room ${room.code} Vacancy`, text: cleanMessage }).catch(() => {});
           } else {
-            copyToClipboard(cleanMessage).then(() => showToast('📸 Copied! Opening Instagram...', true));
+            copyToClipboard(cleanMessage).then(() => showToast('Copied! Opening Instagram...', true));
             window.open('https://www.instagram.com/direct/inbox/', '_blank', 'noopener,noreferrer');
           }
         };
@@ -2463,25 +2463,25 @@ ${directRoomUrl}`;
       if (shareModal) openAppModal(shareModal);
     }
 
-    // Expose openShareModal globally
+// Expose openShareModal globally
     window.openShareModal = openShareModal;
 
     if (btnCopyShareText) {
       btnCopyShareText.addEventListener('click', () => {
         copyToClipboard(currentShareMessage)
           .then(() => {
-            btnCopyShareText.innerHTML = '✅ Copied to Clipboard! (Press Ctrl+V anywhere)';
-            showToast(`📋 <strong>Room schedule copied!</strong> Ready to paste anywhere.`, true, 3500);
+            btnCopyShareText.innerHTML = 'Copied to Clipboard! (Press Ctrl+V anywhere)';
+            showToast(`<strong>Room schedule copied!</strong> Ready to paste anywhere.`, true, 3500);
             setTimeout(() => {
-              btnCopyShareText.innerHTML = '📋 Copy Formatted Text to Clipboard';
+              btnCopyShareText.innerHTML = 'Copy Formatted Text to Clipboard';
             }, 2500);
           });
       });
     }
 
-    // ========================================================================
-    // 🎨 RENDER CLASSROOM FINDER VIEW
-    // ========================================================================
+// ========================================================================
+// RENDER CLASSROOM FINDER VIEW
+// ========================================================================
     function getRoomOverride(code) {
       if (!code) return null;
       const c = code.trim().toUpperCase();
@@ -2494,25 +2494,25 @@ ${directRoomUrl}`;
       if (statActiveDay) statActiveDay.textContent = state.activeDay;
       if (metricDayLabel) metricDayLabel.textContent = state.activeDay;
 
-      // Filter Rooms
+// Filter Rooms
       let filtered = appData.rooms.filter(room => {
         const roomOv = getRoomOverride(room.code);
         if (roomOv && roomOv.status === 'DELETED') return false;
         if (!matchesCategory(room, state.activeCategory)) return false;
         if (state.searchQuery && !matchesSearch(room, state.searchQuery)) return false;
 
-        // If filtering by slot or Free Now, unavailable rooms are NOT free
+// If filtering by slot or Free Now, unavailable rooms are NOT free
         if (state.activeSlot !== 'ALL' || state.freeNowActive) {
           if (roomOv && roomOv.status === 'UNAVAILABLE') return false;
         }
 
         if (state.activeSlot !== 'ALL') {
-          // If room is locked or booked for an extra class in this slot, it is NOT free!
+// If room is locked or booked for an extra class in this slot, it is NOT free!
           if (isRoomLocked(room.code, state.activeSlot, getTodayIsoDate())) {
             return false;
           }
 
-          // 🥪 Lunch Recess (1:30 PM - 2:00 PM): All 96 classrooms are 100% free!
+// Lunch Recess (1:30 PM - 2:00 PM): All 96 classrooms are 100% free!
           if (state.activeSlot === '1:30 PM to 2:00 PM') {
             return true;
           }
@@ -2520,7 +2520,7 @@ ${directRoomUrl}`;
           if (!daySched) return false;
           let isFree = daySched.free_slots.includes(state.activeSlot);
 
-          // Check if scheduled teacher is on leave
+// Check if scheduled teacher is on leave
           if (!isFree) {
             const leaveInfo = getRoomScheduledTeacherLeave(room.code, state.activeDay, state.activeSlot);
             if (leaveInfo) isFree = true; // Bonus free!
@@ -2530,7 +2530,7 @@ ${directRoomUrl}`;
         return true;
       });
 
-      // Sorting
+// Sorting
       filtered.sort((a, b) => {
         const schedA = a.schedule[state.activeDay] || { free_hours: 0 };
         const schedB = b.schedule[state.activeDay] || { free_hours: 0 };
@@ -2553,7 +2553,7 @@ ${directRoomUrl}`;
         return 0;
       });
 
-      // Stats Calculation
+// Stats Calculation
       let totalFreeHoursCount = 0;
       filtered.forEach(r => {
         const s = r.schedule[state.activeDay];
@@ -2594,7 +2594,7 @@ ${directRoomUrl}`;
         metricBestCat.textContent = best;
       }
 
-      // Filter description tag
+// Filter description tag
       let filterDesc = [];
       if (state.activeCategory !== 'ALL') {
         const pill = Array.from(catPills).find(p => p.dataset.cat === state.activeCategory);
@@ -2619,7 +2619,7 @@ ${directRoomUrl}`;
           occupied_slots: []
         };
 
-        // Check if any occupied slot in this room has teacher on leave
+// Check if any occupied slot in this room has teacher on leave
         let bonusFreeSlots = [];
         sched.occupied_slots.forEach(o => {
           const leaveInfo = getRoomScheduledTeacherLeave(room.code, state.activeDay, o.slot);
@@ -2628,7 +2628,7 @@ ${directRoomUrl}`;
           }
         });
 
-        // Check if this room has active locks / extra classes pushed by admin
+// Check if this room has active locks / extra classes pushed by admin
         const activeDate = getDateForDayName(state.activeDay);
         const activeRoomLocks = getRoomActiveLocks(room.code, activeDate, state.activeDay);
         const isFullDayLocked = activeRoomLocks.some(l => l.slot === 'ALL_DAY');
@@ -2652,7 +2652,7 @@ ${directRoomUrl}`;
 
         const themeClass = getCategoryThemeClass(room);
 
-        // Calculate consecutive free windows (continuous periods)
+// Calculate consecutive free windows (continuous periods)
         const consecutiveWindows = isFullDayLocked ? [] : getConsecutiveFreeWindows(effectiveFreeSlots, effectiveBonusSlots);
         const multiPeriodWindows = (effectiveFreeHours === 9)
           ? consecutiveWindows
@@ -2662,22 +2662,22 @@ ${directRoomUrl}`;
         const coveredContinuousSlots = new Set();
 
         if (effectiveFreeHours === 9) {
-          consecutiveChipsHtml = `<div class="consecutive-window-chip" title="Full Day Uninterrupted Free Window">⚡ ★ 8:30 AM – 6:00 PM (Full Day Continuous)</div>`;
+          consecutiveChipsHtml = `<div class="consecutive-window-chip" title="Full Day Uninterrupted Free Window">8:30 AM – 6:00 PM (Full Day Continuous)</div>`;
           periodIntervals.forEach(p => coveredContinuousSlots.add(p.slot));
         } else if (multiPeriodWindows.length > 0) {
           consecutiveChipsHtml = multiPeriodWindows.map(w =>
-            `<div class="consecutive-window-chip" title="Continuous uninterrupted free window">⚡ ${escapeHtml(w.text)}</div>`
+            `<div class="consecutive-window-chip" title="Continuous uninterrupted free window">${escapeHtml(w.text)}</div>`
           ).join('');
           multiPeriodWindows.forEach(w => {
             (w.slots || []).forEach(s => coveredContinuousSlots.add(s));
           });
         }
 
-        // Filter out slots that are ALREADY covered by continuous windows above to prevent repetition!
+// Filter out slots that are ALREADY covered by continuous windows above to prevent repetition!
         const standaloneRegularSlots = effectiveFreeSlots.filter(s => !coveredContinuousSlots.has(s));
         const standaloneBonusSlots = effectiveBonusSlots.filter(b => !coveredContinuousSlots.has(b.slot));
 
-        // Format standalone/remaining free slot chips
+// Format standalone/remaining free slot chips
         let chipsHtml = '';
         if (standaloneRegularSlots.length > 0 || standaloneBonusSlots.length > 0) {
           const regularChips = standaloneRegularSlots.map(slot => {
@@ -2687,18 +2687,18 @@ ${directRoomUrl}`;
           }).join('');
 
           const bonusChips = standaloneBonusSlots.map(b => {
-            return `<div class="slot-chip" style="background: rgba(147, 51, 234, 0.08); color: #7e22ce; border: 1px solid rgba(147, 51, 234, 0.25);" title="Lecture suspended: Prof. ${escapeHtml(b.teacher.clean_name)} on leave">✨ ${escapeHtml(b.slot.replace(' to ', '–'))} (On Leave)</div>`;
+            return `<div class="slot-chip" style="background: rgba(147, 51, 234, 0.08); color: #7e22ce; border: 1px solid rgba(147, 51, 234, 0.25);" title="Lecture suspended: Prof. ${escapeHtml(b.teacher.clean_name)} on leave">${escapeHtml(b.slot.replace(' to ', '–'))} (On Leave)</div>`;
           }).join('');
 
           chipsHtml = regularChips + bonusChips;
         }
 
-        // Timeline strip
+// Timeline strip
         const p1_5 = periodIntervals.slice(0, 5).map(p => {
           const lock = activeRoomLocks.find(l => l.slot === 'ALL_DAY' || l.slot === p.slot);
           if (lock) {
             const isExtra = lock.type === 'extra_class';
-            const icon = isExtra ? '📚' : '🔒';
+            const icon = isExtra ? 'EC' : 'LK';
             const badgeTitle = `${p.full}: ${icon} ${isExtra ? 'EXTRA CLASS' : 'ROOM LOCKED'} - ${escapeHtml(lock.title || '')}`;
             const lockStyle = isExtra ? 'background: #2563eb; color: #FFF;' : 'background: #dc2626; color: #FFF;';
             return `<div class="p-block busy" style="${lockStyle}" data-room="${room.code}" data-slot="${p.slot}" title="${badgeTitle}">${icon}</div>`;
@@ -2716,13 +2716,13 @@ ${directRoomUrl}`;
           return `<div class="${cls}" style="${bonusStyle}" data-room="${room.code}" data-slot="${p.slot}" title="${title}">${p.label}</div>`;
         }).join('');
 
-        const recessMarker = `<div class="p-recess-divider" title="1:30–2:00 PM Lunch Recess (All 96 rooms vacant)">☕</div>`;
+        const recessMarker = `<div class="p-recess-divider" title="1:30–2:00 PM Lunch Recess (All 96 rooms vacant)">Recess</div>`;
 
         const p6_9 = periodIntervals.slice(5).map(p => {
           const lock = activeRoomLocks.find(l => l.slot === 'ALL_DAY' || l.slot === p.slot);
           if (lock) {
             const isExtra = lock.type === 'extra_class';
-            const icon = isExtra ? '📚' : '🔒';
+            const icon = isExtra ? 'EC' : 'LK';
             const badgeTitle = `${p.full}: ${icon} ${isExtra ? 'EXTRA CLASS' : 'ROOM LOCKED'} - ${escapeHtml(lock.title || '')}`;
             const lockStyle = isExtra ? 'background: #2563eb; color: #FFF;' : 'background: #dc2626; color: #FFF;';
             return `<div class="p-block busy" style="${lockStyle}" data-room="${room.code}" data-slot="${p.slot}" title="${badgeTitle}">${icon}</div>`;
@@ -2743,14 +2743,14 @@ ${directRoomUrl}`;
         const roomLockBannersHtml = activeRoomLocks.length > 0
           ? activeRoomLocks.map(l => {
               const isExtra = l.type === 'extra_class';
-              const icon = isExtra ? '📚' : '🔒';
+              const icon = isExtra ? 'EC' : 'LK';
               const isFullDay = l.slot === 'ALL_DAY';
               const label = isExtra ? 'EXTRA CLASS SCHEDULED' : (isFullDay ? 'ROOM FULL DAY LOCKED' : 'ROOM PERIOD LOCKED');
               const slotText = isFullDay ? 'Full Day (8:30 AM – 6:00 PM)' : l.slot.replace(' to ', ' – ');
               const bannerClass = isExtra ? 'extra-class-banner' : 'locked-room-banner';
               const titleNote = l.title ? ` – "${escapeHtml(l.title)}"` : '';
               return `<div class="${bannerClass}">
-                <span style="font-size: 0.95rem;">${icon}</span>
+                
                 <span><strong>${label}:</strong> ${escapeHtml(slotText)}${titleNote}</span>
               </div>`;
             }).join('')
@@ -2758,7 +2758,7 @@ ${directRoomUrl}`;
 
         const bonusBannerHtml = effectiveBonusSlots.length > 0
           ? `<div class="bonus-free-banner">
-               <span>✨</span>
+               
                <span><strong>Extra Free Slot:</strong> Faculty on leave</span>
              </div>`
           : '';
@@ -2766,12 +2766,12 @@ ${directRoomUrl}`;
         const catBadgeClass = getCategoryBadgeClass(room.category);
 
         const unavailableBadgeHtml = isUnavailable
-          ? `<span class="badge-room-unavailable">🛠️ Unavailable</span>`
+          ? `<span class="badge-room-unavailable">Unavailable</span>`
           : '';
 
         const unavailableCalloutHtml = isUnavailable
           ? `<div class="unavailable-callout">
-               <span>🛠️</span>
+               
                <span><strong>Under Maintenance:</strong> ${escapeHtml(roomOv.reason || 'Temporarily Unavailable')}${roomOv.duration ? ` (${escapeHtml(roomOv.duration)})` : ''}</span>
              </div>`
           : '';
@@ -2833,7 +2833,7 @@ ${directRoomUrl}`;
 
             <div class="card-actions room-card-actions">
               <button class="btn-share-room" data-room="${escapeHtml(room.code)}" title="Share room vacancy & QR directly">
-                📤 Share Room & QR
+                Share Room & QR
               </button>
               <button class="btn-view-schedule" data-room="${escapeHtml(room.code)}">
                 Schedule ↗
@@ -2843,7 +2843,7 @@ ${directRoomUrl}`;
         `;
       }).join('');
 
-      // Attach Modal Listeners
+// Attach Modal Listeners
       document.querySelectorAll('.btn-view-schedule').forEach(btn => {
         btn.addEventListener('click', () => openScheduleModal(btn.dataset.room));
       });
@@ -2889,7 +2889,7 @@ ${directRoomUrl}`;
       if (!raw || typeof raw !== 'string') return '<span class="class-batch-line">Scheduled Class</span>';
       let cleaned = raw.replace(/<[-=]+>/g, '').trim();
 
-      // Check if this is a multi-part concatenated string of the SAME class (e.g. LAB-1...LAB-2...NP1...NP2...NP3)
+// Check if this is a multi-part concatenated string of the SAME class (e.g. LAB-1...LAB-2...NP1...NP2...NP3)
       const subParts = cleaned.split(/(?=(?:LAB|L|T)-(?:\d+\.\s*)?(?:BCH|BAH|M\.COM|MA-ECO|JOINT)-)/).map(p => p.trim()).filter(Boolean);
       if (subParts.length > 1) {
         const batches = [];
@@ -3067,7 +3067,7 @@ ${directRoomUrl}`;
     function openScheduleModal(roomCode, targetDay = null) {
       const room = findRoomByCodeOrName(roomCode);
       if (!room) {
-        showToast(`⚠️ Schedule not found for Room: ${escapeHtml(roomCode)}`);
+        showToast(`Schedule not found for Room: ${escapeHtml(roomCode)}`);
         return;
       }
       currentModalRoomCode = room.code;
@@ -3094,7 +3094,7 @@ ${directRoomUrl}`;
       }
       if (modalRoomMeta) modalRoomMeta.textContent = `${room.category} · Capacity: ${room.capacity || 0} seats`;
 
-      // Synchronize modal day tabs
+// Synchronize modal day tabs
       const modalRoomDayTabs = document.getElementById('modalRoomDayTabs');
       if (modalRoomDayTabs) {
         modalRoomDayTabs.querySelectorAll('.modal-day-tab-btn').forEach(btn => {
@@ -3124,7 +3124,7 @@ ${directRoomUrl}`;
       const modalUnavailableBanner = isUnavailable
         ? `
           <div class="modal-lock-alert" style="background: rgba(220, 38, 38, 0.12); color: #b91c1c; border-color: rgba(220, 38, 38, 0.4); margin-bottom: 12px;">
-            <span style="font-size: 1.3rem;">🛠️</span>
+            
             <div style="flex: 1;">
               <strong>TEMPORARILY UNAVAILABLE / UNDER MAINTENANCE</strong>
               <div style="font-size: 0.82rem; margin-top: 3px;">
@@ -3138,7 +3138,7 @@ ${directRoomUrl}`;
       const modalLocksBanner = activeRoomLocks.length > 0
         ? activeRoomLocks.map(l => {
             const isExtra = l.type === 'extra_class';
-            const icon = isExtra ? '📚' : '🔒';
+            const icon = isExtra ? 'EC' : 'LK';
             const isFullDay = l.slot === 'ALL_DAY';
             const label = isExtra ? 'EXTRA CLASS SCHEDULED' : (isFullDay ? 'ROOM FULL DAY LOCKED' : 'ROOM PERIOD LOCKED');
             const slotText = isFullDay ? 'Full Day (8:30 AM – 6:00 PM)' : l.slot.replace(' to ', ' – ');
@@ -3154,19 +3154,19 @@ ${directRoomUrl}`;
           }).join('')
         : '';
 
-      // 1. Desktop Table Rows (> 640px)
+// 1. Desktop Table Rows (> 640px)
       const tableRows = allSlots.map((timeSlot) => {
         const slotFormatted = timeSlot.replace(' to ', ' – ');
         if (timeSlot === '1:30 PM to 2:00 PM') {
           return `
             <tr>
               <td style="white-space: nowrap;"><strong>1:30 PM – 2:00 PM</strong></td>
-              <td style="white-space: nowrap;"><span class="badge-slot-recess">☕ LUNCH RECESS</span></td>
+              <td style="white-space: nowrap;"><span class="badge-slot-recess">LUNCH RECESS</span></td>
               <td style="color: #047857;">
                 <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
                   <span>College-wide recess. Room is 100% vacant for GD & lunch discussions.</span>
                   <button type="button" class="btn-slot-cal-reminder" data-room="${escapeHtml(room.code)}" data-day="${escapeHtml(dayToUse)}" data-slot="1:30 PM to 2:00 PM" title="Add reminder to Google Calendar / Apple Calendar">
-                    📅 Add to Calendar
+                    Add to Calendar
                   </button>
                 </div>
               </td>
@@ -3177,13 +3177,13 @@ ${directRoomUrl}`;
         const lock = activeRoomLocks.find(l => l.slot === 'ALL_DAY' || l.slot === timeSlot);
         if (lock) {
           const isExtra = lock.type === 'extra_class';
-          const lockIcon = isExtra ? '📚' : '🔒';
+          const lockIcon = isExtra ? 'EC' : 'LK';
           const lockBadge = isExtra ? 'EXTRA CLASS' : 'ROOM LOCKED';
           const badgeBg = isExtra ? 'background: #2563eb; color: #fff;' : 'background: #dc2626; color: #fff; border: 1px solid #b91c1c;';
           return `
             <tr style="background: ${isExtra ? 'rgba(37, 99, 235, 0.08)' : 'rgba(239, 68, 68, 0.08)'};">
               <td style="white-space: nowrap;"><strong>${slotFormatted}</strong></td>
-              <td style="white-space: nowrap;"><span class="badge-slot-occupied" style="${badgeBg}">${lockIcon} ${lockBadge}</span></td>
+              <td style="white-space: nowrap;"><span class="badge-slot-occupied" style="${badgeBg}">${lockBadge}</span></td>
               <td>
                 <strong style="${isExtra ? 'color: #1d4ed8;' : 'color: #dc2626;'}">${isExtra ? 'Extra Class Scheduled' : 'Classroom Reserved / Locked'}:</strong> ${escapeHtml(lock.title || 'Administrative arrangement')}
                 <div style="font-size: 0.74rem; color: var(--text-muted); margin-top: 2px;">Classroom is reserved and not available for self-study during this period.</div>
@@ -3210,7 +3210,7 @@ ${directRoomUrl}`;
                       <strong style="color: #7e22ce;">Lecture Suspended:</strong> Prof. <strong>${escapeHtml(teach.clean_name)}</strong> (${escapeHtml(teach.short_code || '')}) is on leave. Classroom is vacant for self-study.
                     </div>
                     <button type="button" class="btn-slot-cal-reminder" data-room="${escapeHtml(room.code)}" data-day="${escapeHtml(dayToUse)}" data-slot="${escapeHtml(timeSlot)}" title="Add reminder to Google Calendar / Apple Calendar">
-                      📅 Add to Calendar
+                      Add to Calendar
                     </button>
                   </div>
                   <div class="room-sched-teacher-row">
@@ -3220,7 +3220,7 @@ ${directRoomUrl}`;
                       <span class="rs-dept-badge">${escapeHtml(teach.department || 'Faculty')}</span>
                     </div>
                     <button type="button" class="btn-room-view-teacher-tt" data-teacher-id="${escapeHtml(teach.id)}">
-                      🗓️ View Teacher Timetable ↗
+                      View Teacher Timetable ↗
                     </button>
                   </div>
                 </div>
@@ -3236,14 +3236,14 @@ ${directRoomUrl}`;
                 <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
                   <span>Vacant Classroom (Available for Study/GD)</span>
                   <button type="button" class="btn-slot-cal-reminder" data-room="${escapeHtml(room.code)}" data-day="${escapeHtml(dayToUse)}" data-slot="${escapeHtml(timeSlot)}" title="Add reminder to Google Calendar / Apple Calendar">
-                    📅 Add to Calendar
+                    Add to Calendar
                   </button>
                 </div>
               </td>
             </tr>
           `;
         } else {
-          // Class in Session
+// Class in Session
           const classDesc = occupiedObj ? occupiedObj.class : 'Scheduled Class';
           let detailsHtml = '';
 
@@ -3277,7 +3277,7 @@ ${directRoomUrl}`;
                       <span class="rs-dept-badge">${escapeHtml(teach.department || 'Faculty')}</span>
                     </div>
                     <button type="button" class="btn-room-view-teacher-tt" data-teacher-id="${escapeHtml(teach.id)}">
-                      🗓️ View Teacher Timetable ↗
+                      View Teacher Timetable ↗
                     </button>
                   </div>
                 </div>
@@ -3297,20 +3297,20 @@ ${directRoomUrl}`;
         }
       }).join('');
 
-      // 2. Mobile Cards (<= 640px)
+// 2. Mobile Cards (<= 640px)
       const mobileCards = allSlots.map((timeSlot) => {
         const slotFormatted = timeSlot.replace(' to ', ' – ');
         if (timeSlot === '1:30 PM to 2:00 PM') {
           return `
             <div class="room-sched-mobile-card is-recess">
               <div class="rsm-header">
-                <div class="rsm-time">🕒 ${slotFormatted}</div>
-                <span class="badge-slot-recess">☕ LUNCH RECESS</span>
+                <div class="rsm-time">${slotFormatted}</div>
+                <span class="badge-slot-recess">LUNCH RECESS</span>
               </div>
               <div class="rsm-body-text">College-wide recess. Room is vacant & open for peer discussions.</div>
               <div style="margin-top: 8px; text-align: right;">
                 <button type="button" class="btn-slot-cal-reminder" data-room="${escapeHtml(room.code)}" data-day="${escapeHtml(dayToUse)}" data-slot="${escapeHtml(timeSlot)}">
-                  📅 Add to Calendar
+                  Add to Calendar
                 </button>
               </div>
             </div>
@@ -3320,14 +3320,14 @@ ${directRoomUrl}`;
         const lock = activeRoomLocks.find(l => l.slot === 'ALL_DAY' || l.slot === timeSlot);
         if (lock) {
           const isExtra = lock.type === 'extra_class';
-          const lockIcon = isExtra ? '📚' : '🔒';
+          const lockIcon = isExtra ? 'EC' : 'LK';
           const lockBadge = isExtra ? 'EXTRA CLASS' : 'ROOM LOCKED';
           const badgeBg = isExtra ? 'background: #2563eb; color: #fff;' : 'background: #dc2626; color: #fff; border: 1px solid #b91c1c;';
           return `
             <div class="room-sched-mobile-card is-locked" style="${isExtra ? 'border-left-color: #2563eb;' : ''}">
               <div class="rsm-header">
-                <div class="rsm-time">🕒 ${slotFormatted}</div>
-                <span class="badge-slot-occupied" style="${badgeBg}">${lockIcon} ${lockBadge}</span>
+                <div class="rsm-time">${slotFormatted}</div>
+                <span class="badge-slot-occupied" style="${badgeBg}">${lockBadge}</span>
               </div>
               <div class="rsm-body-text">
                 <strong style="${isExtra ? 'color: #1d4ed8;' : 'color: #dc2626;'}">${isExtra ? 'Extra Class Scheduled' : 'Classroom Reserved / Locked'}:</strong> ${escapeHtml(lock.title || 'Administrative arrangement')}
@@ -3347,7 +3347,7 @@ ${directRoomUrl}`;
           return `
             <div class="room-sched-mobile-card is-leave">
               <div class="rsm-header">
-                <div class="rsm-time">🕒 ${slotFormatted}</div>
+                <div class="rsm-time">${slotFormatted}</div>
                 <span class="badge-slot-leave">Vacant (Faculty Leave)</span>
               </div>
               <div class="rsm-body-text">
@@ -3359,13 +3359,13 @@ ${directRoomUrl}`;
                     <span class="rs-dept-badge">${escapeHtml(teach.department || 'Faculty')}</span>
                   </div>
                   <button type="button" class="btn-room-view-teacher-tt" data-teacher-id="${escapeHtml(teach.id)}">
-                    🗓️ View Teacher Timetable ↗
+                    View Teacher Timetable ↗
                   </button>
                 </div>
               </div>
               <div style="margin-top: 8px; text-align: right;">
                 <button type="button" class="btn-slot-cal-reminder" data-room="${escapeHtml(room.code)}" data-day="${escapeHtml(dayToUse)}" data-slot="${escapeHtml(timeSlot)}">
-                  📅 Add to Calendar
+                  Add to Calendar
                 </button>
               </div>
             </div>
@@ -3374,11 +3374,11 @@ ${directRoomUrl}`;
           return `
             <div class="room-sched-mobile-card is-free">
               <div class="rsm-header">
-                <div class="rsm-time">🕒 ${slotFormatted}</div>
+                <div class="rsm-time">${slotFormatted}</div>
                 <span class="badge-slot-free">FREE FOR GD</span>
               </div>
               <div class="rsm-free-badge-wrap">
-                <span style="font-size: 1.1rem;">✨</span>
+                
                 <div>
                   <strong style="color: #047857; font-size: 0.88rem;">Vacant Classroom</strong>
                   <div style="font-size: 0.76rem; color: var(--text-muted); margin-top: 1px;">Available for Group Discussions (GD), self-study & peer work.</div>
@@ -3386,13 +3386,13 @@ ${directRoomUrl}`;
               </div>
               <div style="margin-top: 8px; text-align: right;">
                 <button type="button" class="btn-slot-cal-reminder" data-room="${escapeHtml(room.code)}" data-day="${escapeHtml(dayToUse)}" data-slot="${escapeHtml(timeSlot)}">
-                  📅 Add to Calendar
+                  Add to Calendar
                 </button>
               </div>
             </div>
           `;
         } else {
-          // Class in Session
+// Class in Session
           const classDesc = occupiedObj ? occupiedObj.class : 'Scheduled Class';
           let innerContent = '';
 
@@ -3426,7 +3426,7 @@ ${directRoomUrl}`;
                       <span class="rs-dept-badge">${escapeHtml(teach.department || 'Faculty')}</span>
                     </div>
                     <button type="button" class="btn-room-view-teacher-tt" data-teacher-id="${escapeHtml(teach.id)}">
-                      🗓️ View Teacher Timetable ↗
+                      View Teacher Timetable ↗
                     </button>
                   </div>
                 </div>
@@ -3439,7 +3439,7 @@ ${directRoomUrl}`;
           return `
             <div class="room-sched-mobile-card is-occupied">
               <div class="rsm-header">
-                <div class="rsm-time">🕒 ${slotFormatted}</div>
+                <div class="rsm-time">${slotFormatted}</div>
                 <span class="badge-slot-occupied">CLASS IN SESSION</span>
               </div>
               <div class="rsm-body-content">
@@ -3476,7 +3476,7 @@ ${directRoomUrl}`;
           <p class="modal-disclaimer-note">ℹ️ <strong>Timetable Vacancy Notice:</strong> Based on official SRCC published schedule. Physical vacancy may vary for student societies, seminars, or exam arrangements.</p>
         `;
 
-        // Attach listeners for jumping directly to teacher timetables
+// Attach listeners for jumping directly to teacher timetables
         modalBody.querySelectorAll('.btn-room-view-teacher-tt').forEach(btn => {
           btn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -3484,7 +3484,7 @@ ${directRoomUrl}`;
           });
         });
 
-        // Attach listeners for setting calendar reminders for vacant slots or scheduled classes
+// Attach listeners for setting calendar reminders for vacant slots or scheduled classes
         modalBody.querySelectorAll('.btn-slot-cal-reminder').forEach(btn => {
           btn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -3512,10 +3512,10 @@ ${directRoomUrl}`;
       if (scheduleModal) openAppModal(scheduleModal);
     }
 
-    // Expose globally for quick modal inspection across views
+// Expose globally for quick modal inspection across views
     window.openScheduleModal = openScheduleModal;
 
-    // Day selector tabs inside Room Schedule Modal
+// Day selector tabs inside Room Schedule Modal
     const modalRoomDayTabs = document.getElementById('modalRoomDayTabs');
     if (modalRoomDayTabs) {
       modalRoomDayTabs.querySelectorAll('.modal-day-tab-btn').forEach(btn => {
@@ -3527,7 +3527,7 @@ ${directRoomUrl}`;
       });
     }
 
-    // Toolbar buttons inside Room Schedule Modal
+// Toolbar buttons inside Room Schedule Modal
     const btnExportScheduleImg = document.getElementById('btnModalExportScheduleImg');
     if (btnExportScheduleImg) {
       btnExportScheduleImg.addEventListener('click', () => {
@@ -3555,7 +3555,7 @@ ${directRoomUrl}`;
       });
     }
 
-    // Helper: Parse Slot Time Range e.g. "12:30 PM to 1:30 PM"
+// Helper: Parse Slot Time Range e.g. "12:30 PM to 1:30 PM"
     function parseSlotTimeRange(slotStr) {
       const parts = (slotStr || '').split(/\s*(?:to|–|-)\s*/i);
       function parsePart(p) {
@@ -3574,7 +3574,7 @@ ${directRoomUrl}`;
       return { start, end };
     }
 
-    // Helper: Find next upcoming date for given day of week
+// Helper: Find next upcoming date for given day of week
     function getNextDateForDayName(dayName) {
       const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
       const targetIdx = days.indexOf(dayName);
@@ -3585,7 +3585,7 @@ ${directRoomUrl}`;
       return new Date(now.getTime() + diff * 86400000);
     }
 
-    // 📅 Calendar & Slot Reminder Modal Implementation
+// Calendar & Slot Reminder Modal Implementation
     function openCalendarReminderModal(roomCode, dayName, slotStr) {
       const room = findRoomByCodeOrName(roomCode);
       if (!room) return;
@@ -3621,7 +3621,7 @@ ${directRoomUrl}`;
       if (btnGoogle) {
         btnGoogle.href = gcalUrl;
         btnGoogle.onclick = () => {
-          showToast(`🗓️ Opening Google Calendar for Room ${room.code}!`);
+          showToast(`Opening Google Calendar for Room ${room.code}!`);
         };
       }
 
@@ -3633,9 +3633,9 @@ ${directRoomUrl}`;
 
       if (btnCopy) {
         btnCopy.onclick = () => {
-          const inviteMsg = `📢 *SRCC GD / Peer Study Session*\n\n📍 *Room:* ${room.code} (${room.name})\n🏛️ *Wing:* ${room.category}\n🗓️ *Day:* ${dayName}\n🕒 *Slot:* ${slotStr.replace(' to ', ' – ')}\n👥 *Capacity:* ${room.capacity}\n\n🔗 Join / Verify Vacancy: ${directUrl}`;
+          const inviteMsg = `*SRCC GD / Peer Study Session*\n\n*Room:* ${room.code} (${room.name})\n*Wing:* ${room.category}\n*Day:* ${dayName}\n*Slot:* ${slotStr.replace(' to ', ' – ')}\n*Capacity:* ${room.capacity}\n\nJoin / Verify Vacancy: ${directUrl}`;
           navigator.clipboard.writeText(inviteMsg).then(() => {
-            showToast('📋 Copied GD invite message to clipboard!');
+            showToast('Copied GD invite message to clipboard!');
           }).catch(() => {
             showToast(`Invite ready for Room ${room.code}`);
           });
@@ -3656,7 +3656,7 @@ ${directRoomUrl}`;
       }
     }
 
-    // 🍏 Generate and Download .ics Calendar File with 15-Minute Prior Alarm
+// Generate and Download .ics Calendar File with 15-Minute Prior Alarm
     function downloadIcsCalendarFile(roomCode, dayName, slotStr, targetDate, startH, startMin, endH, endMin, directUrl) {
       const pad = n => String(n).padStart(2, '0');
       const y = targetDate.getFullYear();
@@ -3708,10 +3708,10 @@ ${directRoomUrl}`;
       a.click();
       document.body.removeChild(a);
       setTimeout(() => URL.revokeObjectURL(url), 2000);
-      showToast(`🍏 Downloaded Apple / Outlook reminder with 15m alarm!`);
+      showToast(`Downloaded Apple / Outlook reminder with 15m alarm!`);
     }
 
-    // 📅 Faculty Class / Lecture Calendar Reminder Modal
+// Faculty Class / Lecture Calendar Reminder Modal
     function openTeacherCalendarReminderModal(teacher, cls, dayName) {
       if (!teacher || !cls) return;
       const calModal = document.getElementById('calendarReminderModal');
@@ -3729,7 +3729,7 @@ ${directRoomUrl}`;
       const slotDisplay = cls.slot ? cls.slot.replace(' to ', ' – ') : 'Period';
       const roomDisplay = cls.room ? `Room ${cls.room.trim()}` : 'Room TBD';
 
-      if (calTitle) calTitle.textContent = `📅 Add Lecture to Calendar`;
+      if (calTitle) calTitle.textContent = `Add Lecture to Calendar`;
       if (calMeta) calMeta.textContent = `Prof. ${teacher.clean_name} · ${cls.type || 'Lecture'}`;
       if (calRoomName) calRoomName.textContent = `${subjTitle} (${subjInfo.code || cls.course || ''})`;
       if (calSlotTime) calSlotTime.textContent = `${dayName} · ${slotDisplay} · ${roomDisplay}`;
@@ -3755,7 +3755,7 @@ ${directRoomUrl}`;
       if (btnGoogle) {
         btnGoogle.href = gcalUrl;
         btnGoogle.onclick = () => {
-          showToast(`🗓️ Opening Google Calendar for ${subjTitle}!`);
+          showToast(`Opening Google Calendar for ${subjTitle}!`);
         };
       }
 
@@ -3767,10 +3767,10 @@ ${directRoomUrl}`;
 
       if (btnCopy) {
         btnCopy.onclick = () => {
-          const inviteMsg = `📢 *SRCC Class Alert*\n\n📚 *Subject:* ${subjTitle} (${subjInfo.code})\n👨‍🏫 *Faculty:* Prof. ${teacher.clean_name}\n🏛️ *Location:* ${roomDisplay}\n🗓️ *Day:* ${dayName}\n🕒 *Slot:* ${slotDisplay}\n\n🔗 Timetable: ${directUrl}`;
+          const inviteMsg = `*SRCC Class Alert*\n\n*Subject:* ${subjTitle} (${subjInfo.code})\n*Faculty:* Prof. ${teacher.clean_name}\n*Location:* ${roomDisplay}\n*Day:* ${dayName}\n*Slot:* ${slotDisplay}\n\nTimetable: ${directUrl}`;
           if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(inviteMsg).then(() => {
-              showToast('📋 Copied class alert to clipboard!');
+              showToast('Copied class alert to clipboard!');
             }).catch(() => {
               showToast(`Class alert ready for Prof. ${teacher.clean_name}`);
             });
@@ -3846,10 +3846,10 @@ ${directRoomUrl}`;
       a.click();
       document.body.removeChild(a);
       setTimeout(() => URL.revokeObjectURL(url), 2000);
-      showToast(`🍏 Downloaded Apple / Outlook reminder with 15m alarm!`);
+      showToast(`Downloaded Apple / Outlook reminder with 15m alarm!`);
     }
 
-    // 📸 Export Complete Daily Room Schedule as Ultra Crisp PNG Image
+// Export Complete Daily Room Schedule as Ultra Crisp PNG Image
     function exportScheduleAsImage(roomCode, targetDay = null) {
       const room = findRoomByCodeOrName(roomCode);
       if (!room) return;
@@ -3863,22 +3863,22 @@ ${directRoomUrl}`;
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
 
-      // Background
+// Background
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Navy Header Banner
+// Navy Header Banner
       const grad = ctx.createLinearGradient(0, 0, canvas.width, 150);
       grad.addColorStop(0, '#0a1128');
       grad.addColorStop(1, '#1e293b');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, canvas.width, 150);
 
-      // Gold accent bar
+// Gold accent bar
       ctx.fillStyle = '#f59e0b';
       ctx.fillRect(0, 146, canvas.width, 4);
 
-      // Header Title
+// Header Title
       ctx.fillStyle = '#94a3b8';
       ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
       ctx.fillText('SHRI RAM COLLEGE OF COMMERCE · UNIVERSITY OF DELHI', 36, 38);
@@ -3889,14 +3889,14 @@ ${directRoomUrl}`;
 
       ctx.fillStyle = '#38bdf8';
       ctx.font = '600 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-      ctx.fillText(`🏛️ ${room.category}   •   👥 Capacity: ${room.capacity}   •   🟢 ${effectiveFreeHours} Academic Hours Free`, 36, 110);
+      ctx.fillText(`${room.category}   •   Capacity: ${room.capacity}   •   ${effectiveFreeHours} Academic Hours Free`, 36, 110);
 
-      // Day Info Sub-header
+// Day Info Sub-header
       ctx.fillStyle = '#f8fafc';
       ctx.fillRect(0, 150, canvas.width, 46);
       ctx.fillStyle = '#0f172a';
       ctx.font = 'bold 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-      ctx.fillText(`🗓️ ${dayName} Class Schedule & Vacancy`, 36, 180);
+      ctx.fillText(`${dayName} Class Schedule & Vacancy`, 36, 180);
 
       const istNow = getIstDate();
       const dateStr = istNow.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
@@ -3906,7 +3906,7 @@ ${directRoomUrl}`;
       ctx.fillText(`Verified Timetable · ${dateStr}`, canvas.width - 36, 180);
       ctx.textAlign = 'left';
 
-      // Table Header
+// Table Header
       const headerY = 196;
       ctx.fillStyle = '#e2e8f0';
       ctx.fillRect(0, headerY, canvas.width, 36);
@@ -3934,11 +3934,11 @@ ${directRoomUrl}`;
       const rowHeight = 78;
 
       allSlots.forEach((slot, idx) => {
-        // Row background
+// Row background
         ctx.fillStyle = (idx % 2 === 0) ? '#ffffff' : '#f8fafc';
         ctx.fillRect(0, currentY, canvas.width, rowHeight);
 
-        // Row divider
+// Row divider
         ctx.strokeStyle = '#e2e8f0';
         ctx.lineWidth = 1;
         ctx.beginPath();
@@ -3951,7 +3951,7 @@ ${directRoomUrl}`;
         ctx.font = 'bold 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
         ctx.fillText(slotLabel, 36, currentY + 36);
 
-        // Check status
+// Check status
         const isRecess = (slot === '1:30 PM to 2:00 PM');
         const isFree = isRecess || sched.free_slots.includes(slot);
         const leaveInfo = getRoomScheduledTeacherLeave(room.code, dayName, slot);
@@ -3959,12 +3959,12 @@ ${directRoomUrl}`;
         const matchedTeachers = getRoomScheduledClassDetails(room.code, dayName, slot);
 
         if (isRecess) {
-          drawBadge(ctx, 240, currentY + 18, '☕ LUNCH RECESS', '#fef3c7', '#b45309', '#fde68a');
+          drawBadge(ctx, 240, currentY + 18, 'LUNCH RECESS', '#fef3c7', '#b45309', '#fde68a');
           ctx.fillStyle = '#047857';
           ctx.font = '600 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
           ctx.fillText('Campus-wide recess · 100% free for GD & lunch', 440, currentY + 44);
         } else if (leaveInfo) {
-          drawBadge(ctx, 240, currentY + 18, '✨ BONUS FREE (LEAVE)', '#f3e8ff', '#7e22ce', '#d8b4fe');
+          drawBadge(ctx, 240, currentY + 18, 'BONUS FREE (LEAVE)', '#f3e8ff', '#7e22ce', '#d8b4fe');
           ctx.fillStyle = '#6d28d9';
           ctx.font = 'bold 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
           ctx.fillText(`Prof. ${leaveInfo.teacher.clean_name} is on leave`, 440, currentY + 34);
@@ -3972,12 +3972,12 @@ ${directRoomUrl}`;
           ctx.font = '12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
           ctx.fillText('Class cancelled · Room vacant for self-study', 440, currentY + 54);
         } else if (isFree) {
-          drawBadge(ctx, 240, currentY + 18, '🟢 VACANT FOR GD', '#dcfce7', '#15803d', '#86efac');
+          drawBadge(ctx, 240, currentY + 18, 'VACANT FOR GD', '#dcfce7', '#15803d', '#86efac');
           ctx.fillStyle = '#15803d';
           ctx.font = '600 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
           ctx.fillText('Vacant Classroom (Available for GD & study)', 440, currentY + 44);
         } else {
-          drawBadge(ctx, 240, currentY + 18, '🔴 CLASS IN SESSION', '#fee2e2', '#b91c1c', '#fecaca');
+          drawBadge(ctx, 240, currentY + 18, 'CLASS IN SESSION', '#fee2e2', '#b91c1c', '#fecaca');
           ctx.fillStyle = '#0f172a';
           ctx.font = '600 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
           if (matchedTeachers.length > 0) {
@@ -3998,12 +3998,12 @@ ${directRoomUrl}`;
         currentY += rowHeight;
       });
 
-      // Footer bar
+// Footer bar
       ctx.fillStyle = '#0a1128';
       ctx.fillRect(0, canvas.height - 64, canvas.width, 64);
       ctx.fillStyle = '#94a3b8';
       ctx.font = '600 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-      ctx.fillText('🎓 SRCC Free Classroom Finder · Built by Anand Kumar (25BC070)', 36, canvas.height - 28);
+      ctx.fillText('SRCC Free Classroom Finder · Built by Anand Kumar (25BC070)', 36, canvas.height - 28);
       ctx.fillStyle = '#38bdf8';
       ctx.textAlign = 'right';
       ctx.fillText('anand-srcc.github.io/srcc-free-classrooms', canvas.width - 36, canvas.height - 28);
@@ -4044,7 +4044,7 @@ ${directRoomUrl}`;
         a.click();
         document.body.removeChild(a);
         setTimeout(() => URL.revokeObjectURL(url), 2000);
-        showToast(`📸 Saved schedule image for Room ${room.code} (${dayName})!`);
+        showToast(`Saved schedule image for Room ${room.code} (${dayName})!`);
       }
 
       canvas.toBlob(blob => {
@@ -4058,7 +4058,7 @@ ${directRoomUrl}`;
             text: `Room ${room.code} schedule on ${dayName} at SRCC.`,
             files: [file]
           }).then(() => {
-            showToast(`📤 Shared Room ${room.code} schedule image!`);
+            showToast(`Shared Room ${room.code} schedule image!`);
           }).catch(err => {
             if (err.name !== 'AbortError') {
               triggerFileDownload(blob, filename);
@@ -4071,9 +4071,9 @@ ${directRoomUrl}`;
     }
 
 
-    // ========================================================================
-    // 👨‍🏫 FACULTY LOCATOR - CORE IMPLEMENTATION
-    // ========================================================================
+// ========================================================================
+// ‍ FACULTY LOCATOR - CORE IMPLEMENTATION
+// ========================================================================
     function getDeptAvatarClass(dept) {
       if (!dept) return 'avatar-default';
       const d = dept.toLowerCase();
@@ -4102,19 +4102,19 @@ ${directRoomUrl}`;
       return '';
     }
 
-    // Department Filter: Mobile Quick Select Dropdown Sync
+// Department Filter: Mobile Quick Select Dropdown Sync
     if (facultyDeptSelect) {
       facultyDeptSelect.addEventListener('change', (e) => {
         facultyState.activeDept = e.target.value;
         facultyDeptPills.forEach(p => p.classList.toggle('active', p.dataset.dept === facultyState.activeDept));
 
-        // Smooth scroll matching pill into view in horizontal container
+// Smooth scroll matching pill into view in horizontal container
         const activePill = Array.from(facultyDeptPills).find(p => p.dataset.dept === facultyState.activeDept);
         if (activePill && typeof activePill.scrollIntoView === 'function') {
           activePill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         }
 
-        // Clear leftover status filter (like ON_LEAVE or TEACHING_NOW) and search query
+// Clear leftover status filter (like ON_LEAVE or TEACHING_NOW) and search query
         facultyState.statusFilter = 'ALL';
         if (facultyStatusSelect) facultyStatusSelect.value = 'ALL';
         facultyState.searchQuery = '';
@@ -4126,14 +4126,14 @@ ${directRoomUrl}`;
       });
     }
 
-    // Department Filter Pills (Resets statusFilter & search query so all teachers of selected dept are shown!)
+// Department Filter Pills (Resets statusFilter & search query so all teachers of selected dept are shown!)
     facultyDeptPills.forEach(pill => {
       pill.addEventListener('click', () => {
         facultyState.activeDept = pill.dataset.dept;
         facultyDeptPills.forEach(p => p.classList.toggle('active', p.dataset.dept === facultyState.activeDept));
         if (facultyDeptSelect) facultyDeptSelect.value = facultyState.activeDept;
 
-        // Clear leftover status filter (like ON_LEAVE or TEACHING_NOW) and search query
+// Clear leftover status filter (like ON_LEAVE or TEACHING_NOW) and search query
         facultyState.statusFilter = 'ALL';
         if (facultyStatusSelect) facultyStatusSelect.value = 'ALL';
         facultyState.searchQuery = '';
@@ -4145,7 +4145,7 @@ ${directRoomUrl}`;
       });
     });
 
-    // Faculty Search
+// Faculty Search
     if (facultySearchInput) {
       facultySearchInput.addEventListener('input', (e) => {
         facultyState.searchQuery = e.target.value.trim();
@@ -4201,7 +4201,7 @@ ${directRoomUrl}`;
       });
     }
 
-    // Faculty A-Z Alphabet Quick Jump Buttons
+// Faculty A-Z Alphabet Quick Jump Buttons
     const facultyAzButtons = document.querySelectorAll('#facultyAzFilter .az-btn');
     if (facultyAzButtons.length > 0) {
       facultyAzButtons.forEach(btn => {
@@ -4213,7 +4213,7 @@ ${directRoomUrl}`;
       });
     }
 
-    // Calculate Teacher Live Status on Current Day
+// Calculate Teacher Live Status on Current Day
     function getTeacherLiveStatus(teacher) {
       const todayDate = getTodayIsoDate();
       const leave = isTeacherOnLeave(teacher, todayDate);
@@ -4224,7 +4224,7 @@ ${directRoomUrl}`;
           type: 'LEAVE',
           badgeClass: 'status-leave',
           dotClass: 'dot-leave',
-          text: `🏖️ On Leave: ${leave.reason || 'Class Cancelled'} (${dateDisplay})`,
+          text: `On Leave: ${leave.reason || 'Class Cancelled'} (${dateDisplay})`,
           isTeachingNow: false,
           isOnLeave: true,
           isFreeNow: false,
@@ -4232,7 +4232,7 @@ ${directRoomUrl}`;
         };
       }
 
-      // Check live slot status if active day matches current day
+// Check live slot status if active day matches current day
       const daySched = (teacher.schedule && teacher.schedule[facultyState.activeDay]) || [];
       const isToday = (todayName === facultyState.activeDay);
 
@@ -4254,7 +4254,7 @@ ${directRoomUrl}`;
           type: 'RECESS',
           badgeClass: 'status-recess',
           dotClass: 'dot-free',
-          text: `☕ College Lunch Recess (1:30 PM – 2:00 PM)`,
+          text: `College Lunch Recess (1:30 PM – 2:00 PM)`,
           isTeachingNow: false,
           isOnLeave: false,
           isFreeNow: true,
@@ -4269,7 +4269,7 @@ ${directRoomUrl}`;
             type: 'TEACHING_NOW',
             badgeClass: 'status-teaching',
             dotClass: 'dot-teaching',
-            text: `⚡ Teaching in Room ${liveClass.room || 'Classroom'} (${liveClass.subject || liveClass.course || 'Lecture'})`,
+            text: `Teaching in Room ${liveClass.room || 'Classroom'} (${liveClass.subject || liveClass.course || 'Lecture'})`,
             isTeachingNow: true,
             isOnLeave: false,
             isFreeNow: false,
@@ -4301,11 +4301,11 @@ ${directRoomUrl}`;
       };
     }
 
-    // Helper to get official faculty short code (primary timetable code only; never alias/reference code in student mode)
+// Helper to get official faculty short code (primary timetable code only; never alias/reference code in student mode)
     function getDisplayShortCode(teacher) {
       if (!teacher) return '';
       let primary = (teacher.short_code || '').trim().toUpperCase();
-      // Client-side rule: NEVER show reference codes, placeholder codes, or numeric tags to students
+// Client-side rule: NEVER show reference codes, placeholder codes, or numeric tags to students
       if (!primary || /\d/.test(primary) || /^(CG|HG|CSG|EG|MG|HGC|PSG|GUEST)\b/i.test(primary)) {
         return '';
       }
@@ -4323,7 +4323,7 @@ ${directRoomUrl}`;
         .trim();
     }
 
-    // Active Leaves Callout Banner Renderer (Syncs across Rooms and Faculty Locator)
+// Active Leaves Callout Banner Renderer (Syncs across Rooms and Faculty Locator)
     function renderActiveLeavesBanners() {
       const todayDate = getTodayIsoDate();
       const activeToday = getActiveTodayLeaves(todayDate);
@@ -4372,7 +4372,7 @@ ${directRoomUrl}`;
         }
       }
 
-      // Quick Access Button on Rooms page
+// Quick Access Button on Rooms page
       const btnRoomsFacultyLeavesQuick = document.getElementById('btnRoomsFacultyLeavesQuick');
       const roomsQuickLeaveCount = document.getElementById('roomsQuickLeaveCount');
       if (btnRoomsFacultyLeavesQuick) {
@@ -4385,7 +4385,7 @@ ${directRoomUrl}`;
         roomsQuickLeaveCount.style.background = count > 0 ? '#E11D48' : 'rgba(255, 255, 255, 0.15)';
       }
 
-      // Metric Tile in Faculty Locator ("On Leave Today")
+// Metric Tile in Faculty Locator ("On Leave Today")
       const metricFacultyOnLeaveTile = document.getElementById('metricFacultyOnLeaveTile');
       const metricFacultyOnLeave = document.getElementById('metricFacultyOnLeave');
       if (metricFacultyOnLeave) {
@@ -4396,13 +4396,13 @@ ${directRoomUrl}`;
       }
     }
 
-    // Helper: Strip leading titles (Dr., Dr, Prof., Prof, Mr., Ms., Mrs., CA, CMA) for alphabetical sorting & filtering
+// Helper: Strip leading titles (Dr., Dr, Prof., Prof, Mr., Ms., Mrs., CA, CMA) for alphabetical sorting & filtering
     function getTeacherBaseName(teacher) {
       const raw = (teacher.clean_name || teacher.label || '').trim();
       return raw.replace(/^(?:(?:dr|prof|mr|ms|mrs|ca|cma)\.?\s+)/i, '').trim();
     }
 
-    // Helper: Normalize name and query for phonetic search (e.g. sefali <-> shefali)
+// Helper: Normalize name and query for phonetic search (e.g. sefali <-> shefali)
     function normalizeFacultySearchText(str) {
       return (str || '').toLowerCase()
         .replace(/^(?:(?:dr|prof|mr|ms|mrs|ca|cma)\.?\s+)/i, '')
@@ -4424,11 +4424,11 @@ ${directRoomUrl}`;
       const dept = (teacher.department || '').toLowerCase();
       const email = (teacher.email || '').toLowerCase();
 
-      // Direct case-insensitive match on name, label, short code, ref code, department, email
+// Direct case-insensitive match on name, label, short code, ref code, department, email
       if (name.includes(q) || label.includes(q) || code.includes(q) || refCode.includes(q) || dept.includes(q) || email.includes(q)) return true;
       if (name.replace(/[\s\-_]+/g, '').includes(qNorm) || label.replace(/[\s\-_]+/g, '').includes(qNorm)) return true;
 
-      // Phonetic / spelling variant matching (e.g. "sefali" matches "Dr. Shefali Kapoor")
+// Phonetic / spelling variant matching (e.g. "sefali" matches "Dr. Shefali Kapoor")
       const normQ = normalizeFacultySearchText(q);
       if (normQ.length > 0) {
         const normName = normalizeFacultySearchText(teacher.clean_name);
@@ -4436,7 +4436,7 @@ ${directRoomUrl}`;
         if (normName.includes(normQ) || normLabel.includes(normQ)) return true;
       }
 
-      // Check subjects array (e.g. FMI, CLAW, BLAW, IF, BRM, etc.) and full names
+// Check subjects array (e.g. FMI, CLAW, BLAW, IF, BRM, etc.) and full names
       if (Array.isArray(teacher.subjects)) {
         for (const sub of teacher.subjects) {
           const subLower = sub.toLowerCase();
@@ -4446,7 +4446,7 @@ ${directRoomUrl}`;
         }
       }
 
-      // Check inside schedule for room or subject match across ALL days
+// Check inside schedule for room or subject match across ALL days
       if (teacher.schedule) {
         for (const dayKey of Object.keys(teacher.schedule)) {
           const sched = teacher.schedule[dayKey];
@@ -4470,9 +4470,9 @@ ${directRoomUrl}`;
       return false;
     }
 
-    // ========================================================================
-    // 🎨 RENDER FACULTY LOCATOR VIEW
-    // ========================================================================
+// ========================================================================
+// RENDER FACULTY LOCATOR VIEW
+// ========================================================================
     function renderFaculty() {
       renderActiveLeavesBanners();
 
@@ -4483,7 +4483,7 @@ ${directRoomUrl}`;
 
       if (statFacultyDay) statFacultyDay.textContent = facultyState.activeDay;
 
-      // View toggle buttons active state
+// View toggle buttons active state
       if (btnFacultyViewGrid) btnFacultyViewGrid.classList.toggle('active', facultyState.viewMode === 'grid');
       if (btnFacultyViewCompact) btnFacultyViewCompact.classList.toggle('active', facultyState.viewMode === 'compact');
       if (facultyGrid) {
@@ -4491,14 +4491,14 @@ ${directRoomUrl}`;
       }
 
       let list = teachersData.teachers.filter(teacher => {
-        // Department filter
+// Department filter
         if (facultyState.activeDept !== 'ALL') {
           if ((teacher.department || '').toLowerCase() !== facultyState.activeDept.toLowerCase()) {
             return false;
           }
         }
 
-        // Alphabet Filter (Skips 'Dr.' / 'Prof.' titles)
+// Alphabet Filter (Skips 'Dr.' / 'Prof.' titles)
         if (facultyState.alphabetFilter && facultyState.alphabetFilter !== 'ALL') {
           const baseName = getTeacherBaseName(teacher);
           if (!baseName.toUpperCase().startsWith(facultyState.alphabetFilter.toUpperCase())) {
@@ -4506,12 +4506,12 @@ ${directRoomUrl}`;
           }
         }
 
-        // Search Query
+// Search Query
         if (facultyState.searchQuery && !matchesFacultySearch(teacher, facultyState.searchQuery)) {
           return false;
         }
 
-        // Live Status Filter
+// Live Status Filter
         const status = getTeacherLiveStatus(teacher);
         if (facultyState.statusFilter === 'TEACHING_NOW' && !status.isTeachingNow) return false;
         if (facultyState.statusFilter === 'FREE_NOW' && !status.isFreeNow) return false;
@@ -4520,7 +4520,7 @@ ${directRoomUrl}`;
         return true;
       });
 
-      // Sorting (Considers base name without Dr./Prof. titles)
+// Sorting (Considers base name without Dr./Prof. titles)
       list.sort((a, b) => {
         const daySchedA = (a.schedule && a.schedule[facultyState.activeDay]) ? a.schedule[facultyState.activeDay].length : 0;
         const daySchedB = (b.schedule && b.schedule[facultyState.activeDay]) ? b.schedule[facultyState.activeDay].length : 0;
@@ -4528,7 +4528,7 @@ ${directRoomUrl}`;
         const baseB = getTeacherBaseName(b);
 
         if (facultyState.sortBy === 'NAME_ASC') {
-          // If search query is active, rank prefix matches first
+// If search query is active, rank prefix matches first
           if (facultyState.searchQuery && facultyState.searchQuery.trim().length > 0) {
             const normQ = normalizeFacultySearchText(facultyState.searchQuery.trim());
             const normBaseA = normalizeFacultySearchText(baseA);
@@ -4552,7 +4552,7 @@ ${directRoomUrl}`;
         return 0;
       });
 
-      // Update Counts
+// Update Counts
       const allTeachers = teachersData.teachers;
       let teachingCount = 0;
       let freeCount = 0;
@@ -4593,7 +4593,7 @@ ${directRoomUrl}`;
               metricEmailStatusTag.textContent = facultyState.showEmails ? '(Shown)' : '(Off)';
             }
             renderFaculty();
-            showToast(facultyState.showEmails ? '✉️ Faculty emails displayed on cards' : '✉️ Faculty emails hidden');
+            showToast(facultyState.showEmails ? 'Faculty emails displayed on cards' : 'Faculty emails hidden');
           };
         }
       }
@@ -4610,7 +4610,7 @@ ${directRoomUrl}`;
 
       if (statFacultyCount) statFacultyCount.textContent = list.length;
 
-      // Filter Desc & Active Chips
+// Filter Desc & Active Chips
       const descParts = [];
       if (facultyState.activeDept !== 'ALL') descParts.push(`Dept: ${facultyState.activeDept}`);
       if (facultyState.statusFilter !== 'ALL') {
@@ -4634,7 +4634,7 @@ ${directRoomUrl}`;
               if (facultySearchInput) facultySearchInput.value = '';
               if (btnClearFacultySearch) btnClearFacultySearch.style.display = 'none';
               renderFaculty();
-              showToast('🔄 Filter cleared: showing all faculty');
+              showToast('Filter cleared: showing all faculty');
             };
           }
         } else if (descParts.length) {
@@ -4663,7 +4663,7 @@ ${directRoomUrl}`;
             emptyResetBtn.id = 'btnEmptyFacultyReset';
             emptyResetBtn.className = 'btn-reset-filters';
             emptyResetBtn.style.marginTop = '14px';
-            emptyResetBtn.textContent = '🔄 Clear Filters & Show All Faculty';
+            emptyResetBtn.textContent = 'Clear Filters & Show All Faculty';
             facultyEmptyState.appendChild(emptyResetBtn);
           }
           emptyResetBtn.onclick = () => {
@@ -4676,14 +4676,14 @@ ${directRoomUrl}`;
             if (btnClearFacultySearch) btnClearFacultySearch.style.display = 'none';
             if (facultyStatusSelect) facultyStatusSelect.value = 'ALL';
             renderFaculty();
-            showToast('🔄 All faculty filters reset');
+            showToast('All faculty filters reset');
           };
         }
         return;
       }
       if (facultyEmptyState) facultyEmptyState.style.display = 'none';
 
-      // Render Cards
+// Render Cards
       facultyGrid.innerHTML = list.map(teacher => {
         const deptAvatarCls = getDeptAvatarClass(teacher.department);
         const deptTagCls = getDeptTagClass(teacher.department);
@@ -4693,11 +4693,11 @@ ${directRoomUrl}`;
 
         const daySched = (teacher.schedule && teacher.schedule[facultyState.activeDay]) || [];
 
-        // Subject Badges with Clean Separation, Code Badges, and Active Highlight
+// Subject Badges with Clean Separation, Code Badges, and Active Highlight
         const cleanSubjects = getTeacherCleanSubjects(teacher);
         const subjectsHtml = cleanSubjects.length > 0
           ? `<div class="faculty-subjects-row">
-              <span class="subjects-label">📚 Subjects:</span>
+              <span class="subjects-label">Subjects:</span>
               <div class="faculty-subjects-list">
                 ${cleanSubjects.map(s => {
                   const isCodeActive = Boolean(facultyState.searchQuery && s.code && facultyState.searchQuery.toLowerCase() === s.code.toLowerCase());
@@ -4718,7 +4718,7 @@ ${directRoomUrl}`;
 
         const cardExtraCls = status.isOnLeave ? 'is-on-leave' : (status.isTeachingNow ? 'is-teaching-now' : '');
 
-        // COMPACT VIEW
+// COMPACT VIEW
         if (facultyState.viewMode === 'compact') {
           return `
             <article class="faculty-compact-card ${cardExtraCls}" data-teacher-id="${teacher.id}">
@@ -4736,8 +4736,8 @@ ${directRoomUrl}`;
                   <span class="dept-badge ${deptTagCls}">${teacher.department || 'Faculty'}</span>
                   ${teacher.email ? `
                     <div class="faculty-email-chip compact" data-email="${escapeHtml(teacher.email)}" data-teacher-name="${escapeHtml(teacher.clean_name)}" title="Click to copy email: ${escapeHtml(teacher.email)}">
-                      <span>✉️ ${escapeHtml(teacher.email)}</span>
-                      <span class="email-copy-badge">📋</span>
+                      <span>${escapeHtml(teacher.email)}</span>
+                      <span class="email-copy-badge">Copy</span>
                     </div>` : ''}
                 </div>
                 <div class="faculty-compact-meta">
@@ -4755,17 +4755,17 @@ ${directRoomUrl}`;
 
               <div class="faculty-compact-actions" style="display: flex; gap: 6px;">
                 <button class="btn-teacher-timetable" data-teacher-id="${teacher.id}" title="Full Weekly Schedule">
-                  🗓️ Timetable
+                  Timetable
                 </button>
                 <button type="button" class="btn-share-faculty-card" data-teacher-id="${teacher.id}" title="Share faculty profile link">
-                  📤 Share
+                  Share
                 </button>
               </div>
             </article>
           `;
         }
 
-        // GRID VIEW
+// GRID VIEW
         let classesListHtml = '';
         if (daySched.length === 0) {
           classesListHtml = `<div class="faculty-class-item" style="color: var(--text-muted); justify-content: center; font-style: italic;">No scheduled lectures on ${facultyState.activeDay}</div>`;
@@ -4790,9 +4790,9 @@ ${directRoomUrl}`;
                 </div>
                 ${(roomCode && roomCode !== 'TBD' && roomCode !== 'TBA') ? `
                   <button class="room-badge-link" data-room="${escapeHtml(getTargetRoomJumpCode(roomCode))}" title="Jump to Room ${escapeHtml(getTargetRoomJumpCode(roomCode))} in Free Classroom Finder">
-                    🏛️ ${escapeHtml(getDisplayRoomName(roomCode))} ↗
+                    ${escapeHtml(getDisplayRoomName(roomCode))} ↗
                   </button>
-                ` : `<span class="room-pill-tba" title="Room not specified in official college timetable">🏛️ Room TBA</span>`}
+                ` : `<span class="room-pill-tba" title="Room not specified in official college timetable">Room TBA</span>`}
               </div>
             `;
           }).join('');
@@ -4853,17 +4853,17 @@ ${directRoomUrl}`;
 
             <div class="faculty-card-actions" style="display: flex; gap: 8px;">
               <button class="btn-teacher-timetable" data-teacher-id="${teacher.id}" style="flex: 1;">
-                🗓️ Full Weekly Timetable
+                Full Weekly Timetable
               </button>
               <button type="button" class="btn-share-faculty-card" data-teacher-id="${teacher.id}" title="Share faculty profile link">
-                📤 Share
+                Share
               </button>
             </div>
           </article>
         `;
       }).join('');
 
-      // Attach Click Handlers
+// Attach Click Handlers
       document.querySelectorAll('.btn-teacher-timetable').forEach(btn => {
         btn.addEventListener('click', () => openTeacherModal(btn.dataset.teacherId));
       });
@@ -4884,7 +4884,7 @@ ${directRoomUrl}`;
             if (fallbackObj) {
               shareTeacherProfile(fallbackObj, facultyState.activeDay);
             } else {
-              showToast('📤 Opening share sheet...');
+              showToast('Opening share sheet...');
             }
           }
         });
@@ -4933,7 +4933,7 @@ ${directRoomUrl}`;
         copyBtn.onclick = () => {
           copyToClipboard(email).then(() => {
             if (copyText) copyText.textContent = '✓ Copied!';
-            showToast(`📋 Copied email for Prof. ${cleanName}`);
+            showToast(`Copied email for Prof. ${cleanName}`);
             setTimeout(() => { if (copyText) copyText.textContent = 'Copy Email'; }, 2000);
           });
         };
@@ -4950,7 +4950,7 @@ ${directRoomUrl}`;
     }
     window.openFacultyEmailModal = openFacultyEmailModal;
 
-    // Sleek Top-Right Email Icon & Chip Click Handlers (Student Assist SRCC Style)
+// Sleek Top-Right Email Icon & Chip Click Handlers (Student Assist SRCC Style)
     document.querySelectorAll('.btn-teacher-email-icon, .faculty-email-chip').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -4965,20 +4965,20 @@ ${directRoomUrl}`;
       });
     });
 
-      // Clicking subject pill filters teacher search (with 1-tap toggle to clear)
+// Clicking subject pill filters teacher search (with 1-tap toggle to clear)
       document.querySelectorAll('.subject-pill').forEach(pill => {
         pill.addEventListener('click', (e) => {
           e.stopPropagation();
           const subj = pill.dataset.subject;
           if (!subj) return;
 
-          // If already active, toggle OFF!
+// If already active, toggle OFF!
           if (facultyState.searchQuery && facultyState.searchQuery.toLowerCase() === subj.toLowerCase()) {
             facultyState.searchQuery = '';
             if (facultySearchInput) facultySearchInput.value = '';
             if (btnClearFacultySearch) btnClearFacultySearch.style.display = 'none';
             renderFaculty();
-            showToast('🔄 Filter cleared: showing all faculty');
+            showToast('Filter cleared: showing all faculty');
             return;
           }
 
@@ -4987,12 +4987,12 @@ ${directRoomUrl}`;
             facultyState.searchQuery = subj;
             if (btnClearFacultySearch) btnClearFacultySearch.style.display = 'block';
             renderFaculty();
-            showToast(`📚 Filtered by subject: <strong>${escapeHtml(subj)}</strong> (Tap again or click [✕ Clear] to reset)`);
+            showToast(`Filtered by subject: <strong>${escapeHtml(subj)}</strong> (Tap again or click [✕ Clear] to reset)`);
           }
         });
       });
 
-      // Clicking "Free" status strips on faculty cards jumps straight to free classrooms
+// Clicking "Free" status strips on faculty cards jumps straight to free classrooms
       document.querySelectorAll('.faculty-live-status-strip.status-free, .faculty-live-status-strip.status-recess').forEach(strip => {
         strip.style.cursor = 'pointer';
         strip.title = 'Click to view classrooms free right now';
@@ -5003,7 +5003,7 @@ ${directRoomUrl}`;
         });
       });
 
-      // Clicking room badges on faculty cards directly opens Room Schedule Modal
+// Clicking room badges on faculty cards directly opens Room Schedule Modal
       document.querySelectorAll('.faculty-card .room-badge-link').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -5015,11 +5015,11 @@ ${directRoomUrl}`;
       });
     }
 
-    // ========================================================================
-    // 📚 COMPREHENSIVE SRCC & DU SUBJECT ABBREVIATIONS TO FULL NAMES MAP
-    // ========================================================================
+// ========================================================================
+// COMPREHENSIVE SRCC & DU SUBJECT ABBREVIATIONS TO FULL NAMES MAP
+// ========================================================================
     const SRCC_SUBJECT_MAP = {
-      // Core B.Com (Hons) DSC / DSE
+// Core B.Com (Hons) DSC / DSE
       'BLAW': 'Business Law',
       'FA': 'Financial Accounting',
       'MPA': 'Management Principles and Applications',
@@ -5052,7 +5052,7 @@ ${directRoomUrl}`;
       'OB': 'Organisational Behaviour',
       'PAB': 'Public Administration and Business',
 
-      // Core B.A. (Hons) Economics DSC / DSE
+// Core B.A. (Hons) Economics DSC / DSE
       'IM': 'Introductory Microeconomics',
       'IME': 'Introductory Microeconomics',
       'Intro Micro': 'Introductory Microeconomics',
@@ -5072,7 +5072,7 @@ ${directRoomUrl}`;
       'OEM': 'Open Elective Management',
       'AdTrix': 'Advanced Econometrics',
 
-      // Generic Electives (GE) across B.Com & Eco Hons
+// Generic Electives (GE) across B.Com & Eco Hons
       'FOC': 'Fundamentals of Computing',
       'AFE': 'Accounting for Everyone',
       'MFB': 'Marketing for Beginners',
@@ -5100,7 +5100,7 @@ ${directRoomUrl}`;
       'TPF': 'Theory of Public Finance',
       'HFPE': 'Health, Fitness & Physical Education',
 
-      // Skill Enhancement Courses (SEC)
+// Skill Enhancement Courses (SEC)
       'AS': 'Advanced Spreadsheet',
       'BIT': 'Basic IT Tools',
       'ITSA I': 'IT Skills and Data Analysis I',
@@ -5121,7 +5121,7 @@ ${directRoomUrl}`;
       'SRG': 'Sustainability Reporting',
       'SWR': 'Statistics with R',
 
-      // Value Addition Courses (VAC)
+// Value Addition Courses (VAC)
       'ABH': 'The Art of Being Happy',
       'CVFD': 'Constitutional Values and Fundamental Duties',
       'EC': 'Ethics and Culture',
@@ -5134,7 +5134,7 @@ ${directRoomUrl}`;
       'VM II': 'Vedic Mathematics-II',
       'VM III': 'Vedic Mathematics-III',
 
-      // M.Com Courses
+// M.Com Courses
       'ACPA': 'Advanced Cost and Performance Analysis',
       'ACR': 'Accounting for Corporate Restructuring',
       'AIS': 'Accounting Information Systems',
@@ -5157,7 +5157,7 @@ ${directRoomUrl}`;
       'TR': 'Tools for Research',
       'WM': 'Wealth Management',
 
-      // AEC / Languages
+// AEC / Languages
       'HA': 'Hindi Cinema aur Uska Adhyayan (Hindi A)',
       'HB': 'Hindi-B',
       'H B': 'Hindi-B',
@@ -5212,7 +5212,7 @@ ${directRoomUrl}`;
       };
     }
 
-    // Look up teacher(s) and full class details scheduled in a room on a given day & slot
+// Look up teacher(s) and full class details scheduled in a room on a given day & slot
     function getRoomScheduledClassDetails(roomCode, day, slot) {
       if (!teachersData || !teachersData.teachers) return [];
       const targetRoom = (roomCode || '').trim().toUpperCase();
@@ -5243,7 +5243,7 @@ ${directRoomUrl}`;
         }
       }
 
-      // If multiple teachers matched this room slot, validate against the room's official scheduled class
+// If multiple teachers matched this room slot, validate against the room's official scheduled class
       if (matches.length > 1 && appData && Array.isArray(appData.rooms)) {
         const roomObj = appData.rooms.find(r => (r.code || '').trim().toUpperCase() === targetRoom);
         const daySched = roomObj && roomObj.schedule ? roomObj.schedule[day] : null;
@@ -5270,7 +5270,7 @@ ${directRoomUrl}`;
       return matches;
     }
 
-    // Extract unique, clean, well-spaced subjects for a faculty member
+// Extract unique, clean, well-spaced subjects for a faculty member
     function getTeacherCleanSubjects(teacher) {
       if (!teacher) return [];
       const list = [];
@@ -5278,7 +5278,7 @@ ${directRoomUrl}`;
       const seenNames = new Set();
       const isDeptPattern = /^(\d+\.\s*)?(commerce|economics|hindi|english|mathematics|maths|evs|political\s*science)$/i;
 
-      // 1. Extract from schedule across all days (highest fidelity)
+// 1. Extract from schedule across all days (highest fidelity)
       Object.values(teacher.schedule || {}).flat().forEach(c => {
         let code = (c.subject || '').trim();
         let name = (c.subject_name || '').trim();
@@ -5305,7 +5305,7 @@ ${directRoomUrl}`;
         list.push({ code, fullName: name });
       });
 
-      // 2. Supplement from teacher.subjects if any missed
+// 2. Supplement from teacher.subjects if any missed
       (teacher.subjects || []).forEach(s => {
         const str = (s || '').trim();
         if (!str || isDeptPattern.test(str)) return;
@@ -5328,9 +5328,9 @@ ${directRoomUrl}`;
       return list;
     }
 
-    // ========================================================================
-    // 📤 SHARE FACULTY PROFILE / WEEKLY TIMETABLE
-    // ========================================================================
+// ========================================================================
+// SHARE FACULTY PROFILE / WEEKLY TIMETABLE
+// ========================================================================
     function shareTeacherProfile(teacher, targetDay = null) {
       if (!teacher) return;
       const currentSiteBase = (window.location.origin + window.location.pathname).replace(/\/+$/, '');
@@ -5339,7 +5339,7 @@ ${directRoomUrl}`;
       const displayCode = (typeof getDisplayShortCode === 'function') ? getDisplayShortCode(teacher) : (teacher.short_code || '');
       const shareTitle = `SRCC Faculty Timetable: Prof. ${teacher.clean_name}`;
 
-      // Build daily schedule for the active/tapped day
+// Build daily schedule for the active/tapped day
       const daySched = (teacher.schedule && teacher.schedule[activeDay]) || [];
       let daySchedText = '';
       try {
@@ -5365,36 +5365,36 @@ ${directRoomUrl}`;
             }
             return `  • ${timeStr}: ${subjName}${subjCode}${roomStr}${typeStr}${secStr}`;
           });
-          daySchedText = `📅 Schedule for ${activeDay}:\n${classLines.join('\n')}\n\n`;
+          daySchedText = `Schedule for ${activeDay}:\n${classLines.join('\n')}\n\n`;
         } else {
-          daySchedText = `📅 Schedule for ${activeDay}: No lectures scheduled (Free Day)\n\n`;
+          daySchedText = `Schedule for ${activeDay}: No lectures scheduled (Free Day)\n\n`;
         }
       } catch (errSched) {
         console.warn('Error formatting schedule for share:', errSched);
-        daySchedText = `📅 Schedule for ${activeDay}: Please check online portal\n\n`;
+        daySchedText = `Schedule for ${activeDay}: Please check online portal\n\n`;
       }
 
-      const emailPart = teacher.email ? `✉️ Email: ${teacher.email}\n` : '';
+      const emailPart = teacher.email ? `Email: ${teacher.email}\n` : '';
 
-      const cleanMessage = `👨‍🏫 SRCC Faculty Schedule & Timetable\n\n` +
-        `👤 Prof. ${teacher.clean_name} ${displayCode ? `(${displayCode})` : ''}\n` +
-        `🏛️ Department: ${teacher.department || 'Faculty'}\n` +
+      const cleanMessage = `SRCC Faculty Schedule & Timetable\n\n` +
+        `Prof. ${teacher.clean_name} ${displayCode ? `(${displayCode})` : ''}\n` +
+        `Department: ${teacher.department || 'Faculty'}\n` +
         emailPart + `\n` +
         daySchedText +
-        `🔗 View Full Timetable & Classroom Locations:\n${directFacultyUrl}`;
+        `View Full Timetable & Classroom Locations:\n${directFacultyUrl}`;
 
-      const whatsappMessage = `👨‍🏫 *SRCC Faculty Schedule & Timetable*\n\n` +
-        `👤 *Prof. ${teacher.clean_name}* ${displayCode ? `(${displayCode})` : ''}\n` +
-        `🏛️ *Department:* ${teacher.department || 'Faculty'}\n` +
+      const whatsappMessage = `*SRCC Faculty Schedule & Timetable*\n\n` +
+        `*Prof. ${teacher.clean_name}* ${displayCode ? `(${displayCode})` : ''}\n` +
+        `*Department:* ${teacher.department || 'Faculty'}\n` +
         emailPart + `\n` +
         daySchedText +
-        `🔗 *View Full Timetable & Classroom Locations:*\n${directFacultyUrl}`;
+        `*View Full Timetable & Classroom Locations:*\n${directFacultyUrl}`;
 
       const emailSubject = `SRCC Faculty Timetable: Prof. ${teacher.clean_name} (${activeDay})`;
 
-      // Prepare unified Share Modal contents
+// Prepare unified Share Modal contents
       currentShareMessage = cleanMessage;
-      if (shareModalTitle) shareModalTitle.textContent = `📤 Share Prof. ${teacher.clean_name} (${activeDay})`;
+      if (shareModalTitle) shareModalTitle.textContent = `Share Prof. ${teacher.clean_name} (${activeDay})`;
       if (sharePreviewText) sharePreviewText.textContent = cleanMessage;
 
       const encodedWaMsg = encodeURIComponent(whatsappMessage);
@@ -5408,20 +5408,20 @@ ${directRoomUrl}`;
         shareBtnGmail.href = `https://mail.google.com/mail/?view=cm&fs=1&su=${encodeURIComponent(emailSubject)}&body=${encodedCleanMsg}`;
       }
       if (shareBtnX) {
-        shareBtnX.href = `https://x.com/intent/tweet?text=${encodeURIComponent(`👨‍🏫 SRCC Faculty Schedule: Prof. ${teacher.clean_name} (${activeDay})`)}&url=${encodedUrl}`;
+        shareBtnX.href = `https://x.com/intent/tweet?text=${encodeURIComponent(`SRCC Faculty Schedule: Prof. ${teacher.clean_name} (${activeDay})`)}&url=${encodedUrl}`;
       }
       if (shareBtnTelegram) {
         shareBtnTelegram.href = `https://t.me/share/url?text=${encodedCleanMsg}&url=${encodedUrl}`;
       }
 
-      // Check mobile native share sheet
+// Check mobile native share sheet
       const isMobileDevice = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || (window.innerWidth <= 768);
       if (isMobileDevice && navigator.share) {
         navigator.share({
           title: shareTitle,
           text: whatsappMessage
         }).then(() => {
-          showToast(`📤 Shared schedule for Prof. ${teacher.clean_name} (${activeDay})!`);
+          showToast(`Shared schedule for Prof. ${teacher.clean_name} (${activeDay})!`);
         }).catch((err) => {
           if (err.name !== 'AbortError' && shareModal) {
             openAppModal(shareModal);
@@ -5430,20 +5430,20 @@ ${directRoomUrl}`;
         return;
       }
 
-      // On Laptop/Desktop or fallback: IMMEDIATELY open Share Modal with WhatsApp, Gmail, Telegram, Copy Link
+// On Laptop/Desktop or fallback: IMMEDIATELY open Share Modal with WhatsApp, Gmail, Telegram, Copy Link
       if (shareModal) {
         openAppModal(shareModal);
       } else {
         copyToClipboard(cleanMessage).then(() => {
-          showToast(`📋 Copied schedule for Prof. ${teacher.clean_name}!`);
+          showToast(`Copied schedule for Prof. ${teacher.clean_name}!`);
         });
       }
     }
     window.shareTeacherProfile = shareTeacherProfile;
 
-    // ========================================================================
-    // 📅 TEACHER WEEKLY TIMETABLE MODAL (RESPONSIVE DESKTOP TABLE & MOBILE CARDS)
-    // ========================================================================
+// ========================================================================
+// TEACHER WEEKLY TIMETABLE MODAL (RESPONSIVE DESKTOP TABLE & MOBILE CARDS)
+// ========================================================================
     function openTeacherModal(teacherIdOrName, targetDay = null) {
       if (!teachersData || !teachersData.teachers) return;
       const query = String(teacherIdOrName || '').trim().toLowerCase();
@@ -5477,12 +5477,12 @@ ${directRoomUrl}`;
         const periods = teacher.total_teaching_periods || 0;
         modalTeacherMeta.innerHTML = `
           <div class="teacher-header-chips">
-            <span class="th-chip th-dept">🏛️ ${escapeHtml(teacher.department || 'Faculty')}</span>
-            ${displayCode ? `<span class="th-chip th-code">🏷️ Code: <strong>${escapeHtml(displayCode)}</strong></span>` : ''}
-            <span class="th-chip th-load">📅 <strong>${periods}</strong> Weekly Classes</span>
+            <span class="th-chip th-dept">${escapeHtml(teacher.department || 'Faculty')}</span>
+            ${displayCode ? `<span class="th-chip th-code">Code: <strong>${escapeHtml(displayCode)}</strong></span>` : ''}
+            <span class="th-chip th-load"><strong>${periods}</strong> Weekly Classes</span>
             ${teacher.email ? `
               <button type="button" class="th-chip th-email-copy-chip" id="btnModalCopyTeacherEmail" title="Copy teacher email" style="cursor: pointer; background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; border-radius: 999px; padding: 2px 10px; font-size: 0.76rem; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
-                ✉️ Copy Email
+                Copy Email
               </button>` : ''}
           </div>
         `;
@@ -5493,8 +5493,8 @@ ${directRoomUrl}`;
             e.stopPropagation();
             copyToClipboard(teacher.email).then(() => {
               btnCopyEmail.textContent = '✓ Copied!';
-              showToast(`📋 Copied email for Prof. ${teacher.clean_name}`);
-              setTimeout(() => { btnCopyEmail.textContent = '✉️ Copy Email'; }, 2000);
+              showToast(`Copied email for Prof. ${teacher.clean_name}`);
+              setTimeout(() => { btnCopyEmail.textContent = 'Copy Email'; }, 2000);
             });
           });
         }
@@ -5504,7 +5504,7 @@ ${directRoomUrl}`;
       if (teacherModal) openAppModal(teacherModal);
     }
 
-    // Expose globally for 1-click teacher timetable inspection across all tabs
+// Expose globally for 1-click teacher timetable inspection across all tabs
     window.openTeacherModal = openTeacherModal;
 
     function renderTeacherModalDaySchedule() {
@@ -5517,7 +5517,7 @@ ${directRoomUrl}`;
         tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
       });
 
-      // Auto-scroll the active day tab into view so it is never trapped or off-screen
+// Auto-scroll the active day tab into view so it is never trapped or off-screen
       setTimeout(() => {
         const activeTab = document.querySelector('#modalTeacherDayTabs .day-btn.active, #modalTeacherDayTabs .modal-day-tab-btn.active');
         if (activeTab && typeof activeTab.scrollIntoView === 'function') {
@@ -5534,12 +5534,12 @@ ${directRoomUrl}`;
       const overviewStripHtml = `
         <div class="teacher-overview-banner">
           <div class="tob-left">
-            <span class="tob-day-tag">📅 Schedule for ${escapeHtml(facultyState.modalActiveDay)}${isToday ? ' (Today)' : ''}:</span>
+            <span class="tob-day-tag">Schedule for ${escapeHtml(facultyState.modalActiveDay)}${isToday ? ' (Today)' : ''}:</span>
             <span class="tob-count-badge">${daySched.length > 0 ? `<strong>${daySched.length}</strong> scheduled ${daySched.length === 1 ? 'class' : 'classes'}` : 'No scheduled classes'}</span>
           </div>
           <div class="tob-right">
-            ${roomsToday.length > 0 ? `<span class="tob-rooms-tag">🏛️ Rooms: <strong>${roomsToday.join(', ')}</strong></span>` : ''}
-            ${leaveInfo ? `<span class="badge-leave" style="font-size: 0.76rem; background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; padding: 3px 10px; border-radius: 9999px; font-weight: 700;">🏖️ On Leave Today</span>` : ''}
+            ${roomsToday.length > 0 ? `<span class="tob-rooms-tag">Rooms: <strong>${roomsToday.join(', ')}</strong></span>` : ''}
+            ${leaveInfo ? `<span class="badge-leave" style="font-size: 0.76rem; background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; padding: 3px 10px; border-radius: 9999px; font-weight: 700;">On Leave Today</span>` : ''}
           </div>
         </div>
       `;
@@ -5547,7 +5547,7 @@ ${directRoomUrl}`;
       if (teacher.total_teaching_periods === 0) {
         modalTeacherBody.innerHTML = `
           <div style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; display: flex; align-items: flex-start; gap: 10px;">
-            <span style="font-size: 1.3rem; line-height: 1;">ℹ️</span>
+            
             <div>
               <strong style="color: #b45309; font-size: 0.9rem;">Official SRCC Portal Allocation:</strong>
               <p style="font-size: 0.84rem; color: var(--text-primary); margin: 3px 0 0 0; line-height: 1.4;">
@@ -5556,11 +5556,11 @@ ${directRoomUrl}`;
             </div>
           </div>
           <div style="text-align: center; padding: 30px 20px; color: var(--text-muted);">
-            <div style="font-size: 2.2rem; margin-bottom: 8px;">☕</div>
+            
             <h4 style="color: var(--text-primary); margin-bottom: 4px; font-size: 1.15rem;">No Classes Scheduled</h4>
             <p style="font-size: 0.88rem;">All weekly periods are free / unallocated on the central timetable system.</p>
           </div>
-          <p class="modal-disclaimer-note">ℹ️ <strong>Timetable Notice:</strong> Verified directly against official SRCC timetable portal (<a href="https://srcccollegetimetable.in/" target="_blank" style="color: #2563eb; text-decoration: underline;">srcccollegetimetable.in</a>).</p>
+          <p class="modal-disclaimer-note"><strong>Timetable Notice:</strong> Verified directly against official SRCC timetable portal (<a href="https://srcccollegetimetable.in/" target="_blank" style="color: #2563eb; text-decoration: underline;">srcccollegetimetable.in</a>).</p>
         `;
         return;
       }
@@ -5569,16 +5569,16 @@ ${directRoomUrl}`;
         modalTeacherBody.innerHTML = `
           ${overviewStripHtml}
           <div style="text-align: center; padding: 35px 20px; color: var(--text-muted);">
-            <div style="font-size: 2.2rem; margin-bottom: 8px;">☕</div>
+            
             <h4 style="color: var(--text-primary); margin-bottom: 4px; font-size: 1.15rem;">No Classes on ${escapeHtml(facultyState.modalActiveDay)}</h4>
             <p style="font-size: 0.88rem;">Prof. ${escapeHtml(teacher.clean_name)} has no scheduled lectures or tutorials on this day.</p>
           </div>
-          <p class="modal-disclaimer-note">ℹ️ <strong>Timetable Notice:</strong> Schedule reflects official SRCC allocations. Classroom assignments may be adjusted locally by department.</p>
+          <p class="modal-disclaimer-note"><strong>Timetable Notice:</strong> Schedule reflects official SRCC allocations. Classroom assignments may be adjusted locally by department.</p>
         `;
         return;
       }
 
-      // Merge consecutive classes for cleaner display (e.g. 2:00 PM to 6:00 PM practical blocks)
+// Merge consecutive classes for cleaner display (e.g. 2:00 PM to 6:00 PM practical blocks)
       const mergedDaySched = [];
       const periodOrder = {
         '8:30 AM to 9:30 AM': 1, '8:30 AM – 9:30 AM': 1, '8:30 AM - 9:30 AM': 1,
@@ -5626,7 +5626,7 @@ ${directRoomUrl}`;
 
       const sortedSched = [...daySched].sort((a, b) => getSlotPeriodNum(a.slot) - getSlotPeriodNum(b.slot));
 
-      // Consolidate duplicate slots with same period & room (e.g. sub-batches J1, J2, J3 / JP1, JP2, JP3 / Lab / Tut)
+// Consolidate duplicate slots with same period & room (e.g. sub-batches J1, J2, J3 / JP1, JP2, JP3 / Lab / Tut)
       const slotTeacherMap = new Map();
       sortedSched.forEach(cls => {
         const pNum = getSlotPeriodNum(cls.slot);
@@ -5684,7 +5684,7 @@ ${directRoomUrl}`;
         });
       });
 
-      // 1. Desktop Table Rows (> 640px)
+// 1. Desktop Table Rows (> 640px)
       const tableRows = mergedDaySched.map((cls, idx) => {
         const roomCode = cls.room ? cls.room.trim() : 'TBD';
         const subjInfo = getSubjectDetails(cls.subject, cls.subject_name, /VAC/i.test(cls.raw || ''));
@@ -5723,7 +5723,7 @@ ${directRoomUrl}`;
             <td>
               ${roomCode !== 'TBD' ? `
                 <button class="room-badge-link modal-room-jump" data-room="${escapeHtml(getTargetRoomJumpCode(roomCode))}" title="View room vacancy in Free Classroom Finder">
-                  🏛️ ${escapeHtml(getDisplayRoomName(roomCode))} ↗
+                  ${escapeHtml(getDisplayRoomName(roomCode))} ↗
                 </button>
               ` : `<span style="color: var(--text-muted); font-size: 0.78rem;">TBD</span>`}
             </td>
@@ -5731,7 +5731,7 @@ ${directRoomUrl}`;
         `;
       }).join('');
 
-      // 2. Mobile Schedule Cards (<= 640px)
+// 2. Mobile Schedule Cards (<= 640px)
       const mobileCards = mergedDaySched.map((cls, idx) => {
         const roomCode = cls.room ? cls.room.trim() : 'TBD';
         const subjInfo = getSubjectDetails(cls.subject, cls.subject_name, /VAC/i.test(cls.raw || ''));
@@ -5757,7 +5757,7 @@ ${directRoomUrl}`;
           <div class="modal-timetable-card ${typeCls}">
             <div class="m-tt-header">
               <div class="m-tt-slot">
-                <span>🕒</span>
+                
                 <span>${escapeHtml(slotDisplay)}</span>
               </div>
               <span class="m-tt-type">${escapeHtml(typeDisplay)}</span>
@@ -5775,9 +5775,9 @@ ${directRoomUrl}`;
               <div>
                 ${(roomCode && roomCode !== 'TBD' && roomCode !== 'TBA') ? `
                   <button class="m-tt-room-btn modal-room-jump" data-room="${escapeHtml(getTargetRoomJumpCode(roomCode))}" title="View room in Free Classroom Finder">
-                    🏛️ Room ${escapeHtml(getDisplayRoomName(roomCode))} ↗
+                    Room ${escapeHtml(getDisplayRoomName(roomCode))} ↗
                   </button>
-                ` : `<span class="room-pill-tba" title="Room not specified in official college timetable">🏛️ Room TBA</span>`}
+                ` : `<span class="room-pill-tba" title="Room not specified in official college timetable">Room TBA</span>`}
               </div>
             </div>
           </div>
@@ -5802,7 +5802,7 @@ ${directRoomUrl}`;
         <div class="modal-timetable-card-list modal-timetable-mobile-cards">
           ${mobileCards}
         </div>
-        <p class="modal-disclaimer-note">ℹ️ <strong>Timetable Notice:</strong> Schedule reflects official SRCC allocations. Classroom assignments may be adjusted locally by department.</p>
+        <p class="modal-disclaimer-note"><strong>Timetable Notice:</strong> Schedule reflects official SRCC allocations. Classroom assignments may be adjusted locally by department.</p>
       `;
 
       modalTeacherBody.querySelectorAll('.modal-room-jump').forEach(btn => {
@@ -5840,9 +5840,9 @@ ${directRoomUrl}`;
       });
     }
 
-    // ========================================================================
-    // 🏖️ FACULTY LEAVE MANAGER MODAL
-    // ========================================================================
+// ========================================================================
+// FACULTY LEAVE MANAGER MODAL
+// ========================================================================
     function populateLeaveTeacherSelect() {
       if (!leaveTeacherSelect || !teachersData || !teachersData.teachers) return;
       const sortedTeachers = [...teachersData.teachers].sort((a, b) => a.clean_name.localeCompare(b.clean_name));
@@ -5903,7 +5903,7 @@ ${directRoomUrl}`;
         return `${idx + 1}. ${cName}${code} (${dates})`;
       });
 
-      return `*SRCC Faculty Leave Update (${activeList.length})* 🏖️\n\n${lines.join('\n')}\n\n_Check free classrooms:_ ${getAppPublicUrl()}`;
+      return `*SRCC Faculty Leave Update (${activeList.length})*\n\n${lines.join('\n')}\n\n_Check free classrooms:_ ${getAppPublicUrl()}`;
     }
 
     function renderActiveLeavesList() {
@@ -5940,7 +5940,7 @@ ${directRoomUrl}`;
         const halfDayBadge = leave.isHalfDay ? `<span style="background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; font-size: 0.68rem; font-weight: 800; padding: 2px 7px; border-radius: 9999px;">½ DAY</span>` : '';
         const cleanName = getCleanStudentFacultyName(leave.teacher_name, leave.teacher_id);
 
-        const singleLeaveMsg = `*SRCC Faculty Leave Update* 🏖️\n\n1. ${cleanName}${code} (${dateRangeDisplay})\n\n_Check free classrooms:_ ${shareSiteUrl}`;
+        const singleLeaveMsg = `*SRCC Faculty Leave Update*\n\n1. ${cleanName}${code} (${dateRangeDisplay})\n\n_Check free classrooms:_ ${shareSiteUrl}`;
 
         return `
           <div class="leave-item-row" data-leave-id="${leave.id}">
@@ -5948,7 +5948,7 @@ ${directRoomUrl}`;
             <div class="leave-item-details">
               <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
                 <span class="leave-item-teacher">${escapeHtml(cleanName)}${code}</span>
-                <span class="leave-item-dates">📅 ${dateRangeDisplay}</span>
+                <span class="leave-item-dates">${dateRangeDisplay}</span>
                 ${halfDayBadge}
                 ${isActiveToday ? '<span style="background: #FEE2E2; color: #991B1B; border: 1px solid #FCA5A5; font-size: 0.68rem; font-weight: 800; padding: 2px 8px; border-radius: 9999px;">ACTIVE TODAY</span>' : ''}
               </div>
@@ -5956,7 +5956,7 @@ ${directRoomUrl}`;
             </div>
             <div style="display: flex; align-items: center; gap: 6px; margin-left: auto;">
               <a href="https://wa.me/?text=${encodeURIComponent(singleLeaveMsg)}" target="_blank" class="btn-share-wa" title="Share this leave on WhatsApp">
-                💬 Share
+                Share
               </a>
             </div>
           </div>
@@ -5987,7 +5987,7 @@ ${directRoomUrl}`;
       btnAddLeave.addEventListener('click', () => {
         const teacherId = leaveTeacherSelect ? leaveTeacherSelect.value : '';
         if (!teacherId) {
-          showToast('⚠️ Please select a professor first');
+          showToast('Please select a professor first');
           return;
         }
 
@@ -5999,7 +5999,7 @@ ${directRoomUrl}`;
         const reason = (leaveReasonInput && leaveReasonInput.value.trim()) || 'Faculty Leave';
 
         if (eDate < sDate) {
-          showToast('⚠️ End date cannot be before start date');
+          showToast('End date cannot be before start date');
           return;
         }
 
@@ -6023,7 +6023,7 @@ ${directRoomUrl}`;
         renderFaculty();
         render();
 
-        showToast(`🏖️ Marked <strong>${escapeHtml(teacher.clean_name)}</strong> on leave! Scheduled rooms are now unlocked.`);
+        showToast(`Marked <strong>${escapeHtml(teacher.clean_name)}</strong> on leave! Scheduled rooms are now unlocked.`);
         if (leaveReasonInput) leaveReasonInput.value = '';
       });
     }
@@ -6035,12 +6035,12 @@ ${directRoomUrl}`;
           renderActiveLeavesList();
           renderFaculty();
           render();
-          showToast('🔄 Custom faculty leaves cleared.');
+          showToast('Custom faculty leaves cleared.');
         }
       });
     }
 
-    // Leave Sync & Export Handlers
+// Leave Sync & Export Handlers
     if (btnDownloadLeavesJs) {
       btnDownloadLeavesJs.addEventListener('click', () => {
         const leaves = getLeavesList();
@@ -6061,7 +6061,7 @@ window.SRCC_FACULTY_LEAVES = {
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
-        showToast('💾 <strong>faculty_leaves.js downloaded!</strong> Replace this file in your project or Netlify upload to sync for all students.', true, 4000);
+        showToast('<strong>faculty_leaves.js downloaded!</strong> Replace this file in your project or Netlify upload to sync for all students.', true, 4000);
       });
     }
 
@@ -6075,14 +6075,14 @@ window.SRCC_FACULTY_LEAVES = {
 };
 `;
         copyToClipboard(content).then(() => {
-          btnCopyLeavesJs.textContent = '✅ Copied!';
-          showToast('📋 <strong>Leaves code copied to clipboard!</strong> Ready to paste into faculty_leaves.js.', true, 3500);
-          setTimeout(() => { btnCopyLeavesJs.textContent = '📋 Copy Code'; }, 2500);
+          btnCopyLeavesJs.textContent = 'Copied!';
+          showToast('<strong>Leaves code copied to clipboard!</strong> Ready to paste into faculty_leaves.js.', true, 3500);
+          setTimeout(() => { btnCopyLeavesJs.textContent = 'Copy Code'; }, 2500);
         });
       });
     }
 
-    // Wire Quick Access Faculty Leaves button on Classrooms view
+// Wire Quick Access Faculty Leaves button on Classrooms view
     const btnRoomsFacultyLeavesQuick = document.getElementById('btnRoomsFacultyLeavesQuick');
     if (btnRoomsFacultyLeavesQuick) {
       btnRoomsFacultyLeavesQuick.addEventListener('click', () => {
@@ -6110,9 +6110,9 @@ window.SRCC_FACULTY_LEAVES = {
       btnCloseLeavesModalFooter.addEventListener('click', () => closeAppModal(leaveManagerModal));
     }
 
-    // ========================================================================
-    // ⚠️ REPORT ISSUE FEATURE
-    // ========================================================================
+// ========================================================================
+// REPORT ISSUE FEATURE
+// ========================================================================
     const btnReportIssue = document.getElementById('btnReportIssue');
     const reportIssueModal = document.getElementById('reportIssueModal');
     const btnCloseReportModal = document.getElementById('btnCloseReportModal');
@@ -6135,7 +6135,7 @@ window.SRCC_FACULTY_LEAVES = {
           const type = document.getElementById('reportIssueType').value;
           const details = document.getElementById('reportIssueDetails').value;
           
-          // Close modal immediately so UI doesn't freeze
+// Close modal immediately so UI doesn't freeze
           closeReportModal();
           document.getElementById('reportIssueDetails').value = '';
           
@@ -6153,7 +6153,7 @@ window.SRCC_FACULTY_LEAVES = {
             if (baseUrl.endsWith('/leaves.json')) baseUrl = baseUrl.substring(0, baseUrl.length - 12);
             
             try {
-              // Add a timeout signal to prevent hanging fetch
+// Add a timeout signal to prevent hanging fetch
               const controller = new AbortController();
               const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 seconds timeout
               
@@ -6169,25 +6169,25 @@ window.SRCC_FACULTY_LEAVES = {
                 signal: controller.signal
               });
               clearTimeout(timeoutId);
-              showToast('✅ Issue reported! Admins will check it shortly.', true, 4000);
+              showToast('Issue reported! Admins will check it shortly.', true, 4000);
             } catch (e) {
               console.error('Issue report error:', e);
-              showToast('⚠️ Failed to submit issue. Please try again later.', false, 4000);
+              showToast('Failed to submit issue. Please try again later.', false, 4000);
             }
           } else {
-            // Local fallback
-            showToast('✅ Issue reported locally! (Cloud DB not configured)', true, 4000);
+// Local fallback
+            showToast('Issue reported locally! (Cloud DB not configured)', true, 4000);
           }
         });
       }
     }
 
-    // ========================================================================
-    // 🏖️ FACULTY ON LEAVE DIRECTORY VIEW LOGIC
-    // ========================================================================
-    // ========================================================================
-    // 📅 STUDENT TIMETABLE FEATURE - NATIVE APP INTEGRATION
-    // ========================================================================
+// ========================================================================
+// FACULTY ON LEAVE DIRECTORY VIEW LOGIC
+// ========================================================================
+// ========================================================================
+// STUDENT TIMETABLE FEATURE - NATIVE APP INTEGRATION
+// ========================================================================
     function initTimetableFeature() {
       const academicPeriods = [
         { slot: "8:30 AM to 9:30 AM", time: "8:30 AM", num: 1 },
@@ -6201,7 +6201,7 @@ window.SRCC_FACULTY_LEAVES = {
         { slot: "5:00 PM to 6:00 PM", time: "5:00 PM", num: 9 }
       ];
 
-      // Helpers to detect SEC (Skill Enhancement) and VAC (Value Addition) slots
+// Helpers to detect SEC (Skill Enhancement) and VAC (Value Addition) slots
       function isSecSlot(s) {
         if (!s) return false;
         const batch = (s.batch || '').toUpperCase().trim();
@@ -6212,11 +6212,11 @@ window.SRCC_FACULTY_LEAVES = {
         const course = (s.course || '').trim();
         const sec = (s.section || '').trim();
 
-        // If explicitly VAC or Value Addition, NEVER classify as SEC
+// If explicitly VAC or Value Addition, NEVER classify as SEC
         if (batch.startsWith('VAC') || raw_batch.startsWith('VAC') || /\bVAC\d*|\bVAC-|_VAC|-VAC/.test(raw) || subj_name.includes('VALUE ADDITION')) {
           return false;
         }
-        // If AEC (Ability Enhancement - e.g. Hindi), not SEC
+// If AEC (Ability Enhancement - e.g. Hindi), not SEC
         if (/\bAEC\b|-AEC-|\bAEC-/.test(raw) || subj_name.includes('ABILITY ENHANCEMENT')) {
           return false;
         }
@@ -6225,12 +6225,12 @@ window.SRCC_FACULTY_LEAVES = {
         if (/\bSEC\d*|\bSEC-|_SEC|-SEC/.test(raw)) return true;
         if (subj_name.includes('SKILL ENHANCEMENT') || course.toUpperCase() === 'SEC') return true;
 
-        // If explicitly assigned to a regular degree and regular section without SEC in raw/batch, do NOT classify as SEC
+// If explicitly assigned to a regular degree and regular section without SEC in raw/batch, do NOT classify as SEC
         if ((course === 'B.A. (Hons) Economics' || course === 'B.Com (Hons)' || course === 'M.Com') && sec && !(/\bSEC\d*|\bSEC-|_SEC|-SEC/.test(raw))) {
           return false;
         }
 
-        // SMM in M.Com or without SEC tag is not SEC
+// SMM in M.Com or without SEC tag is not SEC
         if (subj === 'SMM' && (course === 'M.Com' || sec || !(/\bSEC\d*|\bSEC-|_SEC|-SEC/.test(raw)))) {
           return false;
         }
@@ -6249,11 +6249,11 @@ window.SRCC_FACULTY_LEAVES = {
         const course = (s.course || '').trim();
         const sec = (s.section || '').trim();
 
-        // If explicitly SEC or Skill Enhancement, NEVER classify as VAC
+// If explicitly SEC or Skill Enhancement, NEVER classify as VAC
         if (batch.startsWith('SEC') || raw_batch.startsWith('SEC') || /\bSEC\d*|\bSEC-|_SEC|-SEC/.test(raw) || subj_name.includes('SKILL ENHANCEMENT')) {
           return false;
         }
-        // If AEC (Ability Enhancement - e.g. Hindi), not VAC
+// If AEC (Ability Enhancement - e.g. Hindi), not VAC
         if (/\bAEC\b|-AEC-|\bAEC-/.test(raw) || subj_name.includes('ABILITY ENHANCEMENT')) {
           return false;
         }
@@ -6262,12 +6262,12 @@ window.SRCC_FACULTY_LEAVES = {
         if (/\bVAC\d*|\bVAC-|_VAC|-VAC/.test(raw)) return true;
         if (subj_name.includes('VALUE ADDITION') || course.toUpperCase() === 'VAC') return true;
 
-        // If explicitly assigned to a regular degree and regular section without VAC in raw/batch, do NOT classify as VAC
+// If explicitly assigned to a regular degree and regular section without VAC in raw/batch, do NOT classify as VAC
         if ((course === 'B.A. (Hons) Economics' || course === 'B.Com (Hons)' || course === 'M.Com') && sec && !(/\bVAC\d*|\bVAC-|_VAC|-VAC/.test(raw))) {
           return false;
         }
 
-        // NOTE: DE is Development Economics in BA(H) Economics, NOT VAC!
+// NOTE: DE is Development Economics in BA(H) Economics, NOT VAC!
         const vacCodes = ['EC', 'EI', 'TGNLC', 'VAC SEL', 'CVFD', 'ABH', 'VM I', 'VM II', 'VM III', 'RIFE'];
         return vacCodes.includes(subj);
       }
@@ -6277,7 +6277,7 @@ window.SRCC_FACULTY_LEAVES = {
         return isSecSlot(s) || isVacSlot(s);
       }
 
-      // Extract Course -> Sem -> Sec -> Batches hierarchy from teachersData
+// Extract Course -> Sem -> Sec -> Batches hierarchy from teachersData
       const courseMap = {};
       const secVacBatchesBySem = {}; // sem -> Set of batches
       const secBatchesBySem = {}; // sem -> Set of batches
@@ -6286,7 +6286,7 @@ window.SRCC_FACULTY_LEAVES = {
       const vacBatchMeta = {}; // sem -> batch -> { code, name }
       const getTeachers = () => (teachersData && teachersData.teachers) ? teachersData.teachers : (window.SRCC_TEACHERS_DATA?.teachers || []);
 
-      // Helper to cleanly extract and pair batches for a section (e.g., J1 / JP1, J2 / JP2, J3 / JP3)
+// Helper to cleanly extract and pair batches for a section (e.g., J1 / JP1, J2 / JP2, J3 / JP3)
       function getCleanBatchesForSection(rawBatchesSet, secName = '') {
         if (!rawBatchesSet || rawBatchesSet.size === 0) return [];
         const letter = (secName || '').replace(/^Sec\s*/i, '').trim().toUpperCase();
@@ -6389,7 +6389,7 @@ window.SRCC_FACULTY_LEAVES = {
           });
         });
 
-        // Ingest official direct SEC, VAC and Class sections from SRCC_CLASSES_DATA
+// Ingest official direct SEC, VAC and Class sections from SRCC_CLASSES_DATA
         if (window.SRCC_CLASSES_DATA && window.SRCC_CLASSES_DATA.courses) {
           const cData = window.SRCC_CLASSES_DATA.courses;
           if (cData.SEC) {
@@ -6441,7 +6441,7 @@ window.SRCC_FACULTY_LEAVES = {
       let savedSec = localStorage.getItem('srcc_my_tt_sec');
       let savedBatch = localStorage.getItem('srcc_my_tt_batch') || 'ALL';
 
-      // Fallback from widget preference if timetable storage isn't set yet
+// Fallback from widget preference if timetable storage isn't set yet
       try {
         const widgetPrefRaw = localStorage.getItem('srcc_my_batch_widget_pref_v1');
         if (widgetPrefRaw) {
@@ -6455,7 +6455,7 @@ window.SRCC_FACULTY_LEAVES = {
         }
       } catch (e) {}
 
-      // Normalize Semester
+// Normalize Semester
       if (savedSem) {
         const sClean = String(savedSem).trim();
         if (sClean === '1' || /^(?:sem(?:ester)?\s*)?1$/i.test(sClean) || /^sem\s*i$/i.test(sClean)) savedSem = 'Sem I';
@@ -6464,7 +6464,7 @@ window.SRCC_FACULTY_LEAVES = {
         else if (sClean === '7' || /^(?:sem(?:ester)?\s*)?7$/i.test(sClean) || /^sem\s*vii$/i.test(sClean)) savedSem = 'Sem VII';
       }
 
-      // Normalize Section (e.g., "J" -> "Sec J", "Section J" -> "Sec J")
+// Normalize Section (e.g., "J" -> "Sec J", "Section J" -> "Sec J")
       if (savedSec) {
         const secClean = String(savedSec).trim();
         const m = secClean.match(/^(?:sec(?:tion)?\s*)?([A-Za-z])$/i);
@@ -6473,7 +6473,7 @@ window.SRCC_FACULTY_LEAVES = {
         }
       }
 
-      // Auto-resolve course if section is between E and N (Only B.Com (Hons) has Sec E through N at SRCC)
+// Auto-resolve course if section is between E and N (Only B.Com (Hons) has Sec E through N at SRCC)
       if (savedSec && ['Sec E', 'Sec F', 'Sec G', 'Sec H', 'Sec I', 'Sec J', 'Sec K', 'Sec L', 'Sec M', 'Sec N'].includes(savedSec)) {
         savedCourse = 'B.Com (Hons)';
       }
@@ -6492,7 +6492,7 @@ window.SRCC_FACULTY_LEAVES = {
         savedSec = 'Sec A';
       }
 
-      // Live day-wise auto-capture helper based on IST timezone
+// Live day-wise auto-capture helper based on IST timezone
       function getLiveDayName() {
         const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         const istNow = getIstDate();
@@ -6502,7 +6502,7 @@ window.SRCC_FACULTY_LEAVES = {
 
       const initialDay = getLiveDayName();
 
-      // Timetable state
+// Timetable state
       const ttState = {
         day: initialDay,
         course: savedCourse,
@@ -6514,7 +6514,7 @@ window.SRCC_FACULTY_LEAVES = {
       };
       window._srccTtState = ttState;
 
-      // --- Main View Elements (#viewTimetableSection) ---
+// --- Main View Elements (#viewTimetableSection) ---
       const ttMainDayButtons = document.querySelectorAll('#ttMainDayPicker .day-btn');
       const ttMainCoursePills = document.querySelectorAll('#ttMainCoursePills .cat-pill');
       const ttMainSemPills = document.querySelectorAll('#ttMainSemPills .cat-pill');
@@ -6538,7 +6538,7 @@ window.SRCC_FACULTY_LEAVES = {
       const ttRibbonCourseSec = document.getElementById('ttRibbonCourseSec');
       const ttRibbonDay = document.getElementById('ttRibbonDay');
 
-      // Silently persist last selected class filters so returning users immediately see their timetable
+// Silently persist last selected class filters so returning users immediately see their timetable
       function savePreferences() {
         try {
           localStorage.setItem('srcc_my_tt_course', ttState.course);
@@ -6553,7 +6553,7 @@ window.SRCC_FACULTY_LEAVES = {
         const isVac = (ttState.course === 'VAC');
         const isSecVacCourse = isSec || isVac || (ttState.course === 'SEC_VAC') || (ttState.course === 'SEC / VAC');
 
-        // Dynamic label and search placeholder
+// Dynamic label and search placeholder
         const batchSelectLabelEl = document.querySelector('label[for="ttMainBatchSelect"]');
         if (batchSelectLabelEl) {
           batchSelectLabelEl.textContent = isSec ? 'SEC Paper:' : (isVac ? 'VAC Paper:' : 'Batch:');
@@ -6568,14 +6568,14 @@ window.SRCC_FACULTY_LEAVES = {
           }
         }
 
-        // Semesters adjustments for SEC / VAC
+// Semesters adjustments for SEC / VAC
         if (isSecVacCourse) {
           if (ttState.sem === 'Sem VII') {
             ttState.sem = 'Sem I';
           }
         }
 
-        // Section dropdown:
+// Section dropdown:
         if (ttMainSecSelect) {
           ttMainSecSelect.innerHTML = '';
           if (isSecVacCourse) {
@@ -6586,7 +6586,7 @@ window.SRCC_FACULTY_LEAVES = {
             ttMainSecSelect.appendChild(opt);
             ttState.sec = 'Joint';
           } else {
-            // Normal course: B.Com or Economics
+// Normal course: B.Com or Economics
             const secs = Object.keys(courseMap[ttState.course]?.[ttState.sem] || {}).sort();
             secs.forEach(s => {
               const opt = document.createElement('option');
@@ -6602,7 +6602,7 @@ window.SRCC_FACULTY_LEAVES = {
           }
         }
 
-        // Natural numeric sorting helper
+// Natural numeric sorting helper
         const sortBatchesNaturally = (arr) => {
           return arr.sort((a, b) => {
             const numA = parseInt(a.replace(/\D+/g, ''), 10) || 0;
@@ -6612,7 +6612,7 @@ window.SRCC_FACULTY_LEAVES = {
           });
         };
 
-        // Batch dropdown:
+// Batch dropdown:
         let batchOptionsHtml = '<option value="ALL">All batches</option>';
         let batches = [];
 
@@ -6750,8 +6750,8 @@ window.SRCC_FACULTY_LEAVES = {
       function mergeConsecutiveSessions(rawList) {
         if (!rawList || rawList.length === 0) return [];
 
-        // Pre-pass: Consolidate sessions with same periodNum, room, teacher, and subject
-        // so that sub-batches (J1, J2, J3 / JP1, JP2, JP3) share one unified tile
+// Pre-pass: Consolidate sessions with same periodNum, room, teacher, and subject
+// so that sub-batches (J1, J2, J3 / JP1, JP2, JP3) share one unified tile
         const slotMap = new Map();
         rawList.forEach(item => {
           const tKey = (item.teacherId || item.teacher || '').trim().toLowerCase();
@@ -6814,8 +6814,8 @@ window.SRCC_FACULTY_LEAVES = {
 
           const uniquePeriods = Object.keys(byPeriod).map(n => parseInt(n, 10)).sort((a, b) => a - b);
 
-          // Per user rule: In B.Com (Hons), B.A. (Hons) Economics, and normal classes, DO NOT merge consecutive classes into one tile!
-          // Only for SEC and VAC courses (practical multi-hour blocks 2-6 periods) should classes be merged.
+// Per user rule: In B.Com (Hons), B.A. (Hons) Economics, and normal classes, DO NOT merge consecutive classes into one tile!
+// Only for SEC and VAC courses (practical multi-hour blocks 2-6 periods) should classes be merged.
           if (!isSecVac) {
             uniquePeriods.forEach(pNum => {
               merged.push(createSessionBlock([pNum], byPeriod));
@@ -6893,7 +6893,7 @@ window.SRCC_FACULTY_LEAVES = {
 
         const rawList = [];
 
-        // 1. Direct High-Fidelity Query from Official SRCC Classes Data (JOINT SEC-VAC & Class Sections)
+// 1. Direct High-Fidelity Query from Official SRCC Classes Data (JOINT SEC-VAC & Class Sections)
         if (window.SRCC_CLASSES_DATA && window.SRCC_CLASSES_DATA.courses) {
           const cData = window.SRCC_CLASSES_DATA.courses;
           let candidateList = [];
@@ -6917,7 +6917,7 @@ window.SRCC_FACULTY_LEAVES = {
               if (s.day !== targetDay) return;
               if (selBatch !== 'ALL') {
                 const sBatchRaw = (s.batch || '').trim().toUpperCase();
-                // Normal lectures (empty batch or whole section) always match and notify!
+// Normal lectures (empty batch or whole section) always match and notify!
                 if (sBatchRaw && sBatchRaw !== 'WHOLE SECTION' && sBatchRaw !== 'ALL') {
                   const targetSubBatches = selBatch.split(/[\s,\/]+/).map(x => x.trim().toUpperCase()).filter(Boolean);
                   const expandedTargets = new Set(targetSubBatches);
@@ -7028,7 +7028,7 @@ window.SRCC_FACULTY_LEAVES = {
                   ...(s.raw_batches_list || [])
                 ].filter(Boolean).map(b => b.toUpperCase().trim());
 
-                // If class has a specific batch (not empty/whole section)
+// If class has a specific batch (not empty/whole section)
                 const isGroupClass = allBatches.length > 0 && allBatches.some(b => b !== 'WHOLE SECTION' && b !== 'ALL');
                 if (isGroupClass) {
                   const targetSubBatches = selBatch.split(/[\s,\/]+/).map(x => x.trim().toUpperCase()).filter(Boolean);
@@ -7080,7 +7080,7 @@ window.SRCC_FACULTY_LEAVES = {
           });
         });
 
-        // If GBO is selected, also ingest any GBO occupied slots found in room data
+// If GBO is selected, also ingest any GBO occupied slots found in room data
         if (targetCourse === 'GBO' && appData && appData.rooms) {
           appData.rooms.forEach(r => {
             const occSlots = r.schedule?.[targetDay]?.occupied_slots || [];
@@ -7143,19 +7143,19 @@ window.SRCC_FACULTY_LEAVES = {
 
         if (combined.includes(q) || combinedNorm.includes(qNorm)) return true;
 
-        // If query is pure digits (e.g., "12"), check if batch number ends with or equals 12
+// If query is pure digits (e.g., "12"), check if batch number ends with or equals 12
         if (/^\d+$/.test(q)) {
           const batchDigits = (batch + ' ' + rawBatch).replace(/\D+/g, '');
           if (batchDigits === q || (batch + ' ' + rawBatch).includes(q)) return true;
         }
 
-        // Multi-word matching: all words in query must match
+// Multi-word matching: all words in query must match
         const words = q.split(/\s+/).filter(Boolean);
         if (words.length > 1 && words.every(w => combined.includes(w) || combinedNorm.includes(w.replace(/[\s\-_]+/g, '')))) {
           return true;
         }
 
-        // Teacher phonetic search
+// Teacher phonetic search
         if (typeof normalizeFacultySearchText === 'function') {
           const normQ = normalizeFacultySearchText(q);
           if (normQ && normalizeFacultySearchText(session.teacher).includes(normQ)) return true;
@@ -7191,8 +7191,8 @@ window.SRCC_FACULTY_LEAVES = {
         const displayRoom = getDisplayRoomName(session.room);
         const isRoomTba = !session.room || session.room.toUpperCase() === 'TBA' || session.room_tba || session.room === 'TBD';
         const roomButtonHtml = !isRoomTba 
-          ? `<button type="button" class="room-badge-link tt-room-btn btn-jump-room" data-room="${escapeHtml(targetRoom)}" title="Click to view room in campus room finder">🏛️ ${escapeHtml(displayRoom)} <span class="tt-room-arrow">↗</span></button>` 
-          : `<span class="room-pill-tba" title="Room not specified in official college timetable">🏛️ Room TBA</span>`;
+          ? `<button type="button" class="room-badge-link tt-room-btn btn-jump-room" data-room="${escapeHtml(targetRoom)}" title="Click to view room in campus room finder">${escapeHtml(displayRoom)} <span class="tt-room-arrow">↗</span></button>` 
+          : `<span class="room-pill-tba" title="Room not specified in official college timetable">Room TBA</span>`;
 
         const leaveCardCls = session.isOnLeave ? ' is-faculty-leave' : '';
         const displaySubject = session.subjectName || session.subject || 'Subject';
@@ -7206,10 +7206,10 @@ window.SRCC_FACULTY_LEAVES = {
         }
 
         const periodBadgeText = (session.periodsCount > 1)
-          ? `🕒 Period ${session.startPeriod}–${session.endPeriod} · ${session.startTime} – ${session.endTime}`
-          : `🕒 Period ${session.startPeriod} · ${session.startTime} – ${session.endTime}`;
+          ? `Period ${session.startPeriod}–${session.endPeriod} · ${session.startTime} – ${session.endTime}`
+          : `Period ${session.startPeriod} · ${session.startTime} – ${session.endTime}`;
 
-        const dayTagHtml = isCrossDay ? `<span class="tt-day-tag">📅 ${escapeHtml(session.day)}</span>` : '';
+        const dayTagHtml = isCrossDay ? `<span class="tt-day-tag">${escapeHtml(session.day)}</span>` : '';
         const studentTeacher = getCleanStudentFacultyName(session.teacher, session.teacherId);
         const initials = studentTeacher.split(' ').map(n => n[0]).filter(Boolean).slice(0, 2).join('').toUpperCase() || 'FC';
 
@@ -7244,7 +7244,7 @@ window.SRCC_FACULTY_LEAVES = {
         `;
       }
 
-      // 📢 Render Timetable Specific Notices & Rescheduling Banners
+// Render Timetable Specific Notices & Rescheduling Banners
       function renderTimetableNotices() {
         const container = document.getElementById('timetableNoticesContainer');
         if (!container) return;
@@ -7267,8 +7267,8 @@ window.SRCC_FACULTY_LEAVES = {
         container.innerHTML = ttNotices.map(n => `
           <div class="timetable-notice-alert-banner">
             <div class="tt-notice-header">
-              <span class="tt-notice-badge">⚠️ Timetable Notice</span>
-              ${n.event_date ? `<span style="font-size: 0.78rem; font-weight:700; color:#b45309;">🗓️ ${escapeHtml(n.event_date)}</span>` : ''}
+              <span class="tt-notice-badge">Timetable Notice</span>
+              ${n.event_date ? `<span style="font-size: 0.78rem; font-weight:700; color:#b45309;">${escapeHtml(n.event_date)}</span>` : ''}
               ${n.expiry_date ? `<span style="font-size: 0.72rem; color:#92400e;">Valid till: ${formatIsoToDdMmYyyy(n.expiry_date)}</span>` : ''}
             </div>
             <h4 class="tt-notice-title">${escapeHtml(n.title)}</h4>
@@ -7278,7 +7278,7 @@ window.SRCC_FACULTY_LEAVES = {
         container.style.display = 'block';
       }
 
-      // --- Render Native Full View Section (#viewTimetableSection) ---
+// --- Render Native Full View Section (#viewTimetableSection) ---
       function renderMainTimetableView() {
         if (!viewTimetableSection) return;
 
@@ -7296,12 +7296,12 @@ window.SRCC_FACULTY_LEAVES = {
 
         let visibleSessions = mergedToday;
 
-        // Slot filter (ALL or specific period)
+// Slot filter (ALL or specific period)
         if (ttState.slot !== 'ALL') {
           visibleSessions = visibleSessions.filter(s => s.slotsCovered && s.slotsCovered.includes(ttState.slot));
         }
 
-        // Search query filtering
+// Search query filtering
         let matchedTodaySessions = visibleSessions;
         if (filterQuery) {
           matchedTodaySessions = visibleSessions.filter(s => matchesSessionSearch(s, filterQuery));
@@ -7314,10 +7314,10 @@ window.SRCC_FACULTY_LEAVES = {
         let matchedOtherDayName = '';
 
         if (matchCount > 0) {
-          // Render today's matches
+// Render today's matches
           cardsHtml = matchedTodaySessions.map(s => renderSessionCard(s, false)).join('');
         } else if (filterQuery) {
-          // If no matches found on current day, perform cross-day search across all other days
+// If no matches found on current day, perform cross-day search across all other days
           const allDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
           for (const d of allDays) {
             if (d === ttState.day) continue;
@@ -7335,7 +7335,7 @@ window.SRCC_FACULTY_LEAVES = {
             cardsHtml = `
               <div class="tt-search-other-days-banner" style="grid-column: 1 / -1;">
                 <div class="tt-srb-left">
-                  <span style="font-size: 1.3rem;">📅</span>
+                  
                   <div class="tt-srb-text">
                     Found <strong>${otherDayMatches.length}</strong> matching ${isSecVacMode ? (isSecCourse ? 'SEC' : 'VAC') : ''} classes on <strong>${escapeHtml(matchedOtherDayName)}</strong> for "<strong>${escapeHtml(filterQuery)}</strong>"
                   </div>
@@ -7344,7 +7344,7 @@ window.SRCC_FACULTY_LEAVES = {
               </div>
             ` + otherDayMatches.map(s => renderSessionCard(s, true)).join('');
           } else if (teachersData && Array.isArray(teachersData.teachers)) {
-            // Global cross-course, cross-section & SEC/VAC search fallback
+// Global cross-course, cross-section & SEC/VAC search fallback
             const globalRawMatches = [];
             const activeLeaves = (leavesData && Array.isArray(leavesData.leaves)) ? leavesData.leaves : (window.SRCC_FACULTY_LEAVES?.leaves || []);
 
@@ -7398,7 +7398,7 @@ window.SRCC_FACULTY_LEAVES = {
               cardsHtml = `
                 <div class="tt-search-other-days-banner" style="grid-column: 1 / -1;">
                   <div class="tt-srb-left">
-                    <span style="font-size: 1.3rem;">🔍</span>
+                    <span style="display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: rgba(37,99,235,0.12); color: #2563eb;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
                     <div class="tt-srb-text">
                       Found <strong>${mergedGlobal.length}</strong> matching classes across SRCC Timetable for "<strong>${escapeHtml(filterQuery)}</strong>"
                     </div>
@@ -7409,7 +7409,7 @@ window.SRCC_FACULTY_LEAVES = {
           }
         }
 
-        // Update Stat tiles
+// Update Stat tiles
         if (ttCountClasses) ttCountClasses.textContent = mergedToday.length;
         if (ttSelectedSummary) {
           if (ttState.course === 'SEC') {
@@ -7449,7 +7449,7 @@ window.SRCC_FACULTY_LEAVES = {
           ttRibbonDay.textContent = ttState.day;
         }
 
-        // Render schedule grid & empty state
+// Render schedule grid & empty state
         if (ttMainScheduleGrid) {
           ttMainScheduleGrid.innerHTML = cardsHtml;
         }
@@ -7459,14 +7459,14 @@ window.SRCC_FACULTY_LEAVES = {
             ttMainEmptyState.style.display = 'block';
             if (ttState.course === 'GBO') {
               ttMainEmptyState.innerHTML = `
-                <div class="empty-icon">🏢</div>
+                <div class="empty-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.45;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
                 <h3 style="margin-bottom: 6px;">GBO Schedule for ${escapeHtml(ttState.day)}</h3>
                 <p style="color: var(--text-muted); max-width: 520px; margin: 0 auto 16px; line-height: 1.5;">
                   On the official SRCC Timetable portal, <strong>GBO (Global Business Operations)</strong> sessions are published on <strong>Wednesday &amp; Friday (4:00 PM – 6:00 PM in Room R14)</strong>. Additional GBO guest lectures/seminars are coordinated directly by the GBO department office.
                 </p>
                 <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
-                  <button class="btn-reset-filters btn-switch-day-quick" data-day="Wednesday">📅 View Wednesday (4–6 PM)</button>
-                  <button class="btn-reset-filters btn-switch-day-quick" data-day="Friday">📅 View Friday (4–6 PM)</button>
+                  <button class="btn-reset-filters btn-switch-day-quick" data-day="Wednesday">View Wednesday (4–6 PM)</button>
+                  <button class="btn-reset-filters btn-switch-day-quick" data-day="Friday">View Friday (4–6 PM)</button>
                 </div>
               `;
               ttMainEmptyState.querySelectorAll('.btn-switch-day-quick').forEach(b => {
@@ -7481,7 +7481,7 @@ window.SRCC_FACULTY_LEAVES = {
                 : ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
               const activeDaysBtns = mcomActiveDays.map(d => `<button class="btn-reset-filters btn-switch-day-quick" data-day="${d}">View ${d}</button>`).join(' ');
               ttMainEmptyState.innerHTML = `
-                <div class="empty-icon">🎓</div>
+                <div class="empty-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.45;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>
                 <h3 style="margin-bottom: 6px;">No M.Com classes on ${escapeHtml(ttState.day)}</h3>
                 <p style="color: var(--text-muted); max-width: 520px; margin: 0 auto 16px; line-height: 1.5;">
                   According to the official SRCC Timetable, <strong>M.Com (${escapeHtml(ttState.sem)})</strong> has lectures &amp; tutorials scheduled on <strong>${mcomActiveDays.join(', ')}</strong>. No lectures are scheduled on ${escapeHtml(ttState.day)}.
@@ -7511,7 +7511,7 @@ window.SRCC_FACULTY_LEAVES = {
                 `;
               } else {
                 ttMainEmptyState.innerHTML = `
-                  <div class="empty-icon">📅</div>
+                  <div class="empty-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.45;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
                   <h3 style="margin-bottom: 6px;">No ${courseLabel} classes for ${escapeHtml(ttState.sem)} on ${escapeHtml(ttState.day)}</h3>
                   <p style="color: var(--text-muted); max-width: 500px; margin: 0 auto 14px;">Classes for this semester run on other days, or check today's other active semesters below:</p>
                   <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
@@ -7527,7 +7527,7 @@ window.SRCC_FACULTY_LEAVES = {
                 `;
               }
 
-              // Bind dynamic quick switcher buttons
+// Bind dynamic quick switcher buttons
               ttMainEmptyState.querySelectorAll('.btn-switch-sem-quick').forEach(b => {
                 b.addEventListener('click', () => {
                   ttState.sem = b.dataset.sem;
@@ -7555,7 +7555,7 @@ window.SRCC_FACULTY_LEAVES = {
               }
             } else {
               ttMainEmptyState.innerHTML = `
-                <div class="empty-icon">🔎</div>
+                <div class="empty-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.45;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>
                 <h3>No matching classes found</h3>
                 <p>Try clearing your search query or switching Section / Day.</p>
                 <button class="btn-reset-filters" id="btnResetTtFilters">Reset Filters</button>
@@ -7576,7 +7576,7 @@ window.SRCC_FACULTY_LEAVES = {
           }
         }
 
-        // Attach listeners to any dynamic switch day buttons created in banners
+// Attach listeners to any dynamic switch day buttons created in banners
         document.querySelectorAll('.btn-switch-day-quick').forEach(b => {
           b.addEventListener('click', () => {
             ttState.day = b.dataset.day;
@@ -7584,12 +7584,12 @@ window.SRCC_FACULTY_LEAVES = {
           });
         });
 
-        // Update Class Notification card description with current selected course/sem/sec
+// Update Class Notification card description with current selected course/sem/sec
         if (typeof updateClassNotifUi === 'function') {
           updateClassNotifUi();
         }
 
-        // Attach click listeners for 1-click teacher timetable inspection
+// Attach click listeners for 1-click teacher timetable inspection
         if (ttMainScheduleGrid) {
           ttMainScheduleGrid.querySelectorAll('.btn-view-teacher-today').forEach(btn => {
             const handleTeacherClick = (e) => {
@@ -7607,7 +7607,7 @@ window.SRCC_FACULTY_LEAVES = {
             });
           });
 
-          // Clicking room buttons in Timetable directly opens Room Schedule Modal
+// Clicking room buttons in Timetable directly opens Room Schedule Modal
           ttMainScheduleGrid.querySelectorAll('.btn-jump-room, .room-badge-link').forEach(btn => {
             btn.addEventListener('click', (e) => {
               e.stopPropagation();
@@ -7621,7 +7621,7 @@ window.SRCC_FACULTY_LEAVES = {
         }
       }
 
-      // --- Setup Event Listeners for Main View Section ---
+// --- Setup Event Listeners for Main View Section ---
       ttMainDayButtons.forEach(btn => {
         btn.addEventListener('click', () => {
           ttState.day = btn.dataset.day;
@@ -7697,22 +7697,22 @@ window.SRCC_FACULTY_LEAVES = {
         });
       }
 
-      // Live day-wise auto capture on timetable switch
+// Live day-wise auto capture on timetable switch
       window._setTimetableToToday = function() {
         ttState.day = getLiveDayName();
         syncControlPills();
         renderMainTimetableView();
       };
 
-      // Expose globally so mode switcher & tab switcher can trigger it
+// Expose globally so mode switcher & tab switcher can trigger it
       window._renderMainTimetable = renderMainTimetableView;
       window._openTimetableModal = function() {
         setAppMode('timetable');
       };
 
-      // ========================================================================
-      // 🔔 INTERACTIVE STUDENT CLASS & TIMETABLE NOTIFICATION CONTROLLER
-      // ========================================================================
+// ========================================================================
+// INTERACTIVE STUDENT CLASS & TIMETABLE NOTIFICATION CONTROLLER
+// ========================================================================
       const btnToggleClassAlerts = document.getElementById('btnToggleClassAlerts');
       const ttNotifStatusBadge = document.getElementById('ttNotifStatusBadge');
       const ttToggleLabel = document.getElementById('ttToggleLabel');
@@ -7837,7 +7837,7 @@ window.SRCC_FACULTY_LEAVES = {
         const secLetter = letterMatch ? letterMatch[1].toUpperCase() : '';
 
         if (secLetter) {
-          // Combined Tutorial & Practical Batches as user requested: J1/JP1, J2/JP2, J3/JP3
+// Combined Tutorial & Practical Batches as user requested: J1/JP1, J2/JP2, J3/JP3
           const combinedBatches = [
             { val: `${secLetter}1 / ${secLetter}P1`, label: `${secLetter}1 / ${secLetter}P1 (Tutorial 1 & Practical 1)` },
             { val: `${secLetter}2 / ${secLetter}P2`, label: `${secLetter}2 / ${secLetter}P2 (Tutorial 2 & Practical 2)` },
@@ -7850,7 +7850,7 @@ window.SRCC_FACULTY_LEAVES = {
             notifBatchSelect.appendChild(opt);
           });
 
-          // Individual Tutorial Batches
+// Individual Tutorial Batches
           for (let i = 1; i <= 3; i++) {
             const opt = document.createElement('option');
             opt.value = `${secLetter}${i}`;
@@ -7858,7 +7858,7 @@ window.SRCC_FACULTY_LEAVES = {
             notifBatchSelect.appendChild(opt);
           }
 
-          // Individual Practical Batches
+// Individual Practical Batches
           for (let i = 1; i <= 3; i++) {
             const opt = document.createElement('option');
             opt.value = `${secLetter}P${i}`;
@@ -7866,13 +7866,13 @@ window.SRCC_FACULTY_LEAVES = {
             notifBatchSelect.appendChild(opt);
           }
 
-          // All Batches option at bottom
+// All Batches option at bottom
           const optAll = document.createElement('option');
           optAll.value = 'ALL';
           optAll.textContent = 'All Batches (Full Section + All Tutorials & Labs)';
           notifBatchSelect.appendChild(optAll);
         } else {
-          // General / GBO / PG Batches
+// General / GBO / PG Batches
           ['Group 1 / Lab 1', 'Group 2 / Lab 2', 'Group 3 / Lab 3'].forEach((g, idx) => {
             const opt = document.createElement('option');
             opt.value = `G${idx + 1}`;
@@ -7885,7 +7885,7 @@ window.SRCC_FACULTY_LEAVES = {
           notifBatchSelect.appendChild(optAll);
         }
 
-        // Restore saved preference or default to Batch 1
+// Restore saved preference or default to Batch 1
         const defaultBatch1 = secLetter ? `${secLetter}1 / ${secLetter}P1` : (notifBatchSelect.options[0]?.value || 'ALL');
         if (savedBatch && Array.from(notifBatchSelect.options).some(o => o.value === savedBatch)) {
           notifBatchSelect.value = savedBatch;
@@ -7984,7 +7984,7 @@ window.SRCC_FACULTY_LEAVES = {
         }
       }
 
-      // Initialize dropdown selections and roles
+// Initialize dropdown selections and roles
       setNotifRole(currentNotifRole);
       populateTeacherSelect(localStorage.getItem('srcc_my_teacher_id') || '');
       if (notifLeadTimeSelect) {
@@ -8010,7 +8010,7 @@ window.SRCC_FACULTY_LEAVES = {
         notifSemSelect.addEventListener('change', () => populateNotifSections());
       }
 
-      // Save Class / Faculty Button
+// Save Class / Faculty Button
       if (btnSaveClassAlerts) {
         btnSaveClassAlerts.addEventListener('click', async () => {
           localStorage.setItem('srcc_notif_role', currentNotifRole);
@@ -8024,7 +8024,7 @@ window.SRCC_FACULTY_LEAVES = {
           if (currentNotifRole === 'faculty') {
             const teacherId = notifTeacherSelect ? notifTeacherSelect.value : '';
             if (!teacherId) {
-              showToast('⚠️ Please select your faculty name first');
+              showToast('Please select your faculty name first');
               return;
             }
             const teacherObj = (teachersData && teachersData.teachers)
@@ -8037,7 +8037,7 @@ window.SRCC_FACULTY_LEAVES = {
             localStorage.setItem('srcc_my_teacher_name', tName);
             localStorage.setItem('srcc_notif_lead_mins', leadMins);
 
-            // Cache preference for Service Worker
+// Cache preference for Service Worker
             if ('caches' in window) {
               try {
                 const cache = await caches.open('srcc-classroom-v96');
@@ -8051,7 +8051,7 @@ window.SRCC_FACULTY_LEAVES = {
               } catch (e) {}
             }
 
-            // Broadcast to Service Worker
+// Broadcast to Service Worker
             if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
               navigator.serviceWorker.controller.postMessage({
                 type: 'UPDATE_CLASS_PREF',
@@ -8066,19 +8066,19 @@ window.SRCC_FACULTY_LEAVES = {
             updateClassNotifUi();
 
             if (perm === 'granted') {
-              triggerDeviceNotification('🔔 Faculty Lecture Alerts Active', {
+              triggerDeviceNotification('Faculty Lecture Alerts Active', {
                 body: `Active for Prof. ${tName}. You will receive reminders ${leadMins} min before each lecture with Room No., Course, Semester & Section!`,
                 tag: 'srcc-faculty-alert-confirmed'
               });
             }
 
             checkAndNotifyStudentTimetableAndDeadlines();
-            showToast(`✅ Faculty Alerts Active for Prof. ${tName}`, true, 2500);
+            showToast(`Faculty Alerts Active for Prof. ${tName}`, true, 2500);
             setTimeout(() => { closeClassNotifModal(); }, 600);
             return;
           }
 
-          // Student role saving
+// Student role saving
           const selCourse = notifCourseSelect ? notifCourseSelect.value : 'B.Com (Hons)';
           const selSem = notifSemSelect ? notifSemSelect.value : 'Sem I';
           const selSec = notifSecSelect ? notifSecSelect.value : 'Sec A';
@@ -8135,19 +8135,19 @@ window.SRCC_FACULTY_LEAVES = {
 
           if (perm === 'granted') {
             const batchLabel = (selBatch && selBatch !== 'ALL') ? ` (${selBatch})` : '';
-            triggerDeviceNotification('🔔 Class & Leave Alerts Active', {
+            triggerDeviceNotification('Class & Leave Alerts Active', {
               body: `Active for ${selCourse} · ${selSem} · ${selSec}${batchLabel}. Reminders ${selLeadMins} min before class with Room No. and instant teacher leave alerts!`,
               tag: 'srcc-class-alert-confirmed'
             });
           }
 
           checkAndNotifyStudentTimetableAndDeadlines();
-          showToast('✅ Saved & Notifications Activated', true, 2500);
+          showToast('Saved & Notifications Activated', true, 2500);
           setTimeout(() => { closeClassNotifModal(); }, 600);
         });
       }
 
-      // Toggle ON/OFF Switch
+// Toggle ON/OFF Switch
       if (btnToggleClassAlerts) {
         btnToggleClassAlerts.addEventListener('click', async () => {
           const currentlyEnabled = localStorage.getItem('srcc_class_alerts_enabled') !== 'false';
@@ -8159,19 +8159,19 @@ window.SRCC_FACULTY_LEAVES = {
               try { await Notification.requestPermission(); } catch (e) {}
             }
             updateClassNotifUi();
-            showToast('✅ Alerts ON', true, 2000);
+            showToast('Alerts ON', true, 2000);
           } else {
             updateClassNotifUi();
-            showToast('🔕 Alerts OFF', false, 2000);
+            showToast('Alerts OFF', false, 2000);
           }
         });
       }
 
       updateClassNotifUi();
 
-      // ========================================================================
-      // 📌 "MERE BATCH KA AAJ KA SCHEDULE" (DAILY PINNED BATCH WIDGET)
-      // ========================================================================
+// ========================================================================
+// "MERE BATCH KA AAJ KA SCHEDULE" (DAILY PINNED BATCH WIDGET)
+// ========================================================================
       const WIDGET_STORAGE_KEY = 'srcc_my_batch_widget_pref_v1';
       const myBatchContainer = document.getElementById('myBatchScheduleWidget');
 
@@ -8209,7 +8209,7 @@ window.SRCC_FACULTY_LEAVES = {
           <div class="my-batch-widget my-batch-setup-card">
             <div class="my-batch-setup-header">
               <div class="my-batch-title-row">
-                <span class="my-batch-icon">📌</span>
+                <span class="my-batch-icon"></span>
                 <div>
                   <h3 style="margin: 0; font-size: 1.15rem; font-weight: 700; color: var(--text-heading);">Mere Batch Ka Aaj Ka Schedule (Daily Widget)</h3>
                   <p style="margin: 4px 0 0; font-size: 0.85rem; color: var(--text-muted);">Apna course, semester aur section select karo — har roz home screen par aaj ka schedule, next class reminder aur live teacher leave alert apne aap update hoga!</p>
@@ -8243,7 +8243,7 @@ window.SRCC_FACULTY_LEAVES = {
             <div class="my-batch-actions" style="margin-top: 16px; display: flex; gap: 10px; align-items: center; justify-content: flex-end;">
               ${getMyBatchPref() ? `<button type="button" id="mbBtnCancelEdit" style="padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: transparent; color: var(--text-muted); cursor: pointer; font-size: 0.88rem;">Cancel</button>` : ''}
               <button type="button" id="mbBtnSaveWidget" style="padding: 9px 20px; border-radius: 8px; border: none; background: #2563eb; color: #fff; font-weight: 600; cursor: pointer; font-size: 0.92rem; box-shadow: 0 2px 8px rgba(37,99,235,0.3);">
-                📌 Pin Mere Batch Ka Schedule
+                Pin Mere Batch Ka Schedule
               </button>
             </div>
           </div>
@@ -8261,7 +8261,7 @@ window.SRCC_FACULTY_LEAVES = {
           const selectedCourse = elCourse.value;
           const isSecOrVac = (selectedCourse === 'SEC' || selectedCourse === 'VAC');
 
-          // Sems
+// Sems
           const sems = (selectedCourse === 'M.Com')
             ? ['Sem II', 'Sem IV']
             : (isSecOrVac ? ['Sem I', 'Sem II', 'Sem III', 'Sem IV', 'Sem V', 'Sem VI'] : ['Sem II', 'Sem IV', 'Sem VI', 'Sem VII']);
@@ -8269,7 +8269,7 @@ window.SRCC_FACULTY_LEAVES = {
           const curSem = sems.includes(elSem.value) ? elSem.value : (sems.includes(currentPref.sem) ? currentPref.sem : sems[0]);
           elSem.innerHTML = sems.map(s => `<option value="${s}" ${s === curSem ? 'selected' : ''}>${s}</option>`).join('');
 
-          // Secs
+// Secs
           if (isSecOrVac) {
             elSecField.style.display = 'none';
           } else {
@@ -8279,7 +8279,7 @@ window.SRCC_FACULTY_LEAVES = {
             elSec.innerHTML = secs.map(s => `<option value="${s}" ${s === curSec ? 'selected' : ''}>${s}</option>`).join('');
           }
 
-          // Batches
+// Batches
           let batchOptions = '<option value="ALL">All Batches (Whole Section)</option>';
           if (selectedCourse === 'SEC') {
             const bList = Array.from(secBatchesBySem[curSem] || []);
@@ -8316,7 +8316,7 @@ window.SRCC_FACULTY_LEAVES = {
               batch: elBatch.value || 'ALL'
             };
             saveMyBatchPref(newPref);
-            showToast('✅ <strong>Mere Batch Ka Schedule</strong> successfully pinned to home screen!', true, 3500);
+            showToast('<strong>Mere Batch Ka Schedule</strong> successfully pinned to home screen!', true, 3500);
             renderMyBatchDailyWidget();
           });
         }
@@ -8342,7 +8342,7 @@ window.SRCC_FACULTY_LEAVES = {
           return;
         }
 
-        // Live day name for today
+// Live day name for today
         const todayDay = getLiveDayName();
         const istNow = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
         const nowMins = istNow.getHours() * 60 + istNow.getMinutes();
@@ -8351,11 +8351,11 @@ window.SRCC_FACULTY_LEAVES = {
         const isSunday = (todayDay === 'Sunday');
         const classesDay = isSunday ? 'Monday' : todayDay;
 
-        // Fetch classes
+// Fetch classes
         const rawClasses = getClassesForParameters(classesDay, pref.sem, pref.course, pref.batch, pref.sec);
         const mergedClasses = mergeConsecutiveSessions(rawClasses);
 
-        // Teacher leaves active today
+// Teacher leaves active today
         const todayLeaves = getActiveTodayLeaves();
         const leaveProfMap = {};
         todayLeaves.forEach(l => {
@@ -8369,7 +8369,7 @@ window.SRCC_FACULTY_LEAVES = {
           return null;
         }
 
-        // Identify Current and Next Class
+// Identify Current and Next Class
         let currentClass = null;
         let nextClass = null;
         let minsToNext = 999999;
@@ -8393,13 +8393,13 @@ window.SRCC_FACULTY_LEAVES = {
           });
         }
 
-        // Build Next Class Reminder UI
+// Build Next Class Reminder UI
         let reminderHtml = '';
         if (isSunday) {
           reminderHtml = `
             <div class="my-batch-next-class-card status-free" style="background: rgba(16, 185, 129, 0.08); border-left: 4px solid #10b981; padding: 12px 16px; border-radius: 10px; margin-top: 12px;">
               <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; color: #059669; font-size: 0.95rem;">
-                <span>🏖️ Sunday · College Closed Today</span>
+                <span>Sunday · College Closed Today</span>
               </div>
               <p style="margin: 4px 0 0; font-size: 0.85rem; color: var(--text-muted);">No academic lectures today. Showing Monday's upcoming schedule below for planning!</p>
             </div>
@@ -8417,7 +8417,7 @@ window.SRCC_FACULTY_LEAVES = {
                   <span style="font-size: 0.82rem; font-weight: normal; color: var(--text-muted);">(Ends at ${currentClass.endTime}, in ${remainingMins} min${remainingMins === 1 ? '' : 's'})</span>
                 </div>
                 <button type="button" class="btn-batch-room-jump" onclick="openScheduleModal('${escapeHtml(currentClass.room)}')" style="padding: 4px 10px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; background: #ef4444; color: #fff; border: none; cursor: pointer;">
-                  📍 Room ${escapeHtml(currentClass.room)} Schedule ↗
+                  Room ${escapeHtml(currentClass.room)} Schedule ↗
                 </button>
               </div>
               <div style="margin-top: 8px; font-size: 1.05rem; font-weight: 700; color: var(--text-heading);">
@@ -8443,10 +8443,10 @@ window.SRCC_FACULTY_LEAVES = {
             <div class="my-batch-next-class-card status-upcoming" style="background: rgba(37, 99, 235, 0.08); border-left: 4px solid #2563eb; padding: 12px 16px; border-radius: 10px; margin-top: 12px;">
               <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
                 <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; color: #2563eb; font-size: 0.95rem;">
-                  <span>⏳ NEXT CLASS IN ${timeText.toUpperCase()} (Starts at ${nextClass.startTime})</span>
+                  <span>NEXT CLASS IN ${timeText.toUpperCase()} (Starts at ${nextClass.startTime})</span>
                 </div>
                 <button type="button" class="btn-batch-room-jump" onclick="openScheduleModal('${escapeHtml(nextClass.room)}')" style="padding: 4px 10px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; background: #2563eb; color: #fff; border: none; cursor: pointer;">
-                  📍 Room ${escapeHtml(nextClass.room)} Schedule ↗
+                  Room ${escapeHtml(nextClass.room)} Schedule ↗
                 </button>
               </div>
               <div style="margin-top: 8px; font-size: 1.05rem; font-weight: 700; color: var(--text-heading);">
@@ -8467,7 +8467,7 @@ window.SRCC_FACULTY_LEAVES = {
           reminderHtml = `
             <div class="my-batch-next-class-card status-free" style="background: rgba(16, 185, 129, 0.08); border-left: 4px solid #10b981; padding: 12px 16px; border-radius: 10px; margin-top: 12px;">
               <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; color: #059669; font-size: 0.95rem;">
-                <span>🎉 All Classes For Today Are Over!</span>
+                <span>All Classes For Today Are Over</span>
               </div>
               <p style="margin: 4px 0 0; font-size: 0.85rem; color: var(--text-muted);">All lectures have concluded. Enjoy your evening & review notes!</p>
             </div>
@@ -8476,14 +8476,14 @@ window.SRCC_FACULTY_LEAVES = {
           reminderHtml = `
             <div class="my-batch-next-class-card status-free" style="background: rgba(16, 185, 129, 0.08); border-left: 4px solid #10b981; padding: 12px 16px; border-radius: 10px; margin-top: 12px;">
               <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; color: #059669; font-size: 0.95rem;">
-                <span>🎉 No Scheduled Classes Today</span>
+                <span>No Scheduled Classes Today</span>
               </div>
               <p style="margin: 4px 0 0; font-size: 0.85rem; color: var(--text-muted);">No academic lectures scheduled for your batch on ${todayDay}.</p>
             </div>
           `;
         }
 
-        // Today's classes timeline strip
+// Today's classes timeline strip
         const classesTimelineHtml = mergedClasses.length === 0
           ? `<div style="text-align: center; padding: 16px; color: var(--text-muted); font-size: 0.88rem;">No classes found for this day.</div>`
           : mergedClasses.map(cls => {
@@ -8503,17 +8503,15 @@ window.SRCC_FACULTY_LEAVES = {
                     </div>
                     <div style="font-size: 0.82rem; color: var(--text-muted);">
                       Prof. <strong>${escapeHtml(cls.teacher)}</strong>
-                      ${leave ? `<span style="margin-left: 6px; color: #dc2626; font-weight: 700; background: rgba(220, 38, 38, 0.1); padding: 1px 6px; border-radius: 4px;">🏖️ On Leave</span>` : ''}
+                      ${leave ? `<span style="margin-left: 6px; color: #dc2626; font-weight: 700; background: rgba(220, 38, 38, 0.1); padding: 1px 6px; border-radius: 4px;">On Leave</span>` : ''}
                     </div>
                   </div>
                   <div style="display: flex; align-items: center; gap: 8px;">
                     <button type="button" onclick="openScheduleModal('${escapeHtml(cls.room)}')" style="padding: 4px 10px; border-radius: 6px; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-heading); font-size: 0.82rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
-                      📍 <strong>${escapeHtml(cls.room)}</strong>
+                      <strong>${escapeHtml(cls.room)}</strong>
                     </button>
                     ${cls.teacherId ? `
-                      <button type="button" onclick="openTeacherModal('${escapeHtml(cls.teacherId)}', '${classesDay}')" title="View Teacher Timetable" style="padding: 4px 8px; border-radius: 6px; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.8rem; cursor: pointer;">
-                        🗓️
-                      </button>
+                      <button type="button" onclick="openTeacherModal('${escapeHtml(cls.teacherId)}', '${classesDay}')" title="View Teacher Timetable" style="padding: 4px 8px; border-radius: 6px; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.78rem; font-weight: 600; cursor: pointer;">Timetable ↗</button>
                     ` : ''}
                   </div>
                 </div>
@@ -8526,19 +8524,19 @@ window.SRCC_FACULTY_LEAVES = {
           <div class="my-batch-widget my-batch-active-card" style="background: var(--bg-card, #ffffff); border: 1px solid var(--border-color, #e2e8f0); border-radius: 14px; padding: 16px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
             <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; border-bottom: 1px solid var(--border-color, #e2e8f0); padding-bottom: 12px;">
               <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="font-size: 1.35rem;">📌</span>
+                
                 <div>
                   <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
                     <h3 style="margin: 0; font-size: 1.05rem; font-weight: 700; color: var(--text-heading);">Mere Batch Ka Aaj Ka Schedule</h3>
                     <span style="font-size: 0.78rem; font-weight: 600; padding: 2px 8px; border-radius: 6px; background: rgba(37,99,235,0.1); color: #2563eb;">${escapeHtml(batchDesc)}</span>
                   </div>
                   <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">
-                    📅 ${todayDay}, ${dateFormatted} · Daily Auto-Updated Widget
+                    ${todayDay}, ${dateFormatted} · Daily Auto-Updated Widget
                   </div>
                 </div>
               </div>
               <button type="button" id="btnEditMyBatchWidget" style="padding: 5px 12px; border-radius: 8px; border: 1px solid var(--border-color); background: transparent; color: var(--text-heading); font-size: 0.82rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 5px;">
-                ⚙️ Change Batch
+                Change Batch
               </button>
             </div>
 
@@ -8565,10 +8563,10 @@ window.SRCC_FACULTY_LEAVES = {
         }
       }
 
-      // Expose globally so updateLiveClock can trigger seamless updates
+// Expose globally so updateLiveClock can trigger seamless updates
       window.renderMyBatchDailyWidget = renderMyBatchDailyWidget;
 
-      // Populate initial values
+// Populate initial values
       updateSectionsAndBatches(false);
       syncControlPills();
       renderMainTimetableView();
@@ -8695,7 +8693,7 @@ window.SRCC_FACULTY_LEAVES = {
           const shareUrl = `${origin}${path}widget.html?profile=${encodeURIComponent(b64)}`;
           if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(shareUrl).then(() => {
-              showToast('📋 Widget profile link copied to clipboard!');
+              showToast('Widget profile link copied to clipboard!');
             }).catch(() => {
               prompt('Copy widget link:', shareUrl);
             });
@@ -8711,7 +8709,7 @@ window.SRCC_FACULTY_LEAVES = {
           const jsonStr = JSON.stringify(prof, null, 2);
           if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(jsonStr).then(() => {
-              showToast('📄 Widget profile JSON copied to clipboard!');
+              showToast('Widget profile JSON copied to clipboard!');
             }).catch(() => {
               prompt('Copy profile JSON:', jsonStr);
             });
@@ -8722,9 +8720,9 @@ window.SRCC_FACULTY_LEAVES = {
       }
     }
 
-    // ========================================================================
-    // 👥 UNIQUE STUDENT VISITOR TRACKING (Firebase Realtime DB)
-    // ========================================================================
+// ========================================================================
+// UNIQUE STUDENT VISITOR TRACKING (Firebase Realtime DB)
+// ========================================================================
     function trackStudentVisitor() {
       try {
         let visitorUuid = localStorage.getItem('srcc_student_uuid');
@@ -8762,10 +8760,10 @@ window.SRCC_FACULTY_LEAVES = {
       }
     }
 
-    // ========================================================================
-    // 🔔 BULLETPROOF CROSS-PLATFORM DEVICE NOTIFICATION DISPATCHER
-    // (Fully compatible with Android Mobile, Windows/Mac Laptop Chrome, iOS PWA)
-    // ========================================================================
+// ========================================================================
+// BULLETPROOF CROSS-PLATFORM DEVICE NOTIFICATION DISPATCHER
+// (Fully compatible with Android Mobile, Windows/Mac Laptop Chrome, iOS PWA)
+// ========================================================================
     async function triggerDeviceNotification(title, options = {}) {
       if (!('Notification' in window)) return false;
       if (Notification.permission !== 'granted') return false;
@@ -8785,7 +8783,7 @@ window.SRCC_FACULTY_LEAVES = {
         data: options.data || { url: baseHref + 'index.html?view=leaves' }
       };
 
-      // 1. Primary Method: Service Worker showNotification (MANDATORY for Android Mobile Chrome to avoid Illegal Constructor, works excellently on Laptop Chrome)
+// 1. Primary Method: Service Worker showNotification (MANDATORY for Android Mobile Chrome to avoid Illegal Constructor, works excellently on Laptop Chrome)
       if ('serviceWorker' in navigator) {
   let swRefreshing = false;
   navigator.serviceWorker.addEventListener('controllerchange', () => {
@@ -8805,7 +8803,7 @@ window.SRCC_FACULTY_LEAVES = {
         }
       }
 
-      // 2. Desktop Fallback: new Notification() (Only on Desktop browsers supporting window constructor)
+// 2. Desktop Fallback: new Notification() (Only on Desktop browsers supporting window constructor)
       try {
         new Notification(title, resolvedOptions);
         return true;
@@ -8815,9 +8813,9 @@ window.SRCC_FACULTY_LEAVES = {
       return false;
     }
 
-    // ========================================================================
-    // 🏛️ LIVE FREE ROOMS COUNT HELPER
-    // ========================================================================
+// ========================================================================
+// LIVE FREE ROOMS COUNT HELPER
+// ========================================================================
     function getCurrentlyFreeRoomsCount() {
       if (!appData || !appData.rooms) return 0;
       const now = getIstDate();
@@ -8825,7 +8823,7 @@ window.SRCC_FACULTY_LEAVES = {
       const dayName = now.toLocaleDateString('en-US', { weekday: 'long' });
       if (dayName === 'Sunday') return 0;
 
-      // 🥪 Lunch recess (1:30 PM - 2:00 PM): All 96 classrooms are 100% free!
+// Lunch recess (1:30 PM - 2:00 PM): All 96 classrooms are 100% free!
       if (currentMinutes >= 13 * 60 + 30 && currentMinutes < 14 * 60) {
         return appData.rooms.length;
       }
@@ -8842,29 +8840,29 @@ window.SRCC_FACULTY_LEAVES = {
       }).length;
     }
 
-    // ========================================================================
-    // 🔔 HOURLY CAMPUS & FACULTY LEAVE NOTIFICATIONS SYSTEM (Every 1 Hour)
-    // Combines Today's Absent Faculty + Number of Rooms Free Right Now!
-    // ========================================================================
+// ========================================================================
+// HOURLY CAMPUS & FACULTY LEAVE NOTIFICATIONS SYSTEM (Every 1 Hour)
+// Combines Today's Absent Faculty + Number of Rooms Free Right Now!
+// ========================================================================
     function notifyFacultyLeaves(activeLeaves, isLiveUpdate = false, isTest = false) {
       const freeRoomsCount = getCurrentlyFreeRoomsCount();
       let freeRoomsText = '';
       if (state.currentLiveSlot === '1:30 PM to 2:00 PM') {
-        freeRoomsText = '🥪 Lunch Recess: All 96 Classrooms Free Right Now!';
+        freeRoomsText = 'Lunch Recess: All 96 Classrooms Free Right Now!';
       } else if (freeRoomsCount > 0) {
-        freeRoomsText = `⚡ ${freeRoomsCount} Classrooms Free Right Now for GD & Study!`;
+        freeRoomsText = `${freeRoomsCount} Classrooms Free Right Now for GD & Study!`;
       } else if (state.currentLiveSlot) {
-        freeRoomsText = '🔴 All classrooms currently in session this period.';
+        freeRoomsText = 'All classrooms currently in session this period.';
       } else {
-        freeRoomsText = '🕒 College Off-Hours.';
+        freeRoomsText = 'College Off-Hours.';
       }
 
       if (isTest) {
-        triggerDeviceNotification('SRCC Live Campus Update 🔔 (Test)', {
-          body: `✅ Live Alerts Active!\n${freeRoomsText}`,
+        triggerDeviceNotification('SRCC Live Campus Update (Test)', {
+          body: `Live Alerts Active!\n${freeRoomsText}`,
           tag: 'srcc-test-alert'
         });
-        showToast(`🔔 <strong>Test Alert Sent!</strong> (${freeRoomsText})`, true, 4500);
+        showToast(`<strong>Test Alert Sent!</strong> (${freeRoomsText})`, true, 4500);
         return;
       }
 
@@ -8872,10 +8870,10 @@ window.SRCC_FACULTY_LEAVES = {
       const currentDayOfWeek = istNow.getDay(); // 0 is Sunday
       const currentHour = istNow.getHours();
 
-      // 🛑 SUNDAY DAYTIME LEAVE NOTIFICATION SUPPRESSION:
-      // Faculty leave notifications run Monday to Saturday during college hours.
-      // On Sunday daytime, notifications are completely suppressed because college is closed.
-      // Only on Sunday night between 10:00 PM (22:00) and 11:59 PM IST can an upcoming Monday leave preview be sent.
+// SUNDAY DAYTIME LEAVE NOTIFICATION SUPPRESSION:
+// Faculty leave notifications run Monday to Saturday during college hours.
+// On Sunday daytime, notifications are completely suppressed because college is closed.
+// Only on Sunday night between 10:00 PM (22:00) and 11:59 PM IST can an upcoming Monday leave preview be sent.
       if (currentDayOfWeek === 0 && !isTest) {
         if (currentHour < 22) {
           return; // Strictly no leave notifications on Sunday before 10 PM
@@ -8883,18 +8881,18 @@ window.SRCC_FACULTY_LEAVES = {
       }
 
       const count = (activeLeaves && activeLeaves.length) || 0;
-      let title = 'SRCC Live Campus Update 🔔';
+      let title = 'SRCC Live Campus Update';
       let bodyText = '';
 
       if (currentDayOfWeek === 0 && currentHour >= 22) {
-        title = 'SRCC Monday Campus Preview 🔔';
+        title = 'SRCC Monday Campus Preview';
         if (count === 1) {
-          bodyText = `Prof. ${activeLeaves[0].teacher_name} is scheduled on leave for tomorrow (Monday).\n⚡ Regular classes resume Monday morning at 8:30 AM.`;
+          bodyText = `Prof. ${activeLeaves[0].teacher_name} is scheduled on leave for tomorrow (Monday).\nRegular classes resume Monday morning at 8:30 AM.`;
         } else if (count > 1) {
           const topNames = activeLeaves.slice(0, 3).map(l => l.teacher_name).join(', ');
-          bodyText = `${count} faculty scheduled on leave for tomorrow (Monday: ${topNames}${count > 3 ? '...' : ''}).\n⚡ Regular classes resume Monday morning at 8:30 AM.`;
+          bodyText = `${count} faculty scheduled on leave for tomorrow (Monday: ${topNames}${count > 3 ? '...' : ''}).\nRegular classes resume Monday morning at 8:30 AM.`;
         } else {
-          bodyText = `All faculty scheduled present for tomorrow (Monday).\n⚡ Regular classes resume Monday morning at 8:30 AM.`;
+          bodyText = `All faculty scheduled present for tomorrow (Monday).\nRegular classes resume Monday morning at 8:30 AM.`;
         }
       } else {
         if (count === 1) {
@@ -8911,14 +8909,14 @@ window.SRCC_FACULTY_LEAVES = {
       const lastHourlyTime = parseInt(localStorage.getItem('srcc_last_hourly_notif_time') || '0', 10);
       const now = Date.now();
 
-      // Enforce 1-hour interval between notifications unless live update changed leaves
+// Enforce 1-hour interval between notifications unless live update changed leaves
       if (now - lastHourlyTime < ONE_HOUR_MS && !isLiveUpdate && !isTest) {
         return; // Already notified within the last 1 hour
       }
 
       localStorage.setItem('srcc_last_hourly_notif_time', String(now));
 
-      // 1. Browser Native Device Notification (Laptop + Mobile Lock Screen)
+// 1. Browser Native Device Notification (Laptop + Mobile Lock Screen)
       if ('Notification' in window && Notification.permission === 'granted') {
         triggerDeviceNotification(title, {
           body: bodyText,
@@ -8926,18 +8924,18 @@ window.SRCC_FACULTY_LEAVES = {
         });
       }
 
-      // 2. In-app Toast Banner for live changes
+// 2. In-app Toast Banner for live changes
       if (isLiveUpdate) {
         const leaveMsg = count > 0 
           ? `${count} ${count === 1 ? 'professor is' : 'professors are'} on leave today.`
           : 'All professors present today.';
-        showToast(`🔔 <strong>Faculty Leave Update:</strong> ${leaveMsg} <button onclick="openFacultyLeavesView()" style="margin-left:8px; padding:3px 8px; border-radius:4px; border:none; background:#070D18; color:#fff; cursor:pointer; font-size:0.75rem;">View</button>`, true, 5000);
+        showToast(`<strong>Faculty Leave Update:</strong> ${leaveMsg} <button onclick="openFacultyLeavesView()" style="margin-left:8px; padding:3px 8px; border-radius:4px; border:none; background:#070D18; color:#fff; cursor:pointer; font-size:0.75rem;">View</button>`, true, 5000);
       }
     }
 
-    // ========================================================================
-    // ☁️ LIVE CLOUD LEAVES SYNC (Runs on load, every 45s, and on device wakeup)
-    // ========================================================================
+// ========================================================================
+// LIVE CLOUD LEAVES SYNC (Runs on load, every 45s, and on device wakeup)
+// ========================================================================
     async function syncLeavesFromCloud(isWakeupTrigger = false) {
       let cloudUrl = (window.SRCC_CLOUD_CONFIG && window.SRCC_CLOUD_CONFIG.db_url) || localStorage.getItem('srcc_cloud_db_url') || 'https://srcc-leaves-default-rtdb.firebaseio.com/leaves.json';
       if (!cloudUrl) return;
@@ -8951,7 +8949,7 @@ window.SRCC_FACULTY_LEAVES = {
           }
         } catch (err) {}
 
-        // Fallback to auto-synced static json if Cloud DB is unreachable or 401
+// Fallback to auto-synced static json if Cloud DB is unreachable or 401
         if (!data || (!data.leaves && !Array.isArray(data))) {
           try {
             const localRes = await fetch('./faculty_leaves.json?t=' + Date.now(), { cache: 'no-cache' });
@@ -8974,7 +8972,7 @@ window.SRCC_FACULTY_LEAVES = {
         const newJson = JSON.stringify(newLeaves);
 
         if (newJson !== currentStored) {
-          // New leaves update from cloud!
+// New leaves update from cloud!
           localStorage.setItem(LEAVES_STORAGE_KEY, newJson);
           if (window.SRCC_FACULTY_LEAVES) {
             window.SRCC_FACULTY_LEAVES.leaves = newLeaves;
@@ -8983,7 +8981,7 @@ window.SRCC_FACULTY_LEAVES = {
           }
           leavesData = window.SRCC_FACULTY_LEAVES;
 
-          // Re-render UI
+// Re-render UI
           renderActiveLeavesBanners();
           render();
           if (state.activeMode === 'faculty') renderFaculty();
@@ -8991,11 +8989,11 @@ window.SRCC_FACULTY_LEAVES = {
             renderFacultyLeavesView();
           }
 
-          // Trigger notification
+// Trigger notification
           const todayActive = getActiveTodayLeaves();
           notifyFacultyLeaves(todayActive, true);
         } else if (isWakeupTrigger) {
-          // Device unlocked or Chrome opened: check if 1 hour has passed
+// Device unlocked or Chrome opened: check if 1 hour has passed
           const lastHourly = parseInt(localStorage.getItem('srcc_last_hourly_notif_time') || '0', 10);
           if (Date.now() - lastHourly >= 60 * 60 * 1000) {
             const todayActive = getActiveTodayLeaves();
@@ -9011,19 +9009,19 @@ window.SRCC_FACULTY_LEAVES = {
           }
         }
       } finally {
-        // Evaluate student timetable class reminder and notice deadlines
+// Evaluate student timetable class reminder and notice deadlines
         checkAndNotifyStudentTimetableAndDeadlines();
       }
     }
 
-    // ========================================================================
-    // 🎓 STUDENT TIMETABLE CLASS & COLLEGE NOTICE DEADLINE NOTIFICATIONS
-    // - Class reminders 10 minutes before class according to student's timetable
-    // - Alerts with exact Room Number and professor
-    // - Instant alert if scheduled professor is on leave today (Class Cancelled/Free)
-    // - Daily morning timetable summary notification
-    // - College notices alerts & 1-day-left deadline warnings
-    // ========================================================================
+// ========================================================================
+// STUDENT TIMETABLE CLASS & COLLEGE NOTICE DEADLINE NOTIFICATIONS
+// - Class reminders 10 minutes before class according to student's timetable
+// - Alerts with exact Room Number and professor
+// - Instant alert if scheduled professor is on leave today (Class Cancelled/Free)
+// - Daily morning timetable summary notification
+// - College notices alerts & 1-day-left deadline warnings
+// ========================================================================
     function checkAndNotifyStudentTimetableAndDeadlines() {
       try {
         const istNow = getIstDate();
@@ -9037,16 +9035,16 @@ window.SRCC_FACULTY_LEAVES = {
 
         const alertsEnabled = localStorage.getItem('srcc_class_alerts_enabled') !== 'false';
 
-        // -------------------------------------------------------------
-        // 1. Timetable Class Reminders (10-15 Min Before) & Leave Alerts
-        // Supports both Students (by Section) & Faculty / Teachers (by Name)
-        // -------------------------------------------------------------
+// -------------------------------------------------------------
+// 1. Timetable Class Reminders (10-15 Min Before) & Leave Alerts
+// Supports both Students (by Section) & Faculty / Teachers (by Name)
+// -------------------------------------------------------------
         if (alertsEnabled && todayName !== 'Sunday') {
           const role = localStorage.getItem('srcc_notif_role') || 'student';
 
-          // ===========================================================
-          // ROLE: FACULTY / TEACHER LECTURE ALERTS (10-15 Min Before)
-          // ===========================================================
+// ===========================================================
+// ROLE: FACULTY / TEACHER LECTURE ALERTS (10-15 Min Before)
+// ===========================================================
           if (role === 'faculty') {
             const savedTeacherId = localStorage.getItem('srcc_my_teacher_id') || '';
             const leadMins = parseInt(localStorage.getItem('srcc_notif_lead_mins') || '15', 10);
@@ -9055,20 +9053,20 @@ window.SRCC_FACULTY_LEAVES = {
               : null;
 
             if (teacherObj) {
-              // 1. Alert if teacher is marked on leave today
+// 1. Alert if teacher is marked on leave today
               const isLeave = Boolean(isTeacherOnLeave(teacherObj));
               if (isLeave) {
                 const leaveKey = `srcc_alert_faculty_leave_${todayIso}_${savedTeacherId}`;
                 if (!localStorage.getItem(leaveKey)) {
                   localStorage.setItem(leaveKey, '1');
-                  triggerDeviceNotification(`🏖️ Portal Status: On Leave Today`, {
+                  triggerDeviceNotification(`Portal Status: On Leave Today`, {
                     body: `Prof. ${teacherObj.clean_name}, you are currently recorded on leave today on the portal. Scheduled lecture rooms are unlocked for students.`,
                     tag: 'srcc-faculty-leave-status'
                   });
                 }
               }
 
-              // 2. Class Reminders 10-15 Min Before Each Scheduled Lecture
+// 2. Class Reminders 10-15 Min Before Each Scheduled Lecture
               const daySched = (teacherObj.schedule && teacherObj.schedule[todayName]) || [];
               daySched.forEach(cls => {
                 let startMins = -1;
@@ -9087,7 +9085,7 @@ window.SRCC_FACULTY_LEAVES = {
                     if (!localStorage.getItem(notifKey)) {
                       localStorage.setItem(notifKey, '1');
                       const minText = diff === 0 ? 'starting right now' : `starting in ${diff} min`;
-                      triggerDeviceNotification(`📚 Lecture ${minText}: Room ${roomStr}`, {
+                      triggerDeviceNotification(`Lecture ${minText}: Room ${roomStr}`, {
                         body: `${subName} with ${secStr}. Slot: ${cls.slot}. Room: ${roomStr}. Tap for full daily schedule!`,
                         tag: `srcc-prof-lecture-${cls.slot}`
                       });
@@ -9097,16 +9095,16 @@ window.SRCC_FACULTY_LEAVES = {
               });
             }
           } else {
-            // ===========================================================
-            // ROLE: STUDENT TIMETABLE CLASS & LEAVE ALERTS
-            // ===========================================================
+// ===========================================================
+// ROLE: STUDENT TIMETABLE CLASS & LEAVE ALERTS
+// ===========================================================
             const myCourse = localStorage.getItem('srcc_my_tt_course') || 'B.Com (Hons)';
             const mySem = localStorage.getItem('srcc_my_tt_sem') || 'Sem I';
             const mySec = localStorage.getItem('srcc_my_tt_sec') || 'Sec A';
             const myBatch = localStorage.getItem('srcc_my_tt_batch') || 'ALL';
             const studentLeadMins = parseInt(localStorage.getItem('srcc_notif_student_lead_mins') || '10', 10);
 
-            // Get student's verified classes today using getClassesForParameters filtered by batch
+// Get student's verified classes today using getClassesForParameters filtered by batch
             const todayClasses = (typeof getClassesForParameters === 'function')
               ? getClassesForParameters(todayName, mySem, myCourse, myBatch, mySec)
               : [];
@@ -9114,7 +9112,7 @@ window.SRCC_FACULTY_LEAVES = {
               ? mergeConsecutiveSessions(todayClasses)
               : todayClasses;
 
-            // Build quick lookup for faculty leaves active today
+// Build quick lookup for faculty leaves active today
             const todayLeaves = (typeof getActiveTodayLeaves === 'function') ? getActiveTodayLeaves() : [];
             const leaveProfMap = {};
             todayLeaves.forEach(l => {
@@ -9128,7 +9126,7 @@ window.SRCC_FACULTY_LEAVES = {
               return null;
             }
 
-            // A. TEACHER ON LEAVE ALERT (Alert for any faculty of this section/batch on leave today)
+// A. TEACHER ON LEAVE ALERT (Alert for any faculty of this section/batch on leave today)
             mergedClasses.forEach(cls => {
               const leave = checkTeacherLeave(cls);
               if (leave) {
@@ -9139,7 +9137,7 @@ window.SRCC_FACULTY_LEAVES = {
                   const tName = cls.teacher || 'Faculty';
                   const sub = cls.subject || 'Class';
                   const slot = cls.slot || `${cls.startTime || ''} to ${cls.endTime || ''}`.trim();
-                  triggerDeviceNotification(`⚠️ Teacher on Leave Today: Prof. ${tName}`, {
+                  triggerDeviceNotification(`Teacher on Leave Today: Prof. ${tName}`, {
                     body: `Prof. ${tName} is marked on leave today. Your ${sub} lecture (${slot}) in Room ${cls.room} is free for self-study / GD!`,
                     tag: `srcc-class-leave-${tId}`
                   });
@@ -9147,7 +9145,7 @@ window.SRCC_FACULTY_LEAVES = {
               }
             });
 
-            // B. PRIOR CLASS ALERT (Window: 0 to (studentLeadMins + 2) minutes before lecture start)
+// B. PRIOR CLASS ALERT (Window: 0 to (studentLeadMins + 2) minutes before lecture start)
             mergedClasses.forEach(cls => {
               const startMins = parseTimeToMinutes(cls.startTime);
               if (startMins !== -1) {
@@ -9162,13 +9160,13 @@ window.SRCC_FACULTY_LEAVES = {
                     localStorage.setItem(notifKey, '1');
                     const leave = checkTeacherLeave(cls);
                     if (leave) {
-                      triggerDeviceNotification(`🚨 Class Free / Teacher on Leave: ${subName}`, {
+                      triggerDeviceNotification(`Class Free / Teacher on Leave: ${subName}`, {
                         body: `Prof. ${tName} is on leave today. Your ${subName} (${cls.slot || cls.startTime}) is free. Room ${roomNo} is vacant for GD!`,
                         tag: `srcc-class-leave-${cls.startTime}`
                       });
                     } else {
                       const minText = diff === 0 ? 'starting right now' : `starting in ${diff} min`;
-                      triggerDeviceNotification(`📚 Class ${minText}: ${subName}`, {
+                      triggerDeviceNotification(`Class ${minText}: ${subName}`, {
                         body: `Room ${roomNo} · Prof. ${tName} (${cls.slot || cls.startTime}). Tap to view full timetable!`,
                         tag: `srcc-class-${studentLeadMins}m-${cls.startTime}`
                       });
@@ -9180,9 +9178,9 @@ window.SRCC_FACULTY_LEAVES = {
           }
         }
 
-        // -------------------------------------------------------------
-        // 2. College Notices Deadlines (Approaching Deadlines) & New Notice Alerts
-        // -------------------------------------------------------------
+// -------------------------------------------------------------
+// 2. College Notices Deadlines (Approaching Deadlines) & New Notice Alerts
+// -------------------------------------------------------------
         const notices = (window.COLLEGE_NOTICES && Array.isArray(window.COLLEGE_NOTICES))
           ? window.COLLEGE_NOTICES
           : ((window.SRCC_NOTICES_DATA && Array.isArray(window.SRCC_NOTICES_DATA.notices))
@@ -9208,7 +9206,7 @@ window.SRCC_FACULTY_LEAVES = {
                     const dlKey = `srcc_notif_dl_1day_${n.id}`;
                     if (!localStorage.getItem(dlKey)) {
                       localStorage.setItem(dlKey, '1');
-                      triggerDeviceNotification(`⏰ 1 Day Left! Notice Deadline`, {
+                      triggerDeviceNotification(`1 Day Left! Notice Deadline`, {
                         body: `Reminder: 1 Day Left for ${n.title} (${n.deadline_label || 'Deadline'}: ${n.deadline}). Tap to view notice.`,
                         tag: `srcc-deadline-1day-${n.id}`,
                         data: { url: n.link }
@@ -9240,7 +9238,7 @@ window.SRCC_FACULTY_LEAVES = {
             }
           });
 
-          // Check newest notice
+// Check newest notice
           const latestNotice = notices[0];
           if (latestNotice) {
             const lastSeenNoticeId = localStorage.getItem('srcc_last_seen_notice_id');
@@ -9248,12 +9246,12 @@ window.SRCC_FACULTY_LEAVES = {
               const noticeAlertKey = `srcc_alert_notice_${latestNotice.id}`;
               if (!localStorage.getItem(noticeAlertKey)) {
                 localStorage.setItem(noticeAlertKey, '1');
-                triggerDeviceNotification(`📢 New College Notice: ${latestNotice.title}`, {
+                triggerDeviceNotification(`New College Notice: ${latestNotice.title}`, {
                   body: `Official circular published on srcc.edu. Tap to view document.`,
                   tag: `srcc-new-notice-${latestNotice.id}`,
                   data: { url: latestNotice.link }
                 });
-                showToast(`📢 <strong>New Notice:</strong> ${latestNotice.title}`, true, 6000);
+                showToast(`<strong>New Notice:</strong> ${latestNotice.title}`, true, 6000);
               }
             }
             localStorage.setItem('srcc_last_seen_notice_id', latestNotice.id);
@@ -9264,13 +9262,13 @@ window.SRCC_FACULTY_LEAVES = {
       }
     }
 
-    // Run active background ticker every 30 seconds for 10-min class alerts & deadlines
+// Run active background ticker every 30 seconds for 10-min class alerts & deadlines
     setInterval(checkAndNotifyStudentTimetableAndDeadlines, 30000);
 
-    // ========================================================================
-    // 📱 DEVICE WAKEUP & APP FOCUS LISTENERS
-    // Automatically triggers when Laptop Chrome is opened or Phone is unlocked!
-    // ========================================================================
+// ========================================================================
+// DEVICE WAKEUP & APP FOCUS LISTENERS
+// Automatically triggers when Laptop Chrome is opened or Phone is unlocked!
+// ========================================================================
     function initDeviceWakeupListeners() {
       let lastWakeupTime = 0;
       const onWakeup = () => {
@@ -9287,27 +9285,27 @@ window.SRCC_FACULTY_LEAVES = {
         checkAndNotifyStudentTimetableAndDeadlines();
       };
 
-      // 1. Mobile screen unlock & Tab foregrounded
+// 1. Mobile screen unlock & Tab foregrounded
       document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'visible') {
           onWakeup();
         }
       });
 
-      // 2. Laptop Chrome Window Focus
+// 2. Laptop Chrome Window Focus
       window.addEventListener('focus', onWakeup);
 
-      // 3. Page restore from mobile memory / sleep cache
+// 3. Page restore from mobile memory / sleep cache
       window.addEventListener('pageshow', onWakeup);
 
-      // 4. Device reconnected to Wi-Fi/Mobile Data after sleep
+// 4. Device reconnected to Wi-Fi/Mobile Data after sleep
       window.addEventListener('online', onWakeup);
     }
 
-    // ========================================================================
-    // ⚙️ INITIALIZE LEAVE NOTIFICATION SYSTEM (Public Client One-Time Banner)
-    // ========================================================================
-    // Standard RFC-compliant Web Push VAPID Public Key for Chrome/Android PushManager
+// ========================================================================
+// INITIALIZE LEAVE NOTIFICATION SYSTEM (Public Client One-Time Banner)
+// ========================================================================
+// Standard RFC-compliant Web Push VAPID Public Key for Chrome/Android PushManager
     const VAPID_PUBLIC_KEY = 'BJfmbvYuaQnKot04ZeKfaQrZBHgQVMubvYF02BZwLbT2TWqVEbRIJ8_A_vFsuGMNMMDQWYoObRw1gNfhA4_P-3w';
 
     function urlBase64ToUint8Array(base64String) {
@@ -9362,7 +9360,7 @@ window.SRCC_FACULTY_LEAVES = {
       const btnAllow = document.getElementById('btnAllowLeaveNotif');
       const btnDismiss = document.getElementById('btnDismissLeaveNotif');
 
-      // PWA Notification Opt-in Modal Elements (For First-time & Unaccepted Users)
+// PWA Notification Opt-in Modal Elements (For First-time & Unaccepted Users)
       const notifModal = document.getElementById('pwaNotifOptInModal');
       const btnEnablePwaNotif = document.getElementById('btnEnablePwaNotif');
       const btnLaterPwaNotif = document.getElementById('btnLaterPwaNotif');
@@ -9379,10 +9377,10 @@ window.SRCC_FACULTY_LEAVES = {
         if (notifModal) notifModal.style.display = 'flex';
       };
 
-      // Request permission helper (Registers closed-browser Push Alerts like Zomato/Blinkit)
+// Request permission helper (Registers closed-browser Push Alerts like Zomato/Blinkit)
       async function requestLeavePermission() {
         if (!('Notification' in window)) {
-          showToast('⚠️ Notifications are not supported in this browser.', false, 3500);
+          showToast('Notifications are not supported in this browser.', false, 3500);
           return false;
         }
 
@@ -9397,12 +9395,12 @@ window.SRCC_FACULTY_LEAVES = {
             if (notifModal) notifModal.style.display = 'none';
             window._isNotifBannerActive = false;
 
-            showToast('🔔 <strong>Campus Alerts Enabled!</strong> You will receive real-time updates for schedule and classroom vacancies.', true, 4000);
+            showToast('<strong>Campus Alerts Enabled!</strong> You will receive real-time updates for schedule and classroom vacancies.', true, 4000);
 
-            // 1. Register closed-browser Web Push subscription (Wakes up device even when Chrome is shut)
+// 1. Register closed-browser Web Push subscription (Wakes up device even when Chrome is shut)
             registerDeviceWebPushSubscription();
 
-            // 2. Register periodic background sync
+// 2. Register periodic background sync
             if ('serviceWorker' in navigator) {
   let swRefreshing = false;
   navigator.serviceWorker.addEventListener('controllerchange', () => {
@@ -9418,13 +9416,13 @@ window.SRCC_FACULTY_LEAVES = {
               });
             }
 
-            // 3. Immediately dispatch welcome test notification to device
-            triggerDeviceNotification('SRCC Free Classroom Finder 🔔', {
-              body: '✅ Live alerts active! You will now receive vacant room updates, faculty leaves, and campus notices.',
+// 3. Immediately dispatch welcome test notification to device
+            triggerDeviceNotification('SRCC Free Classroom Finder', {
+              body: 'Live alerts active! You will now receive vacant room updates, faculty leaves, and campus notices.',
               tag: 'srcc-welcome-alert'
             });
 
-            // Check and notify leaves
+// Check and notify leaves
             const todayActive = getActiveTodayLeaves();
             notifyFacultyLeaves(todayActive, false, true);
             return true;
@@ -9438,7 +9436,7 @@ window.SRCC_FACULTY_LEAVES = {
         }
       }
 
-      // 1. Notification Opt-in Prompt Banner & Modal (Reliably prompts users who have not subscribed)
+// 1. Notification Opt-in Prompt Banner & Modal (Reliably prompts users who have not subscribed)
       function evaluateBannerDisplay() {
         const isNotifSupported = ('Notification' in window);
         const isNotifGranted = (isNotifSupported && Notification.permission === 'granted');
@@ -9451,12 +9449,12 @@ window.SRCC_FACULTY_LEAVES = {
           const todayActive = getActiveTodayLeaves();
           notifyFacultyLeaves(todayActive, false);
         } else {
-          // If not subscribed/granted, display banner and opt-in modal for first-time or unaccepted users
+// If not subscribed/granted, display banner and opt-in modal for first-time or unaccepted users
           if (banner) {
             banner.style.display = 'block';
             window._isNotifBannerActive = true;
           }
-          // Pop modal for users who haven't dismissed it this session and haven't granted permission
+// Pop modal for users who haven't dismissed it this session and haven't granted permission
           const isModalDismissed = sessionStorage.getItem('srcc_notif_modal_dismissed');
           if (notifModal && isNotifSupported && Notification.permission !== 'denied' && !isModalDismissed) {
             setTimeout(() => {
@@ -9467,7 +9465,7 @@ window.SRCC_FACULTY_LEAVES = {
       }
       setTimeout(evaluateBannerDisplay, 400);
 
-      // Modal action buttons
+// Modal action buttons
       if (btnEnablePwaNotif) {
         btnEnablePwaNotif.addEventListener('click', async () => {
           await requestLeavePermission();
@@ -9489,7 +9487,7 @@ window.SRCC_FACULTY_LEAVES = {
         });
       }
 
-      // Banner action buttons
+// Banner action buttons
       if (btnAllow) {
         btnAllow.addEventListener('click', async () => {
           if (banner) banner.style.display = 'none';
@@ -9513,7 +9511,7 @@ window.SRCC_FACULTY_LEAVES = {
         });
       }
 
-      // 📡 Listen to Instant Admin Broadcasts from Cloud Database
+// Listen to Instant Admin Broadcasts from Cloud Database
       let lastBroadcastTimestamp = parseInt(localStorage.getItem('srcc_last_broadcast_ts') || '0', 10);
       async function checkLiveBroadcastTrigger() {
         const cloudUrl = (window.SRCC_CLOUD_CONFIG && window.SRCC_CLOUD_CONFIG.db_url) || 'https://srcc-leaves-default-rtdb.firebaseio.com/leaves.json';
@@ -9526,7 +9524,7 @@ window.SRCC_FACULTY_LEAVES = {
             lastBroadcastTimestamp = trig.timestamp;
             localStorage.setItem('srcc_last_broadcast_ts', String(trig.timestamp));
             if ('Notification' in window && Notification.permission === 'granted') {
-              const notifTitle = trig.title || 'SRCC Live Campus Update 🔔';
+              const notifTitle = trig.title || 'SRCC Live Campus Update';
               const notifBody = trig.body || 'Live campus announcement from college administration.';
               if ('serviceWorker' in navigator) {
   let swRefreshing = false;
@@ -9556,9 +9554,9 @@ window.SRCC_FACULTY_LEAVES = {
       checkLiveBroadcastTrigger();
     }
 
-    // ========================================================================
-    // ⚡ OFFLINE MODE DETECTION & NOTIFICATION
-    // ========================================================================
+// ========================================================================
+// OFFLINE MODE DETECTION & NOTIFICATION
+// ========================================================================
     function initOfflineDetection() {
       const banner = document.getElementById('offlineIndicatorBanner');
       if (!banner) return;
@@ -9574,16 +9572,16 @@ window.SRCC_FACULTY_LEAVES = {
       updateOnlineStatus();
     }
 
-    // ========================================================================
-    // 🔗 URL DEEP-LINKING & HASH NAVIGATION HANDLER
-    // Supports: ?room=R2, #room=R2, #R2, ?faculty=Name, #faculty=..., ?tab=..., #timetable, #wifi
-    // ========================================================================
+// ========================================================================
+// URL DEEP-LINKING & HASH NAVIGATION HANDLER
+// Supports: ?room=R2, #room=R2, #R2, ?faculty=Name, #faculty=..., ?tab=..., #timetable, #wifi
+// ========================================================================
     function handleUrlDeepLinks(options = {}) {
       try {
         const searchParams = new URLSearchParams(window.location.search);
         const hash = window.location.hash || '';
 
-        // 1. Room deep link: ?room=R2, ?r=R2, #room=R2, #room-R2, #R2
+// 1. Room deep link: ?room=R2, ?r=R2, #room=R2, #room-R2, #R2
         let roomParam = searchParams.get('room') || searchParams.get('r');
         if (!roomParam && hash) {
           const matchHash = hash.match(/(?:room[=-]?|#)([a-zA-Z0-9]+)/i);
@@ -9613,13 +9611,13 @@ window.SRCC_FACULTY_LEAVES = {
             render();
             setTimeout(() => {
               openScheduleModal(found.code);
-              showToast(`📍 Loaded Room ${found.code} Schedule`);
+              showToast(`Loaded Room ${found.code} Schedule`);
             }, 300);
             return;
           }
         }
 
-        // 2. Faculty deep link: ?faculty=Name, ?teacher=Code, #faculty=..., #teacher=...
+// 2. Faculty deep link: ?faculty=Name, ?teacher=Code, #faculty=..., #teacher=...
         let facultyParam = searchParams.get('faculty') || searchParams.get('teacher');
         if (!facultyParam && hash) {
           const matchFac = hash.match(/(?:faculty|teacher)[=-]?([^&]+)/i);
@@ -9630,7 +9628,7 @@ window.SRCC_FACULTY_LEAVES = {
           const rawQuery = facultyParam.trim();
           const query = rawQuery.toLowerCase();
 
-          // Direct Faculty List tab link (?faculty=all or ?faculty=list)
+// Direct Faculty List tab link (?faculty=all or ?faculty=list)
           if (query === 'all' || query === 'list') {
             setAppMode('faculty', true, { isInitial: options.isInitial });
             renderFaculty();
@@ -9663,7 +9661,7 @@ window.SRCC_FACULTY_LEAVES = {
               renderFaculty();
               setTimeout(() => {
                 openTeacherModal(matchedTeacher.id);
-                showToast(`👨‍🏫 Loaded Faculty Profile for Prof. ${matchedTeacher.clean_name}`);
+                showToast(`Loaded Faculty Profile for Prof. ${matchedTeacher.clean_name}`);
               }, 250);
               return;
             } else {
@@ -9676,7 +9674,7 @@ window.SRCC_FACULTY_LEAVES = {
           }
         }
 
-        // 3. Tab deep link: ?tab=timetable | ?tab=notices | ?tab=wifi | ?tab=rooms | ?tab=faculty etc.
+// 3. Tab deep link: ?tab=timetable | ?tab=notices | ?tab=wifi | ?tab=rooms | ?tab=faculty etc.
         const tabParam = searchParams.get('tab') || searchParams.get('view') || '';
         if (tabParam === 'timetable' || hash.includes('#timetable')) {
           setAppMode('timetable', false, { isInitial: options.isInitial });
@@ -9697,15 +9695,15 @@ window.SRCC_FACULTY_LEAVES = {
       }
     }
 
-    // ========================================================================
-    // 📱 MOBILE SYSTEM BACK BUTTON & HISTORY POPSTATE HANDLER
-    // Ensures mobile gesture / hardware back button navigates to previous tab
-    // or closes open modal/drawer instead of exiting the entire website!
-    // ========================================================================
+// ========================================================================
+// MOBILE SYSTEM BACK BUTTON & HISTORY POPSTATE HANDLER
+// Ensures mobile gesture / hardware back button navigates to previous tab
+// or closes open modal/drawer instead of exiting the entire website!
+// ========================================================================
     function handlePopState(e) {
       _lastPopStateTime = Date.now();
 
-      // 0. If Campus Drawer is open in DOM, close it cleanly on mobile back button
+// 0. If Campus Drawer is open in DOM, close it cleanly on mobile back button
       const drawerOverlay = document.getElementById('campusDrawerOverlay');
       if (drawerOverlay && (drawerOverlay.classList.contains('open') || drawerOverlay.style.display === 'flex')) {
         if (typeof closeCampusDrawer === 'function') {
@@ -9720,13 +9718,13 @@ window.SRCC_FACULTY_LEAVES = {
       const openModal = getCurrentlyOpenModal();
       const stateObj = e && e.state;
 
-      // 1. If any modal is currently open in DOM:
+// 1. If any modal is currently open in DOM:
       if (openModal) {
         if (!stateObj || stateObj.type !== 'modal' || stateObj.modalId !== openModal.id) {
           closeAppModal(openModal, { fromPopState: true });
           _modalHistoryDepth = Math.max(0, _modalHistoryDepth - 1);
 
-          // If the state we popped to is another modal (e.g. going back from teacher modal to room modal)
+// If the state we popped to is another modal (e.g. going back from teacher modal to room modal)
           if (stateObj && stateObj.type === 'modal' && stateObj.modalId) {
             if (stateObj.modalId === 'scheduleModal' && stateObj.roomCode) {
               openScheduleModal(stateObj.roomCode);
@@ -9746,7 +9744,7 @@ window.SRCC_FACULTY_LEAVES = {
         }
       }
 
-      // 2. Tab Navigation from state object
+// 2. Tab Navigation from state object
       if (stateObj && stateObj.mode) {
         if (stateObj.mode !== state.activeMode) {
           setAppMode(stateObj.mode, true, { isBackNav: true });
@@ -9754,10 +9752,10 @@ window.SRCC_FACULTY_LEAVES = {
         return;
       }
 
-      // 3. Fallback based on URL hash
+// 3. Fallback based on URL hash
       const rawHash = (window.location.hash || '').toLowerCase();
       if (rawHash.includes('#menu') || rawHash.includes('#drawer')) {
-        // Drawer is opening or opened - do not reset to rooms
+// Drawer is opening or opened - do not reset to rooms
         return;
       }
       if (rawHash.includes('#faculty')) {
@@ -9769,7 +9767,7 @@ window.SRCC_FACULTY_LEAVES = {
       } else if (rawHash.includes('#exam_codes') || rawHash.includes('#examcodes') || rawHash.includes('#upc')) {
         if (state.activeMode !== 'exam_codes') setAppMode('exam_codes', true, { isBackNav: true });
       } else if (rawHash.includes('#wifi')) {
-        // WiFi option temporarily hidden pending administrative permission
+// WiFi option temporarily hidden pending administrative permission
         if (state.activeMode !== 'rooms') setAppMode('rooms', true, { isBackNav: true });
       } else if (rawHash === '' || rawHash === '#' || rawHash.includes('#rooms')) {
         if (state.activeMode !== 'rooms') setAppMode('rooms', true, { isBackNav: true });
@@ -9778,9 +9776,9 @@ window.SRCC_FACULTY_LEAVES = {
       }
     }
 
-    // ========================================================================
-    // 📶 CAMPUS WIFI DIRECTORY & QR CODE AUTO-CONNECT
-    // ========================================================================
+// ========================================================================
+// CAMPUS WIFI DIRECTORY & QR CODE AUTO-CONNECT
+// ========================================================================
     function initWifiDirectory() {
       const btnOpenHeader = document.getElementById('btnOpenWifiModal');
       const wifiModal = document.getElementById('wifiModal');
@@ -9844,7 +9842,7 @@ window.SRCC_FACULTY_LEAVES = {
                 <span class="wifi-band-badge ${bandClass}">${escapeHtml(band)}</span>
               </div>
               <div class="wifi-location-text">
-                📍 <span>${escapeHtml(w.location || w.wing || 'Campus')}</span>
+                <span>${escapeHtml(w.location || w.wing || 'Campus')}</span>
               </div>
               <div class="wifi-pwd-box">
                 <span style="user-select: all;">${escapeHtml(w.password)}</span>
@@ -9853,13 +9851,13 @@ window.SRCC_FACULTY_LEAVES = {
               ${w.notes ? `<div style="font-size: 0.75rem; color: var(--text-muted); line-height: 1.3;">ℹ️ ${escapeHtml(w.notes)}</div>` : ''}
               <div class="wifi-card-actions">
                 <button type="button" class="btn-copy-wifi-pwd" data-pwd="${escapeHtml(w.password)}" title="Copy network password">
-                  📋 Copy
+                  Copy
                 </button>
                 <button type="button" class="btn-qr-wifi" data-target="qr-${escapeHtml(w.id || w.ssid)}">
-                  📷 Scan QR
+                  Scan QR
                 </button>
                 <button type="button" class="btn-share-wifi" data-ssid="${escapeHtml(w.ssid)}" data-pwd="${escapeHtml(w.password)}" data-loc="${escapeHtml(w.location || w.wing || 'SRCC Campus')}" data-qr="${qrUrl}" title="Share WiFi credentials & QR code">
-                  📤 Share
+                  Share
                 </button>
               </div>
               <div class="wifi-qr-popup" id="qr-${escapeHtml(w.id || w.ssid)}" style="display: none;">
@@ -9867,10 +9865,10 @@ window.SRCC_FACULTY_LEAVES = {
                 <p style="font-size: 0.75rem; color: #475569; margin: 6px 0 0; font-weight: 600;">Point phone camera or scanner to connect directly</p>
                 <div style="display: flex; gap: 8px; justify-content: center; margin-top: 8px; flex-wrap: wrap;">
                   <button type="button" class="btn-share-qr-action" data-ssid="${escapeHtml(w.ssid)}" data-pwd="${escapeHtml(w.password)}" data-loc="${escapeHtml(w.location || w.wing || 'SRCC Campus')}" data-qr="${qrUrl}" style="background: #0891b2; color: #ffffff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.76rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 5px;">
-                    📤 Share QR
+                    Share QR
                   </button>
                   <a href="${qrUrl}" download="SRCC_WiFi_${escapeHtml(w.ssid)}_QR.png" target="_blank" rel="noopener" class="btn-download-qr-action" style="background: #e2e8f0; color: #1e293b; border: 1px solid #cbd5e1; padding: 6px 12px; border-radius: 6px; font-size: 0.76rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
-                    💾 Download QR
+                    Download QR
                   </a>
                 </div>
               </div>
@@ -9878,12 +9876,12 @@ window.SRCC_FACULTY_LEAVES = {
           `;
         }).join('');
 
-        // Wire copy and QR buttons
+// Wire copy and QR buttons
         grid.querySelectorAll('.btn-copy-wifi-pwd').forEach(btn => {
           btn.addEventListener('click', () => {
             const pwd = btn.dataset.pwd;
             navigator.clipboard.writeText(pwd).then(() => {
-              showToast(`📋 Copied WiFi password: <code>${pwd}</code>`);
+              showToast(`Copied WiFi password: <code>${pwd}</code>`);
             }).catch(() => {
               showToast(`Password: ${pwd}`);
             });
@@ -9896,7 +9894,7 @@ window.SRCC_FACULTY_LEAVES = {
             if (qrEl) {
               const isOpen = qrEl.style.display === 'block';
               qrEl.style.display = isOpen ? 'none' : 'block';
-              btn.textContent = isOpen ? '📷 Scan QR' : '✕ Hide QR';
+              btn.textContent = isOpen ? 'Scan QR' : '✕ Hide QR';
               const img = qrEl.querySelector('img[data-src]');
               if (img && !img.src && !isOpen) {
                 img.src = img.dataset.src;
@@ -9905,13 +9903,13 @@ window.SRCC_FACULTY_LEAVES = {
           });
         });
 
-        // Wire WiFi QR Share actions
+// Wire WiFi QR Share actions
         const handleShareWifi = async (btn) => {
           const ssid = btn.dataset.ssid;
           const pwd = btn.dataset.pwd;
           const loc = btn.dataset.loc || 'SRCC Campus';
           const qrUrl = btn.dataset.qr;
-          const shareMsg = `📶 *SRCC Campus WiFi Network: ${ssid}*\n🔑 Password: ${pwd}\n📍 Location: ${loc}\n\n🔗 Connect Link & Portal:\n${qrUrl || 'https://anand-srcc.github.io/srcc-free-classrooms/'}`;
+          const shareMsg = `*SRCC Campus WiFi Network: ${ssid}*\nPassword: ${pwd}\nLocation: ${loc}\n\nConnect Link & Portal:\n${qrUrl || 'https://anand-srcc.github.io/srcc-free-classrooms/'}`;
 
           if (navigator.share) {
             try {
@@ -9928,14 +9926,14 @@ window.SRCC_FACULTY_LEAVES = {
                   text: `Connect to SRCC WiFi (${ssid}) - Password: ${pwd}`,
                   files: files
                 });
-                showToast(`✅ Shared WiFi QR for ${ssid}!`);
+                showToast(`Shared WiFi QR for ${ssid}!`);
                 return;
               } else {
                 await navigator.share({
                   title: `SRCC WiFi - ${ssid}`,
                   text: shareMsg
                 });
-                showToast(`✅ Shared WiFi details for ${ssid}!`);
+                showToast(`Shared WiFi details for ${ssid}!`);
                 return;
               }
             } catch (err) {
@@ -9944,7 +9942,7 @@ window.SRCC_FACULTY_LEAVES = {
           }
 
           copyToClipboard(shareMsg).then(() => {
-            showToast(`📋 Copied WiFi details & QR link for <strong>${ssid}</strong>!`);
+            showToast(`Copied WiFi details & QR link for <strong>${ssid}</strong>!`);
           });
         };
 
@@ -9956,7 +9954,7 @@ window.SRCC_FACULTY_LEAVES = {
         });
       };
 
-      // Coordinated WiFi Modal Open / Close Handlers
+// Coordinated WiFi Modal Open / Close Handlers
       function openWifiModal(options = {}) {
         if (typeof window._closeAllPopups === 'function') {
           window._closeAllPopups({ noHistory: true });
@@ -9986,7 +9984,7 @@ window.SRCC_FACULTY_LEAVES = {
       }
       window._closeWifiModal = closeWifiModal;
 
-      // Header button
+// Header button
       if (btnOpenHeader && wifiModal) {
         btnOpenHeader.addEventListener('click', (e) => {
           e.preventDefault();
@@ -10012,7 +10010,7 @@ window.SRCC_FACULTY_LEAVES = {
         });
       }
 
-      // Modal filters & search
+// Modal filters & search
       const modalSearch = document.getElementById('wifiModalSearchInput');
       if (modalSearch) {
         modalSearch.addEventListener('input', (e) => {
@@ -10029,7 +10027,7 @@ window.SRCC_FACULTY_LEAVES = {
         });
       });
 
-      // View section filters & search
+// View section filters & search
       const viewSearch = document.getElementById('wifiViewSearchInput');
       if (viewSearch) {
         viewSearch.addEventListener('input', (e) => {
@@ -10047,9 +10045,9 @@ window.SRCC_FACULTY_LEAVES = {
       });
     }
 
-    // ========================================================================
-    // 📢 OFFICIAL COLLEGE NOTICES & CIRCULARS FEATURE
-    // ========================================================================
+// ========================================================================
+// OFFICIAL COLLEGE NOTICES & CIRCULARS FEATURE
+// ========================================================================
     function initCollegeNoticesFeature() {
       const searchInput = document.getElementById('noticesSearchInput');
       const btnClearSearch = document.getElementById('btnClearNoticesSearch');
@@ -10242,10 +10240,10 @@ window.SRCC_FACULTY_LEAVES = {
           return true;
         });
 
-        // 🎯 USER-SPECIFIED PRECISE SORTING:
-        // 1. In 'DEADLINES' tab: Active upcoming deadlines sorted ASCENDING (soonest deadline first!).
-        // 2. In ALL other tabs ('ALL', 'academic', 'examinations', 'societies', 'administration'):
-        //    Sorted DESCENDING by notice date (most recent / today's latest notice on top!).
+// USER-SPECIFIED PRECISE SORTING:
+// 1. In 'DEADLINES' tab: Active upcoming deadlines sorted ASCENDING (soonest deadline first!).
+// 2. In ALL other tabs ('ALL', 'academic', 'examinations', 'societies', 'administration'):
+// Sorted DESCENDING by notice date (most recent / today's latest notice on top!).
         if (currentCat === 'DEADLINES') {
           filtered.sort((a, b) => {
             const statA = getDeadlineStatus(a.deadline);
@@ -10275,7 +10273,7 @@ window.SRCC_FACULTY_LEAVES = {
           const isDl = (currentCat === 'DEADLINES');
           noticesGrid.innerHTML = `
             <div class="notices-empty-state">
-              <div class="notices-empty-icon">${isDl ? '🎉' : '📭'}</div>
+              <div class="notices-empty-icon">No Notices Available</div>
               <h3>${isDl ? 'No Active Deadlines Right Now' : 'No Notices Found'}</h3>
               <p>${isDl ? 'All upcoming application & submission deadlines are completed. Check All Notices for recent circulars.' : `No college notices match "${escapeHtml(q)}". Try clearing your search or switching filters.`}</p>
             </div>
@@ -10284,19 +10282,19 @@ window.SRCC_FACULTY_LEAVES = {
         }
 
         const catBadges = {
-          academic: '<span class="notice-cat-badge badge-academic">📚 Academic</span>',
-          examinations: '<span class="notice-cat-badge badge-examinations">📝 Examination</span>',
-          societies: '<span class="notice-cat-badge badge-societies">🏆 Societies & Events</span>',
-          administration: '<span class="notice-cat-badge badge-administration">🏛️ Administration</span>'
+          academic: '<span class="notice-cat-badge badge-academic">Academic</span>',
+          examinations: '<span class="notice-cat-badge badge-examinations">Examination</span>',
+          societies: '<span class="notice-cat-badge badge-societies">Societies & Events</span>',
+          administration: '<span class="notice-cat-badge badge-administration">Administration</span>'
         };
 
         const typeLabels = {
-          pdf: '📄 Open Circular (PDF)',
-          excel: '📊 Open Spreadsheet (Excel)',
-          doc: '📝 Open Document (Word)',
-          image: '🖼️ View Poster (Image)',
-          form: '📋 Open Registration Form',
-          link: '🔗 View Official Notice'
+          pdf: 'Open Circular (PDF)',
+          excel: 'Open Spreadsheet (Excel)',
+          doc: 'Open Document (Word)',
+          image: 'View Poster (Image)',
+          form: 'Open Registration Form',
+          link: 'View Official Notice'
         };
 
         if (noticesGrid) {
@@ -10314,8 +10312,8 @@ window.SRCC_FACULTY_LEAVES = {
             const dlStat = getDeadlineStatus(n.deadline);
             if (dlStat.isActive) {
               const daysText = dlStat.daysLeft === 0
-                ? '⚡ Last Day Today!'
-                : (dlStat.daysLeft === 1 ? '⏰ 1 Day Left!' : `⏳ ${dlStat.daysLeft} Days Left`);
+                ? 'Last Day Today!'
+                : (dlStat.daysLeft === 1 ? '1 Day Left!' : `${dlStat.daysLeft} Days Left`);
               deadlineHtml = `
                 <span class="notice-deadline-tag notice-deadline-active" title="Active Deadline: ${escapeHtml(n.deadline)}">
                   <span class="deadline-pulse-dot"></span>
@@ -10348,23 +10346,23 @@ window.SRCC_FACULTY_LEAVES = {
               <h3 class="notice-title">${escapeHtml(n.title)}</h3>
               <div class="notice-actions">
                 <a href="${escapeHtml(n.link)}" target="_blank" rel="noopener noreferrer" class="notice-pdf-text-link" title="Open verified circular">
-                  📄 Circular (PDF) ↗
+                  Circular (PDF) ↗
                 </a>
                 <button type="button" class="btn-notice-share" data-title="${escapeHtml(n.title)}" data-url="${escapeHtml(n.link)}" data-cat="${escapeHtml(n.category)}" title="Share notice with students">
-                  📤 Share
+                  Share
                 </button>
               </div>
             </div>
           `;
         }).join('');
 
-        // Wire Share buttons
+// Wire Share buttons
         noticesGrid.querySelectorAll('.btn-notice-share').forEach(btn => {
           btn.addEventListener('click', async (e) => {
             e.preventDefault();
             const title = btn.dataset.title;
             const url = btn.dataset.url;
-            const shareText = `📢 *SRCC Campus Notice:*\n"${title}"\n\n🔗 Public Link:\n${url}\n\nVia SRCC Room Finder (Student Peer Initiative)`;
+            const shareText = `*SRCC Campus Notice:*\n"${title}"\n\nPublic Link:\n${url}\n\nVia SRCC Room Finder (Student Peer Initiative)`;
 
             if (navigator.share) {
               try {
@@ -10373,7 +10371,7 @@ window.SRCC_FACULTY_LEAVES = {
                   text: shareText,
                   url: url
                 });
-                showToast(`✅ Notice shared successfully!`);
+                showToast(`Notice shared successfully!`);
                 return;
               } catch (err) {
                 if (err.name === 'AbortError') return;
@@ -10382,7 +10380,7 @@ window.SRCC_FACULTY_LEAVES = {
 
             if (navigator.clipboard) {
               navigator.clipboard.writeText(shareText).then(() => {
-                showToast(`📋 Copied formatted notice details & link!`);
+                showToast(`Copied formatted notice details & link!`);
               });
             }
           });
@@ -10391,7 +10389,7 @@ window.SRCC_FACULTY_LEAVES = {
 
       window._renderCollegeNotices = renderCollegeNotices;
 
-      // Search input handler
+// Search input handler
       if (searchInput) {
         searchInput.addEventListener('input', (e) => {
           currentQuery = e.target.value;
@@ -10409,7 +10407,7 @@ window.SRCC_FACULTY_LEAVES = {
         });
       }
 
-      // Category filter pill handlers
+// Category filter pill handlers
       categoryPills.forEach(pill => {
         pill.addEventListener('click', () => {
           categoryPills.forEach(p => {
@@ -10421,7 +10419,7 @@ window.SRCC_FACULTY_LEAVES = {
         });
       });
 
-      // Back button to classrooms
+// Back button to classrooms
       if (btnNoticesBack) {
         btnNoticesBack.addEventListener('click', (e) => {
           e.preventDefault();
@@ -10429,15 +10427,15 @@ window.SRCC_FACULTY_LEAVES = {
         });
       }
 
-      // Initialize counts immediately so drawer badges are accurate on load
+// Initialize counts immediately so drawer badges are accurate on load
       try {
         updateCategoryCounts(getAllCollegeNotices());
       } catch (e) {}
     }
 
-    // ========================================================================
-    // 📝 DU EXAM CODES & COURSE UPC DIRECTORY FEATURE (NEP / UGCF 2022)
-    // ========================================================================
+// ========================================================================
+// DU EXAM CODES & COURSE UPC DIRECTORY FEATURE (NEP / UGCF 2022)
+// ========================================================================
     function initExamCodesFeature() {
       const examCodesGrid = document.getElementById('examCodesGrid');
       const searchInput = document.getElementById('examCodesSearchInput');
@@ -10532,7 +10530,7 @@ window.SRCC_FACULTY_LEAVES = {
 
         const q = (currentQuery || '').toLowerCase().trim();
         const filtered = all.filter(r => {
-          // 1. Programme Filter (including SRCC Offered, DSC Core, and DSE tabs)
+// 1. Programme Filter (including SRCC Offered, DSC Core, and DSE tabs)
           if (currentProg === 'SRCC') {
             if (!r.is_srcc_offered) return false;
           } else if (currentProg === 'DSC') {
@@ -10548,14 +10546,14 @@ window.SRCC_FACULTY_LEAVES = {
             return false;
           }
 
-          // 2. Strict Semester Filter (Tokenized roman numerals - no substring leaks)
+// 2. Strict Semester Filter (Tokenized roman numerals - no substring leaks)
           if (currentSem !== 'ALL') {
             if (!matchesSemester(currentSem, r.semester)) {
               return false;
             }
           }
 
-          // 3. Category / Type Filter
+// 3. Category / Type Filter
           if (currentCat !== 'ALL') {
             const cat = (r.category || '').toUpperCase();
             const targetCat = currentCat.toUpperCase();
@@ -10568,7 +10566,7 @@ window.SRCC_FACULTY_LEAVES = {
             else if (targetCat === 'RESEARCH/TRACK' && !cat.includes('RESEARCH') && !cat.includes('TRACK')) return false;
           }
 
-          // 4. Search Query (Title, UPC, Course No, Department, Category)
+// 4. Search Query (Title, UPC, Course No, Department, Category)
           if (q) {
             const isNoCode = (!r.upc || r.upc === 'null' || r.upc === 'undefined' || r.upc.trim() === '');
             const matchNoCode = isNoCode && (q.includes('not available') || q.includes('no code') || q.includes('pending') || q.includes('n/a'));
@@ -10588,7 +10586,7 @@ window.SRCC_FACULTY_LEAVES = {
           return true;
         });
 
-        // Category Priority Sort: DSC (Core) -> SEC -> VAC -> AEC -> GE -> DSE -> Research/Track
+// Category Priority Sort: DSC (Core) -> SEC -> VAC -> AEC -> GE -> DSE -> Research/Track
         const catOrder = {
           'Core': 1,
           'DSC': 1,
@@ -10624,11 +10622,11 @@ window.SRCC_FACULTY_LEAVES = {
         if (filtered.length === 0) {
           examCodesGrid.innerHTML = `
             <div class="notices-empty-state" style="grid-column: 1 / -1;">
-              <div class="notices-empty-icon">🔍</div>
+              <div class="notices-empty-icon">No Papers Found</div>
               <h3>No Exam Codes Found</h3>
               <p>No DU papers match your search "${escapeHtml(q)}" or selected filters. Try searching by paper name, UPC code, or click "Reset Filters".</p>
               <button type="button" class="btn-reset-examcodes" style="margin-top: 14px; display: inline-flex;" onclick="document.getElementById('btnResetExamCodesFilters').click()">
-                🔄 Clear All Filters
+                Clear All Filters
               </button>
             </div>
           `;
@@ -10659,9 +10657,9 @@ window.SRCC_FACULTY_LEAVES = {
         if (btnExamCodesViewGrid) btnExamCodesViewGrid.classList.toggle('active', examCodesViewMode === 'grid');
         if (btnExamCodesViewCompact) btnExamCodesViewCompact.classList.toggle('active', examCodesViewMode === 'compact');
 
-        // Render Compact, Clean Cards (Cleaned up: No star, no department, no credits, no share button)
+// Render Compact, Clean Cards (Cleaned up: No star, no department, no credits, no share button)
         examCodesGrid.innerHTML = filtered.map(r => {
-          // Prevent duplicate badges (e.g. [SEC] [SEC] or [VAC] [VAC])
+// Prevent duplicate badges (e.g. [SEC] [SEC] or [VAC] [VAC])
           const isRedundantProg = (
             r.programme === 'SEC' ||
             r.programme === 'VAC' ||
@@ -10674,7 +10672,7 @@ window.SRCC_FACULTY_LEAVES = {
           const catPill = catPills[r.category] || `<span class="examcode-pill pill-core">${escapeHtml(r.category || r.type || 'Core')}</span>`;
           const courseNoHtml = r.course_no ? `<span class="examcode-cno-tag">${escapeHtml(r.course_no)}</span>` : '';
 
-          // Clean semester formatting: e.g. "Sem 1–6", "All Sem", or "Sem I" (no redundant "Sem All Semesters (I–VI)")
+// Clean semester formatting: e.g. "Sem 1–6", "All Sem", or "Sem I" (no redundant "Sem All Semesters (I–VI)")
           let semBadgeText = 'All Sem';
           const rawSem = String(r.semester || '').trim();
           if (/all\s*semesters?\s*\(?i[–\-]vi\)?/i.test(rawSem) || /i[–\-]vi/i.test(rawSem) || /1[–\-]6/i.test(rawSem)) {
@@ -10687,7 +10685,7 @@ window.SRCC_FACULTY_LEAVES = {
             semBadgeText = `Sem ${rawSem}`;
           }
 
-          // Official UPC (Supports dual codes, e.g. "2926000002 / 2926001002"; strictly shows "Not Available" for unassigned)
+// Official UPC (Supports dual codes, e.g. "2926000002 / 2926001002"; strictly shows "Not Available" for unassigned)
           const rawUpc = String(r.upc || '').trim();
           const cleanUpc = rawUpc;
           const hasValidUpc = cleanUpc && cleanUpc !== 'null' && cleanUpc !== 'undefined' && cleanUpc !== 'TBD' && cleanUpc !== 'N/A' && /\d{6,}/.test(cleanUpc);
@@ -10699,7 +10697,7 @@ window.SRCC_FACULTY_LEAVES = {
                 <span class="examcode-upc-label">UPC:</span>
                 <code class="examcode-upc-code">${escapeHtml(cleanUpc)}</code>
                 <button type="button" class="btn-copy-upc" data-upc="${escapeHtml(cleanUpc)}" data-title="${escapeHtml(r.title)}" title="Copy UPC to clipboard">
-                  📋 Copy
+                  Copy
                 </button>
               </div>
             `;
@@ -10712,15 +10710,15 @@ window.SRCC_FACULTY_LEAVES = {
             `;
           }
 
-          // Verified Official DU Syllabus link
+// Verified Official DU Syllabus link
           let syllabusBtn = '';
           const officialSyllabusUrl = (r.syllabus_url && r.syllabus_url.trim()) || '';
           if (officialSyllabusUrl) {
-            let syllabusLabel = '📄 DU Syllabus ↗';
+            let syllabusLabel = 'DU Syllabus ↗';
             let syllabusTitle = 'Open official verified syllabus from University of Delhi';
             if (officialSyllabusUrl.includes('#page=')) {
               const pageNum = officialSyllabusUrl.split('#page=')[1];
-              syllabusLabel = `📄 DU Syllabus (p. ${pageNum}) ↗`;
+              syllabusLabel = `DU Syllabus (p. ${pageNum}) ↗`;
               syllabusTitle = `Open official DU syllabus booklet (Direct to Page ${pageNum} for ${r.title})`;
             }
             syllabusBtn = `
@@ -10731,38 +10729,38 @@ window.SRCC_FACULTY_LEAVES = {
           } else {
             syllabusBtn = `
               <span class="btn-syllabus-not-avail" title="Official DU syllabus for this course is currently not available">
-                📄 Syllabus: Not Available
+                Syllabus: Not Available
               </span>
             `;
           }
 
-          // Prerequisite note (compact)
+// Prerequisite note (compact)
           let prereqHtml = '';
           if (r.prerequisite) {
             prereqHtml = `
               <div class="examcode-prereq-compact">
-                <span>⚠️</span> <span><strong>Prerequisite:</strong> ${escapeHtml(r.prerequisite)}</span>
+                <span><strong>Prerequisite:</strong> ${escapeHtml(r.prerequisite)}</span>
               </div>
             `;
           } else if (r.prerequisite_note) {
             prereqHtml = `
               <div class="examcode-prereq-compact" style="background: rgba(2, 132, 199, 0.08); border-left-color: #0284c7; color: #0369a1;">
-                <span>ℹ️</span> <span>${escapeHtml(r.prerequisite_note)}</span>
+                <span>${escapeHtml(r.prerequisite_note)}</span>
               </div>
             `;
           }
 
-          // Eligibility note (compact)
+// Eligibility note (compact)
           const eligibilityHtml = r.eligibility ? `
             <div class="examcode-prereq-compact" style="background: rgba(16, 185, 129, 0.08); border-left-color: #10b981; color: #065f46;">
-              <span>📐</span> <span><strong>Eligibility:</strong> ${escapeHtml(r.eligibility)}</span>
+              <span><strong>Eligibility:</strong> ${escapeHtml(r.eligibility)}</span>
             </div>
           ` : '';
 
-          // Repeat rule note (compact)
+// Repeat rule note (compact)
           const repeatRuleHtml = r.repeat_rule ? `
             <div class="examcode-prereq-compact" style="background: rgba(245, 158, 11, 0.08); border-left-color: #f59e0b; color: #92400e;">
-              <span>🚫</span> <span><strong>Year 1 Rule:</strong> ${escapeHtml(r.repeat_rule)}</span>
+              <span><strong>Year 1 Rule:</strong> ${escapeHtml(r.repeat_rule)}</span>
             </div>
           ` : '';
 
@@ -10794,7 +10792,7 @@ window.SRCC_FACULTY_LEAVES = {
           `;
         }).join('');
 
-        // Wire Copy UPC buttons
+// Wire Copy UPC buttons
         examCodesGrid.querySelectorAll('.btn-copy-upc').forEach(btn => {
           btn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -10809,7 +10807,7 @@ window.SRCC_FACULTY_LEAVES = {
                   btn.innerHTML = orig;
                   btn.style.background = '#0284c7';
                 }, 1800);
-                showToast(`📋 Copied UPC: ${upc} (${title})`);
+                showToast(`Copied UPC: ${upc} (${title})`);
               }).catch(() => {
                 showToast(`UPC: ${upc}`);
               });
@@ -10819,7 +10817,7 @@ window.SRCC_FACULTY_LEAVES = {
           });
         });
 
-        // Wire Share buttons
+// Wire Share buttons
         examCodesGrid.querySelectorAll('.btn-share-examcode').forEach(btn => {
           btn.addEventListener('click', async (e) => {
             e.preventDefault();
@@ -10827,7 +10825,7 @@ window.SRCC_FACULTY_LEAVES = {
             const upc = btn.dataset.upc;
             const sem = btn.dataset.sem;
             const url = btn.dataset.url;
-            const shareText = `📝 *DU Examination Code (UPC):*\n*Paper:* ${title}\n*UPC Code:* ${upc}\n*Semester:* ${sem}\n\n📄 DU Syllabus Reference: ${url || 'https://www.du.ac.in/index.php?page=nep-ugcf-2022-syllabi'}\n🏛️ DU Exam Datesheet & UPC Portal: https://exam.du.ac.in/datesheet.html\n\nVia SRCC Room Finder (Student Peer Initiative)`;
+            const shareText = `*DU Examination Code (UPC):*\n*Paper:* ${title}\n*UPC Code:* ${upc}\n*Semester:* ${sem}\n\nDU Syllabus Reference: ${url || 'https://www.du.ac.in/index.php?page=nep-ugcf-2022-syllabi'}\nDU Exam Datesheet & UPC Portal: https://exam.du.ac.in/datesheet.html\n\nVia SRCC Room Finder (Student Peer Initiative)`;
 
             if (navigator.share) {
               try {
@@ -10835,7 +10833,7 @@ window.SRCC_FACULTY_LEAVES = {
                   title: `${title} - UPC: ${upc}`,
                   text: shareText
                 });
-                showToast(`✅ Paper code shared!`);
+                showToast(`Paper code shared!`);
                 return;
               } catch (err) {
                 if (err.name === 'AbortError') return;
@@ -10844,7 +10842,7 @@ window.SRCC_FACULTY_LEAVES = {
 
             if (navigator.clipboard) {
               navigator.clipboard.writeText(shareText).then(() => {
-                showToast(`📋 Copied paper details & UPC to clipboard!`);
+                showToast(`Copied paper details & UPC to clipboard!`);
               });
             }
           });
@@ -10853,7 +10851,7 @@ window.SRCC_FACULTY_LEAVES = {
 
       window._renderExamCodesDirectory = renderExamCodes;
 
-      // Search input handler
+// Search input handler
       if (searchInput) {
         searchInput.addEventListener('input', (e) => {
           currentQuery = e.target.value;
@@ -10871,7 +10869,7 @@ window.SRCC_FACULTY_LEAVES = {
         });
       }
 
-      // Programme selector pills
+// Programme selector pills
       progPills.forEach(pill => {
         pill.addEventListener('click', () => {
           progPills.forEach(p => {
@@ -10883,7 +10881,7 @@ window.SRCC_FACULTY_LEAVES = {
         });
       });
 
-      // Semester filter dropdown
+// Semester filter dropdown
       if (semFilter) {
         semFilter.addEventListener('change', () => {
           currentSem = semFilter.value;
@@ -10891,7 +10889,7 @@ window.SRCC_FACULTY_LEAVES = {
         });
       }
 
-      // Semester quick tab pills in view
+// Semester quick tab pills in view
       const semPillBtns = document.querySelectorAll('#examCodesSemPills .sem-pill-btn');
       semPillBtns.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -10899,7 +10897,7 @@ window.SRCC_FACULTY_LEAVES = {
         });
       });
 
-      // Category filter dropdown
+// Category filter dropdown
       if (catFilter) {
         catFilter.addEventListener('change', () => {
           currentCat = catFilter.value;
@@ -10907,7 +10905,7 @@ window.SRCC_FACULTY_LEAVES = {
         });
       }
 
-      // Reset filters button
+// Reset filters button
       if (btnResetFilters) {
         btnResetFilters.addEventListener('click', () => {
           currentProg = 'ALL';
@@ -10922,11 +10920,11 @@ window.SRCC_FACULTY_LEAVES = {
             p.setAttribute('aria-selected', isAll ? 'true' : 'false');
           });
           setExamCodesSemester('ALL');
-          showToast('🔄 Filters reset to all papers');
+          showToast('Filters reset to all papers');
         });
       }
 
-      // Back button to classrooms
+// Back button to classrooms
       if (btnExamCodesBack) {
         btnExamCodesBack.addEventListener('click', (e) => {
           e.preventDefault();
@@ -10934,7 +10932,7 @@ window.SRCC_FACULTY_LEAVES = {
         });
       }
 
-      // UGCF Guidance Modal Handlers
+// UGCF Guidance Modal Handlers
       const ugcfModal = document.getElementById('ugcfGuidanceModal');
       const btnOpenUgcfGuidance = document.getElementById('btnOpenUgcfGuidance');
       const btnViewAllUgcfNotes = document.getElementById('btnViewAllUgcfNotes');
@@ -10964,15 +10962,15 @@ window.SRCC_FACULTY_LEAVES = {
       }
     }
 
-    // ========================================================================
+// ========================================================================
     function initAppTour() {
-      // Clear any lingering spotlight highlight classes from elements
+// Clear any lingering spotlight highlight classes from elements
       document.querySelectorAll('.tour-target-highlight').forEach(el => el.classList.remove('tour-target-highlight'));
     }
 
-    // ========================================================================
-    // 🚀 INITIAL BOOTSTRAP
-    // ========================================================================
+// ========================================================================
+// INITIAL BOOTSTRAP
+// ========================================================================
     populateLeaveTeacherSelect();
     renderCampusNoticeBanner();
     render();
@@ -11001,9 +10999,9 @@ window.SRCC_FACULTY_LEAVES = {
     });
     syncLeavesFromCloud(false);
     setInterval(() => syncLeavesFromCloud(false), 45000);
-    // Periodically refresh active notices
+// Periodically refresh active notices
     setInterval(() => renderCampusNoticeBanner(), 60000);
-    // ⏰ Auto-Hourly Campus Notification Dispatcher (Every 1 Hour)
+// Auto-Hourly Campus Notification Dispatcher (Every 1 Hour)
     setInterval(() => {
       const todayActive = getActiveTodayLeaves();
       notifyFacultyLeaves(todayActive, false);
@@ -11023,7 +11021,7 @@ window._triggerDeferredPwaPrompt = function(delayMs = 3000) {
     const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
     if (isLocal || sessionStorage.getItem('pwa_dismissed')) return;
 
-    // Check if notification prompt or banner is currently active
+// Check if notification prompt or banner is currently active
     const notifBanner = document.getElementById('leaveNotificationPromptBanner');
     const notifModal = document.getElementById('pwaNotifOptInModal');
     const isNotifActive = window._isNotifBannerActive || (notifBanner && notifBanner.style.display === 'block') || (notifModal && notifModal.style.display === 'flex');
@@ -11048,7 +11046,7 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register(swUrl, { scope: './' }).then(async (registration) => {
       console.log('[SW] Registered successfully with scope:', registration.scope);
 
-      // Register Periodic Background Sync if supported (Chromium Desktop & Android)
+// Register Periodic Background Sync if supported (Chromium Desktop & Android)
       if ('periodicSync' in registration) {
         try {
           await registration.periodicSync.register('srcc-check-leaves', {
@@ -11076,8 +11074,8 @@ window.addEventListener('beforeinstallprompt', (e) => {
     return;
   }
 
-  // If user hasn't granted notifications yet, notification banner will pop up first.
-  // Defer PWA modal by 12 seconds so they NEVER appear together!
+// If user hasn't granted notifications yet, notification banner will pop up first.
+// Defer PWA modal by 12 seconds so they NEVER appear together!
   const needsNotif = ('Notification' in window && Notification.permission !== 'granted' && !sessionStorage.getItem('srcc_notif_session_dismissed'));
   const delay = needsNotif ? 12000 : 3500;
   window._triggerDeferredPwaPrompt(delay);
