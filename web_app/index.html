@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   
-  <link rel="stylesheet" href="style.css?v=120" />
+  <link rel="stylesheet" href="style.css?v=121" />
   
   <!-- Google tag (gtag.js) - Firebase & Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-MBQXVWN8VL"></script>
@@ -130,8 +130,8 @@
           </button>
         </div>
         
-        <!-- 10-Minute Class Alerts Button (Header) -->
-        <button id="btnOpenClassAlertsHeader" class="btn-class-alerts-header" title="10-Minute Class Alerts for Students &amp; Faculty">
+        <!-- 10-Minute Class Alerts Button (Header - Hidden for the time being) -->
+        <button id="btnOpenClassAlertsHeader" class="btn-class-alerts-header" title="10-Minute Class Alerts for Students &amp; Faculty" style="display: none !important;">
           <span>Class Alerts</span>
         </button>
         <!-- Report Issue Button (Header) -->
@@ -1057,8 +1057,8 @@
           </div>
         </button>
 
-        <!-- 10-Min Class Alerts Entry -->
-        <button class="drawer-nav-item drawer-nav-upcoming" id="drawerNavClassNotif" data-feature="10-Min Class Alerts">
+        <!-- 10-Min Class Alerts Entry (Hidden for the time being) -->
+        <button class="drawer-nav-item drawer-nav-upcoming" id="drawerNavClassNotif" data-feature="10-Min Class Alerts" style="display: none !important;">
           <div class="drawer-nav-icon-wrap" style="background: rgba(37, 99, 235, 0.12); color: #2563eb;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
           </div>
@@ -1881,14 +1881,14 @@
   <!-- Firebase App & Analytics SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics-compat.js"></script>
-  <script src="firebase_config.js?v=120"></script>
+  <script src="firebase_config.js?v=121"></script>
   <script src="data.js?v=100"></script>
   <script src="exam_codes_data.js?v=110"></script>
   <script src="cloud_config.js?v=100"></script>
   <script src="faculty_leaves.js?v=100"></script>
   <script src="teachers_data.js?v=100"></script>
   <script src="classes_data.js?v=100"></script>
-  <script src="app.js?v=120"></script>
+  <script src="app.js?v=121"></script>
   <script>
     window.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {

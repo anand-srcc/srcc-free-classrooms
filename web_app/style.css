@@ -11445,10 +11445,16 @@ body.dark-mode .deadline-days-badge.past {
 }
 
 /* ==========================================================================
-   🔔 HEADER CLASS ALERTS BUTTON
+   🔔 HEADER CLASS ALERTS BUTTON (Hidden for the time being)
    ========================================================================== */
+#btnOpenClassAlertsHeader,
+.btn-class-alerts-header,
+#drawerNavClassNotif {
+  display: none !important;
+}
+
 .btn-class-alerts-header {
-  display: inline-flex;
+  display: none !important;
   align-items: center;
   gap: 6px;
   background: linear-gradient(135deg, #1e3a8a, #2563eb);
