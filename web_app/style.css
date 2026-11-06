@@ -11997,18 +11997,19 @@ body.dark-mode .btn-later-pwa-notif {
 /* ==========================================================================
    Full Fix for Modal Scrolling (Now & Next, Bunk Buddies, Attendance)
    ========================================================================== */
-#nowAndNextModal,
-#bunkBuddiesModal,
-#attendanceModal {
-  position: fixed !important;
-  inset: 0 !important;
-  display: flex !important;
+#nowAndNextModal[style*="display: none"],
+#bunkBuddiesModal[style*="display: none"],
+#attendanceModal[style*="display: none"] {
+  display: none !important;
+}
+
+#nowAndNextModal.modal-overlay,
+#bunkBuddiesModal.modal-overlay,
+#attendanceModal.modal-overlay {
   align-items: center !important;
   justify-content: center !important;
   padding: 16px 14px calc(76px + env(safe-area-inset-bottom, 0px)) 14px !important;
   box-sizing: border-box !important;
-  overflow: hidden !important;
-  z-index: 2500 !important;
 }
 
 .now-next-modal-card,
@@ -12085,9 +12086,9 @@ body.dark-mode .btn-later-pwa-notif {
 }
 
 @media (max-width: 640px) {
-  #nowAndNextModal,
-  #bunkBuddiesModal,
-  #attendanceModal {
+  #nowAndNextModal.modal-overlay,
+  #bunkBuddiesModal.modal-overlay,
+  #attendanceModal.modal-overlay {
     padding: 8px 8px calc(72px + env(safe-area-inset-bottom, 0px)) 8px !important;
   }
   .now-next-modal-card,
