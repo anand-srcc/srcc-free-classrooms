@@ -8867,6 +8867,9 @@ window.SRCC_FACULTY_LEAVES = {
       const drawerNavNowAndNext = document.getElementById('drawerNavNowAndNext');
       if (drawerNavNowAndNext) {
         drawerNavNowAndNext.addEventListener('click', () => {
+          if (typeof window._closeCampusDrawer === 'function') {
+            window._closeCampusDrawer({ noHistory: true });
+          }
           closeAllPopups();
           setAppMode('timetable', true);
           setTimeout(() => {
@@ -8925,7 +8928,13 @@ window.SRCC_FACULTY_LEAVES = {
       window.openBunkBuddiesModal = openBunkModal;
       window.closeBunkBuddiesModal = closeBunkModal;
 
-      if (drawerBtn) drawerBtn.addEventListener('click', () => { closeAllPopups(); openBunkModal(); });
+      if (drawerBtn) drawerBtn.addEventListener('click', () => {
+        if (typeof window._closeCampusDrawer === 'function') {
+          window._closeCampusDrawer({ noHistory: true });
+        }
+        closeAllPopups();
+        openBunkModal();
+      });
       if (quickBtn) quickBtn.addEventListener('click', openBunkModal);
       if (btnClose) btnClose.addEventListener('click', () => closeBunkModal());
       if (btnCloseFooter) btnCloseFooter.addEventListener('click', () => closeBunkModal());
@@ -9251,7 +9260,13 @@ window.SRCC_FACULTY_LEAVES = {
       window.openAttendanceModal = openAttModal;
       window.closeAttendanceModal = closeAttModal;
 
-      if (drawerBtn) drawerBtn.addEventListener('click', () => { closeAllPopups(); openAttModal(); });
+      if (drawerBtn) drawerBtn.addEventListener('click', () => {
+        if (typeof window._closeCampusDrawer === 'function') {
+          window._closeCampusDrawer({ noHistory: true });
+        }
+        closeAllPopups();
+        openAttModal();
+      });
       if (quickBtn) quickBtn.addEventListener('click', openAttModal);
       if (btnClose) btnClose.addEventListener('click', () => closeAttModal());
       if (btnCloseFooter) btnCloseFooter.addEventListener('click', () => closeAttModal());
@@ -10403,6 +10418,14 @@ window.SRCC_FACULTY_LEAVES = {
           setFreeNowState(true);
         } else if (tabParam === 'rooms' || hash.includes('#rooms') || (!hash && !roomParam && !facultyParam)) {
           setAppMode('rooms', true, { isInitial: options.isInitial, replace: true });
+        }
+
+        if (hash.includes('#menu') || searchParams.get('drawer') === '1' || searchParams.get('menu') === '1') {
+          setTimeout(() => {
+            if (typeof window._openCampusDrawer === 'function') {
+              window._openCampusDrawer();
+            }
+          }, 350);
         }
       } catch (e) {
         console.warn('URL deep link handler note:', e);
@@ -11677,6 +11700,135 @@ window.SRCC_FACULTY_LEAVES = {
     }
 
 // ========================================================================
+// CAMPUS NAVIGATION DRAWER (3 VERTICAL DOTS MENU)
+// ========================================================================
+    function initCampusDrawer() {
+      const drawerOverlay = document.getElementById('campusDrawerOverlay');
+      const btnThreeLineMenu = document.getElementById('btnThreeLineMenu');
+      const bnavMenu = document.getElementById('bnavMenu');
+      const btnCloseDrawer = document.getElementById('btnCloseCampusDrawer');
+      const drawerNavNotices = document.getElementById('drawerNavNotices');
+      const drawerNavExamCodes = document.getElementById('drawerNavExamCodes');
+      const drawerNavClassNotif = document.getElementById('drawerNavClassNotif');
+      const drawerNavNowAndNext = document.getElementById('drawerNavNowAndNext');
+      const drawerNavBunkBuddies = document.getElementById('drawerNavBunkBuddies');
+      const drawerNavAttendance = document.getElementById('drawerNavAttendance');
+      const drawerNavGuidelines = document.getElementById('drawerNavGuidelines');
+
+      function openCampusDrawer() {
+        if (!drawerOverlay) return;
+        closeAllPopups({ noHistory: true });
+        drawerOverlay.style.display = 'flex';
+        requestAnimationFrame(() => {
+          drawerOverlay.classList.add('open');
+        });
+        document.body.classList.add('modal-open');
+        try {
+          if (!window.location.hash.includes('menu')) {
+            window.history.pushState({ type: 'drawer', modalId: 'campusDrawerOverlay' }, '', '#menu');
+            _modalHistoryDepth++;
+          }
+        } catch (e) {}
+      }
+      window._openCampusDrawer = openCampusDrawer;
+
+      function closeCampusDrawer(options = {}) {
+        if (!drawerOverlay) return;
+        drawerOverlay.classList.remove('open');
+        setTimeout(() => {
+          drawerOverlay.style.display = 'none';
+        }, 280);
+        document.body.classList.remove('modal-open');
+        if (!options.fromPopState && !options.noHistory && _modalHistoryDepth > 0) {
+          _modalHistoryDepth--;
+          try {
+            window.history.back();
+          } catch (e) {}
+        }
+      }
+      window._closeCampusDrawer = closeCampusDrawer;
+
+      // Header 3-Dots Button Click Listener
+      if (btnThreeLineMenu) {
+        btnThreeLineMenu.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (drawerOverlay && (drawerOverlay.classList.contains('open') || drawerOverlay.style.display === 'flex')) {
+            closeCampusDrawer();
+          } else {
+            openCampusDrawer();
+          }
+        });
+      }
+
+      // Mobile Bottom Nav Menu Button (if present)
+      if (bnavMenu) {
+        bnavMenu.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (drawerOverlay && drawerOverlay.classList.contains('open')) {
+            closeCampusDrawer();
+          } else {
+            openCampusDrawer();
+          }
+        });
+      }
+
+      // Close Button
+      if (btnCloseDrawer) {
+        btnCloseDrawer.addEventListener('click', (e) => {
+          e.preventDefault();
+          closeCampusDrawer();
+        });
+      }
+
+      // Backdrop Click
+      if (drawerOverlay) {
+        drawerOverlay.addEventListener('click', (e) => {
+          if (e.target === drawerOverlay) {
+            closeCampusDrawer();
+          }
+        });
+      }
+
+      // Escape key to dismiss
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && drawerOverlay && (drawerOverlay.classList.contains('open') || drawerOverlay.style.display === 'flex')) {
+          closeCampusDrawer();
+        }
+      });
+
+      // Drawer navigation actions
+      if (drawerNavNotices) {
+        drawerNavNotices.addEventListener('click', () => {
+          closeCampusDrawer({ noHistory: true });
+          setAppMode('notices');
+        });
+      }
+
+      if (drawerNavExamCodes) {
+        drawerNavExamCodes.addEventListener('click', () => {
+          closeCampusDrawer({ noHistory: true });
+          setAppMode('exam_codes');
+          if (typeof window._setExamCodesSemester === 'function') {
+            window._setExamCodesSemester('ALL');
+          }
+        });
+      }
+
+      if (drawerNavGuidelines) {
+        drawerNavGuidelines.addEventListener('click', () => {
+          closeCampusDrawer();
+          const ugcfModal = document.getElementById('ugcfGuidanceModal');
+          if (ugcfModal) {
+            ugcfModal.style.display = 'flex';
+            document.body.classList.add('modal-open');
+          }
+        });
+      }
+    }
+
+// ========================================================================
     function initAppTour() {
 // Clear any lingering spotlight highlight classes from elements
       document.querySelectorAll('.tour-target-highlight').forEach(el => el.classList.remove('tour-target-highlight'));
@@ -11756,7 +11908,7 @@ if ('serviceWorker' in navigator) {
     }
   });
   window.addEventListener('load', () => {
-    const swUrl = './sw.js?v=113';
+    const swUrl = './sw.js?v=114';
     navigator.serviceWorker.register(swUrl, { scope: './' }).then(async (registration) => {
       console.log('[SW] Registered successfully with scope:', registration.scope);
 
