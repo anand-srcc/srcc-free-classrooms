@@ -479,6 +479,19 @@ document.addEventListener('DOMContentLoaded', () => {
       return `${year}-${month}-${day}`;
     }
 
+    function parseTimeToMinutes(timeStr) {
+      if (!timeStr) return -1;
+      const m = String(timeStr).trim().match(/(\d+):(\d+)\s*(AM|PM)/i);
+      if (!m) return -1;
+      let h = parseInt(m[1], 10);
+      const min = parseInt(m[2], 10);
+      const ampm = m[3].toUpperCase();
+      if (ampm === 'PM' && h < 12) h += 12;
+      if (ampm === 'AM' && h === 12) h = 0;
+      return h * 60 + min;
+    }
+    window.parseTimeToMinutes = parseTimeToMinutes;
+
 // Format ISO date (YYYY-MM-DD) to DD/MM/YYYY
     function formatIsoToDdMmYyyy(isoStr) {
       if (!isoStr) return '';
@@ -11026,7 +11039,7 @@ window.SRCC_FACULTY_LEAVES = {
           setAppMode('rooms', true, { isInitial: options.isInitial, replace: true });
         }
 
-        if (hash.includes('#menu') || searchParams.get('drawer') === '1' || searchParams.get('menu') === '1') {
+        if (options.isInitial && (hash.includes('#menu') || searchParams.get('drawer') === '1' || searchParams.get('menu') === '1')) {
           setTimeout(() => {
             if (typeof window._openCampusDrawer === 'function') {
               window._openCampusDrawer();
@@ -11048,10 +11061,8 @@ window.SRCC_FACULTY_LEAVES = {
 
 // 0. If Campus Drawer is open in DOM, close it cleanly on mobile back button
       const drawerOverlay = document.getElementById('campusDrawerOverlay');
-      if (drawerOverlay && (drawerOverlay.classList.contains('open') || drawerOverlay.style.display === 'flex')) {
-        if (typeof closeCampusDrawer === 'function') {
-          closeCampusDrawer({ fromPopState: true });
-        } else if (typeof window._closeCampusDrawer === 'function') {
+      if (drawerOverlay && drawerOverlay.classList.contains('open')) {
+        if (typeof window._closeCampusDrawer === 'function') {
           window._closeCampusDrawer({ fromPopState: true });
         }
         _modalHistoryDepth = Math.max(0, _modalHistoryDepth - 1);
@@ -12325,15 +12336,14 @@ window.SRCC_FACULTY_LEAVES = {
         if (!drawerOverlay) return;
         closeAllPopups({ noHistory: true });
         drawerOverlay.style.display = 'flex';
+        void drawerOverlay.offsetWidth; // Force synchronous reflow so CSS animation triggers reliably
         requestAnimationFrame(() => {
           drawerOverlay.classList.add('open');
         });
         document.body.classList.add('modal-open');
         try {
-          if (!window.location.hash.includes('menu')) {
-            window.history.pushState({ type: 'drawer', modalId: 'campusDrawerOverlay' }, '', '#menu');
-            _modalHistoryDepth++;
-          }
+          window.history.pushState({ type: 'drawer', modalId: 'campusDrawerOverlay' }, '');
+          _modalHistoryDepth++;
         } catch (e) {}
       }
       window._openCampusDrawer = openCampusDrawer;
@@ -12342,7 +12352,9 @@ window.SRCC_FACULTY_LEAVES = {
         if (!drawerOverlay) return;
         drawerOverlay.classList.remove('open');
         setTimeout(() => {
-          drawerOverlay.style.display = 'none';
+          if (!drawerOverlay.classList.contains('open')) {
+            drawerOverlay.style.display = 'none';
+          }
         }, 280);
         document.body.classList.remove('modal-open');
         if (!options.fromPopState && !options.noHistory && _modalHistoryDepth > 0) {
@@ -12354,31 +12366,47 @@ window.SRCC_FACULTY_LEAVES = {
       }
       window._closeCampusDrawer = closeCampusDrawer;
 
-      // Header 3-Dots Button Click Listener
+      let _lastDrawerToggleTime = 0;
+      function toggleCampusDrawer(e) {
+        if (e) {
+          if (typeof e.preventDefault === 'function') e.preventDefault();
+          if (typeof e.stopPropagation === 'function') e.stopPropagation();
+        }
+        const now = Date.now();
+        if (now - _lastDrawerToggleTime < 280) {
+          return; // Ignore bounce or duplicate event triggers within 280ms
+        }
+        _lastDrawerToggleTime = now;
+
+        if (drawerOverlay && drawerOverlay.classList.contains('open')) {
+          closeCampusDrawer();
+        } else {
+          openCampusDrawer();
+        }
+      }
+      window.toggleCampusDrawer = toggleCampusDrawer;
+
+      // Header 3-Dots Button Click & Touch Listeners
       if (btnThreeLineMenu) {
-        btnThreeLineMenu.addEventListener('click', (e) => {
+        btnThreeLineMenu.addEventListener('click', toggleCampusDrawer);
+        btnThreeLineMenu.addEventListener('touchend', (e) => {
           e.preventDefault();
-          e.stopPropagation();
-          if (drawerOverlay && (drawerOverlay.classList.contains('open') || drawerOverlay.style.display === 'flex')) {
-            closeCampusDrawer();
-          } else {
-            openCampusDrawer();
-          }
-        });
+          toggleCampusDrawer(e);
+        }, { passive: false });
       }
 
       // Mobile Bottom Nav Menu Button (if present)
       if (bnavMenu) {
-        bnavMenu.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          if (drawerOverlay && drawerOverlay.classList.contains('open')) {
-            closeCampusDrawer();
-          } else {
-            openCampusDrawer();
-          }
-        });
+        bnavMenu.addEventListener('click', toggleCampusDrawer);
       }
+
+      // Document-level fallback listener to guarantee 3-dots clicks anywhere
+      document.addEventListener('click', (e) => {
+        const targetBtn = e.target.closest('#btnThreeLineMenu, .btn-three-line');
+        if (targetBtn && targetBtn !== btnThreeLineMenu) {
+          toggleCampusDrawer(e);
+        }
+      });
 
       // Close Button
       if (btnCloseDrawer) {
@@ -12399,7 +12427,7 @@ window.SRCC_FACULTY_LEAVES = {
 
       // Escape key to dismiss
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && drawerOverlay && (drawerOverlay.classList.contains('open') || drawerOverlay.style.display === 'flex')) {
+        if (e.key === 'Escape' && drawerOverlay && drawerOverlay.classList.contains('open')) {
           closeCampusDrawer();
         }
       });
@@ -12418,6 +12446,18 @@ window.SRCC_FACULTY_LEAVES = {
           setAppMode('exam_codes');
           if (typeof window._setExamCodesSemester === 'function') {
             window._setExamCodesSemester('ALL');
+          }
+        });
+      }
+
+      if (drawerNavClassNotif) {
+        drawerNavClassNotif.addEventListener('click', () => {
+          closeCampusDrawer({ noHistory: true });
+          if (typeof window.openClassNotifModal === 'function') {
+            window.openClassNotifModal();
+          } else {
+            const m = document.getElementById('classNotifModal');
+            if (m) openAppModal(m);
           }
         });
       }
@@ -12538,7 +12578,7 @@ if ('serviceWorker' in navigator) {
     }
   });
   window.addEventListener('load', () => {
-    const swUrl = './sw.js?v=118';
+    const swUrl = './sw.js?v=119';
     navigator.serviceWorker.register(swUrl, { scope: './' }).then(async (registration) => {
       console.log('[SW] Registered successfully with scope:', registration.scope);
 
