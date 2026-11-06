@@ -425,7 +425,8 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       if (firebaseAnalytics) {
         firebaseAnalytics.logEvent(eventName, eventParams);
-      } else if (typeof window.gtag === 'function') {
+      }
+      if (typeof window.gtag === 'function') {
         window.gtag('event', eventName, eventParams);
       }
     } catch (err) {

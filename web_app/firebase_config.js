@@ -3,12 +3,12 @@
  * Safe public configuration for Firebase Authentication, Realtime Database & Analytics.
  */
 window.SRCC_FIREBASE_CONFIG = {
-  apiKey: "AIzaSyC8ptGuP2p7jrxZHlJnXZ4osNjs4kq2q7g",
+  apiKey: "AIzaSyCldvzridq887Cm_vaZnGyE8Kucp8jwxJw",
   authDomain: "srcc-leaves.firebaseapp.com",
   databaseURL: "https://srcc-leaves-default-rtdb.firebaseio.com",
   projectId: "srcc-leaves",
-  storageBucket: "srcc-leaves.appspot.com",
+  storageBucket: "srcc-leaves.firebasestorage.app",
   messagingSenderId: "742665896112",
-  appId: "", // Replace with your Firebase Web App ID (e.g. 1:742665896112:web:xxxxxx)
-  measurementId: "" // Replace with your Google Analytics Measurement ID (e.g. G-XXXXXXXXXX)
+  appId: "1:742665896112:web:51d5d21962eea31c2efb75",
+  measurementId: "G-MBQXVWN8VL"
 };

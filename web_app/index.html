@@ -24,6 +24,18 @@
   
   <link rel="stylesheet" href="style.css?v=117" />
   
+  <!-- Google tag (gtag.js) - Firebase & Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MBQXVWN8VL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MBQXVWN8VL', {
+      page_title: 'SRCC Free Classrooms',
+      send_page_view: true
+    });
+  </script>
+  
   <!-- Maintenance Mode Gatekeeper -->
   <script src="cloud_config.js?v=100"></script>
   <script src="maintenance_config.js?v=100"></script>
@@ -1817,7 +1829,7 @@
   <!-- Firebase App & Analytics SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics-compat.js"></script>
-  <script src="firebase_config.js?v=116"></script>
+  <script src="firebase_config.js?v=117"></script>
   <script src="data.js?v=100"></script>
   <script src="exam_codes_data.js?v=110"></script>
   <script src="cloud_config.js?v=100"></script>
