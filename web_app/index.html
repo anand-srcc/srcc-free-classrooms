@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   
-  <link rel="stylesheet" href="style.css?v=116" />
+  <link rel="stylesheet" href="style.css?v=117" />
   
   <!-- Maintenance Mode Gatekeeper -->
   <script src="cloud_config.js?v=100"></script>
@@ -1467,7 +1467,7 @@
         <button type="button" class="modal-close" id="btnNowAndNextModalClose" style="background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; cursor: pointer; color: #475569;">✕</button>
       </div>
 
-      <div class="modal-body" style="padding: 20px 22px; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 16px;">
+      <div class="modal-body" style="padding: 20px 22px; overflow-y: auto; flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; gap: 16px; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; touch-action: pan-y;">
         <!-- Student Academic Profile & Elective Selector -->
         <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px;">
           <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
@@ -1560,12 +1560,12 @@
         </div>
 
         <!-- Full Schedule Timeline Table -->
-        <div id="nnTimelineContainer" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;">
+        <div id="nnTimelineContainer" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; overflow-x: auto; -webkit-overflow-scrolling: touch;">
           <!-- Dynamically populated via app.js -->
         </div>
       </div>
 
-      <div class="modal-footer" style="padding: 14px 22px; border-top: 1px solid #e2e8f0; background: #ffffff; display: flex; align-items: center; justify-content: space-between;">
+      <div class="modal-footer" style="padding: 14px 22px; border-top: 1px solid #e2e8f0; background: #ffffff; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;">
         <span style="font-size: 0.76rem; color: #64748b;">Schedule auto-synced with college timetable</span>
         <button type="button" id="btnCloseNowAndNextFooter" style="padding: 8px 18px; border: 1px solid #e2e8f0; background: #ffffff; border-radius: 8px; color: #0f172a; font-size: 0.84rem; font-weight: 600; cursor: pointer;">Done</button>
       </div>
@@ -1590,7 +1590,7 @@
         <button type="button" class="modal-close" id="btnBunkModalClose" style="background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; cursor: pointer; color: #475569;">✕</button>
       </div>
 
-      <div class="modal-body" style="padding: 20px 22px; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 16px;">
+      <div class="modal-body" style="padding: 20px 22px; overflow-y: auto; flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; gap: 16px; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; touch-action: pan-y;">
         <!-- Two-Card Section Selector (White & Clean) -->
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;">
           <!-- Card 1: Your Section -->
@@ -1712,7 +1712,7 @@
         </div>
       </div>
 
-      <div class="modal-footer" style="padding: 14px 22px; border-top: 1px solid #e2e8f0; background: #ffffff; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+      <div class="modal-footer" style="padding: 14px 22px; border-top: 1px solid #e2e8f0; background: #ffffff; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; flex-shrink: 0;">
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
           <button type="button" id="btnShareBunkWhatsApp" style="padding: 8px 14px; background: #16A34A; color: #ffffff; border: none; border-radius: 8px; font-size: 0.84rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/></svg>
@@ -1745,7 +1745,7 @@
         <button type="button" class="modal-close" id="btnAttendanceModalClose" style="background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; cursor: pointer; color: #475569;">✕</button>
       </div>
 
-      <div class="modal-body" style="padding: 20px 22px; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 16px;">
+      <div class="modal-body" style="padding: 20px 22px; overflow-y: auto; flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; gap: 16px; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; touch-action: pan-y;">
         <!-- Input Form (Clean White Subcard) -->
         <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 12px;">
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
@@ -1806,7 +1806,7 @@
         </div>
       </div>
 
-      <div class="modal-footer" style="padding: 14px 22px; border-top: 1px solid #e2e8f0; background: #ffffff; display: flex; align-items: center; justify-content: space-between;">
+      <div class="modal-footer" style="padding: 14px 22px; border-top: 1px solid #e2e8f0; background: #ffffff; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;">
         <span style="font-size: 0.76rem; color: #64748b;">Stats auto-saved to your phone</span>
         <button type="button" id="btnCloseAttendanceFooter" style="padding: 8px 18px; border: 1px solid #e2e8f0; background: #ffffff; border-radius: 8px; color: #0f172a; font-size: 0.84rem; font-weight: 600; cursor: pointer;">Done</button>
       </div>
@@ -1824,6 +1824,6 @@
   <script src="faculty_leaves.js?v=100"></script>
   <script src="teachers_data.js?v=100"></script>
   <script src="classes_data.js?v=100"></script>
-  <script src="app.js?v=116"></script>
+  <script src="app.js?v=117"></script>
 </body>
 </html>

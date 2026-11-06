@@ -9432,7 +9432,7 @@ window.SRCC_FACULTY_LEAVES = {
             <strong style="font-size: 0.82rem; color: #0f172a;">${activeDay} Schedule (${prof.sec}${prof.batch !== 'ALL' ? ' • ' + prof.batch : ''})</strong>
             <span style="font-size: 0.74rem; color: #64748b;">${sched.length} Verified Class${sched.length === 1 ? '' : 'es'}</span>
           </div>
-          <table style="width: 100%; border-collapse: collapse; text-align: left;">
+          <table style="width: 100%; min-width: 520px; border-collapse: collapse; text-align: left;">
             <thead>
               <tr style="background: #f8fafc; border-bottom: 1px solid #e2e8f0; font-size: 0.72rem; color: #64748b;">
                 <th style="padding: 8px 12px;">Period</th>
@@ -9786,7 +9786,7 @@ window.SRCC_FACULTY_LEAVES = {
             <div style="padding: 8px 12px; background: #f8fafc; border-bottom: 1px solid #e2e8f0; font-size: 0.78rem; font-weight: 700; color: #475569;">
               Period-by-Period Comparison: ${sec1} vs ${sec2}
             </div>
-            <table style="width: 100%; border-collapse: collapse; text-align: left;">
+            <table style="width: 100%; min-width: 520px; border-collapse: collapse; text-align: left;">
               <thead>
                 <tr style="background: #f8fafc; border-bottom: 1px solid #e2e8f0; font-size: 0.72rem; color: #64748b;">
                   <th style="padding: 8px 10px;">Time Period</th>
@@ -12537,7 +12537,7 @@ if ('serviceWorker' in navigator) {
     }
   });
   window.addEventListener('load', () => {
-    const swUrl = './sw.js?v=116';
+    const swUrl = './sw.js?v=117';
     navigator.serviceWorker.register(swUrl, { scope: './' }).then(async (registration) => {
       console.log('[SW] Registered successfully with scope:', registration.scope);
 
