@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   
-  <link rel="stylesheet" href="style.css?v=114" />
+  <link rel="stylesheet" href="style.css?v=116" />
   
   <!-- Maintenance Mode Gatekeeper -->
   <script src="cloud_config.js?v=100"></script>
@@ -477,38 +477,6 @@
     <div id="viewTimetableSection" class="app-view-section" style="display: none;">
       <!-- TIMETABLE CHANGE NOTICES BANNER CONTAINER -->
       <div id="timetableNoticesContainer" style="display: none;"></div>
-
-      <!-- 1. Now & Next Live Schedule Widget (Mere Batch Ka Live Tracker) -->
-      <div id="myBatchScheduleWidget" class="my-batch-widget-wrapper" style="margin-bottom: 16px;"></div>
-
-      <!-- 2. Student Quick Tools Row: Bunk Buddies & 75% Attendance Safe Meter -->
-      <div class="tt-quick-tools-row" style="display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap;">
-        <button type="button" class="btn-tt-quick-tool" id="btnQuickOpenBunkBuddies" style="flex: 1; min-width: 220px; display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; cursor: pointer; text-align: left; box-shadow: 0 1px 3px rgba(0,0,0,0.04); transition: transform 0.15s ease, border-color 0.15s ease;">
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(245, 158, 11, 0.14); color: #d97706; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-            </div>
-            <div>
-              <strong style="display: block; font-size: 0.92rem; color: #0f172a; font-weight: 700;">Bunk Buddies</strong>
-              <span style="font-size: 0.78rem; color: #64748b;">Find mutual free hangout slots</span>
-            </div>
-          </div>
-          <span style="font-size: 0.8rem; font-weight: 700; color: #d97706; background: #fef3c7; padding: 3px 9px; border-radius: 9999px;">Match ↗</span>
-        </button>
-
-        <button type="button" class="btn-tt-quick-tool" id="btnQuickOpenAttendance" style="flex: 1; min-width: 220px; display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; cursor: pointer; text-align: left; box-shadow: 0 1px 3px rgba(0,0,0,0.04); transition: transform 0.15s ease, border-color 0.15s ease;">
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(99, 102, 241, 0.14); color: #4f46e5; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
-            </div>
-            <div>
-              <strong style="display: block; font-size: 0.92rem; color: #0f172a; font-weight: 700;">75% Attendance Meter</strong>
-              <span style="font-size: 0.78rem; color: #64748b;">DU Safe Bunk Margin Calculator</span>
-            </div>
-          </div>
-          <span style="font-size: 0.8rem; font-weight: 700; color: #4f46e5; background: #e0e7ff; padding: 3px 9px; border-radius: 9999px;">Safe % ↗</span>
-        </button>
-      </div>
 
       <!-- Controls Panel (100% Native App UX/UI) -->
       <section class="controls-panel">
@@ -1017,7 +985,7 @@
           </div>
           <div class="drawer-nav-text">
             <div class="drawer-nav-name">Now &amp; Next Live Tracker</div>
-            <div class="drawer-nav-desc">Current class, countdown &amp; room jump</div>
+            <div class="drawer-nav-desc">Real-time schedule &amp; SEC/VAC electives</div>
           </div>
           <div class="drawer-badges-stack">
             <span class="drawer-badge-pulse" style="background: #059669;">Live ↗</span>
@@ -1030,15 +998,15 @@
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
           </div>
           <div class="drawer-nav-text">
-            <div class="drawer-nav-name">Bunk Buddies • Hangout Finder</div>
-            <div class="drawer-nav-desc">Find mutual free slots with friends' sections</div>
+            <div class="drawer-nav-name">Bunk Buddies</div>
+            <div class="drawer-nav-desc">Find mutual free hangout slots with friends</div>
           </div>
           <div class="drawer-badges-stack">
-            <span class="drawer-badge-pulse" style="background: #d97706;">Friends ↗</span>
+            <span class="drawer-badge-pulse" style="background: #d97706;">Match ↗</span>
           </div>
         </button>
 
-        <!-- 75% Attendance Safe Meter Entry -->
+        <!-- 75% Attendance Safe Meter Entry (Preserved in code for future launch)
         <button class="drawer-nav-item drawer-nav-attendance" id="drawerNavAttendance">
           <div class="drawer-nav-icon-wrap" style="background: rgba(99, 102, 241, 0.14); color: #4f46e5;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
@@ -1051,6 +1019,7 @@
             <span class="drawer-badge-pulse" style="background: #4f46e5;">Safe % ↗</span>
           </div>
         </button>
+        -->
 
         <!-- Student User Manual (PDF Guide) -->
         <a href="SRCC-Free-Classrooms-User-Manual.pdf" target="_blank" rel="noopener noreferrer" class="drawer-nav-item drawer-nav-manual" id="drawerNavManual" style="text-decoration: none; color: inherit;">
@@ -1481,6 +1450,129 @@
 
   
   <!-- ====================================================================
+       NOW & NEXT LIVE CLASS TRACKER MODAL (WITH SEC & VAC ELECTIVES)
+       ==================================================================== -->
+  <div class="modal-overlay" id="nowAndNextModal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="nowAndNextTitle">
+    <div class="modal-card now-next-modal-card" style="background: #ffffff; color: #0f172a; max-width: 680px; width: 94%; max-height: 90vh; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); display: flex; flex-direction: column; overflow: hidden;">
+      <div class="modal-header" style="background: #ffffff; padding: 18px 22px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 42px; height: 42px; border-radius: 10px; background: rgba(16, 185, 129, 0.14); color: #059669; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <div>
+            <h2 id="nowAndNextTitle" style="margin: 0; font-size: 1.18rem; font-family: var(--font-display); font-weight: 800; color: #0f172a; line-height: 1.2;">Live Class Tracker</h2>
+            <p style="margin: 3px 0 0; font-size: 0.8rem; color: #64748b;">Real-time schedule, upcoming countdown &amp; SEC/VAC electives</p>
+          </div>
+        </div>
+        <button type="button" class="modal-close" id="btnNowAndNextModalClose" style="background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; cursor: pointer; color: #475569;">✕</button>
+      </div>
+
+      <div class="modal-body" style="padding: 20px 22px; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 16px;">
+        <!-- Student Academic Profile & Elective Selector -->
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+            <span style="font-size: 0.82rem; font-weight: 700; color: #059669; text-transform: uppercase; letter-spacing: 0.5px;">Student Profile &amp; Electives</span>
+            <span id="trackerProfileSavedBadge" style="font-size: 0.72rem; padding: 2px 7px; border-radius: 4px; background: #dcfce7; color: #15803d; font-weight: 600;">Saved on Phone</span>
+          </div>
+
+          <!-- Row 1: Course, Sem, Section, Batch -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 10px;">
+            <div>
+              <label for="nnCourseSelect" style="display: block; font-size: 0.75rem; color: #64748b; margin-bottom: 3px; font-weight: 600;">Course:</label>
+              <select id="nnCourseSelect" style="width: 100%; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.84rem; background: #ffffff; color: #0f172a;">
+                <option value="B.Com (Hons)">B.Com (Hons)</option>
+                <option value="B.A. (Hons) Economics">B.A. (Hons) Economics</option>
+                <option value="M.Com">M.Com</option>
+              </select>
+            </div>
+            <div>
+              <label for="nnSemSelect" style="display: block; font-size: 0.75rem; color: #64748b; margin-bottom: 3px; font-weight: 600;">Semester:</label>
+              <select id="nnSemSelect" style="width: 100%; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.84rem; background: #ffffff; color: #0f172a;">
+                <option value="Sem I">Sem I</option>
+                <option value="Sem III">Sem III</option>
+                <option value="Sem V">Sem V</option>
+              </select>
+            </div>
+            <div>
+              <label for="nnSecSelect" style="display: block; font-size: 0.75rem; color: #64748b; margin-bottom: 3px; font-weight: 600;">Section:</label>
+              <select id="nnSecSelect" style="width: 100%; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.84rem; background: #ffffff; color: #0f172a; font-weight: 600;">
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+            <div>
+              <label for="nnBatchSelect" style="display: block; font-size: 0.75rem; color: #64748b; margin-bottom: 3px; font-weight: 600;">Sub-Batch:</label>
+              <select id="nnBatchSelect" style="width: 100%; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.84rem; background: #ffffff; color: #0f172a;">
+                <option value="ALL">ALL (Whole Sec)</option>
+                <option value="B1">Batch 1</option>
+                <option value="B2">Batch 2</option>
+                <option value="B3">Batch 3</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Row 2: SEC & VAC Electives -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 12px;">
+            <div>
+              <label for="nnSecBatchSelect" style="display: block; font-size: 0.75rem; color: #64748b; margin-bottom: 3px; font-weight: 600;">
+                SEC Elective (Skill Enhancement):
+              </label>
+              <select id="nnSecBatchSelect" style="width: 100%; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.84rem; background: #ffffff; color: #0f172a;">
+                <option value="NONE">None / Not Applicable</option>
+                <!-- Populated dynamically based on semester -->
+              </select>
+            </div>
+            <div>
+              <label for="nnVacBatchSelect" style="display: block; font-size: 0.75rem; color: #64748b; margin-bottom: 3px; font-weight: 600;">
+                VAC Elective (Value Addition):
+              </label>
+              <select id="nnVacBatchSelect" style="width: 100%; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.84rem; background: #ffffff; color: #0f172a;">
+                <option value="NONE">None / Not Applicable</option>
+                <!-- Populated dynamically based on semester -->
+              </select>
+            </div>
+          </div>
+
+          <button type="button" id="btnUpdateTrackerProfile" style="width: 100%; padding: 10px 14px; background: #059669; color: #ffffff; border: none; border-radius: 8px; font-size: 0.86rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: background 0.15s ease;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+            <span>Update &amp; Load My Live Schedule</span>
+          </button>
+        </div>
+
+        <!-- Live Status Cards Container (NOW & NEXT) -->
+        <div id="nnLiveStatusContainer" style="display: flex; flex-direction: column; gap: 12px;">
+          <!-- Dynamically populated via app.js -->
+        </div>
+
+        <!-- Day Timeline Selector -->
+        <div>
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+            <label style="font-size: 0.8rem; font-weight: 700; color: #475569;">Day Schedule:</label>
+            <span id="nnCurrentDayIndicator" style="font-size: 0.76rem; font-weight: 600; color: #059669; background: #dcfce7; padding: 2px 8px; border-radius: 4px;">Today</span>
+          </div>
+          <div class="nn-day-picker" id="nnDayPicker" style="display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px;">
+            <button type="button" class="bunk-day-btn active" data-day="Monday">Mon</button>
+            <button type="button" class="bunk-day-btn" data-day="Tuesday">Tue</button>
+            <button type="button" class="bunk-day-btn" data-day="Wednesday">Wed</button>
+            <button type="button" class="bunk-day-btn" data-day="Thursday">Thu</button>
+            <button type="button" class="bunk-day-btn" data-day="Friday">Fri</button>
+            <button type="button" class="bunk-day-btn" data-day="Saturday">Sat</button>
+          </div>
+        </div>
+
+        <!-- Full Schedule Timeline Table -->
+        <div id="nnTimelineContainer" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;">
+          <!-- Dynamically populated via app.js -->
+        </div>
+      </div>
+
+      <div class="modal-footer" style="padding: 14px 22px; border-top: 1px solid #e2e8f0; background: #ffffff; display: flex; align-items: center; justify-content: space-between;">
+        <span style="font-size: 0.76rem; color: #64748b;">Schedule auto-synced with college timetable</span>
+        <button type="button" id="btnCloseNowAndNextFooter" style="padding: 8px 18px; border: 1px solid #e2e8f0; background: #ffffff; border-radius: 8px; color: #0f172a; font-size: 0.84rem; font-weight: 600; cursor: pointer;">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
        BUNK BUDDIES: CAMPUS HANGOUT & MUTUAL FREE TIME PLANNER MODAL
        ==================================================================== -->
   <div class="modal-overlay" id="bunkBuddiesModal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="bunkBuddiesTitle">
@@ -1491,8 +1583,8 @@
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
           </div>
           <div>
-            <h2 id="bunkBuddiesTitle" style="margin: 0; font-size: 1.18rem; font-family: var(--font-display); font-weight: 800; color: #0f172a; line-height: 1.2;">Bunk Buddies • Hangout Finder</h2>
-            <p style="margin: 3px 0 0; font-size: 0.8rem; color: #64748b;">Find overlapping free periods when you and your friend are both free to chill</p>
+            <h2 id="bunkBuddiesTitle" style="margin: 0; font-size: 1.18rem; font-family: var(--font-display); font-weight: 800; color: #0f172a; line-height: 1.2;">Bunk Buddies — Hangout Planner</h2>
+            <p style="margin: 3px 0 0; font-size: 0.8rem; color: #64748b;">Compare two sections to find mutual free periods and breaks</p>
           </div>
         </div>
         <button type="button" class="modal-close" id="btnBunkModalClose" style="background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; cursor: pointer; color: #475569;">✕</button>
@@ -1504,7 +1596,7 @@
           <!-- Card 1: Your Section -->
           <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px;">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
-              <span style="font-size: 0.82rem; font-weight: 700; color: #1e40af; text-transform: uppercase; letter-spacing: 0.5px;">1. Your Section (You)</span>
+              <span style="font-size: 0.82rem; font-weight: 700; color: #1e40af; text-transform: uppercase; letter-spacing: 0.5px;">1. Your Section</span>
               <span id="bunkMySavedTag" style="font-size: 0.72rem; padding: 1px 6px; border-radius: 4px; background: #dbeafe; color: #1e40af; font-weight: 600;">Saved</span>
             </div>
             <div style="display: flex; flex-direction: column; gap: 8px;">
@@ -1574,7 +1666,7 @@
 
         <!-- Day Selector Tabs -->
         <div>
-          <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #475569; margin-bottom: 6px;">Check Day:</label>
+          <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #475569; margin-bottom: 6px;">Select Weekday:</label>
           <div class="bunk-day-picker" id="bunkDayPicker" style="display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px;">
             <button type="button" class="bunk-day-btn active" data-day="Monday">Mon</button>
             <button type="button" class="bunk-day-btn" data-day="Tuesday">Tue</button>
@@ -1585,6 +1677,12 @@
           </div>
         </div>
 
+        <!-- Explicit Action Button: Compare & Find Overlapping Free Hours -->
+        <button type="button" id="btnFindBunkHangout" style="width: 100%; padding: 11px 16px; background: #2563eb; color: #ffffff; border: none; border-radius: 10px; font-size: 0.90rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 2px 6px rgba(37,99,235,0.22); transition: background 0.15s ease;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <span>Compare Schedules &amp; Find Free Windows</span>
+        </button>
+
         <!-- Dynamic Results Container -->
         <div id="bunkResultsContainer" style="display: flex; flex-direction: column; gap: 12px;">
           <!-- Dynamically generated via app.js -->
@@ -1592,19 +1690,23 @@
 
         <!-- Recommended Campus Hangout Spots -->
         <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px;">
-          <span style="display: block; font-size: 0.82rem; font-weight: 700; color: #0f172a; margin-bottom: 8px;">Recommended Hangout Spots at SRCC:</span>
+          <span style="display: block; font-size: 0.82rem; font-weight: 700; color: #0f172a; margin-bottom: 8px;">Popular Hangout Spots at SRCC:</span>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; font-size: 0.8rem; color: #475569;">
-            <div style="display: flex; align-items: center; gap: 8px; padding: 6px 10px; background: #f8fafc; border-radius: 8px; border: 1px solid #f1f5f9;">
-              <span style="font-weight: 700; color: #d97706;">☕ SRCC Canteen &amp; Nescafe</span>
+            <div style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #f1f5f9;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #d97706; flex-shrink: 0;"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+              <span style="font-weight: 700; color: #d97706;">SRCC Canteen &amp; Nescafe</span>
             </div>
-            <div style="display: flex; align-items: center; gap: 8px; padding: 6px 10px; background: #f8fafc; border-radius: 8px; border: 1px solid #f1f5f9;">
-              <span style="font-weight: 700; color: #059669;">🏸 Sports Complex &amp; Gym</span>
+            <div style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #f1f5f9;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #059669; flex-shrink: 0;"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+              <span style="font-weight: 700; color: #059669;">Sports Complex &amp; Gym</span>
             </div>
-            <div style="display: flex; align-items: center; gap: 8px; padding: 6px 10px; background: #f8fafc; border-radius: 8px; border: 1px solid #f1f5f9;">
-              <span style="font-weight: 700; color: #0284c7;">📖 Central Library Hall</span>
+            <div style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #f1f5f9;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #0284c7; flex-shrink: 0;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+              <span style="font-weight: 700; color: #0284c7;">Central Library Hall</span>
             </div>
-            <div style="display: flex; align-items: center; gap: 8px; padding: 6px 10px; background: #f8fafc; border-radius: 8px; border: 1px solid #f1f5f9;">
-              <span style="font-weight: 700; color: #7c3aed;">🏛️ Vacant AC Classrooms</span>
+            <div style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #f1f5f9;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #7c3aed; flex-shrink: 0;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+              <span style="font-weight: 700; color: #7c3aed;">Vacant Classrooms</span>
             </div>
           </div>
         </div>
@@ -1718,6 +1820,6 @@
   <script src="faculty_leaves.js?v=100"></script>
   <script src="teachers_data.js?v=100"></script>
   <script src="classes_data.js?v=100"></script>
-  <script src="app.js?v=114"></script>
+  <script src="app.js?v=116"></script>
 </body>
 </html>

@@ -11994,8 +11994,9 @@ body.dark-mode .btn-later-pwa-notif {
   font-weight: 700;
 }
 
-/* Responsive tweaks for Bunk Buddies & Attendance modals */
+/* Responsive tweaks for Bunk Buddies, Now & Next & Attendance modals */
 @media (max-width: 640px) {
+  .now-next-modal-card,
   .bunk-modal-card,
   .attendance-modal-card {
     width: 96% !important;

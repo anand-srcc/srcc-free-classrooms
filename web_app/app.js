@@ -1500,6 +1500,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('calendarReminderModal'),
         document.getElementById('studentAttachmentModal'),
         document.getElementById('classNotifModal'),
+        document.getElementById('nowAndNextModal'),
         document.getElementById('bunkBuddiesModal'),
         document.getElementById('attendanceModal'),
         document.getElementById('pwaInstallModal')
@@ -1521,6 +1522,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('widgetModal'),
         document.getElementById('ugcfGuidanceModal'),
         document.getElementById('classNotifModal'),
+        document.getElementById('nowAndNextModal'),
         document.getElementById('bunkBuddiesModal'),
         document.getElementById('attendanceModal'),
         document.getElementById('pwaInstallModal')
@@ -7250,6 +7252,7 @@ window.SRCC_FACULTY_LEAVES = {
 
         return mergeConsecutiveSessions(rawList);
       }
+      window.getClassesForParameters = getClassesForParameters;
 
       function matchesSessionSearch(session, rawQuery) {
         if (!rawQuery) return true;
@@ -8707,11 +8710,11 @@ window.SRCC_FACULTY_LEAVES = {
       updateSectionsAndBatches(false);
       syncControlPills();
       renderMainTimetableView();
-      renderMyBatchDailyWidget();
+      if (document.getElementById('myBatchScheduleWidget')) renderMyBatchDailyWidget();
       initWidgetSetupModal();
       initBunkBuddies();
       initAttendanceCalculator();
-      initNowAndNextDrawerShortcut();
+      initNowAndNextTracker();
     }
 
     function initWidgetSetupModal() {
@@ -8861,27 +8864,544 @@ window.SRCC_FACULTY_LEAVES = {
     }
 
 // ========================================================================
-// 1. NOW & NEXT LIVE CLASS TRACKER DRAWER SHORTCUT
+// 1. NOW & NEXT LIVE CLASS TRACKER (WITH SEC & VAC ELECTIVES)
 // ========================================================================
-    function initNowAndNextDrawerShortcut() {
-      const drawerNavNowAndNext = document.getElementById('drawerNavNowAndNext');
-      if (drawerNavNowAndNext) {
-        drawerNavNowAndNext.addEventListener('click', () => {
-          if (typeof window._closeCampusDrawer === 'function') {
-            window._closeCampusDrawer({ noHistory: true });
+    function initNowAndNextTracker() {
+      const modal = document.getElementById('nowAndNextModal');
+      const btnClose = document.getElementById('btnNowAndNextModalClose');
+      const btnCloseFooter = document.getElementById('btnCloseNowAndNextFooter');
+      const drawerBtn = document.getElementById('drawerNavNowAndNext');
+
+      const courseSel = document.getElementById('nnCourseSelect');
+      const semSel = document.getElementById('nnSemSelect');
+      const secSel = document.getElementById('nnSecSelect');
+      const batchSel = document.getElementById('nnBatchSelect');
+      const secBatchSel = document.getElementById('nnSecBatchSelect');
+      const vacBatchSel = document.getElementById('nnVacBatchSelect');
+      const btnUpdate = document.getElementById('btnUpdateTrackerProfile');
+
+      const liveStatusContainer = document.getElementById('nnLiveStatusContainer');
+      const timelineContainer = document.getElementById('nnTimelineContainer');
+      const dayPicker = document.getElementById('nnDayPicker');
+      const dayIndicator = document.getElementById('nnCurrentDayIndicator');
+
+      if (!modal) return;
+
+      let activeDay = (typeof getLiveDayName === 'function' && getLiveDayName() !== 'Sunday')
+        ? getLiveDayName()
+        : 'Monday';
+
+      function openModal() {
+        if (typeof window._closeCampusDrawer === 'function') {
+          window._closeCampusDrawer({ noHistory: true });
+        }
+        closeAllPopups();
+        openAppModal(modal);
+        syncProfileToInputs();
+        renderLiveTracker();
+      }
+
+      function closeModal(opts = {}) {
+        closeAppModal(modal, opts);
+      }
+
+      window.openNowAndNextModal = openModal;
+      window.closeNowAndNextModal = closeModal;
+
+      if (drawerBtn) drawerBtn.addEventListener('click', openModal);
+      if (btnClose) btnClose.addEventListener('click', () => closeModal());
+      if (btnCloseFooter) btnCloseFooter.addEventListener('click', () => closeModal());
+      modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+      function populateSections() {
+        if (!courseSel || !semSel || !secSel) return;
+        const c = courseSel.value;
+        const s = semSel.value;
+        let secs = [];
+        if (typeof courseMap !== 'undefined' && courseMap[c]?.[s]) {
+          secs = Object.keys(courseMap[c][s]).sort();
+        }
+        if (secs.length === 0) {
+          if (c === 'B.A. (Hons) Economics') secs = ['Sec A', 'Sec B', 'Sec C'];
+          else if (c === 'M.Com') secs = ['Sec A', 'Sec B'];
+          else secs = ['Sec A', 'Sec B', 'Sec C', 'Sec D', 'Sec E', 'Sec F', 'Sec G', 'Sec H', 'Sec I', 'Sec J', 'Sec K', 'Sec L', 'Sec M', 'Sec N'];
+        }
+        const curSec = secSel.value;
+        secSel.innerHTML = secs.map(sc => `<option value="${sc}">${sc}</option>`).join('');
+        if (curSec && secs.includes(curSec)) secSel.value = curSec;
+      }
+
+      function populateElectives() {
+        if (!semSel || !secBatchSel || !vacBatchSel) return;
+        const s = semSel.value;
+        const cData = window.SRCC_CLASSES_DATA?.courses;
+
+        // Populate SEC
+        const secList = cData?.SEC?.[s] || [];
+        const secMap = new Map();
+        secList.forEach(item => {
+          if (item.batch && !secMap.has(item.batch)) {
+            secMap.set(item.batch, `${item.batch}: ${item.subject || ''} — ${item.subject_name || ''}`);
           }
-          closeAllPopups();
-          setAppMode('timetable', true);
-          setTimeout(() => {
-            const widget = document.getElementById('myBatchScheduleWidget');
-            if (widget) {
-              widget.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              widget.style.transition = 'box-shadow 0.3s ease';
-              widget.style.boxShadow = '0 0 0 3px rgba(37,99,235,0.35)';
-              setTimeout(() => { widget.style.boxShadow = ''; }, 1600);
-            }
-          }, 150);
         });
+        let secOpts = '<option value="NONE">None / Not Applicable</option>';
+        secMap.forEach((label, bCode) => {
+          secOpts += `<option value="${bCode}">${escapeHtml(label)}</option>`;
+        });
+        const curSecB = secBatchSel.value;
+        secBatchSel.innerHTML = secOpts;
+        if (curSecB && secMap.has(curSecB)) secBatchSel.value = curSecB;
+
+        // Populate VAC
+        const vacList = cData?.VAC?.[s] || [];
+        const vacMap = new Map();
+        vacList.forEach(item => {
+          if (item.batch && !vacMap.has(item.batch)) {
+            vacMap.set(item.batch, `${item.batch}: ${item.subject || ''} — ${item.subject_name || ''}`);
+          }
+        });
+        let vacOpts = '<option value="NONE">None / Not Applicable</option>';
+        vacMap.forEach((label, bCode) => {
+          vacOpts += `<option value="${bCode}">${escapeHtml(label)}</option>`;
+        });
+        const curVacB = vacBatchSel.value;
+        vacBatchSel.innerHTML = vacOpts;
+        if (curVacB && vacMap.has(curVacB)) vacBatchSel.value = curVacB;
+      }
+
+      function syncProfileToInputs() {
+        let prof = null;
+        try {
+          const raw = localStorage.getItem('srcc_live_tracker_profile_v2');
+          if (raw) prof = JSON.parse(raw);
+        } catch (e) {}
+
+        if (!prof) {
+          prof = {
+            course: localStorage.getItem('srcc_my_tt_course') || 'B.Com (Hons)',
+            sem: localStorage.getItem('srcc_my_tt_sem') || 'Sem I',
+            sec: localStorage.getItem('srcc_my_tt_sec') || 'Sec A',
+            batch: localStorage.getItem('srcc_my_tt_batch') || 'ALL',
+            secBatch: localStorage.getItem('srcc_my_sec_batch') || 'NONE',
+            vacBatch: localStorage.getItem('srcc_my_vac_batch') || 'NONE'
+          };
+        }
+
+        if (courseSel && prof.course) courseSel.value = prof.course;
+        if (semSel && prof.sem) semSel.value = prof.sem;
+        populateSections();
+        if (secSel && prof.sec) secSel.value = prof.sec;
+        if (batchSel && prof.batch) batchSel.value = prof.batch;
+        populateElectives();
+        if (secBatchSel && prof.secBatch) secBatchSel.value = prof.secBatch;
+        if (vacBatchSel && prof.vacBatch) vacBatchSel.value = prof.vacBatch;
+
+        if (dayPicker) {
+          dayPicker.querySelectorAll('.bunk-day-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.day === activeDay);
+          });
+        }
+      }
+
+      function getSavedProfile() {
+        return {
+          course: courseSel ? courseSel.value : 'B.Com (Hons)',
+          sem: semSel ? semSel.value : 'Sem I',
+          sec: secSel ? secSel.value : 'Sec A',
+          batch: batchSel ? batchSel.value : 'ALL',
+          secBatch: secBatchSel ? secBatchSel.value : 'NONE',
+          vacBatch: vacBatchSel ? vacBatchSel.value : 'NONE'
+        };
+      }
+
+      if (courseSel) courseSel.addEventListener('change', () => { populateSections(); });
+      if (semSel) semSel.addEventListener('change', () => { populateSections(); populateElectives(); });
+
+      if (btnUpdate) {
+        btnUpdate.addEventListener('click', () => {
+          const p = getSavedProfile();
+          try {
+            localStorage.setItem('srcc_live_tracker_profile_v2', JSON.stringify(p));
+            localStorage.setItem('srcc_my_tt_course', p.course);
+            localStorage.setItem('srcc_my_tt_sem', p.sem);
+            localStorage.setItem('srcc_my_tt_sec', p.sec);
+            localStorage.setItem('srcc_my_tt_batch', p.batch);
+            localStorage.setItem('srcc_my_sec_batch', p.secBatch);
+            localStorage.setItem('srcc_my_vac_batch', p.vacBatch);
+          } catch (e) {}
+          renderLiveTracker();
+          if (typeof showToast === 'function') showToast('Schedule updated & saved!', true, 2200);
+        });
+      }
+
+      if (dayPicker) {
+        dayPicker.querySelectorAll('.bunk-day-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            activeDay = btn.dataset.day;
+            dayPicker.querySelectorAll('.bunk-day-btn').forEach(b => b.classList.toggle('active', b === btn));
+            renderLiveTracker();
+          });
+        });
+      }
+
+      function getStudentSchedule(day, profile) {
+        const getClasses = window.getClassesForParameters;
+        let list = [];
+        if (typeof getClasses === 'function') {
+          list = getClasses(day, profile.sem, profile.course, profile.batch, profile.sec) || [];
+        }
+
+        // Incorporate SEC Elective
+        if (profile.secBatch && profile.secBatch !== 'NONE' && window.SRCC_CLASSES_DATA?.courses?.SEC?.[profile.sem]) {
+          const secClasses = window.SRCC_CLASSES_DATA.courses.SEC[profile.sem];
+          secClasses.forEach(s => {
+            if (s.day === day && s.batch === profile.secBatch) {
+              const pInfo = getPeriodInfo(s.slot);
+              if (pInfo) {
+                const tName = getCleanStudentFacultyName(s.teacher_name || s.teacher || 'Faculty', s.teacher_id);
+                const teacherObj = (teachersData && teachersData.teachers) ? teachersData.teachers.find(tch => String(tch.id) === String(s.teacher_id)) : null;
+                const leaveRecord = isTeacherOnLeave(teacherObj || { clean_name: tName, name: tName, id: s.teacher_id });
+
+                list.push({
+                  slot: s.slot,
+                  periodNum: pInfo.num,
+                  startPeriod: pInfo.num,
+                  endPeriod: pInfo.num,
+                  periodsCount: 1,
+                  subject: s.subject || 'SEC',
+                  subjectName: s.subject_name || 'Skill Enhancement Course',
+                  type: s.type || 'Practical/Lab',
+                  batch: s.batch,
+                  rawBatch: s.batch,
+                  teacher: tName,
+                  teacherId: s.teacher_id || '',
+                  room: s.room || '',
+                  isOnLeave: Boolean(leaveRecord),
+                  isSec: true,
+                  isVac: false,
+                  sem: profile.sem,
+                  day: day
+                });
+              }
+            }
+          });
+        }
+
+        // Incorporate VAC Elective
+        if (profile.vacBatch && profile.vacBatch !== 'NONE' && window.SRCC_CLASSES_DATA?.courses?.VAC?.[profile.sem]) {
+          const vacClasses = window.SRCC_CLASSES_DATA.courses.VAC[profile.sem];
+          vacClasses.forEach(s => {
+            if (s.day === day && s.batch === profile.vacBatch) {
+              const pInfo = getPeriodInfo(s.slot);
+              if (pInfo) {
+                const tName = getCleanStudentFacultyName(s.teacher_name || s.teacher || 'Faculty', s.teacher_id);
+                const teacherObj = (teachersData && teachersData.teachers) ? teachersData.teachers.find(tch => String(tch.id) === String(s.teacher_id)) : null;
+                const leaveRecord = isTeacherOnLeave(teacherObj || { clean_name: tName, name: tName, id: s.teacher_id });
+
+                list.push({
+                  slot: s.slot,
+                  periodNum: pInfo.num,
+                  startPeriod: pInfo.num,
+                  endPeriod: pInfo.num,
+                  periodsCount: 1,
+                  subject: s.subject || 'VAC',
+                  subjectName: s.subject_name || 'Value Addition Course',
+                  type: s.type || 'Lecture',
+                  batch: s.batch,
+                  rawBatch: s.batch,
+                  teacher: tName,
+                  teacherId: s.teacher_id || '',
+                  room: s.room || '',
+                  isOnLeave: Boolean(leaveRecord),
+                  isSec: false,
+                  isVac: true,
+                  sem: profile.sem,
+                  day: day
+                });
+              }
+            }
+          });
+        }
+
+        list.sort((a, b) => (a.startPeriod || a.periodNum || 0) - (b.startPeriod || b.periodNum || 0));
+        return list;
+      }
+
+      function renderLiveTracker() {
+        if (!liveStatusContainer || !timelineContainer) return;
+        const prof = getSavedProfile();
+        const sched = getStudentSchedule(activeDay, prof);
+
+        const realTodayName = typeof getLiveDayName === 'function' ? getLiveDayName() : 'Monday';
+        const isToday = (activeDay === realTodayName);
+        if (dayIndicator) {
+          dayIndicator.textContent = isToday ? 'Live Today' : activeDay;
+          dayIndicator.style.background = isToday ? '#dcfce7' : '#f1f5f9';
+          dayIndicator.style.color = isToday ? '#15803d' : '#475569';
+        }
+
+        const now = new Date();
+        const curMins = now.getHours() * 60 + now.getMinutes();
+
+        // 9 Standard academic periods
+        const PERIOD_WINDOWS = [
+          { num: 1, name: 'Period 1', startMins: 510, endMins: 570, slot: '8:30 AM to 9:30 AM', time: '8:30 – 9:30 AM' },
+          { num: 2, name: 'Period 2', startMins: 570, endMins: 630, slot: '9:30 AM to 10:30 AM', time: '9:30 – 10:30 AM' },
+          { num: 3, name: 'Period 3', startMins: 630, endMins: 690, slot: '10:30 AM to 11:30 AM', time: '10:30 – 11:30 AM' },
+          { num: 4, name: 'Period 4', startMins: 690, endMins: 750, slot: '11:30 AM to 12:30 PM', time: '11:30 AM – 12:30 PM' },
+          { num: 5, name: 'Period 5', startMins: 750, endMins: 810, slot: '12:30 PM to 1:30 PM', time: '12:30 – 1:30 PM' },
+          { num: 0, name: 'Lunch Recess', startMins: 810, endMins: 840, slot: '1:30 PM to 2:00 PM', time: '1:30 – 2:00 PM', isRecess: true },
+          { num: 6, name: 'Period 6', startMins: 840, endMins: 900, slot: '2:00 PM to 3:00 PM', time: '2:00 – 3:00 PM' },
+          { num: 7, name: 'Period 7', startMins: 900, endMins: 960, slot: '3:00 PM to 4:00 PM', time: '3:00 – 4:00 PM' },
+          { num: 8, name: 'Period 8', startMins: 960, endMins: 1020, slot: '4:00 PM to 5:00 PM', time: '4:00 – 5:00 PM' },
+          { num: 9, name: 'Period 9', startMins: 1020, endMins: 1080, slot: '5:00 PM to 6:00 PM', time: '5:00 – 6:00 PM' }
+        ];
+
+        let activePeriodWin = null;
+        let currentClass = null;
+
+        if (isToday) {
+          activePeriodWin = PERIOD_WINDOWS.find(w => curMins >= w.startMins && curMins < w.endMins);
+          if (activePeriodWin && !activePeriodWin.isRecess) {
+            currentClass = sched.find(c => {
+              if (c.periodNum === activePeriodWin.num) return true;
+              if (c.startPeriod && activePeriodWin.num >= c.startPeriod && activePeriodWin.num <= c.endPeriod) return true;
+              if (c.slotsCovered && c.slotsCovered.some(s => getPeriodInfo(s)?.num === activePeriodWin.num)) return true;
+              return getPeriodInfo(c.slot)?.num === activePeriodWin.num;
+            });
+          }
+        }
+
+        let nextClass = null;
+        let nextPeriodWin = null;
+        if (isToday) {
+          for (const win of PERIOD_WINDOWS) {
+            if (win.isRecess) continue;
+            if (win.startMins > curMins) {
+              const found = sched.find(c => {
+                if (c.periodNum === win.num) return true;
+                if (c.startPeriod && win.num >= c.startPeriod && win.num <= c.endPeriod) return true;
+                if (c.slotsCovered && c.slotsCovered.some(s => getPeriodInfo(s)?.num === win.num)) return true;
+                return getPeriodInfo(c.slot)?.num === win.num;
+              });
+              if (found) {
+                nextClass = found;
+                nextPeriodWin = win;
+                break;
+              }
+            }
+          }
+        }
+
+        // Build LIVE NOW card
+        let liveCardHtml = '';
+        if (!isToday) {
+          liveCardHtml = `
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px;">
+              <span style="font-size: 0.76rem; font-weight: 700; color: #475569; text-transform: uppercase;">Viewing ${activeDay} Schedule</span>
+              <p style="margin: 4px 0 0; font-size: 0.84rem; color: #64748b;">Showing complete verified classes for ${prof.course} ${prof.sem} (${prof.sec}).</p>
+            </div>
+          `;
+        } else if (currentClass) {
+          const tName = currentClass.teacher || 'Faculty';
+          const room = currentClass.room || 'TBA';
+          const isAway = currentClass.isOnLeave;
+          liveCardHtml = `
+            <div style="background: #ffffff; border: 1.5px solid #86efac; border-radius: 12px; padding: 16px; box-shadow: 0 2px 6px rgba(22, 163, 74, 0.08);">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.76rem; font-weight: 800; background: #dcfce7; color: #15803d; padding: 3px 10px; border-radius: 9999px;">
+                  <span style="width: 8px; height: 8px; border-radius: 50%; background: #16a34a;"></span>
+                  LIVE CLASS IN PROGRESS (${activePeriodWin.name})
+                </span>
+                <span style="font-size: 0.8rem; font-weight: 700; color: #15803d;">${activePeriodWin.time}</span>
+              </div>
+              <h3 style="margin: 0 0 4px; font-size: 1.12rem; font-weight: 800; color: #0f172a;">${escapeHtml(currentClass.subjectName || currentClass.subject || 'Lecture')}</h3>
+              <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 0.82rem; color: #475569; margin-top: 6px;">
+                <span><strong>Faculty:</strong> ${escapeHtml(tName)}</span>
+                <span><strong>Type:</strong> ${escapeHtml(currentClass.type || 'Lecture')}</span>
+                <span><strong>Batch:</strong> ${escapeHtml(currentClass.batch || 'Whole Section')}</span>
+              </div>
+              ${isAway ? `
+                <div style="margin-top: 10px; padding: 8px 12px; background: #fef2f2; border: 1px solid #fca5a5; border-radius: 8px; color: #991b1b; font-size: 0.8rem; font-weight: 700;">
+                  Notice: Faculty is marked on leave today. Class suspended.
+                </div>
+              ` : ''}
+              <div style="margin-top: 12px; display: flex; gap: 8px;">
+                ${room ? `
+                  <button type="button" onclick="closeNowAndNextModal(); if (typeof openScheduleModal === 'function') openScheduleModal('${room}');" style="padding: 7px 14px; background: #16a34a; color: #ffffff; border: none; border-radius: 6px; font-size: 0.8rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+                    View Room ${room} Status ↗
+                  </button>
+                ` : ''}
+              </div>
+            </div>
+          `;
+        } else if (activePeriodWin && activePeriodWin.isRecess) {
+          liveCardHtml = `
+            <div style="background: #ffffff; border: 1.5px solid #fed7aa; border-radius: 12px; padding: 16px;">
+              <span style="font-size: 0.76rem; font-weight: 800; background: #ffedd5; color: #c2410c; padding: 3px 10px; border-radius: 9999px;">
+                LUNCH RECESS (1:30 PM – 2:00 PM)
+              </span>
+              <p style="margin: 8px 0 0; font-size: 0.84rem; color: #475569;">Campus lunch break in progress. Canteen and student common areas available.</p>
+            </div>
+          `;
+        } else if (activePeriodWin) {
+          liveCardHtml = `
+            <div style="background: #ffffff; border: 1.5px solid #bae6fd; border-radius: 12px; padding: 16px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                <span style="font-size: 0.76rem; font-weight: 800; background: #e0f2fe; color: #0284c7; padding: 3px 10px; border-radius: 9999px;">
+                  FREE PERIOD NOW (${activePeriodWin.name})
+                </span>
+                <span style="font-size: 0.8rem; font-weight: 700; color: #0284c7;">${activePeriodWin.time}</span>
+              </div>
+              <p style="margin: 6px 0 10px; font-size: 0.84rem; color: #475569;">You have no lecture scheduled in this period.</p>
+              <button type="button" onclick="closeNowAndNextModal(); setAppMode('rooms', true); setFreeNowState(true);" style="padding: 7px 14px; background: #0284c7; color: #ffffff; border: none; border-radius: 6px; font-size: 0.8rem; font-weight: 700; cursor: pointer;">
+                Find Vacant Classrooms Right Now ↗
+              </button>
+            </div>
+          `;
+        } else if (curMins >= 1080) {
+          liveCardHtml = `
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px;">
+              <span style="font-size: 0.76rem; font-weight: 800; background: #f1f5f9; color: #475569; padding: 3px 8px; border-radius: 4px;">CLASSES CONCLUDED</span>
+              <p style="margin: 6px 0 0; font-size: 0.84rem; color: #64748b;">Scheduled classes for today have ended.</p>
+            </div>
+          `;
+        } else {
+          liveCardHtml = `
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px;">
+              <span style="font-size: 0.76rem; font-weight: 800; background: #e0e7ff; color: #4338ca; padding: 3px 8px; border-radius: 4px;">MORNING</span>
+              <p style="margin: 6px 0 0; font-size: 0.84rem; color: #475569;">Classes start at 8:30 AM. Review your upcoming lectures below.</p>
+            </div>
+          `;
+        }
+
+        // Build NEXT UP card
+        let nextCardHtml = '';
+        if (isToday && nextClass && nextPeriodWin) {
+          const diffM = Math.max(0, nextPeriodWin.startMins - curMins);
+          const tName = nextClass.teacher || 'Faculty';
+          const room = nextClass.room || 'TBA';
+          nextCardHtml = `
+            <div style="background: #ffffff; border: 1.5px solid #fde68a; border-radius: 12px; padding: 16px; box-shadow: 0 2px 6px rgba(217, 119, 6, 0.08);">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <span style="font-size: 0.76rem; font-weight: 800; background: #fef3c7; color: #b45309; padding: 3px 10px; border-radius: 9999px;">
+                  UPCOMING NEXT (Starts in ${diffM} mins)
+                </span>
+                <span style="font-size: 0.8rem; font-weight: 700; color: #b45309;">${nextPeriodWin.time}</span>
+              </div>
+              <h4 style="margin: 0 0 4px; font-size: 1.05rem; font-weight: 800; color: #0f172a;">${escapeHtml(nextClass.subjectName || nextClass.subject || 'Upcoming Class')}</h4>
+              <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 0.82rem; color: #475569; margin-top: 6px;">
+                <span><strong>Room:</strong> ${escapeHtml(room)}</span>
+                <span><strong>Faculty:</strong> ${escapeHtml(tName)}</span>
+                <span><strong>Batch:</strong> ${escapeHtml(nextClass.batch || 'Whole Sec')}</span>
+              </div>
+              <div style="margin-top: 12px; display: flex; gap: 8px; align-items: center;">
+                <button type="button" id="btnNnRemindNext" style="padding: 7px 14px; background: #2563eb; color: #ffffff; border: none; border-radius: 6px; font-size: 0.8rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                  <span>Remind in 10 Min</span>
+                </button>
+                ${room ? `
+                  <button type="button" onclick="closeNowAndNextModal(); if (typeof openScheduleModal === 'function') openScheduleModal('${room}');" style="padding: 7px 12px; background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer;">
+                    Room Info
+                  </button>
+                ` : ''}
+              </div>
+            </div>
+          `;
+        }
+
+        liveStatusContainer.innerHTML = liveCardHtml + nextCardHtml;
+
+        const btnRemind = document.getElementById('btnNnRemindNext');
+        if (btnRemind) {
+          btnRemind.addEventListener('click', () => {
+            closeModal();
+            if (typeof openClassNotifModal === 'function') openClassNotifModal();
+          });
+        }
+
+        // Build Timeline Table
+        const rowsHtml = PERIOD_WINDOWS.map(win => {
+          if (win.isRecess) {
+            return `
+              <tr style="background: #fffbeb; border-bottom: 1px solid #e2e8f0;">
+                <td style="padding: 8px 12px; font-weight: 700; color: #b45309; font-size: 0.78rem;">Lunch Recess</td>
+                <td style="padding: 8px 12px; font-size: 0.78rem; color: #92400e;">${win.time}</td>
+                <td colspan="4" style="padding: 8px 12px; font-size: 0.78rem; color: #b45309; font-weight: 600;">Campus Lunch Break</td>
+              </tr>
+            `;
+          }
+
+          const cls = sched.find(c => {
+            if (c.periodNum === win.num) return true;
+            if (c.startPeriod && win.num >= c.startPeriod && win.num <= c.endPeriod) return true;
+            if (c.slotsCovered && c.slotsCovered.some(s => getPeriodInfo(s)?.num === win.num)) return true;
+            return getPeriodInfo(c.slot)?.num === win.num;
+          });
+
+          const isCurrent = isToday && activePeriodWin && activePeriodWin.num === win.num;
+          const bg = isCurrent ? '#f0fdf4' : '#ffffff';
+
+          if (!cls) {
+            return `
+              <tr style="background: ${bg}; border-bottom: 1px solid #f1f5f9;">
+                <td style="padding: 8px 12px; font-weight: 700; color: #334155; font-size: 0.78rem;">${win.name}</td>
+                <td style="padding: 8px 12px; font-size: 0.76rem; color: #64748b;">${win.time}</td>
+                <td colspan="4" style="padding: 8px 12px; font-size: 0.78rem; color: #16a34a; font-weight: 600;">Free Window</td>
+              </tr>
+            `;
+          }
+
+          const isAway = cls.isOnLeave;
+          return `
+            <tr style="background: ${bg}; border-bottom: 1px solid #f1f5f9;">
+              <td style="padding: 8px 12px; font-weight: 700; color: #0f172a; font-size: 0.78rem;">
+                ${win.name}
+                ${isCurrent ? '<span style="display: block; font-size: 0.68rem; color: #15803d; font-weight: 800;">● LIVE NOW</span>' : ''}
+              </td>
+              <td style="padding: 8px 12px; font-size: 0.76rem; color: #64748b; white-space: nowrap;">${win.time}</td>
+              <td style="padding: 8px 12px;">
+                <strong style="display: block; font-size: 0.82rem; color: #0f172a;">${escapeHtml(cls.subject || '')}</strong>
+                <span style="font-size: 0.74rem; color: #64748b;">${escapeHtml(cls.subjectName || '')}</span>
+                ${cls.isSec ? '<span style="margin-left: 4px; font-size: 0.68rem; background: #e0f2fe; color: #0369a1; padding: 1px 5px; border-radius: 3px; font-weight: 700;">SEC</span>' : ''}
+                ${cls.isVac ? '<span style="margin-left: 4px; font-size: 0.68rem; background: #fef3c7; color: #92400e; padding: 1px 5px; border-radius: 3px; font-weight: 700;">VAC</span>' : ''}
+              </td>
+              <td style="padding: 8px 12px;">
+                ${cls.room ? `
+                  <button type="button" onclick="closeNowAndNextModal(); if (typeof openScheduleModal === 'function') openScheduleModal('${cls.room}');" style="padding: 3px 8px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.76rem; font-weight: 700; color: #0f172a; cursor: pointer;">
+                    ${cls.room} ↗
+                  </button>
+                ` : '<span style="color: #94a3b8; font-size: 0.76rem;">—</span>'}
+              </td>
+              <td style="padding: 8px 12px; font-size: 0.78rem; color: #475569;">${escapeHtml(cls.teacher || 'Faculty')}</td>
+              <td style="padding: 8px 12px;">
+                ${isAway ? '<span style="font-size: 0.72rem; font-weight: 800; background: #fee2e2; color: #991b1b; padding: 2px 7px; border-radius: 4px;">On Leave</span>' : '<span style="font-size: 0.72rem; font-weight: 700; background: #dcfce7; color: #166534; padding: 2px 7px; border-radius: 4px;">Scheduled</span>'}
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+        timelineContainer.innerHTML = `
+          <div style="padding: 10px 14px; background: #f8fafc; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between;">
+            <strong style="font-size: 0.82rem; color: #0f172a;">${activeDay} Schedule (${prof.sec}${prof.batch !== 'ALL' ? ' • ' + prof.batch : ''})</strong>
+            <span style="font-size: 0.74rem; color: #64748b;">${sched.length} Verified Class${sched.length === 1 ? '' : 'es'}</span>
+          </div>
+          <table style="width: 100%; border-collapse: collapse; text-align: left;">
+            <thead>
+              <tr style="background: #f8fafc; border-bottom: 1px solid #e2e8f0; font-size: 0.72rem; color: #64748b;">
+                <th style="padding: 8px 12px;">Period</th>
+                <th style="padding: 8px 12px;">Time</th>
+                <th style="padding: 8px 12px;">Subject &amp; Elective</th>
+                <th style="padding: 8px 12px;">Room</th>
+                <th style="padding: 8px 12px;">Faculty</th>
+                <th style="padding: 8px 12px;">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rowsHtml}
+            </tbody>
+          </table>
+        `;
       }
     }
 
@@ -8893,7 +9413,7 @@ window.SRCC_FACULTY_LEAVES = {
       const btnClose = document.getElementById('btnBunkModalClose');
       const btnCloseFooter = document.getElementById('btnCloseBunkFooter');
       const drawerBtn = document.getElementById('drawerNavBunkBuddies');
-      const quickBtn = document.getElementById('btnQuickOpenBunkBuddies');
+      const btnFindHangout = document.getElementById('btnFindBunkHangout');
 
       const myCourseSel = document.getElementById('bunkMyCourseSelect');
       const mySemSel = document.getElementById('bunkMySemSelect');
@@ -8915,6 +9435,9 @@ window.SRCC_FACULTY_LEAVES = {
         : 'Monday';
 
       function openBunkModal() {
+        if (typeof window._closeCampusDrawer === 'function') {
+          window._closeCampusDrawer({ noHistory: true });
+        }
         closeAllPopups();
         openAppModal(bunkModal);
         syncMyBatchToInputs();
@@ -8928,14 +9451,7 @@ window.SRCC_FACULTY_LEAVES = {
       window.openBunkBuddiesModal = openBunkModal;
       window.closeBunkBuddiesModal = closeBunkModal;
 
-      if (drawerBtn) drawerBtn.addEventListener('click', () => {
-        if (typeof window._closeCampusDrawer === 'function') {
-          window._closeCampusDrawer({ noHistory: true });
-        }
-        closeAllPopups();
-        openBunkModal();
-      });
-      if (quickBtn) quickBtn.addEventListener('click', openBunkModal);
+      if (drawerBtn) drawerBtn.addEventListener('click', openBunkModal);
       if (btnClose) btnClose.addEventListener('click', () => closeBunkModal());
       if (btnCloseFooter) btnCloseFooter.addEventListener('click', () => closeBunkModal());
       bunkModal.addEventListener('click', (e) => { if (e.target === bunkModal) closeBunkModal(); });
@@ -8949,13 +9465,9 @@ window.SRCC_FACULTY_LEAVES = {
           secs = Object.keys(courseMap[course][sem]).sort();
         }
         if (secs.length === 0) {
-          if (course === 'B.A. (Hons) Economics') {
-            secs = ['Sec A', 'Sec B', 'Sec C'];
-          } else if (course === 'M.Com') {
-            secs = ['Sec A', 'Sec B'];
-          } else {
-            secs = ['Sec A', 'Sec B', 'Sec C', 'Sec D', 'Sec E', 'Sec F', 'Sec G', 'Sec H', 'Sec I', 'Sec J', 'Sec K', 'Sec L', 'Sec M', 'Sec N'];
-          }
+          if (course === 'B.A. (Hons) Economics') secs = ['Sec A', 'Sec B', 'Sec C'];
+          else if (course === 'M.Com') secs = ['Sec A', 'Sec B'];
+          else secs = ['Sec A', 'Sec B', 'Sec C', 'Sec D', 'Sec E', 'Sec F', 'Sec G', 'Sec H', 'Sec I', 'Sec J', 'Sec K', 'Sec L', 'Sec M', 'Sec N'];
         }
         secSelect.innerHTML = secs.map(s => `<option value="${s}">${s}</option>`).join('');
         if (defaultSec && secs.includes(defaultSec)) {
@@ -8987,13 +9499,16 @@ window.SRCC_FACULTY_LEAVES = {
         }
       }
 
-      if (myCourseSel) myCourseSel.addEventListener('change', () => { populateSections(myCourseSel, mySemSel, mySecSel); renderBunkCalculation(); });
-      if (mySemSel) mySemSel.addEventListener('change', () => { populateSections(myCourseSel, mySemSel, mySecSel); renderBunkCalculation(); });
-      if (mySecSel) mySecSel.addEventListener('change', renderBunkCalculation);
+      if (myCourseSel) myCourseSel.addEventListener('change', () => { populateSections(myCourseSel, mySemSel, mySecSel); });
+      if (mySemSel) mySemSel.addEventListener('change', () => { populateSections(myCourseSel, mySemSel, mySecSel); });
+      if (friendCourseSel) friendCourseSel.addEventListener('change', () => { populateSections(friendCourseSel, friendSemSel, friendSecSel); });
+      if (friendSemSel) friendSemSel.addEventListener('change', () => { populateSections(friendCourseSel, friendSemSel, friendSecSel); });
 
-      if (friendCourseSel) friendCourseSel.addEventListener('change', () => { populateSections(friendCourseSel, friendSemSel, friendSecSel); renderBunkCalculation(); });
-      if (friendSemSel) friendSemSel.addEventListener('change', () => { populateSections(friendCourseSel, friendSemSel, friendSecSel); renderBunkCalculation(); });
-      if (friendSecSel) friendSecSel.addEventListener('change', renderBunkCalculation);
+      if (btnFindHangout) {
+        btnFindHangout.addEventListener('click', () => {
+          renderBunkCalculation();
+        });
+      }
 
       if (dayPicker) {
         dayPicker.querySelectorAll('.bunk-day-btn').forEach(btn => {
@@ -9018,11 +9533,33 @@ window.SRCC_FACULTY_LEAVES = {
         { num: 9, label: 'Period 9', slot: '5:00 PM to 6:00 PM', time: '5:00 – 6:00 PM', isRecess: false }
       ];
 
-      function doesClassMatchPeriod(clsSlot, periodSlot) {
-        if (!clsSlot || !periodSlot) return false;
-        const cleanCls = clsSlot.replace(/\s+/g, ' ').toLowerCase();
-        const cleanPeriod = periodSlot.replace(/\s+/g, ' ').toLowerCase();
-        return cleanCls.includes(cleanPeriod) || cleanPeriod.includes(cleanCls);
+      function findClassInPeriod(classesList, periodNum) {
+        if (!classesList || classesList.length === 0) return null;
+        const activeLeaves = typeof getActiveTodayLeaves === 'function' ? getActiveTodayLeaves() : [];
+        const isAway = (tName) => {
+          if (!tName) return false;
+          const lower = tName.trim().toLowerCase();
+          return activeLeaves.some(l => l.teacher_name && l.teacher_name.trim().toLowerCase() === lower);
+        };
+
+        for (const cls of classesList) {
+          let matches = false;
+          if (cls.periodNum === periodNum) matches = true;
+          else if (cls.startPeriod && periodNum >= cls.startPeriod && periodNum <= cls.endPeriod) matches = true;
+          else if (cls.slotsCovered && cls.slotsCovered.some(s => getPeriodInfo(s)?.num === periodNum)) matches = true;
+          else {
+            const pInfo = getPeriodInfo(cls.slot);
+            if (pInfo && pInfo.num === periodNum) matches = true;
+          }
+
+          if (matches) {
+            return {
+              ...cls,
+              isTeacherAway: cls.isOnLeave || isAway(cls.teacher)
+            };
+          }
+        }
+        return null;
       }
 
       let latestHangoutSummary = '';
@@ -9043,15 +9580,9 @@ window.SRCC_FACULTY_LEAVES = {
           localStorage.setItem('srcc_bunk_friend_sec', sec2);
         } catch (e) {}
 
-        const classes1 = typeof getClassesForParameters === 'function' ? getClassesForParameters(activeBunkDay, s1, c1, 'ALL', sec1) : [];
-        const classes2 = typeof getClassesForParameters === 'function' ? getClassesForParameters(activeBunkDay, s2, c2, 'ALL', sec2) : [];
-
-        const activeLeaves = typeof getActiveTodayLeaves === 'function' ? getActiveTodayLeaves() : [];
-        const isTeacherAway = (tName) => {
-          if (!tName) return false;
-          const lower = tName.trim().toLowerCase();
-          return activeLeaves.some(l => l.teacher_name && l.teacher_name.trim().toLowerCase() === lower);
-        };
+        const getClasses = window.getClassesForParameters;
+        const classes1 = typeof getClasses === 'function' ? (getClasses(activeBunkDay, s1, c1, 'ALL', sec1) || []) : [];
+        const classes2 = typeof getClasses === 'function' ? (getClasses(activeBunkDay, s2, c2, 'ALL', sec2) || []) : [];
 
         const slotsEvaluation = STANDARD_PERIODS.map(p => {
           if (p.isRecess) {
@@ -9064,11 +9595,11 @@ window.SRCC_FACULTY_LEAVES = {
               s2Class: null
             };
           }
-          const cls1 = classes1.find(c => doesClassMatchPeriod(c.slot, p.slot));
-          const cls2 = classes2.find(c => doesClassMatchPeriod(c.slot, p.slot));
+          const cls1 = findClassInPeriod(classes1, p.num);
+          const cls2 = findClassInPeriod(classes2, p.num);
 
-          const s1Free = !cls1 || isTeacherAway(cls1.teacher);
-          const s2Free = !cls2 || isTeacherAway(cls2.teacher);
+          const s1Free = !cls1 || cls1.isTeacherAway;
+          const s2Free = !cls2 || cls2.isTeacherAway;
           const mutualFree = s1Free && s2Free;
 
           return {
@@ -9099,26 +9630,26 @@ window.SRCC_FACULTY_LEAVES = {
         });
         if (curWindow.length > 0) continuousWindows.push(curWindow);
 
-        latestHangoutSummary = `*SRCC Bunk Buddies Hangout Plan* 🎯\nDay: ${activeBunkDay}\nYou: ${c1} ${s1} (${sec1})\nFriend: ${c2} ${s2} (${sec2})\n\n`;
+        latestHangoutSummary = `*SRCC Bunk Buddies Hangout Schedule*\nDay: ${activeBunkDay}\nSection 1 (You): ${c1} ${s1} (${sec1})\nSection 2 (Friend): ${c2} ${s2} (${sec2})\n\n`;
 
         if (totalFreeHours === 0) {
           latestHangoutSummary += `No overlapping free periods found on ${activeBunkDay}.`;
           resultsContainer.innerHTML = `
             <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px; text-align: center;">
-              <div style="font-size: 1.05rem; font-weight: 700; color: #475569;">No Mutual Free Periods on ${activeBunkDay}</div>
-              <p style="margin: 6px 0 0; font-size: 0.82rem; color: #94a3b8;">Both sections have conflicting class schedules all day. Try selecting another weekday above!</p>
+              <div style="font-size: 1rem; font-weight: 700; color: #334155;">No Overlapping Free Periods on ${activeBunkDay}</div>
+              <p style="margin: 6px 0 0; font-size: 0.82rem; color: #64748b;">Both sections have conflicting class schedules throughout the day. Try selecting another weekday above.</p>
             </div>
           `;
           return;
         }
 
-        latestHangoutSummary += `🎉 Total Free Time Together: ${totalFreeHours} Hour${totalFreeHours === 1 ? '' : 's'}\n`;
+        latestHangoutSummary += `Total Free Time Together: ${totalFreeHours} Hour${totalFreeHours === 1 ? '' : 's'}\n`;
         continuousWindows.forEach(win => {
           const start = win[0].period.time.split('–')[0].trim();
           const end = win[win.length - 1].period.time.split('–')[1].trim();
           latestHangoutSummary += `• ${start} – ${end} (${win.length * 1} slot${win.length === 1 ? '' : 's'})\n`;
         });
-        latestHangoutSummary += `\n_Check live classrooms:_ https://anand-srcc.github.io/srcc-free-classrooms/`;
+        latestHangoutSummary += `\nCampus Portal: https://anand-srcc.github.io/srcc-free-classrooms/`;
 
         let windowsHtml = continuousWindows.map(win => {
           const start = win[0].period.time.split('–')[0].trim();
@@ -9127,15 +9658,15 @@ window.SRCC_FACULTY_LEAVES = {
           return `
             <div style="background: #ffffff; border: 1px solid #bbf7d0; border-left: 4px solid #16a34a; border-radius: 10px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
               <div>
-                <div style="font-weight: 800; font-size: 0.98rem; color: #15803d; display: flex; align-items: center; gap: 8px;">
+                <div style="font-weight: 800; font-size: 0.95rem; color: #15803d; display: flex; align-items: center; gap: 8px;">
                   <span>${start} – ${end}</span>
                   <span style="font-size: 0.74rem; font-weight: 700; background: #dcfce7; color: #166534; padding: 2px 7px; border-radius: 4px;">${count} Slot${count === 1 ? '' : 's'} Free</span>
                 </div>
-                <div style="font-size: 0.8rem; color: #475569; margin-top: 3px;">
-                  Both sections free · Perfect time for canteen, sports, or group hangout!
+                <div style="font-size: 0.8rem; color: #475569; margin-top: 2px;">
+                  Both sections are free. Ideal time for canteen, sports complex, or library discussion.
                 </div>
               </div>
-              <button type="button" onclick="closeBunkBuddiesModal(); setAppMode('rooms', true); setFreeNowState(true);" style="padding: 6px 12px; background: #f0fdf4; border: 1px solid #86efac; color: #166534; border-radius: 6px; font-size: 0.8rem; font-weight: 700; cursor: pointer;">
+              <button type="button" onclick="closeBunkBuddiesModal(); setAppMode('rooms', true); setFreeNowState(true);" style="padding: 6px 12px; background: #f0fdf4; border: 1px solid #86efac; color: #166534; border-radius: 6px; font-size: 0.78rem; font-weight: 700; cursor: pointer;">
                 Find Free Classrooms ↗
               </button>
             </div>
@@ -9145,15 +9676,32 @@ window.SRCC_FACULTY_LEAVES = {
         let matrixRows = slotsEvaluation.map(s => {
           const isM = s.mutualFree;
           const bg = isM ? '#f0fdf4' : '#ffffff';
-          const s1Txt = s.period.isRecess ? 'Recess' : (s.s1Free ? 'Free' : escapeHtml(s.s1Class.subject || 'Class'));
-          const s2Txt = s.period.isRecess ? 'Recess' : (s.s2Free ? 'Free' : escapeHtml(s.s2Class.subject || 'Class'));
+          const s1Label = s.period.isRecess ? 'Recess' : (s.s1Free ? (s.s1Class?.isTeacherAway ? 'Free (Teacher on Leave)' : 'Free') : escapeHtml(s.s1Class.subject || 'Class'));
+          const s2Label = s.period.isRecess ? 'Recess' : (s.s2Free ? (s.s2Class?.isTeacherAway ? 'Free (Teacher on Leave)' : 'Free') : escapeHtml(s.s2Class.subject || 'Class'));
+
+          let statusBadge = '<span style="color: #cbd5e1; font-size: 0.72rem;">—</span>';
+          if (isM) {
+            statusBadge = s.period.isRecess
+              ? '<span style="font-size: 0.72rem; font-weight: 800; background: #ffedd5; color: #c2410c; padding: 2px 8px; border-radius: 9999px;">Lunch Break</span>'
+              : '<span style="font-size: 0.72rem; font-weight: 800; background: #dcfce7; color: #15803d; padding: 2px 8px; border-radius: 9999px;">Mutual Free</span>';
+          }
+
           return `
             <tr style="background: ${bg}; border-bottom: 1px solid #f1f5f9;">
-              <td style="padding: 6px 10px; font-weight: 700; color: #334155; font-size: 0.78rem;">${s.period.label} <span style="font-weight: normal; color: #94a3b8; font-size: 0.72rem;">(${s.period.time})</span></td>
-              <td style="padding: 6px 10px; font-size: 0.78rem; color: ${s.s1Free ? '#16a34a' : '#dc2626'}; font-weight: 600;">${s1Txt}</td>
-              <td style="padding: 6px 10px; font-size: 0.78rem; color: ${s.s2Free ? '#16a34a' : '#dc2626'}; font-weight: 600;">${s2Txt}</td>
-              <td style="padding: 6px 10px; text-align: center;">
-                ${isM ? '<span style="font-size: 0.72rem; font-weight: 800; background: #dcfce7; color: #15803d; padding: 2px 8px; border-radius: 9999px;">Mutual Free</span>' : '<span style="color: #cbd5e1; font-size: 0.72rem;">—</span>'}
+              <td style="padding: 8px 10px; font-weight: 700; color: #334155; font-size: 0.78rem;">
+                ${s.period.label}
+                <span style="font-weight: normal; color: #94a3b8; font-size: 0.72rem; display: block;">${s.period.time}</span>
+              </td>
+              <td style="padding: 8px 10px; font-size: 0.78rem; color: ${s.s1Free ? '#16a34a' : '#0f172a'}; font-weight: 600;">
+                ${s1Label}
+                ${s.s1Class?.room ? `<span style="display: block; font-size: 0.72rem; color: #64748b; font-weight: normal;">Room ${escapeHtml(s.s1Class.room)}</span>` : ''}
+              </td>
+              <td style="padding: 8px 10px; font-size: 0.78rem; color: ${s.s2Free ? '#16a34a' : '#0f172a'}; font-weight: 600;">
+                ${s2Label}
+                ${s.s2Class?.room ? `<span style="display: block; font-size: 0.72rem; color: #64748b; font-weight: normal;">Room ${escapeHtml(s.s2Class.room)}</span>` : ''}
+              </td>
+              <td style="padding: 8px 10px; text-align: center;">
+                ${statusBadge}
               </td>
             </tr>
           `;
@@ -9162,12 +9710,12 @@ window.SRCC_FACULTY_LEAVES = {
         resultsContainer.innerHTML = `
           <div style="background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 12px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
             <div style="display: flex; align-items: center; gap: 10px;">
-              <div style="width: 38px; height: 38px; border-radius: 8px; background: #dcfce7; color: #166534; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: 800;">
+              <div style="width: 36px; height: 36px; border-radius: 8px; background: #dcfce7; color: #166534; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800;">
                 ✓
               </div>
               <div>
-                <h3 style="margin: 0; font-size: 1.05rem; font-weight: 800; color: #14532d;">${totalFreeHours} Hours Free Together!</h3>
-                <span style="font-size: 0.8rem; color: #166534;">On ${activeBunkDay} for ${sec1} & ${sec2}</span>
+                <h3 style="margin: 0; font-size: 1rem; font-weight: 800; color: #14532d;">${totalFreeHours} Hours Overlapping Free Time</h3>
+                <span style="font-size: 0.78rem; color: #166534;">${activeBunkDay} • ${sec1} and ${sec2}</span>
               </div>
             </div>
             <span style="font-size: 0.76rem; font-weight: 700; background: #ffffff; border: 1px solid #86efac; color: #15803d; padding: 3px 10px; border-radius: 9999px;">${continuousWindows.length} Hangout Window${continuousWindows.length === 1 ? '' : 's'}</span>
@@ -9179,15 +9727,15 @@ window.SRCC_FACULTY_LEAVES = {
 
           <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden; margin-top: 4px;">
             <div style="padding: 8px 12px; background: #f8fafc; border-bottom: 1px solid #e2e8f0; font-size: 0.78rem; font-weight: 700; color: #475569;">
-              Full Day Period Breakdown (You vs Friend)
+              Period-by-Period Comparison: ${sec1} vs ${sec2}
             </div>
             <table style="width: 100%; border-collapse: collapse; text-align: left;">
               <thead>
-                <tr style="background: #f8fafc; border-bottom: 1px solid #e2e8f0; font-size: 0.74rem; color: #64748b;">
-                  <th style="padding: 6px 10px;">Time Period</th>
-                  <th style="padding: 6px 10px;">You (${sec1})</th>
-                  <th style="padding: 6px 10px;">Friend (${sec2})</th>
-                  <th style="padding: 6px 10px; text-align: center;">Hangout</th>
+                <tr style="background: #f8fafc; border-bottom: 1px solid #e2e8f0; font-size: 0.72rem; color: #64748b;">
+                  <th style="padding: 8px 10px;">Time Period</th>
+                  <th style="padding: 8px 10px;">Your Schedule (${sec1})</th>
+                  <th style="padding: 8px 10px;">Friend's Schedule (${sec2})</th>
+                  <th style="padding: 8px 10px; text-align: center;">Overlap</th>
                 </tr>
               </thead>
               <tbody>
@@ -9210,7 +9758,7 @@ window.SRCC_FACULTY_LEAVES = {
         btnCopyHours.addEventListener('click', () => {
           if (!latestHangoutSummary) return;
           navigator.clipboard.writeText(latestHangoutSummary).then(() => {
-            if (typeof showToast === 'function') showToast('Hangout free hours copied to clipboard!', true, 2500);
+            if (typeof showToast === 'function') showToast('Schedule copied to clipboard!', true, 2000);
           }).catch(() => {
             if (typeof showToast === 'function') showToast('Copied to clipboard', true, 2000);
           });
@@ -11816,6 +12364,30 @@ window.SRCC_FACULTY_LEAVES = {
         });
       }
 
+      if (drawerNavNowAndNext) {
+        drawerNavNowAndNext.addEventListener('click', () => {
+          closeCampusDrawer({ noHistory: true });
+          if (typeof window.openNowAndNextModal === 'function') {
+            window.openNowAndNextModal();
+          } else {
+            const m = document.getElementById('nowAndNextModal');
+            if (m) openAppModal(m);
+          }
+        });
+      }
+
+      if (drawerNavBunkBuddies) {
+        drawerNavBunkBuddies.addEventListener('click', () => {
+          closeCampusDrawer({ noHistory: true });
+          if (typeof window.openBunkBuddiesModal === 'function') {
+            window.openBunkBuddiesModal();
+          } else {
+            const m = document.getElementById('bunkBuddiesModal');
+            if (m) openAppModal(m);
+          }
+        });
+      }
+
       if (drawerNavGuidelines) {
         drawerNavGuidelines.addEventListener('click', () => {
           closeCampusDrawer();
@@ -11908,7 +12480,7 @@ if ('serviceWorker' in navigator) {
     }
   });
   window.addEventListener('load', () => {
-    const swUrl = './sw.js?v=114';
+    const swUrl = './sw.js?v=116';
     navigator.serviceWorker.register(swUrl, { scope: './' }).then(async (registration) => {
       console.log('[SW] Registered successfully with scope:', registration.scope);
 
