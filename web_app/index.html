@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   
-  <link rel="stylesheet" href="style.css?v=112" />
+  <link rel="stylesheet" href="style.css?v=113" />
   
   <!-- Maintenance Mode Gatekeeper -->
   <script src="cloud_config.js?v=100"></script>
@@ -477,6 +477,38 @@
     <div id="viewTimetableSection" class="app-view-section" style="display: none;">
       <!-- TIMETABLE CHANGE NOTICES BANNER CONTAINER -->
       <div id="timetableNoticesContainer" style="display: none;"></div>
+
+      <!-- 1. Now & Next Live Schedule Widget (Mere Batch Ka Live Tracker) -->
+      <div id="myBatchScheduleWidget" class="my-batch-widget-wrapper" style="margin-bottom: 16px;"></div>
+
+      <!-- 2. Student Quick Tools Row: Bunk Buddies & 75% Attendance Safe Meter -->
+      <div class="tt-quick-tools-row" style="display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap;">
+        <button type="button" class="btn-tt-quick-tool" id="btnQuickOpenBunkBuddies" style="flex: 1; min-width: 220px; display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; cursor: pointer; text-align: left; box-shadow: 0 1px 3px rgba(0,0,0,0.04); transition: transform 0.15s ease, border-color 0.15s ease;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(245, 158, 11, 0.14); color: #d97706; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            </div>
+            <div>
+              <strong style="display: block; font-size: 0.92rem; color: #0f172a; font-weight: 700;">Bunk Buddies</strong>
+              <span style="font-size: 0.78rem; color: #64748b;">Find mutual free hangout slots</span>
+            </div>
+          </div>
+          <span style="font-size: 0.8rem; font-weight: 700; color: #d97706; background: #fef3c7; padding: 3px 9px; border-radius: 9999px;">Match ↗</span>
+        </button>
+
+        <button type="button" class="btn-tt-quick-tool" id="btnQuickOpenAttendance" style="flex: 1; min-width: 220px; display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; cursor: pointer; text-align: left; box-shadow: 0 1px 3px rgba(0,0,0,0.04); transition: transform 0.15s ease, border-color 0.15s ease;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(99, 102, 241, 0.14); color: #4f46e5; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+            </div>
+            <div>
+              <strong style="display: block; font-size: 0.92rem; color: #0f172a; font-weight: 700;">75% Attendance Meter</strong>
+              <span style="font-size: 0.78rem; color: #64748b;">DU Safe Bunk Margin Calculator</span>
+            </div>
+          </div>
+          <span style="font-size: 0.8rem; font-weight: 700; color: #4f46e5; background: #e0e7ff; padding: 3px 9px; border-radius: 9999px;">Safe % ↗</span>
+        </button>
+      </div>
 
       <!-- Controls Panel (100% Native App UX/UI) -->
       <section class="controls-panel">
@@ -974,7 +1006,49 @@
             <div class="drawer-nav-desc">Room reminders for Students &amp; Faculty</div>
           </div>
           <div class="drawer-badges-stack">
-            <span class="drawer-badge-pulse" style="background: #2563eb;" id="drawerClassNotifBadge">Active</span>
+            <span class="drawer-badge-pulse" style="background: #2563eb;" id="drawerClassNotifBadge">Alerts ↗</span>
+          </div>
+        </button>
+
+        <!-- Now & Next Live Schedule Tracker Entry -->
+        <button class="drawer-nav-item drawer-nav-nowandnext" id="drawerNavNowAndNext">
+          <div class="drawer-nav-icon-wrap" style="background: rgba(16, 185, 129, 0.12); color: #059669;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <div class="drawer-nav-text">
+            <div class="drawer-nav-name">Now &amp; Next Live Tracker</div>
+            <div class="drawer-nav-desc">Current class, countdown &amp; room jump</div>
+          </div>
+          <div class="drawer-badges-stack">
+            <span class="drawer-badge-pulse" style="background: #059669;">Live ↗</span>
+          </div>
+        </button>
+
+        <!-- Bunk Buddies (Campus Hangout Finder) Entry -->
+        <button class="drawer-nav-item drawer-nav-bunkbuddies" id="drawerNavBunkBuddies">
+          <div class="drawer-nav-icon-wrap" style="background: rgba(245, 158, 11, 0.14); color: #d97706;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </div>
+          <div class="drawer-nav-text">
+            <div class="drawer-nav-name">Bunk Buddies • Hangout Finder</div>
+            <div class="drawer-nav-desc">Find mutual free slots with friends' sections</div>
+          </div>
+          <div class="drawer-badges-stack">
+            <span class="drawer-badge-pulse" style="background: #d97706;">Friends ↗</span>
+          </div>
+        </button>
+
+        <!-- 75% Attendance Safe Meter Entry -->
+        <button class="drawer-nav-item drawer-nav-attendance" id="drawerNavAttendance">
+          <div class="drawer-nav-icon-wrap" style="background: rgba(99, 102, 241, 0.14); color: #4f46e5;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+          </div>
+          <div class="drawer-nav-text">
+            <div class="drawer-nav-name">75% Attendance Safe Meter</div>
+            <div class="drawer-nav-desc">DU attendance &amp; safe bunk margin calculator</div>
+          </div>
+          <div class="drawer-badges-stack">
+            <span class="drawer-badge-pulse" style="background: #4f46e5;">Safe % ↗</span>
           </div>
         </button>
 
@@ -1406,6 +1480,237 @@
 
 
   
+  <!-- ====================================================================
+       BUNK BUDDIES: CAMPUS HANGOUT & MUTUAL FREE TIME PLANNER MODAL
+       ==================================================================== -->
+  <div class="modal-overlay" id="bunkBuddiesModal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="bunkBuddiesTitle">
+    <div class="modal-card bunk-modal-card" style="background: #ffffff; color: #0f172a; max-width: 680px; width: 94%; max-height: 90vh; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); display: flex; flex-direction: column; overflow: hidden;">
+      <div class="modal-header" style="background: #ffffff; padding: 18px 22px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 42px; height: 42px; border-radius: 10px; background: rgba(245, 158, 11, 0.14); color: #d97706; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </div>
+          <div>
+            <h2 id="bunkBuddiesTitle" style="margin: 0; font-size: 1.18rem; font-family: var(--font-display); font-weight: 800; color: #0f172a; line-height: 1.2;">Bunk Buddies • Hangout Finder</h2>
+            <p style="margin: 3px 0 0; font-size: 0.8rem; color: #64748b;">Find overlapping free periods when you and your friend are both free to chill</p>
+          </div>
+        </div>
+        <button type="button" class="modal-close" id="btnBunkModalClose" style="background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; cursor: pointer; color: #475569;">✕</button>
+      </div>
+
+      <div class="modal-body" style="padding: 20px 22px; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 16px;">
+        <!-- Two-Card Section Selector (White & Clean) -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;">
+          <!-- Card 1: Your Section -->
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+              <span style="font-size: 0.82rem; font-weight: 700; color: #1e40af; text-transform: uppercase; letter-spacing: 0.5px;">1. Your Section (You)</span>
+              <span id="bunkMySavedTag" style="font-size: 0.72rem; padding: 1px 6px; border-radius: 4px; background: #dbeafe; color: #1e40af; font-weight: 600;">Saved</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div>
+                <label style="display: block; font-size: 0.75rem; color: #64748b; margin-bottom: 3px;">Course:</label>
+                <select id="bunkMyCourseSelect" style="width: 100%; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.84rem; background: #ffffff; color: #0f172a;">
+                  <option value="B.Com (Hons)">B.Com (Hons)</option>
+                  <option value="B.A. (Hons) Economics">B.A. (Hons) Economics</option>
+                  <option value="M.Com">M.Com</option>
+                </select>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <div style="flex: 1;">
+                  <label style="display: block; font-size: 0.75rem; color: #64748b; margin-bottom: 3px;">Semester:</label>
+                  <select id="bunkMySemSelect" style="width: 100%; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.84rem; background: #ffffff; color: #0f172a;">
+                    <option value="Sem I">Sem I</option>
+                    <option value="Sem III">Sem III</option>
+                    <option value="Sem V">Sem V</option>
+                    <option value="Sem VII">Sem VII</option>
+                  </select>
+                </div>
+                <div style="flex: 1;">
+                  <label style="display: block; font-size: 0.75rem; color: #64748b; margin-bottom: 3px;">Section:</label>
+                  <select id="bunkMySecSelect" style="width: 100%; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.84rem; background: #ffffff; color: #0f172a; font-weight: 600;">
+                    <!-- Populated dynamically -->
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Friend's Section -->
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+              <span style="font-size: 0.82rem; font-weight: 700; color: #b45309; text-transform: uppercase; letter-spacing: 0.5px;">2. Friend's Section</span>
+              <span style="font-size: 0.72rem; padding: 1px 6px; border-radius: 4px; background: #fef3c7; color: #92400e; font-weight: 600;">Buddy</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div>
+                <label style="display: block; font-size: 0.75rem; color: #64748b; margin-bottom: 3px;">Course:</label>
+                <select id="bunkFriendCourseSelect" style="width: 100%; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.84rem; background: #ffffff; color: #0f172a;">
+                  <option value="B.Com (Hons)">B.Com (Hons)</option>
+                  <option value="B.A. (Hons) Economics">B.A. (Hons) Economics</option>
+                  <option value="M.Com">M.Com</option>
+                </select>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <div style="flex: 1;">
+                  <label style="display: block; font-size: 0.75rem; color: #64748b; margin-bottom: 3px;">Semester:</label>
+                  <select id="bunkFriendSemSelect" style="width: 100%; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.84rem; background: #ffffff; color: #0f172a;">
+                    <option value="Sem I">Sem I</option>
+                    <option value="Sem III">Sem III</option>
+                    <option value="Sem V">Sem V</option>
+                    <option value="Sem VII">Sem VII</option>
+                  </select>
+                </div>
+                <div style="flex: 1;">
+                  <label style="display: block; font-size: 0.75rem; color: #64748b; margin-bottom: 3px;">Section:</label>
+                  <select id="bunkFriendSecSelect" style="width: 100%; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.84rem; background: #ffffff; color: #0f172a; font-weight: 600;">
+                    <!-- Populated dynamically -->
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day Selector Tabs -->
+        <div>
+          <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #475569; margin-bottom: 6px;">Check Day:</label>
+          <div class="bunk-day-picker" id="bunkDayPicker" style="display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px;">
+            <button type="button" class="bunk-day-btn active" data-day="Monday">Mon</button>
+            <button type="button" class="bunk-day-btn" data-day="Tuesday">Tue</button>
+            <button type="button" class="bunk-day-btn" data-day="Wednesday">Wed</button>
+            <button type="button" class="bunk-day-btn" data-day="Thursday">Thu</button>
+            <button type="button" class="bunk-day-btn" data-day="Friday">Fri</button>
+            <button type="button" class="bunk-day-btn" data-day="Saturday">Sat</button>
+          </div>
+        </div>
+
+        <!-- Dynamic Results Container -->
+        <div id="bunkResultsContainer" style="display: flex; flex-direction: column; gap: 12px;">
+          <!-- Dynamically generated via app.js -->
+        </div>
+
+        <!-- Recommended Campus Hangout Spots -->
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px;">
+          <span style="display: block; font-size: 0.82rem; font-weight: 700; color: #0f172a; margin-bottom: 8px;">Recommended Hangout Spots at SRCC:</span>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; font-size: 0.8rem; color: #475569;">
+            <div style="display: flex; align-items: center; gap: 8px; padding: 6px 10px; background: #f8fafc; border-radius: 8px; border: 1px solid #f1f5f9;">
+              <span style="font-weight: 700; color: #d97706;">☕ SRCC Canteen &amp; Nescafe</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px; padding: 6px 10px; background: #f8fafc; border-radius: 8px; border: 1px solid #f1f5f9;">
+              <span style="font-weight: 700; color: #059669;">🏸 Sports Complex &amp; Gym</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px; padding: 6px 10px; background: #f8fafc; border-radius: 8px; border: 1px solid #f1f5f9;">
+              <span style="font-weight: 700; color: #0284c7;">📖 Central Library Hall</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px; padding: 6px 10px; background: #f8fafc; border-radius: 8px; border: 1px solid #f1f5f9;">
+              <span style="font-weight: 700; color: #7c3aed;">🏛️ Vacant AC Classrooms</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer" style="padding: 14px 22px; border-top: 1px solid #e2e8f0; background: #ffffff; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button type="button" id="btnShareBunkWhatsApp" style="padding: 8px 14px; background: #16A34A; color: #ffffff; border: none; border-radius: 8px; font-size: 0.84rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/></svg>
+            <span>Share Plan on WhatsApp</span>
+          </button>
+          <button type="button" id="btnCopyBunkHours" style="padding: 8px 14px; background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.84rem; font-weight: 600; cursor: pointer;">
+            Copy Free Hours
+          </button>
+        </div>
+        <button type="button" id="btnCloseBunkFooter" style="padding: 8px 16px; border: 1px solid #e2e8f0; background: #ffffff; border-radius: 8px; color: #475569; font-size: 0.84rem; font-weight: 600; cursor: pointer;">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       75% ATTENDANCE SAFE METER: DU BUNK MARGIN CALCULATOR MODAL
+       ==================================================================== -->
+  <div class="modal-overlay" id="attendanceModal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="attendanceModalTitle">
+    <div class="modal-card attendance-modal-card" style="background: #ffffff; color: #0f172a; max-width: 520px; width: 94%; max-height: 90vh; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); display: flex; flex-direction: column; overflow: hidden;">
+      <div class="modal-header" style="background: #ffffff; padding: 18px 22px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 42px; height: 42px; border-radius: 10px; background: rgba(99, 102, 241, 0.14); color: #4f46e5; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+          </div>
+          <div>
+            <h2 id="attendanceModalTitle" style="margin: 0; font-size: 1.18rem; font-family: var(--font-display); font-weight: 800; color: #0f172a; line-height: 1.2;">75% Attendance Safe Meter</h2>
+            <p style="margin: 3px 0 0; font-size: 0.8rem; color: #64748b;">Calculate your DU safe bunk margin or needed classes</p>
+          </div>
+        </div>
+        <button type="button" class="modal-close" id="btnAttendanceModalClose" style="background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; cursor: pointer; color: #475569;">✕</button>
+      </div>
+
+      <div class="modal-body" style="padding: 20px 22px; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 16px;">
+        <!-- Input Form (Clean White Subcard) -->
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 12px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div>
+              <label for="attTotalClasses" style="display: block; font-size: 0.78rem; font-weight: 700; color: #475569; margin-bottom: 4px;">Total Classes Held:</label>
+              <div style="display: flex; gap: 4px;">
+                <input type="number" id="attTotalClasses" min="1" max="500" value="40" style="width: 100%; padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.95rem; font-weight: 700; background: #ffffff; color: #0f172a;" />
+                <button type="button" id="btnAttTotalPlus" style="padding: 4px 10px; border: 1px solid #cbd5e1; background: #ffffff; border-radius: 6px; cursor: pointer; font-weight: 700;">+1</button>
+              </div>
+            </div>
+            <div>
+              <label for="attAttendedClasses" style="display: block; font-size: 0.78rem; font-weight: 700; color: #475569; margin-bottom: 4px;">Classes Attended:</label>
+              <div style="display: flex; gap: 4px;">
+                <input type="number" id="attAttendedClasses" min="0" max="500" value="32" style="width: 100%; padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.95rem; font-weight: 700; background: #ffffff; color: #0f172a;" />
+                <button type="button" id="btnAttAttendedPlus" style="padding: 4px 10px; border: 1px solid #cbd5e1; background: #ffffff; border-radius: 6px; cursor: pointer; font-weight: 700;">+1</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Steppers -->
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button type="button" id="btnAttPresentToday" style="flex: 1; padding: 6px 10px; background: #dcfce7; color: #15803d; border: 1px solid #86efac; border-radius: 6px; font-size: 0.78rem; font-weight: 700; cursor: pointer;">
+              +1 Present Today
+            </button>
+            <button type="button" id="btnAttAbsentToday" style="flex: 1; padding: 6px 10px; background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; border-radius: 6px; font-size: 0.78rem; font-weight: 700; cursor: pointer;">
+              +1 Bunk / Absent Today
+            </button>
+          </div>
+
+          <!-- Target Slider -->
+          <div style="margin-top: 4px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <span style="font-size: 0.78rem; font-weight: 700; color: #475569;">Target Attendance:</span>
+              <span id="attTargetDisplay" style="font-size: 0.84rem; font-weight: 800; color: #4f46e5; background: #e0e7ff; padding: 1px 8px; border-radius: 4px;">75% (DU Normal)</span>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button type="button" class="btn-att-target active" data-target="75" id="btnTarget75" style="flex: 1; padding: 6px; border: 1.5px solid #4f46e5; background: #eef2ff; color: #4338ca; border-radius: 6px; font-size: 0.78rem; font-weight: 700; cursor: pointer;">
+                75% (Standard Exam Eligible)
+              </button>
+              <button type="button" class="btn-att-target" data-target="67" id="btnTarget67" style="flex: 1; padding: 6px; border: 1px solid #cbd5e1; background: #ffffff; color: #475569; border-radius: 6px; font-size: 0.78rem; font-weight: 600; cursor: pointer;">
+                67% (Admit Card Cutoff)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Calculated Live Result Card -->
+        <div id="attResultContainer" style="display: flex; flex-direction: column; gap: 12px;">
+          <!-- Dynamically populated via app.js -->
+        </div>
+
+        <!-- Attendance Projections Table -->
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px;">
+          <span style="display: block; font-size: 0.82rem; font-weight: 700; color: #0f172a; margin-bottom: 8px;">What-If Attendance Projections:</span>
+          <div id="attProjectionsList" style="display: flex; flex-direction: column; gap: 6px; font-size: 0.82rem;">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer" style="padding: 14px 22px; border-top: 1px solid #e2e8f0; background: #ffffff; display: flex; align-items: center; justify-content: space-between;">
+        <span style="font-size: 0.76rem; color: #64748b;">Stats auto-saved to your phone</span>
+        <button type="button" id="btnCloseAttendanceFooter" style="padding: 8px 18px; border: 1px solid #e2e8f0; background: #ffffff; border-radius: 8px; color: #0f172a; font-size: 0.84rem; font-weight: 600; cursor: pointer;">Done</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Scripts -->
   <script src="data.js?v=100"></script>
   <script src="exam_codes_data.js?v=110"></script>
@@ -1413,6 +1718,6 @@
   <script src="faculty_leaves.js?v=100"></script>
   <script src="teachers_data.js?v=100"></script>
   <script src="classes_data.js?v=100"></script>
-  <script src="app.js?v=112"></script>
+  <script src="app.js?v=113"></script>
 </body>
 </html>

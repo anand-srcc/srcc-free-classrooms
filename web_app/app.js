@@ -1500,6 +1500,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('calendarReminderModal'),
         document.getElementById('studentAttachmentModal'),
         document.getElementById('classNotifModal'),
+        document.getElementById('bunkBuddiesModal'),
+        document.getElementById('attendanceModal'),
         document.getElementById('pwaInstallModal')
       ];
       return popups.find(m => m && (m.style.display === 'flex' || m.style.display === 'block'));
@@ -1519,6 +1521,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('widgetModal'),
         document.getElementById('ugcfGuidanceModal'),
         document.getElementById('classNotifModal'),
+        document.getElementById('bunkBuddiesModal'),
+        document.getElementById('attendanceModal'),
         document.getElementById('pwaInstallModal')
       ];
       popups.forEach(m => {
@@ -8573,9 +8577,14 @@ window.SRCC_FACULTY_LEAVES = {
                 <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; color: #2563eb; font-size: 0.95rem;">
                   <span>NEXT CLASS IN ${timeText.toUpperCase()} (Starts at ${nextClass.startTime})</span>
                 </div>
-                <button type="button" class="btn-batch-room-jump" onclick="openScheduleModal('${escapeHtml(nextClass.room)}')" style="padding: 4px 10px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; background: #2563eb; color: #fff; border: none; cursor: pointer;">
-                  Room ${escapeHtml(nextClass.room)} Schedule ↗
-                </button>
+                <div style="display: flex; gap: 6px; align-items: center;">
+                  <button type="button" class="btn-batch-room-jump" onclick="openScheduleModal('${escapeHtml(nextClass.room)}')" style="padding: 5px 11px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; background: #2563eb; color: #fff; border: none; cursor: pointer;">
+                    Room ${escapeHtml(nextClass.room)} Schedule ↗
+                  </button>
+                  <button type="button" class="btn-remind-10m" onclick="openClassNotifModal()" style="padding: 5px 11px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; cursor: pointer;" title="Set automatic 10-minute alert for this lecture">
+                    🔔 Remind in 10 Min
+                  </button>
+                </div>
               </div>
               <div style="margin-top: 8px; font-size: 1.05rem; font-weight: 700; color: var(--text-heading);">
                 ${escapeHtml(nextClass.subject)} ${nextClass.subject_name ? `<span style="font-size: 0.88rem; font-weight: 500; opacity: 0.85;">(${escapeHtml(nextClass.subject_name)})</span>` : ''}
@@ -8700,6 +8709,9 @@ window.SRCC_FACULTY_LEAVES = {
       renderMainTimetableView();
       renderMyBatchDailyWidget();
       initWidgetSetupModal();
+      initBunkBuddies();
+      initAttendanceCalculator();
+      initNowAndNextDrawerShortcut();
     }
 
     function initWidgetSetupModal() {
@@ -8845,6 +8857,580 @@ window.SRCC_FACULTY_LEAVES = {
             prompt('Copy profile JSON:', jsonStr);
           }
         });
+      }
+    }
+
+// ========================================================================
+// 1. NOW & NEXT LIVE CLASS TRACKER DRAWER SHORTCUT
+// ========================================================================
+    function initNowAndNextDrawerShortcut() {
+      const drawerNavNowAndNext = document.getElementById('drawerNavNowAndNext');
+      if (drawerNavNowAndNext) {
+        drawerNavNowAndNext.addEventListener('click', () => {
+          closeAllPopups();
+          setAppMode('timetable', true);
+          setTimeout(() => {
+            const widget = document.getElementById('myBatchScheduleWidget');
+            if (widget) {
+              widget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              widget.style.transition = 'box-shadow 0.3s ease';
+              widget.style.boxShadow = '0 0 0 3px rgba(37,99,235,0.35)';
+              setTimeout(() => { widget.style.boxShadow = ''; }, 1600);
+            }
+          }, 150);
+        });
+      }
+    }
+
+// ========================================================================
+// 2. BUNK BUDDIES (CAMPUS HANGOUT & MUTUAL FREE TIME FINDER)
+// ========================================================================
+    function initBunkBuddies() {
+      const bunkModal = document.getElementById('bunkBuddiesModal');
+      const btnClose = document.getElementById('btnBunkModalClose');
+      const btnCloseFooter = document.getElementById('btnCloseBunkFooter');
+      const drawerBtn = document.getElementById('drawerNavBunkBuddies');
+      const quickBtn = document.getElementById('btnQuickOpenBunkBuddies');
+
+      const myCourseSel = document.getElementById('bunkMyCourseSelect');
+      const mySemSel = document.getElementById('bunkMySemSelect');
+      const mySecSel = document.getElementById('bunkMySecSelect');
+
+      const friendCourseSel = document.getElementById('bunkFriendCourseSelect');
+      const friendSemSel = document.getElementById('bunkFriendSemSelect');
+      const friendSecSel = document.getElementById('bunkFriendSecSelect');
+
+      const dayPicker = document.getElementById('bunkDayPicker');
+      const resultsContainer = document.getElementById('bunkResultsContainer');
+      const btnShareWhatsApp = document.getElementById('btnShareBunkWhatsApp');
+      const btnCopyHours = document.getElementById('btnCopyBunkHours');
+
+      if (!bunkModal) return;
+
+      let activeBunkDay = (typeof getLiveDayName === 'function' && getLiveDayName() !== 'Sunday')
+        ? getLiveDayName()
+        : 'Monday';
+
+      function openBunkModal() {
+        closeAllPopups();
+        openAppModal(bunkModal);
+        syncMyBatchToInputs();
+        renderBunkCalculation();
+      }
+
+      function closeBunkModal(opts = {}) {
+        closeAppModal(bunkModal, opts);
+      }
+
+      window.openBunkBuddiesModal = openBunkModal;
+      window.closeBunkBuddiesModal = closeBunkModal;
+
+      if (drawerBtn) drawerBtn.addEventListener('click', () => { closeAllPopups(); openBunkModal(); });
+      if (quickBtn) quickBtn.addEventListener('click', openBunkModal);
+      if (btnClose) btnClose.addEventListener('click', () => closeBunkModal());
+      if (btnCloseFooter) btnCloseFooter.addEventListener('click', () => closeBunkModal());
+      bunkModal.addEventListener('click', (e) => { if (e.target === bunkModal) closeBunkModal(); });
+
+      function populateSections(courseSelect, semSelect, secSelect, defaultSec) {
+        if (!courseSelect || !semSelect || !secSelect) return;
+        const course = courseSelect.value;
+        const sem = semSelect.value;
+        let secs = [];
+        if (typeof courseMap !== 'undefined' && courseMap[course]?.[sem]) {
+          secs = Object.keys(courseMap[course][sem]).sort();
+        }
+        if (secs.length === 0) {
+          if (course === 'B.A. (Hons) Economics') {
+            secs = ['Sec A', 'Sec B', 'Sec C'];
+          } else if (course === 'M.Com') {
+            secs = ['Sec A', 'Sec B'];
+          } else {
+            secs = ['Sec A', 'Sec B', 'Sec C', 'Sec D', 'Sec E', 'Sec F', 'Sec G', 'Sec H', 'Sec I', 'Sec J', 'Sec K', 'Sec L', 'Sec M', 'Sec N'];
+          }
+        }
+        secSelect.innerHTML = secs.map(s => `<option value="${s}">${s}</option>`).join('');
+        if (defaultSec && secs.includes(defaultSec)) {
+          secSelect.value = defaultSec;
+        }
+      }
+
+      function syncMyBatchToInputs() {
+        const saved = (typeof getMyBatchPref === 'function' ? getMyBatchPref() : null) || {
+          course: localStorage.getItem('srcc_my_tt_course') || 'B.Com (Hons)',
+          sem: localStorage.getItem('srcc_my_tt_sem') || 'Sem I',
+          sec: localStorage.getItem('srcc_my_tt_sec') || 'Sec A'
+        };
+        if (myCourseSel && saved.course) myCourseSel.value = saved.course;
+        if (mySemSel && saved.sem) mySemSel.value = saved.sem;
+        populateSections(myCourseSel, mySemSel, mySecSel, saved.sec);
+
+        const friendSavedCourse = localStorage.getItem('srcc_bunk_friend_course') || 'B.A. (Hons) Economics';
+        const friendSavedSem = localStorage.getItem('srcc_bunk_friend_sem') || (mySemSel ? mySemSel.value : 'Sem I');
+        const friendSavedSec = localStorage.getItem('srcc_bunk_friend_sec') || 'Sec A';
+        if (friendCourseSel) friendCourseSel.value = friendSavedCourse;
+        if (friendSemSel) friendSemSel.value = friendSavedSem;
+        populateSections(friendCourseSel, friendSemSel, friendSecSel, friendSavedSec);
+
+        if (dayPicker) {
+          dayPicker.querySelectorAll('.bunk-day-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.day === activeBunkDay);
+          });
+        }
+      }
+
+      if (myCourseSel) myCourseSel.addEventListener('change', () => { populateSections(myCourseSel, mySemSel, mySecSel); renderBunkCalculation(); });
+      if (mySemSel) mySemSel.addEventListener('change', () => { populateSections(myCourseSel, mySemSel, mySecSel); renderBunkCalculation(); });
+      if (mySecSel) mySecSel.addEventListener('change', renderBunkCalculation);
+
+      if (friendCourseSel) friendCourseSel.addEventListener('change', () => { populateSections(friendCourseSel, friendSemSel, friendSecSel); renderBunkCalculation(); });
+      if (friendSemSel) friendSemSel.addEventListener('change', () => { populateSections(friendCourseSel, friendSemSel, friendSecSel); renderBunkCalculation(); });
+      if (friendSecSel) friendSecSel.addEventListener('change', renderBunkCalculation);
+
+      if (dayPicker) {
+        dayPicker.querySelectorAll('.bunk-day-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            activeBunkDay = btn.dataset.day;
+            dayPicker.querySelectorAll('.bunk-day-btn').forEach(b => b.classList.toggle('active', b === btn));
+            renderBunkCalculation();
+          });
+        });
+      }
+
+      const STANDARD_PERIODS = [
+        { num: 1, label: 'Period 1', slot: '8:30 AM to 9:30 AM', time: '8:30 – 9:30 AM', isRecess: false },
+        { num: 2, label: 'Period 2', slot: '9:30 AM to 10:30 AM', time: '9:30 – 10:30 AM', isRecess: false },
+        { num: 3, label: 'Period 3', slot: '10:30 AM to 11:30 AM', time: '10:30 – 11:30 AM', isRecess: false },
+        { num: 4, label: 'Period 4', slot: '11:30 AM to 12:30 PM', time: '11:30 AM – 12:30 PM', isRecess: false },
+        { num: 5, label: 'Period 5', slot: '12:30 PM to 1:30 PM', time: '12:30 – 1:30 PM', isRecess: false },
+        { num: 0, label: 'Lunch Recess', slot: '1:30 PM to 2:00 PM', time: '1:30 – 2:00 PM', isRecess: true },
+        { num: 6, label: 'Period 6', slot: '2:00 PM to 3:00 PM', time: '2:00 – 3:00 PM', isRecess: false },
+        { num: 7, label: 'Period 7', slot: '3:00 PM to 4:00 PM', time: '3:00 – 4:00 PM', isRecess: false },
+        { num: 8, label: 'Period 8', slot: '4:00 PM to 5:00 PM', time: '4:00 – 5:00 PM', isRecess: false },
+        { num: 9, label: 'Period 9', slot: '5:00 PM to 6:00 PM', time: '5:00 – 6:00 PM', isRecess: false }
+      ];
+
+      function doesClassMatchPeriod(clsSlot, periodSlot) {
+        if (!clsSlot || !periodSlot) return false;
+        const cleanCls = clsSlot.replace(/\s+/g, ' ').toLowerCase();
+        const cleanPeriod = periodSlot.replace(/\s+/g, ' ').toLowerCase();
+        return cleanCls.includes(cleanPeriod) || cleanPeriod.includes(cleanCls);
+      }
+
+      let latestHangoutSummary = '';
+
+      function renderBunkCalculation() {
+        if (!resultsContainer) return;
+        const c1 = myCourseSel ? myCourseSel.value : 'B.Com (Hons)';
+        const s1 = mySemSel ? mySemSel.value : 'Sem I';
+        const sec1 = mySecSel ? mySecSel.value : 'Sec A';
+
+        const c2 = friendCourseSel ? friendCourseSel.value : 'B.A. (Hons) Economics';
+        const s2 = friendSemSel ? friendSemSel.value : 'Sem I';
+        const sec2 = friendSecSel ? friendSecSel.value : 'Sec A';
+
+        try {
+          localStorage.setItem('srcc_bunk_friend_course', c2);
+          localStorage.setItem('srcc_bunk_friend_sem', s2);
+          localStorage.setItem('srcc_bunk_friend_sec', sec2);
+        } catch (e) {}
+
+        const classes1 = typeof getClassesForParameters === 'function' ? getClassesForParameters(activeBunkDay, s1, c1, 'ALL', sec1) : [];
+        const classes2 = typeof getClassesForParameters === 'function' ? getClassesForParameters(activeBunkDay, s2, c2, 'ALL', sec2) : [];
+
+        const activeLeaves = typeof getActiveTodayLeaves === 'function' ? getActiveTodayLeaves() : [];
+        const isTeacherAway = (tName) => {
+          if (!tName) return false;
+          const lower = tName.trim().toLowerCase();
+          return activeLeaves.some(l => l.teacher_name && l.teacher_name.trim().toLowerCase() === lower);
+        };
+
+        const slotsEvaluation = STANDARD_PERIODS.map(p => {
+          if (p.isRecess) {
+            return {
+              period: p,
+              s1Free: true,
+              s2Free: true,
+              mutualFree: true,
+              s1Class: null,
+              s2Class: null
+            };
+          }
+          const cls1 = classes1.find(c => doesClassMatchPeriod(c.slot, p.slot));
+          const cls2 = classes2.find(c => doesClassMatchPeriod(c.slot, p.slot));
+
+          const s1Free = !cls1 || isTeacherAway(cls1.teacher);
+          const s2Free = !cls2 || isTeacherAway(cls2.teacher);
+          const mutualFree = s1Free && s2Free;
+
+          return {
+            period: p,
+            s1Free,
+            s2Free,
+            mutualFree,
+            s1Class: cls1,
+            s2Class: cls2
+          };
+        });
+
+        const mutualFreeList = slotsEvaluation.filter(s => s.mutualFree);
+        const nonRecessFreeCount = mutualFreeList.filter(s => !s.period.isRecess).length;
+        const totalFreeHours = nonRecessFreeCount + (mutualFreeList.some(s => s.period.isRecess) ? 0.5 : 0);
+
+        const continuousWindows = [];
+        let curWindow = [];
+        slotsEvaluation.forEach(slot => {
+          if (slot.mutualFree) {
+            curWindow.push(slot);
+          } else {
+            if (curWindow.length > 0) {
+              continuousWindows.push(curWindow);
+              curWindow = [];
+            }
+          }
+        });
+        if (curWindow.length > 0) continuousWindows.push(curWindow);
+
+        latestHangoutSummary = `*SRCC Bunk Buddies Hangout Plan* 🎯\nDay: ${activeBunkDay}\nYou: ${c1} ${s1} (${sec1})\nFriend: ${c2} ${s2} (${sec2})\n\n`;
+
+        if (totalFreeHours === 0) {
+          latestHangoutSummary += `No overlapping free periods found on ${activeBunkDay}.`;
+          resultsContainer.innerHTML = `
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px; text-align: center;">
+              <div style="font-size: 1.05rem; font-weight: 700; color: #475569;">No Mutual Free Periods on ${activeBunkDay}</div>
+              <p style="margin: 6px 0 0; font-size: 0.82rem; color: #94a3b8;">Both sections have conflicting class schedules all day. Try selecting another weekday above!</p>
+            </div>
+          `;
+          return;
+        }
+
+        latestHangoutSummary += `🎉 Total Free Time Together: ${totalFreeHours} Hour${totalFreeHours === 1 ? '' : 's'}\n`;
+        continuousWindows.forEach(win => {
+          const start = win[0].period.time.split('–')[0].trim();
+          const end = win[win.length - 1].period.time.split('–')[1].trim();
+          latestHangoutSummary += `• ${start} – ${end} (${win.length * 1} slot${win.length === 1 ? '' : 's'})\n`;
+        });
+        latestHangoutSummary += `\n_Check live classrooms:_ https://anand-srcc.github.io/srcc-free-classrooms/`;
+
+        let windowsHtml = continuousWindows.map(win => {
+          const start = win[0].period.time.split('–')[0].trim();
+          const end = win[win.length - 1].period.time.split('–')[1].trim();
+          const count = win.length;
+          return `
+            <div style="background: #ffffff; border: 1px solid #bbf7d0; border-left: 4px solid #16a34a; border-radius: 10px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+              <div>
+                <div style="font-weight: 800; font-size: 0.98rem; color: #15803d; display: flex; align-items: center; gap: 8px;">
+                  <span>${start} – ${end}</span>
+                  <span style="font-size: 0.74rem; font-weight: 700; background: #dcfce7; color: #166534; padding: 2px 7px; border-radius: 4px;">${count} Slot${count === 1 ? '' : 's'} Free</span>
+                </div>
+                <div style="font-size: 0.8rem; color: #475569; margin-top: 3px;">
+                  Both sections free · Perfect time for canteen, sports, or group hangout!
+                </div>
+              </div>
+              <button type="button" onclick="closeBunkBuddiesModal(); setAppMode('rooms', true); setFreeNowState(true);" style="padding: 6px 12px; background: #f0fdf4; border: 1px solid #86efac; color: #166534; border-radius: 6px; font-size: 0.8rem; font-weight: 700; cursor: pointer;">
+                Find Free Classrooms ↗
+              </button>
+            </div>
+          `;
+        }).join('');
+
+        let matrixRows = slotsEvaluation.map(s => {
+          const isM = s.mutualFree;
+          const bg = isM ? '#f0fdf4' : '#ffffff';
+          const s1Txt = s.period.isRecess ? 'Recess' : (s.s1Free ? 'Free' : escapeHtml(s.s1Class.subject || 'Class'));
+          const s2Txt = s.period.isRecess ? 'Recess' : (s.s2Free ? 'Free' : escapeHtml(s.s2Class.subject || 'Class'));
+          return `
+            <tr style="background: ${bg}; border-bottom: 1px solid #f1f5f9;">
+              <td style="padding: 6px 10px; font-weight: 700; color: #334155; font-size: 0.78rem;">${s.period.label} <span style="font-weight: normal; color: #94a3b8; font-size: 0.72rem;">(${s.period.time})</span></td>
+              <td style="padding: 6px 10px; font-size: 0.78rem; color: ${s.s1Free ? '#16a34a' : '#dc2626'}; font-weight: 600;">${s1Txt}</td>
+              <td style="padding: 6px 10px; font-size: 0.78rem; color: ${s.s2Free ? '#16a34a' : '#dc2626'}; font-weight: 600;">${s2Txt}</td>
+              <td style="padding: 6px 10px; text-align: center;">
+                ${isM ? '<span style="font-size: 0.72rem; font-weight: 800; background: #dcfce7; color: #15803d; padding: 2px 8px; border-radius: 9999px;">Mutual Free</span>' : '<span style="color: #cbd5e1; font-size: 0.72rem;">—</span>'}
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+        resultsContainer.innerHTML = `
+          <div style="background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 12px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div style="width: 38px; height: 38px; border-radius: 8px; background: #dcfce7; color: #166534; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: 800;">
+                ✓
+              </div>
+              <div>
+                <h3 style="margin: 0; font-size: 1.05rem; font-weight: 800; color: #14532d;">${totalFreeHours} Hours Free Together!</h3>
+                <span style="font-size: 0.8rem; color: #166534;">On ${activeBunkDay} for ${sec1} & ${sec2}</span>
+              </div>
+            </div>
+            <span style="font-size: 0.76rem; font-weight: 700; background: #ffffff; border: 1px solid #86efac; color: #15803d; padding: 3px 10px; border-radius: 9999px;">${continuousWindows.length} Hangout Window${continuousWindows.length === 1 ? '' : 's'}</span>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            ${windowsHtml}
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden; margin-top: 4px;">
+            <div style="padding: 8px 12px; background: #f8fafc; border-bottom: 1px solid #e2e8f0; font-size: 0.78rem; font-weight: 700; color: #475569;">
+              Full Day Period Breakdown (You vs Friend)
+            </div>
+            <table style="width: 100%; border-collapse: collapse; text-align: left;">
+              <thead>
+                <tr style="background: #f8fafc; border-bottom: 1px solid #e2e8f0; font-size: 0.74rem; color: #64748b;">
+                  <th style="padding: 6px 10px;">Time Period</th>
+                  <th style="padding: 6px 10px;">You (${sec1})</th>
+                  <th style="padding: 6px 10px;">Friend (${sec2})</th>
+                  <th style="padding: 6px 10px; text-align: center;">Hangout</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${matrixRows}
+              </tbody>
+            </table>
+          </div>
+        `;
+      }
+
+      if (btnShareWhatsApp) {
+        btnShareWhatsApp.addEventListener('click', () => {
+          if (!latestHangoutSummary) return;
+          const url = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(latestHangoutSummary);
+          window.open(url, '_blank');
+        });
+      }
+
+      if (btnCopyHours) {
+        btnCopyHours.addEventListener('click', () => {
+          if (!latestHangoutSummary) return;
+          navigator.clipboard.writeText(latestHangoutSummary).then(() => {
+            if (typeof showToast === 'function') showToast('Hangout free hours copied to clipboard!', true, 2500);
+          }).catch(() => {
+            if (typeof showToast === 'function') showToast('Copied to clipboard', true, 2000);
+          });
+        });
+      }
+    }
+
+// ========================================================================
+// 3. 75% ATTENDANCE SAFE METER CALCULATOR
+// ========================================================================
+    function initAttendanceCalculator() {
+      const modal = document.getElementById('attendanceModal');
+      const btnClose = document.getElementById('btnAttendanceModalClose');
+      const btnCloseFooter = document.getElementById('btnCloseAttendanceFooter');
+      const drawerBtn = document.getElementById('drawerNavAttendance');
+      const quickBtn = document.getElementById('btnQuickOpenAttendance');
+
+      const totalInput = document.getElementById('attTotalClasses');
+      const attendedInput = document.getElementById('attAttendedClasses');
+      const targetDisplay = document.getElementById('attTargetDisplay');
+      const btnTarget75 = document.getElementById('btnTarget75');
+      const btnTarget67 = document.getElementById('btnTarget67');
+
+      const btnTotalPlus = document.getElementById('btnAttTotalPlus');
+      const btnAttendedPlus = document.getElementById('btnAttAttendedPlus');
+      const btnPresentToday = document.getElementById('btnAttPresentToday');
+      const btnAbsentToday = document.getElementById('btnAttAbsentToday');
+
+      const resultContainer = document.getElementById('attResultContainer');
+      const projectionsList = document.getElementById('attProjectionsList');
+
+      if (!modal) return;
+
+      let currentTarget = 75;
+
+      function openAttModal() {
+        closeAllPopups();
+        openAppModal(modal);
+        loadSavedStats();
+        recalculateAttendance();
+      }
+
+      function closeAttModal(opts = {}) {
+        closeAppModal(modal, opts);
+      }
+
+      window.openAttendanceModal = openAttModal;
+      window.closeAttendanceModal = closeAttModal;
+
+      if (drawerBtn) drawerBtn.addEventListener('click', () => { closeAllPopups(); openAttModal(); });
+      if (quickBtn) quickBtn.addEventListener('click', openAttModal);
+      if (btnClose) btnClose.addEventListener('click', () => closeAttModal());
+      if (btnCloseFooter) btnCloseFooter.addEventListener('click', () => closeAttModal());
+      modal.addEventListener('click', (e) => { if (e.target === modal) closeAttModal(); });
+
+      function loadSavedStats() {
+        try {
+          const raw = localStorage.getItem('srcc_attendance_tracker');
+          if (raw) {
+            const d = JSON.parse(raw);
+            if (d.total && totalInput) totalInput.value = d.total;
+            if (d.attended && attendedInput) attendedInput.value = d.attended;
+            if (d.target) currentTarget = d.target;
+          }
+        } catch (e) {}
+        updateTargetButtons();
+      }
+
+      function updateTargetButtons() {
+        if (btnTarget75) btnTarget75.classList.toggle('active', currentTarget === 75);
+        if (btnTarget67) btnTarget67.classList.toggle('active', currentTarget === 67);
+        if (targetDisplay) {
+          targetDisplay.textContent = currentTarget === 75 ? '75% (DU Normal)' : '67% (Admit Card Minimum)';
+        }
+      }
+
+      if (btnTarget75) {
+        btnTarget75.addEventListener('click', () => {
+          currentTarget = 75;
+          updateTargetButtons();
+          recalculateAttendance();
+        });
+      }
+      if (btnTarget67) {
+        btnTarget67.addEventListener('click', () => {
+          currentTarget = 67;
+          updateTargetButtons();
+          recalculateAttendance();
+        });
+      }
+
+      if (totalInput) totalInput.addEventListener('input', recalculateAttendance);
+      if (attendedInput) attendedInput.addEventListener('input', recalculateAttendance);
+
+      if (btnTotalPlus && totalInput) {
+        btnTotalPlus.addEventListener('click', () => {
+          totalInput.value = (parseInt(totalInput.value, 10) || 0) + 1;
+          recalculateAttendance();
+        });
+      }
+      if (btnAttendedPlus && attendedInput) {
+        btnAttendedPlus.addEventListener('click', () => {
+          const curAtt = parseInt(attendedInput.value, 10) || 0;
+          const curTot = parseInt(totalInput.value, 10) || 0;
+          attendedInput.value = curAtt + 1;
+          if (curAtt + 1 > curTot) totalInput.value = curAtt + 1;
+          recalculateAttendance();
+        });
+      }
+      if (btnPresentToday && totalInput && attendedInput) {
+        btnPresentToday.addEventListener('click', () => {
+          totalInput.value = (parseInt(totalInput.value, 10) || 0) + 1;
+          attendedInput.value = (parseInt(attendedInput.value, 10) || 0) + 1;
+          recalculateAttendance();
+          if (typeof showToast === 'function') showToast('+1 Present added!', true, 1800);
+        });
+      }
+      if (btnAbsentToday && totalInput) {
+        btnAbsentToday.addEventListener('click', () => {
+          totalInput.value = (parseInt(totalInput.value, 10) || 0) + 1;
+          recalculateAttendance();
+          if (typeof showToast === 'function') showToast('+1 Bunk recorded', true, 1800);
+        });
+      }
+
+      function recalculateAttendance() {
+        if (!resultContainer) return;
+        let total = parseInt(totalInput ? totalInput.value : '40', 10) || 0;
+        let attended = parseInt(attendedInput ? attendedInput.value : '32', 10) || 0;
+
+        if (total <= 0) total = 1;
+        if (attended < 0) attended = 0;
+        if (attended > total) {
+          attended = total;
+          if (attendedInput) attendedInput.value = attended;
+        }
+
+        try {
+          localStorage.setItem('srcc_attendance_tracker', JSON.stringify({
+            total,
+            attended,
+            target: currentTarget
+          }));
+        } catch (e) {}
+
+        const pct = (attended / total) * 100;
+        const targetDec = currentTarget / 100;
+
+        let statusType = 'safe';
+        let calloutHtml = '';
+
+        if (pct >= currentTarget) {
+          statusType = 'safe';
+          const safeBunks = Math.floor((attended - targetDec * total) / targetDec);
+          calloutHtml = `
+            <div style="background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 12px; padding: 14px 16px;">
+              <div style="font-size: 0.96rem; font-weight: 800; color: #166534; display: flex; align-items: center; gap: 8px;">
+                <span>🎉 Safe Zone! Attendance is ${pct.toFixed(1)}%</span>
+              </div>
+              <p style="margin: 6px 0 0; font-size: 0.84rem; color: #15803d; line-height: 1.4;">
+                You can safely bunk <strong>${safeBunks} more ${safeBunks === 1 ? 'lecture' : 'lectures'}</strong> without dropping below the ${currentTarget}% threshold!
+              </p>
+            </div>
+          `;
+        } else {
+          const mustAttend = Math.ceil((targetDec * total - attended) / (1 - targetDec));
+          if (pct >= 67) {
+            statusType = 'warning';
+            calloutHtml = `
+              <div style="background: #fffbeb; border: 1.5px solid #fde68a; border-radius: 12px; padding: 14px 16px;">
+                <div style="font-size: 0.96rem; font-weight: 800; color: #92400e; display: flex; align-items: center; gap: 8px;">
+                  <span>⚠️ Borderline Attendance (${pct.toFixed(1)}%)</span>
+                </div>
+                <p style="margin: 6px 0 0; font-size: 0.84rem; color: #b45309; line-height: 1.4;">
+                  You must attend the next <strong>${mustAttend} consecutive ${mustAttend === 1 ? 'class' : 'classes'}</strong> without missing to reach ${currentTarget}%.
+                </p>
+              </div>
+            `;
+          } else {
+            statusType = 'shortage';
+            calloutHtml = `
+              <div style="background: #fef2f2; border: 1.5px solid #fca5a5; border-radius: 12px; padding: 14px 16px;">
+                <div style="font-size: 0.96rem; font-weight: 800; color: #991b1b; display: flex; align-items: center; gap: 8px;">
+                  <span>🚨 Shortage Alert (${pct.toFixed(1)}%)</span>
+                </div>
+                <p style="margin: 6px 0 0; font-size: 0.84rem; color: #b91c1c; line-height: 1.4;">
+                  Attendance is below DU minimum cutoff (67%). You need to attend <strong>${mustAttend} upcoming lectures</strong> without taking leaves to avoid exam debarment.
+                </p>
+              </div>
+            `;
+          }
+        }
+
+        const barColor = statusType === 'safe' ? '#16a34a' : (statusType === 'warning' ? '#d97706' : '#dc2626');
+        const badgeColor = statusType === 'safe' ? '#dcfce7' : (statusType === 'warning' ? '#fef3c7' : '#fee2e2');
+        const badgeTextColor = statusType === 'safe' ? '#15803d' : (statusType === 'warning' ? '#b45309' : '#b91c1c');
+
+        resultContainer.innerHTML = `
+          <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <span style="font-size: 0.84rem; font-weight: 700; color: #475569;">Current Attendance Rate:</span>
+              <span style="font-size: 1.25rem; font-weight: 800; color: ${badgeTextColor}; background: ${badgeColor}; padding: 2px 10px; border-radius: 8px;">${pct.toFixed(1)}%</span>
+            </div>
+            <div style="width: 100%; height: 10px; background: #e2e8f0; border-radius: 9999px; overflow: hidden; margin-bottom: 12px;">
+              <div style="width: ${Math.min(100, Math.max(0, pct))}%; height: 100%; background: ${barColor}; border-radius: 9999px; transition: width 0.3s ease;"></div>
+            </div>
+            ${calloutHtml}
+          </div>
+        `;
+
+        if (projectionsList) {
+          const pPlus1 = ((attended + 1) / (total + 1)) * 100;
+          const pPlus3 = ((attended + 3) / (total + 3)) * 100;
+          const pMiss1 = (attended / (total + 1)) * 100;
+          projectionsList.innerHTML = `
+            <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #f1f5f9;">
+              <span>Attend next 1 lecture (+1):</span>
+              <strong style="color: #16a34a;">${pPlus1.toFixed(1)}% (+${(pPlus1 - pct).toFixed(1)}%)</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #f1f5f9;">
+              <span>Attend next 3 lectures (+3):</span>
+              <strong style="color: #16a34a;">${pPlus3.toFixed(1)}% (+${(pPlus3 - pct).toFixed(1)}%)</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 4px 0;">
+              <span>Miss next 1 lecture (Bunk):</span>
+              <strong style="color: #dc2626;">${pMiss1.toFixed(1)}% (${(pMiss1 - pct).toFixed(1)}%)</strong>
+            </div>
+          `;
+        }
       }
     }
 
@@ -11170,7 +11756,7 @@ if ('serviceWorker' in navigator) {
     }
   });
   window.addEventListener('load', () => {
-    const swUrl = './sw.js?v=112';
+    const swUrl = './sw.js?v=113';
     navigator.serviceWorker.register(swUrl, { scope: './' }).then(async (registration) => {
       console.log('[SW] Registered successfully with scope:', registration.scope);
 

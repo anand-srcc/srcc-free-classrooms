@@ -1,4 +1,4 @@
-﻿
+
 /* ==========================================================================
    Faculty Contact Email Modal
    ========================================================================== */
@@ -11948,4 +11948,58 @@ body.dark-mode .btn-later-pwa-notif {
 }
 .dark-theme .faculty-metrics-row .metric-tile.active-metric-tile::after {
   background: #60a5fa;
+}
+
+/* ==========================================================================
+   Clean White Theme: Bunk Buddies, Attendance Meter & Now & Next Live Tracker
+   ========================================================================== */
+.btn-tt-quick-tool:hover {
+  transform: translateY(-2px);
+  border-color: #2563eb !important;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08) !important;
+}
+
+.bunk-day-btn {
+  padding: 6px 14px;
+  border-radius: 9999px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #475569;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.bunk-day-btn:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+.bunk-day-btn.active {
+  background: #d97706 !important;
+  color: #ffffff !important;
+  border-color: #d97706 !important;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(217, 119, 6, 0.25);
+}
+
+.btn-att-target {
+  transition: all 0.15s ease;
+}
+.btn-att-target.active {
+  border: 1.5px solid #4f46e5 !important;
+  background: #eef2ff !important;
+  color: #4338ca !important;
+  font-weight: 700;
+}
+
+/* Responsive tweaks for Bunk Buddies & Attendance modals */
+@media (max-width: 640px) {
+  .bunk-modal-card,
+  .attendance-modal-card {
+    width: 96% !important;
+    max-height: 94vh !important;
+    border-radius: 12px !important;
+  }
 }

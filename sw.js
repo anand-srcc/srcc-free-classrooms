@@ -1,9 +1,9 @@
-const CACHE_NAME = 'srcc-classroom-v112';
+const CACHE_NAME = 'srcc-classroom-v113';
 const ASSETS = [
   './',
   './index.html',
-  './style.css?v=112',
-  './app.js?v=112',
+  './style.css?v=113',
+  './app.js?v=113',
   './data.js?v=100',
   './cloud_config.js?v=100',
   './maintenance_config.js?v=100',
